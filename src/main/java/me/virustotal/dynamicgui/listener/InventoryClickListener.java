@@ -9,7 +9,8 @@ import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.utils.FunctionUtil;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.FunctionUtil;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,10 +18,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryClickListener implements Listener {
+public class InventoryClickListener<P,E> implements Listener {
 
-	private DynamicGUI plugin;
-	public InventoryClickListener(DynamicGUI plugin)
+	private DynamicGUIPlugin<P,E> plugin;
+	public InventoryClickListener(DynamicGUIPlugin<P,E> plugin)
 	{
 		this.plugin = plugin;
 	}

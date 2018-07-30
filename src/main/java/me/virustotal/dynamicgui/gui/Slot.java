@@ -31,19 +31,19 @@ public class Slot implements Serializable {
 	private String nbt;
 	private short data;
 	private int index;
-	private ArrayList<Function> loadFunctions;
+	private List<Function> loadFunctions;
 	private HashMap<String, ArrayList<Function>> failLoadFunctions;
 	//All clicks
-	private ArrayList<Function> functions;
+	private List<Function> functions;
 	private HashMap<String, ArrayList<Function>> failFunctions;
 	//Left click
-	private ArrayList<Function> leftClickFunctions;
+	private List<Function> leftClickFunctions;
 	private HashMap<String, ArrayList<Function>> leftClickFailFunctions;
 	//Right click
-	private ArrayList<Function> rightClickFunctions;
+	private List<Function> rightClickFunctions;
 	private HashMap<String, ArrayList<Function>> rightClickFailFunctions;
 	//Middle click
-	private ArrayList<Function> middleClickFunctions;
+	private List<Function> middleClickFunctions;
 	private HashMap<String, ArrayList<Function>> middleClickFailFunctions;
 	private List<String> lore;
 	private List<MyEnchantment> enchants;

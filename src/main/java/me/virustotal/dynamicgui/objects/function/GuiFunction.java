@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class GuiFunction extends Function {
+public class GuiFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class GuiFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<T> player)
 	{
 		final String finalData = this.getData();
 		final Player finalPlayer = player;

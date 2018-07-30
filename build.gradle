@@ -23,6 +23,9 @@ repositories {
 		url = 'https://repo.spongepowered.org/maven'
     }
     mavenCentral()
+	maven { 
+    	url 'https://jitpack.io' 
+ 	}
 }
 
 
@@ -58,4 +61,5 @@ dependencies {
 	compile 'ninja.leaping.configurate:configurate-gson:3.3'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'commons-io:commons-io:2.6'
+    compile 'com.github.clubobsidian:Trident:1.0.4'
 }

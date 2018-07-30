@@ -8,11 +8,12 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class SetDataFunction extends Function {
+public class SetDataFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -24,7 +25,7 @@ public class SetDataFunction extends Function {
 		super(name);
 	}
 	
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<T> player)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)

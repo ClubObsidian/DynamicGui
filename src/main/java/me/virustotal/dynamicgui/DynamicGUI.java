@@ -21,6 +21,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
+import com.clubobsidian.trident.EventManager;
+import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
@@ -64,10 +66,30 @@ import me.virustotal.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
 import me.virustotal.dynamicgui.objects.replacers.RankupReplacer;
 import me.virustotal.dynamicgui.objects.replacers.UUIDReplacer;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
-public class DynamicGUI  {
+public class DynamicGUI<T,U>  {
 
 	public static final String TAG = "DynamicGuiSlot";
+
+	private static DynamicGUI<?,?> instance = null;
+	
+	private DynamicGUIPlugin<T,U> plugin;
+	private EventManager eventManager;
+	
+	public DynamicGUI(DynamicGUIPlugin<T,U> plugin)
+	{
+		this.plugin = plugin;
+		this.eventManager = new JavaAssistEventManager();
+		this.registerListeners();
+		//Constructor - Detect sponge or spigot
+	}
+	
+	private void registerListeners() 
+	{
+		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener<T,U>(this.getPlugin()));
+		
+	}
 
 	public File configFile;
 	public File guiFolder;
@@ -92,7 +114,6 @@ public class DynamicGUI  {
 	public List<String> invPlayers = new ArrayList<String>();
 	public Map<String, GUI> playerGuis = new HashMap<String, GUI>();
 	
-	private static DynamicGUI plugin;
 	
 	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
 	
@@ -476,17 +497,6 @@ public class DynamicGUI  {
 		}
 	}
 
-	private boolean setupEconomy()
-	{
-		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-		if (economyProvider != null) 
-		{
-			this.economy = economyProvider.getProvider();
-		}
-
-		return (this.economy != null);
-	}
-
 	public String getNoPermissionFunction()
 	{
 		return this.noPermissionFunction;
@@ -516,11 +526,7 @@ public class DynamicGUI  {
 	{
 		return this.noGui;
 	}
-	
-	public Economy getEconomy()
-	{
-		return this.economy;
-	}
+
 
 	public boolean getBungeeCord()
 	{
@@ -549,8 +555,27 @@ public class DynamicGUI  {
 		}
 	}
 	
-	public static me.virustotal.dynamicgui.plugin.DynamicGUIPlugin getPlugin() 
+	
+	public DynamicGUIPlugin<T,U> getPlugin()
 	{
-		return plugin;
+		return this.plugin;
+	}
+	
+	public EventManager getEventManager()
+	{
+		return this.eventManager;
+	}
+	
+	public static void setInstance(DynamicGUI<?,?> instance)
+	{
+		if(DynamicGUI.instance == null)
+		{
+			DynamicGUI.instance = instance;
+		}
+	}
+	
+	public static DynamicGUI<?,?> getInstance() 
+	{
+		return instance;
 	}
 }

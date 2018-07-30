@@ -3,11 +3,11 @@ package me.virustotal.dynamicgui.objects;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.bukkit.entity.Player;
 
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 
-public class Function implements Cloneable, Serializable {
+public abstract class Function<T> implements Cloneable, Serializable {
 	
 	/**
 	 * 
@@ -30,17 +30,13 @@ public class Function implements Cloneable, Serializable {
 		this.data = data;
 	}
 	
-	public Function(Function function) 
+	public Function(Function<T> function) 
 	{
 		this.name = function.getName();
 		this.data = function.getData();
 	}
 
-	public boolean function(Player player)
-	{
-		System.out.println("default function");
-		return false;
-	}
+	public abstract boolean function(PlayerWrapper<T> playerWrapper);
 		
 	public String getName()
 	{
@@ -77,7 +73,7 @@ public class Function implements Cloneable, Serializable {
 		return this.index;
 	}
 	
-	public Function clone()
+	public Function<T> clone()
 	{
 		return SerializationUtils.clone(this);
 	}

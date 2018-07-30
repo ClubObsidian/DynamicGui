@@ -1,38 +1,33 @@
 package me.virustotal.dynamicgui.listener;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
+import me.virustotal.dynamicgui.event.inventory.PlayerInteractEntityEvent;
 import me.virustotal.dynamicgui.gui.GUI;
-import net.citizensnpcs.api.CitizensAPI;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
-import org.bukkit.entity.Entity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.trident.Listener;
 
-public class EntityClickListener implements Listener {
+public class EntityClickListener<T,U> implements Listener {
 
-	private DynamicGUI plugin;
-	public EntityClickListener(DynamicGUI plugin) 
+	private DynamicGUIPlugin<T,U> plugin;
+	public EntityClickListener(DynamicGUIPlugin<T,U> plugin) 
 	{
 		this.plugin = plugin;
 	}
 
 	@EventHandler
-	public void onEntityClick(PlayerInteractEntityEvent e)
+	public void onEntityClick(PlayerInteractEntityEvent<T,U> e)
 	{
-		if(e.getRightClicked() != null)
+		U entity = e.getEntityWrapper().getEntity();
+		if(this.plugin.isNPC(entity))
 		{
-			Entity entity = e.getRightClicked();
-			if(CitizensAPI.getNPCRegistry().isNPC(entity))
+			for(GUI gui : GuiApi.getGuis())
 			{
-				for(GUI gui : GuiApi.getGuis())
+				if(gui.getNpcIds().contains(this.plugin.getNPC(entity).getId()))
 				{
-					if(gui.getNpcIds().contains(CitizensAPI.getNPCRegistry().getNPC(entity).getId()))
-					{
-						e.getPlayer().chat("/gui " + gui.getName());
-						break;
-					}
+					e.getPlayerWrapper().chat("/gui " + gui.getName());
+					break;
 				}
 			}
 		}

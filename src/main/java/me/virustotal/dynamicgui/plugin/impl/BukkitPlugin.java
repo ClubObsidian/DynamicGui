@@ -1,25 +1,26 @@
 package me.virustotal.dynamicgui.plugin.impl;
 
-import java.util.List;
-
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
+import java.util.List;
+
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.economy.impl.VaultEconomy;
 import me.virustotal.dynamicgui.npc.NPC;
 import me.virustotal.dynamicgui.npc.NPCRegistry;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
-public class BukkitPlugin<P extends org.bukkit.entity.Player, E extends org.bukkit.entity.Entity> extends JavaPlugin implements DynamicGUIPlugin<P,E>, PluginMessageListener {
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
-	private Economy<P> economy;
-	private List<NPCRegistry<E>> npcRegistries;
+public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukkit.entity.Entity> extends JavaPlugin implements DynamicGUIPlugin<T,U>, PluginMessageListener {
+
+	private Economy<T> economy;
+	private List<NPCRegistry<U>> npcRegistries;
 	
 	@Override
 	public void onEnable()
@@ -30,7 +31,8 @@ public class BukkitPlugin<P extends org.bukkit.entity.Player, E extends org.bukk
 	@Override
 	public void start() 
 	{
-		this.economy = new VaultEconomy<P>();
+		DynamicGUI.setInstance(new DynamicGUI<T,U>(this));
+		this.economy = new VaultEconomy<T>();
 		if(!this.economy.setup())
 		{
 			this.economy = null;
@@ -84,22 +86,21 @@ public class BukkitPlugin<P extends org.bukkit.entity.Player, E extends org.bukk
 	}
 
 	@Override
-	public Economy<P> getEconomy() 
+	public Economy<T> getEconomy() 
 	{
 		return this.economy;
 	}
 
 	@Override
-	public List<NPCRegistry<E>> getNPCRegistries() 
+	public List<NPCRegistry<U>> getNPCRegistries() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.npcRegistries;
 	}
 
 	@Override
-	public boolean isNPC(E entity) 
+	public boolean isNPC(U entity) 
 	{
-		for(NPCRegistry<E> registry : this.getNPCRegistries())
+		for(NPCRegistry<U> registry : this.getNPCRegistries())
 		{
 			if(registry.isNPC(entity))
 			{
@@ -110,11 +111,11 @@ public class BukkitPlugin<P extends org.bukkit.entity.Player, E extends org.bukk
 	}
 
 	@Override
-	public NPC<E> getNPC(E entity) 
+	public NPC<U> getNPC(U entity) 
 	{
-		for(NPCRegistry<E> registry : this.getNPCRegistries())
+		for(NPCRegistry<Y> registry : this.getNPCRegistries())
 		{
-			NPC<E> npc = registry.getNPC(entity);
+			NPC<Y> npc = registry.getNPC(entity);
 			if(npc != null)
 			{
 				return npc;

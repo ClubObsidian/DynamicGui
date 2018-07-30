@@ -31,7 +31,7 @@ public class SetLoreFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper player)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)

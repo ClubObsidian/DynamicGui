@@ -1,7 +1,6 @@
 package me.virustotal.dynamicgui.objects.replacers;
 
-import org.bukkit.entity.Player;
-
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Replacer;
 
 public class UUIDReplacer extends Replacer {
@@ -12,7 +11,7 @@ public class UUIDReplacer extends Replacer {
 	}
 
 	@Override
-	public String replacement(String text, Player player)
+	public String replacement(String text, PlayerWrapper<?> player)
 	{
 		return text.replace(this.getToReplace(), player.getUniqueId().toString());
 	}	

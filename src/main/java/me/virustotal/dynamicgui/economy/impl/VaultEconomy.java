@@ -1,11 +1,14 @@
 package me.virustotal.dynamicgui.economy.impl;
 
+import java.math.BigDecimal;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import me.virustotal.dynamicgui.economy.Economy;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
-public class VaultEconomy<P extends org.bukkit.entity.Player> implements Economy<P> {
+public class VaultEconomy<T extends org.bukkit.entity.Player> implements Economy<T> {
 
 	private Object economy;
 	
@@ -37,25 +40,25 @@ public class VaultEconomy<P extends org.bukkit.entity.Player> implements Economy
 		this.economy = Bukkit.getServer().getServicesManager().getRegistration(economyClass).getProvider();
 		return economy != null;
 	}
-	
+
 	@Override
-	public boolean withdraw(P player) 
-	{
+	public BigDecimal getBalance(PlayerWrapper<T> t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean withdraw(PlayerWrapper<T> player, BigDecimal amt) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean deposit(P player) 
-	{
+	public boolean deposit(PlayerWrapper<T> player, BigDecimal amt) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public double getBalance(P player) 
-	{
-	
-		return 0;
-	}
+
+
 }

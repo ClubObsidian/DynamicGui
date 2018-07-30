@@ -242,7 +242,7 @@ public class GUI implements Serializable {
 		return this.rows;
 	}
 	
-	public ArrayList<Slot> getSlots()
+	public List<Slot> getSlots()
 	{
 		return this.slots;
 	}

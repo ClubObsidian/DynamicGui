@@ -1,11 +1,10 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class PlayerCmdFunction extends Function {
+public class PlayerCmdFunction<P> extends Function<P> {
 
 	/**
 	 * 
@@ -23,7 +22,7 @@ public class PlayerCmdFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<P> player)
 	{
 		player.chat("/" + ReplacerAPI.replace(this.getData(), player));
 		return true;

@@ -1,9 +1,11 @@
-package me.virustotal.dynamicgui.objects;
+package me.virustotal.dynamicgui.effect;
 
 import java.io.Serializable;
 
 import org.bukkit.Effect;
 import org.bukkit.entity.Player;
+
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
 public class ParticleWrapper implements Serializable {
 
@@ -22,7 +24,7 @@ public class ParticleWrapper implements Serializable {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void spawnParticles(Player player)
+	public void spawnParticles(PlayerWrapper<T> player)
 	{
 		player.playEffect(player.getLocation(), this.effect, this.data);
 	}	

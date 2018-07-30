@@ -1,9 +1,9 @@
 package me.virustotal.dynamicgui.npc;
 
-public interface NPCRegistry<E> {
+public interface NPCRegistry<T> {
 
 	
-	public abstract boolean isNPC(E entity);
-	public NPC<E> getNPC(E entity);
+	public abstract boolean isNPC(T entity);
+	public NPC<T> getNPC(T entity);
 
 }

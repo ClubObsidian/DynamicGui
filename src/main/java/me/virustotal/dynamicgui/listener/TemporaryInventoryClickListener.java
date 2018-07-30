@@ -9,7 +9,7 @@ import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.utils.FunctionUtil;
+import me.virustotal.dynamicgui.util.FunctionUtil;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,8 +1,8 @@
 package me.virustotal.dynamicgui.objects;
 
-import org.bukkit.entity.Player;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
-public class Replacer {
+public abstract class Replacer {
 	
 	private String toReplace;
 	public Replacer(String toReplace)
@@ -15,8 +15,5 @@ public class Replacer {
 		return this.toReplace;
 	}
 	
-	public String replacement(String text, Player player)
-	{
-		return "";
-	}
+	public abstract String replacement(String text, PlayerWrapper<?> player);
 }

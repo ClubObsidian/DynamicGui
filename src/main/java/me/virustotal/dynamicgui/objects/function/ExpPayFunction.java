@@ -5,9 +5,10 @@ import java.util.logging.Level;
 import org.bukkit.entity.Player;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class ExpPayFunction extends Function {
+public class ExpPayFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -25,7 +26,7 @@ public class ExpPayFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<T> playerWrapper)
 	{
 		int amt;
 		try
@@ -34,15 +35,15 @@ public class ExpPayFunction extends Function {
 		}
 		catch(Exception ex)
 		{
-			DynamicGUI.getPlugin().getLogger().log(Level.INFO, "Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
+			DynamicGUI.getInstance().getPlugin().getLogger().log(Level.INFO, "Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
 			return false;
 		}
-		if(player.getTotalExperience() < amt)
+		if(playerWrapper.getExperience() < amt)
 		{
 			return false;
 		}
 		
-		player.setTotalExperience(player.getTotalExperience() - amt);
+		playerWrapper.setExperience(playerWrapper.getExperience()- amt);
 		return true;
 		
 	}

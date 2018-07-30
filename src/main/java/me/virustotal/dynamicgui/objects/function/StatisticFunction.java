@@ -5,9 +5,10 @@ import org.bukkit.Statistic;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class StatisticFunction extends Function {
+public class StatisticFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -20,7 +21,7 @@ public class StatisticFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<T> player)
 	{
 		String[] split = this.getData().split(",");
 

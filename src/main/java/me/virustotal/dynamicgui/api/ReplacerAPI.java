@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Replacer;
 
 public class ReplacerAPI {
 	
 	private static ArrayList<Replacer> replacers = new ArrayList<Replacer>();
 	
-	public static String replace(String text, Player player)
+	public static String replace(String text, PlayerWrapper<?> player)
 	{
 		String newText = text;
 		for(Replacer replacer : ReplacerAPI.replacers)

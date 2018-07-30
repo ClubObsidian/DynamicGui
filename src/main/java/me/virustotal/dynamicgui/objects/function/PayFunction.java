@@ -1,11 +1,16 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.entity.Player;
+import java.math.BigDecimal;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.economy.Economy;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.plugin.impl.BukkitPlugin;
+import me.virustotal.dynamicgui.util.server.ServerType;
+import me.virustotal.dynamicgui.util.server.ServerUtil;
 
-public class PayFunction extends Function {
+public class PayFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -24,7 +29,7 @@ public class PayFunction extends Function {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean function(final Player player)
+	public boolean function(final PlayerWrapper<T> player)
 	{
 		double amt;
 		try
@@ -36,14 +41,16 @@ public class PayFunction extends Function {
 			ex.printStackTrace();
 			return false;
 		}
-		if(DynamicGUI.getPlugin().getEconomy() == null)
+		if(DynamicGUI.getInstance().getPlugin().getEconomy() == null)
 			return false;
-		if(DynamicGUI.getPlugin().getEconomy().getBalance(player.getName()) < amt)
-		{
-			return false;
-		}
+		
+		
+		//if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player) < amt)
+		//{
+		//	return false;
+		//}
 
-		DynamicGUI.getPlugin().getEconomy().withdrawPlayer(player.getName(), amt);
+		//DynamicGUI.getPlugin().getEconomy().withdrawPlayer(player.getName(), amt);
 		return true;
 	}
 }

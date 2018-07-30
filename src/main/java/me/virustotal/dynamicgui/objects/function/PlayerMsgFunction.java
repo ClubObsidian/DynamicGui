@@ -1,12 +1,11 @@
 package me.virustotal.dynamicgui.objects.function;
 
+import me.virustotal.dynamicgui.ChatColor;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
-public class PlayerMsgFunction extends Function {
+public class PlayerMsgFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -24,10 +23,9 @@ public class PlayerMsgFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(final PlayerWrapper<T> player)
 	{
-		player.sendMessage(ChatColor.translateAlternateColorCodes('&', ReplacerAPI.replace(this.getData(), player)));
+		player.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerAPI.replace(this.getData(), player)));
 		return true;
-	}
-	
+	}	
 }

@@ -1,10 +1,9 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.entity.Player;
-
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class NoPermission extends Function {
+public class NoPermission<T> extends Function<T> {
 
 	/**
 	 * 
@@ -17,7 +16,7 @@ public class NoPermission extends Function {
 	}
 
 	@Override
-	public boolean function(final Player player)
+	public boolean function(final PlayerWrapper<T> player)
 	{
 		return !player.hasPermission(this.getData());
 	}	

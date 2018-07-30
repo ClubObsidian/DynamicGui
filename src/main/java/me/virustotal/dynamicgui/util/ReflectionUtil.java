@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.utils;
+package me.virustotal.dynamicgui.util;
 
 public class ReflectionUtil {
 

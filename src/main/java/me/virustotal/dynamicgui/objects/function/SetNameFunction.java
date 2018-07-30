@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
@@ -26,7 +27,7 @@ public class SetNameFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper player)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)

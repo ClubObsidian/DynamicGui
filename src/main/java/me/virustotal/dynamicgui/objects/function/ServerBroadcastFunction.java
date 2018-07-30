@@ -1,6 +1,7 @@
 package me.virustotal.dynamicgui.objects.function;
 
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
 import org.bukkit.Bukkit;
@@ -25,7 +26,7 @@ public class ServerBroadcastFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper player)
 	{
 		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), player)));
 		return true;

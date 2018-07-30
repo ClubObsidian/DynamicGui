@@ -8,11 +8,12 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class RemoveSlotFunction extends Function {
+public class RemoveSlotFunction<T> extends Function<T> {
 
 	/**
 	 * 
@@ -24,7 +25,7 @@ public class RemoveSlotFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(Player player)
+	public boolean function(PlayerWrapper<T> playerWrapper)
 	{
 		if(this.getData().equalsIgnoreCase("this"))
 		{

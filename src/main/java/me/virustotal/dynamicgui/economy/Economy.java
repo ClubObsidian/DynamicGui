@@ -2,11 +2,13 @@ package me.virustotal.dynamicgui.economy;
 
 import java.math.BigDecimal;
 
-public interface Economy<P> {
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+
+public interface Economy<T> {
 
 	public boolean setup();
-	public BigDecimal getBalance(P player);
-	public boolean withdraw(P player, BigDecimal amt);
-	public boolean deposit(P player, BigDecimal amt);
+	public BigDecimal getBalance(PlayerWrapper<T> t);
+	public boolean withdraw(PlayerWrapper<T> player, BigDecimal amt);
+	public boolean deposit(PlayerWrapper<T> player, BigDecimal amt);
 
 }

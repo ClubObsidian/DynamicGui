@@ -13,9 +13,10 @@ import org.spongepowered.api.service.economy.transaction.ResultType;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.economy.Economy;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.plugin.impl.SpongePlugin;
 
-public class SpongeEconomy<P extends org.spongepowered.api.entity.living.player.Player> implements Economy<P> {
+public class SpongeEconomy<T extends org.spongepowered.api.entity.living.player.Player> implements Economy<T> {
 
 	private EconomyService economy;
 	
@@ -30,10 +31,11 @@ public class SpongeEconomy<P extends org.spongepowered.api.entity.living.player.
 		return (this.economy = economyService.get()) != null;
 	}
 
+
 	@Override
-	public BigDecimal getBalance(P player) 
+	public BigDecimal getBalance(PlayerWrapper<T> player) 
 	{
-		Optional<UniqueAccount> account = this.economy.getOrCreateAccount(player.getUniqueId());
+		Optional<UniqueAccount> account = this.economy.getOrCreateAccount(player.getPlayer().getUniqueId());
 		if(!account.isPresent())
 		{
 			return new BigDecimal(-1);
@@ -42,7 +44,7 @@ public class SpongeEconomy<P extends org.spongepowered.api.entity.living.player.
 	}
 
 	@Override
-	public boolean withdraw(P player, BigDecimal amt) 
+	public boolean withdraw(PlayerWrapper<T> player, BigDecimal amt) 
 	{
 		Optional<UniqueAccount> account = this.economy.getOrCreateAccount(player.getUniqueId());
 		if(!account.isPresent())
@@ -57,8 +59,7 @@ public class SpongeEconomy<P extends org.spongepowered.api.entity.living.player.
 	}
 
 	@Override
-	public boolean deposit(P player, BigDecimal amt) 
-	{
+	public boolean deposit(PlayerWrapper<T> player, BigDecimal amt) {
 		// TODO Auto-generated method stub
 		return false;
 	}
