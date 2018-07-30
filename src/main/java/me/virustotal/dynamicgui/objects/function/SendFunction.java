@@ -30,15 +30,15 @@ public class SendFunction extends Function {
 	@Override
 	public boolean function(Player player)
 	{
-		if(DynamicGUI.getInstance().getBungeeCord() || DynamicGUI.getInstance().getRedisBungee())
+		if(DynamicGUI.getPlugin().getBungeeCord() || DynamicGUI.getPlugin().getRedisBungee())
 		{
 			ByteArrayDataOutput out = ByteStreams.newDataOutput();
 			out.writeUTF("Connect");
 			out.writeUTF(this.getData());
-			player.sendPluginMessage(DynamicGUI.getInstance(), "BungeeCord", out.toByteArray());
+			player.sendPluginMessage(DynamicGUI.getPlugin(), "BungeeCord", out.toByteArray());
 			return true;
 		}
-			DynamicGUI.getInstance().getLogger().log(Level.INFO, "Cannot send users via BungeeCord, BungeeCord is disabled!");
+			DynamicGUI.getPlugin().getLogger().log(Level.INFO, "Cannot send users via BungeeCord, BungeeCord is disabled!");
 			return false;
 	}
 }

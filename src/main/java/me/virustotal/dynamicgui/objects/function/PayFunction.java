@@ -36,14 +36,14 @@ public class PayFunction extends Function {
 			ex.printStackTrace();
 			return false;
 		}
-		if(DynamicGUI.getInstance().getEconomy() == null)
+		if(DynamicGUI.getPlugin().getEconomy() == null)
 			return false;
-		if(DynamicGUI.getInstance().getEconomy().getBalance(player.getName()) < amt)
+		if(DynamicGUI.getPlugin().getEconomy().getBalance(player.getName()) < amt)
 		{
 			return false;
 		}
 
-		DynamicGUI.getInstance().getEconomy().withdrawPlayer(player.getName(), amt);
+		DynamicGUI.getPlugin().getEconomy().withdrawPlayer(player.getName(), amt);
 		return true;
 	}
 }

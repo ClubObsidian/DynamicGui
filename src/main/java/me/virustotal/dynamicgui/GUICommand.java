@@ -56,7 +56,7 @@ public class GUICommand implements CommandExecutor {
 					{
 						wrapper.playSoundToPlayer(player); 
 					}
-					Bukkit.getScheduler().scheduleSyncDelayedTask(DynamicGUI.getInstance(), new Runnable()
+					Bukkit.getScheduler().scheduleSyncDelayedTask(DynamicGUI.getPlugin(), new Runnable()
 					{
 						@Override
 						public void run()

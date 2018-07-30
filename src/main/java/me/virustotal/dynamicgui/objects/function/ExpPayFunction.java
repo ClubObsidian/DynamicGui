@@ -34,7 +34,7 @@ public class ExpPayFunction extends Function {
 		}
 		catch(Exception ex)
 		{
-			DynamicGUI.getInstance().getLogger().log(Level.INFO, "Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
+			DynamicGUI.getPlugin().getLogger().log(Level.INFO, "Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
 			return false;
 		}
 		if(player.getTotalExperience() < amt)

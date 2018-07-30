@@ -1,0 +1,10 @@
+name: DynamicGUI
+main: me.virustotal.dynamicgui.DynamicGUI
+version: 0.0.1
+author: VirusTotal
+softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup]
+commands:
+  gui:
+    description: "DynamicGUI gui command!"
+  guilist:
+    description: "Lists out all the guis for DynamicGUI!"

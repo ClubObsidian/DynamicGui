@@ -1,7 +1,7 @@
 package me.virustotal.dynamicgui.npc;
 
-public interface NPC<T> {
+public interface NPC<E> {
 
-	public T getEntity();
+	public E getEntity();
 
 }

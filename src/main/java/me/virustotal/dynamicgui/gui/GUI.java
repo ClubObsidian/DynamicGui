@@ -27,7 +27,7 @@ public class GUI implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6294818826223305057L;
-	private ArrayList<Slot> slots = new ArrayList<Slot>();
+	private List<Slot> slots = new ArrayList<Slot>();
 	private int rows;
 	private String name;
 	private String title;
@@ -107,7 +107,7 @@ public class GUI implements Serializable {
 							}
 							else
 							{
-								DynamicGUI.getInstance().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+								DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 								run = false;
 							}
 							if(!run)
@@ -164,7 +164,7 @@ public class GUI implements Serializable {
 						} 
 						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
 						{
-							DynamicGUI.getInstance().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
+							DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
 							e.printStackTrace();
 						}
 						if(func != null)
@@ -178,7 +178,7 @@ public class GUI implements Serializable {
 						}
 						else
 						{
-							DynamicGUI.getInstance().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+							DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 							run = false;
 						}
 						if(!run)

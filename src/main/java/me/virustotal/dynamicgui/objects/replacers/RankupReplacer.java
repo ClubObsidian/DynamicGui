@@ -22,7 +22,7 @@ public class RankupReplacer extends Replacer {
 		if(nextRank == null)
 			return text.replace(this.getToReplace(), ChatColor.RED + "No Rank Found");
 		Double rankPrice = Config.getGroupPrice(nextRank);
-		Double currentBal = DynamicGUI.getInstance().getEconomy().getBalance(player.getName());
+		Double currentBal = DynamicGUI.getPlugin().getEconomy().getBalance(player.getName());
 		return text.replace(this.getToReplace(), ChatColor.translateAlternateColorCodes('&', RankupReplacer.format(currentBal, rankPrice)));
 	}
 	

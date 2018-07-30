@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import net.milkbowl.vault.economy.Economy;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -31,6 +29,7 @@ import com.google.common.io.ByteStreams;
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.listener.EntityClickListener;
 import me.virustotal.dynamicgui.listener.InventoryClickListener;
@@ -69,9 +68,6 @@ import me.virustotal.dynamicgui.objects.replacers.UUIDReplacer;
 public class DynamicGUI  {
 
 	public static final String TAG = "DynamicGuiSlot";
-	
-	
-	private Economy economy = null;
 
 	public File configFile;
 	public File guiFolder;
@@ -281,7 +277,7 @@ public class DynamicGUI  {
 						{
 							toSend = "RedisBungee";
 						}
-						player.sendPluginMessage(DynamicGUI.getInstance(), toSend, out.toByteArray());
+						player.sendPluginMessage(DynamicGUI.getPlugin(), toSend, out.toByteArray());
 					}
 				}
 			}
@@ -552,8 +548,8 @@ public class DynamicGUI  {
 			return Bukkit.getOnlinePlayers().size();
 		}
 	}
-
-	public static DynamicGUI getInstance() 
+	
+	public static me.virustotal.dynamicgui.plugin.DynamicGUIPlugin getPlugin() 
 	{
 		return plugin;
 	}

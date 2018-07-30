@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.nbt.NBTItem;
@@ -143,52 +142,52 @@ public class Slot implements Serializable {
 		return this.data;
 	}
 	
-	public ArrayList<Function> getFunctions()
+	public List<Function> getFunctions()
 	{
 		return this.functions;
 	}
 	
-	public ArrayList<Function> getFailFunctions(String key)
+	public List<Function> getFailFunctions(String key)
 	{
 		return this.failFunctions.get(key);
 	}
 	
-	public ArrayList<Function> getLeftClickFunctions()
+	public List<Function> getLeftClickFunctions()
 	{
 		return this.leftClickFunctions;
 	}
 	
-	public ArrayList<Function> getLeftClickFailFunctions(String key)
+	public List<Function> getLeftClickFailFunctions(String key)
 	{
 		return this.leftClickFailFunctions.get(key);
 	}
 	
-	public ArrayList<Function> getRightClickFunctions()
+	public List<Function> getRightClickFunctions()
 	{
 		return this.rightClickFunctions;
 	}
 	
-	public ArrayList<Function> getRightClickFailFunctions(String key)
+	public List<Function> getRightClickFailFunctions(String key)
 	{
 		return this.rightClickFailFunctions.get(key);
 	}
 	
-	public ArrayList<Function> getMiddleClickFunctions()
+	public List<Function> getMiddleClickFunctions()
 	{
 		return this.middleClickFunctions;
 	}
 	
-	public ArrayList<Function> getMiddleClickFailFunctions(String key)
+	public List<Function> getMiddleClickFailFunctions(String key)
 	{
 		return this.middleClickFailFunctions.get(key);
 	}
 	
-	public ArrayList<Function> getFailLoadFunctions(String key)
+	public List<Function> getFailLoadFunctions(String key)
 	{
 		return this.failLoadFunctions.get(key);
 	}
 	
-	public ArrayList<Function> getLoadFunctions()
+	public List<Function> getLoadFunctions()
 	{
 		return this.loadFunctions;
 	}

@@ -1,6 +1,6 @@
 package me.virustotal.dynamicgui.utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -24,7 +24,7 @@ public class FunctionUtil {
 			result = tryFunctions(player, slot.getFunctions(), slot, startingIndex);
 			if(!result.result)
 			{
-				ArrayList<Function> failFunctions = slot.getFailFunctions(result.failedFunction);
+				List<Function> failFunctions = slot.getFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
 					tryFunctions(player, failFunctions, slot, startingIndex);
@@ -36,7 +36,7 @@ public class FunctionUtil {
 			result = tryFunctions(player, slot.getLeftClickFunctions(), slot, startingIndex);
 			if(!result.result)
 			{
-				ArrayList<Function> failFunctions = slot.getLeftClickFailFunctions(result.failedFunction);
+				List<Function> failFunctions = slot.getLeftClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
 					tryFunctions(player, failFunctions, slot, startingIndex);
@@ -50,7 +50,7 @@ public class FunctionUtil {
 			result = tryFunctions(player, slot.getRightClickFunctions(), slot, startingIndex);
 			if(!result.result)
 			{
-				ArrayList<Function> failFunctions = slot.getRightClickFailFunctions(result.failedFunction);
+				List<Function> failFunctions = slot.getRightClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
 					tryFunctions(player, failFunctions, slot, startingIndex);
@@ -64,7 +64,7 @@ public class FunctionUtil {
 			result = tryFunctions(player, slot.getMiddleClickFunctions(), slot, startingIndex);
 			if(!result.result)
 			{
-				ArrayList<Function> failFunctions = slot.getMiddleClickFailFunctions(result.failedFunction);
+				List<Function> failFunctions = slot.getMiddleClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
 					tryFunctions(player, failFunctions, slot, startingIndex);
@@ -75,7 +75,7 @@ public class FunctionUtil {
 		}
 	}
 
-	private static FunctionResponse tryFunctions(Player player, ArrayList<Function> functions, Slot slot, int startingIndex)
+	private static FunctionResponse tryFunctions(Player player, List<Function> functions, Slot slot, int startingIndex)
 	{
 		FunctionResponse response = new FunctionResponse(true);
 		for(int i = startingIndex; i < functions.size(); i++)
