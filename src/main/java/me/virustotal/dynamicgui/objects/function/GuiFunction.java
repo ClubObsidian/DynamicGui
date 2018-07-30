@@ -25,12 +25,12 @@ public class GuiFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> player)
 	{
 		final String finalData = this.getData();
-		final Player finalPlayer = player;
+
 		
-		if(player.getOpenInventory() != null)
+		if(player.getOpenInventoryWrapper().getInventory() != null)
 			player.closeInventory();
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(DynamicGUI.getPlugin(), new Runnable()
@@ -38,7 +38,7 @@ public class GuiFunction extends Function {
 			@Override
 			public void run()
 			{
-				finalPlayer.chat("/gui " + finalData);
+				player.chat("/gui " + finalData);
 			}
 		},2L);
 		return true;

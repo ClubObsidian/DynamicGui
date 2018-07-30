@@ -1,53 +1,48 @@
 package me.virustotal.dynamicgui.listener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
+import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.trident.Listener;
 
-public class InventoryClickListener<P,E> implements Listener {
+public class InventoryClickListener<T,U> implements Listener {
 
-	private DynamicGUIPlugin<P,E> plugin;
-	public InventoryClickListener(DynamicGUIPlugin<P,E> plugin)
+	private DynamicGUIPlugin<T,?> plugin;
+	public InventoryClickListener(DynamicGUIPlugin<T,?> plugin)
 	{
 		this.plugin = plugin;
 	}
 
 	@EventHandler
-	public void invClick(final InventoryClickEvent e)
+	public void invClick(final InventoryClickEvent<T,U> e)
 	{
-		if(e.isCancelled())
+		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
 			return;
-		if(e.getClickedInventory() == null)
+		if(!GuiApi.hasGuiTitle(e.getPlayerWrapper().getOpenInventoryWrapper().getTitle()))
 			return;
-		if(e.getWhoClicked().getOpenInventory() == null)
-			return;
-		if(!GuiApi.hasGuiTitle(e.getWhoClicked().getOpenInventory().getTitle()))
-			return;
-
-		e.setCancelled(true);
 		
-		ItemStack item = e.getClickedInventory().getItem(e.getSlot());
-		if(item == null)
+		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
+		if(item.getItemStack() == null)
 			return;
 
-		Player player = (Player) e.getWhoClicked();
+		PlayerWrapper<T> player = e.getPlayerWrapper();
 		if(this.plugin.playerGuis.keySet().contains(player.getName()))
 		{
-			if(GuiApi.hasGuiTitle(e.getClickedInventory().getTitle()))
+			if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
 			{
 				GUI gui = this.plugin.playerGuis.get(player.getName());
 				Slot slot = null;
@@ -84,10 +79,10 @@ public class InventoryClickListener<P,E> implements Listener {
 				if(slot == null)
 					return;
 
-				ArrayList<Function> functions = slot.getFunctions();
-				ArrayList<Function> leftClickFunctions = slot.getLeftClickFunctions();
-				ArrayList<Function> rightClickFunctions = slot.getRightClickFunctions();
-				ArrayList<Function> middleClickFunctions = slot.getMiddleClickFunctions();
+				List<Function> functions = slot.getFunctions();
+				List<Function> leftClickFunctions = slot.getLeftClickFunctions();
+				List<Function> rightClickFunctions = slot.getRightClickFunctions();
+				List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
 				
 				if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
 					return;

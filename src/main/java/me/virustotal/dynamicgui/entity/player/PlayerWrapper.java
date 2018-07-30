@@ -25,6 +25,9 @@ public abstract class PlayerWrapper<T> {
 	public abstract int getExperience();
 	public abstract void setExperience(int experience);
 	public abstract int getLevel();
-	public abstract InventoryWrapper<?> getOpenInventory();
+	public abstract InventoryWrapper<?> getOpenInventoryWrapper();
+	public abstract void closeInventory();
+	public abstract void openInventory(InventoryWrapper<?> inventoryWrapper);
+	
 	
 }

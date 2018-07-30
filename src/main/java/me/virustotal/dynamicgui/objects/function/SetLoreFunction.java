@@ -36,9 +36,9 @@ public class SetLoreFunction extends Function {
 		Slot slot = this.getOwner();
 		if(slot != null)
 		{
-			if(player.getOpenInventory() != null)
+			if(player.getOpenInventoryWrapper() != null)
 			{
-				InventoryView inv = player.getOpenInventory();
+				InventoryView inv = player.getOpenInventoryWrapper();
 				if(inv != null)
 				{
 					for(int i = 0; i < inv.countSlots(); i++)

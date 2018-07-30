@@ -113,9 +113,9 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	@Override
 	public NPC<U> getNPC(U entity) 
 	{
-		for(NPCRegistry<Y> registry : this.getNPCRegistries())
+		for(NPCRegistry<U> registry : this.getNPCRegistries())
 		{
-			NPC<Y> npc = registry.getNPC(entity);
+			NPC<U> npc = registry.getNPC(entity);
 			if(npc != null)
 			{
 				return npc;

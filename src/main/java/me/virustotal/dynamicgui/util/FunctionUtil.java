@@ -6,17 +6,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
 import me.virustotal.dynamicgui.api.FunctionApi;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class FunctionUtil {
 	
-	public static void tryFunctions(Slot slot, ClickType clickType, Player player)
+	public static void tryFunctions(Slot slot, ClickType clickType, PlayerWrapper<?> player)
 	{
 		tryFunctions(slot, clickType, player, 0);
 	}
 
-	public static void tryFunctions(Slot slot, ClickType clickType, Player player, int startingIndex)
+	public static void tryFunctions(Slot slot, ClickType clickType, PlayerWrapper<?> player, int startingIndex)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
@@ -75,7 +76,7 @@ public class FunctionUtil {
 		}
 	}
 
-	private static FunctionResponse tryFunctions(Player player, List<Function> functions, Slot slot, int startingIndex)
+	private static FunctionResponse tryFunctions(PlayerWrapper<?> player, List<Function> functions, Slot slot, int startingIndex)
 	{
 		FunctionResponse response = new FunctionResponse(true);
 		for(int i = startingIndex; i < functions.size(); i++)

@@ -8,6 +8,8 @@ import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.FunctionApi;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
 import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
@@ -61,10 +63,11 @@ public class GUI implements Serializable {
 		this(gui.getName(),gui.getTitle(),gui.getRows(),gui.getPermission(),gui.getpMessage(),gui.getClose(),gui.getModeEnum(),gui.getNpcIds(),gui.getSlots(),gui.getLocs(), gui.getOpeningSounds());
 	}
 
-	public void buildInventory(Player player)
+	public void buildInventory(PlayerWrapper<?> player)
 	{	
 		Inventory inv = Bukkit.createInventory(null, this.rows * 9, this.title);
-		player.openInventory(inv);
+		player.openInventory(new BukkitInventoryWrapper<Inventory>(inv));
+		
 		for(int j = 0; j < this.slots.size(); j++)
 		{
 			Slot slot = this.slots.get(j);

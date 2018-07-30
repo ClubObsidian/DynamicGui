@@ -67,7 +67,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 
 	@Override
-	public InventoryWrapper<Inventory> getOpenInventory() 
+	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
 	{
 		InventoryView openInventory = this.getPlayer().getOpenInventory();
 		if(openInventory == null)
@@ -77,6 +77,22 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
 	}
 
+	@Override
+	public void closeInventory() 
+	{
+		if(this.getPlayer().getOpenInventory() != null)
+		{
+			this.getPlayer().getOpenInventory().close();
+		}
+	}
 
-
+	@Override
+	public void openInventory(InventoryWrapper<?> inventoryWrapper) 
+	{
+		Object inventory = inventoryWrapper.getInventory();
+		if(inventory instanceof Inventory)
+		{
+			this.getPlayer().openInventory((Inventory) inventory);
+		}
+	}
 }

@@ -24,7 +24,7 @@ public class ParticleWrapper implements Serializable {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void spawnParticles(PlayerWrapper<T> player)
+	public void spawnParticles(PlayerWrapper<?> player)
 	{
 		player.playEffect(player.getLocation(), this.effect, this.data);
 	}	
