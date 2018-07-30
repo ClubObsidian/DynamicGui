@@ -1,9 +1,9 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import me.virustotal.dynamicgui.ChatColor;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.util.ChatColor;
 
 public class PlayerMsgFunction extends Function {
 

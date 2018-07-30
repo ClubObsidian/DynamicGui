@@ -3,10 +3,8 @@ package me.virustotal.dynamicgui.objects.function;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.util.ChatColor;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class ServerBroadcastFunction extends Function {
 
@@ -26,7 +24,7 @@ public class ServerBroadcastFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper player)
+	public boolean function(PlayerWrapper<?> player)
 	{
 		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), player)));
 		return true;

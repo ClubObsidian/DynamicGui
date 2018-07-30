@@ -107,7 +107,7 @@ public class GUI implements Serializable {
 							}
 							else
 							{
-								DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+								DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 								run = false;
 							}
 							if(!run)
@@ -164,7 +164,7 @@ public class GUI implements Serializable {
 						} 
 						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
 						{
-							DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
+							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
 							e.printStackTrace();
 						}
 						if(func != null)
@@ -178,12 +178,12 @@ public class GUI implements Serializable {
 						}
 						else
 						{
-							DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 							run = false;
 						}
 						if(!run)
 						{
-							ArrayList<Function> failFunctions = slot.getFailLoadFunctions(func.getName());
+							List<Function> failFunctions = slot.getFailLoadFunctions(func.getName());
 							if(failFunctions != null)
 							{
 								for(Function fail : failFunctions)

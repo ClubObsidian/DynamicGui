@@ -32,7 +32,7 @@ public class RemoveSlotFunction extends Function {
 			Slot slot = this.getOwner();
 			if(slot != null)
 			{
-				if(player.getOpenInventory() != null)
+				if(playerWrapper.getOpenInventory().getInventory() != null)
 				{
 					InventoryView inv = player.getOpenInventory();
 					if(inv != null)

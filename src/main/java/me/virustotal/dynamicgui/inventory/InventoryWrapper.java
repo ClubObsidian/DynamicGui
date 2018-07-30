@@ -2,7 +2,7 @@ package me.virustotal.dynamicgui.inventory;
 
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 
-public abstract class InventoryWrapper<T,U> {
+public abstract class InventoryWrapper<T> {
 
 	private T inventory;
 	public InventoryWrapper(T inventory) 
@@ -16,5 +16,5 @@ public abstract class InventoryWrapper<T,U> {
 	}
 	
 	public abstract String getTitle();
-	public abstract ItemStackWrapper<U> getItem(int index);
+	public abstract ItemStackWrapper<?> getItem(int index);
 }

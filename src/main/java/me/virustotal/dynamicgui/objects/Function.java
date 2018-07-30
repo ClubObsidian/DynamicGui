@@ -73,7 +73,7 @@ public abstract class Function implements Cloneable, Serializable {
 		return this.index;
 	}
 	
-	public Function<T> clone()
+	public Function clone()
 	{
 		return SerializationUtils.clone(this);
 	}

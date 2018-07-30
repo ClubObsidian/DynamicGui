@@ -7,7 +7,7 @@ import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.inventory.item.impl.BukkitItemStackWrapper;
 
-public class BukkitInventoryWrapper<T extends Inventory, U extends ItemStack> extends InventoryWrapper<T,U>{
+public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrapper<T>{
 
 	public BukkitInventoryWrapper(T inventory) 
 	{
@@ -21,7 +21,7 @@ public class BukkitInventoryWrapper<T extends Inventory, U extends ItemStack> ex
 	}
 
 	@Override
-	public ItemStackWrapper<U> getItem(int index) 
+	public ItemStackWrapper<ItemStack> getItem(int index) 
 	{
 		return new BukkitItemStackWrapper<ItemStack>(this.getInventory().getItem(index));
 	}

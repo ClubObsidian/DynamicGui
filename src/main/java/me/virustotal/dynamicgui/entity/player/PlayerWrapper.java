@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 
-public abstract class PlayerWrapper<T,U,V> {
+public abstract class PlayerWrapper<T> {
 
 	private T player;
 	public PlayerWrapper(T player)
@@ -25,6 +25,6 @@ public abstract class PlayerWrapper<T,U,V> {
 	public abstract int getExperience();
 	public abstract void setExperience(int experience);
 	public abstract int getLevel();
-	public abstract InventoryWrapper<U,V> getOpenInventory();
+	public abstract InventoryWrapper<?> getOpenInventory();
 	
 }

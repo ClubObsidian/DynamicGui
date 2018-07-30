@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui;
+package me.virustotal.dynamicgui.util;
 
 public enum ChatColor {
 

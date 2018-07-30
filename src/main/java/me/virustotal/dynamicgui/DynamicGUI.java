@@ -23,6 +23,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
+
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
@@ -50,7 +51,6 @@ import me.virustotal.dynamicgui.objects.function.PayFunction;
 import me.virustotal.dynamicgui.objects.function.PermissionFunction;
 import me.virustotal.dynamicgui.objects.function.PlayerCmdFunction;
 import me.virustotal.dynamicgui.objects.function.PlayerMsgFunction;
-import me.virustotal.dynamicgui.objects.function.ReflectionStaticFunction;
 import me.virustotal.dynamicgui.objects.function.RemoveSlotFunction;
 import me.virustotal.dynamicgui.objects.function.SendFunction;
 import me.virustotal.dynamicgui.objects.function.ServerBroadcastFunction;
@@ -64,7 +64,6 @@ import me.virustotal.dynamicgui.objects.function.StatisticFunction;
 import me.virustotal.dynamicgui.objects.replacers.OnlinePlayersReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
-import me.virustotal.dynamicgui.objects.replacers.RankupReplacer;
 import me.virustotal.dynamicgui.objects.replacers.UUIDReplacer;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
