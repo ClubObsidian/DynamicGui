@@ -14,8 +14,8 @@
 .gradle/*
 .project
 .classpath
-
 .settings/*
+bin/*
 
 # Package Files #
 *.war

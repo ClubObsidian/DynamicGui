@@ -1,9 +1,7 @@
 package me.virustotal.dynamicgui.economy;
 
-public class Economy {
+public interface Economy {
 
-	public Economy() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 }
