@@ -1,14 +1,17 @@
 package me.virustotal.dynamicgui.entity.player.impl;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.inventory.InventoryWrapper;
+import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
 
-public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
+public class BukkitPlayerWrapper<T extends Player, U extends Inventory, V extends ItemStack> extends PlayerWrapper<T,U,V> {
 
 
 	public BukkitPlayerWrapper(T player) 
@@ -63,4 +66,18 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	{
 		return this.getPlayer().getLevel();
 	}
+
+	@Override
+	public InventoryWrapper<U,V> getOpenInventory() 
+	{
+		InventoryView openInventory = this.getPlayer().getOpenInventory();
+		if(openInventory == null)
+		{
+			return null;
+		}
+		return new BukkitInventoryWrapper<U,V>((U) openInventory.getTopInventory());
+	}
+
+
+
 }

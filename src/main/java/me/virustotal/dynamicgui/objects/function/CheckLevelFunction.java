@@ -1,7 +1,6 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.entity.Player;
-
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class CheckLevelFunction extends Function {
@@ -16,9 +15,20 @@ public class CheckLevelFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(Player player)
+	@Override
+	public boolean function(PlayerWrapper<?> player)
 	{
-		return player.getLevel() >= Integer.parseInt(this.getData());
+		int level = -1;
+		try
+		{
+			level = Integer.parseInt(this.getData());
+		}
+		catch(NumberFormatException ex)
+		{
+			ex.printStackTrace();
+			return false;
+		}
+		
+		return player.getLevel() >= level;
 	}
-	
 }

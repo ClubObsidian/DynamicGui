@@ -2,13 +2,11 @@ package me.virustotal.dynamicgui.objects.function;
 
 import java.util.logging.Level;
 
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class ExpPayFunction<T> extends Function<T> {
+public class ExpPayFunction extends Function {
 
 	/**
 	 * 
@@ -26,7 +24,7 @@ public class ExpPayFunction<T> extends Function<T> {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<T> playerWrapper)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		int amt;
 		try

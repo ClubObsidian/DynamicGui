@@ -4,15 +4,15 @@ import com.clubobsidian.trident.Event;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
-public class PlayerEvent<P> extends Event {
+public class PlayerEvent<T> extends Event {
 
-	private PlayerWrapper<P> playerWrapper;
-	public PlayerEvent(PlayerWrapper<P> playerWrapper)
+	private PlayerWrapper<T> playerWrapper;
+	public PlayerEvent(PlayerWrapper<T> playerWrapper)
 	{
 		this.playerWrapper = playerWrapper;
 	}
 	
-	public PlayerWrapper<P> getPlayerWrapper()
+	public PlayerWrapper<T> getPlayerWrapper()
 	{
 		return this.playerWrapper;
 	}

@@ -13,7 +13,7 @@ import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class RemoveSlotFunction<T> extends Function<T> {
+public class RemoveSlotFunction extends Function {
 
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class RemoveSlotFunction<T> extends Function<T> {
 		super(name);
 	}
 
-	public boolean function(PlayerWrapper<T> playerWrapper)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		if(this.getData().equalsIgnoreCase("this"))
 		{

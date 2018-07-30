@@ -4,7 +4,7 @@ import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class PlayerCmdFunction<P> extends Function<P> {
+public class PlayerCmdFunction extends Function {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class PlayerCmdFunction<P> extends Function<P> {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<P> player)
+	public boolean function(PlayerWrapper<?> player)
 	{
 		player.chat("/" + ReplacerAPI.replace(this.getData(), player));
 		return true;

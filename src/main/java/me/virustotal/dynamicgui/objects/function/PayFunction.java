@@ -10,7 +10,7 @@ import me.virustotal.dynamicgui.plugin.impl.BukkitPlugin;
 import me.virustotal.dynamicgui.util.server.ServerType;
 import me.virustotal.dynamicgui.util.server.ServerUtil;
 
-public class PayFunction<T> extends Function<T> {
+public class PayFunction extends Function {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class PayFunction<T> extends Function<T> {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean function(final PlayerWrapper<T> player)
+	public boolean function(final PlayerWrapper<?> player)
 	{
 		double amt;
 		try
@@ -45,10 +45,10 @@ public class PayFunction<T> extends Function<T> {
 			return false;
 		
 		
-		//if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player) < amt)
-		//{
-		//	return false;
-		//}
+		if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player) < amt)
+		{
+			return false;
+		}
 
 		//DynamicGUI.getPlugin().getEconomy().withdrawPlayer(player.getName(), amt);
 		return true;

@@ -5,7 +5,7 @@ import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class PlayerMsgFunction<T> extends Function<T> {
+public class PlayerMsgFunction extends Function {
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class PlayerMsgFunction<T> extends Function<T> {
 	}
 	
 	@Override
-	public boolean function(final PlayerWrapper<T> player)
+	public boolean function(final PlayerWrapper<?> player)
 	{
 		player.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerAPI.replace(this.getData(), player)));
 		return true;

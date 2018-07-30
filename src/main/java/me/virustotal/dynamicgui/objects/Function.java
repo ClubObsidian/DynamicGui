@@ -7,7 +7,7 @@ import org.apache.commons.lang3.SerializationUtils;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 
-public abstract class Function<T> implements Cloneable, Serializable {
+public abstract class Function implements Cloneable, Serializable {
 	
 	/**
 	 * 
@@ -30,13 +30,13 @@ public abstract class Function<T> implements Cloneable, Serializable {
 		this.data = data;
 	}
 	
-	public Function(Function<T> function) 
+	public Function(Function function) 
 	{
 		this.name = function.getName();
 		this.data = function.getData();
 	}
 
-	public abstract boolean function(PlayerWrapper<T> playerWrapper);
+	public abstract boolean function(PlayerWrapper<?> playerWrapper);
 		
 	public String getName()
 	{

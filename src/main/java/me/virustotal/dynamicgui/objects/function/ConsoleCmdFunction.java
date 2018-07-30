@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class ConsoleCmdFunction extends Function {
@@ -24,7 +25,7 @@ public class ConsoleCmdFunction extends Function {
 	}
 
 	@Override
-	public boolean function(final Player player)
+	public boolean function(final PlayerWrapper<?> player)
 	{
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ReplacerAPI.replace(this.getData(), player));
 		return true;

@@ -3,7 +3,7 @@ package me.virustotal.dynamicgui.objects.function;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
-public class NoPermission<T> extends Function<T> {
+public class NoPermission extends Function {
 
 	/**
 	 * 
@@ -16,7 +16,7 @@ public class NoPermission<T> extends Function<T> {
 	}
 
 	@Override
-	public boolean function(final PlayerWrapper<T> player)
+	public boolean function(final PlayerWrapper<?> player)
 	{
 		return !player.hasPermission(this.getData());
 	}	
