@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
-public interface Economy<T> {
+public interface Economy {
 
 	public boolean setup();
-	public BigDecimal getBalance(PlayerWrapper<T> player);
-	public boolean withdraw(PlayerWrapper<T> player, BigDecimal amt);
-	public boolean deposit(PlayerWrapper<T> player, BigDecimal amt);
+	public BigDecimal getBalance(PlayerWrapper<?> playerWrapper);
+	public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt);
+	public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt);
 
 }

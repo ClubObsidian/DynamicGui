@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
-public class VaultEconomy<T extends org.bukkit.entity.Player> implements Economy<T> {
+public class VaultEconomy implements Economy {
 
 	private Object economy;
 	
@@ -41,23 +41,6 @@ public class VaultEconomy<T extends org.bukkit.entity.Player> implements Economy
 		return economy != null;
 	}
 
-	@Override
-	public BigDecimal getBalance(PlayerWrapper<T> player) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean withdraw(PlayerWrapper<T> player, BigDecimal amt) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deposit(PlayerWrapper<T> player, BigDecimal amt) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 
