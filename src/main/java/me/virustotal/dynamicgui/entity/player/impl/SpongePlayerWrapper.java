@@ -5,14 +5,14 @@ import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.manipulator.mutable.entity.ExperienceHolderData;
+import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleType;
+import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.CauseStackManager;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.item.inventory.Inventory;
+import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.channel.MessageChannel;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -111,25 +111,35 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 
 	@Override
-	public void sendPluginMessage(DynamicGUIPlugin<?, ?> plugin, String channel, byte[] message) {
-		
-		Sponge.getGame().getChannelRegistrar().getOrCreateRaw(plugin, channel).sendTo(this.getPlayer(), message);
+	public void sendPluginMessage(DynamicGUIPlugin<?, ?> plugin, String channel, byte[] message) 
+	{	
+		RawDataChannel pluginChannel = Sponge.getGame().getChannelRegistrar().getOrCreateRaw(plugin, channel);
+		pluginChannel.sendTo(this.getPlayer(), buf -> buf.writeByteArray(message));
 	}
 
 	@Override
-	public void playSound(String sound, Float volume, Float pitch) {
-		// TODO Auto-generated method stub
-		
+	public void playSound(String sound, Float volume, Float pitch) 
+	{
+		Location<World> location = this.getPlayer().getLocation();
+		Optional<SoundType> soundType = Sponge.getGame().getRegistry().getType(SoundType.class, sound);
+		if(soundType.isPresent())
+		{
+			this.getPlayer().playSound(soundType.get(), location.getPosition(), volume, pitch, volume);
+		}
 	}
 
 	@Override
 	public void playEffect(String effect, int data) 
 	{
 		Location<World> location = this.getPlayer().getLocation();
-		
-		location.getExtent().spawnParticles(, position);
+		Optional<ParticleType> particleType = Sponge.getGame().getRegistry().getType(ParticleType.class, effect);
+		if(particleType.isPresent())
+		{
+			ParticleEffect particleEffect = ParticleEffect
+					.builder()
+					.type(particleType.get())
+					.build();
+			location.getExtent().spawnParticles(particleEffect, location.getPosition());
+		}	
 	}
-
-
-
 }

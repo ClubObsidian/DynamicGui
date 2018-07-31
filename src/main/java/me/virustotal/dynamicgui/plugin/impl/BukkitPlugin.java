@@ -8,10 +8,13 @@ import java.util.List;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.economy.impl.VaultEconomy;
+import me.virustotal.dynamicgui.listener.bukkit.EntityClickListener;
 import me.virustotal.dynamicgui.npc.NPC;
 import me.virustotal.dynamicgui.npc.NPCRegistry;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.server.ServerType;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,12 +34,15 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	@Override
 	public void start() 
 	{
+		ServerType.setServerType(ServerType.SPIGOT);
 		DynamicGUI.setInstance(new DynamicGUI<T,U>(this));
 		this.economy = new VaultEconomy<T>();
 		if(!this.economy.setup())
 		{
 			this.economy = null;
 		}
+		
+		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
 	}
 
 	@Override
