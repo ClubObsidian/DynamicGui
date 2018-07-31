@@ -1,9 +1,15 @@
 package me.virustotal.dynamicgui.inventory.impl;
 
+import java.util.Optional;
+
 import org.spongepowered.api.item.inventory.Inventory;
+import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.item.inventory.property.SlotIndex;
+import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.inventory.item.impl.SpongeItemStackWrapper;
 
 public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrapper<T>{
 
@@ -19,9 +25,14 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	}
 
 	@Override
-	public ItemStackWrapper<?> getItem(int index) {
-		
+	public ItemStackWrapper<ItemStack> getItem(int index) 
+	{
+		Optional<SlotIndex> slotIndex = this.getInventory().getProperty(SlotIndex.class, index);
+		if(slotIndex.isPresent())
+		{
+			ItemStack item = (ItemStack) this.getInventory().query(QueryOperationTypes.INVENTORY_PROPERTY.of(slotIndex.get())).first();
+			return new SpongeItemStackWrapper<ItemStack>(item);
+		}
+		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
-
-	
 }

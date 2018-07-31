@@ -81,7 +81,6 @@ public class DynamicGUI<T,U>  {
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
 		this.registerListeners();
-		//Constructor - Detect sponge or spigot
 	}
 	
 	private void registerListeners() 
@@ -173,34 +172,8 @@ public class DynamicGUI<T,U>  {
 		ReplacerAPI.addReplacer(new OnlinePlayersReplacer("%online-players%"));
 		ReplacerAPI.addReplacer(new UUIDReplacer("%uuid%"));
 		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
-		//setup vault
-		if(Bukkit.getPluginManager().getPlugin("Vault") == null)
-		{
-			this.getLogger().log(Level.INFO, "Vault is not enabled");
-			this.getLogger().log(Level.INFO, "The pay function is disabled");
-		}
-		else
-		{
-			this.setupEconomy();
-			this.getLogger().log(Level.INFO, "Vault is enabled!");
-			if(Bukkit.getPluginManager().getPlugin("Rankup") == null)
-			{
-				this.getLogger().log(Level.INFO, "Rankup is not enabled");
-				this.getLogger().log(Level.INFO, "Rankup replacer is disabled");
-			}
-			else
-			{
-				this.getLogger().log(Level.INFO, "Rankup is enabled!");
-				ReplacerAPI.addReplacer(new RankupReplacer("%rankup-percent%"));
-			}
-		}
 		
-		//setup citizens
-		if(Bukkit.getPluginManager().getPlugin("Citizens") != null)
-		{
-			this.getLogger().log(Level.INFO, "Citizens hooking is enabled");
-			Bukkit.getPluginManager().registerEvents(new EntityClickListener(this), this);
-		}
+
 		
 		
 		

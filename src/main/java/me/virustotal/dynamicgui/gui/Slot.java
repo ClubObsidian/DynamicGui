@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.MyEnchantment;
@@ -32,19 +34,19 @@ public class Slot implements Serializable {
 	private short data;
 	private int index;
 	private List<Function> loadFunctions;
-	private HashMap<String, ArrayList<Function>> failLoadFunctions;
+	private Map<String, List<Function>> failLoadFunctions;
 	//All clicks
 	private List<Function> functions;
-	private HashMap<String, ArrayList<Function>> failFunctions;
+	private Map<String, List<Function>> failFunctions;
 	//Left click
 	private List<Function> leftClickFunctions;
-	private HashMap<String, ArrayList<Function>> leftClickFailFunctions;
+	private Map<String, List<Function>> leftClickFailFunctions;
 	//Right click
 	private List<Function> rightClickFunctions;
-	private HashMap<String, ArrayList<Function>> rightClickFailFunctions;
+	private Map<String, List<Function>> rightClickFailFunctions;
 	//Middle click
 	private List<Function> middleClickFunctions;
-	private HashMap<String, ArrayList<Function>> middleClickFailFunctions;
+	private Map<String, List<Function>> middleClickFailFunctions;
 	private List<String> lore;
 	private List<MyEnchantment> enchants;
 	private String permission;
@@ -53,15 +55,15 @@ public class Slot implements Serializable {
 	private int amount;
 	private UUID uuid;
 	private ItemStack itemStack;
-	private GUI gui;
+	private GUI owner;
 
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, ArrayList<Function> functions, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, HashMap<String, ArrayList<Function>> failFunctions, ArrayList<Function> loadFunctions, HashMap<String, ArrayList<Function>> failLoadFunctions)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
 	{
 		this(icon, name, nbt, data, close, lore, enchants, permission, pMessage, index, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, 1);
 		//, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, 
 	}
 	
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, ArrayList<Function> functions, HashMap<String, ArrayList<Function>> failFunctions, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, ArrayList<Function> loadFunctions, HashMap<String, ArrayList<Function>> failLoadFunctions, int amount)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
 	{
 		this.icon = icon;
 		this.failFunctions = failFunctions;
@@ -87,7 +89,7 @@ public class Slot implements Serializable {
 	}
 	
 	
-	public Slot(ItemStack item, int index, boolean close)
+	public Slot(ItemStackWrapper<?> item, int index, boolean close)
 	{
 		this.icon = item.getType().toString();
 		this.functions = new ArrayList<Function>();
@@ -217,7 +219,7 @@ public class Slot implements Serializable {
 		return this.amount;
 	}
 	
-	public ItemStack buildItemStack(Player player)
+	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
 		ItemStack item = new ItemStack(Material.matchMaterial(this.icon), this.getAmount());
 		try 
@@ -250,15 +252,7 @@ public class Slot implements Serializable {
 			String newName = this.name;
 			
 			newName = ReplacerAPI.replace(newName, player);
-			
-			if(DynamicGUI.getPlaceholderAPI())
-			{
-				itemMeta.setDisplayName(PlaceholderAPI.setPlaceholders(player, newName));
-			}
-			else 
-			{
-				itemMeta.setDisplayName(newName);
-			}
+			itemMeta.setDisplayName(newName);
 		}
 		
 		if(this.lore != null)
@@ -273,13 +267,7 @@ public class Slot implements Serializable {
 				newLore.set(i, ReplacerAPI.replace(newLore.get(i), player));
 			}
 			
-			if(DynamicGUI.getPlaceholderAPI())
-			{
-				for(int i = 0; i < newLore.size(); i++)
-				{
-					newLore.set(i, PlaceholderAPI.setPlaceholders(player, newLore.get(i)));
-				} 
-			}
+		
 			itemMeta.setLore(newLore);
 		}
 		
@@ -294,7 +282,7 @@ public class Slot implements Serializable {
 		return item;
 	}
 	
-	public ItemStack getItemStack()
+	public ItemStackWrapper<?> getItemStack()
 	{
 		return this.itemStack;
 	}
@@ -304,13 +292,13 @@ public class Slot implements Serializable {
 		return this.uuid;
 	}
 	
-	public void setGUI(GUI gui)
+	public void setOwner(GUI gui)
 	{
-		this.gui = gui;
+		this.owner = gui;
 	}
 	
-	public GUI getGUI()
+	public GUI getOwner()
 	{
-		return this.gui;
+		return this.owner;
 	}
 }

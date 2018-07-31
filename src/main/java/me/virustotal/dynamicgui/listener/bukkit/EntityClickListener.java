@@ -1,7 +1,5 @@
 package me.virustotal.dynamicgui.listener.bukkit;
 
-import com.clubobsidian.trident.Listener;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.EntityWrapper;
 import me.virustotal.dynamicgui.entity.impl.BukkitEntityWrapper;
@@ -11,6 +9,7 @@ import me.virustotal.dynamicgui.entity.player.impl.BukkitPlayerWrapper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class EntityClickListener implements Listener {

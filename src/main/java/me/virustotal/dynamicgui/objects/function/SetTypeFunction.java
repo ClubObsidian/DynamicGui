@@ -25,7 +25,7 @@ public class SetTypeFunction extends Function {
 		super(name);
 	}
 	
-	public boolean function(PlayerWrapper player)
+	public boolean function(PlayerWrapper<?> player)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)

@@ -14,12 +14,11 @@ import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
+import me.virustotal.dynamicgui.util.ChatColor;
 
 import org.apache.commons.lang3.SerializationUtils;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -30,9 +29,9 @@ public class GUI implements Serializable {
 	 */
 	private static final long serialVersionUID = -6294818826223305057L;
 	private List<Slot> slots = new ArrayList<Slot>();
-	private int rows;
 	private String name;
 	private String title;
+	private int rows;
 	private String permission;
 	private String pMessage;
 	private Boolean close;
@@ -41,10 +40,10 @@ public class GUI implements Serializable {
 	private List<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
 	private List<Integer> npcIds;
 	
-	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close,ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<CLocation> locs, ArrayList<SoundWrapper> openingSounds)
+	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close,ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<CLocation> locs, List<SoundWrapper> openingSounds)
 	{
 		this.name = name;
-		this.title = ChatColor.translateAlternateColorCodes('&', title);
+		this.title = ChatColor.translateAlternateColorCodes(title);
 		if(this.title.length() > 32)
 			this.title = this.title.substring(0,31);
 		this.rows = rows;
@@ -73,7 +72,7 @@ public class GUI implements Serializable {
 			Slot slot = this.slots.get(j);
 			if(slot != null)
 			{
-				slot.setGUI(this);
+				slot.setOwner(this);
 				if(slot.getPermission() != null)
 				{
 					if(player.hasPermission(slot.getPermission()))

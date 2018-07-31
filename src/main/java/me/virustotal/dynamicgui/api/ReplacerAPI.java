@@ -2,8 +2,6 @@ package me.virustotal.dynamicgui.api;
 
 import java.util.ArrayList;
 
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Replacer;
 

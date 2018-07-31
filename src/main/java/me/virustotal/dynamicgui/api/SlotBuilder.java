@@ -3,6 +3,7 @@ package me.virustotal.dynamicgui.api;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Material;
 
@@ -23,20 +24,20 @@ public class SlotBuilder {
 	private String pMessage;
 	private int index;
 	
-	private ArrayList<Function> functions = new ArrayList<Function>();
-	private HashMap<String, ArrayList<Function>> failFunctions = new HashMap<String, ArrayList<Function>>();
+	private List<Function> functions = new ArrayList<Function>();
+	private Map<String, ArrayList<Function>> failFunctions = new HashMap<String, ArrayList<Function>>();
 	
-	private ArrayList<Function> leftClickFunctions = new ArrayList<Function>();
-	private HashMap<String, ArrayList<Function>> leftClickFailFunctions = new HashMap<String, ArrayList<Function>>();
+	private List<Function> leftClickFunctions = new ArrayList<Function>();
+	private Map<String, ArrayList<Function>> leftClickFailFunctions = new HashMap<String, ArrayList<Function>>();
 	
-	private ArrayList<Function> rightClickFunctions = new ArrayList<Function>();
+	private List<Function> rightClickFunctions = new ArrayList<Function>();
 	private HashMap<String, ArrayList<Function>> rightClickFailFunctions = new HashMap<String, ArrayList<Function>>();
 	
-	private ArrayList<Function> middleClickFunctions = new ArrayList<Function>();
-	private HashMap<String, ArrayList<Function>> middleClickFailFunctions = new HashMap<String, ArrayList<Function>>();
+	private List<Function> middleClickFunctions = new ArrayList<Function>();
+	private Map<String, ArrayList<Function>> middleClickFailFunctions = new HashMap<String, ArrayList<Function>>();
 	
 	private ArrayList<Function> loadFunctions = new ArrayList<Function>();
-	private HashMap<String, ArrayList<Function>> failLoadFunctions = new HashMap<String, ArrayList<Function>>();
+	private Map<String, ArrayList<Function>> failLoadFunctions = new HashMap<String, ArrayList<Function>>();
 	private int amount;
 	
 	public SlotBuilder setIcon(Material icon)
