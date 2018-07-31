@@ -2,16 +2,20 @@ package me.virustotal.dynamicgui.entity.player.impl;
 
 import java.util.UUID;
 
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.plugin.Plugin;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
-
 
 	public BukkitPlayerWrapper(T player) 
 	{
@@ -94,5 +98,27 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		{
 			this.getPlayer().openInventory((Inventory) inventory);
 		}
+	}
+
+	@Override
+	public void sendPluginMessage(DynamicGUIPlugin<?, ?> plugin, String channel, byte[] message) 
+	{
+		this.getPlayer().sendPluginMessage((Plugin) plugin, channel, message);
+	}
+
+	@Override
+	public void playSound(String sound, Float volume, Float pitch) 
+	{
+		Player player = this.getPlayer();
+		Location playerLocation = player.getLocation();
+		player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
+	}
+
+	@Override
+	public void playEffect(String effect, int data) 
+	{
+		Player player = this.getPlayer();
+		Location playerLocation = player.getLocation();
+		playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
 	}
 }

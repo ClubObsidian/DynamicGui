@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
@@ -31,7 +32,7 @@ public class SetLoreFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(PlayerWrapper player)
+	public boolean function(PlayerWrapper<?> player)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)

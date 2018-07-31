@@ -42,7 +42,7 @@ public class VaultEconomy<T extends org.bukkit.entity.Player> implements Economy
 	}
 
 	@Override
-	public BigDecimal getBalance(PlayerWrapper<Player> t) {
+	public BigDecimal getBalance(PlayerWrapper<T> player) {
 		// TODO Auto-generated method stub
 		return null;
 	}

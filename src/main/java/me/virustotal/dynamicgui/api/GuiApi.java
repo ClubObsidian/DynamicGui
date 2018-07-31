@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.CLocation;
@@ -17,6 +18,7 @@ import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.MyEnchantment;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
 import org.apache.commons.io.FileUtils;
 
@@ -103,7 +105,7 @@ public class GuiApi implements Listener {
 		return GuiApi.getTemporaryGuiForPlayer(player.getUniqueId());
 	}
 	
-	public static void openTemporaryGui(GUI gui, Player player)
+	public static void openTemporaryGui(GUI gui, PlayerWrapper<?> player)
 	{
 		gui.buildInventory(player);//TODO
 		GuiApi.temporaryGuiMap.put(player.getUniqueId(), gui);
@@ -116,7 +118,7 @@ public class GuiApi implements Listener {
 	
 	public static void loadGuis()
 	{
-		DynamicGUI plugin = DynamicGUI.getPlugin();
+		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.getInstance().getPlugin();
 		File guiFolder = plugin.guiFolder;
 		//File[] ar = guiFolder.listFiles();
 		
@@ -159,18 +161,18 @@ public class GuiApi implements Listener {
 
 	public static void reloadGuis()
 	{
-		DynamicGUI.getPlugin().getLogger().log(Level.INFO, "Force reloading guis!");
+		DynamicGUI.getInstance().getPlugin().getLogger().log(Level.INFO, "Force reloading guis!");
 		guis.clear();
 		loadGuis();
 	}
 	
-	public static ArrayList<GUI> getGuis()
+	public static List<GUI> getGuis()
 	{
 		return GuiApi.guis;
 	}
 	
 	
-	private static ArrayList<Slot> getSlots(int rows, DynamicGUI plugin, YamlConfiguration yaml)
+	private static List<Slot> getSlots(int rows, YamlConfiguration yaml)
 	{
 		ArrayList<Slot> slots = new ArrayList<Slot>();
 		for(int i = 0; i < rows * 9; i++)
@@ -214,7 +216,7 @@ public class GuiApi implements Listener {
 					{
 						String[] array = FunctionApi.parseData(string);
 						if(FunctionApi.getFunctionByName(array[0]) == null)
-							plugin.getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
 						Function func = new Function(array[0], array[1]);
 						loadFunctions.add(func);
@@ -231,7 +233,7 @@ public class GuiApi implements Listener {
 						{
 							String[] array = FunctionApi.parseData(string);
 							if(FunctionApi.getFunctionByName(array[0]) == null)
-								plugin.getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+								DynamicGUI.getInstance().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
 							Function func = new Function(array[0], array[1]);
 							failFuncs.add(func);

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+
 public class SoundWrapper implements Serializable {
 
 	/**
@@ -30,8 +32,8 @@ public class SoundWrapper implements Serializable {
 		this.pitch = pitch;
 	}
 	
-	public void playSoundToPlayer(Player player)
+	public void playSoundToPlayer(PlayerWrapper<?> player)
 	{
-		player.playSound(player.getLocation(), Sound.valueOf(this.sound), this.volume, this.pitch);
+		player.playSound(this.sound, this.volume, this.pitch);
 	}
 }

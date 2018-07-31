@@ -1,7 +1,5 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
@@ -19,7 +17,7 @@ public class SoundFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper player)
+	public boolean function(PlayerWrapper<?> player)
 	{
 		SoundWrapper wrapper = new SoundWrapper(this.getData());
 		wrapper.playSoundToPlayer(player);

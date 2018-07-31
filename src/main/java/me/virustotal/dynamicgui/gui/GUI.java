@@ -41,7 +41,7 @@ public class GUI implements Serializable {
 	private List<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
 	private List<Integer> npcIds;
 	
-	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close,ModeEnum modeEnum, List<Integer> npcIds, ArrayList<Slot> slots, ArrayList<CLocation> locs, ArrayList<SoundWrapper> openingSounds)
+	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close,ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<CLocation> locs, ArrayList<SoundWrapper> openingSounds)
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes('&', title);
@@ -115,7 +115,7 @@ public class GUI implements Serializable {
 							}
 							if(!run)
 							{
-								ArrayList<Function> failFunctions = slot.getFailLoadFunctions(func.getName());
+								List<Function> failFunctions = slot.getFailLoadFunctions(func.getName());
 								if(failFunctions != null)
 								{
 									for(Function fail : failFunctions)

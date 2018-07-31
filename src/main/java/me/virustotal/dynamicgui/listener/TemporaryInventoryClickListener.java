@@ -85,10 +85,10 @@ public class TemporaryInventoryClickListener implements Listener {
 		if(slot == null)
 			return;
 
-		ArrayList<Function> functions = slot.getFunctions();
-		ArrayList<Function> leftClickFunctions = slot.getLeftClickFunctions();
-		ArrayList<Function> rightClickFunctions = slot.getRightClickFunctions();
-		ArrayList<Function> middleClickFunctions = slot.getMiddleClickFunctions();
+		List<Function> functions = slot.getFunctions();
+		List<Function> leftClickFunctions = slot.getLeftClickFunctions();
+		List<Function> rightClickFunctions = slot.getRightClickFunctions();
+		List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
 		
 		if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
 			return;

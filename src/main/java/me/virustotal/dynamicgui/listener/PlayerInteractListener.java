@@ -1,6 +1,7 @@
 package me.virustotal.dynamicgui.listener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
@@ -16,7 +17,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.plugin.RegisteredListener;
 
 public class PlayerInteractListener implements Listener{
 
@@ -41,7 +41,7 @@ public class PlayerInteractListener implements Listener{
 					int z = block.getZ();
 					World world = block.getWorld();
 
-					ArrayList<Location> locs = new ArrayList<Location>();
+					List<Location> locs = new ArrayList<Location>();
 					for(CLocation cLocation : gui.getLocs())
 					{
 						locs.add(cLocation.toLocation());
