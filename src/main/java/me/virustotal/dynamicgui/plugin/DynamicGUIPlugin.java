@@ -11,7 +11,7 @@ public interface DynamicGUIPlugin<T,U> extends NPCRegistry<U> {
 	public void start();
 	public void stop();
 	public int getPlayerCount();
-	public Economy<T> getEconomy();
+	public Economy getEconomy();
 	public List<NPCRegistry<U>> getNPCRegistries();
 	public Logger getLogger();
 	

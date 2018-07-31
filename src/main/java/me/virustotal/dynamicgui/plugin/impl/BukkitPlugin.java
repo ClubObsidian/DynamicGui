@@ -22,7 +22,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukkit.entity.Entity> extends JavaPlugin implements DynamicGUIPlugin<T,U>, PluginMessageListener {
 
-	private Economy<T> economy;
+	private Economy economy;
 	private List<NPCRegistry<U>> npcRegistries;
 	
 	@Override
@@ -92,7 +92,7 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	}
 
 	@Override
-	public Economy<T> getEconomy() 
+	public Economy getEconomy() 
 	{
 		return this.economy;
 	}

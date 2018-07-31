@@ -44,13 +44,13 @@ public class PayFunction extends Function {
 		if(DynamicGUI.getInstance().getPlugin().getEconomy() == null)
 			return false;
 		
-		
-		if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player) < amt)
+		BigDecimal decimalAmt = new BigDecimal(amt);
+		if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player).compareTo(decimalAmt) == -1)
 		{
 			return false;
 		}
 
-		//DynamicGUI.getPlugin().getEconomy().withdrawPlayer(player.getName(), amt);
+		DynamicGUI.getInstance().getPlugin().getEconomy().withdraw(player, decimalAmt);
 		return true;
 	}
 }
