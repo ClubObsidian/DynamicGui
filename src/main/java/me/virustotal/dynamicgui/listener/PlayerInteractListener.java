@@ -8,26 +8,16 @@ import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.objects.CLocation;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
+public class PlayerInteractListener<T,U> implements Listener{
 
-public class PlayerInteractListener implements Listener{
-
-	private DynamicGUI plugin;
-	public PlayerInteractListener(DynamicGUI plugin)
+	private DynamicGUI<T,U> plugin;
+	public PlayerInteractListener(DynamicGUI<T,U> plugin)
 	{
 		this.plugin = plugin;
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void interact(PlayerInteractEvent e)
+	public void interact(final PlayerInteractEvent e)
 	{
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
 		{

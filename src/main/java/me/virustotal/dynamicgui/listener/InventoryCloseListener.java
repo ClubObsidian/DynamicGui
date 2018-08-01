@@ -19,7 +19,7 @@ public class InventoryCloseListener<T,U> implements Listener {
 	}
 
 	@EventHandler
-	public void inventoryClose(InventoryCloseEvent<T,U> e)
+	public void inventoryClose(final InventoryCloseEvent<T,U> e)
 	{
 		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
 		{
@@ -37,26 +37,12 @@ public class InventoryCloseListener<T,U> implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent<T> e)
 	{
-		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
-		{
-			GUI gui = this.plugin.playerGuis.get(e.getPlayerWrapper().getName());
-			if(gui != null)
-			{
-				this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
-			}
-		}
+		this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
 	}
 	
 	@EventHandler
 	public void onKick(PlayerKickEvent<T> e)
 	{
-		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
-		{
-			GUI gui = this.plugin.playerGuis.get(e.getPlayerWrapper().getName());
-			if(gui != null)
-			{
-				this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
-			}
-		}
+		this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
 	}
 }

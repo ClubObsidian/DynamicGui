@@ -21,8 +21,8 @@ import com.clubobsidian.trident.Listener;
 
 public class InventoryClickListener<T,U> implements Listener {
 
-	private DynamicGUIPlugin<T,?> plugin;
-	public InventoryClickListener(DynamicGUIPlugin<T,?> plugin)
+	private DynamicGUI<T,U> plugin;
+	public InventoryClickListener(DynamicGUI<T,U> plugin)
 	{
 		this.plugin = plugin;
 	}

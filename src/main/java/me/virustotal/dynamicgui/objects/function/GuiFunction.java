@@ -30,7 +30,7 @@ public class GuiFunction extends Function {
 		final String finalData = this.getData();
 
 		
-		if(player.getOpenInventoryWrapper().getInventory() != null)
+		if(player.getOpenInventoryWrapper() != null)
 			player.closeInventory();
 		
 		Bukkit.getScheduler().scheduleSyncDelayedTask(DynamicGUI.getPlugin(), new Runnable()

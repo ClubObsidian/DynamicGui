@@ -9,19 +9,17 @@ import java.util.logging.Level;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
+import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.util.ChatColor;
+import me.virustotal.dynamicgui.util.inventory.InventoryUtil;
 
 import org.apache.commons.lang3.SerializationUtils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class GUI implements Serializable {
 
@@ -65,8 +63,9 @@ public class GUI implements Serializable {
 
 	public void buildInventory(PlayerWrapper<?> player)
 	{	
-		Inventory inv = Bukkit.createInventory(null, this.rows * 9, this.title);
-		player.openInventory(new BukkitInventoryWrapper<Inventory>(inv));
+		Object serverInventory = InventoryUtil.createInventory(this.rows * 9, this.title);
+		InventoryWrapper<?> inv = InventoryUtil.createInventoryWrapper(serverInventory);
+		player.openInventory(inv);
 		
 		for(int j = 0; j < this.slots.size(); j++)
 		{

@@ -1,5 +1,7 @@
 package me.virustotal.dynamicgui.plugin.impl;
 
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
@@ -9,7 +11,7 @@ import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.server.ServerType;
 
 @Plugin(id = "dynamicgui", name = "DynamicGUI", version = "1.0")
-public class SpongePlugin implements DynamicGUIPlugin {
+public class SpongePlugin<T extends Player, U extends Entity> implements DynamicGUIPlugin<T,U> {
 
 	public final static String PLUGIN_ID = "dynamicgui";
 

@@ -3,31 +3,29 @@ package me.virustotal.dynamicgui.listener;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.trident.Listener;
+
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
+import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
+public class TemporaryInventoryClickListener<T,U> implements Listener {
 
-public class TemporaryInventoryClickListener implements Listener {
-
-	private DynamicGUI plugin;
+	private DynamicGUI<T,U> plugin;
 	private static String tag = "DynamicGuiSlot";
-	public TemporaryInventoryClickListener(DynamicGUI plugin)
+	public TemporaryInventoryClickListener(DynamicGUI<T,U> plugin)
 	{
 		this.plugin = plugin;
 	}
 
 	@EventHandler
-	public void invClick(final InventoryClickEvent e)
+	public void invClick(final InventoryClickEvent<T,U> e)
 	{
 		if(e.isCancelled())
 			return;

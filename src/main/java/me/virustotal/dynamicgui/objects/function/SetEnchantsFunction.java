@@ -13,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
+import me.virustotal.dynamicgui.inventory.InventoryWrapper;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 
@@ -36,13 +38,13 @@ public class SetEnchantsFunction extends Function {
 		{
 			if(player.getOpenInventoryWrapper() != null)
 			{
-				InventoryView inv = player.getOpenInventoryWrapper();
+				InventoryWrapper<?> inv = player.getOpenInventoryWrapper();
 				if(inv != null)
 				{
-					for(int i = 0; i < inv.countSlots(); i++)
+					for(int i = 0; i < inv.getSize(); i++)
 					{
-						ItemStack item = inv.getItem(i);
-						if(item != null && item.getType() != Material.AIR)
+						ItemStackWrapper<?> item = inv.getItem(i);
+						if(item.getItemStack() != null)
 						{
 							try
 							{

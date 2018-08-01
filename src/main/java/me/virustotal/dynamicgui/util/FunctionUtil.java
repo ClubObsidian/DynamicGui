@@ -2,7 +2,6 @@ package me.virustotal.dynamicgui.util;
 
 import java.util.List;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
 import me.virustotal.dynamicgui.api.FunctionApi;
@@ -127,69 +126,3 @@ public class FunctionUtil {
 		}
 	}
 }
-
-
-/*
-for(int i = startingIndex; i < functions.size(); i++)
-		{
-			Function func = functions.get(i);
-			//System.out.println(func.getName() + ": " + func.getData());
-			Function myFunc = null;
-			try 
-			{
-				if(FunctionApi.getFunctionByName(func.getName()) == null)
-				{
-					System.out.println("Cannot find " + func.getName() + " continuing!");
-					continue;
-				}
-
-				myFunc = FunctionApi.getFunctionByName(func.getName()).clone();
-				myFunc.setData(func.getData());
-				myFunc.setOwner(slot);
-				myFunc.setIndex(i);
-			} 
-			catch (IllegalArgumentException | SecurityException ex) 
-			{
-				ex.printStackTrace();
-			}
-			boolean result = myFunc.function(player);
-			if(!result)
-			{	
-				ArrayList<Function> failFunctions = slot.getFailFunctions(myFunc.getName());
-				if(failFunctions != null)
-				{
-					for(int j = 0; j < failFunctions.size(); j++)
-					{
-						Function fail = failFunctions.get(j);
-						if(FunctionApi.getFunctionByName(fail.getName()) == null)
-							continue;
-						try 
-						{
-							Function failFunction = FunctionApi.getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
-	
-							failFunction.setData(fail.getData());
-							failFunction.setOwner(slot);
-							failFunction.setIndex(i);
-							boolean failResult = failFunction.function(player);
-							if(!failResult)
-							{
-								break;
-							}
-						} 
-						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) 
-						{
-							e1.printStackTrace();
-							break;
-						}
-
-					}
-				}
-				return;
-			}
-		}
-
-
-
-
-
-*/

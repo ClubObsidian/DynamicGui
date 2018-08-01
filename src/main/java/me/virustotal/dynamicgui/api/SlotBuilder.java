@@ -25,19 +25,19 @@ public class SlotBuilder {
 	private int index;
 	
 	private List<Function> functions = new ArrayList<Function>();
-	private Map<String, ArrayList<Function>> failFunctions = new HashMap<String, ArrayList<Function>>();
+	private Map<String, List<Function>> failFunctions = new HashMap<String, List<Function>>();
 	
 	private List<Function> leftClickFunctions = new ArrayList<Function>();
-	private Map<String, ArrayList<Function>> leftClickFailFunctions = new HashMap<String, ArrayList<Function>>();
+	private Map<String, List<Function>> leftClickFailFunctions = new HashMap<String, List<Function>>();
 	
 	private List<Function> rightClickFunctions = new ArrayList<Function>();
-	private HashMap<String, ArrayList<Function>> rightClickFailFunctions = new HashMap<String, ArrayList<Function>>();
+	private Map<String, List<Function>> rightClickFailFunctions = new HashMap<String, List<Function>>();
 	
 	private List<Function> middleClickFunctions = new ArrayList<Function>();
-	private Map<String, ArrayList<Function>> middleClickFailFunctions = new HashMap<String, ArrayList<Function>>();
+	private Map<String, List<Function>> middleClickFailFunctions = new HashMap<String, List<Function>>();
 	
-	private ArrayList<Function> loadFunctions = new ArrayList<Function>();
-	private Map<String, ArrayList<Function>> failLoadFunctions = new HashMap<String, ArrayList<Function>>();
+	private List<Function> loadFunctions = new ArrayList<Function>();
+	private Map<String, List<Function>> failLoadFunctions = new HashMap<String, List<Function>>();
 	private int amount;
 	
 	public SlotBuilder setIcon(Material icon)

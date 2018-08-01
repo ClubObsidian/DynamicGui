@@ -8,6 +8,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7902733103453967016L;
+	
 	private T itemStack;
 	public ItemStackWrapper(T itemStack)
 	{

@@ -13,6 +13,11 @@ import me.virustotal.dynamicgui.inventory.item.impl.SpongeItemStackWrapper;
 
 public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrapper<T>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4524275635001827647L;
+
 	public SpongeInventoryWrapper(T inventory) 
 	{
 		super(inventory);
@@ -36,6 +41,12 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
 
+	@Override
+	public void addItem(ItemStackWrapper<?> itemStackWrapper) 
+	{
+		this.getInventory().offer((ItemStack) itemStackWrapper.getItemStack());
+	}
+	
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{

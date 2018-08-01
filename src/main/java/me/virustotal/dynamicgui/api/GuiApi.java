@@ -14,6 +14,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.CLocation;
+import me.virustotal.dynamicgui.objects.EmptyFunction;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.MyEnchantment;
@@ -111,15 +112,15 @@ public class GuiApi implements Listener {
 		GuiApi.temporaryGuiMap.put(player.getUniqueId(), gui);
 	}
 	
-	public static void openTemporaryGui(GUI gui, UUID player)
+	public static void openTemporaryGui(GUI gui, UUID uuid)
 	{
-		GuiApi.openTemporaryGui(gui, Bukkit.getServer().getPlayer(player));
+		GuiApi.openTemporaryGui(gui, DynamicGUI.getInstance().getServer().getPlayer(uuid));
 	}
 	
 	public static void loadGuis()
 	{
 		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.getInstance().getPlugin();
-		File guiFolder = plugin.guiFolder;
+		File guiFolder = plugin.getGuiFolder();
 		//File[] ar = guiFolder.listFiles();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml"}, true);
@@ -209,7 +210,7 @@ public class GuiApi implements Listener {
 				
 			
 				
-				ArrayList<Function> loadFunctions = new ArrayList<Function>();
+				List<Function> loadFunctions = new ArrayList<Function>();
 				if(section.get("loadfunctions") != null)
 				{
 					for(String string : section.getStringList("loadfunctions"))
@@ -218,12 +219,12 @@ public class GuiApi implements Listener {
 						if(FunctionApi.getFunctionByName(array[0]) == null)
 							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
-						Function func = new Function(array[0], array[1]);
+						Function func = new EmptyFunction(array[0], array[1]);
 						loadFunctions.add(func);
 					}
 				}
 				
-				HashMap<String, ArrayList<Function>> failLoadFunctions = new HashMap<String, ArrayList<Function>>();
+				Map<String, List<Function>> failLoadFunctions = new HashMap<String, List<Function>>();
 				for(String key : section.getKeys(false))
 				{
 					if(key.endsWith("-failloadfunctions"))
@@ -233,9 +234,9 @@ public class GuiApi implements Listener {
 						{
 							String[] array = FunctionApi.parseData(string);
 							if(FunctionApi.getFunctionByName(array[0]) == null)
-								DynamicGUI.getInstance().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+								DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
-							Function func = new Function(array[0], array[1]);
+							Function func = new EmptyFunction(array[0], array[1]);
 							failFuncs.add(func);
 						}
 						String[] split = key.split("-");
@@ -310,7 +311,7 @@ public class GuiApi implements Listener {
 		return slots;
 	}
 	
-	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUI plugin, final String guiName,final  String guiTitle,final int rows, final  ArrayList<Slot> slots)
+	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin plugin, final String guiName,final  String guiTitle,final int rows, final  ArrayList<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -386,9 +387,9 @@ public class GuiApi implements Listener {
 			{
 				String[] array = FunctionApi.parseData(string);
 				if(FunctionApi.getFunctionByName(array[0]) == null)
-					DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 
-				Function func = new Function(array[0], array[1]);
+				Function func = new EmptyFunction(array[0], array[1]);
 				functions.add(func);
 
 			}
@@ -408,7 +409,7 @@ public class GuiApi implements Listener {
 				{
 					String[] array = FunctionApi.parseData(string);
 					if(FunctionApi.getFunctionByName(array[0]) == null)
-						DynamicGUI.getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+						DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
 					Function func = new Function(array[0], array[1]);
 					failFuncs.add(func);

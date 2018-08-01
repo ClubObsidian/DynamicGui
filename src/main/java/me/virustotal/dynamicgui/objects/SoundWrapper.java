@@ -2,9 +2,6 @@ package me.virustotal.dynamicgui.objects;
 
 import java.io.Serializable;
 
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 
 public class SoundWrapper implements Serializable {
@@ -25,7 +22,7 @@ public class SoundWrapper implements Serializable {
 		this.pitch = Float.parseFloat(args[2]);
 	}
 	
-	public SoundWrapper(Sound sound, Float volume, Float pitch)
+	public SoundWrapper(String sound, Float volume, Float pitch)
 	{
 		this.sound = sound.toString();
 		this.volume = volume;
