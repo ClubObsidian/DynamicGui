@@ -6,7 +6,7 @@ import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
-import me.virustotal.dynamicgui.util.server.ServerType;
+import me.virustotal.dynamicgui.server.ServerType;
 
 @Plugin(id = "dynamicgui", name = "DynamicGUI", version = "1.0")
 public class SpongePlugin implements DynamicGUIPlugin {

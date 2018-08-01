@@ -37,10 +37,10 @@ public class SetDataFunction extends Function {
 				InventoryWrapper<?> inv = player.getOpenInventoryWrapper();
 				if(inv != null)
 				{
-					for(int i = 0; i < inv.countSlots(); i++)
+					for(int i = 0; i < inv.getSize(); i++)
 					{
 						ItemStackWrapper<?> item = inv.getItem(i);
-						if(item.getItemStack() != null && item.getType() != Material.AIR)
+						if(item.getItemStack() != null)
 						{
 							try
 							{

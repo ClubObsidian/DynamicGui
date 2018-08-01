@@ -35,4 +35,23 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 		}
 		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
+
+	@Override
+	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
+	{
+		Optional<SlotIndex> slotIndex = this.getInventory().getProperty(SlotIndex.class, index);
+		if(slotIndex.isPresent())
+		{
+			this.getInventory()
+			.query(QueryOperationTypes.INVENTORY_PROPERTY.of(slotIndex.get()))
+			.set((ItemStack) itemStackWrapper.getItemStack());
+		}
+		
+	}
+	
+	@Override
+	public int getSize() 
+	{
+		return this.getInventory().capacity();
+	}
 }

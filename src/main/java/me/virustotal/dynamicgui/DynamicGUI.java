@@ -66,6 +66,7 @@ import me.virustotal.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
 import me.virustotal.dynamicgui.objects.replacers.UUIDReplacer;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.server.FakeServer;
 
 public class DynamicGUI<T,U>  {
 
@@ -75,11 +76,13 @@ public class DynamicGUI<T,U>  {
 	
 	private DynamicGUIPlugin<T,U> plugin;
 	private EventManager eventManager;
+	private FakeServer server;
 	
-	public DynamicGUI(DynamicGUIPlugin<T,U> plugin)
+	public DynamicGUI(DynamicGUIPlugin<T,U> plugin, FakeServer server)
 	{
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
+		this.server = server;
 		this.registerListeners();
 	}
 	
@@ -536,6 +539,11 @@ public class DynamicGUI<T,U>  {
 	public EventManager getEventManager()
 	{
 		return this.eventManager;
+	}
+	
+	public FakeServer getServer()
+	{
+		return this.server;
 	}
 	
 	public static void setInstance(DynamicGUI<?,?> instance)

@@ -10,4 +10,10 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	{
 		super(itemStack);
 	}
+
+	@Override
+	public String getType() 
+	{
+		return this.getItemStack().getType().toString();
+	}
 }

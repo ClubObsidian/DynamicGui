@@ -7,8 +7,8 @@ import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.plugin.impl.BukkitPlugin;
-import me.virustotal.dynamicgui.util.server.ServerType;
-import me.virustotal.dynamicgui.util.server.ServerUtil;
+import me.virustotal.dynamicgui.server.ServerType;
+import me.virustotal.dynamicgui.server.ServerUtil;
 
 public class PayFunction extends Function {
 

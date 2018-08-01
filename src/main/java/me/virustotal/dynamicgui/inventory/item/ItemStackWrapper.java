@@ -13,4 +13,7 @@ public abstract class ItemStackWrapper<T> {
 		return this.itemStack;
 	}
 
+	public abstract String getType();
+	
+	
 }

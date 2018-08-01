@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.util.server;
+package me.virustotal.dynamicgui.server;
 
 public enum ServerType {
 

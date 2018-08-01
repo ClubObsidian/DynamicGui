@@ -41,6 +41,27 @@ public class VaultEconomy implements Economy {
 		return economy != null;
 	}
 
+	@Override
+	public BigDecimal getBalance(PlayerWrapper<?> playerWrapper) 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 

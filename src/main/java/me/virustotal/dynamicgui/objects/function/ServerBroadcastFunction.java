@@ -1,5 +1,8 @@
 package me.virustotal.dynamicgui.objects.function;
 
+import org.spongepowered.api.Sponge;
+
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
@@ -26,7 +29,7 @@ public class ServerBroadcastFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> player)
 	{
-		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), player)));
+		DynamicGUI.getInstance().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), player)));
 		return true;
 	}
 }

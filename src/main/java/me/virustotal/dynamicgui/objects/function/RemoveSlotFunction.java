@@ -10,8 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
+import me.virustotal.dynamicgui.inventory.InventoryWrapper;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.util.item.ItemStackUtil;
 
 public class RemoveSlotFunction extends Function {
 
@@ -34,13 +37,13 @@ public class RemoveSlotFunction extends Function {
 			{
 				if(playerWrapper.getOpenInventoryWrapper().getInventory() != null)
 				{
-					InventoryView inv = player.getOpenInventoryWrapper();
+					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
 					if(inv != null)
 					{
-						for(int i = 0; i < inv.countSlots(); i++)
+						for(int i = 0; i < inv.getSize(); i++)
 						{
-							ItemStack item = inv.getItem(i);
-							if(item != null)
+							ItemStackWrapper<?> item = inv.getItem(i);
+							if(item.getItemStack() != null)
 							{
 								try
 								{
@@ -50,7 +53,7 @@ public class RemoveSlotFunction extends Function {
 										UUID uuid = UUID.fromString(nbtItem.getString(DynamicGUI.TAG));
 										if(slot.getUUID().equals(uuid))
 										{
-											inv.setItem(i, new ItemStack(Material.AIR));
+											inv.setItem(i, ItemStackUtil.createItemStackWrapper("AIR", 1));
 											break;
 										}
 									}

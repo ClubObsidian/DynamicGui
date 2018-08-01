@@ -11,6 +11,9 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		super(itemStack);
 	}
 
-	
-
+	@Override
+	public String getType() 
+	{
+		return this.getItemStack().getType().getId(); //TODO - Translate to enum like in bukkit
+	}
 }

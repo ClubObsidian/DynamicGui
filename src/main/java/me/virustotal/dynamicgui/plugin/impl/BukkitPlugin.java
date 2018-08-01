@@ -12,7 +12,8 @@ import me.virustotal.dynamicgui.listener.bukkit.EntityClickListener;
 import me.virustotal.dynamicgui.npc.NPC;
 import me.virustotal.dynamicgui.npc.NPCRegistry;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
-import me.virustotal.dynamicgui.util.server.ServerType;
+import me.virustotal.dynamicgui.server.ServerType;
+import me.virustotal.dynamicgui.server.impl.FakeBukkitServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -35,8 +36,8 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	public void start() 
 	{
 		ServerType.setServerType(ServerType.SPIGOT);
-		DynamicGUI.setInstance(new DynamicGUI<T,U>(this));
-		this.economy = new VaultEconomy<T>();
+		DynamicGUI.setInstance(new DynamicGUI<T,U>(this, new FakeBukkitServer()));
+		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{
 			this.economy = null;
