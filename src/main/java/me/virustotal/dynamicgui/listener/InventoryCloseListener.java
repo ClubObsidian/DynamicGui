@@ -1,60 +1,61 @@
 package me.virustotal.dynamicgui.listener;
 
+import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.trident.Listener;
+
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.event.inventory.InventoryCloseEvent;
+import me.virustotal.dynamicgui.event.player.PlayerKickEvent;
+import me.virustotal.dynamicgui.event.player.PlayerQuitEvent;
 import me.virustotal.dynamicgui.gui.GUI;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
-public class InventoryCloseListener implements Listener {
+public class InventoryCloseListener<T,U> implements Listener {
 	
-	private DynamicGUI plugin;
-	public InventoryCloseListener(DynamicGUI plugin)
+	private DynamicGUI<T,U> plugin;
+	public InventoryCloseListener(DynamicGUI<T,U> plugin)
 	{
 		this.plugin = plugin;
 	}
 
 	@EventHandler
-	public void inventoryClose(InventoryCloseEvent e)
+	public void inventoryClose(InventoryCloseEvent<T,U> e)
 	{
-		if(this.plugin.playerGuis.keySet().contains(e.getPlayer().getName()))
+		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
 		{
-			GUI gui = this.plugin.playerGuis.get(e.getPlayer().getName());
+			GUI gui = this.plugin.playerGuis.get(e.getPlayerWrapper().getName());
 			if(gui != null)
 			{
-				if(gui.getTitle().equals(e.getInventory().getTitle()))
+				if(gui.getTitle().equals(e.getInventoryWrapper().getTitle()))
 				{
-					this.plugin.playerGuis.remove(e.getPlayer().getName());
+					this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
 				}
 			}
 		}
 	}
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent e)
+	public void onQuit(PlayerQuitEvent<T> e)
 	{
-		if(this.plugin.playerGuis.keySet().contains(e.getPlayer().getName()))
+		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
 		{
-			GUI gui = this.plugin.playerGuis.get(e.getPlayer().getName());
+			GUI gui = this.plugin.playerGuis.get(e.getPlayerWrapper().getName());
 			if(gui != null)
 			{
-				this.plugin.playerGuis.remove(e.getPlayer().getName());
+				this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
 			}
 		}
 	}
 	
 	@EventHandler
-	public void onKick(PlayerKickEvent e)
+	public void onKick(PlayerKickEvent<T> e)
 	{
-		if(this.plugin.playerGuis.keySet().contains(e.getPlayer().getName()))
+		if(this.plugin.playerGuis.keySet().contains(e.getPlayerWrapper().getName()))
 		{
-			GUI gui = this.plugin.playerGuis.get(e.getPlayer().getName());
+			GUI gui = this.plugin.playerGuis.get(e.getPlayerWrapper().getName());
 			if(gui != null)
 			{
-				this.plugin.playerGuis.remove(e.getPlayer().getName());
+				this.plugin.playerGuis.remove(e.getPlayerWrapper().getName());
 			}
 		}
 	}
