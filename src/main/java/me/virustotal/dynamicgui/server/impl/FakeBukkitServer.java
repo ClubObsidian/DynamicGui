@@ -7,9 +7,15 @@ import org.bukkit.entity.Player;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.impl.BukkitPlayerWrapper;
+import me.virustotal.dynamicgui.scheduler.impl.BukkitScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
 
 public class FakeBukkitServer extends FakeServer {
+
+	public FakeBukkitServer() 
+	{
+		super(new BukkitScheduler());
+	}
 
 	@Override
 	public void broadcastMessage(String message) 

@@ -8,9 +8,15 @@ import org.spongepowered.api.text.Text;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.impl.SpongePlayerWrapper;
+import me.virustotal.dynamicgui.scheduler.impl.SpongeScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
 
 public class FakeSpongeServer extends FakeServer {
+
+	public FakeSpongeServer() 
+	{
+		super(new SpongeScheduler());
+	}
 
 	@Override
 	public void broadcastMessage(String message) 

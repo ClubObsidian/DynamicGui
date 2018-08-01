@@ -371,7 +371,7 @@ public class GuiApi implements Listener {
 			for(String str : yaml.getStringList("opening-sounds"))
 			{
 				String[] args = str.split(",");
-				openingSounds.add(new SoundWrapper(Sound.valueOf(args[0]), Float.parseFloat(args[1]), Float.parseFloat(args[2])));
+				openingSounds.add(new SoundWrapper(args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2])));
 			}
 		}
 		
@@ -397,7 +397,7 @@ public class GuiApi implements Listener {
 		return functions;
 	}
 	
-	private static HashMap<String,ArrayList<Function>> getFailFunctions(ConfigurationSection section, String end)
+	private static Map<String,ArrayList<Function>> getFailFunctions(ConfigurationSection section, String end)
 	{
 		HashMap<String, ArrayList<Function>> failFunctions = new HashMap<String, ArrayList<Function>>(); //check ends with
 		for(String key : section.getKeys(false))
@@ -411,7 +411,7 @@ public class GuiApi implements Listener {
 					if(FunctionApi.getFunctionByName(array[0]) == null)
 						DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
-					Function func = new Function(array[0], array[1]);
+					Function func = new EmptyFunction(array[0], array[1]);
 					failFuncs.add(func);
 				}
 				String[] split = key.split("-");

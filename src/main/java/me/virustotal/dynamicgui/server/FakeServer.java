@@ -3,9 +3,21 @@ package me.virustotal.dynamicgui.server;
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.scheduler.Scheduler;
 
 public abstract class FakeServer {
 
+	private Scheduler scheduler;
+	public FakeServer(Scheduler scheduler)
+	{
+		this.scheduler = scheduler;
+	}
+	
+	public Scheduler getScheduler()
+	{
+		return this.scheduler;
+	}
+	
 	public abstract void broadcastMessage(String message);
 	public abstract PlayerWrapper<?> getPlayer(UUID uuid);
 	public abstract PlayerWrapper<?> getPlayer(String name);
