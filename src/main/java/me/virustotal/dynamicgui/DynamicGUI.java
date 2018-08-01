@@ -417,54 +417,6 @@ public class DynamicGUI<T,U>  {
 		//FunctionApi.addFunction(new CustomTextFunction("customtext"));
 	}
 
-	private void saveFile(String resourcePath, File outFile, boolean replace) 
-	{
-		if (resourcePath == null || resourcePath.equals(""))
-		{
-			throw new IllegalArgumentException("Path cannot be null or empty");
-		}
-
-		resourcePath = resourcePath.replace('\\', '/');
-		InputStream in = this.getResource(resourcePath);
-		if (in == null) 
-		{
-			throw new IllegalArgumentException("The resource '" + resourcePath + "' cannot be found.");
-		}
-
-		int lastIndex = resourcePath.lastIndexOf('/');
-		File outDir = new File(this.getDataFolder(), resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
-
-		if (!outDir.exists() && !outDir.mkdirs()) 
-		{
-			return;
-		}
-
-		try 
-		{
-			if (!outFile.exists() || replace) 
-			{
-				OutputStream out = new FileOutputStream(outFile);
-				byte[] buf = new byte[1024];
-				int len;
-				while ((len = in.read(buf)) > 0) 
-				{
-					out.write(buf, 0, len);
-				}
-				out.close();
-				in.close();
-			} 
-			else 
-			{
-				this.getLogger().log(Level.WARNING, "Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
-			}
-
-		}
-		catch (IOException ex) 
-		{
-			this.getLogger().log(Level.SEVERE, "Could not save " + outFile.getName() + " to " + outFile, ex);
-		}
-	}
-
 	public String getNoPermissionFunction()
 	{
 		return this.noPermissionFunction;
@@ -539,16 +491,16 @@ public class DynamicGUI<T,U>  {
 		return this.server;
 	}
 	
+	public static DynamicGUI<?,?> getInstance() 
+	{
+		return instance;
+	}
+	
 	public static void setInstance(DynamicGUI<?,?> instance)
 	{
 		if(DynamicGUI.instance == null)
 		{
 			DynamicGUI.instance = instance;
 		}
-	}
-	
-	public static DynamicGUI<?,?> getInstance() 
-	{
-		return instance;
 	}
 }

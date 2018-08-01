@@ -72,13 +72,6 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 		
 		
 	}
-	
-	@Override
-	public int getPlayerCount() 
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] message) 
@@ -146,8 +139,8 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	}
 
 	@Override
-	public File getGuiFolder() {
-		// TODO Auto-generated method stub
-		return null;
+	public File getGuiFolder() 
+	{
+		return this.guiFolder;
 	}
 }
