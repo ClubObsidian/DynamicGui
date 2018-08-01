@@ -84,11 +84,13 @@ public class DynamicGUI<T,U>  {
 		this.eventManager = new JavaAssistEventManager();
 		this.server = server;
 		this.registerListeners();
+		this.loadFunctions();
 	}
 	
 	private void registerListeners() 
 	{
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener<T,U>(this.getPlugin()));
+		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryCloseListener<T,U>(this));
 		
 	}
 
@@ -121,15 +123,7 @@ public class DynamicGUI<T,U>  {
 	@Override
 	public void onEnable()
 	{
-		plugin = this;
-		this.configFile = new File(this.getDataFolder().getPath(), "config.yml");
-		this.guiFolder = new File(this.getDataFolder().getPath(), "guis");
-
-		if(!this.configFile.exists())
-			this.saveDefaultConfig();
-		else
-			this.reloadConfig();
-
+		
 		if(!this.guiFolder.exists())
 		{
 			this.guiFolder.mkdir();
@@ -412,7 +406,6 @@ public class DynamicGUI<T,U>  {
 		FunctionApi.addFunction(new ServerBroadcastFunction("broadcast"));
 		FunctionApi.addFunction(new ParticleFunction("particles"));
 		FunctionApi.addFunction(new SoundFunction("sound"));
-		FunctionApi.addFunction(new ReflectionStaticFunction("reflection-static"));
 		FunctionApi.addFunction(new SetNameFunction("setname"));
 		FunctionApi.addFunction(new SetLoreFunction("setlore"));
 		FunctionApi.addFunction(new SetTypeFunction("settype"));

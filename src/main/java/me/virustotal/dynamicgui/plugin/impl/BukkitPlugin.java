@@ -3,6 +3,7 @@ package me.virustotal.dynamicgui.plugin.impl;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
+import java.io.File;
 import java.util.List;
 
 import me.virustotal.dynamicgui.DynamicGUI;
@@ -23,6 +24,8 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukkit.entity.Entity> extends JavaPlugin implements DynamicGUIPlugin<T,U>, PluginMessageListener {
 
+	private File configFile;
+	private File guiFolder;
 	private Economy economy;
 	private List<NPCRegistry<U>> npcRegistries;
 	
@@ -35,8 +38,19 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	@Override
 	public void start() 
 	{
+		this.configFile = new File(this.getDataFolder().getPath(), "config.yml");
+		this.guiFolder = new File(this.getDataFolder().getPath(), "guis");
+
+		if(!this.configFile.exists())
+			this.saveDefaultConfig();
+		else
+			this.reloadConfig();
+
 		ServerType.setServerType(ServerType.SPIGOT);
-		DynamicGUI.setInstance(new DynamicGUI<T,U>(this, new FakeBukkitServer()));
+		if(DynamicGUI.getInstance() == null)
+		{
+			DynamicGUI.setInstance(new DynamicGUI<T,U>(this, new FakeBukkitServer()));
+		}
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{
@@ -128,6 +142,12 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 				return npc;
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public File getGuiFolder() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
