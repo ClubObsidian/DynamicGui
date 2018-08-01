@@ -1,7 +1,13 @@
 package me.virustotal.dynamicgui.inventory.item;
 
-public abstract class ItemStackWrapper<T> {
+import java.io.Serializable;
 
+public abstract class ItemStackWrapper<T> implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7902733103453967016L;
 	private T itemStack;
 	public ItemStackWrapper(T itemStack)
 	{
@@ -14,6 +20,4 @@ public abstract class ItemStackWrapper<T> {
 	}
 
 	public abstract String getType();
-	
-	
 }

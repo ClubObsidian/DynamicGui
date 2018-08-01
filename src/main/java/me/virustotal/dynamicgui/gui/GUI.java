@@ -10,6 +10,7 @@ import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
@@ -78,7 +79,7 @@ public class GUI implements Serializable {
 					if(player.hasPermission(slot.getPermission()))
 					{
 						boolean run = true;
-						ItemStack item = slot.buildItemStack(player);
+						ItemStackWrapper<?> item = slot.buildItemStack(player);
 						if(this.modeEnum == ModeEnum.ADD)
 						{
 							inv.addItem(item);
@@ -148,7 +149,7 @@ public class GUI implements Serializable {
 				else
 				{
 					boolean run = true;
-					ItemStack item = slot.buildItemStack(player);
+					ItemStackWrapper<?> item = slot.buildItemStack(player);
 					if(this.modeEnum == ModeEnum.ADD)
 					{
 						inv.addItem(item);

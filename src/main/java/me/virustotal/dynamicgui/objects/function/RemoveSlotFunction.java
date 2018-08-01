@@ -14,7 +14,7 @@ import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.util.item.ItemStackUtil;
+import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
 
 public class RemoveSlotFunction extends Function {
 

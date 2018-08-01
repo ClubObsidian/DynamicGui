@@ -15,6 +15,7 @@ import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.MyEnchantment;
+import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -221,7 +222,7 @@ public class Slot implements Serializable {
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
-		ItemStack item = new ItemStack(Material.matchMaterial(this.icon), this.getAmount());
+		ItemStackWrapper<?> item = ItemStackUtil.createItemStackWrapper(this.icon, this.getAmount());
 		try 
 		{
 			/*if(this.nbt != null && !this.nbt.equals(""))

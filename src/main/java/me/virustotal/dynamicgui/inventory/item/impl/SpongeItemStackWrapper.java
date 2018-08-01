@@ -6,6 +6,11 @@ import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4740479272146276094L;
+
 	public SpongeItemStackWrapper(T itemStack) 
 	{
 		super(itemStack);

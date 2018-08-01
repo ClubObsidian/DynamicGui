@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.util.item;
+package me.virustotal.dynamicgui.util.inventory.item;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
