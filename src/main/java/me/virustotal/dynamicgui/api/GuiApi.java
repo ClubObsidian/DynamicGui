@@ -138,7 +138,7 @@ public class GuiApi implements Listener {
 
 						String guiTitle = yaml.getString("gui-title");
 						int rows = yaml.getInt("rows");
-						ArrayList<Slot> slots = GuiApi.getSlots(rows, plugin, yaml);
+						List<Slot> slots = GuiApi.getSlots(rows, plugin, yaml);
 						//System.out.println("slot size: " + slots.size());
 						
 						final GUI gui = new GUI(GuiApi.getGui(yaml, plugin, guiName, guiTitle, rows, slots));
@@ -196,16 +196,16 @@ public class GuiApi implements Listener {
 				if(section.get("nbt") != null)
 					nbt = section.getString("nbt");
 				
-				ArrayList<Function> functions = GuiApi.getFunctions(section, "functions");
-				ArrayList<Function> leftClickFunctions = GuiApi.getFunctions(section, "leftclick-functions");
-				ArrayList<Function> rightClickFunctions = GuiApi.getFunctions(section, "rightclick-functions");
-				ArrayList<Function> middleClickFunctions = GuiApi.getFunctions(section, "middleclick-functions");
+				List<Function> functions = GuiApi.getFunctions(section, "functions");
+				List<Function> leftClickFunctions = GuiApi.getFunctions(section, "leftclick-functions");
+				List<Function> rightClickFunctions = GuiApi.getFunctions(section, "rightclick-functions");
+				List<Function> middleClickFunctions = GuiApi.getFunctions(section, "middleclick-functions");
 				
 				
-				HashMap<String,ArrayList<Function>> failFunctions = GuiApi.getFailFunctions(section, "-failfunctions");
-				HashMap<String,ArrayList<Function>> leftClickFailFunctions = GuiApi.getFailFunctions(section, "-leftclickfailfunctions");
-				HashMap<String,ArrayList<Function>> rightClickFailFunctions = GuiApi.getFailFunctions(section, "-rightclickfailfunctions");
-				HashMap<String,ArrayList<Function>> middleClickFailFunctions = GuiApi.getFailFunctions(section, "-middleclickfailfunctions");
+				Map<String,List<Function>> failFunctions = GuiApi.getFailFunctions(section, "-failfunctions");
+				Map<String,List<Function>> leftClickFailFunctions = GuiApi.getFailFunctions(section, "-leftclickfailfunctions");
+				Map<String,List<Function>> rightClickFailFunctions = GuiApi.getFailFunctions(section, "-rightclickfailfunctions");
+				Map<String,List<Function>> middleClickFailFunctions = GuiApi.getFailFunctions(section, "-middleclickfailfunctions");
 				//fail functions
 				
 			
@@ -311,7 +311,7 @@ public class GuiApi implements Listener {
 		return slots;
 	}
 	
-	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin plugin, final String guiName,final  String guiTitle,final int rows, final  ArrayList<Slot> slots)
+	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final  ArrayList<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -397,14 +397,14 @@ public class GuiApi implements Listener {
 		return functions;
 	}
 	
-	private static Map<String,ArrayList<Function>> getFailFunctions(ConfigurationSection section, String end)
+	private static Map<String,List<Function>> getFailFunctions(ConfigurationSection section, String end)
 	{
-		HashMap<String, ArrayList<Function>> failFunctions = new HashMap<String, ArrayList<Function>>(); //check ends with
+		Map<String, List<Function>> failFunctions = new HashMap<String, List<Function>>(); //check ends with
 		for(String key : section.getKeys(false))
 		{
 			if(key.endsWith(end))
 			{
-				ArrayList<Function> failFuncs = new ArrayList<Function>();
+				List<Function> failFuncs = new ArrayList<Function>();
 				for(String string : section.getStringList(key))
 				{
 					String[] array = FunctionApi.parseData(string);

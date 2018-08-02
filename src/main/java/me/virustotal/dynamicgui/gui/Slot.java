@@ -55,7 +55,7 @@ public class Slot implements Serializable {
 	private Boolean close;
 	private int amount;
 	private UUID uuid;
-	private ItemStack itemStack;
+	private ItemStackWrapper<?> itemStack;
 	private GUI owner;
 
 	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
@@ -104,7 +104,7 @@ public class Slot implements Serializable {
 
 
 
-	private void setMeta(ItemStack item)
+	private void setMeta(ItemStackWrapper<?> item)
 	{
 		System.out.println(item);
 		this.enchants = new ArrayList<MyEnchantment>();
@@ -246,14 +246,11 @@ public class Slot implements Serializable {
 		if(this.getData() != 0)
 			item.setDurability(this.getData());
 		
-		ItemMeta itemMeta = item.getItemMeta();
-		
 		if(this.name != null)
 		{
 			String newName = this.name;
-			
 			newName = ReplacerAPI.replace(newName, player);
-			itemMeta.setDisplayName(newName);
+			item.setName(newName);
 		}
 		
 		if(this.lore != null)
@@ -269,7 +266,7 @@ public class Slot implements Serializable {
 			}
 			
 		
-			itemMeta.setLore(newLore);
+			item.setLore(newLore);
 		}
 		
 		if(this.enchants != null)
@@ -278,7 +275,7 @@ public class Slot implements Serializable {
 				itemMeta.addEnchant(ench.getEnchant(), ench.getLevel(), false);
 		}
 		
-		item.setItemMeta(itemMeta);
+		
 		this.itemStack = item;
 		return item;
 	}

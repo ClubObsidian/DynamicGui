@@ -1,7 +1,5 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.spongepowered.api.Sponge;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;

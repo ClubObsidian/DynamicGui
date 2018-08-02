@@ -11,7 +11,6 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
@@ -58,7 +57,7 @@ public class SetLoreFunction extends Function {
 
 									if(slot.getUUID().equals(uuid))
 									{
-										ItemMeta meta = item.getItemMeta();
+										
 										List<String> lore = new ArrayList<String>();
 										if(this.getData().contains(";"))
 										{
@@ -75,8 +74,8 @@ public class SetLoreFunction extends Function {
 											
 											lore.add(l);
 										}
-										meta.setLore(lore);
-										item.setItemMeta(meta);
+										
+										item.setLore(lore);
 										inv.setItem(i, item);
 										break;
 									}

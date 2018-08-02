@@ -53,9 +53,8 @@ public class SetNameFunction extends Function {
 
 									if(slot.getUUID().equals(uuid))
 									{
-										ItemMeta meta = item.getItemMeta();
-										meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.getData()));
-										item.setItemMeta(meta);
+										
+										item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
 										inv.setItem(i, item);
 										break;
 									}

@@ -29,11 +29,10 @@ public class GuiFunction extends Function {
 	{
 		final String finalData = this.getData();
 
-		
 		if(player.getOpenInventoryWrapper() != null)
 			player.closeInventory();
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(DynamicGUI.getPlugin(), new Runnable()
+		DynamicGUI.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.getInstance().getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()

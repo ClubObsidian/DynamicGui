@@ -50,7 +50,7 @@ public class SetTypeFunction extends Function {
 									UUID uuid = UUID.fromString(nbtItem.getString(DynamicGUI.TAG));
 									if(slot.getUUID().equals(uuid))
 									{
-										item.setType(Material.valueOf(this.getData()));
+										item.setType(this.getData());
 										inv.setItem(i, item);
 										break;
 									}

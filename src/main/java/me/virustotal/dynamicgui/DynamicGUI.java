@@ -85,13 +85,45 @@ public class DynamicGUI<T,U>  {
 		this.server = server;
 		this.registerListeners();
 		this.loadFunctions();
+		this.loadReplacers();
 	}
 	
 	private void registerListeners() 
 	{
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener<T,U>(this.getPlugin()));
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryCloseListener<T,U>(this));
-		
+	}
+	
+	private void loadFunctions()
+	{
+		FunctionApi.addFunction(new ConsoleCmdFunction("executec"));
+		FunctionApi.addFunction(new ExpPayFunction("payexp"));
+		FunctionApi.addFunction(new GuiFunction("gui"));
+		FunctionApi.addFunction(new NoPermission("nopermission"));
+		FunctionApi.addFunction(new PayFunction("pay"));
+		FunctionApi.addFunction(new PermissionFunction("permission"));
+		FunctionApi.addFunction(new PlayerCmdFunction("executep"));
+		FunctionApi.addFunction(new PlayerMsgFunction("pmsg"));
+		FunctionApi.addFunction(new SendFunction("send"));	
+		FunctionApi.addFunction(new ServerBroadcastFunction("broadcast"));
+		FunctionApi.addFunction(new ParticleFunction("particles"));
+		FunctionApi.addFunction(new SoundFunction("sound"));
+		FunctionApi.addFunction(new SetNameFunction("setname"));
+		FunctionApi.addFunction(new SetLoreFunction("setlore"));
+		FunctionApi.addFunction(new SetTypeFunction("settype"));
+		FunctionApi.addFunction(new SetDataFunction("setdata"));
+		FunctionApi.addFunction(new SetEnchantsFunction("setenchants"));
+		FunctionApi.addFunction(new RemoveSlotFunction("removeslot"));
+		FunctionApi.addFunction(new StatisticFunction("statistic"));
+		FunctionApi.addFunction(new CheckLevelFunction("checklevel"));
+	}
+	
+	private void loadReplacers()
+	{
+		ReplacerAPI.addReplacer(new PlayerReplacer("%player%"));
+		ReplacerAPI.addReplacer(new OnlinePlayersReplacer("%online-players%"));
+		ReplacerAPI.addReplacer(new UUIDReplacer("%uuid%"));
+		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
 	public File configFile;
@@ -164,11 +196,6 @@ public class DynamicGUI<T,U>  {
 		//check if placeholder is enabled
 		placeHolderAPI = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
 		
-		
-		ReplacerAPI.addReplacer(new PlayerReplacer("%player%"));
-		ReplacerAPI.addReplacer(new OnlinePlayersReplacer("%online-players%"));
-		ReplacerAPI.addReplacer(new UUIDReplacer("%uuid%"));
-		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
 		
 
 		
@@ -390,31 +417,6 @@ public class DynamicGUI<T,U>  {
 
 		cmd.setExecutor(new CustomCommandExecutor(gui, alias));
 		this.registeredCommands.add(alias);
-	}
-
-	private void loadFunctions()
-	{
-		FunctionApi.addFunction(new ConsoleCmdFunction("executec"));
-		FunctionApi.addFunction(new ExpPayFunction("payexp"));
-		FunctionApi.addFunction(new GuiFunction("gui"));
-		FunctionApi.addFunction(new NoPermission("nopermission"));
-		FunctionApi.addFunction(new PayFunction("pay"));
-		FunctionApi.addFunction(new PermissionFunction("permission"));
-		FunctionApi.addFunction(new PlayerCmdFunction("executep"));
-		FunctionApi.addFunction(new PlayerMsgFunction("pmsg"));
-		FunctionApi.addFunction(new SendFunction("send"));	
-		FunctionApi.addFunction(new ServerBroadcastFunction("broadcast"));
-		FunctionApi.addFunction(new ParticleFunction("particles"));
-		FunctionApi.addFunction(new SoundFunction("sound"));
-		FunctionApi.addFunction(new SetNameFunction("setname"));
-		FunctionApi.addFunction(new SetLoreFunction("setlore"));
-		FunctionApi.addFunction(new SetTypeFunction("settype"));
-		FunctionApi.addFunction(new SetDataFunction("setdata"));
-		FunctionApi.addFunction(new SetEnchantsFunction("setenchants"));
-		FunctionApi.addFunction(new RemoveSlotFunction("removeslot"));
-		FunctionApi.addFunction(new StatisticFunction("statistic"));
-		FunctionApi.addFunction(new CheckLevelFunction("checklevel"));
-		//FunctionApi.addFunction(new CustomTextFunction("customtext"));
 	}
 
 	public String getNoPermissionFunction()

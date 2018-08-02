@@ -1,5 +1,6 @@
 package me.virustotal.dynamicgui.api;
 
+import me.virustotal.dynamicgui.objects.EmptyFunction;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class FunctionBuilder {
@@ -21,6 +22,6 @@ public class FunctionBuilder {
 	
 	public Function build()
 	{
-		return new Function(this.name, this.data);
+		return new EmptyFunction(this.name, this.data);
 	}
 }

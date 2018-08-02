@@ -3,12 +3,8 @@ package me.virustotal.dynamicgui.objects.function;
 import java.math.BigDecimal;
 
 import me.virustotal.dynamicgui.DynamicGUI;
-import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.plugin.impl.BukkitPlugin;
-import me.virustotal.dynamicgui.server.ServerType;
-import me.virustotal.dynamicgui.server.ServerUtil;
 
 public class PayFunction extends Function {
 
@@ -27,7 +23,6 @@ public class PayFunction extends Function {
 		super(name);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean function(final PlayerWrapper<?> player)
 	{
