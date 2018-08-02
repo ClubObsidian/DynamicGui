@@ -1,6 +1,7 @@
 package me.virustotal.dynamicgui.listener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.clubobsidian.trident.EventHandler;
@@ -44,7 +45,7 @@ public class TemporaryInventoryClickListener<T,U> implements Listener {
 
 		Player player = (Player) e.getWhoClicked();
 
-		GUI gui = GuiApi.getTemporaryGuiForPlayer(e.getWhoClicked());
+		GUI gui = GuiApi.getTemporaryGuiForPlayer(e.getPlayerWrapper());
 
 		if(gui == null)
 			return;

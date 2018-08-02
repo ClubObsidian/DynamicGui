@@ -9,34 +9,27 @@ import me.virustotal.dynamicgui.event.inventory.InventoryOpenEvent;
 
 public class InventoryOpenListener<T,U> implements Listener {
 
-	private DynamicGUI<T,U> plugin;
-	public InventoryOpenListener(DynamicGUI<T,U> plugin)
-	{
-		this.plugin = plugin;
-	}
-
-
 	@EventHandler
 	public void inventoryOpen(final InventoryOpenEvent<T,U> e)
 	{
-		if(this.plugin.invPlayers.contains(e.getPlayerWrapper().getName()))
+		if(DynamicGUI.getInstance().invPlayers.contains(e.getPlayerWrapper().getName()))
 		{
 			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
 				e.getPlayerWrapper().closeInventory();
 			return;
 		}
-		
+
 		if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
 		{
-				this.plugin.invPlayers.add(e.getPlayerWrapper().getName());
-				Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable()
+			DynamicGUI.getInstance().invPlayers.add(e.getPlayerWrapper().getName());
+			DynamicGUI.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.getInstance().getPlugin(), new Runnable()
+			{
+				@Override
+				public void run()
 				{
-					@Override
-					public void run()
-					{
-						plugin.invPlayers.remove(e.getPlayerWrapper().getName());
-					}
-				},3L);
-			}
+					DynamicGUI.getInstance().invPlayers.remove(e.getPlayerWrapper().getName());
+				}
+			},3L);
+		}
 	}
 }

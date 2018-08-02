@@ -86,11 +86,9 @@ public class GuiApi implements Listener {
 		return null;
 	}
 	
-	public static GUI getTemporaryGuiForPlayer(HumanEntity human)
+	public static GUI getTemporaryGuiForPlayer(PlayerWrapper<?> playerWrapper)
 	{
-		if(!(human instanceof Player))
-			return null;
-		return GuiApi.getTemporaryGuiForPlayer((Player) human);
+		return GuiApi.getTemporaryGuiForPlayer(playerWrapper.getUniqueId());
 	}
 	
 	public static GUI getTemporaryGuiForPlayer(UUID uuid)
@@ -99,11 +97,6 @@ public class GuiApi implements Listener {
 			return null;
 		
 		return GuiApi.temporaryGuiMap.get(uuid);
-	}
-	
-	public static GUI getTemporaryGuiForPlayer(Player player)
-	{
-		return GuiApi.getTemporaryGuiForPlayer(player.getUniqueId());
 	}
 	
 	public static void openTemporaryGui(GUI gui, PlayerWrapper<?> player)
