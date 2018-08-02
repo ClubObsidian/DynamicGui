@@ -22,24 +22,12 @@ import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
 import org.apache.commons.io.FileUtils;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
-public class GuiApi implements Listener {
+public class GuiApi {
 
 	private static List<GUI> guis = new ArrayList<GUI>();
+	private static Map<UUID, GUI> playerGuis = new HashMap<UUID, GUI>();
 	private static Map<UUID, GUI> temporaryGuiMap = new HashMap<UUID, GUI>(); //Maps player uuids and temporary guis.
 	
 	public static boolean hasGuiTitle(String title)
@@ -304,7 +292,7 @@ public class GuiApi implements Listener {
 		return slots;
 	}
 	
-	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final  ArrayList<Slot> slots)
+	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -422,36 +410,9 @@ public class GuiApi implements Listener {
 		return failFunctions;
 	}
 	
-	@EventHandler
-	public void temporaryClose(InventoryCloseEvent e)
+	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
 	{
-		this.guiCleanup(e.getPlayer());
-	}
-	
-	@EventHandler
-	public void temporaryKick(PlayerKickEvent e)
-	{
-		this.guiCleanup(e.getPlayer());
-	}
-	
-	@EventHandler
-	public void temporaryQuit(PlayerQuitEvent e)
-	{
-		this.guiCleanup(e.getPlayer());
-	}
-	
-	private void guiCleanup(HumanEntity human)
-	{
-		if(!(human instanceof Player))
-			return;
-		this.guiCleanup((Player) human);
-	}
-	
-	private void guiCleanup(Player player) //Destructs values on quit or inventory close
-	{
-		if(GuiApi.temporaryGuiMap.containsKey(player.getUniqueId()))
-		{
-			GuiApi.temporaryGuiMap.remove(player.getUniqueId());
-		}
+		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
+		GuiApi.temporaryGuiMap.remove(playerWrapper.getUniqueId());
 	}
 }

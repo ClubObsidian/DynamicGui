@@ -91,7 +91,7 @@ public class DynamicGUI<T,U>  {
 	private void registerListeners() 
 	{
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener<T,U>(this.getPlugin()));
-		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryCloseListener<T,U>(this));
+		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryCloseListener<T,U>());
 	}
 	
 	private void loadFunctions()
@@ -147,7 +147,7 @@ public class DynamicGUI<T,U>  {
 	private static boolean placeHolderAPI = false;
 	
 	public List<String> invPlayers = new ArrayList<String>();
-	public Map<String, GUI> playerGuis = new HashMap<String, GUI>();
+	
 	
 	
 	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();

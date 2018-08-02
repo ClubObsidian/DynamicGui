@@ -16,7 +16,6 @@ public class SpongeScheduler extends Scheduler {
 		Sponge.getScheduler().createSyncExecutor(plugin).schedule(runnable, delay, TimeUnit.MILLISECONDS);
 	}
 
-	
 	//Convert from ticks to milliseconds
 	private Long ticksToMillis(Long delay)
 	{
