@@ -3,6 +3,8 @@ package me.virustotal.dynamicgui.inventory.item;
 import java.io.Serializable;
 import java.util.List;
 
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
+
 public abstract class ItemStackWrapper<T> implements Serializable {
 
 	/**
@@ -34,4 +36,6 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	
 	public abstract short getDurability();
 	public abstract void setDurability(short durability);
+	
+	public abstract void addEnchant(EnchantmentWrapper enchant);
 }

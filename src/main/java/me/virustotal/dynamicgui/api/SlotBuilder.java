@@ -9,7 +9,7 @@ import org.bukkit.Material;
 
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.objects.MyEnchantment;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class SlotBuilder {
 	
@@ -19,7 +19,7 @@ public class SlotBuilder {
 	private short data;
 	private Boolean close;
 	private List<String> lore;
-	private List<MyEnchantment> enchants;
+	private List<EnchantmentWrapper> enchants;
 	private String permission;
 	private String pMessage;
 	private int index;

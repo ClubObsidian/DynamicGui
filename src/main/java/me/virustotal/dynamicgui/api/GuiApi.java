@@ -10,6 +10,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.configuration.Configuration;
+import me.virustotal.dynamicgui.configuration.ConfigurationSection;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
@@ -17,7 +19,7 @@ import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.EmptyFunction;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.ModeEnum;
-import me.virustotal.dynamicgui.objects.MyEnchantment;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 
@@ -114,12 +116,12 @@ public class GuiApi {
 				{
 					if(file.getName().toLowerCase().endsWith(".yml"))
 					{
-						YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+						Configuration yaml = Configuration.load(file);
 						String guiName = file.getName().substring(0, file.getName().indexOf("."));
 
 						String guiTitle = yaml.getString("gui-title");
 						int rows = yaml.getInt("rows");
-						List<Slot> slots = GuiApi.getSlots(rows, plugin, yaml);
+						List<Slot> slots = GuiApi.getSlots(rows, yaml);
 						//System.out.println("slot size: " + slots.size());
 						
 						final GUI gui = new GUI(GuiApi.getGui(yaml, plugin, guiName, guiTitle, rows, slots));
@@ -154,7 +156,7 @@ public class GuiApi {
 	}
 	
 	
-	private static List<Slot> getSlots(int rows, YamlConfiguration yaml)
+	private static List<Slot> getSlots(int rows, Configuration yaml)
 	{
 		ArrayList<Slot> slots = new ArrayList<Slot>();
 		for(int i = 0; i < rows * 9; i++)
@@ -206,7 +208,7 @@ public class GuiApi {
 				}
 				
 				Map<String, List<Function>> failLoadFunctions = new HashMap<String, List<Function>>();
-				for(String key : section.getKeys(false))
+				for(String key : section.getKeys())
 				{
 					if(key.endsWith("-failloadfunctions"))
 					{
@@ -243,14 +245,14 @@ public class GuiApi {
 					}
 				}
 
-				List<MyEnchantment> enchants = null;
+				List<EnchantmentWrapper> enchants = null;
 				if(section.get("enchants") != null)
 				{
-					enchants = new ArrayList<MyEnchantment>();
+					enchants = new ArrayList<EnchantmentWrapper>();
 					for(String ench : section.getStringList("enchants"))
 					{
 						String[] args = ench.split(",");
-						enchants.add(new MyEnchantment(Enchantment.getByName(args[0]), Integer.parseInt(args[1])));
+						enchants.add(new EnchantmentWrapper(Enchantment.getByName(args[0]), Integer.parseInt(args[1])));
 					}
 				}
 
@@ -292,7 +294,7 @@ public class GuiApi {
 		return slots;
 	}
 	
-	private static GUI getGui(final YamlConfiguration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final List<Slot> slots)
+	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -342,7 +344,7 @@ public class GuiApi {
 		
 		if(yaml.get("npc-ids") != null)
 		{
-			npcIds = yaml.getIntegerList("npc-ids");
+			npcIds = yaml.getIntList("npc-ids");
 		}
 		
 		ArrayList<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
@@ -381,7 +383,7 @@ public class GuiApi {
 	private static Map<String,List<Function>> getFailFunctions(ConfigurationSection section, String end)
 	{
 		Map<String, List<Function>> failFunctions = new HashMap<String, List<Function>>(); //check ends with
-		for(String key : section.getKeys(false))
+		for(String key : section.getKeys())
 		{
 			if(key.endsWith(end))
 			{

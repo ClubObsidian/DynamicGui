@@ -14,7 +14,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
-import me.virustotal.dynamicgui.objects.MyEnchantment;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
 
 import org.bukkit.Material;
@@ -49,7 +49,7 @@ public class Slot implements Serializable {
 	private List<Function> middleClickFunctions;
 	private Map<String, List<Function>> middleClickFailFunctions;
 	private List<String> lore;
-	private List<MyEnchantment> enchants;
+	private List<EnchantmentWrapper> enchants;
 	private String permission;
 	private String pMessage;
 	private Boolean close;
@@ -58,13 +58,13 @@ public class Slot implements Serializable {
 	private ItemStackWrapper<?> itemStack;
 	private GUI owner;
 
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants,String permission, String pMessage, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
 	{
 		this(icon, name, nbt, data, close, lore, enchants, permission, pMessage, index, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, 1);
 		//, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, 
 	}
 	
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<MyEnchantment> enchants,String permission, String pMessage, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants,String permission, String pMessage, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
 	{
 		this.icon = icon;
 		this.failFunctions = failFunctions;
@@ -107,7 +107,7 @@ public class Slot implements Serializable {
 	private void setMeta(ItemStackWrapper<?> item)
 	{
 		System.out.println(item);
-		this.enchants = new ArrayList<MyEnchantment>();
+		this.enchants = new ArrayList<EnchantmentWrapper>();
 		if(item.hasItemMeta())
 		{
 
@@ -120,7 +120,7 @@ public class Slot implements Serializable {
 				Map<Enchantment, Integer> enchants = item.getItemMeta().getEnchants();
 				for(Enchantment ench : enchants.keySet())
 				{
-					this.enchants.add(new MyEnchantment(ench, item.getItemMeta().getEnchantLevel(ench)));
+					this.enchants.add(new EnchantmentWrapper(ench, item.getItemMeta().getEnchantLevel(ench)));
 				}	
 			}
 			if(item.getItemMeta().hasLore())
@@ -271,8 +271,8 @@ public class Slot implements Serializable {
 		
 		if(this.enchants != null)
 		{
-			for(MyEnchantment ench : this.enchants)
-				itemMeta.addEnchant(ench.getEnchant(), ench.getLevel(), false);
+			for(EnchantmentWrapper ench : this.enchants)
+				item.addEnchant(ench);
 		}
 		
 		

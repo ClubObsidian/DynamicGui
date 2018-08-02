@@ -2,7 +2,7 @@ package me.virustotal.dynamicgui.api;
 
 import org.bukkit.enchantments.Enchantment;
 
-import me.virustotal.dynamicgui.objects.MyEnchantment;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class MyEnchantmentBuilder {
 	
@@ -22,8 +22,8 @@ public class MyEnchantmentBuilder {
 	}
 	
 	
-	public MyEnchantment build()
+	public EnchantmentWrapper build()
 	{
-		return new MyEnchantment(this.enchantment, level);
+		return new EnchantmentWrapper(this.enchantment, level);
 	}
 }
