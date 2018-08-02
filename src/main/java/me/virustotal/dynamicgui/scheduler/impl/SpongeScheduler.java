@@ -17,9 +17,9 @@ public class SpongeScheduler extends Scheduler {
 	}
 
 	
+	//Convert from ticks to milliseconds
 	private Long ticksToMillis(Long delay)
 	{
-		//Convert from ticks to milliseconds
 		return delay *= 50;
 	}
 }

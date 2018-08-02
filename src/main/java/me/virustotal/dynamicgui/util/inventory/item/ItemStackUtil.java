@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.inventory.item.impl.BukkitItemStackWrapper;
 import me.virustotal.dynamicgui.server.ServerType;
 
 /**

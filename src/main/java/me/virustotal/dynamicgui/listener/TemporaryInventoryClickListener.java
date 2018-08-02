@@ -34,7 +34,7 @@ public class TemporaryInventoryClickListener<T,U> implements Listener {
 			return;
 		if(e.getWhoClicked().getOpenInventory() == null)
 			return;
-		if(GuiApi.getTemporaryGuiForPlayer(e.getWhoClicked()) == null)
+		if(GuiApi.getTemporaryGuiForPlayer(e.getPlayerWrapper()) == null)
 			return;
 
 		e.setCancelled(true);
