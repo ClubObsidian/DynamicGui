@@ -1,7 +1,7 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.Function;
 
 public class PermissionFunction extends Function {
 

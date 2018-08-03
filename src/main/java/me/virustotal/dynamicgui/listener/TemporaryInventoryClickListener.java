@@ -10,10 +10,10 @@ import com.clubobsidian.trident.Listener;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
+import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.nbt.NBTItem;
-import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
 public class TemporaryInventoryClickListener<T,U> implements Listener {

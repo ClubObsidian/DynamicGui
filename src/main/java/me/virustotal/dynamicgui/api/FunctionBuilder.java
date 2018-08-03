@@ -1,7 +1,7 @@
 package me.virustotal.dynamicgui.api;
 
-import me.virustotal.dynamicgui.objects.EmptyFunction;
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.EmptyFunction;
+import me.virustotal.dynamicgui.function.Function;
 
 public class FunctionBuilder {
 	

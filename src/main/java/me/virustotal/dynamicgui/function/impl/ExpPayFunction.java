@@ -1,10 +1,10 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.Function;
 
 public class ExpPayFunction extends Function {
 

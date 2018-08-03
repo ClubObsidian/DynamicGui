@@ -1,13 +1,13 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
 
 public class RemoveSlotFunction extends Function {

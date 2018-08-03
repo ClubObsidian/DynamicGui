@@ -1,22 +1,22 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.objects.Function;
 
-public class SetDataFunction extends Function {
+public class SetTypeFunction extends Function {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6943230273788425141L;
 
-	public SetDataFunction(String name) 
+	public SetTypeFunction(String name) 
 	{
 		super(name);
 	}
@@ -42,10 +42,9 @@ public class SetDataFunction extends Function {
 								if(tag != null)
 								{
 									UUID uuid = UUID.fromString(tag);
-
 									if(slot.getUUID().equals(uuid))
 									{
-										item.setDurability(Short.parseShort(this.getData()));
+										item.setType(this.getData());
 										inv.setItem(i, item);
 										break;
 									}

@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import org.bukkit.Material;
 import org.bukkit.Statistic;
@@ -6,7 +6,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.Function;
 
 public class StatisticFunction extends Function {
 

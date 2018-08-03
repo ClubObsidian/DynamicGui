@@ -1,11 +1,11 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.Function;
 
 public class SendFunction extends Function {
 

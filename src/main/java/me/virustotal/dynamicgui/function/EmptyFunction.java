@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.objects;
+package me.virustotal.dynamicgui.function;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 

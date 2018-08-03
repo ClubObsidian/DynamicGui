@@ -1,30 +1,26 @@
-package me.virustotal.dynamicgui.objects.function;
+package me.virustotal.dynamicgui.function.impl;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
-import me.virustotal.dynamicgui.objects.Function;
 
-public class SetEnchantsFunction extends Function {
-
+public class SetDataFunction extends Function {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8291956007296368761L;
+	private static final long serialVersionUID = 6943230273788425141L;
 
-	public SetEnchantsFunction(String name) 
+	public SetDataFunction(String name) 
 	{
 		super(name);
 	}
-
+	
 	public boolean function(PlayerWrapper<?> player)
 	{
 		Slot slot = this.getOwner();
@@ -49,31 +45,7 @@ public class SetEnchantsFunction extends Function {
 
 									if(slot.getUUID().equals(uuid))
 									{
-										Map<String, Integer> enchants = new HashMap<String, Integer>();
-										if(this.getData().contains(";"))
-										{
-											for(String str : this.getData().split(";"))
-											{
-												String[] split = str.split(",");
-												enchants.put(split[0], Integer.valueOf(split[1]));
-											}
-										}
-										else
-										{
-											String[] split = this.getData().split(",");
-											enchants.put(split[0], Integer.valueOf(split[1]));
-										}
-	
-										for(EnchantmentWrapper ench : item.getEnchants())
-										{
-											item.removeEnchant(ench);
-										}
-										
-										for(String str : enchants.keySet())
-										{
-											item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
-										}
-
+										item.setDurability(Short.parseShort(this.getData()));
 										inv.setItem(i, item);
 										break;
 									}
@@ -90,4 +62,5 @@ public class SetEnchantsFunction extends Function {
 		}
 		return true;
 	}	
+
 }

@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.bukkit.Material;
 
+import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class SlotBuilder {

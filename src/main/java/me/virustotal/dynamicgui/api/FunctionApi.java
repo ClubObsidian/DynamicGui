@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.virustotal.dynamicgui.objects.Function;
+import me.virustotal.dynamicgui.function.Function;
 
 public class FunctionApi {
 	
