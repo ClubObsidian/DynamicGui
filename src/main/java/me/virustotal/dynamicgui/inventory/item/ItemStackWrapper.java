@@ -39,4 +39,11 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	
 	public abstract void addEnchant(EnchantmentWrapper enchant);
 	public abstract List<EnchantmentWrapper> getEnchants();
+	
+	
+	public abstract String getString(String[] path, String str);
+	public abstract void setString(String[] path, String str);
+	
+	public abstract String getString(List<String> path);	
+	public abstract void setString(List<String> path, String str);
 }

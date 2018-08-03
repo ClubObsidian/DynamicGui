@@ -324,7 +324,7 @@ public class GuiApi {
 			close = yaml.getBoolean("close");
 
 
-		ArrayList<CLocation> locs = null; 
+		List<CLocation> locs = null; 
 		if(yaml.get("locations") != null)
 		{
 			locs = new ArrayList<CLocation>();
@@ -412,9 +412,19 @@ public class GuiApi {
 		return failFunctions;
 	}
 	
+	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
+	{
+		return GuiApi.playerGuis.keySet().contains(playerWrapper.getUniqueId());
+	}
+	
 	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
 	{
 		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
 		GuiApi.temporaryGuiMap.remove(playerWrapper.getUniqueId());
+	}
+
+	public static GUI getCurrentGUI(PlayerWrapper<?> player) 
+	{
+		return GuiApi.playerGuis.get(player.getUniqueId());
 	}
 }

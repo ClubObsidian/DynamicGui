@@ -40,11 +40,11 @@ public class InventoryClickListener<T,U> implements Listener {
 			return;
 
 		PlayerWrapper<T> player = e.getPlayerWrapper();
-		if(this.plugin.playerGuis.keySet().contains(player.getName()))
+		if(GuiApi.hasGUICurrently(player))
 		{
 			if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
 			{
-				GUI gui = this.plugin.playerGuis.get(player.getName());
+				GUI gui = GuiApi.getCurrentGUI(player);
 				Slot slot = null;
 				for(int j = 0; j < gui.getSlots().size(); j++)
 				{

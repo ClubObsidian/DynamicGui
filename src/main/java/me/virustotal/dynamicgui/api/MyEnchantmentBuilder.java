@@ -1,15 +1,13 @@
 package me.virustotal.dynamicgui.api;
 
-import org.bukkit.enchantments.Enchantment;
-
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class MyEnchantmentBuilder {
 	
-	private Enchantment enchantment;
+	private String enchantment;
 	private int level;
 	
-	public MyEnchantmentBuilder setEnchantment(Enchantment enchantment)
+	public MyEnchantmentBuilder setEnchantment(String enchantment)
 	{
 		this.enchantment = enchantment;
 		return this;
