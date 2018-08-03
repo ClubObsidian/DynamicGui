@@ -4,19 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.nbt.NBTItem;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class SetEnchantsFunction extends Function {
@@ -70,16 +63,17 @@ public class SetEnchantsFunction extends Function {
 											String[] split = this.getData().split(",");
 											enchants.put(split[0], Integer.valueOf(split[1]));
 										}
-										ItemMeta meta = item.getItemMeta();
-										for(Enchantment ench : meta.getEnchants().keySet())
+	
+										for(EnchantmentWrapper ench : item.getEnchants())
 										{
-											meta.removeEnchant(ench);
+											item.removeEnchant(ench);
 										}
+										
 										for(String str : enchants.keySet())
 										{
-											meta.addEnchant(Enchantment.getByName(str), enchants.get(str), true);
+											item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
 										}
-										item.setItemMeta(meta);
+
 										inv.setItem(i, item);
 										break;
 									}

@@ -95,6 +95,14 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
+	public void removeEnchant(EnchantmentWrapper enchant)
+	{
+		ItemMeta itemMeta = this.getItemStack().getItemMeta();
+		itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
+		this.getItemStack().setItemMeta(itemMeta);
+	}
+	
+	@Override
 	public List<EnchantmentWrapper> getEnchants() 
 	{
 		List<EnchantmentWrapper> enchants = new ArrayList<>();

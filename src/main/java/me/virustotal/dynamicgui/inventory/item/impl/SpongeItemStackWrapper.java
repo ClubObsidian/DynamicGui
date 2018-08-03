@@ -105,6 +105,13 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void removeEnchant(EnchantmentWrapper enchant) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public List<EnchantmentWrapper> getEnchants() 
@@ -144,4 +151,5 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		// TODO Auto-generated method stub
 		
 	}
+
 }

@@ -22,9 +22,9 @@ import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.ChatColor;
 
 import org.apache.commons.io.FileUtils;
-import org.bukkit.ChatColor;
 
 public class GuiApi {
 
@@ -252,7 +252,7 @@ public class GuiApi {
 					for(String ench : section.getStringList("enchants"))
 					{
 						String[] args = ench.split(",");
-						enchants.add(new EnchantmentWrapper(Enchantment.getByName(args[0]), Integer.parseInt(args[1])));
+						enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
 					}
 				}
 
@@ -307,14 +307,9 @@ public class GuiApi {
 
 		if(yaml.get("alias") != null)
 		{
-			if(yaml.isString("alias"))
-				plugin.loadCommand(guiName, yaml.getString("alias"));
-			else
+			for(String al : yaml.getStringList("alias"))
 			{
-				for(String al : yaml.getStringList("alias"))
-				{
-					plugin.loadCommand(guiName, al);
-				}
+				plugin.loadCommand(guiName, al);
 			}
 			//commandsLoaded++;
 		}
