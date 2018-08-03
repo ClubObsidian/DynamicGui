@@ -1,12 +1,17 @@
 package me.virustotal.dynamicgui.inventory.item.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -77,5 +82,26 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	public void setDurability(short durability) 
 	{
 		this.getItemStack().setDurability(durability);
+	}
+
+	@Override
+	public void addEnchant(EnchantmentWrapper enchant) 
+	{
+		ItemMeta itemMeta = this.getItemStack().getItemMeta();
+		itemMeta.addEnchant(Enchantment.getByName(enchant.getEnchant()), enchant.getLevel(), true);
+		this.getItemStack().setItemMeta(itemMeta);
+	}
+
+	@Override
+	public List<EnchantmentWrapper> getEnchants() 
+	{
+		List<EnchantmentWrapper> enchants = new ArrayList<>();
+		Iterator<Entry<Enchantment,Integer>> it = this.getItemStack().getItemMeta().getEnchants().entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<Enchantment,Integer> next = it.next();
+			enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
+		}
+		return enchants;
 	}
 }

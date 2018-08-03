@@ -2,8 +2,6 @@ package me.virustotal.dynamicgui.objects;
 
 import java.io.Serializable;
 
-import org.bukkit.enchantments.Enchantment;
-
 public class EnchantmentWrapper implements Serializable {
 	
 	/**
@@ -13,9 +11,9 @@ public class EnchantmentWrapper implements Serializable {
 	private String enchant;
 	private int level;
 	
-	public EnchantmentWrapper(Enchantment enchant, int level)
+	public EnchantmentWrapper(String enchant, int level)
 	{
-		this.enchant = enchant.getName();
+		this.enchant = enchant;
 		this.level = level;
 	}
 	

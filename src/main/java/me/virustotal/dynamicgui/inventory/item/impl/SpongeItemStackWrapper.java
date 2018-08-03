@@ -5,6 +5,7 @@ import java.util.List;
 import org.spongepowered.api.item.inventory.ItemStack;
 
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -70,5 +71,17 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	public void setDurability(short durability) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addEnchant(EnchantmentWrapper enchant) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<EnchantmentWrapper> getEnchants() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

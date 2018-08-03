@@ -95,41 +95,25 @@ public class Slot implements Serializable {
 		this.icon = item.getType().toString();
 		this.functions = new ArrayList<Function>();
 		this.loadFunctions = new ArrayList<Function>();
-		this.data = item.getDurability();
-		this.setMeta(item);
+		this.copyDataFromItemStack(item);
 		this.close = close;
 		this.index = index;
-		this.amount = item.getAmount();
 	}
 
-
-
-	private void setMeta(ItemStackWrapper<?> item)
+	private void copyDataFromItemStack(ItemStackWrapper<?> item)
 	{
-		System.out.println(item);
+		this.amount = item.getAmount();
+		this.data = item.getDurability();
+		this.name = item.getName();
 		this.enchants = new ArrayList<EnchantmentWrapper>();
-		if(item.hasItemMeta())
+		List<EnchantmentWrapper> enchants = item.getEnchants();
+		for(EnchantmentWrapper ench : enchants)
 		{
-
-			System.out.println(item.getType());
-
-			if(item.getItemMeta().hasDisplayName())
-				this.name = item.getItemMeta().getDisplayName();
-			if(item.getItemMeta().hasEnchants())
-			{
-				Map<Enchantment, Integer> enchants = item.getItemMeta().getEnchants();
-				for(Enchantment ench : enchants.keySet())
-				{
-					this.enchants.add(new EnchantmentWrapper(ench, item.getItemMeta().getEnchantLevel(ench)));
-				}	
-			}
-			if(item.getItemMeta().hasLore())
-			{
-				this.lore = item.getItemMeta().getLore();
-			}
+			this.enchants.add(ench);
 		}
+		this.lore = item.getLore();
 	}
-	
+
 	public String getIcon()
 	{
 		return this.icon;

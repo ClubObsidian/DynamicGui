@@ -38,4 +38,5 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract void setDurability(short durability);
 	
 	public abstract void addEnchant(EnchantmentWrapper enchant);
+	public abstract List<EnchantmentWrapper> getEnchants();
 }
