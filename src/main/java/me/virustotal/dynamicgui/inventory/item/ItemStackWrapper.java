@@ -22,6 +22,12 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	{
 		return this.itemStack;
 	}
+	
+	@SuppressWarnings("unchecked")
+	protected void setItemStack(Object itemStack)
+	{
+		this.itemStack = (T) itemStack;
+	}
 
 	public abstract int getAmount();
 	
@@ -41,9 +47,9 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract List<EnchantmentWrapper> getEnchants();
 	
 	
-	public abstract String getString(String[] path, String str);
-	public abstract void setString(String[] path, String str);
+	public abstract String getString(String... path);
+	public abstract void setString(String set, String... path);
 	
 	public abstract String getString(List<String> path);	
-	public abstract void setString(List<String> path, String str);
+	public abstract void setString(String set, List<String> path);
 }

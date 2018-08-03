@@ -1,8 +1,5 @@
 package me.virustotal.dynamicgui.objects.function;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.objects.Function;

@@ -26,6 +26,12 @@ public class FakeSpongeServer extends FakeServer {
 	{
 		Sponge.getServer().getBroadcastChannel().send(Text.of(message));
 	}
+	
+	@Override
+	public void dispatchServerCommand(String command)
+	{
+		Sponge.getCommandManager().process(Sponge.getServer().getConsole(), command);
+	}
 
 	@Override
 	public PlayerWrapper<?> getPlayer(UUID uuid) 

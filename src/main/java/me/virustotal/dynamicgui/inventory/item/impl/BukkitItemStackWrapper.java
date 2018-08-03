@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.nbt.NBTCompound;
+import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
@@ -103,5 +105,49 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
 		}
 		return enchants;
+	}
+
+	@Override
+	public String getString(String... path) 
+	{
+		NBTCompound compound = this.getCompoundFromPath(path);
+		return compound.getString(path[path.length - 1]);
+	}
+
+	@Override
+	public void setString(String str, String... path) 
+	{
+		NBTCompound compound = this.getCompoundFromPath(path);
+		compound.setString(path[path.length - 1], str);
+		this.setItemStack(compound.getItem());
+	}
+
+	@Override
+	public String getString(List<String> path) 
+	{
+		return this.getString(path.toArray(new String[path.size()]));
+	}
+
+	@Override
+	public void setString(String str, List<String> path) 
+	{
+		this.setString(str, path.toArray(new String[path.size()]));
+	}
+	
+	private NBTCompound getCompoundFromPath(String[] path)
+	{
+		NBTCompound compound = new NBTItem(this.getItemStack());
+		if(path.length == 1)
+		{
+			return compound;
+		}
+		
+		for(int i = 1; i < path.length - 1; i++)
+		{
+			if(compound == null)
+				return null;
+			compound = compound.getCompound(path[i]);
+		}
+		return compound;
 	}
 }

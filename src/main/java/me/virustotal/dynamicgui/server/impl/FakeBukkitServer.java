@@ -25,6 +25,12 @@ public class FakeBukkitServer extends FakeServer {
 	{
 		Bukkit.getServer().broadcastMessage(message);
 	}
+	
+	@Override
+	public void dispatchServerCommand(String command)
+	{
+		Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+	}
 
 	@Override
 	public PlayerWrapper<?> getPlayer(UUID uuid) 

@@ -1,9 +1,7 @@
 package me.virustotal.dynamicgui.gui;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -12,16 +10,9 @@ import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
-
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class Slot implements Serializable {
 	
@@ -209,17 +200,8 @@ public class Slot implements Serializable {
 		ItemStackWrapper<?> item = ItemStackUtil.createItemStackWrapper(this.icon, this.getAmount());
 		try 
 		{
-			/*if(this.nbt != null && !this.nbt.equals(""))
-			{
-				NBTItem nbtItem = new NBTItem(item);
-				
-				item = ItemUtil.setNBTForItemStack(item, ReplacerAPI.replace(this.nbt, player));
-			} */ 
-			//TODO
 			UUID uuid = UUID.randomUUID();
-			NBTItem nbtItem = new NBTItem(item);
-			nbtItem.setString(DynamicGUI.TAG, uuid.toString());
-			item = nbtItem.getItem();
+			item.setString(uuid.toString(), DynamicGUI.TAG);
 			this.uuid = uuid;
 		}
 		catch (SecurityException | IllegalArgumentException e) 

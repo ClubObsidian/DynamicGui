@@ -2,17 +2,11 @@ package me.virustotal.dynamicgui.objects.function;
 
 import java.util.UUID;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.Function;
 
 public class SetTypeFunction extends Function {
@@ -44,10 +38,10 @@ public class SetTypeFunction extends Function {
 						{
 							try
 							{
-								NBTItem nbtItem = new NBTItem(item);
-								if(nbtItem.hasKey(DynamicGUI.TAG))
+								String tag = item.getString(DynamicGUI.TAG);
+								if(tag != null)
 								{
-									UUID uuid = UUID.fromString(nbtItem.getString(DynamicGUI.TAG));
+									UUID uuid = UUID.fromString(tag);
 									if(slot.getUUID().equals(uuid))
 									{
 										item.setType(this.getData());

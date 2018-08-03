@@ -1,6 +1,7 @@
 package me.virustotal.dynamicgui.objects.function;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Material;
@@ -48,14 +49,14 @@ public class SetEnchantsFunction extends Function {
 						{
 							try
 							{
-								NBTItem nbtItem = new NBTItem(item);
-								if(nbtItem.hasKey(DynamicGUI.TAG))
+								String tag = item.getString(DynamicGUI.TAG);
+								if(tag != null)
 								{
-									UUID uuid = UUID.fromString(nbtItem.getString(DynamicGUI.TAG));
+									UUID uuid = UUID.fromString(tag);
 
 									if(slot.getUUID().equals(uuid))
 									{
-										HashMap<String, Integer> enchants = new HashMap<String, Integer>();
+										Map<String, Integer> enchants = new HashMap<String, Integer>();
 										if(this.getData().contains(";"))
 										{
 											for(String str : this.getData().split(";"))

@@ -52,10 +52,10 @@ public class InventoryClickListener<T,U> implements Listener {
 					{
 						try
 						{
-							NBTItem nbtItem = new NBTItem(item);
-							if(nbtItem.hasKey(DynamicGUI.TAG))
+							String tag = item.getString(DynamicGUI.TAG);
+							if(tag != null)
 							{
-								UUID uuid = UUID.fromString(nbtItem.getString(DynamicGUI.TAG));
+								UUID uuid = UUID.fromString(tag);
 								if(gui.getSlots().get(j) != null)
 								{
 									if(gui.getSlots().get(j).getUUID() != null)
