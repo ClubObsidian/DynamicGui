@@ -1,6 +1,6 @@
 package me.virustotal.dynamicgui.util.inventory;
 
-public enum InventoryClick {
+public enum Click {
 
 	LEFT,
 	RIGHT,

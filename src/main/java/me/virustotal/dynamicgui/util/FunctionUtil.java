@@ -6,16 +6,16 @@ import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.util.inventory.InventoryClick;
+import me.virustotal.dynamicgui.util.inventory.Click;
 
 public class FunctionUtil {
 	
-	public static void tryFunctions(Slot slot, InventoryClick InventoryClick, PlayerWrapper<?> player)
+	public static void tryFunctions(Slot slot, Click InventoryClick, PlayerWrapper<?> player)
 	{
 		tryFunctions(slot, InventoryClick, player, 0);
 	}
 
-	public static void tryFunctions(Slot slot, InventoryClick inventoryClick, PlayerWrapper<?> player, int startingIndex)
+	public static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> player, int startingIndex)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
@@ -30,7 +30,7 @@ public class FunctionUtil {
 				}
 			}
 		}
-		if(inventoryClick == InventoryClick.LEFT && slot.getLeftClickFunctions() != null)
+		if(inventoryClick == Click.LEFT && slot.getLeftClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getLeftClickFunctions(), slot, startingIndex);
 			if(!result.result)
@@ -44,7 +44,7 @@ public class FunctionUtil {
 				return;
 			}
 		}
-		else if(inventoryClick == InventoryClick.RIGHT && slot.getRightClickFunctions() != null)
+		else if(inventoryClick == Click.RIGHT && slot.getRightClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getRightClickFunctions(), slot, startingIndex);
 			if(!result.result)
@@ -58,7 +58,7 @@ public class FunctionUtil {
 				return;
 			}
 		}
-		else if(inventoryClick == InventoryClick.MIDDLE && slot.getMiddleClickFunctions() != null)
+		else if(inventoryClick == Click.MIDDLE && slot.getMiddleClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getMiddleClickFunctions(), slot, startingIndex);
 			if(!result.result)
