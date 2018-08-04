@@ -13,6 +13,6 @@ public class PlayerLevelReplacer extends Replacer {
 	@Override
 	public String replacement(String text, PlayerWrapper<?> player)
 	{
-		return text.replace(this.getToReplace(), String.valueOf(player.getLevel()));
+		return String.valueOf(player.getLevel());
 	}	
 }

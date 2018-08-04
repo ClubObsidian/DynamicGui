@@ -13,6 +13,6 @@ public class UUIDReplacer extends Replacer {
 	@Override
 	public String replacement(String text, PlayerWrapper<?> player)
 	{
-		return text.replace(this.getToReplace(), player.getUniqueId().toString());
+		return player.getUniqueId().toString();
 	}	
 }

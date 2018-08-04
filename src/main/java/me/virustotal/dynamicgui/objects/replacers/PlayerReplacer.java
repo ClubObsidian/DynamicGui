@@ -13,6 +13,6 @@ public class PlayerReplacer extends Replacer {
 	@Override
 	public String replacement(String text, PlayerWrapper<?> player)
 	{
-		return text.replace(this.getToReplace(), player.getName());
+		return player.getName();
 	}	
 }

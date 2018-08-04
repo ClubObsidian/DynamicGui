@@ -14,6 +14,6 @@ public class OnlinePlayersReplacer extends Replacer {
 	@Override
 	public String replacement(String text, PlayerWrapper<?> player)
 	{
-		return text.replace(this.getToReplace(), String.valueOf(DynamicGUI.getInstance().getServer().getGlobalPlayerCount()));
+		return String.valueOf(DynamicGUI.getInstance().getServer().getGlobalPlayerCount());
 	}
 }

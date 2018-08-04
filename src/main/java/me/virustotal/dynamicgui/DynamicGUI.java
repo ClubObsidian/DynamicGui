@@ -33,6 +33,7 @@ import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.economy.Economy;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.impl.CheckLevelFunction;
 import me.virustotal.dynamicgui.function.impl.ConsoleCmdFunction;
 import me.virustotal.dynamicgui.function.impl.ExpPayFunction;
@@ -185,9 +186,9 @@ public class DynamicGUI<T,U>  {
 			ReplacerAPI.addReplacer(new Replacer("%" + str  + "-players%")
 			{
 				@Override
-				public String replacement(String text, Player player)
+				public String replacement(String text, PlayerWrapper<?> player)
 				{
-					return text.replace(this.getToReplace(), String.valueOf(serverPlayerCount.get(str)));
+					return String.valueOf(serverPlayerCount.get(str));
 				}
 			});
 			this.serverPlayerCount.put(str, 0);
