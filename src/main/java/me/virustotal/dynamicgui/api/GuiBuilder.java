@@ -10,6 +10,7 @@ import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 public class GuiBuilder  {
 	
@@ -22,8 +23,8 @@ public class GuiBuilder  {
 	private ModeEnum modeEnum;
 	private List<Integer> npcIds = new ArrayList<Integer>();
 	private List<Slot> slots = new ArrayList<Slot>();
-	private List<CLocation> locs = new ArrayList<CLocation>();
-	private List<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
+	private List<LocationWrapper<?>> locs = new ArrayList<>();
+	private List<SoundWrapper> openingSounds = new ArrayList<>();
 	
 	public GuiBuilder setName(String name)
 	{

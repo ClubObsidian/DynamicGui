@@ -4,9 +4,9 @@ import java.util.List;
 
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.event.inventory.Click;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.util.inventory.Click;
 
 public class FunctionUtil {
 	

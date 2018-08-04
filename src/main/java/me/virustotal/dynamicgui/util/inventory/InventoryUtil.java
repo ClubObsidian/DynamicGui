@@ -19,5 +19,4 @@ public final class InventoryUtil {
 		Object inventory = createInventory(size,title);
 		return createInventoryWrapper(inventory);
 	}
-	
 }

@@ -28,5 +28,4 @@ public class ConsoleCmdFunction extends Function {
 		DynamicGUI.getInstance().getServer().dispatchServerCommand(ReplacerAPI.replace(this.getData(), player));
 		return true;
 	}
-	
 }

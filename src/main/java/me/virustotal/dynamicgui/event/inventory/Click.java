@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.util.inventory;
+package me.virustotal.dynamicgui.event.inventory;
 
 public enum Click {
 

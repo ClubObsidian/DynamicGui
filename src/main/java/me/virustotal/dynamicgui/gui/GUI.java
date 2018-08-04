@@ -12,11 +12,11 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.util.ChatColor;
 import me.virustotal.dynamicgui.util.inventory.InventoryUtil;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -27,7 +27,7 @@ public class GUI implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6294818826223305057L;
-	private List<Slot> slots = new ArrayList<Slot>();
+	private List<Slot> slots = new ArrayList<>();
 	private String name;
 	private String title;
 	private int rows;
@@ -35,11 +35,11 @@ public class GUI implements Serializable {
 	private String pMessage;
 	private Boolean close;
 	private ModeEnum modeEnum;
-	private List<CLocation> locs = new ArrayList<CLocation>();
-	private List<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
-	private List<Integer> npcIds;
+	private List<LocationWrapper<?>> locations = new ArrayList<>();
+	private List<SoundWrapper> openingSounds = new ArrayList<>();
+	private List<Integer> npcIds = new ArrayList<>();
 	
-	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close,ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<CLocation> locs, List<SoundWrapper> openingSounds)
+	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<SoundWrapper> openingSounds)
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes(title);
@@ -52,13 +52,13 @@ public class GUI implements Serializable {
 		this.close = close;
 		this.modeEnum = modeEnum;
 		this.npcIds = npcIds;
-		this.locs = locs;
+		this.locations = locations;
 		this.openingSounds = openingSounds;
 	}
 	
 	public GUI(GUI gui) 
 	{
-		this(gui.getName(),gui.getTitle(),gui.getRows(),gui.getPermission(),gui.getpMessage(),gui.getClose(),gui.getModeEnum(),gui.getNpcIds(),gui.getSlots(),gui.getLocs(), gui.getOpeningSounds());
+		this(gui.getName(),gui.getTitle(),gui.getRows(),gui.getPermission(),gui.getpMessage(),gui.getClose(),gui.getModeEnum(),gui.getNpcIds(),gui.getSlots(),gui.getLocations(), gui.getOpeningSounds());
 	}
 
 	public void buildInventory(PlayerWrapper<?> player)
@@ -259,9 +259,9 @@ public class GUI implements Serializable {
 		return this.npcIds;
 	}
 	
-	public List<CLocation> getLocs()
+	public List<LocationWrapper<?>> getLocations()
 	{
-		return this.locs;
+		return this.locations;
 	}
 	
 	public List<SoundWrapper> getOpeningSounds()

@@ -335,14 +335,14 @@ public class GuiApi {
 			modeEnum = ModeEnum.valueOf(yaml.getString("mode").toUpperCase());
 		}
 
-		List<Integer> npcIds = new ArrayList<Integer>();
+		List<Integer> npcIds = new ArrayList<>();
 		
 		if(yaml.get("npc-ids") != null)
 		{
 			npcIds = yaml.getIntList("npc-ids");
 		}
 		
-		ArrayList<SoundWrapper> openingSounds = new ArrayList<SoundWrapper>();
+		List<SoundWrapper> openingSounds = new ArrayList<>();
 		
 		if(yaml.get("opening-sounds") != null)
 		{

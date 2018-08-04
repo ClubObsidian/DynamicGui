@@ -4,7 +4,6 @@ package me.virustotal.dynamicgui.event.inventory;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.InventoryEvent;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.util.inventory.Click;
 
 public class InventoryClickEvent<T,U> extends InventoryEvent<T,U> {
 
