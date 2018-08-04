@@ -2,21 +2,20 @@ package me.virustotal.dynamicgui.util;
 
 import java.util.List;
 
-import org.bukkit.event.inventory.ClickType;
-
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
+import me.virustotal.dynamicgui.util.inventory.InventoryClick;
 
 public class FunctionUtil {
 	
-	public static void tryFunctions(Slot slot, ClickType clickType, PlayerWrapper<?> player)
+	public static void tryFunctions(Slot slot, InventoryClick InventoryClick, PlayerWrapper<?> player)
 	{
-		tryFunctions(slot, clickType, player, 0);
+		tryFunctions(slot, InventoryClick, player, 0);
 	}
 
-	public static void tryFunctions(Slot slot, ClickType clickType, PlayerWrapper<?> player, int startingIndex)
+	public static void tryFunctions(Slot slot, InventoryClick inventoryClick, PlayerWrapper<?> player, int startingIndex)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
@@ -31,7 +30,7 @@ public class FunctionUtil {
 				}
 			}
 		}
-		if(clickType == ClickType.LEFT && slot.getLeftClickFunctions() != null)
+		if(inventoryClick == InventoryClick.LEFT && slot.getLeftClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getLeftClickFunctions(), slot, startingIndex);
 			if(!result.result)
@@ -45,7 +44,7 @@ public class FunctionUtil {
 				return;
 			}
 		}
-		else if(clickType == ClickType.RIGHT && slot.getRightClickFunctions() != null)
+		else if(inventoryClick == InventoryClick.RIGHT && slot.getRightClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getRightClickFunctions(), slot, startingIndex);
 			if(!result.result)
@@ -59,7 +58,7 @@ public class FunctionUtil {
 				return;
 			}
 		}
-		else if(clickType == ClickType.MIDDLE && slot.getMiddleClickFunctions() != null)
+		else if(inventoryClick == InventoryClick.MIDDLE && slot.getMiddleClickFunctions() != null)
 		{
 			result = tryFunctions(player, slot.getMiddleClickFunctions(), slot, startingIndex);
 			if(!result.result)

@@ -1,6 +1,5 @@
 package me.virustotal.dynamicgui.listener;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,20 +11,12 @@ import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-import me.virustotal.dynamicgui.nbt.NBTItem;
-import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
 public class InventoryClickListener<T,U> implements Listener {
-
-	private DynamicGUI<T,U> plugin;
-	public InventoryClickListener(DynamicGUI<T,U> plugin)
-	{
-		this.plugin = plugin;
-	}
 
 	@EventHandler
 	public void invClick(final InventoryClickEvent<T,U> e)
