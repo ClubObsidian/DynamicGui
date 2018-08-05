@@ -32,6 +32,5 @@ public abstract class PlayerWrapper<T> {
 	public abstract void sendPluginMessage(DynamicGUIPlugin<?,?> plugin, String channel, byte[] message);
 	public abstract void playSound(String sound, Float volume, Float pitch);
 	public abstract void playEffect(String effect, int data);
-	
-	
+		
 }

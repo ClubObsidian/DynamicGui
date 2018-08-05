@@ -6,10 +6,10 @@ import me.virustotal.dynamicgui.event.BlockEvent;
 import me.virustotal.dynamicgui.event.player.Action;
 import me.virustotal.dynamicgui.world.BlockWrapper;
 
-public class PlayerInteractEvent<T,U> extends BlockEvent<T,U> {
+public class PlayerInteractEvent extends BlockEvent {
 
 	private Action action;
-	public PlayerInteractEvent(PlayerWrapper<T> playerWrapper, BlockWrapper<U> blockWrapper, Action action) 
+	public PlayerInteractEvent(PlayerWrapper<?> playerWrapper, BlockWrapper<?> blockWrapper, Action action) 
 	{
 		super(playerWrapper, blockWrapper);
 		this.action = action;

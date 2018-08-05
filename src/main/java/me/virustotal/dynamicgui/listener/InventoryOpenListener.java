@@ -7,10 +7,10 @@ import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.event.inventory.InventoryOpenEvent;
 
-public class InventoryOpenListener<T,U> implements Listener {
+public class InventoryOpenListener implements Listener {
 
 	@EventHandler
-	public void inventoryOpen(final InventoryOpenEvent<T,U> e)
+	public void inventoryOpen(final InventoryOpenEvent e)
 	{
 		if(DynamicGUI.getInstance().invPlayers.contains(e.getPlayerWrapper().getName()))
 		{

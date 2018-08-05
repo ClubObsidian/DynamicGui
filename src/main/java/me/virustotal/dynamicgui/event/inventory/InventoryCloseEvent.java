@@ -4,9 +4,9 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.InventoryEvent;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 
-public class InventoryCloseEvent<T,U> extends InventoryEvent<T,U> {
+public class InventoryCloseEvent extends InventoryEvent {
 
-	public InventoryCloseEvent(PlayerWrapper<T> playerWrapper, InventoryWrapper<U> inventoryWrapper) 
+	public InventoryCloseEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) 
 	{
 		super(playerWrapper, inventoryWrapper);
 	}

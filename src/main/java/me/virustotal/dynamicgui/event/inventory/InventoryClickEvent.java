@@ -1,15 +1,18 @@
 package me.virustotal.dynamicgui.event.inventory;
 
 
+import com.clubobsidian.trident.Cancellable;
+
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.InventoryEvent;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 
-public class InventoryClickEvent<T,U> extends InventoryEvent<T,U> {
+public class InventoryClickEvent extends InventoryEvent implements Cancellable {
 
 	private int slot;
 	private Click click;
-	public InventoryClickEvent(PlayerWrapper<T> playerWrapper, InventoryWrapper<U> inventoryWrapper, int slot, Click click)
+	private boolean cancelled = false;
+	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, int slot, Click click)
 	{
 		super(playerWrapper, inventoryWrapper);
 		this.slot = slot;
@@ -24,5 +27,17 @@ public class InventoryClickEvent<T,U> extends InventoryEvent<T,U> {
 	public Click getClick()
 	{
 		return this.click;
+	}
+
+	@Override
+	public boolean isCancelled() 
+	{
+		return this.cancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean cancelled) 
+	{
+		this.cancelled = cancelled;
 	}
 }

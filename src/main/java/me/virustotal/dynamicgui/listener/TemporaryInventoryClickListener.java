@@ -1,6 +1,5 @@
 package me.virustotal.dynamicgui.listener;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,41 +8,35 @@ import com.clubobsidian.trident.Listener;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
+import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.nbt.NBTItem;
+import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
-public class TemporaryInventoryClickListener<T,U> implements Listener {
-
-	private DynamicGUI<T,U> plugin;
-	private static String tag = "DynamicGuiSlot";
-	public TemporaryInventoryClickListener(DynamicGUI<T,U> plugin)
-	{
-		this.plugin = plugin;
-	}
+public class TemporaryInventoryClickListener implements Listener {
 
 	@EventHandler
-	public void invClick(final InventoryClickEvent<T,U> e)
+	public void invClick(final InventoryClickEvent e)
 	{
-		if(e.isCancelled())
+		if(e.getInventoryWrapper() == null || e.getInventoryWrapper().getInventory() == null)
 			return;
-		if(e.getClickedInventory() == null)
+		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
 			return;
-		if(e.getWhoClicked().getOpenInventory() == null)
+		if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() == null)
 			return;
 		if(GuiApi.getTemporaryGuiForPlayer(e.getPlayerWrapper()) == null)
 			return;
 
 		e.setCancelled(true);
 		
-		ItemStack item = e.getClickedInventory().getItem(e.getSlot());
-		if(item == null)
+		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
+		if(item == null || item.getItemStack() == null)
 			return;
 
-		Player player = (Player) e.getWhoClicked();
+		PlayerWrapper<?> player = e.getPlayerWrapper();
 
 		GUI gui = GuiApi.getTemporaryGuiForPlayer(e.getPlayerWrapper());
 
@@ -57,10 +50,10 @@ public class TemporaryInventoryClickListener<T,U> implements Listener {
 			{
 				try
 				{
-					NBTItem nbtItem = new NBTItem(item);
-					if(nbtItem.hasKey(tag))
+					String tag = item.getString(DynamicGUI.TAG);
+					if(tag != null)
 					{
-						UUID uuid = UUID.fromString(nbtItem.getString(tag));
+						UUID uuid = UUID.fromString(tag);
 						if(gui.getSlots().get(j) != null)
 						{
 							if(gui.getSlots().get(j).getUUID() != null)

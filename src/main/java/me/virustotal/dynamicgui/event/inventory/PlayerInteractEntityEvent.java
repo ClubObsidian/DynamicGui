@@ -4,16 +4,16 @@ import me.virustotal.dynamicgui.entity.EntityWrapper;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.PlayerEvent;
 
-public class PlayerInteractEntityEvent<P,E> extends PlayerEvent<P> {
+public class PlayerInteractEntityEvent extends PlayerEvent {
 
-	private EntityWrapper<E> entityWrapper;
-	public PlayerInteractEntityEvent(PlayerWrapper<P> playerWrapper, EntityWrapper<E> entityWrapper)
+	private EntityWrapper<?> entityWrapper;
+	public PlayerInteractEntityEvent(PlayerWrapper<?> playerWrapper, EntityWrapper<?> entityWrapper)
 	{
 		super(playerWrapper);
 		this.entityWrapper = entityWrapper;
 	}
 	
-	public EntityWrapper<E> getEntityWrapper()
+	public EntityWrapper<?> getEntityWrapper()
 	{
 		return this.entityWrapper;
 	}

@@ -22,7 +22,7 @@ public class EntityClickListener implements Listener {
 			PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
 			EntityWrapper<Entity> entityWrapper = new BukkitEntityWrapper<Entity>(e.getRightClicked());
 			
-			DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.PlayerInteractEntityEvent<Player,Entity>(playerWrapper, entityWrapper));
+			DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
 		}
 	}
 }

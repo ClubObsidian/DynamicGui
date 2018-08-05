@@ -8,22 +8,22 @@ import me.virustotal.dynamicgui.event.inventory.InventoryCloseEvent;
 import me.virustotal.dynamicgui.event.player.PlayerKickEvent;
 import me.virustotal.dynamicgui.event.player.PlayerQuitEvent;
 
-public class InventoryCloseListener<T,U> implements Listener {
+public class InventoryCloseListener implements Listener {
 
 	@EventHandler
-	public void inventoryClose(final InventoryCloseEvent<T,U> e)
+	public void inventoryClose(final InventoryCloseEvent e)
 	{
 		GuiApi.cleanupGUI(e.getPlayerWrapper());
 	}
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent<T> e)
+	public void onQuit(PlayerQuitEvent e)
 	{
 		GuiApi.cleanupGUI(e.getPlayerWrapper());
 	}
 	
 	@EventHandler
-	public void onKick(PlayerKickEvent<T> e)
+	public void onKick(PlayerKickEvent e)
 	{
 		GuiApi.cleanupGUI(e.getPlayerWrapper());
 	}

@@ -22,7 +22,7 @@ public class InventoryCloseListener {
 		{
 			PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
 			InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
-			DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.InventoryCloseEvent<Player,Inventory>(playerWrapper, inventoryWrapper));
+			DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
 		}
 	}
 	
@@ -30,13 +30,13 @@ public class InventoryCloseListener {
 	public void onQuit(PlayerQuitEvent e)
 	{
 		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.player.PlayerQuitEvent<Player>(playerWrapper));
+		DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
 	}
 	
 	@EventHandler
 	public void onKick(PlayerKickEvent e)
 	{
 		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.player.PlayerKickEvent<Player>(playerWrapper));
+		DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.player.PlayerKickEvent(playerWrapper));
 	}
 }

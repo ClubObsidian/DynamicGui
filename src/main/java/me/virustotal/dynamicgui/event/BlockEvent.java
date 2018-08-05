@@ -3,16 +3,16 @@ package me.virustotal.dynamicgui.event;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.world.BlockWrapper;
 
-public class BlockEvent<T,U> extends PlayerEvent<T> {
+public class BlockEvent extends PlayerEvent {
 
-	private BlockWrapper<U> blockWrapper;
-	public BlockEvent(PlayerWrapper<T> playerWrapper, BlockWrapper<U> blockWrapper) 
+	private BlockWrapper<?> blockWrapper;
+	public BlockEvent(PlayerWrapper<?> playerWrapper, BlockWrapper<?> blockWrapper) 
 	{
 		super(playerWrapper);
 		this.blockWrapper = blockWrapper;
 	}
 	
-	public BlockWrapper<U> getBlockWrapper()
+	public BlockWrapper<?> getBlockWrapper()
 	{
 		return this.blockWrapper;
 	}

@@ -10,10 +10,10 @@ import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.world.BlockWrapper;
 import me.virustotal.dynamicgui.world.LocationWrapper;
 
-public class PlayerInteractListener<T,U> implements Listener {
+public class PlayerInteractListener implements Listener {
 	
 	@EventHandler
-	public void interact(final PlayerInteractEvent<T,U> e)
+	public void interact(final PlayerInteractEvent e)
 	{
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
 		{

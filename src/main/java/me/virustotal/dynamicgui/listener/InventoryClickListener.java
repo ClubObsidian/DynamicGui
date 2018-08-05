@@ -16,10 +16,10 @@ import me.virustotal.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
-public class InventoryClickListener<T,U> implements Listener {
+public class InventoryClickListener implements Listener {
 
 	@EventHandler
-	public void invClick(final InventoryClickEvent<T,U> e)
+	public void invClick(final InventoryClickEvent e)
 	{
 		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
 			return;
@@ -30,7 +30,7 @@ public class InventoryClickListener<T,U> implements Listener {
 		if(item.getItemStack() == null)
 			return;
 
-		PlayerWrapper<T> player = e.getPlayerWrapper();
+		PlayerWrapper<?> player = e.getPlayerWrapper();
 		if(GuiApi.hasGUICurrently(player))
 		{
 			if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
