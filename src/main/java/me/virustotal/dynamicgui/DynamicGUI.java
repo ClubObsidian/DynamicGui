@@ -91,7 +91,7 @@ public class DynamicGUI<T,U>  {
 	
 	private void registerListeners() 
 	{
-		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener(this.getPlugin()));
+		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.EntityClickListener());
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryClickListener());
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryCloseListener());
 		this.eventManager.registerEvents(new me.virustotal.dynamicgui.listener.InventoryOpenListener());
