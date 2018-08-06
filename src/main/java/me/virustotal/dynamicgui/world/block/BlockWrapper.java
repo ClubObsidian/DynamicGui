@@ -1,6 +1,8 @@
-package me.virustotal.dynamicgui.world;
+package me.virustotal.dynamicgui.world.block;
 
 import java.io.Serializable;
+
+import me.virustotal.dynamicgui.world.location.LocationWrapper;
 
 public abstract class BlockWrapper<T> implements Serializable {
 

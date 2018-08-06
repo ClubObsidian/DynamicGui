@@ -7,7 +7,7 @@ import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
-import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.location.LocationWrapper;
 
 public class GuiBuilder  {
 	

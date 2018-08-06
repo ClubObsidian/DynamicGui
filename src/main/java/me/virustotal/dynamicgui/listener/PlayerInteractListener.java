@@ -7,8 +7,8 @@ import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.event.block.PlayerInteractEvent;
 import me.virustotal.dynamicgui.event.player.Action;
 import me.virustotal.dynamicgui.gui.GUI;
-import me.virustotal.dynamicgui.world.BlockWrapper;
-import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.block.BlockWrapper;
+import me.virustotal.dynamicgui.world.location.LocationWrapper;
 
 public class PlayerInteractListener implements Listener {
 	

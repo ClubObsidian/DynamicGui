@@ -9,6 +9,7 @@ import java.util.List;
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.economy.impl.VaultEconomy;
+import me.virustotal.dynamicgui.entity.EntityWrapper;
 import me.virustotal.dynamicgui.listener.bukkit.EntityClickListener;
 import me.virustotal.dynamicgui.npc.NPC;
 import me.virustotal.dynamicgui.npc.NPCRegistry;
@@ -112,9 +113,9 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	}
 
 	@Override
-	public boolean isNPC(U entity) 
+	public boolean isNPC(EntityWrapper<?> entity) 
 	{
-		for(NPCRegistry<U> registry : this.getNPCRegistries())
+		for(NPCRegistry<?> registry : this.getNPCRegistries())
 		{
 			if(registry.isNPC(entity))
 			{
@@ -125,11 +126,11 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 	}
 
 	@Override
-	public NPC<U> getNPC(U entity) 
+	public NPC<U> getNPC(EntityWrapper<?> entityWrapper) 
 	{
 		for(NPCRegistry<U> registry : this.getNPCRegistries())
 		{
-			NPC<U> npc = registry.getNPC(entity);
+			NPC<U> npc = registry.getNPC(entityWrapper);
 			if(npc != null)
 			{
 				return npc;

@@ -17,14 +17,14 @@ import me.virustotal.dynamicgui.function.EmptyFunction;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
+import me.virustotal.dynamicgui.manager.world.LocationManager;
 import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.util.ChatColor;
-import me.virustotal.dynamicgui.util.world.LocationUtil;
-import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.location.LocationWrapper;
 
 import org.apache.commons.io.FileUtils;
 
@@ -93,7 +93,7 @@ public class GuiApi {
 	
 	public static void openTemporaryGui(GUI gui, PlayerWrapper<?> player)
 	{
-		gui.buildInventory(player);//TODO
+		gui.buildInventory(player);
 		GuiApi.temporaryGuiMap.put(player.getUniqueId(), gui);
 	}
 	
@@ -326,7 +326,7 @@ public class GuiApi {
 		{
 			for(String location : yaml.getStringList("locations"))
 			{
-				locations.add(LocationUtil.toLocationWrapper(location));
+				locations.add(LocationManager.get().toLocationWrapper(location));
 			}
 		}
 

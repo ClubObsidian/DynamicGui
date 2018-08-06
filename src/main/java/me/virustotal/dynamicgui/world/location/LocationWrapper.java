@@ -1,4 +1,4 @@
-package me.virustotal.dynamicgui.world;
+package me.virustotal.dynamicgui.world.location;
 
 import java.io.Serializable;
 
@@ -9,6 +9,17 @@ public abstract class LocationWrapper<T> implements Serializable {
 	 */
 	private static final long serialVersionUID = -3610165660936041660L;
 
+	private T location;
+	public LocationWrapper(T location)
+	{
+		this.location = location;
+	}
+	
+	public T getLocation()
+	{
+		return this.location;
+	}
+	
 	public abstract int getX();
 	public abstract int getY();
 	public abstract int getZ();

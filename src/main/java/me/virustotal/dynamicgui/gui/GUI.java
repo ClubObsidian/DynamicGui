@@ -12,11 +12,11 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.manager.inventory.InventoryManager;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.util.ChatColor;
-import me.virustotal.dynamicgui.util.inventory.InventoryUtil;
-import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.location.LocationWrapper;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -63,8 +63,8 @@ public class GUI implements Serializable {
 
 	public void buildInventory(PlayerWrapper<?> player)
 	{	
-		Object serverInventory = InventoryUtil.createInventory(this.rows * 9, this.title);
-		InventoryWrapper<?> inv = InventoryUtil.createInventoryWrapper(serverInventory);
+		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
+		InventoryWrapper<?> inv = InventoryManager.get().createInventoryWrapper(serverInventory);
 		player.openInventory(inv);
 		
 		for(int j = 0; j < this.slots.size(); j++)
