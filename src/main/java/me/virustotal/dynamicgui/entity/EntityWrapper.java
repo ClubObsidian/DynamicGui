@@ -12,5 +12,4 @@ public abstract class EntityWrapper<T> {
 	{
 		return this.entity;
 	}
-
 }

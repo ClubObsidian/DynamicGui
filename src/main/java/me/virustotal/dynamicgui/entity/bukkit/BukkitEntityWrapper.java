@@ -10,9 +10,4 @@ public class BukkitEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 	{
 		super(entity);
 	}
-
-
-
-	
-
 }

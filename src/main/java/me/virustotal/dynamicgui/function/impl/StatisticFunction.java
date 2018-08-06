@@ -1,12 +1,8 @@
 package me.virustotal.dynamicgui.function.impl;
 
-import org.bukkit.Material;
-import org.bukkit.Statistic;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
+import me.virustotal.dynamicgui.util.Statistic;
 
 public class StatisticFunction extends Function {
 
@@ -31,13 +27,9 @@ public class StatisticFunction extends Function {
 			String type = split[1];
 			Integer num = Integer.parseInt(split[2]);
 
-			if(stat == Statistic.MINE_BLOCK)
+			if(stat == Statistic.MINE_BLOCK || stat == Statistic.KILL_ENTITY)
 			{
-				return player.getStatistic(stat, Material.valueOf(type)) >= num;
-			}
-			else if(stat == Statistic.KILL_ENTITY)
-			{
-				return player.getStatistic(stat, EntityType.valueOf(type)) >= num;
+				return player.getStatistic(stat, type) >= num;
 			}
 		}
 		else if(split.length == 2)

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.Statistic;
 
 public abstract class PlayerWrapper<T> {
 
@@ -32,5 +33,7 @@ public abstract class PlayerWrapper<T> {
 	public abstract void sendPluginMessage(DynamicGUIPlugin<?,?> plugin, String channel, byte[] message);
 	public abstract void playSound(String sound, Float volume, Float pitch);
 	public abstract void playEffect(String effect, int data);
+	public abstract int getStatistic(Statistic statistic);
+	public abstract int getStatistic(Statistic statistic, String data);
 		
 }

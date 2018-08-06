@@ -4,7 +4,9 @@ import java.util.UUID;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -14,6 +16,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.Statistic;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -120,5 +123,25 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		Player player = this.getPlayer();
 		Location playerLocation = player.getLocation();
 		playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
+	}
+
+	@Override
+	public int getStatistic(Statistic statistic) 
+	{
+		return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
+	}
+
+	@Override
+	public int getStatistic(Statistic statistic, String data) 
+	{
+		if(Statistic.MINE_BLOCK == statistic)
+		{
+			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(data));
+		}
+		else if(Statistic.KILL_ENTITY == statistic)
+		{
+			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(data));
+		}
+		return -1;
 	}
 }

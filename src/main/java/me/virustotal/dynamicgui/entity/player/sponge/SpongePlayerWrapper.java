@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.data.manipulator.mutable.entity.ExperienceHolderData;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleType;
@@ -12,6 +13,8 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
+import org.spongepowered.api.statistic.BlockStatistic;
+import org.spongepowered.api.statistic.StatisticTypes;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -20,6 +23,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
+import me.virustotal.dynamicgui.util.Statistic;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -141,5 +145,46 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 					.build();
 			location.getExtent().spawnParticles(particleEffect, location.getPosition());
 		}	
+	}
+
+	@Override
+	public int getStatistic(Statistic statistic) 
+	{
+		Optional<org.spongepowered.api.statistic.Statistic> spongeStatistic = Sponge.getGame().getRegistry().getType(org.spongepowered.api.statistic.Statistic.class, statistic.getSpongeID());
+		if(spongeStatistic.isPresent())
+		{
+			Optional<Long> data = this.getPlayer().getStatisticData().get(spongeStatistic.get());
+			if(data.isPresent())
+			{
+				if(data.get() <= Integer.MAX_VALUE)
+				{
+					return data.get().intValue();
+				}
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public int getStatistic(Statistic statistic, String data) 
+	{
+		/*if(statistic == Statistic.MINE_BLOCK)
+		{
+			Optional<BlockType> blockType = Sponge.getGame().getRegistry().getType(BlockType.class, data);
+			if(blockType.isPresent())
+			{
+				Optional<BlockStatistic> spongeStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType.get()));	
+				if(spongeStatistic.isPresent())
+				{
+					spongeStatistic.get().
+				}
+			}
+		}
+		else if(statistic == Statistic.KILL_ENTITY)
+		{
+			
+		}*/
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
