@@ -8,7 +8,7 @@ import me.virustotal.dynamicgui.function.Function;
 
 public class FunctionApi {
 	
-	private static Map<String, Function> functions = new HashMap<String, Function>();
+	private static Map<String, Function> functions = new HashMap<>();
 	
 	public static Function getFunctionByName(String name)
 	{

@@ -8,7 +8,7 @@ import me.virustotal.dynamicgui.objects.Replacer;
 
 public class ReplacerAPI {
 	
-	private static List<Replacer> replacers = new ArrayList<Replacer>();
+	private static List<Replacer> replacers = new ArrayList<>();
 	
 	public static String replace(String text, PlayerWrapper<?> player)
 	{

@@ -3,11 +3,8 @@ package me.virustotal.dynamicgui.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Location;
-
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.world.LocationWrapper;
@@ -103,9 +100,9 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public GuiBuilder addLocation(Location loc)
+	public GuiBuilder addLocation(LocationWrapper<?> loc)
 	{
-		this.locs.add(new CLocation(loc.getWorld().getName() + "," + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ()));
+		this.locs.add(loc);
 		return this;
 	}
 	

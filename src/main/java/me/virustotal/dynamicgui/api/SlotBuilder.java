@@ -24,20 +24,20 @@ public class SlotBuilder {
 	private String pMessage;
 	private int index;
 	
-	private List<Function> functions = new ArrayList<Function>();
-	private Map<String, List<Function>> failFunctions = new HashMap<String, List<Function>>();
+	private List<Function> functions = new ArrayList<>();
+	private Map<String, List<Function>> failFunctions = new HashMap<>();
 	
-	private List<Function> leftClickFunctions = new ArrayList<Function>();
-	private Map<String, List<Function>> leftClickFailFunctions = new HashMap<String, List<Function>>();
+	private List<Function> leftClickFunctions = new ArrayList<>();
+	private Map<String, List<Function>> leftClickFailFunctions = new HashMap<>();
 	
-	private List<Function> rightClickFunctions = new ArrayList<Function>();
-	private Map<String, List<Function>> rightClickFailFunctions = new HashMap<String, List<Function>>();
+	private List<Function> rightClickFunctions = new ArrayList<>();
+	private Map<String, List<Function>> rightClickFailFunctions = new HashMap<>();
 	
-	private List<Function> middleClickFunctions = new ArrayList<Function>();
-	private Map<String, List<Function>> middleClickFailFunctions = new HashMap<String, List<Function>>();
+	private List<Function> middleClickFunctions = new ArrayList<>();
+	private Map<String, List<Function>> middleClickFailFunctions = new HashMap<>();
 	
-	private List<Function> loadFunctions = new ArrayList<Function>();
-	private Map<String, List<Function>> failLoadFunctions = new HashMap<String, List<Function>>();
+	private List<Function> loadFunctions = new ArrayList<>();
+	private Map<String, List<Function>> failLoadFunctions = new HashMap<>();
 	private int amount;
 	
 	public SlotBuilder setIcon(Material icon)

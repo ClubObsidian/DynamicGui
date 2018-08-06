@@ -23,14 +23,16 @@ import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.util.ChatColor;
+import me.virustotal.dynamicgui.util.world.LocationUtil;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 import org.apache.commons.io.FileUtils;
 
 public class GuiApi {
 
-	private static List<GUI> guis = new ArrayList<GUI>();
-	private static Map<UUID, GUI> playerGuis = new HashMap<UUID, GUI>();
-	private static Map<UUID, GUI> temporaryGuiMap = new HashMap<UUID, GUI>(); //Maps player uuids and temporary guis.
+	private static List<GUI> guis = new ArrayList<>();
+	private static Map<UUID, GUI> playerGuis = new HashMap<>();
+	private static Map<UUID, GUI> temporaryGuiMap = new HashMap<>(); //Maps player uuids and temporary guis.
 	
 	public static boolean hasGuiTitle(String title)
 	{
@@ -193,7 +195,7 @@ public class GuiApi {
 				
 			
 				
-				List<Function> loadFunctions = new ArrayList<Function>();
+				List<Function> loadFunctions = new ArrayList<>();
 				if(section.get("loadfunctions") != null)
 				{
 					for(String string : section.getStringList("loadfunctions"))
@@ -207,7 +209,7 @@ public class GuiApi {
 					}
 				}
 				
-				Map<String, List<Function>> failLoadFunctions = new HashMap<String, List<Function>>();
+				Map<String, List<Function>> failLoadFunctions = new HashMap<>();
 				for(String key : section.getKeys())
 				{
 					if(key.endsWith("-failloadfunctions"))
@@ -294,7 +296,7 @@ public class GuiApi {
 		return slots;
 	}
 	
-	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName,final  String guiTitle,final int rows, final List<Slot> slots)
+	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -319,13 +321,12 @@ public class GuiApi {
 			close = yaml.getBoolean("close");
 
 
-		List<CLocation> locs = null; 
+		List<LocationWrapper<?>> locations = new ArrayList<>(); 
 		if(yaml.get("locations") != null)
 		{
-			locs = new ArrayList<CLocation>();
-			for(String loc : yaml.getStringList("locations"))
+			for(String location : yaml.getStringList("locations"))
 			{
-				locs.add(new CLocation(loc));
+				locations.add(LocationUtil.toLocationWrapper(location));
 			}
 		}
 
@@ -353,12 +354,12 @@ public class GuiApi {
 			}
 		}
 		
-		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locs, openingSounds);
+		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locations, openingSounds);
 	}
 
-	private static ArrayList<Function> getFunctions(ConfigurationSection section, String name)
+	private static List<Function> getFunctions(ConfigurationSection section, String name)
 	{
-		ArrayList<Function> functions = new ArrayList<Function>();
+		List<Function> functions = new ArrayList<>();
 		if(section.get(name) != null)
 		{
 			for(String string : section.getStringList(name))
@@ -377,7 +378,7 @@ public class GuiApi {
 	
 	private static Map<String,List<Function>> getFailFunctions(ConfigurationSection section, String end)
 	{
-		Map<String, List<Function>> failFunctions = new HashMap<String, List<Function>>(); //check ends with
+		Map<String, List<Function>> failFunctions = new HashMap<>(); //check ends with
 		for(String key : section.getKeys())
 		{
 			if(key.endsWith(end))

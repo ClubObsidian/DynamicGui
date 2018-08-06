@@ -19,7 +19,6 @@ public class MyEnchantmentBuilder {
 		return this;
 	}
 	
-	
 	public EnchantmentWrapper build()
 	{
 		return new EnchantmentWrapper(this.enchantment, level);
