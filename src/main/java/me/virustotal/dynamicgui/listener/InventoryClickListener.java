@@ -30,6 +30,8 @@ public class InventoryClickListener implements Listener {
 		if(item.getItemStack() == null)
 			return;
 
+		e.setCancelled(true);
+		
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		if(GuiApi.hasGUICurrently(player))
 		{

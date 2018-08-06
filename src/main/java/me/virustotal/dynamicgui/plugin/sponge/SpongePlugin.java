@@ -40,6 +40,4 @@ public class SpongePlugin<T extends Player, U extends Entity> implements Dynamic
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }
