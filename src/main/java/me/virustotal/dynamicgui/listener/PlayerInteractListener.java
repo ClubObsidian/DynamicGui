@@ -7,7 +7,6 @@ import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.event.block.PlayerInteractEvent;
 import me.virustotal.dynamicgui.event.player.Action;
 import me.virustotal.dynamicgui.gui.GUI;
-import me.virustotal.dynamicgui.world.BlockWrapper;
 import me.virustotal.dynamicgui.world.LocationWrapper;
 
 public class PlayerInteractListener implements Listener {
@@ -21,12 +20,10 @@ public class PlayerInteractListener implements Listener {
 			{
 				if(gui.getLocations() != null)
 				{
-					BlockWrapper<?> block = e.getBlockWrapper();
-					LocationWrapper<?> location = block.getLocation();
 					
 					for(LocationWrapper<?> guiLocation : gui.getLocations())
 					{
-						if(location.equals(guiLocation))
+						if(e.getLocationWrapper().equals(guiLocation))
 						{
 							e.getPlayerWrapper().chat("/gui " + gui.getName());
 							break;
