@@ -2,9 +2,9 @@ package me.virustotal.dynamicgui.listener.bukkit;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.EntityWrapper;
-import me.virustotal.dynamicgui.entity.impl.BukkitEntityWrapper;
+import me.virustotal.dynamicgui.entity.bukkit.BukkitEntityWrapper;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.entity.player.impl.BukkitPlayerWrapper;
+import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

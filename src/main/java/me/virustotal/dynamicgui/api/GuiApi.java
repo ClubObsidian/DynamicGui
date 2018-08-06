@@ -24,7 +24,7 @@ import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.util.ChatColor;
-import me.virustotal.dynamicgui.world.location.LocationWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 import org.apache.commons.io.FileUtils;
 

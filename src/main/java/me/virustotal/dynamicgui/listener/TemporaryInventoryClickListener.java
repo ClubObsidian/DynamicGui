@@ -13,7 +13,7 @@ import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
-import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.util.FunctionUtil;
 
 public class TemporaryInventoryClickListener implements Listener {

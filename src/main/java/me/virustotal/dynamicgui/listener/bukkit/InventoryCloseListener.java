@@ -9,9 +9,9 @@ import org.bukkit.inventory.Inventory;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.entity.player.impl.BukkitPlayerWrapper;
+import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
+import me.virustotal.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 
 public class InventoryCloseListener {
 

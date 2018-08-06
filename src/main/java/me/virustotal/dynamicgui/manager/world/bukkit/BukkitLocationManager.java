@@ -5,8 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import me.virustotal.dynamicgui.manager.world.LocationManager;
-import me.virustotal.dynamicgui.world.location.LocationWrapper;
-import me.virustotal.dynamicgui.world.location.bukkit.BukkitLocationWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.bukkit.BukkitLocationWrapper;
 
 public class BukkitLocationManager extends LocationManager {
 

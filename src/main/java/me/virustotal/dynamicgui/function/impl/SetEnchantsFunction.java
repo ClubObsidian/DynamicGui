@@ -9,7 +9,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class SetEnchantsFunction extends Function {

@@ -7,9 +7,9 @@ import org.spongepowered.api.event.entity.InteractEntityEvent;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.EntityWrapper;
-import me.virustotal.dynamicgui.entity.impl.SpongeEntityWrapper;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.entity.player.impl.SpongePlayerWrapper;
+import me.virustotal.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import me.virustotal.dynamicgui.entity.sponge.SpongeEntityWrapper;
 
 public class EntityClickListener {
 

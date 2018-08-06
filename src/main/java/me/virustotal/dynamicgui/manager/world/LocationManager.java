@@ -3,7 +3,7 @@ package me.virustotal.dynamicgui.manager.world;
 import me.virustotal.dynamicgui.manager.world.bukkit.BukkitLocationManager;
 import me.virustotal.dynamicgui.manager.world.sponge.SpongeLocationManager;
 import me.virustotal.dynamicgui.server.ServerType;
-import me.virustotal.dynamicgui.world.location.LocationWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 public abstract class LocationManager {
 

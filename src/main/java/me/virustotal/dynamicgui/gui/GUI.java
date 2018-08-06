@@ -11,12 +11,12 @@ import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
+import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.manager.inventory.InventoryManager;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 import me.virustotal.dynamicgui.util.ChatColor;
-import me.virustotal.dynamicgui.world.location.LocationWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
 
 import org.apache.commons.lang3.SerializationUtils;
 

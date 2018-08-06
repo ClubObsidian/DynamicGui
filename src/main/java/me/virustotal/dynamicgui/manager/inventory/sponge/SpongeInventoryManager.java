@@ -7,7 +7,7 @@ import org.spongepowered.api.text.Text;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.inventory.impl.SpongeInventoryWrapper;
+import me.virustotal.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import me.virustotal.dynamicgui.manager.inventory.InventoryManager;
 
 public class SpongeInventoryManager extends InventoryManager {

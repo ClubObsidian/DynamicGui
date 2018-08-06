@@ -1,7 +1,7 @@
 package me.virustotal.dynamicgui.event;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
-import me.virustotal.dynamicgui.world.block.BlockWrapper;
+import me.virustotal.dynamicgui.world.BlockWrapper;
 
 public class BlockEvent extends PlayerEvent {
 

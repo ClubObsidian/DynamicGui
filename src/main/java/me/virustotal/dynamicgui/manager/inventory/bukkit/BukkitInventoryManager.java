@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
-import me.virustotal.dynamicgui.inventory.impl.BukkitInventoryWrapper;
+import me.virustotal.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import me.virustotal.dynamicgui.manager.inventory.InventoryManager;
 
 public class BukkitInventoryManager extends InventoryManager {

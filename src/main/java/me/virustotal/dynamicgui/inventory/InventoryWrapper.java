@@ -2,8 +2,6 @@ package me.virustotal.dynamicgui.inventory;
 
 import java.io.Serializable;
 
-import me.virustotal.dynamicgui.inventory.item.ItemStackWrapper;
-
 public abstract class InventoryWrapper<T> implements Serializable {
 
 	/**

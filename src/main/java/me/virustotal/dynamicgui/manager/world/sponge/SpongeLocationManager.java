@@ -7,8 +7,8 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import me.virustotal.dynamicgui.manager.world.LocationManager;
-import me.virustotal.dynamicgui.world.location.LocationWrapper;
-import me.virustotal.dynamicgui.world.location.sponge.SpongeLocationWrapper;
+import me.virustotal.dynamicgui.world.LocationWrapper;
+import me.virustotal.dynamicgui.world.sponge.SpongeLocationWrapper;
 
 public class SpongeLocationManager extends LocationManager {
 
