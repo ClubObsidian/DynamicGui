@@ -32,6 +32,9 @@ public class InventoryClickListener implements Listener {
 
 		e.setCancelled(true);
 		
+		if(e.getClick() == null) //For other types of clicks besides left, right, middle
+			return;
+		
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		if(GuiApi.hasGUICurrently(player))
 		{
