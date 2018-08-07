@@ -12,7 +12,7 @@ import me.virustotal.dynamicgui.world.LocationWrapper;
 public class PlayerInteractListener implements Listener {
 	
 	@EventHandler
-	public void interact(final PlayerInteractEvent e)
+	public void playerInteract(final PlayerInteractEvent e)
 	{
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
 		{
