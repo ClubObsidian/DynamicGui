@@ -2,6 +2,7 @@ package me.virustotal.dynamicgui.listener.bukkit;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -13,7 +14,7 @@ import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 
-public class InventoryCloseListener {
+public class InventoryCloseListener implements Listener {
 
 	@EventHandler
 	public void inventoryClose(InventoryCloseEvent e)

@@ -1,12 +1,11 @@
 package me.virustotal.dynamicgui.listener.bukkit;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-
-import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.Listener;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;

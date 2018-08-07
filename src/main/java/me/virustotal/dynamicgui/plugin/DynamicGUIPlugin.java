@@ -14,6 +14,8 @@ public interface DynamicGUIPlugin<T,U> extends NPCRegistry<U> {
 	public Economy getEconomy();
 	public List<NPCRegistry<U>> getNPCRegistries();
 	public Logger getLogger();
+	public File getDataFolder();
+	public File getConfigFile();
 	public File getGuiFolder();
 	
 }

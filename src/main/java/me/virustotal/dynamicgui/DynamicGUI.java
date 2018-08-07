@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.apache.commons.io.FileUtils;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;
@@ -32,6 +32,7 @@ import com.google.common.io.ByteStreams;
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
+import me.virustotal.dynamicgui.configuration.Configuration;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.impl.CheckLevelFunction;
@@ -68,25 +69,78 @@ import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
 import me.virustotal.dynamicgui.objects.replacers.UUIDReplacer;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.server.FakeServer;
+import me.virustotal.dynamicgui.util.ChatColor;
 
-public class DynamicGUI<T,U>  {
+public class DynamicGUI  {
 
 	public static final String TAG = "DynamicGuiSlot";
 
-	private static DynamicGUI<?,?> instance = null;
+	private static DynamicGUI instance = null;
 	
-	private DynamicGUIPlugin<T,U> plugin;
+	private DynamicGUIPlugin<?,?> plugin;
 	private EventManager eventManager;
 	private FakeServer server;
 	
-	public DynamicGUI(DynamicGUIPlugin<T,U> plugin, FakeServer server)
+	private DynamicGUI(DynamicGUIPlugin<?,?> plugin, FakeServer server)
 	{
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
 		this.server = server;
+		this.setupFileStructure();
+		this.loadConfig();
+		this.loadGuis();
+		this.checkForProxy();
 		this.registerListeners();
 		this.loadFunctions();
 		this.loadReplacers();
+	}
+
+	private void setupFileStructure()
+	{
+		if(!this.plugin.getDataFolder().exists())
+		{
+			this.plugin.getDataFolder().mkdirs();
+		}
+		
+		if(!this.plugin.getGuiFolder().exists())
+		{
+			this.plugin.getGuiFolder().mkdirs();
+		}
+	}
+
+	private void loadConfig()
+	{
+	
+		//TODO - save config
+		Configuration config = Configuration.load(this.plugin.getConfigFile());
+		this.noPermissionFunction = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-function"));
+		this.noPermissionGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-gui"));
+		this.noMoney = ChatColor.translateAlternateColorCodes('&', config.getString("no-money"));
+		this.noExp = ChatColor.translateAlternateColorCodes('&', config.getString("no-exp"));
+		this.noPoints = ChatColor.translateAlternateColorCodes('&', config.getString("no-points"));
+		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
+	}
+
+	private void loadGuis()
+	{
+		GuiApi.loadGuis();
+	}
+	
+	public void checkForProxy()
+	{
+		if(this.version.equalsIgnoreCase("bungee"))
+		{
+			this.registerBungee();
+		}
+		else if(this.version.equalsIgnoreCase("redis"))
+		{
+			this.registerRedis();
+		}
+		else
+		{
+			this.bungeecord = false;
+			this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is not enabled!");
+		}
 	}
 	
 	private void registerListeners() 
@@ -130,8 +184,6 @@ public class DynamicGUI<T,U>  {
 		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
-	public File configFile;
-	public File guiFolder;
 	private List<String> registeredCommands = new ArrayList<String>();
 	
 	private String noPermissionFunction;
@@ -147,13 +199,7 @@ public class DynamicGUI<T,U>  {
 	
 	private boolean bungeecord;
 	private boolean redis;
-	
-	private static boolean placeHolderAPI = false;
-	
-	public List<String> invPlayers = new ArrayList<String>();
-	
-	
-	
+
 	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
 	
 	@Override
@@ -175,15 +221,9 @@ public class DynamicGUI<T,U>  {
 
 		//AnvilNMS.init(); TODO
 
-		this.noPermissionFunction = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-permission-function"));
-		this.noPermissionGui = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-permission-gui"));
-		this.noMoney = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-money"));
-		this.noExp = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-exp"));
-		this.noPoints = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-points"));
-		this.noGui = ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("no-gui"));
 		this.getCommand("gui").setExecutor(new GUICommand(this));
-		this.version = this.getConfig().getString("version");
-		for(final String str : this.getConfig().getStringList("servers"))
+		this.version = config.getString("version");
+		for(final String str : config.getStringList("servers"))
 		{
 			ReplacerAPI.addReplacer(new Replacer("%" + str  + "-players%")
 			{
@@ -197,56 +237,10 @@ public class DynamicGUI<T,U>  {
 		}
 		this.serverPlayerCount.put("ALL", 0);
 		
-		//check if placeholder is enabled
-		placeHolderAPI = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
-		
-		
 
 		
 		
-		
-		this.getLogger().log(Level.INFO, "Running version: " + Bukkit.getVersion().toLowerCase());
-		
-		//setup bungeecord
-		if(this.version.equalsIgnoreCase("bungee"))
-		{
-			this.registerBungee();
-		}
-		else if(this.version.equalsIgnoreCase("redis"))
-		{
-			this.registerRedis();
-		}
-		else if(Bukkit.getVersion().toLowerCase().contains(this.version))
-		{
-			if(Bukkit.spigot() != null)
-			{
-				if(Bukkit.spigot().getConfig().getBoolean("settings.bungeecord"))
-				{
-					this.registerBungee();
-				}
-				else
-				{
-					this.bungeecord = false;
-					this.getLogger().log(Level.INFO, "BungeeCord is not enabled!");
-				}
-			}
-		}
-		else
-		{
-			this.bungeecord = false;
-			this.getLogger().log(Level.INFO, "BungeeCord is not enabled!");
-		}
-		
-		
-		this.getPlayerCountAll();
-		
 		//register listeners
-		Bukkit.getPluginManager().registerEvents(new InventoryClickListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new TemporaryInventoryClickListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new InventoryOpenListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
-		Bukkit.getPluginManager().registerEvents(new GuiApi(), this);
 		
 		
 		
@@ -258,23 +252,6 @@ public class DynamicGUI<T,U>  {
 		
 		this.cleanupGuis();
 		this.cleanupCommands();
-
-		this.economy = null;
-
-		this.configFile = null;
-		this.guiFolder = null;
-
-		this.noPermissionFunction = null;
-		this.noPermissionGui = null;
-		this.noMoney = null;
-		this.noExp = null;
-		this.noGui = null;
-		
-		this.version = null;
-		this.cm = null;
-		
-		this.invPlayers = null;
-		this.registeredCommands = null;	
 	}
 
 	
@@ -307,6 +284,7 @@ public class DynamicGUI<T,U>  {
 		,1L, 20L);
 		
 	}
+
 	
 	private void cleanupGuis()
 	{
@@ -356,13 +334,14 @@ public class DynamicGUI<T,U>  {
 				this.getLogger().log(Level.INFO, amt + " commands have been unregistered!");
 		}
 	}
+
 	
 	private void registerBungee()
 	{
-		this.getLogger().log(Level.INFO, "BungeeCord is enabled!");
+		this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is enabled!");
 		this.bungeecord = true;
-		this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", this.getPlugin());
 		this.startPlayerCountTimer();
 	}
 	
@@ -370,9 +349,9 @@ public class DynamicGUI<T,U>  {
 	{
 		this.getLogger().log(Level.INFO, "RedisBungee is enabled");
 		this.redis = true;
-		this.getServer().getMessenger().registerOutgoingPluginChannel(this, "RedisBungee");
-		this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "RedisBungee", this);
+		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
+		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", this.getPlugin());
 		this.startPlayerCountTimer();
 		
 	}
@@ -402,7 +381,7 @@ public class DynamicGUI<T,U>  {
 
 	public void loadCommand(String gui, String alias)
 	{
-		this.getLogger().log(Level.INFO, "Registered the command: " + alias + " for the gui " + gui);
+		this.getPlugin().getLogger().log(Level.INFO, "Registered the command: " + alias + " for the gui " + gui);
 
 		CustomCommand cmd = new CustomCommand(alias);			
 		try 
@@ -463,11 +442,6 @@ public class DynamicGUI<T,U>  {
 	{
 		return this.redis;
 	}
-	
-	public static boolean getPlaceholderAPI()
-	{
-		return placeHolderAPI;
-	}
 
 	public int getPlayerCountAll()
 	{
@@ -482,7 +456,7 @@ public class DynamicGUI<T,U>  {
 	}
 	
 	
-	public DynamicGUIPlugin<T,U> getPlugin()
+	public DynamicGUIPlugin<?,?> getPlugin()
 	{
 		return this.plugin;
 	}
@@ -497,16 +471,19 @@ public class DynamicGUI<T,U>  {
 		return this.server;
 	}
 	
-	public static DynamicGUI<?,?> get() 
+	public static DynamicGUI get() 
 	{
 		return instance;
 	}
+
 	
-	public static void setInstance(DynamicGUI<?,?> instance)
+	public static boolean createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server)
 	{
 		if(DynamicGUI.instance == null)
 		{
-			DynamicGUI.instance = instance;
+			DynamicGUI.instance = new DynamicGUI(plugin, server);
+			return true;
 		}
+		return false;
 	}
 }
