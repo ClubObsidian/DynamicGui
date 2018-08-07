@@ -12,6 +12,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 import me.virustotal.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
+import me.virustotal.dynamicgui.server.ServerType;
 
 public class FakeBukkitServer extends FakeServer {
 
@@ -57,5 +58,11 @@ public class FakeBukkitServer extends FakeServer {
 	public int getGlobalPlayerCount() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ServerType getType() 
+	{
+		return ServerType.SPIGOT;
 	}
 }

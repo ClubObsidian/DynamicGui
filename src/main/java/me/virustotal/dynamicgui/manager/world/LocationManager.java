@@ -1,5 +1,6 @@
 package me.virustotal.dynamicgui.manager.world;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.manager.world.bukkit.BukkitLocationManager;
 import me.virustotal.dynamicgui.manager.world.sponge.SpongeLocationManager;
 import me.virustotal.dynamicgui.server.ServerType;
@@ -13,11 +14,11 @@ public abstract class LocationManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == ServerType.get())
+			if(ServerType.SPIGOT == DynamicGUI.getInstance().getServer().getType())
 			{
 				instance = new BukkitLocationManager();
 			}
-			else if(ServerType.SPONGE == ServerType.get())
+			else if(ServerType.SPONGE == DynamicGUI.getInstance().getServer().getType())
 			{
 				instance = new SpongeLocationManager();
 			}

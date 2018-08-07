@@ -13,6 +13,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
 import me.virustotal.dynamicgui.scheduler.sponge.SpongeScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
+import me.virustotal.dynamicgui.server.ServerType;
 
 public class FakeSpongeServer extends FakeServer {
 
@@ -57,6 +58,12 @@ public class FakeSpongeServer extends FakeServer {
 	public int getGlobalPlayerCount() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public ServerType getType() 
+	{
+		return ServerType.SPONGE;
 	}
 
 }

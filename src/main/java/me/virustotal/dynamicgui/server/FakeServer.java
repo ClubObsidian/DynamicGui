@@ -25,4 +25,5 @@ public abstract class FakeServer {
 	public abstract PlayerWrapper<?> getPlayer(String name);
 	public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
 	public abstract int getGlobalPlayerCount();
+	public abstract ServerType getType();
 }

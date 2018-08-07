@@ -11,8 +11,8 @@ import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
+import me.virustotal.dynamicgui.manager.inventory.ItemStackManager;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
-import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
 
 public class Slot implements Serializable {
 	
@@ -197,7 +197,7 @@ public class Slot implements Serializable {
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
-		ItemStackWrapper<?> item = ItemStackUtil.createItemStackWrapper(this.icon, this.getAmount());
+		ItemStackWrapper<?> item = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
 		try 
 		{
 			UUID uuid = UUID.randomUUID();

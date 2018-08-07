@@ -8,7 +8,7 @@ import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
-import me.virustotal.dynamicgui.util.inventory.item.ItemStackUtil;
+import me.virustotal.dynamicgui.manager.inventory.ItemStackManager;
 
 public class RemoveSlotFunction extends Function {
 
@@ -47,7 +47,7 @@ public class RemoveSlotFunction extends Function {
 										UUID uuid = UUID.fromString(tag);
 										if(slot.getUUID().equals(uuid))
 										{
-											inv.setItem(i, ItemStackUtil.createItemStackWrapper("AIR", 1));
+											inv.setItem(i, ItemStackManager.get().createItemStackWrapper("AIR", 1));
 											break;
 										}
 									}
