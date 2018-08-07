@@ -99,12 +99,12 @@ public class GuiApi {
 	
 	public static void openTemporaryGui(GUI gui, UUID uuid)
 	{
-		GuiApi.openTemporaryGui(gui, DynamicGUI.getInstance().getServer().getPlayer(uuid));
+		GuiApi.openTemporaryGui(gui, DynamicGUI.get().getServer().getPlayer(uuid));
 	}
 	
 	public static void loadGuis()
 	{
-		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.getInstance().getPlugin();
+		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		//File[] ar = guiFolder.listFiles();
 		
@@ -147,7 +147,7 @@ public class GuiApi {
 
 	public static void reloadGuis()
 	{
-		DynamicGUI.getInstance().getPlugin().getLogger().log(Level.INFO, "Force reloading guis!");
+		DynamicGUI.get().getPlugin().getLogger().log(Level.INFO, "Force reloading guis!");
 		guis.clear();
 		loadGuis();
 	}
@@ -202,7 +202,7 @@ public class GuiApi {
 					{
 						String[] array = FunctionApi.parseData(string);
 						if(FunctionApi.getFunctionByName(array[0]) == null)
-							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
 						Function func = new EmptyFunction(array[0], array[1]);
 						loadFunctions.add(func);
@@ -219,7 +219,7 @@ public class GuiApi {
 						{
 							String[] array = FunctionApi.parseData(string);
 							if(FunctionApi.getFunctionByName(array[0]) == null)
-								DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+								DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
 							Function func = new EmptyFunction(array[0], array[1]);
 							failFuncs.add(func);
@@ -366,7 +366,7 @@ public class GuiApi {
 			{
 				String[] array = FunctionApi.parseData(string);
 				if(FunctionApi.getFunctionByName(array[0]) == null)
-					DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 
 				Function func = new EmptyFunction(array[0], array[1]);
 				functions.add(func);
@@ -388,7 +388,7 @@ public class GuiApi {
 				{
 					String[] array = FunctionApi.parseData(string);
 					if(FunctionApi.getFunctionByName(array[0]) == null)
-						DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+						DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
 					Function func = new EmptyFunction(array[0], array[1]);
 					failFuncs.add(func);

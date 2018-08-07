@@ -15,11 +15,11 @@ public class EntityClickListener implements Listener {
 	public void onEntityClick(PlayerInteractEntityEvent e)
 	{
 		EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-		if(DynamicGUI.getInstance().getPlugin().isNPC(entityWrapper))
+		if(DynamicGUI.get().getPlugin().isNPC(entityWrapper))
 		{
 			for(GUI gui : GuiApi.getGuis())
 			{
-				if(gui.getNpcIds().contains(DynamicGUI.getInstance().getPlugin().getNPC(entityWrapper).getId()))
+				if(gui.getNpcIds().contains(DynamicGUI.get().getPlugin().getNPC(entityWrapper).getId()))
 				{
 					e.getPlayerWrapper().chat("/gui " + gui.getName());
 					break;

@@ -48,7 +48,7 @@ public class BukkitPlugin<T extends org.bukkit.entity.Player, U extends org.bukk
 			this.reloadConfig();
 
 		ServerType.setServerType(ServerType.SPIGOT);
-		if(DynamicGUI.getInstance() == null)
+		if(DynamicGUI.get() == null)
 		{
 			DynamicGUI.setInstance(new DynamicGUI<T,U>(this, new FakeBukkitServer()));
 		}

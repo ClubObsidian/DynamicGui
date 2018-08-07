@@ -109,7 +109,7 @@ public class GUI implements Serializable {
 							}
 							else
 							{
-								DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+								DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 								run = false;
 							}
 							if(!run)
@@ -166,7 +166,7 @@ public class GUI implements Serializable {
 						} 
 						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
 						{
-							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
+							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
 							e.printStackTrace();
 						}
 						if(func != null)
@@ -180,7 +180,7 @@ public class GUI implements Serializable {
 						}
 						else
 						{
-							DynamicGUI.getInstance().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 							run = false;
 						}
 						if(!run)

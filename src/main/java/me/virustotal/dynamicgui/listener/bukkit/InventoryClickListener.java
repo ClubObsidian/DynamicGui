@@ -30,7 +30,7 @@ public class InventoryClickListener implements Listener {
 				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
 				Click clickType = Click.valueOf(e.getClick().toString());
 				me.virustotal.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new me.virustotal.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
-				DynamicGUI.getInstance().getEventManager().callEvent(clickEvent);
+				DynamicGUI.get().getEventManager().callEvent(clickEvent);
 				if(clickEvent.isCancelled())
 				{
 					e.setCancelled(true);

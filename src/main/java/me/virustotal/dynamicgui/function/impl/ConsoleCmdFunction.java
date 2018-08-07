@@ -25,7 +25,7 @@ public class ConsoleCmdFunction extends Function {
 	@Override
 	public boolean function(final PlayerWrapper<?> player)
 	{
-		DynamicGUI.getInstance().getServer().dispatchServerCommand(ReplacerAPI.replace(this.getData(), player));
+		DynamicGUI.get().getServer().dispatchServerCommand(ReplacerAPI.replace(this.getData(), player));
 		return true;
 	}
 }

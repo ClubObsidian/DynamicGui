@@ -17,7 +17,7 @@ public class SpongeInventoryManager extends InventoryManager {
 	{
 		return Inventory.builder().property("title", new InventoryTitle(Text.of(title)))
 		.property("capacity", new InventoryCapacity(size))
-		.build(DynamicGUI.getInstance().getPlugin());
+		.build(DynamicGUI.get().getPlugin());
 	}
 
 	@Override

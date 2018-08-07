@@ -23,7 +23,7 @@ public class EntityClickListener {
 				PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>((Player) e.getSource());
 				EntityWrapper<Entity> entityWrapper = new SpongeEntityWrapper<Entity>(e.getTargetEntity());
 			
-				DynamicGUI.getInstance().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+				DynamicGUI.get().getEventManager().callEvent(new me.virustotal.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
 			}
 		}
 	}

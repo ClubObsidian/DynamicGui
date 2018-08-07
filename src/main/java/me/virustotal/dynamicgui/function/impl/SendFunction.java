@@ -30,7 +30,7 @@ public class SendFunction extends Function {
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		out.writeUTF("Connect");
 		out.writeUTF(this.getData());
-		player.sendPluginMessage(DynamicGUI.getInstance().getPlugin(), "BungeeCord", out.toByteArray());
+		player.sendPluginMessage(DynamicGUI.get().getPlugin(), "BungeeCord", out.toByteArray());
 		return true;
 	}
 }

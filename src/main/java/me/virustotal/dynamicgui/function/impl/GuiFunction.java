@@ -29,7 +29,7 @@ public class GuiFunction extends Function {
 		if(player.getOpenInventoryWrapper() != null)
 			player.closeInventory();
 		
-		DynamicGUI.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.getInstance().getPlugin(), new Runnable()
+		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()

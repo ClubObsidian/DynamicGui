@@ -24,7 +24,7 @@ public class InventoryOpenListener implements Listener {
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
 			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
 			me.virustotal.dynamicgui.event.inventory.InventoryOpenEvent inventoryOpenEvent = new me.virustotal.dynamicgui.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
-			DynamicGUI.getInstance().getEventManager().callEvent(inventoryOpenEvent);
+			DynamicGUI.get().getEventManager().callEvent(inventoryOpenEvent);
 		}
 	}
 }

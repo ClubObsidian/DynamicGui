@@ -14,11 +14,11 @@ public abstract class InventoryManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == DynamicGUI.getInstance().getServer().getType())
+			if(ServerType.SPIGOT == DynamicGUI.get().getServer().getType())
 			{
 				instance = new BukkitInventoryManager();
 			}
-			else if(ServerType.SPONGE == DynamicGUI.getInstance().getServer().getType())
+			else if(ServerType.SPONGE == DynamicGUI.get().getServer().getType())
 			{
 				instance = new SpongeInventoryManager();
 			}

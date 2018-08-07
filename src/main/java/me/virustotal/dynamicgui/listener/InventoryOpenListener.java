@@ -12,7 +12,7 @@ public class InventoryOpenListener implements Listener {
 	@EventHandler
 	public void inventoryOpen(final InventoryOpenEvent e)
 	{
-		if(DynamicGUI.getInstance().invPlayers.contains(e.getPlayerWrapper().getName()))
+		if(DynamicGUI.get().invPlayers.contains(e.getPlayerWrapper().getName()))
 		{
 			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
 				e.getPlayerWrapper().closeInventory();
@@ -21,13 +21,13 @@ public class InventoryOpenListener implements Listener {
 
 		if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
 		{
-			DynamicGUI.getInstance().invPlayers.add(e.getPlayerWrapper().getName());
-			DynamicGUI.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.getInstance().getPlugin(), new Runnable()
+			DynamicGUI.get().invPlayers.add(e.getPlayerWrapper().getName());
+			DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
 			{
 				@Override
 				public void run()
 				{
-					DynamicGUI.getInstance().invPlayers.remove(e.getPlayerWrapper().getName());
+					DynamicGUI.get().invPlayers.remove(e.getPlayerWrapper().getName());
 				}
 			},3L);
 		}

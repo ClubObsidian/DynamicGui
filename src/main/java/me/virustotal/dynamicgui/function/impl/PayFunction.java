@@ -36,16 +36,16 @@ public class PayFunction extends Function {
 			ex.printStackTrace();
 			return false;
 		}
-		if(DynamicGUI.getInstance().getPlugin().getEconomy() == null)
+		if(DynamicGUI.get().getPlugin().getEconomy() == null)
 			return false;
 		
 		BigDecimal decimalAmt = new BigDecimal(amt);
-		if(DynamicGUI.getInstance().getPlugin().getEconomy().getBalance(player).compareTo(decimalAmt) == -1)
+		if(DynamicGUI.get().getPlugin().getEconomy().getBalance(player).compareTo(decimalAmt) == -1)
 		{
 			return false;
 		}
 
-		DynamicGUI.getInstance().getPlugin().getEconomy().withdraw(player, decimalAmt);
+		DynamicGUI.get().getPlugin().getEconomy().withdraw(player, decimalAmt);
 		return true;
 	}
 }

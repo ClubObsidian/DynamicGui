@@ -497,7 +497,7 @@ public class DynamicGUI<T,U>  {
 		return this.server;
 	}
 	
-	public static DynamicGUI<?,?> getInstance() 
+	public static DynamicGUI<?,?> get() 
 	{
 		return instance;
 	}
