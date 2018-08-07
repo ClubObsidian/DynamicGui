@@ -16,6 +16,7 @@
 .classpath
 .settings/*
 bin/*
+build/*
 
 # Package Files #
 *.war
