@@ -110,8 +110,19 @@ public class DynamicGUI  {
 
 	private void loadConfig()
 	{
-	
-		//TODO - save config
+		if(!this.plugin.getConfigFile().exists())
+		{
+			try 
+			{
+				FileUtils
+				.copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"), 
+				this.plugin.getConfigFile());
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.noPermissionFunction = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-function"));
 		this.noPermissionGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-gui"));
@@ -338,8 +349,8 @@ public class DynamicGUI  {
 	
 	private void registerBungee()
 	{
-		this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is enabled!");
 		this.bungeecord = true;
+		this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is enabled!");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", this.getPlugin());
 		this.startPlayerCountTimer();
@@ -347,8 +358,8 @@ public class DynamicGUI  {
 	
 	private void registerRedis()
 	{
-		this.getLogger().log(Level.INFO, "RedisBungee is enabled");
 		this.redis = true;
+		this.getPlugin().getLogger().log(Level.INFO, "RedisBungee is enabled");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", this.getPlugin());
@@ -431,7 +442,6 @@ public class DynamicGUI  {
 	{
 		return this.noGui;
 	}
-
 
 	public boolean getBungeeCord()
 	{
