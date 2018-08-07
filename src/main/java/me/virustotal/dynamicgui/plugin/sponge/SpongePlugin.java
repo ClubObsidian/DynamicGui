@@ -78,14 +78,32 @@ public class SpongePlugin<T extends Player, U extends Entity> implements Dynamic
 	}
 
 	@Override
-	public Logger getLogger() 
-	{
-		
+	public Logger getLogger() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public File getGuiFolder() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public File getDataFolder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public File getConfigFile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createCommand(String guiName, String alias) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -11,6 +11,7 @@ import org.spongepowered.api.text.Text;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.scheduler.sponge.SpongeScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
 import me.virustotal.dynamicgui.server.ServerType;
@@ -64,6 +65,18 @@ public class FakeSpongeServer extends FakeServer {
 	public ServerType getType() 
 	{
 		return ServerType.SPONGE;
+	}
+
+	@Override
+	public void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

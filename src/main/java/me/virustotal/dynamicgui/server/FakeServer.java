@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.scheduler.Scheduler;
 
 public abstract class FakeServer {
@@ -26,4 +27,7 @@ public abstract class FakeServer {
 	public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
 	public abstract int getGlobalPlayerCount();
 	public abstract ServerType getType();
+	public abstract void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel);
+	public abstract void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel);
+	
 }

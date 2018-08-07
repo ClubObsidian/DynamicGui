@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
+import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
 import me.virustotal.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import me.virustotal.dynamicgui.server.FakeServer;
 import me.virustotal.dynamicgui.server.ServerType;
@@ -55,14 +57,28 @@ public class FakeBukkitServer extends FakeServer {
 	}
 
 	@Override
-	public int getGlobalPlayerCount() {
+	public int getGlobalPlayerCount() 
+	{
 		// TODO Auto-generated method stub
-		return 0;
+		return Bukkit.getServer().getOnlinePlayers().size();
 	}
 
 	@Override
 	public ServerType getType() 
 	{
 		return ServerType.SPIGOT;
+	}
+
+	@Override
+	public void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) 
+	{
+		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, channel);
+	}
+
+	@Override
+	public void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

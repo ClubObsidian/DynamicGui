@@ -1,10 +1,6 @@
 package me.virustotal.dynamicgui;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,13 +9,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.apache.commons.io.FileUtils;
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
@@ -195,7 +184,7 @@ public class DynamicGUI  {
 		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
-	private List<String> registeredCommands = new ArrayList<String>();
+	private List<String> registeredCommands = new ArrayList<>();
 	
 	private String noPermissionFunction;
 	private String noPermissionGui;
@@ -206,67 +195,24 @@ public class DynamicGUI  {
 	
 	private String version;
 	
-	private CommandMap cm = null;
+	//private CommandMap cm = null;
 	
 	private boolean bungeecord;
 	private boolean redis;
 
 	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
 	
-	@Override
-	public void onEnable()
-	{
-		
-		if(!this.guiFolder.exists())
-		{
-			this.guiFolder.mkdir();
-			this.saveFile("test.yml", new File(this.guiFolder.getPath() + File.separator + "test.yml"), false);
-		}
-		else if(this.guiFolder.listFiles().length == 0)
-		{
-			this.saveFile("test.yml", new File(this.guiFolder.getPath() + File.separator + "test.yml"), false);
-		}
-		
-		this.loadFunctions();
-		GuiApi.loadGuis();
-
-		//AnvilNMS.init(); TODO
-
-		this.getCommand("gui").setExecutor(new GUICommand(this));
-		this.version = config.getString("version");
-		for(final String str : config.getStringList("servers"))
-		{
-			ReplacerAPI.addReplacer(new Replacer("%" + str  + "-players%")
-			{
-				@Override
-				public String replacement(String text, PlayerWrapper<?> player)
-				{
-					return String.valueOf(serverPlayerCount.get(str));
-				}
-			});
-			this.serverPlayerCount.put(str, 0);
-		}
-		this.serverPlayerCount.put("ALL", 0);
-		
-
-		
-		
-		//register listeners
-		
-		
-		
-	}
-
-	@Override
+	//TODO - port to dynamicgui plugins
+	/*@Override
 	public void onDisable()
 	{
 		
 		this.cleanupGuis();
 		this.cleanupCommands();
-	}
+	}*/
 
 	
-	private void startPlayerCountTimer()
+	/*private void startPlayerCountTimer()
 	{
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
 		{
@@ -294,7 +240,7 @@ public class DynamicGUI  {
 				
 		,1L, 20L);
 		
-	}
+	}*/
 
 	
 	private void cleanupGuis()
@@ -323,7 +269,7 @@ public class DynamicGUI  {
 		}
 	}
 	
-	private void cleanupCommands()
+	/*private void cleanupCommands()
 	{
 		if(this.getCommandMap() != null)
 		{
@@ -344,7 +290,7 @@ public class DynamicGUI  {
 			if(this.registeredCommands.size() > 0)
 				this.getLogger().log(Level.INFO, amt + " commands have been unregistered!");
 		}
-	}
+	}*/
 
 	
 	private void registerBungee()
@@ -352,8 +298,8 @@ public class DynamicGUI  {
 		this.bungeecord = true;
 		this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is enabled!");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", this.getPlugin());
-		this.startPlayerCountTimer();
+		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord");
+		//this.startPlayerCountTimer(); TODO - Update global player count
 	}
 	
 	private void registerRedis()
@@ -362,12 +308,11 @@ public class DynamicGUI  {
 		this.getPlugin().getLogger().log(Level.INFO, "RedisBungee is enabled");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", this.getPlugin());
-		this.startPlayerCountTimer();
-		
+		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee");
+		//this.startPlayerCountTimer(); TODO - Update global player count
 	}
 	
-	private final CommandMap getCommandMap()
+	/*private final CommandMap getCommandMap()
 	{
 		if (this.cm == null) 
 		{
@@ -411,7 +356,7 @@ public class DynamicGUI  {
 
 		cmd.setExecutor(new CustomCommandExecutor(gui, alias));
 		this.registeredCommands.add(alias);
-	}
+	}*/
 
 	public String getNoPermissionFunction()
 	{
@@ -452,19 +397,6 @@ public class DynamicGUI  {
 	{
 		return this.redis;
 	}
-
-	public int getPlayerCountAll()
-	{
-		if(this.getBungeeCord() || this.getRedisBungee())
-		{
-			return this.serverPlayerCount.get("ALL");
-		}
-		else 
-		{
-			return Bukkit.getOnlinePlayers().size();
-		}
-	}
-	
 	
 	public DynamicGUIPlugin<?,?> getPlugin()
 	{

@@ -309,11 +309,10 @@ public class GuiApi {
 
 		if(yaml.get("alias") != null)
 		{
-			for(String al : yaml.getStringList("alias"))
+			for(String alias : yaml.getStringList("alias"))
 			{
-				plugin.loadCommand(guiName, al);
+				plugin.createCommand(guiName, alias);
 			}
-			//commandsLoaded++;
 		}
 
 		Boolean close = null;

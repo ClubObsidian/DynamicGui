@@ -154,4 +154,10 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 	{
 		return this.guiFolder;
 	}
+
+	@Override
+	public void createCommand(String guiName, String alias) 
+	{
+		// TODO Auto-generated method stub
+	}
 }
