@@ -21,7 +21,8 @@ public class GUICommand {
 		{
 			player.sendMessage(DynamicGUI.get().getNoGui());
 			return false;
-		} 
+		}
+		
 		boolean permNull = (gui.getPermission() == null);
 		if(!permNull)
 		{
