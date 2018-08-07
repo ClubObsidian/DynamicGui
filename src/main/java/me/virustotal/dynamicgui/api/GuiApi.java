@@ -423,4 +423,9 @@ public class GuiApi {
 	{
 		return GuiApi.playerGuis.get(player.getUniqueId());
 	}
+	
+	public static void addGUI(UUID uuid, GUI gui)
+	{
+		GuiApi.playerGuis.put(uuid, gui);
+	}
 }
