@@ -410,7 +410,8 @@ public class GuiApi {
 	
 	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
 	{
-		return GuiApi.playerGuis.keySet().contains(playerWrapper.getUniqueId());
+		UUID uuid = playerWrapper.getUniqueId();
+		return GuiApi.playerGuis.containsKey(uuid) || GuiApi.temporaryGuiMap.containsKey(uuid);
 	}
 	
 	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)

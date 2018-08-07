@@ -3,7 +3,6 @@ package me.virustotal.dynamicgui.listener;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.event.inventory.InventoryOpenEvent;
 
