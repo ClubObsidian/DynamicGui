@@ -39,7 +39,7 @@ public enum ChatColor {
 	
 	public static String translateAlternateColorCodes(char translate, String message)
 	{
-		return message.replace('\u00A7', translate);
+		return message.replace(translate, '\u00A7');
 	}
 	
 	public static String translateAlternateColorCodes(String message)

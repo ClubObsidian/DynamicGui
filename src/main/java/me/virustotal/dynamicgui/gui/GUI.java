@@ -69,9 +69,11 @@ public class GUI implements Serializable {
 		
 		for(int j = 0; j < this.slots.size(); j++)
 		{
+			System.out.println("Slot: " + j);
 			Slot slot = this.slots.get(j);
 			if(slot != null)
 			{
+				System.out.println("Slot is not null");
 				slot.setOwner(this);
 				if(slot.getPermission() != null)
 				{

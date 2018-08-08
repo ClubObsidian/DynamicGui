@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.virustotal.dynamicgui.command.GUICommand;
+import me.virustotal.dynamicgui.command.GUIExecutor;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 
@@ -20,7 +20,7 @@ public class BukkitGUICommand implements CommandExecutor {
 			{
 				Player player = (Player) sender;
 				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-				return new GUICommand().execute(playerWrapper, args[0]);
+				return new GUIExecutor().execute(playerWrapper, args[0]);
 			}
 		}
 		return false;

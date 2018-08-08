@@ -13,38 +13,17 @@ public class SpongeLocationWrapper<T> extends LocationWrapper<T> {
 	 */
 	private static final long serialVersionUID = -8377525322712779423L;
 
+	private T location;
+	@SuppressWarnings("unchecked")
 	public SpongeLocationWrapper(T location) 
 	{
-		super(location);
-	}
-
-	@SuppressWarnings("unchecked")
-	public Location<World> getSpongeLocation()
-	{
-		return (Location<World>) super.getLocation();
-	}
-	
-	@Override
-	public int getX() 
-	{
-		return this.getSpongeLocation().getBlockX();
+		super(((Location<World>)location).getBlockX(), ((Location<World>)location).getBlockY(), ((Location<World>)location).getBlockZ(), ((Location<World>)location).getExtent().getName());
+		this.location = location;
 	}
 
 	@Override
-	public int getY() 
+	public T getLocation() 
 	{
-		return this.getSpongeLocation().getBlockY();
-	}
-
-	@Override
-	public int getZ() 
-	{
-		return this.getSpongeLocation().getBlockZ();
-	}
-
-	@Override
-	public String getWorldName() 
-	{
-		return this.getSpongeLocation().getExtent().getName();
+		return this.location;
 	}
 }

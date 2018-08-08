@@ -102,7 +102,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 			this.getPlayer().openInventory((Inventory) inventory);
 		}
 	}
-
+	
 	@Override
 	public void sendPluginMessage(DynamicGUIPlugin<?, ?> plugin, String channel, byte[] message) 
 	{
@@ -144,4 +144,11 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		}
 		return -1;
 	}
+
+	@Override
+	public void updateInventory() {
+		this.getPlayer().updateInventory();
+		
+	}
+
 }

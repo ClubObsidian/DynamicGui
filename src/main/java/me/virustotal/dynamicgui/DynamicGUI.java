@@ -45,13 +45,6 @@ import me.virustotal.dynamicgui.function.impl.SetTypeFunction;
 import me.virustotal.dynamicgui.function.impl.SoundFunction;
 import me.virustotal.dynamicgui.function.impl.StatisticFunction;
 import me.virustotal.dynamicgui.gui.GUI;
-import me.virustotal.dynamicgui.listener.EntityClickListener;
-import me.virustotal.dynamicgui.listener.InventoryClickListener;
-import me.virustotal.dynamicgui.listener.InventoryCloseListener;
-import me.virustotal.dynamicgui.listener.InventoryOpenListener;
-import me.virustotal.dynamicgui.listener.PlayerInteractListener;
-import me.virustotal.dynamicgui.listener.TemporaryInventoryClickListener;
-import me.virustotal.dynamicgui.objects.Replacer;
 import me.virustotal.dynamicgui.objects.replacers.OnlinePlayersReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
@@ -75,15 +68,19 @@ public class DynamicGUI  {
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
 		this.server = server;
+	}
+
+	private void init()
+	{
 		this.setupFileStructure();
 		this.loadConfig();
+		this.loadFunctions();
 		this.loadGuis();
 		this.checkForProxy();
 		this.registerListeners();
-		this.loadFunctions();
 		this.loadReplacers();
 	}
-
+	
 	private void setupFileStructure()
 	{
 		if(!this.plugin.getDataFolder().exists())
@@ -119,6 +116,7 @@ public class DynamicGUI  {
 		this.noExp = ChatColor.translateAlternateColorCodes('&', config.getString("no-exp"));
 		this.noPoints = ChatColor.translateAlternateColorCodes('&', config.getString("no-points"));
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
+		this.version = config.getString("version");
 	}
 
 	private void loadGuis()
@@ -424,6 +422,7 @@ public class DynamicGUI  {
 		if(DynamicGUI.instance == null)
 		{
 			DynamicGUI.instance = new DynamicGUI(plugin, server);
+			DynamicGUI.instance.init();
 			return true;
 		}
 		return false;

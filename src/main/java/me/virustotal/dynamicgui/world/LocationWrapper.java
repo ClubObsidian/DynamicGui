@@ -8,22 +8,39 @@ public abstract class LocationWrapper<T> implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3610165660936041660L;
-
-	private T location;
-	public LocationWrapper(T location)
+	
+	private int x;
+	private int y;
+	private int z;
+	private String worldName;
+	public LocationWrapper(int x, int y, int z, String worldName)
 	{
-		this.location = location;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.worldName = worldName;
 	}
 	
-	public T getLocation()
+	public abstract T getLocation();
+	
+	public int getX()
 	{
-		return this.location;
+		return this.x;
 	}
 	
-	public abstract int getX();
-	public abstract int getY();
-	public abstract int getZ();
-	public abstract String getWorldName();
+	public int getY()
+	{
+		return this.y;
+	}
+	public int getZ()
+	{
+		return this.z;
+	}
+	
+	public String getWorldName()
+	{
+		return this.worldName;
+	}
 	
 	@Override
 	public boolean equals(Object obj)

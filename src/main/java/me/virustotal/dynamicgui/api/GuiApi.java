@@ -104,6 +104,8 @@ public class GuiApi {
 	
 	public static void loadGuis()
 	{
+		System.out.println("Instance is null: " + (DynamicGUI.get() == null));
+		System.out.println("Plugin is null: " + (DynamicGUI.get().getPlugin() == null));
 		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		//File[] ar = guiFolder.listFiles();
@@ -163,13 +165,14 @@ public class GuiApi {
 		ArrayList<Slot> slots = new ArrayList<Slot>();
 		for(int i = 0; i < rows * 9; i++)
 		{
-			
+			System.out.println("Parsing slot " + i + " value is " + (yaml.get("" + i)));
 			if(yaml.get("" + i) == null)
 			{
 				slots.add(null);
 			} 
 			else 
 			{
+				System.out.println("Parsed slot is not null: " + i);
 				ConfigurationSection section = yaml.getConfigurationSection(i + "");
 				String icon = section.getString("icon");
 				String name = null;

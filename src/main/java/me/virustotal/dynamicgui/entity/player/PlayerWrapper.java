@@ -35,5 +35,7 @@ public abstract class PlayerWrapper<T> {
 	public abstract void playEffect(String effect, int data);
 	public abstract int getStatistic(Statistic statistic);
 	public abstract int getStatistic(Statistic statistic, String data);
+
+	public abstract void updateInventory();
 		
 }

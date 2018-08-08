@@ -6,7 +6,7 @@ import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
 
-public class GUICommand {
+public class GUIExecutor {
 
 	public boolean execute(PlayerWrapper<?> player, String guiName)
 	{
@@ -47,15 +47,14 @@ public class GUICommand {
 			wrapper.playSoundToPlayer(player); 
 		}
 		
-		//TODO - Check to see if this is still needed
-		/*DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
+		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				player.updateInventory();
 			}
-		},2L);*/
+		},2L);
 		
 		GuiApi.addGUI(player.getUniqueId(), gui);
 		return true;

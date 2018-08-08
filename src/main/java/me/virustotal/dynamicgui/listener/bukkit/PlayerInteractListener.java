@@ -17,10 +17,13 @@ public class PlayerInteractListener implements Listener {
 	@EventHandler
 	public void interact(final PlayerInteractEvent e)
 	{
-		 me.virustotal.dynamicgui.event.player.Action action = me.virustotal.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
-		 PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		 LocationWrapper<?> locationWrapper = new BukkitLocationWrapper<Location>(e.getClickedBlock().getLocation());
-		 me.virustotal.dynamicgui.event.block.PlayerInteractEvent interactEvent = new me.virustotal.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
-		 DynamicGUI.get().getEventManager().callEvent(interactEvent);
+		if(e.getClickedBlock() != null)
+		{
+			me.virustotal.dynamicgui.event.player.Action action = me.virustotal.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
+		 	PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
+		 	LocationWrapper<?> locationWrapper = new BukkitLocationWrapper<Location>(e.getClickedBlock().getLocation());
+		 	me.virustotal.dynamicgui.event.block.PlayerInteractEvent interactEvent = new me.virustotal.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
+		 	DynamicGUI.get().getEventManager().callEvent(interactEvent);
+		}
 	}
 }

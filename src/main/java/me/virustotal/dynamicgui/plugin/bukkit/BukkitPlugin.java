@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import me.virustotal.dynamicgui.DynamicGUI;
+import me.virustotal.dynamicgui.command.bukkit.BukkitGUICommand;
 import me.virustotal.dynamicgui.economy.Economy;
 import me.virustotal.dynamicgui.economy.bukkit.VaultEconomy;
 import me.virustotal.dynamicgui.entity.EntityWrapper;
@@ -57,6 +58,7 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 			this.economy = null;
 		}
 		
+		this.getCommand("gui").setExecutor(new BukkitGUICommand());
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
