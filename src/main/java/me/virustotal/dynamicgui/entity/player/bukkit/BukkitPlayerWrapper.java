@@ -58,6 +58,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	@Override
 	public int getExperience() 
 	{
+		System.out.println("Total exp: " + this.getPlayer().getTotalExperience());
 		return this.getPlayer().getTotalExperience();
 	}
 

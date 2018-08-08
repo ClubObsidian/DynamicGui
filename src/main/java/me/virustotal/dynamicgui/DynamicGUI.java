@@ -153,7 +153,7 @@ public class DynamicGUI  {
 	private void loadFunctions()
 	{
 		FunctionApi.addFunction(new ConsoleCmdFunction("executec"));
-		FunctionApi.addFunction(new ExpPayFunction("payexp"));
+		//FunctionApi.addFunction(new ExpPayFunction("payexp"));
 		FunctionApi.addFunction(new GuiFunction("gui"));
 		FunctionApi.addFunction(new NoPermission("nopermission"));
 		FunctionApi.addFunction(new PayFunction("pay"));
