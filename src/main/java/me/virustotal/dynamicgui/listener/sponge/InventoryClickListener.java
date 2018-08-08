@@ -36,6 +36,7 @@ public class InventoryClickListener {
 			clickType = Click.RIGHT;
 		}
 
+		DynamicGUI.get().getLogger().info("Click type: " + clickType);
 		SlotTransaction transaction = e.getTransactions().get(0);
 		Optional<SlotIndex> slotIndex = transaction.getSlot().getInventoryProperty(SlotIndex.class);
 		if(slotIndex.isPresent())
@@ -49,6 +50,8 @@ public class InventoryClickListener {
 			{
 				e.setCancelled(true);
 			}
+			DynamicGUI.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCancelled());
+			DynamicGUI.get().getLogger().info("Is sponge event canclled: " + e.isCancelled());
 		}
 	}
 }

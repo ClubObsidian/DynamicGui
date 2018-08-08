@@ -22,13 +22,22 @@ public class InventoryClickListener implements Listener {
 	public void invClick(final InventoryClickEvent e)
 	{
 		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
+		{
+			DynamicGUI.get().getLogger().info("Open inventory wrapper is null");
 			return;
+		}
 		if(!GuiApi.hasGuiTitle(e.getPlayerWrapper().getOpenInventoryWrapper().getTitle()))
+		{
+			DynamicGUI.get().getLogger().info("Open gui does not have correct title, title is : " + e.getPlayerWrapper().getOpenInventoryWrapper().getTitle());
 			return;
+		}
 		
 		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
 		if(item.getItemStack() == null)
+		{
+			DynamicGUI.get().getLogger().info("ItemStack is null");
 			return;
+		}
 
 		e.setCancelled(true);
 		

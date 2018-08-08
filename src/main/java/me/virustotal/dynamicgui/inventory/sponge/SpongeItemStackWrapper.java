@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.block.BlockState;
+import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.enchantment.Enchantment;
+import org.spongepowered.api.item.enchantment.EnchantmentType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
@@ -39,8 +43,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setType(String type) 
 	{
-		Optional<Text> name = this.getItemStack().get(Keys.DISPLAY_NAME).set;
-		
+		//TODO		
 	}
 
 	@Override
@@ -55,9 +58,9 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) 
+	{
+		this.getItemStack().offer(Keys.DISPLAY_NAME, Text.of(name));
 	}
 
 	@Override
@@ -78,9 +81,12 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setLore(List<String> lore) 
 	{
-		
-		// TODO Auto-generated method stub
-		
+		List<Text> textLore = new ArrayList<>();
+		for(String l : lore)
+		{
+			textLore.add(Text.of(l));
+		}
+		this.getItemStack().offer(Keys.ITEM_LORE, textLore);
 	}
 
 	@Override
@@ -99,23 +105,54 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public void setDurability(short durability) {
-		// TODO Auto-generated method stub
-		
+	public void setDurability(short durability) 
+	{
+		this.getItemStack().offer(Keys.ITEM_DURABILITY, (int) durability);
 	}
 
 	@Override
 	public void addEnchant(EnchantmentWrapper enchant) 
 	{
-		// TODO Auto-generated method stub
+		List<Enchantment> enchants = new ArrayList<>();
+		Optional<List<Enchantment>> itemEnchants = this.getItemStack().get(Keys.ITEM_ENCHANTMENTS);
+		if(itemEnchants.isPresent())
+		{
+			enchants = itemEnchants.get();
+		}
+		Optional<EnchantmentType> enchantmentType = Sponge.getGame().getRegistry().getType(EnchantmentType.class, enchant.getEnchant());
+		if(enchantmentType.isPresent())
+		{
+			enchants.add(Enchantment.builder().type(enchantmentType.get()).level(enchant.getLevel()).build());
+		}
 		
+		if(enchants.size() > 0)
+		{
+			this.getItemStack().offer(Keys.ITEM_ENCHANTMENTS, enchants);
+		}
 	}
 	
 	@Override
 	public void removeEnchant(EnchantmentWrapper enchant) 
 	{
-		// TODO Auto-generated method stub
-		
+		List<Enchantment> enchants = new ArrayList<>();
+		Optional<List<Enchantment>> itemEnchants = this.getItemStack().get(Keys.ITEM_ENCHANTMENTS);
+		if(itemEnchants.isPresent())
+		{
+			enchants = itemEnchants.get();
+		}
+		Optional<EnchantmentType> enchantmentType = Sponge.getGame().getRegistry().getType(EnchantmentType.class, enchant.getEnchant());
+		if(enchantmentType.isPresent())
+		{
+			for(Enchantment ench : enchants)
+			{
+				if(ench.getType().equals(enchantmentType.get()))
+				{
+					enchants.remove(ench);
+					break;
+				}
+			}
+		}
+		this.getItemStack().offer(Keys.ITEM_ENCHANTMENTS, enchants);
 	}
 
 	@Override
@@ -134,27 +171,20 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public String getString(String... path) {
-		// TODO Auto-generated method stub
+	public String getString(String... path) 
+	{
+		Optional<String> str = this.getItemStack().toContainer().getString(DataQuery.of(path));
+		if(str.isPresent())
+		{
+			return str.get();
+		}
+		
 		return null;
 	}
 
 	@Override
-	public void setString(String str, String... path) {
-		// TODO Auto-generated method stub
-		
+	public void setString(String str, String... path) 
+	{
+		this.getItemStack().setRawData(this.getItemStack().toContainer().set(DataQuery.of(path), str));
 	}
-
-	@Override
-	public String getString(List<String> path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setString(String str, List<String> path) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

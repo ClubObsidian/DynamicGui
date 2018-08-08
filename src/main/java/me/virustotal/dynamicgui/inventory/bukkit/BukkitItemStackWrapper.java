@@ -129,18 +129,6 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		compound.setString(path[path.length - 1], str);
 		this.setItemStack(compound.getItem());
 	}
-
-	@Override
-	public String getString(List<String> path) 
-	{
-		return this.getString(path.toArray(new String[path.size()]));
-	}
-
-	@Override
-	public void setString(String str, List<String> path) 
-	{
-		this.setString(str, path.toArray(new String[path.size()]));
-	}
 	
 	private NBTCompound getCompoundFromPath(String[] path)
 	{

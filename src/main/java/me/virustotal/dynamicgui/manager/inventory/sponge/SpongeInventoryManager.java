@@ -1,7 +1,7 @@
 package me.virustotal.dynamicgui.manager.inventory.sponge;
 
 import org.spongepowered.api.item.inventory.Inventory;
-import org.spongepowered.api.item.inventory.property.InventoryCapacity;
+import org.spongepowered.api.item.inventory.property.InventoryDimension;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
 
@@ -15,8 +15,8 @@ public class SpongeInventoryManager extends InventoryManager {
 	@Override
 	public Object createInventory(int size, String title) 
 	{
-		return Inventory.builder().property("title", new InventoryTitle(Text.of(title)))
-		.property("capacity", new InventoryCapacity(size))
+		return Inventory.builder().property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
+		.property(InventoryDimension.PROPERTY_NAME, new InventoryDimension(9, size / 9))
 		.build(DynamicGUI.get().getPlugin());
 	}
 

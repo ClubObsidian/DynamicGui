@@ -51,6 +51,13 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract String getString(String... path);
 	public abstract void setString(String set, String... path);
 	
-	public abstract String getString(List<String> path);	
-	public abstract void setString(String set, List<String> path);
+	public String getString(List<String> path) 
+	{
+		return this.getString(path.toArray(new String[path.size()]));
+	}
+
+	public void setString(String str, List<String> path) 
+	{
+		this.setString(str, path.toArray(new String[path.size()]));
+	}
 }

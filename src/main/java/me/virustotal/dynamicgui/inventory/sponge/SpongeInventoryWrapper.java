@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
@@ -26,7 +27,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public String getTitle() 
 	{
-		return this.getInventory().getName().get();
+		return this.getInventory().getInventoryProperty(InventoryTitle.class).get().getValue().toPlain();
 	}
 
 	@Override
