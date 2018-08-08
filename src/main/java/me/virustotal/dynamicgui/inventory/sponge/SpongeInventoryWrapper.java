@@ -33,11 +33,12 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public ItemStackWrapper<ItemStack> getItem(int index) 
 	{
-		Optional<SlotIndex> slotIndex = this.getInventory().getProperty(SlotIndex.class, index);
-		if(slotIndex.isPresent())
+		DynamicGUI.get().getLogger().info("Index is: " + index);
+		Optional<ItemStack> item = this.getInventory().query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index))).peek();
+		
+		if(item.isPresent())
 		{
-			ItemStack item = (ItemStack) this.getInventory().query(QueryOperationTypes.INVENTORY_PROPERTY.of(slotIndex.get())).first();
-			return new SpongeItemStackWrapper<ItemStack>(item);
+			return new SpongeItemStackWrapper<ItemStack>(item.get());
 		}
 		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
