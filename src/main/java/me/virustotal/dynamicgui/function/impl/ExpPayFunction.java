@@ -1,7 +1,5 @@
 package me.virustotal.dynamicgui.function.impl;
 
-import java.util.logging.Level;
-
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
@@ -33,7 +31,7 @@ public class ExpPayFunction extends Function {
 		}
 		catch(Exception ex)
 		{
-			DynamicGUI.get().getPlugin().getLogger().log(Level.INFO, "Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
+			DynamicGUI.get().getLogger().info("Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
 			return false;
 		}
 		System.out.println("Exp: " + playerWrapper.getExperience());

@@ -4,6 +4,7 @@ import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
 import me.virustotal.dynamicgui.api.GuiApi;
+import me.virustotal.dynamicgui.command.GUIExecutor;
 import me.virustotal.dynamicgui.event.block.PlayerInteractEvent;
 import me.virustotal.dynamicgui.event.player.Action;
 import me.virustotal.dynamicgui.gui.GUI;
@@ -25,7 +26,7 @@ public class PlayerInteractListener implements Listener {
 					{
 						if(e.getLocationWrapper().equals(guiLocation))
 						{
-							e.getPlayerWrapper().chat("/gui " + gui.getName());
+							new GUIExecutor().execute(e.getPlayerWrapper(), gui.getName());
 							break;
 						}
 					}

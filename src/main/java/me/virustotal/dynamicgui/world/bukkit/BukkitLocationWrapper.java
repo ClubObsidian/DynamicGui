@@ -11,15 +11,9 @@ public class BukkitLocationWrapper<T extends Location> extends LocationWrapper<T
 	 */
 	private static final long serialVersionUID = 3735326070415778100L;
 
-	private T location;
 	public BukkitLocationWrapper(T location) 
 	{
 		super(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getWorld().getName());
 	}
 
-	@Override
-	public T getLocation() 
-	{
-		return this.location;
-	}
 }

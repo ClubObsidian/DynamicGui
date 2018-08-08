@@ -1,9 +1,7 @@
 package me.virustotal.dynamicgui.plugin.bukkit;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
-
 import java.io.File;
+import java.util.logging.Logger;
 import java.util.List;
 
 import me.virustotal.dynamicgui.DynamicGUI;
@@ -16,6 +14,7 @@ import me.virustotal.dynamicgui.listener.bukkit.InventoryClickListener;
 import me.virustotal.dynamicgui.listener.bukkit.InventoryCloseListener;
 import me.virustotal.dynamicgui.listener.bukkit.InventoryOpenListener;
 import me.virustotal.dynamicgui.listener.bukkit.PlayerInteractListener;
+import me.virustotal.dynamicgui.logger.JavaLoggerWrapper;
 import me.virustotal.dynamicgui.npc.NPC;
 import me.virustotal.dynamicgui.npc.NPCRegistry;
 import me.virustotal.dynamicgui.plugin.DynamicGUIPlugin;
@@ -25,7 +24,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin implements DynamicGUIPlugin<T,U> {
 
@@ -46,12 +44,7 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 		this.configFile = new File(this.getDataFolder(), "config.yml");
 		this.guiFolder = new File(this.getDataFolder(), "guis");
 
-		if(!this.configFile.exists())
-			this.saveDefaultConfig();
-		else
-			this.reloadConfig();
-
-		DynamicGUI.createInstance(this, new FakeBukkitServer());
+		DynamicGUI.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{

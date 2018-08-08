@@ -21,8 +21,6 @@ public abstract class LocationWrapper<T> implements Serializable {
 		this.worldName = worldName;
 	}
 	
-	public abstract T getLocation();
-	
 	public int getX()
 	{
 		return this.x;

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.configuration.Configuration;
@@ -18,7 +17,6 @@ import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.manager.world.LocationManager;
-import me.virustotal.dynamicgui.objects.CLocation;
 import me.virustotal.dynamicgui.objects.ModeEnum;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 import me.virustotal.dynamicgui.objects.SoundWrapper;
@@ -131,25 +129,25 @@ public class GuiApi {
 						final GUI gui = new GUI(GuiApi.getGui(yaml, plugin, guiName, guiTitle, rows, slots));
 
 						guis.add(gui);
-						plugin.getLogger().log(Level.INFO, "gui " + gui.getName() + " has been loaded!");
+						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
 					}
 				}	
 				catch(NullPointerException ex)
 				{
-					plugin.getLogger().log(Level.INFO, "Error loading in file: " + file.getName());
+					DynamicGUI.get().getLogger().info("Error loading in file: " + file.getName());
 					ex.printStackTrace();
 				}	
 			}
 		} 
 		else 
 		{
-			plugin.getLogger().log(Level.SEVERE, "No guis found, please add guis or issues may be encountered!");
+			DynamicGUI.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
 		}
 	}
 
 	public static void reloadGuis()
 	{
-		DynamicGUI.get().getPlugin().getLogger().log(Level.INFO, "Force reloading guis!");
+		DynamicGUI.get().getLogger().info("Force reloading guis!");
 		guis.clear();
 		loadGuis();
 	}
@@ -205,7 +203,7 @@ public class GuiApi {
 					{
 						String[] array = FunctionApi.parseData(string);
 						if(FunctionApi.getFunctionByName(array[0]) == null)
-							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+							DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
 						Function func = new EmptyFunction(array[0], array[1]);
 						loadFunctions.add(func);
@@ -222,7 +220,7 @@ public class GuiApi {
 						{
 							String[] array = FunctionApi.parseData(string);
 							if(FunctionApi.getFunctionByName(array[0]) == null)
-								DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+								DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
 							Function func = new EmptyFunction(array[0], array[1]);
 							failFuncs.add(func);
@@ -368,7 +366,7 @@ public class GuiApi {
 			{
 				String[] array = FunctionApi.parseData(string);
 				if(FunctionApi.getFunctionByName(array[0]) == null)
-					DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 
 				Function func = new EmptyFunction(array[0], array[1]);
 				functions.add(func);
@@ -390,7 +388,7 @@ public class GuiApi {
 				{
 					String[] array = FunctionApi.parseData(string);
 					if(FunctionApi.getFunctionByName(array[0]) == null)
-						DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+						DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
 					Function func = new EmptyFunction(array[0], array[1]);
 					failFuncs.add(func);

@@ -146,10 +146,10 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		return -1;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public void updateInventory() {
+	public void updateInventory() 
+	{
 		this.getPlayer().updateInventory();
-		
 	}
-
 }

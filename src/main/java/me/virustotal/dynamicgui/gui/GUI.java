@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.FunctionApi;
@@ -65,7 +64,6 @@ public class GUI implements Serializable {
 	{	
 		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
 		InventoryWrapper<?> inv = InventoryManager.get().createInventoryWrapper(serverInventory);
-		player.openInventory(inv);
 		
 		for(int j = 0; j < this.slots.size(); j++)
 		{
@@ -111,7 +109,7 @@ public class GUI implements Serializable {
 							}
 							else
 							{
-								DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+								DynamicGUI.get().getLogger().error("Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 								run = false;
 							}
 							if(!run)
@@ -168,7 +166,7 @@ public class GUI implements Serializable {
 						} 
 						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
 						{
-							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, loadFunction.getName() + " does not exist!");
+							DynamicGUI.get().getLogger().error(loadFunction.getName() + " does not exist!");
 							e.printStackTrace();
 						}
 						if(func != null)
@@ -182,7 +180,7 @@ public class GUI implements Serializable {
 						}
 						else
 						{
-							DynamicGUI.get().getPlugin().getLogger().log(Level.SEVERE, "Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+							DynamicGUI.get().getLogger().error("Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 							run = false;
 						}
 						if(!run)
@@ -219,6 +217,7 @@ public class GUI implements Serializable {
 				}
 			}
 		}
+		player.openInventory(inv);
 	}
 	
 	public String getName()

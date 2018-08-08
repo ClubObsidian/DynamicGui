@@ -39,14 +39,19 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setType(String type) 
 	{
-	
+		Optional<Text> name = this.getItemStack().get(Keys.DISPLAY_NAME).set;
 		
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() 
+	{
+		Optional<Text> name = this.getItemStack().get(Keys.DISPLAY_NAME);
+		if(name.isPresent())
+		{
+			return name.get().toPlain();
+		}
+		return "";
 	}
 
 	@Override

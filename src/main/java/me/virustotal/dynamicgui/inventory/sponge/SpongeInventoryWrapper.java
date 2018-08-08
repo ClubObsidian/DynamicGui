@@ -7,6 +7,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 
@@ -43,6 +44,8 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public void addItem(ItemStackWrapper<?> itemStackWrapper) 
 	{
+		DynamicGUI.get().getLogger().info("ItemStackWrapper is null: " + (itemStackWrapper == null));
+		DynamicGUI.get().getLogger().info("ItemStack is null: " + (itemStackWrapper.getItemStack() == null));
 		this.getInventory().offer((ItemStack) itemStackWrapper.getItemStack());
 	}
 	

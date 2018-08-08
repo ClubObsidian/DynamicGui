@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.apache.commons.io.FileUtils;
 
@@ -45,6 +44,7 @@ import me.virustotal.dynamicgui.function.impl.SetTypeFunction;
 import me.virustotal.dynamicgui.function.impl.SoundFunction;
 import me.virustotal.dynamicgui.function.impl.StatisticFunction;
 import me.virustotal.dynamicgui.gui.GUI;
+import me.virustotal.dynamicgui.logger.LoggerWrapper;
 import me.virustotal.dynamicgui.objects.replacers.OnlinePlayersReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import me.virustotal.dynamicgui.objects.replacers.PlayerReplacer;
@@ -62,12 +62,13 @@ public class DynamicGUI  {
 	private DynamicGUIPlugin<?,?> plugin;
 	private EventManager eventManager;
 	private FakeServer server;
-	
-	private DynamicGUI(DynamicGUIPlugin<?,?> plugin, FakeServer server)
+	private LoggerWrapper<?> loggerWrapper;
+	private DynamicGUI(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
 		this.server = server;
+		this.loggerWrapper = loggerWrapper;
 	}
 
 	private void init()
@@ -137,7 +138,7 @@ public class DynamicGUI  {
 		else
 		{
 			this.bungeecord = false;
-			this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is not enabled!");
+			this.getLogger().info("BungeeCord is not enabled!");
 		}
 	}
 	
@@ -294,7 +295,7 @@ public class DynamicGUI  {
 	private void registerBungee()
 	{
 		this.bungeecord = true;
-		this.getPlugin().getLogger().log(Level.INFO, "BungeeCord is enabled!");
+		this.getLogger().info("BungeeCord is enabled!");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord");
 		//this.startPlayerCountTimer(); TODO - Update global player count
@@ -303,7 +304,7 @@ public class DynamicGUI  {
 	private void registerRedis()
 	{
 		this.redis = true;
-		this.getPlugin().getLogger().log(Level.INFO, "RedisBungee is enabled");
+		this.getLogger().info("RedisBungee is enabled");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee");
@@ -411,17 +412,22 @@ public class DynamicGUI  {
 		return this.server;
 	}
 	
+	public LoggerWrapper<?> getLogger()
+	{
+		return this.loggerWrapper;
+	}
+	
 	public static DynamicGUI get() 
 	{
 		return instance;
 	}
 
 	
-	public static boolean createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server)
+	public static boolean createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		if(DynamicGUI.instance == null)
 		{
-			DynamicGUI.instance = new DynamicGUI(plugin, server);
+			DynamicGUI.instance = new DynamicGUI(plugin, server, loggerWrapper);
 			DynamicGUI.instance.init();
 			return true;
 		}
