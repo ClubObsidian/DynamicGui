@@ -50,7 +50,7 @@ public class TemporaryInventoryClickListener implements Listener {
 			{
 				try
 				{
-					String tag = item.getString(DynamicGUI.TAG);
+					String tag = item.getTag();
 					if(tag != null)
 					{
 						UUID uuid = UUID.fromString(tag);

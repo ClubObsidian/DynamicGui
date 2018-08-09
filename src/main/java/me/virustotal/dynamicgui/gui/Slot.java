@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
@@ -198,16 +197,10 @@ public class Slot implements Serializable {
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
 		ItemStackWrapper<?> item = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
-		try 
-		{
-			UUID uuid = UUID.randomUUID();
-			item.setString(uuid.toString(), DynamicGUI.TAG);
-			this.uuid = uuid;
-		}
-		catch (SecurityException | IllegalArgumentException e) 
-		{
-			e.printStackTrace();
-		}
+		
+		UUID uuid = UUID.randomUUID();
+		item.addTag(uuid);
+		this.uuid = uuid;
 		
 		if(this.getData() != 0)
 			item.setDurability(this.getData());

@@ -3,6 +3,7 @@ package me.virustotal.dynamicgui.inventory.bukkit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.nbt.NBTCompound;
 import me.virustotal.dynamicgui.nbt.NBTItem;
@@ -116,34 +118,17 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public String getString(String... path) 
+	public String getTag() 
 	{
-		NBTCompound compound = this.getCompoundFromPath(path);
-		return compound.getString(path[path.length - 1]);
+		NBTCompound compound = new NBTItem(this.getItemStack());
+		return compound.getString(DynamicGUI.TAG);
 	}
 
 	@Override
-	public void setString(String str, String... path) 
-	{
-		NBTCompound compound = this.getCompoundFromPath(path);
-		compound.setString(path[path.length - 1], str);
-		this.setItemStack(compound.getItem());
-	}
-	
-	private NBTCompound getCompoundFromPath(String[] path)
+	public void addTag(UUID uuid) 
 	{
 		NBTCompound compound = new NBTItem(this.getItemStack());
-		if(path.length == 1)
-		{
-			return compound;
-		}
-		
-		for(int i = 1; i < path.length - 1; i++)
-		{
-			if(compound == null)
-				return null;
-			compound = compound.getCompound(path[i]);
-		}
-		return compound;
+		compound.setString(DynamicGUI.TAG, uuid.toString());
+		this.setItemStack(compound.getItem());
 	}
 }

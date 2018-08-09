@@ -43,22 +43,27 @@ public class InventoryClickListener implements Listener {
 		
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;
-		
+
+
+		DynamicGUI.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		if(GuiApi.hasGUICurrently(player))
 		{
+			DynamicGUI.get().getLogger().info("Has gui currently");
 			if(GuiApi.hasGuiTitle(e.getInventoryWrapper().getTitle()))
 			{
+				DynamicGUI.get().getLogger().info("GuiApi has title");
 				GUI gui = GuiApi.getCurrentGUI(player);
 				Slot slot = null;
-				for(int j = 0; j < gui.getSlots().size(); j++)
+				String tag = item.getTag();
+				DynamicGUI.get().getLogger().info("Tag data for item at slot  " + e.getSlot() + " is " + tag);
+				if(tag != null)
 				{
-					if(gui.getSlots().get(j) != null)
+					for(int j = 0; j < gui.getSlots().size(); j++)
 					{
-						try
+						if(gui.getSlots().get(j) != null)
 						{
-							String tag = item.getString(DynamicGUI.TAG);
-							if(tag != null)
+							try
 							{
 								UUID uuid = UUID.fromString(tag);
 								if(gui.getSlots().get(j) != null)
@@ -72,38 +77,39 @@ public class InventoryClickListener implements Listener {
 										}
 									}
 								}
+
+							}
+							catch(SecurityException | IllegalArgumentException ex)
+							{
+								ex.printStackTrace();
 							}
 						}
-						catch(SecurityException | IllegalArgumentException ex)
-						{
-							ex.printStackTrace();
-						}
 					}
+
+					if(slot == null)
+						return;
+
+					List<Function> functions = slot.getFunctions();
+					List<Function> leftClickFunctions = slot.getLeftClickFunctions();
+					List<Function> rightClickFunctions = slot.getRightClickFunctions();
+					List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
+
+					if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
+						return;
+
+					Boolean close = null;
+					if(slot.getClose() != null)
+						close = slot.getClose();
+					else if(gui.getClose() != null)
+						close = gui.getClose();
+					else
+						close = true;
+
+					if(close)
+						player.closeInventory();
+
+					FunctionUtil.tryFunctions(slot, e.getClick(), player);
 				}
-
-				if(slot == null)
-					return;
-
-				List<Function> functions = slot.getFunctions();
-				List<Function> leftClickFunctions = slot.getLeftClickFunctions();
-				List<Function> rightClickFunctions = slot.getRightClickFunctions();
-				List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
-				
-				if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
-					return;
-				
-				Boolean close = null;
-				if(slot.getClose() != null)
-					close = slot.getClose();
-				else if(gui.getClose() != null)
-					close = gui.getClose();
-				else
-					close = true;
-
-				if(close)
-					player.closeInventory();
-				
-				FunctionUtil.tryFunctions(slot, e.getClick(), player);
 			}
 		}
 	}

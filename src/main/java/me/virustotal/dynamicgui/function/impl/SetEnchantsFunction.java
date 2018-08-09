@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
 import me.virustotal.dynamicgui.gui.Slot;
@@ -42,7 +41,7 @@ public class SetEnchantsFunction extends Function {
 						{
 							try
 							{
-								String tag = item.getString(DynamicGUI.TAG);
+								String tag = item.getTag();
 								if(tag != null)
 								{
 									UUID uuid = UUID.fromString(tag);

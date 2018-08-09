@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
@@ -43,7 +42,7 @@ public class SetLoreFunction extends Function {
 						{
 							try
 							{
-								String tag = item.getString(DynamicGUI.TAG);
+								String tag = item.getTag();
 								if(tag != null)
 								{
 									UUID uuid = UUID.fromString(tag);

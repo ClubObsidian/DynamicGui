@@ -1,18 +1,31 @@
 package me.virustotal.dynamicgui.inventory.sponge;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.BlockState;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.DataHolder;
+import org.spongepowered.api.data.DataManager;
 import org.spongepowered.api.data.DataQuery;
+import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.manipulator.DataManipulator;
+import org.spongepowered.api.data.manipulator.DataManipulatorBuilder;
+import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
+import org.spongepowered.api.data.merge.MergeFunction;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.common.data.util.DataUtil;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
@@ -171,20 +184,15 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public String getString(String... path) 
-	{
-		Optional<String> str = this.getItemStack().toContainer().getString(DataQuery.of(path));
-		if(str.isPresent())
-		{
-			return str.get();
-		}
-		
+	public String getTag() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setString(String str, String... path) 
-	{
-		this.getItemStack().setRawData(this.getItemStack().toContainer().set(DataQuery.of(path), str));
+	public void addTag(UUID uuid) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }
