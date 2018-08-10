@@ -7,6 +7,7 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
+import org.spongepowered.api.item.inventory.transaction.InventoryTransactionResult;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
@@ -46,9 +47,10 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
-		this.getInventory()
+		InventoryTransactionResult result = this.getInventory()
 		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
 		.set((ItemStack) itemStackWrapper.getItemStack());
+		DynamicGUI.get().getLogger().info("Inventory set result: " + result.getType());
 	}
 	
 	@Override
