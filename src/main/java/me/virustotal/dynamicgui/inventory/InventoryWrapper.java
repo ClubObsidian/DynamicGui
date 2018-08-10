@@ -27,7 +27,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
 	
 	public int addItem(ItemStackWrapper<?> itemStackWrapper) 
 	{
-		for(int i = this.getSize() - 1; i > 0; i--)
+		for(int i = 0; i < this.getSize(); i++)
 		{
 			if(this.getItem(i).getItemStack() == null)
 			{

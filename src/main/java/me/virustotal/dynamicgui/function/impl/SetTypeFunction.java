@@ -1,5 +1,6 @@
 package me.virustotal.dynamicgui.function.impl;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
@@ -36,11 +37,11 @@ public class SetTypeFunction extends Function {
 						ItemStackWrapper<?> item = inv.getItem(s.getIndex());
 						if(item.getItemStack() != null)
 						{
-
 							if(this.getOwner().getIndex() == s.getIndex())
 							{
 								item.setType(this.getData());
 								inv.setItem(this.getOwner().getIndex(), item);
+								DynamicGUI.get().getLogger().info("From set type function, itemstack is: " + item.getItemStack());
 								break;
 							}
 						}

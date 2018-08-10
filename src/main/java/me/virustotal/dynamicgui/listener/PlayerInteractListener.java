@@ -3,6 +3,7 @@ package me.virustotal.dynamicgui.listener;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.command.GUIExecutor;
 import me.virustotal.dynamicgui.event.block.PlayerInteractEvent;
@@ -26,7 +27,14 @@ public class PlayerInteractListener implements Listener {
 					{
 						if(e.getLocationWrapper().equals(guiLocation))
 						{
-							new GUIExecutor().execute(e.getPlayerWrapper(), gui.getName());
+							DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
+							{
+								@Override
+								public void run()
+								{
+									new GUIExecutor().execute(e.getPlayerWrapper(), gui.getName());
+								}
+							}, 1L);
 							break;
 						}
 					}

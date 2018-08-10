@@ -3,15 +3,16 @@ package me.virustotal.dynamicgui.inventory.sponge;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
+import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
@@ -32,17 +33,30 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	{
 		return this.getItemStack().getType().getId(); //TODO - Translate to enum like in bukkit
 	}
+	
+	@Override
+	public void setType(String type) 
+	{
+		Optional<ItemType> itemType = Sponge.getGame().getRegistry().getType(ItemType.class, type);
+		if(itemType.isPresent())
+		{
+			ItemType itemStackType = itemType.get();
+			DynamicGUI.get().getLogger().info("type: " + type + " is null: " + itemStackType);
+			this.setItemStack(
+			ItemStack.builder()
+			.itemType(itemStackType)
+			.from(this.getItemStack())
+			.itemType(itemStackType)
+			.build());
+		}
+		DynamicGUI.get().getLogger().info("From setType, itemstack: " + this.getItemStack().toString());
+		DynamicGUI.get().getLogger().info("Item type is present: " + itemType.isPresent());
+	}
 
 	@Override
 	public int getAmount() 
 	{
 		return this.getItemStack().getQuantity();
-	}
-
-	@Override
-	public void setType(String type) 
-	{
-		//TODO		
 	}
 
 	@Override

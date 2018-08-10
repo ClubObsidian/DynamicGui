@@ -31,14 +31,14 @@ public class InventoryClickListener implements Listener {
 			return;
 		}
 		
+		e.setCancelled(true);
+		
 		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
 		if(item.getItemStack() == null)
 		{
 			DynamicGUI.get().getLogger().info("ItemStack is null");
 			return;
 		}
-
-		e.setCancelled(true);
 		
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;

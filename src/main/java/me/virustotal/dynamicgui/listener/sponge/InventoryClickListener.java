@@ -1,5 +1,6 @@
 package me.virustotal.dynamicgui.listener.sponge;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.entity.living.player.Player;
@@ -37,21 +38,25 @@ public class InventoryClickListener {
 		}
 
 		DynamicGUI.get().getLogger().info("Click type: " + clickType);
-		SlotTransaction transaction = e.getTransactions().get(0);
-		Optional<SlotIndex> slotIndex = transaction.getSlot().getInventoryProperty(SlotIndex.class);
-		if(slotIndex.isPresent())
+		List<SlotTransaction> transactions = e.getTransactions();
+		if(transactions.size() > 0)
 		{
-			int slot = slotIndex.get().getValue();
-			PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
-			InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
-			me.virustotal.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new me.virustotal.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
-			DynamicGUI.get().getEventManager().callEvent(clickEvent);
-			if(clickEvent.isCancelled())
+			SlotTransaction transaction = transactions.get(0);
+			Optional<SlotIndex> slotIndex = transaction.getSlot().getInventoryProperty(SlotIndex.class);
+			if(slotIndex.isPresent())
 			{
-				e.setCancelled(true);
+				int slot = slotIndex.get().getValue();
+				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
+				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
+				me.virustotal.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new me.virustotal.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
+				DynamicGUI.get().getEventManager().callEvent(clickEvent);
+				if(clickEvent.isCancelled())
+				{
+					e.setCancelled(true);
+				}
+				DynamicGUI.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCancelled());
+				DynamicGUI.get().getLogger().info("Is sponge event canclled: " + e.isCancelled());
 			}
-			DynamicGUI.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCancelled());
-			DynamicGUI.get().getLogger().info("Is sponge event canclled: " + e.isCancelled());
 		}
 	}
 }

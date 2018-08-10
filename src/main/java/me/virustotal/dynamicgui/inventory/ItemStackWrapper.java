@@ -2,7 +2,6 @@ package me.virustotal.dynamicgui.inventory;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 

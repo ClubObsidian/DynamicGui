@@ -46,6 +46,12 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
+		if(this.getItem(index).getItemStack() != null)
+		{
+			this.getInventory()
+			.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
+			.clear();
+		}
 		this.getInventory()
 		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
 		.set((ItemStack) itemStackWrapper.getItemStack());
