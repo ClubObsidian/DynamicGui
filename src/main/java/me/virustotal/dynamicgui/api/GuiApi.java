@@ -164,11 +164,7 @@ public class GuiApi {
 		for(int i = 0; i < rows * 9; i++)
 		{
 			System.out.println("Parsing slot " + i + " value is " + (yaml.get("" + i)));
-			if(yaml.get("" + i) == null)
-			{
-				slots.add(null);
-			} 
-			else 
+			if(yaml.get("" + i) != null)
 			{
 				System.out.println("Parsed slot is not null: " + i);
 				ConfigurationSection section = yaml.getConfigurationSection(i + "");

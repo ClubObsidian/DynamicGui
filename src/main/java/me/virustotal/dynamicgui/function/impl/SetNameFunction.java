@@ -1,9 +1,9 @@
 package me.virustotal.dynamicgui.function.impl;
 
-import java.util.UUID;
-
+import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
+import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
@@ -21,46 +21,30 @@ public class SetNameFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		Slot slot = this.getOwner();
-		if(slot != null)
+		if(playerWrapper.getOpenInventoryWrapper() != null)
 		{
-			if(player.getOpenInventoryWrapper() != null)
+			InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+			GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+			if(inv != null)
 			{
-				InventoryWrapper<?> inv = player.getOpenInventoryWrapper();
-				if(inv != null)
+				for(Slot s : gui.getSlots())
 				{
-					for(int i = 0; i < inv.getSize(); i++)
+					ItemStackWrapper<?> item = inv.getItem(s.getIndex());
+					if(item.getItemStack() != null)
 					{
-						ItemStackWrapper<?> item = inv.getItem(i);
-						if(item.getItemStack() != null)
+						if(this.getOwner().getIndex() == s.getIndex())
 						{
-							try
-							{
-								String tag = item.getTag();
-								if(tag != null)
-								{
-									UUID uuid = UUID.fromString(tag);
 
-									if(slot.getUUID().equals(uuid))
-									{
-										
-										item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
-										inv.setItem(i, item);
-										break;
-									}
-								}
-							}
-							catch(SecurityException | IllegalArgumentException ex)
-							{
-								ex.printStackTrace();
-							}
+							item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
+							inv.setItem(this.getOwner().getIndex(), item);
+							break;
 						}
 					}
 				}
 			}
 		}
 		return true;
-	}	
+	}
 }

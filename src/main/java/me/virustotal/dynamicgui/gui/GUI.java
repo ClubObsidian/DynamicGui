@@ -65,10 +65,10 @@ public class GUI implements Serializable {
 		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
 		InventoryWrapper<?> inv = InventoryManager.get().createInventoryWrapper(serverInventory);
 		
-		for(int j = 0; j < this.slots.size(); j++)
+		for(int i = 0; i < this.slots.size(); i++)
 		{
-			System.out.println("Slot: " + j);
-			Slot slot = this.slots.get(j);
+			System.out.println("Slot: " + i);
+			Slot slot = this.slots.get(i);
 			if(slot != null)
 			{
 				System.out.println("Slot is not null");
@@ -81,11 +81,15 @@ public class GUI implements Serializable {
 						ItemStackWrapper<?> item = slot.buildItemStack(player);
 						if(this.modeEnum == ModeEnum.ADD)
 						{
-							inv.addItem(item);
+							int index = inv.addItem(item);
+							if(index != -1)
+							{
+								slot.setIndex(index);
+							}
 						}
 						else
 						{
-							inv.setItem(j, item);
+							inv.setItem(slot.getIndex(), item);
 						}
 						for(Function loadFunction : slot.getLoadFunctions())
 						{
@@ -151,11 +155,15 @@ public class GUI implements Serializable {
 					ItemStackWrapper<?> item = slot.buildItemStack(player);
 					if(this.modeEnum == ModeEnum.ADD)
 					{
-						inv.addItem(item);
+						int index = inv.addItem(item);
+						if(index != -1)
+						{
+							slot.setIndex(index);
+						}
 					}
 					else
 					{
-						inv.setItem(j, item);
+						inv.setItem(slot.getIndex(), item);
 					}
 					for(Function loadFunction : slot.getLoadFunctions())
 					{	

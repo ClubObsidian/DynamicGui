@@ -12,17 +12,10 @@ import org.apache.commons.io.FileUtils;
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
 
-import com.google.common.collect.Iterables;
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
 import me.virustotal.dynamicgui.api.FunctionApi;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.configuration.Configuration;
-import me.virustotal.dynamicgui.economy.Economy;
-import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.impl.CheckLevelFunction;
 import me.virustotal.dynamicgui.function.impl.ConsoleCmdFunction;
 import me.virustotal.dynamicgui.function.impl.ExpPayFunction;

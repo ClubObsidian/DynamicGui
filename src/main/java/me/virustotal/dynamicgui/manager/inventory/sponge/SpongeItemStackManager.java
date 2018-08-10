@@ -30,6 +30,10 @@ public class SpongeItemStackManager extends ItemStackManager {
 	@Override
 	public ItemStackWrapper<?> createItemStackWrapper(Object itemStack) 
 	{
+		if(itemStack == null)
+		{
+			return new SpongeItemStackWrapper<ItemStack>(null);
+		}
 		return new SpongeItemStackWrapper<ItemStack>((ItemStack) itemStack);
 	}
 }

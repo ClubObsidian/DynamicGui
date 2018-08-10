@@ -2,11 +2,12 @@ package me.virustotal.dynamicgui.function.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
+import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
@@ -25,63 +26,47 @@ public class SetLoreFunction extends Function {
 		super(name);
 	}
 
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		Slot slot = this.getOwner();
-		if(slot != null)
+		if(playerWrapper.getOpenInventoryWrapper() != null)
 		{
-			if(player.getOpenInventoryWrapper() != null)
+			InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+			GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+			if(inv.getInventory() != null)
 			{
-				InventoryWrapper<?> inv = player.getOpenInventoryWrapper();
-				if(inv.getInventory() != null)
+				for(Slot s : gui.getSlots())
 				{
-					for(int i = 0; i < inv.getSize(); i++)
+					ItemStackWrapper<?> item = inv.getItem(s.getIndex());
+					if(item.getItemStack() != null)
 					{
-						ItemStackWrapper<?> item = inv.getItem(i);
-						if(item.getItemStack() != null)
+						if(this.getOwner().getIndex() == s.getIndex())
 						{
-							try
-							{
-								String tag = item.getTag();
-								if(tag != null)
-								{
-									UUID uuid = UUID.fromString(tag);
 
-									if(slot.getUUID().equals(uuid))
-									{
-										
-										List<String> lore = new ArrayList<String>();
-										if(this.getData().contains(";"))
-										{
-											for(String str : this.getData().split(";"))
-											{
-												String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', str), player);	
-												
-												lore.add(l);
-											}
-										}
-										else
-										{
-											String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', this.getData()), player);
-											
-											lore.add(l);
-										}
-										
-										item.setLore(lore);
-										inv.setItem(i, item);
-										break;
-									}
+							List<String> lore = new ArrayList<String>();
+							if(this.getData().contains(";"))
+							{
+								for(String str : this.getData().split(";"))
+								{
+									String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
+
+									lore.add(l);
 								}
 							}
-							catch(SecurityException | IllegalArgumentException ex)
+							else
 							{
-								ex.printStackTrace();
+								String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+
+								lore.add(l);
 							}
+
+							item.setLore(lore);
+							inv.setItem(this.getOwner().getIndex(), item);
+							break;
 						}
 					}
 				}
 			}
 		}
 		return true;
-	}	
+	}
 }

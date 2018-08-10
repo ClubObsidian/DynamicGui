@@ -48,8 +48,4 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract void removeEnchant(EnchantmentWrapper enchant);
 	public abstract List<EnchantmentWrapper> getEnchants();
 	
-	
-	public abstract String getTag();
-	public abstract void addTag(UUID uuid);
-	
 }

@@ -1,12 +1,10 @@
 package me.virustotal.dynamicgui.listener;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.event.inventory.InventoryClickEvent;
@@ -44,33 +42,12 @@ public class TemporaryInventoryClickListener implements Listener {
 			return;
 
 		Slot slot = null;
-		for(int j = 0; j < gui.getSlots().size(); j++)
+		for(Slot s : gui.getSlots())
 		{
-			if(gui.getSlots().get(j) != null)
+			if(e.getSlot() == s.getIndex())
 			{
-				try
-				{
-					String tag = item.getTag();
-					if(tag != null)
-					{
-						UUID uuid = UUID.fromString(tag);
-						if(gui.getSlots().get(j) != null)
-						{
-							if(gui.getSlots().get(j).getUUID() != null)
-							{
-								if(gui.getSlots().get(j).getUUID().equals(uuid))
-								{
-									slot = gui.getSlots().get(j);
-									break;
-								}
-							}
-						}
-					}
-				}
-				catch(SecurityException | IllegalArgumentException ex)
-				{
-					ex.printStackTrace();
-				}
+				slot = s;
+				break;
 			}
 		}
 

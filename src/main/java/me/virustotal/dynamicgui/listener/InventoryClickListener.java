@@ -1,7 +1,6 @@
 package me.virustotal.dynamicgui.listener;
 
 import java.util.List;
-import java.util.UUID;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.api.GuiApi;
@@ -55,61 +54,39 @@ public class InventoryClickListener implements Listener {
 				DynamicGUI.get().getLogger().info("GuiApi has title");
 				GUI gui = GuiApi.getCurrentGUI(player);
 				Slot slot = null;
-				String tag = item.getTag();
-				DynamicGUI.get().getLogger().info("Tag data for item at slot  " + e.getSlot() + " is " + tag);
-				if(tag != null)
+				for(Slot s : gui.getSlots())
 				{
-					for(int j = 0; j < gui.getSlots().size(); j++)
+					if(e.getSlot() == s.getIndex())
 					{
-						if(gui.getSlots().get(j) != null)
-						{
-							try
-							{
-								UUID uuid = UUID.fromString(tag);
-								if(gui.getSlots().get(j) != null)
-								{
-									if(gui.getSlots().get(j).getUUID() != null)
-									{
-										if(gui.getSlots().get(j).getUUID().equals(uuid))
-										{
-											slot = gui.getSlots().get(j);
-											break;
-										}
-									}
-								}
-
-							}
-							catch(SecurityException | IllegalArgumentException ex)
-							{
-								ex.printStackTrace();
-							}
-						}
+						slot = s;
+						break;
 					}
-
-					if(slot == null)
-						return;
-
-					List<Function> functions = slot.getFunctions();
-					List<Function> leftClickFunctions = slot.getLeftClickFunctions();
-					List<Function> rightClickFunctions = slot.getRightClickFunctions();
-					List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
-
-					if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
-						return;
-
-					Boolean close = null;
-					if(slot.getClose() != null)
-						close = slot.getClose();
-					else if(gui.getClose() != null)
-						close = gui.getClose();
-					else
-						close = true;
-
-					if(close)
-						player.closeInventory();
-
-					FunctionUtil.tryFunctions(slot, e.getClick(), player);
 				}
+
+				if(slot == null)
+					return;
+
+				List<Function> functions = slot.getFunctions();
+				List<Function> leftClickFunctions = slot.getLeftClickFunctions();
+				List<Function> rightClickFunctions = slot.getRightClickFunctions();
+				List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
+
+				if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
+					return;
+
+				Boolean close = null;
+				if(slot.getClose() != null)
+					close = slot.getClose();
+				else if(gui.getClose() != null)
+					close = gui.getClose();
+				else
+					close = true;
+
+				if(close)
+					player.closeInventory();
+
+				FunctionUtil.tryFunctions(slot, e.getClick(), player);
+
 			}
 		}
 	}

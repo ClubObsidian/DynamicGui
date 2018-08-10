@@ -1,9 +1,9 @@
 package me.virustotal.dynamicgui.function.impl;
 
-import java.util.UUID;
-
+import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
+import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
@@ -20,40 +20,29 @@ public class SetDataFunction extends Function {
 		super(name);
 	}
 	
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		Slot slot = this.getOwner();
 		if(slot != null)
 		{
-			if(player.getOpenInventoryWrapper() != null)
+			if(playerWrapper.getOpenInventoryWrapper() != null)
 			{
-				InventoryWrapper<?> inv = player.getOpenInventoryWrapper();
-				if(inv != null)
+				InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+				GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+				if(inv != null && gui != null)
 				{
-					for(int i = 0; i < inv.getSize(); i++)
+					for(Slot s : gui.getSlots())
 					{
-						ItemStackWrapper<?> item = inv.getItem(i);
+						ItemStackWrapper<?> item = inv.getItem(s.getIndex());
 						if(item.getItemStack() != null)
 						{
-							try
+							if(this.getOwner().getIndex() == s.getIndex())
 							{
-								String tag = item.getTag();
-								if(tag != null)
-								{
-									UUID uuid = UUID.fromString(tag);
+								item.setDurability(Short.parseShort(this.getData()));
+								inv.setItem(this.getOwner().getIndex(), item);
+								break;
+							}
 
-									if(slot.getUUID().equals(uuid))
-									{
-										item.setDurability(Short.parseShort(this.getData()));
-										inv.setItem(i, item);
-										break;
-									}
-								}
-							}
-							catch(SecurityException | IllegalArgumentException ex)
-							{
-								ex.printStackTrace();
-							}
 						}
 					}
 				}

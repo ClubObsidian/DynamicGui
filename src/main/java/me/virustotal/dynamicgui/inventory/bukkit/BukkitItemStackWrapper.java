@@ -3,7 +3,6 @@ package me.virustotal.dynamicgui.inventory.bukkit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.bukkit.Material;
@@ -11,10 +10,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
-import me.virustotal.dynamicgui.nbt.NBTCompound;
-import me.virustotal.dynamicgui.nbt.NBTItem;
 import me.virustotal.dynamicgui.objects.EnchantmentWrapper;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
@@ -115,20 +111,5 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
 		}
 		return enchants;
-	}
-
-	@Override
-	public String getTag() 
-	{
-		NBTCompound compound = new NBTItem(this.getItemStack());
-		return compound.getString(DynamicGUI.TAG);
-	}
-
-	@Override
-	public void addTag(UUID uuid) 
-	{
-		NBTCompound compound = new NBTItem(this.getItemStack());
-		compound.setString(DynamicGUI.TAG, uuid.toString());
-		this.setItemStack(compound.getItem());
 	}
 }

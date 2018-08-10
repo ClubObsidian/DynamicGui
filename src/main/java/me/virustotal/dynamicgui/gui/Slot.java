@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import me.virustotal.dynamicgui.api.ReplacerAPI;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
@@ -44,7 +43,6 @@ public class Slot implements Serializable {
 	private String pMessage;
 	private Boolean close;
 	private int amount;
-	private UUID uuid;
 	private ItemStackWrapper<?> itemStack;
 	private GUI owner;
 
@@ -112,6 +110,11 @@ public class Slot implements Serializable {
 	public int getIndex()
 	{
 		return this.index;
+	}
+	
+	public void setIndex(int index)
+	{
+		this.index = index;
 	}
 	
 	public short getData()
@@ -198,10 +201,6 @@ public class Slot implements Serializable {
 	{
 		ItemStackWrapper<?> item = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
 		
-		UUID uuid = UUID.randomUUID();
-		item.addTag(uuid);
-		this.uuid = uuid;
-		
 		if(this.getData() != 0)
 			item.setDurability(this.getData());
 		
@@ -242,11 +241,6 @@ public class Slot implements Serializable {
 	public ItemStackWrapper<?> getItemStack()
 	{
 		return this.itemStack;
-	}
-	
-	public UUID getUUID()
-	{
-		return this.uuid;
 	}
 	
 	public void setOwner(GUI gui)

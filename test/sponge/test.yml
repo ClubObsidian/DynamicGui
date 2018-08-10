@@ -1,0 +1,12 @@
+gui-title: "&c&lTest GUI"
+rows: 5
+mode: "set"
+close: false #Whether slots by default will close or not
+locations: 
+- "0,64,0,world"
+
+'1':
+  icon: "minecraft:bedrock"
+  name: "&fConsole command test"
+  functions:
+  - "executec: say Broadcasting from console, this test passed"

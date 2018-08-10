@@ -1,9 +1,9 @@
 package me.virustotal.dynamicgui.function.impl;
 
-import java.util.UUID;
-
+import me.virustotal.dynamicgui.api.GuiApi;
 import me.virustotal.dynamicgui.entity.player.PlayerWrapper;
 import me.virustotal.dynamicgui.function.Function;
+import me.virustotal.dynamicgui.gui.GUI;
 import me.virustotal.dynamicgui.gui.Slot;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
 import me.virustotal.dynamicgui.inventory.ItemStackWrapper;
@@ -31,24 +31,20 @@ public class RemoveSlotFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper().getInventory() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					if(inv != null)
+					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					if(inv != null && gui != null)
 					{
-						for(int i = 0; i < inv.getSize(); i++)
+						for(Slot s : gui.getSlots())
 						{
-							ItemStackWrapper<?> item = inv.getItem(i);
+							ItemStackWrapper<?> item = s.getItemStack();
 							if(item.getItemStack() != null)
 							{
 								try
 								{
-									String tag = item.getTag();
-									if(tag != null)
+									if(this.getOwner().getIndex() == s.getIndex())
 									{
-										UUID uuid = UUID.fromString(tag);
-										if(slot.getUUID().equals(uuid))
-										{
-											inv.setItem(i, ItemStackManager.get().createItemStackWrapper("AIR", 1));
-											break;
-										}
+										inv.setItem(this.getOwner().getIndex(), ItemStackManager.get().createItemStackWrapper("AIR", 1));
+										break;
 									}
 								}
 								catch(SecurityException | IllegalArgumentException ex)
