@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
@@ -28,8 +29,7 @@ public class SpongeEconomy implements Economy {
 		}
 		return (this.economy = economyService.get()) != null;
 	}
-
-
+	
 	@Override
 	public BigDecimal getBalance(PlayerWrapper<?> playerWrapper) 
 	{
@@ -54,15 +54,26 @@ public class SpongeEconomy implements Economy {
 			return false;
 		}
 		return account.get().withdraw(this.economy.getDefaultCurrency(), amt,
-				Sponge.getCauseStackManager().pushCauseFrame()
-				.pushCause(this)
-				.addContext(EventContextKeys.PLUGIN, Sponge.getPluginManager().getPlugin(SpongePlugin.PLUGIN_ID).get())
-				.getCurrentCause()).getResult() == ResultType.SUCCESS;
+		this.createCurrencyCause()).getResult() == ResultType.SUCCESS;
 	}
 
 	@Override
-	public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) 
+	{
+		Optional<UniqueAccount> account = this.economy.getOrCreateAccount(playerWrapper.getUniqueId());
+		if(!account.isPresent())
+		{
+			return false;
+		}
+		return account.get().deposit(this.economy.getDefaultCurrency(), amt, 
+		this.createCurrencyCause()).getResult() == ResultType.SUCCESS;
+	}
+	
+	private Cause createCurrencyCause()
+	{
+		return Sponge.getCauseStackManager().pushCauseFrame()
+		.pushCause(this)
+		.addContext(EventContextKeys.PLUGIN, Sponge.getPluginManager().getPlugin(SpongePlugin.PLUGIN_ID).get())
+		.getCurrentCause();
 	}
 }
