@@ -1,6 +1,6 @@
 gui-title: "&c&lTest GUI"
 rows: 5
-mode: "set"
+mode: "add"
 close: false #Whether slots by default will close or not
 locations: 
 - "0,64,0,world"
@@ -10,3 +10,14 @@ locations:
   name: "&fConsole command test"
   functions:
   - "executec: say Broadcasting from console, this test passed"
+'3':
+  icon: "minecraft:stone"
+  name: "&aType test"
+  functions:
+  - "settype: minecraft:redstone"
+  - "broadcast: &aType test passed"
+'5':
+  icon: "minecraft:stone"
+  name: "&cBroadcast test"
+  functions:
+  - "broadcast: &cBroadcast test passed"
