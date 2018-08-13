@@ -35,23 +35,28 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	public ItemStackWrapper<ItemStack> getItem(int index) 
 	{
 		DynamicGUI.get().getLogger().info("Index is: " + index);
-		Optional<ItemStack> item = this.getInventory().query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index))).peek();
+		Optional<ItemStack> item = this.getInventory()
+				.query(QueryOperationTypes.INVENTORY_PROPERTY
+				.of(SlotIndex.of(index))).peek();
 		
 		if(item.isPresent())
 		{
 			return new SpongeItemStackWrapper<ItemStack>(item.get());
 		}
+		DynamicGUI.get().getLogger().info("Item is not present for get item");
 		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
 	
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
-		DynamicGUI.get().getLogger().info("Set itemstack is null: " + itemStackWrapper.getItemStack());
+		ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
+		DynamicGUI.get().getLogger().info("Set itemstack is null: " + itemStack);
 		InventoryTransactionResult result = this.getInventory()
 		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
-		.set((ItemStack) itemStackWrapper.getItemStack());
-		DynamicGUI.get().getLogger().info("Inventory set result: " + result.getType());
+		.set(itemStack);
+		DynamicGUI.get().getLogger().info("Inventory set get after: " + this.getItem(index).getItemStack());
+	
 	}
 	
 	@Override
