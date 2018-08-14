@@ -59,7 +59,7 @@ public class FakeBukkitServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		// TODO Auto-generated method stub
+		// TODO - Global
 		return Bukkit.getServer().getOnlinePlayers().size();
 	}
 

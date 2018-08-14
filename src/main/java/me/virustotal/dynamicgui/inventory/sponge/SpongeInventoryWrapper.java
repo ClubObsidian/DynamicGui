@@ -7,7 +7,6 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
-import org.spongepowered.api.item.inventory.transaction.InventoryTransactionResult;
 
 import me.virustotal.dynamicgui.DynamicGUI;
 import me.virustotal.dynamicgui.inventory.InventoryWrapper;
@@ -36,8 +35,8 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	{
 		DynamicGUI.get().getLogger().info("Index is: " + index);
 		Optional<ItemStack> item = this.getInventory()
-				.query(QueryOperationTypes.INVENTORY_PROPERTY
-				.of(SlotIndex.of(index))).peek();
+		.query(QueryOperationTypes.INVENTORY_PROPERTY
+		.of(SlotIndex.of(index))).peek();
 		
 		if(item.isPresent())
 		{
@@ -52,11 +51,10 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	{
 		ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
 		DynamicGUI.get().getLogger().info("Set itemstack is null: " + itemStack);
-		InventoryTransactionResult result = this.getInventory()
+		this.getInventory()
 		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
 		.set(itemStack);
 		DynamicGUI.get().getLogger().info("Inventory set get after: " + this.getItem(index).getItemStack());
-	
 	}
 	
 	@Override

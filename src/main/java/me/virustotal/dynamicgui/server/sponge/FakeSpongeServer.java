@@ -56,9 +56,10 @@ public class FakeSpongeServer extends FakeServer {
 	}
 
 	@Override
-	public int getGlobalPlayerCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getGlobalPlayerCount() 
+	{
+		// TODO - Global
+		return Sponge.getServer().getOnlinePlayers().size();
 	}
 
 	@Override
