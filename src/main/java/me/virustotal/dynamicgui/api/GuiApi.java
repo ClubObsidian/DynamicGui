@@ -391,7 +391,7 @@ public class GuiApi {
 				}
 				String[] split = key.split("-");
 				String str = split[0];
-				if(split.length > 3) //was 2
+				if(split.length > 3)
 				{
 					for(int j = 1; j < split.length - 1; j++)
 					{

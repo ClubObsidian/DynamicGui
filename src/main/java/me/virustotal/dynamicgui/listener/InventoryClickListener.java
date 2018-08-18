@@ -33,11 +33,18 @@ public class InventoryClickListener implements Listener {
 		
 		e.setCancelled(true);
 		
+		DynamicGUI.get().getLogger().info("From trident index is: " + e.getSlot());
+		DynamicGUI.get().getLogger().info("From trident title is: " + e.getInventoryWrapper().getTitle());
+		
 		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
 		if(item.getItemStack() == null)
 		{
 			DynamicGUI.get().getLogger().info("ItemStack is null");
 			return;
+		}
+		else
+		{
+			DynamicGUI.get().getLogger().info("From trident, itemstack is: " + item.getItemStack());
 		}
 		
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
