@@ -25,12 +25,12 @@ import com.clubobsidian.dynamicgui.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
 
-public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin implements DynamicGUIPlugin<T,U> {
+public class BukkitPlugin extends JavaPlugin implements DynamicGUIPlugin {
 
 	private File configFile;
 	private File guiFolder;
 	private Economy economy;
-	private List<NPCRegistry<U>> npcRegistries;
+	private List<NPCRegistry> npcRegistries;
 	
 	@Override
 	public void onEnable()
@@ -106,7 +106,7 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 	}
 
 	@Override
-	public List<NPCRegistry<U>> getNPCRegistries() 
+	public List<NPCRegistry> getNPCRegistries() 
 	{
 		return this.npcRegistries;
 	}
@@ -114,7 +114,7 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 	@Override
 	public boolean isNPC(EntityWrapper<?> entity) 
 	{
-		for(NPCRegistry<?> registry : this.getNPCRegistries())
+		for(NPCRegistry registry : this.getNPCRegistries())
 		{
 			if(registry.isNPC(entity))
 			{
@@ -125,11 +125,11 @@ public class BukkitPlugin<T extends Player, U extends Entity> extends JavaPlugin
 	}
 
 	@Override
-	public NPC<U> getNPC(EntityWrapper<?> entityWrapper) 
+	public NPC getNPC(EntityWrapper<?> entityWrapper) 
 	{
-		for(NPCRegistry<U> registry : this.getNPCRegistries())
+		for(NPCRegistry registry : this.getNPCRegistries())
 		{
-			NPC<U> npc = registry.getNPC(entityWrapper);
+			NPC npc = registry.getNPC(entityWrapper);
 			if(npc != null)
 			{
 				return npc;

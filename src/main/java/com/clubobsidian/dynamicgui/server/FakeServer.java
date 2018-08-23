@@ -27,7 +27,7 @@ public abstract class FakeServer {
 	public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
 	public abstract int getGlobalPlayerCount();
 	public abstract ServerType getType();
-	public abstract void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel);
-	public abstract void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel);
+	public abstract void registerOutgoingPluginChannel(DynamicGUIPlugin plugin, String channel);
+	public abstract void registerIncomingPluginChannel(DynamicGUIPlugin plugin, String channel);
 	
 }

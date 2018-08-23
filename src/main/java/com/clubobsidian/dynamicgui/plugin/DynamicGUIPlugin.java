@@ -6,12 +6,12 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.npc.NPCRegistry;
 
-public interface DynamicGUIPlugin<T,U> extends NPCRegistry<U> {
+public interface DynamicGUIPlugin extends NPCRegistry {
 
 	public void start();
 	public void stop();
 	public Economy getEconomy();
-	public List<NPCRegistry<U>> getNPCRegistries();
+	public List<NPCRegistry> getNPCRegistries();
 	public File getDataFolder();
 	public File getConfigFile();
 	public File getGuiFolder();

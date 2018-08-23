@@ -34,7 +34,7 @@ import org.spongepowered.api.text.Text;
 import org.slf4j.Logger;
 
 @Plugin(id = "dynamicgui", name = "DynamicGUI", version = "1.0")
-public class SpongePlugin<T extends Player, U extends Entity> implements DynamicGUIPlugin<T,U> {
+public class SpongePlugin implements DynamicGUIPlugin {
 
 	@Inject
 	private Logger logger;
@@ -97,7 +97,7 @@ public class SpongePlugin<T extends Player, U extends Entity> implements Dynamic
 	}
 
 	@Override
-	public NPC<U> getNPC(EntityWrapper<?> entity) {
+	public NPC getNPC(EntityWrapper<?> entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,7 +109,7 @@ public class SpongePlugin<T extends Player, U extends Entity> implements Dynamic
 	}
 
 	@Override
-	public List<NPCRegistry<U>> getNPCRegistries() {
+	public List<NPCRegistry> getNPCRegistries() {
 		// TODO Auto-generated method stub
 		return null;
 	}

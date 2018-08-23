@@ -56,11 +56,11 @@ public class DynamicGUI  {
 
 	private static DynamicGUI instance = null;
 	
-	private DynamicGUIPlugin<?,?> plugin;
+	private DynamicGUIPlugin plugin;
 	private EventManager eventManager;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
-	private DynamicGUI(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	private DynamicGUI(DynamicGUIPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
@@ -392,7 +392,7 @@ public class DynamicGUI  {
 		return this.redis;
 	}
 	
-	public DynamicGUIPlugin<?,?> getPlugin()
+	public DynamicGUIPlugin getPlugin()
 	{
 		return this.plugin;
 	}
@@ -432,7 +432,7 @@ public class DynamicGUI  {
 		return instance;
 	}
 	
-	public static DynamicGUI createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	public static DynamicGUI createInstance(DynamicGUIPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		if(DynamicGUI.instance == null)
 		{

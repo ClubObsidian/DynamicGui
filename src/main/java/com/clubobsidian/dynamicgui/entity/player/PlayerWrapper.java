@@ -30,7 +30,7 @@ public abstract class PlayerWrapper<T> {
 	public abstract InventoryWrapper<?> getOpenInventoryWrapper();
 	public abstract void closeInventory();
 	public abstract void openInventory(InventoryWrapper<?> inventoryWrapper);
-	public abstract void sendPluginMessage(DynamicGUIPlugin<?,?> plugin, String channel, byte[] message);
+	public abstract void sendPluginMessage(DynamicGUIPlugin plugin, String channel, byte[] message);
 	public abstract void playSound(String sound, Float volume, Float pitch);
 	public abstract void playEffect(String effect, int data);
 	public abstract int getStatistic(Statistic statistic);

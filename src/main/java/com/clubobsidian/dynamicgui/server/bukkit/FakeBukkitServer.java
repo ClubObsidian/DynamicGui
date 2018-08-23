@@ -74,13 +74,13 @@ public class FakeBukkitServer extends FakeServer {
 	}
 
 	@Override
-	public void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) 
+	public void registerOutgoingPluginChannel(DynamicGUIPlugin plugin, String channel) 
 	{
 		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, channel);
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) 
+	public void registerIncomingPluginChannel(DynamicGUIPlugin plugin, String channel) 
 	{
 		// TODO Auto-generated method stub
 		

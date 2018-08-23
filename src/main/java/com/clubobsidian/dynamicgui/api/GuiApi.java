@@ -104,7 +104,7 @@ public class GuiApi {
 	{
 		System.out.println("Instance is null: " + (DynamicGUI.get() == null));
 		System.out.println("Plugin is null: " + (DynamicGUI.get().getPlugin() == null));
-		DynamicGUIPlugin<?, ?> plugin = DynamicGUI.get().getPlugin();
+		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		//File[] ar = guiFolder.listFiles();
 		
@@ -293,7 +293,7 @@ public class GuiApi {
 		return slots;
 	}
 	
-	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin<?,?> plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;

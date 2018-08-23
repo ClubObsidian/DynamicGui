@@ -1,19 +1,49 @@
 package com.clubobsidian.dynamicgui.util;
 
+import java.lang.reflect.Method;
+
 public class ReflectionUtil {
 
-	public static Class<?> getMinecraftClass(String className) throws ClassNotFoundException
+	public static Class<?> classForName(String name)
 	{
-		return Class.forName("net.minecraft.server." + VersionUtil.getVersion() + "." + className);
+		try 
+		{
+			return Class.forName(name);
+		}
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Method getMethod(Class<?> cl, String methodName) 
+	{
+		try 
+		{
+			Method method = cl.getDeclaredMethod(methodName);
+			method.setAccessible(true);
+			return method;
+		} 
+		catch (NoSuchMethodException | SecurityException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	public static Class<?> getCraftClass(String packageName, String className) throws ClassNotFoundException
+	public static Method getMethod(Class<?> cl, String methodName, Class<?>...params)
 	{
-		return Class.forName("org.bukkit.craftbukkit." + VersionUtil.getVersion() + "." + packageName + "." + className);
-	}
-	
-	public static Class<?> getCraftClass(String className) throws ClassNotFoundException
-	{
-		return Class.forName("org.bukkit.craftbukkit." + VersionUtil.getVersion() + "." + className);
+		try 
+		{
+			Method method = cl.getDeclaredMethod(methodName, params);
+			method.setAccessible(true);
+			return method;
+		} 
+		catch (NoSuchMethodException | SecurityException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

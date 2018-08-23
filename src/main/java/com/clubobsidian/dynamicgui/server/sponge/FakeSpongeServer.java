@@ -73,13 +73,13 @@ public class FakeSpongeServer extends FakeServer {
 	}
 
 	@Override
-	public void registerOutgoingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) {
+	public void registerOutgoingPluginChannel(DynamicGUIPlugin plugin, String channel) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGUIPlugin<?, ?> plugin, String channel) {
+	public void registerIncomingPluginChannel(DynamicGUIPlugin plugin, String channel) {
 		// TODO Auto-generated method stub
 		
 	}
