@@ -24,7 +24,11 @@ public class InventoryClickListener implements Listener {
 
 		int slot = e.getSlot();
 		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize())
+		{
+			//Handle outside clicks
+			e.setCancelled(true);
 			return;
+		}
 
 		if(e.getWhoClicked() instanceof Player)
 		{

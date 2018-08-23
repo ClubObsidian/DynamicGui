@@ -2,6 +2,7 @@ package com.clubobsidian.dynamicgui.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.function.Function;
@@ -15,9 +16,9 @@ public class FunctionApi {
 		return functions.get(name);
 	}
 	
-	public static ArrayList<Function> getFunctions()
+	public static List<Function> getFunctions()
 	{
-		ArrayList<Function> funcs = new ArrayList<Function>();
+		List<Function> funcs = new ArrayList<>();
 		funcs.addAll(functions.values());
 		return funcs;
 	}

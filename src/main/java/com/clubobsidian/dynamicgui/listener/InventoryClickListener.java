@@ -49,7 +49,6 @@ public class InventoryClickListener implements Listener {
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;
 
-
 		DynamicGUI.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		if(GuiApi.hasGUICurrently(player))
