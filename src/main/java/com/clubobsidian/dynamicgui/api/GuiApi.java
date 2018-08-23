@@ -60,7 +60,6 @@ public class GuiApi {
 		System.out.println("Plugin is null: " + (DynamicGUI.get().getPlugin() == null));
 		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
-		//File[] ar = guiFolder.listFiles();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml"}, true);
 		
@@ -80,7 +79,7 @@ public class GuiApi {
 						List<Slot> slots = GuiApi.getSlots(rows, yaml);
 						//System.out.println("slot size: " + slots.size());
 						
-						final GUI gui = new GUI(GuiApi.getGui(yaml, plugin, guiName, guiTitle, rows, slots));
+						final GUI gui = new GUI(GuiApi.createGUI(yaml, plugin, guiName, guiTitle, rows, slots));
 
 						guis.add(gui);
 						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
@@ -111,6 +110,129 @@ public class GuiApi {
 		return GuiApi.guis;
 	}
 	
+	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
+	{
+		return GuiApi.playerGuis.get(playerWrapper.getUniqueId()) != null;
+	}
+	
+	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
+	{
+		DynamicGUI.get().getLogger().info("Cleanup gui was called");
+		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
+	}
+
+	public static GUI getCurrentGUI(PlayerWrapper<?> playerWrapper)
+	{
+		return GuiApi.playerGuis.get(playerWrapper.getUniqueId());
+	}
+	
+	public static boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
+	{
+		return GuiApi.openGUI(playerWrapper, GuiApi.getGuiByName(guiName));
+	}
+	
+	public static boolean openGUI(PlayerWrapper<?> playerWrapper, GUI gui)
+	{
+		if(gui == null)
+		{
+			playerWrapper.sendMessage(DynamicGUI.get().getNoGui());
+			return false;
+		}
+		
+		GUI clonedGUI = gui.clone();
+		DynamicGUI.get().getLogger().info("Cloned gui: " + clonedGUI);
+		boolean permNull = (clonedGUI.getPermission() == null);
+		if(!permNull)
+		{
+			if(!playerWrapper.hasPermission(clonedGUI.getPermission()))
+			{
+				if(clonedGUI.getpMessage() == null)
+				{
+					playerWrapper.sendMessage(DynamicGUI.get().getNoPermissionGui());
+				}
+				else
+				{
+					playerWrapper.sendMessage(clonedGUI.getpMessage());
+				}
+				return false;
+			}
+		}
+
+		for(SoundWrapper wrapper : clonedGUI.getOpeningSounds())
+		{
+			wrapper.playSoundToPlayer(playerWrapper); 
+		}
+		
+		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
+		
+		if(inventoryWrapper == null)
+			return false;
+		
+		DynamicGUI.get().getLogger().info("After putting gui into player guis: " + GuiApi.hasGUICurrently(playerWrapper));
+		playerWrapper.openInventory(inventoryWrapper);
+		GuiApi.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
+		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				playerWrapper.updateInventory();
+			}
+		},2L);
+		
+		return true;
+	}
+	
+	private static Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
+	{
+		Map<String, List<Function>> failFunctions = new HashMap<>(); //check ends with
+		for(String key : section.getKeys())
+		{
+			if(key.endsWith(end))
+			{
+				List<Function> failFuncs = new ArrayList<Function>();
+				for(String string : section.getStringList(key))
+				{
+					String[] array = FunctionApi.parseData(string);
+					if(FunctionApi.getFunctionByName(array[0]) == null)
+						DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					
+					Function func = new EmptyFunction(array[0], array[1]);
+					failFuncs.add(func);
+				}
+				String[] split = key.split("-");
+				String str = split[0];
+				if(split.length > 3)
+				{
+					for(int j = 1; j < split.length - 1; j++)
+					{
+						str += "-" + split[j];
+					}
+				}
+				failFunctions.put(str, failFuncs);
+			}
+		}
+		return failFunctions;
+	}
+	
+	private static List<Function> createFunctions(ConfigurationSection section, String name)
+	{
+		List<Function> functions = new ArrayList<>();
+		if(section.get(name) != null)
+		{
+			for(String string : section.getStringList(name))
+			{
+				String[] array = FunctionApi.parseData(string);
+				if(FunctionApi.getFunctionByName(array[0]) == null)
+					DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+
+				Function func = new EmptyFunction(array[0], array[1]);
+				functions.add(func);
+
+			}
+		}
+		return functions;
+	}
 	
 	private static List<Slot> getSlots(int rows, Configuration yaml)
 	{
@@ -132,16 +254,16 @@ public class GuiApi {
 				if(section.get("nbt") != null)
 					nbt = section.getString("nbt");
 				
-				List<Function> functions = GuiApi.getFunctions(section, "functions");
-				List<Function> leftClickFunctions = GuiApi.getFunctions(section, "leftclick-functions");
-				List<Function> rightClickFunctions = GuiApi.getFunctions(section, "rightclick-functions");
-				List<Function> middleClickFunctions = GuiApi.getFunctions(section, "middleclick-functions");
+				List<Function> functions = GuiApi.createFunctions(section, "functions");
+				List<Function> leftClickFunctions = GuiApi.createFunctions(section, "leftclick-functions");
+				List<Function> rightClickFunctions = GuiApi.createFunctions(section, "rightclick-functions");
+				List<Function> middleClickFunctions = GuiApi.createFunctions(section, "middleclick-functions");
 				
 				
-				Map<String,List<Function>> failFunctions = GuiApi.getFailFunctions(section, "-failfunctions");
-				Map<String,List<Function>> leftClickFailFunctions = GuiApi.getFailFunctions(section, "-leftclickfailfunctions");
-				Map<String,List<Function>> rightClickFailFunctions = GuiApi.getFailFunctions(section, "-rightclickfailfunctions");
-				Map<String,List<Function>> middleClickFailFunctions = GuiApi.getFailFunctions(section, "-middleclickfailfunctions");
+				Map<String,List<Function>> failFunctions = GuiApi.createFailFunctions(section, "-failfunctions");
+				Map<String,List<Function>> leftClickFailFunctions = GuiApi.createFailFunctions(section, "-leftclickfailfunctions");
+				Map<String,List<Function>> rightClickFailFunctions = GuiApi.createFailFunctions(section, "-rightclickfailfunctions");
+				Map<String,List<Function>> middleClickFailFunctions = GuiApi.createFailFunctions(section, "-middleclickfailfunctions");
 				//fail functions
 				
 			
@@ -247,16 +369,20 @@ public class GuiApi {
 		return slots;
 	}
 	
-	private static GUI getGui(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private static GUI createGUI(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
 		if(yaml.get("permission") != null)
+		{
 			permission = yaml.getString("permission");
+		}
 
 		String pMessage = null;
 		if(yaml.get("pmessage") != null)
+		{
 			pMessage = ChatColor.translateAlternateColorCodes('&', yaml.getString("pmessage"));
+		}
 
 		if(yaml.get("alias") != null)
 		{
@@ -268,7 +394,9 @@ public class GuiApi {
 
 		Boolean close = null;
 		if(yaml.get("close") != null)
+		{
 			close = yaml.getBoolean("close");
+		}
 
 
 		List<LocationWrapper<?>> locations = new ArrayList<>(); 
@@ -305,129 +433,5 @@ public class GuiApi {
 		}
 		
 		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locations, openingSounds);
-	}
-
-	private static List<Function> getFunctions(ConfigurationSection section, String name)
-	{
-		List<Function> functions = new ArrayList<>();
-		if(section.get(name) != null)
-		{
-			for(String string : section.getStringList(name))
-			{
-				String[] array = FunctionApi.parseData(string);
-				if(FunctionApi.getFunctionByName(array[0]) == null)
-					DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-
-				Function func = new EmptyFunction(array[0], array[1]);
-				functions.add(func);
-
-			}
-		}
-		return functions;
-	}
-	
-	private static Map<String,List<Function>> getFailFunctions(ConfigurationSection section, String end)
-	{
-		Map<String, List<Function>> failFunctions = new HashMap<>(); //check ends with
-		for(String key : section.getKeys())
-		{
-			if(key.endsWith(end))
-			{
-				List<Function> failFuncs = new ArrayList<Function>();
-				for(String string : section.getStringList(key))
-				{
-					String[] array = FunctionApi.parseData(string);
-					if(FunctionApi.getFunctionByName(array[0]) == null)
-						DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-					
-					Function func = new EmptyFunction(array[0], array[1]);
-					failFuncs.add(func);
-				}
-				String[] split = key.split("-");
-				String str = split[0];
-				if(split.length > 3)
-				{
-					for(int j = 1; j < split.length - 1; j++)
-					{
-						str += "-" + split[j];
-					}
-				}
-				failFunctions.put(str, failFuncs);
-			}
-		}
-		return failFunctions;
-	}
-	
-	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
-	{
-		return GuiApi.playerGuis.get(playerWrapper.getUniqueId()) != null;
-	}
-	
-	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
-	{
-		DynamicGUI.get().getLogger().info("Cleanup gui was called");
-		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
-	}
-
-	public static GUI getCurrentGUI(PlayerWrapper<?> playerWrapper)
-	{
-		return GuiApi.playerGuis.get(playerWrapper.getUniqueId());
-	}
-	
-	public static boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
-	{
-		return GuiApi.openGUI(playerWrapper, GuiApi.getGuiByName(guiName));
-	}
-	
-	public static boolean openGUI(PlayerWrapper<?> playerWrapper, GUI gui)
-	{
-		if(gui == null)
-		{
-			playerWrapper.sendMessage(DynamicGUI.get().getNoGui());
-			return false;
-		}
-		
-		GUI clonedGUI = gui.clone();
-		DynamicGUI.get().getLogger().info("Cloned gui: " + clonedGUI);
-		boolean permNull = (clonedGUI.getPermission() == null);
-		if(!permNull)
-		{
-			if(!playerWrapper.hasPermission(clonedGUI.getPermission()))
-			{
-				if(clonedGUI.getpMessage() == null)
-				{
-					playerWrapper.sendMessage(DynamicGUI.get().getNoPermissionGui());
-				}
-				else
-				{
-					playerWrapper.sendMessage(clonedGUI.getpMessage());
-				}
-				return false;
-			}
-		}
-
-		for(SoundWrapper wrapper : clonedGUI.getOpeningSounds())
-		{
-			wrapper.playSoundToPlayer(playerWrapper); 
-		}
-		
-		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
-		
-		if(inventoryWrapper == null)
-			return false;
-		
-		DynamicGUI.get().getLogger().info("After putting gui into player guis: " + GuiApi.hasGUICurrently(playerWrapper));
-		playerWrapper.openInventory(inventoryWrapper);
-		GuiApi.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
-		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				playerWrapper.updateInventory();
-			}
-		},2L);
-		
-		return true;
 	}
 }

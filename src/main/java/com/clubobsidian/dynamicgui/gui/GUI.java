@@ -26,7 +26,7 @@ public class GUI implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6294818826223305057L;
-	private List<Slot> slots = new ArrayList<>();
+	private List<Slot> slots;
 	private String name;
 	private String title;
 	private int rows;
@@ -34,9 +34,9 @@ public class GUI implements Serializable {
 	private String pMessage;
 	private Boolean close;
 	private ModeEnum modeEnum;
-	private List<LocationWrapper<?>> locations = new ArrayList<>();
-	private List<SoundWrapper> openingSounds = new ArrayList<>();
-	private List<Integer> npcIds = new ArrayList<>();
+	private List<LocationWrapper<?>> locations;
+	private List<SoundWrapper> openingSounds;
+	private List<Integer> npcIds;
 	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<SoundWrapper> openingSounds)
 	{
 		this.name = name;
