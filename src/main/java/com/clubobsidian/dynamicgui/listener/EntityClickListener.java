@@ -2,6 +2,7 @@ package com.clubobsidian.dynamicgui.listener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.api.GuiApi;
+import com.clubobsidian.dynamicgui.command.GUIExecutor;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent;
 import com.clubobsidian.dynamicgui.gui.GUI;
@@ -20,7 +21,7 @@ public class EntityClickListener implements Listener {
 			{
 				if(gui.getNpcIds().contains(DynamicGUI.get().getPlugin().getNPC(entityWrapper).getId()))
 				{
-					e.getPlayerWrapper().chat("/gui " + gui.getName());
+					new GUIExecutor().execute(e.getPlayerWrapper(), gui);
 					break;
 				}
 			}
