@@ -9,6 +9,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
+import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
@@ -58,7 +59,10 @@ public class FakeSpongeServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		// TODO - Global
+		if(DynamicGUI.get().getRedisBungee() || DynamicGUI.get().getBungeeCord())
+		{
+			return DynamicGUI.get().getGlobalServerPlayerCount();
+		}
 		return Sponge.getServer().getOnlinePlayers().size();
 	}
 

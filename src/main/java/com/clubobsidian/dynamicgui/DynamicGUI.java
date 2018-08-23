@@ -13,6 +13,7 @@ import com.clubobsidian.dynamicgui.api.FunctionApi;
 import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.configuration.Configuration;
+import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.ExpPayFunction;
@@ -44,6 +45,10 @@ import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
+
+import com.google.common.collect.Iterables;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 
 public class DynamicGUI  {
 
@@ -203,16 +208,16 @@ public class DynamicGUI  {
 	}*/
 
 	
-	/*private void startPlayerCountTimer()
+	private void startPlayerCountTimer()
 	{
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				for(String server : serverPlayerCount.keySet())
 				{
-					Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
+					PlayerWrapper<?> player = Iterables.getFirst(DynamicGUI.get().getServer().getOnlinePlayers(), null);
 					if(player != null)
 					{
 						ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -223,15 +228,13 @@ public class DynamicGUI  {
 						{
 							toSend = "RedisBungee";
 						}
-						player.sendPluginMessage(DynamicGUI.getPlugin(), toSend, out.toByteArray());
+						player.sendPluginMessage(DynamicGUI.get().getPlugin(), toSend, out.toByteArray());
 					}
 				}
 			}
-		}
-				
+		}		
 		,1L, 20L);
-		
-	}*/
+	}
 
 	
 	private void cleanupGuis()
@@ -290,7 +293,7 @@ public class DynamicGUI  {
 		this.getLogger().info("BungeeCord is enabled!");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord");
-		//this.startPlayerCountTimer(); TODO - Update global player count
+		this.startPlayerCountTimer();
 	}
 	
 	private void registerRedis()
@@ -300,7 +303,7 @@ public class DynamicGUI  {
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
 		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee");
-		//this.startPlayerCountTimer(); TODO - Update global player count
+		this.startPlayerCountTimer();
 	}
 	
 	/*private final CommandMap getCommandMap()
@@ -409,11 +412,25 @@ public class DynamicGUI  {
 		return this.loggerWrapper;
 	}
 	
+	public Integer getGlobalServerPlayerCount()
+	{
+		Integer playerCount = 0;
+		for(Integer count : this.serverPlayerCount.values())
+		{
+			playerCount += count;
+		}
+		return playerCount;
+	}
+	
+	public Integer getServerPlayerCount(String server)
+	{
+		return this.serverPlayerCount.get(server);
+	}
+	
 	public static DynamicGUI get() 
 	{
 		return instance;
 	}
-
 	
 	public static DynamicGUI createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{

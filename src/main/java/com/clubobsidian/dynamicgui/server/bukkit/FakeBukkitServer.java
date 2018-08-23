@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
@@ -59,7 +60,10 @@ public class FakeBukkitServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		// TODO - Global
+		if(DynamicGUI.get().getRedisBungee() || DynamicGUI.get().getBungeeCord())
+		{
+			return DynamicGUI.get().getGlobalServerPlayerCount();
+		}
 		return Bukkit.getServer().getOnlinePlayers().size();
 	}
 

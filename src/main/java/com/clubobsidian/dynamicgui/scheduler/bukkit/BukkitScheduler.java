@@ -13,4 +13,10 @@ public class BukkitScheduler extends Scheduler {
 	{
 		Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) plugin, runnable, delay);
 	}
+
+	@Override
+	public void scheduleSyncRepeatingTask(DynamicGUIPlugin<?, ?> plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
+	{
+		Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) plugin, runnable, delayInitial, delayRepeating);
+	}
 }
