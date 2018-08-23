@@ -2,11 +2,10 @@ package com.clubobsidian.dynamicgui.plugin.bukkit;
 
 import java.io.File;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
@@ -22,6 +21,7 @@ import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.npc.NPC;
 import com.clubobsidian.dynamicgui.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.npc.citizens.CitizensRegistry;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
 
@@ -43,12 +43,19 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGUIPlugin {
 	{
 		this.configFile = new File(this.getDataFolder(), "config.yml");
 		this.guiFolder = new File(this.getDataFolder(), "guis");
-
+		
 		DynamicGUI.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{
 			this.economy = null;
+		}
+		
+		this.npcRegistries = new ArrayList<>();
+		
+		if(Bukkit.getServer().getPluginManager().getPlugin("Citizens") != null)
+		{
+			this.getNPCRegistries().add(new CitizensRegistry());
 		}
 		
 		this.getCommand("gui").setExecutor(new BukkitGUICommand());
