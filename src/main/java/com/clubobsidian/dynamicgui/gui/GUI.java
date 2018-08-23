@@ -59,10 +59,10 @@ public class GUI implements Serializable {
 		this(gui.getName(),gui.getTitle(),gui.getRows(),gui.getPermission(),gui.getpMessage(),gui.getClose(),gui.getModeEnum(),gui.getNpcIds(),gui.getSlots(),gui.getLocations(), gui.getOpeningSounds());
 	}
 
-	public void buildInventory(PlayerWrapper<?> player)
+	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
 	{	
 		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
-		InventoryWrapper<?> inv = InventoryManager.get().createInventoryWrapper(serverInventory);
+		InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
 		
 		for(int i = 0; i < this.slots.size(); i++)
 		{
@@ -80,7 +80,7 @@ public class GUI implements Serializable {
 						ItemStackWrapper<?> item = slot.buildItemStack(player);
 						if(this.modeEnum == ModeEnum.ADD)
 						{
-							int index = inv.addItem(item);
+							int index = inventoryWrapper.addItem(item);
 							if(index != -1)
 							{
 								slot.setIndex(index);
@@ -88,7 +88,7 @@ public class GUI implements Serializable {
 						}
 						else
 						{
-							inv.setItem(slot.getIndex(), item);
+							inventoryWrapper.setItem(slot.getIndex(), item);
 						}
 						for(Function loadFunction : slot.getLoadFunctions())
 						{
@@ -154,7 +154,7 @@ public class GUI implements Serializable {
 					ItemStackWrapper<?> item = slot.buildItemStack(player);
 					if(this.modeEnum == ModeEnum.ADD)
 					{
-						int index = inv.addItem(item);
+						int index = inventoryWrapper.addItem(item);
 						if(index != -1)
 						{
 							slot.setIndex(index);
@@ -162,7 +162,7 @@ public class GUI implements Serializable {
 					}
 					else
 					{
-						inv.setItem(slot.getIndex(), item);
+						inventoryWrapper.setItem(slot.getIndex(), item);
 					}
 					for(Function loadFunction : slot.getLoadFunctions())
 					{	
@@ -224,7 +224,7 @@ public class GUI implements Serializable {
 				}
 			}
 		}
-		player.openInventory(inv);
+		return inventoryWrapper;
 	}
 	
 	public String getName()

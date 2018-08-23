@@ -2,7 +2,6 @@ package com.clubobsidian.dynamicgui.function.impl;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.api.GuiApi;
-import com.clubobsidian.dynamicgui.command.GUIExecutor;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
@@ -24,13 +23,13 @@ public class GuiFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(final PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
 		final String gui = this.getData();
 
-		if(player.getOpenInventoryWrapper() != null)
+		if(playerWrapper.getOpenInventoryWrapper() != null)
 		{
-			player.closeInventory();
+			playerWrapper.closeInventory();
 		}
 		
 		if(!GuiApi.hasGuiName(gui))
@@ -41,7 +40,7 @@ public class GuiFunction extends Function {
 			@Override
 			public void run()
 			{
-				new GUIExecutor().execute(player, gui);
+				GuiApi.openGUI(playerWrapper, gui);
 			}
 		},2L);
 		return true;

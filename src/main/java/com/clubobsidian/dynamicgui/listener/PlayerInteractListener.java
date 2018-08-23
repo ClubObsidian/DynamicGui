@@ -2,11 +2,11 @@ package com.clubobsidian.dynamicgui.listener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.api.GuiApi;
-import com.clubobsidian.dynamicgui.command.GUIExecutor;
 import com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
@@ -30,7 +30,7 @@ public class PlayerInteractListener implements Listener {
 								@Override
 								public void run()
 								{
-									new GUIExecutor().execute(e.getPlayerWrapper(), gui.getName());
+									GuiApi.openGUI(e.getPlayerWrapper(), gui);
 								}
 							}, 1L);
 							break;

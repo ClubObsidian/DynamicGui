@@ -18,6 +18,7 @@ import com.clubobsidian.dynamicgui.function.EmptyFunction;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
@@ -30,33 +31,10 @@ public class GuiApi {
 
 	private static List<GUI> guis = new ArrayList<>();
 	private static Map<UUID, GUI> playerGuis = new HashMap<>();
-	private static Map<UUID, GUI> temporaryGuiMap = new HashMap<>(); //Maps player uuids and temporary guis.
-	
-	public static boolean hasGuiTitle(String title)
-	{
-		for(GUI gui : guis)
-		{
-			if(gui.getTitle().equals(title))
-				return true;
-		}
-		return false;
-	}
-	
-	public static GUI getGuiByTitle(String title)
-	{
-		for(GUI gui : guis)
-		{
-			if(gui.getTitle().equals(title))
-			{	
-				return gui.clone();
-			}
-		}
-		return null;
-	}
 	
 	public static boolean hasGuiName(String name)
 	{
-		for(GUI gui : guis)
+		for(GUI gui : GuiApi.guis)
 		{
 			if(gui.getName().equals(name))
 				return true;
@@ -66,7 +44,7 @@ public class GuiApi {
 	
 	public static GUI getGuiByName(String name)
 	{
-		for(GUI gui : guis)
+		for(GUI gui : GuiApi.guis)
 		{
 			if(gui.getName().equals(name))
 			{
@@ -74,30 +52,6 @@ public class GuiApi {
 			}
 		}
 		return null;
-	}
-	
-	public static GUI getTemporaryGuiForPlayer(PlayerWrapper<?> playerWrapper)
-	{
-		return GuiApi.getTemporaryGuiForPlayer(playerWrapper.getUniqueId());
-	}
-	
-	public static GUI getTemporaryGuiForPlayer(UUID uuid)
-	{
-		if(!(GuiApi.temporaryGuiMap.containsKey(uuid)))
-			return null;
-		
-		return GuiApi.temporaryGuiMap.get(uuid);
-	}
-	
-	public static void openTemporaryGui(GUI gui, PlayerWrapper<?> player)
-	{
-		gui.buildInventory(player);
-		GuiApi.temporaryGuiMap.put(player.getUniqueId(), gui);
-	}
-	
-	public static void openTemporaryGui(GUI gui, UUID uuid)
-	{
-		GuiApi.openTemporaryGui(gui, DynamicGUI.get().getServer().getPlayer(uuid));
 	}
 	
 	public static void loadGuis()
@@ -406,23 +360,74 @@ public class GuiApi {
 	
 	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
 	{
-		UUID uuid = playerWrapper.getUniqueId();
-		return GuiApi.playerGuis.containsKey(uuid) || GuiApi.temporaryGuiMap.containsKey(uuid);
+		return GuiApi.playerGuis.get(playerWrapper.getUniqueId()) != null;
 	}
 	
 	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
 	{
+		DynamicGUI.get().getLogger().info("Cleanup gui was called");
 		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
-		GuiApi.temporaryGuiMap.remove(playerWrapper.getUniqueId());
 	}
 
-	public static GUI getCurrentGUI(PlayerWrapper<?> player) 
+	public static GUI getCurrentGUI(PlayerWrapper<?> playerWrapper)
 	{
-		return GuiApi.playerGuis.get(player.getUniqueId());
+		return GuiApi.playerGuis.get(playerWrapper.getUniqueId());
 	}
 	
-	public static void addGUI(UUID uuid, GUI gui)
+	public static boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
 	{
-		GuiApi.playerGuis.put(uuid, gui);
+		return GuiApi.openGUI(playerWrapper, GuiApi.getGuiByName(guiName));
+	}
+	
+	public static boolean openGUI(PlayerWrapper<?> playerWrapper, GUI gui)
+	{
+		if(gui == null)
+		{
+			playerWrapper.sendMessage(DynamicGUI.get().getNoGui());
+			return false;
+		}
+		
+		GUI clonedGUI = gui.clone();
+		DynamicGUI.get().getLogger().info("Cloned gui: " + clonedGUI);
+		boolean permNull = (clonedGUI.getPermission() == null);
+		if(!permNull)
+		{
+			if(!playerWrapper.hasPermission(clonedGUI.getPermission()))
+			{
+				if(clonedGUI.getpMessage() == null)
+				{
+					playerWrapper.sendMessage(DynamicGUI.get().getNoPermissionGui());
+				}
+				else
+				{
+					playerWrapper.sendMessage(clonedGUI.getpMessage());
+				}
+				return false;
+			}
+		}
+
+		for(SoundWrapper wrapper : clonedGUI.getOpeningSounds())
+		{
+			wrapper.playSoundToPlayer(playerWrapper); 
+		}
+		
+		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
+		
+		if(inventoryWrapper == null)
+			return false;
+		
+		DynamicGUI.get().getLogger().info("After putting gui into player guis: " + GuiApi.hasGUICurrently(playerWrapper));
+		playerWrapper.openInventory(inventoryWrapper);
+		GuiApi.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
+		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				playerWrapper.updateInventory();
+			}
+		},2L);
+		
+		return true;
 	}
 }

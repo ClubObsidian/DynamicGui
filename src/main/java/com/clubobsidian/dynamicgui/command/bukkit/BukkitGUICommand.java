@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.clubobsidian.dynamicgui.command.GUIExecutor;
+import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
 
@@ -20,7 +20,7 @@ public class BukkitGUICommand implements CommandExecutor {
 			{
 				Player player = (Player) sender;
 				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-				return new GUIExecutor().execute(playerWrapper, args[0]);
+				return GuiApi.openGUI(playerWrapper, args[0]);
 			}
 		}
 		return false;
