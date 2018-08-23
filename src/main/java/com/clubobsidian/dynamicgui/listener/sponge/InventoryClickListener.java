@@ -8,6 +8,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.item.inventory.Inventory;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
@@ -59,6 +60,16 @@ public class InventoryClickListener {
 				
 				int slot = slotIndex.get().getValue();
 				DynamicGUI.get().getLogger().info("From sponge inventory listener, slot clicked on is: " + slot);
+				Optional<ItemStack> itemStack = transaction.getSlot().peek();
+				if(itemStack.isPresent())
+				{
+					DynamicGUI.get().getLogger().info("ItemStack is there for slot: " + slot);
+				}
+				else
+				{
+					DynamicGUI.get().getLogger().info("ItemStack does not exist for slot: " + slot);
+				}
+				
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(inventory);
 				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);

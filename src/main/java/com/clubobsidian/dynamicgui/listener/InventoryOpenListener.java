@@ -14,7 +14,6 @@ public class InventoryOpenListener implements Listener {
 		{
 			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
 				e.getPlayerWrapper().closeInventory();
-			return;
 		}
 	}
 }
