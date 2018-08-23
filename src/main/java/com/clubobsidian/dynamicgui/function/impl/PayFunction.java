@@ -13,18 +13,13 @@ public class PayFunction extends Function {
 	 */
 	private static final long serialVersionUID = -8941864727381394744L;
 
-	public PayFunction(String name, String data) 
-	{
-		super(name,data);
-	}
-
 	public PayFunction(String name) 
 	{
 		super(name);
 	}
 	
 	@Override
-	public boolean function(final PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
 		double amt;
 		try
@@ -40,12 +35,12 @@ public class PayFunction extends Function {
 			return false;
 		
 		BigDecimal decimalAmt = new BigDecimal(amt);
-		if(DynamicGUI.get().getPlugin().getEconomy().getBalance(player).compareTo(decimalAmt) == -1)
+		if(DynamicGUI.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1)
 		{
 			return false;
 		}
 
-		DynamicGUI.get().getPlugin().getEconomy().withdraw(player, decimalAmt);
+		DynamicGUI.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
 		return true;
 	}
 }

@@ -10,11 +10,6 @@ public class ExpPayFunction extends Function {
 	 * 
 	 */
 	private static final long serialVersionUID = -2383762506458369815L;
-
-	public ExpPayFunction(String name, String data) 
-	{
-		super(name, data);
-	}
 	
 	public ExpPayFunction(String name) 
 	{

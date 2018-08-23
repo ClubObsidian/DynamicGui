@@ -11,11 +11,6 @@ public class GuiFunction extends Function {
 	 * 
 	 */
 	private static final long serialVersionUID = 848178368629667482L;
-
-	public GuiFunction(String name, String data) 
-	{
-		super(name,data);
-	}
 	
 	public GuiFunction(String name) 
 	{

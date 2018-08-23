@@ -9,11 +9,6 @@ public class PermissionFunction extends Function {
 	 * 
 	 */
 	private static final long serialVersionUID = 6578996849784218130L;
-
-	public PermissionFunction(String name,String data) 
-	{
-		super(name,data);
-	}
 	
 	public PermissionFunction(String name) 
 	{
@@ -21,8 +16,8 @@ public class PermissionFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(final PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
-		return player.hasPermission(this.getData());
+		return playerWrapper.hasPermission(this.getData());
 	}
 }

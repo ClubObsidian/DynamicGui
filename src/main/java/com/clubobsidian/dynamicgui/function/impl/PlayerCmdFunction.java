@@ -10,11 +10,6 @@ public class PlayerCmdFunction extends Function {
 	 * 
 	 */
 	private static final long serialVersionUID = 220426382325192292L;
- 
-	public PlayerCmdFunction(String name, String data) 
-	{
-		super(name,data);
-	}
 	
 	public PlayerCmdFunction(String name) 
 	{
@@ -22,9 +17,9 @@ public class PlayerCmdFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		player.chat("/" + ReplacerAPI.replace(this.getData(), player));
+		playerWrapper.chat("/" + ReplacerAPI.replace(this.getData(), playerWrapper));
 		return true;
 	}
 }

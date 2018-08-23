@@ -12,20 +12,15 @@ public class ConsoleCmdFunction extends Function {
 	 */
 	private static final long serialVersionUID = -4802600274176592465L;
 
-	public ConsoleCmdFunction(String name, String data) 
-	{
-		super(name, data);
-	}
-	
 	public ConsoleCmdFunction(String name) 
 	{
 		super(name);
 	}
 
 	@Override
-	public boolean function(final PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
-		DynamicGUI.get().getServer().dispatchServerCommand(ReplacerAPI.replace(this.getData(), player));
+		DynamicGUI.get().getServer().dispatchServerCommand(ReplacerAPI.replace(this.getData(), playerWrapper));
 		return true;
 	}
 }

@@ -17,10 +17,10 @@ public class ParticleFunction extends Function {
 	}
 
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		ParticleWrapper wrapper = new ParticleWrapper(this.getData());
-		wrapper.spawnEffect(player);
+		wrapper.spawnEffect(playerWrapper);
 		return true;
 	}	
 }

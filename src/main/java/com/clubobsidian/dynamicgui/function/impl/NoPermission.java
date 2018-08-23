@@ -16,8 +16,8 @@ public class NoPermission extends Function {
 	}
 
 	@Override
-	public boolean function(final PlayerWrapper<?> player)
+	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
-		return !player.hasPermission(this.getData());
+		return !playerWrapper.hasPermission(this.getData());
 	}	
 }

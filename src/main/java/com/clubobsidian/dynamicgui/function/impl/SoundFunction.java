@@ -17,10 +17,10 @@ public class SoundFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		SoundWrapper wrapper = new SoundWrapper(this.getData());
-		wrapper.playSoundToPlayer(player);
+		wrapper.playSoundToPlayer(playerWrapper);
 		return true;
 	}
 }

@@ -17,7 +17,7 @@ public class StatisticFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		String[] split = this.getData().split(",");
 
@@ -29,14 +29,14 @@ public class StatisticFunction extends Function {
 
 			if(stat == Statistic.MINE_BLOCK || stat == Statistic.KILL_ENTITY)
 			{
-				return player.getStatistic(stat, type) >= num;
+				return playerWrapper.getStatistic(stat, type) >= num;
 			}
 		}
 		else if(split.length == 2)
 		{
 			Statistic stat = Statistic.valueOf(split[0]);
 			Integer num = Integer.parseInt(split[1]);
-			return player.getStatistic(stat) >= num;
+			return playerWrapper.getStatistic(stat) >= num;
 		}
 		return false;
 	}

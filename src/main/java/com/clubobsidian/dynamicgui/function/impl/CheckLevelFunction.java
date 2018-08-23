@@ -16,7 +16,7 @@ public class CheckLevelFunction extends Function {
 	}
 
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		int level = -1;
 		try
@@ -29,6 +29,6 @@ public class CheckLevelFunction extends Function {
 			return false;
 		}
 		
-		return player.getLevel() >= level;
+		return playerWrapper.getLevel() >= level;
 	}
 }

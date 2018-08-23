@@ -13,11 +13,6 @@ public class ServerBroadcastFunction extends Function {
 	 * 
 	 */
 	private static final long serialVersionUID = 8252199196221271208L;
-
-	public ServerBroadcastFunction(String name, String data) 
-	{
-		super(name,data);
-	}
 	
 	public ServerBroadcastFunction(String name) 
 	{
@@ -25,9 +20,9 @@ public class ServerBroadcastFunction extends Function {
 	}
 	
 	@Override
-	public boolean function(PlayerWrapper<?> player)
+	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		DynamicGUI.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), player)));
+		DynamicGUI.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), playerWrapper)));
 		return true;
 	}
 }
