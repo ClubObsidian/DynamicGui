@@ -4,6 +4,9 @@ mode: "set"
 close: false #Whether slots by default will close or not
 locations: 
 - "0,64,0,world"
+npc-ids:
+- '0'
+
 
 '0':
   icon: "EXP_BOTTLE"
@@ -17,7 +20,7 @@ locations:
   icon: "BEDROCK"
   name: "&fConsole command test"
   functions:
-  - "executec: say Broadcasting from console, this test passsed"
+  - "executec: say Broadcasting from console, this test passed"
 '2':
   icon: "PAPER"
   name: "&fGui test"
@@ -49,3 +52,16 @@ locations:
   name: "&cName test"
   functions:
   - "setname: &fName test passed"
+  - "broadcast: Name test passed"
+'9':
+  icon: "SAND"
+  name: "&aRemove test"
+  functions:
+  - "removeslot: this"
+  - "broadcast: &bRemove passed"
+'10':
+  icon: "DIRT"
+  name: "&aType test"
+  functions:
+  - "settype: GRASS"
+  - "broadcast: &aType test passed"
