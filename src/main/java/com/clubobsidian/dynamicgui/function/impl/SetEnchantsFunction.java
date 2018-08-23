@@ -25,6 +25,7 @@ public class SetEnchantsFunction extends Function {
 		super(name);
 	}
 
+	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		Slot slot = this.getOwner();

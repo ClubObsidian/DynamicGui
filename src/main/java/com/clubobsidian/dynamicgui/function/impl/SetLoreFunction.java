@@ -26,6 +26,7 @@ public class SetLoreFunction extends Function {
 		super(name);
 	}
 
+	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		if(playerWrapper.getOpenInventoryWrapper() != null)

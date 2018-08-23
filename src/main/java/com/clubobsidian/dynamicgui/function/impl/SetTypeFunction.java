@@ -21,6 +21,7 @@ public class SetTypeFunction extends Function {
 		super(name);
 	}
 	
+	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		DynamicGUI.get().getLogger().info("Set type function was ran");

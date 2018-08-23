@@ -21,6 +21,7 @@ public class RemoveSlotFunction extends Function {
 		super(name);
 	}
 
+	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		if(this.getData().equalsIgnoreCase("this"))
