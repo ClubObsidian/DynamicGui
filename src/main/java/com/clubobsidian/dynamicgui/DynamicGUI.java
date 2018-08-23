@@ -415,14 +415,14 @@ public class DynamicGUI  {
 	}
 
 	
-	public static boolean createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	public static DynamicGUI createInstance(DynamicGUIPlugin<?,?> plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		if(DynamicGUI.instance == null)
 		{
 			DynamicGUI.instance = new DynamicGUI(plugin, server, loggerWrapper);
 			DynamicGUI.instance.init();
-			return true;
+			return DynamicGUI.instance;
 		}
-		return false;
+		return DynamicGUI.instance;
 	}
 }
