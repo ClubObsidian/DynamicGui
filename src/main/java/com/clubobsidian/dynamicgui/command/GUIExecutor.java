@@ -8,8 +8,14 @@ import com.clubobsidian.dynamicgui.objects.SoundWrapper;
 
 public class GUIExecutor {
 
-	public boolean execute(PlayerWrapper<?> player, GUI gui)
+	public boolean execute(PlayerWrapper<?> player, String guiName)
 	{
+		GUI gui = null;
+
+		if(GuiApi.hasGuiName(guiName))
+		{
+			gui = GuiApi.getGuiByName(guiName);
+		}
 		if(gui == null)
 		{
 			player.sendMessage(DynamicGUI.get().getNoGui());
@@ -52,15 +58,5 @@ public class GUIExecutor {
 		GuiApi.addGUI(player.getUniqueId(), gui);
 		return true;
 	}
-	
-	public boolean execute(PlayerWrapper<?> player, String guiName)
-	{
-		GUI gui = null;
 
-		if(GuiApi.hasGuiName(guiName))
-		{
-			gui = GuiApi.getGuiByName(guiName);
-		}
-		return this.execute(player, gui);
-	}
 }

@@ -21,7 +21,6 @@ public class PlayerInteractListener implements Listener {
 			{
 				if(gui.getLocations() != null)
 				{
-					
 					for(LocationWrapper<?> guiLocation : gui.getLocations())
 					{
 						if(e.getLocationWrapper().equals(guiLocation))

@@ -21,7 +21,7 @@ public class EntityClickListener implements Listener {
 			{
 				if(gui.getNpcIds().contains(DynamicGUI.get().getPlugin().getNPC(entityWrapper).getId()))
 				{
-					new GUIExecutor().execute(e.getPlayerWrapper(), gui);
+					new GUIExecutor().execute(e.getPlayerWrapper(), gui.getName());
 					break;
 				}
 			}

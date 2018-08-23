@@ -37,7 +37,6 @@ public class GUI implements Serializable {
 	private List<LocationWrapper<?>> locations = new ArrayList<>();
 	private List<SoundWrapper> openingSounds = new ArrayList<>();
 	private List<Integer> npcIds = new ArrayList<>();
-	
 	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<SoundWrapper> openingSounds)
 	{
 		this.name = name;
