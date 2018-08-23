@@ -14,12 +14,10 @@ public class BukkitLocationManager extends LocationManager {
 	public Object toLocation(String world, int x, int y, int z) 
 	{
 		World bukkitWorld = Bukkit.getServer().getWorld(world);
-		
 		if(bukkitWorld == null)
 		{
 			return null;
 		}
-		
 		return new Location(bukkitWorld, x, y, z);
 	}
 
