@@ -21,25 +21,27 @@ public class InventoryClickListener implements Listener {
 	{
 		if(e.getInventory() == null)
 			return;
-		
+
 		int slot = e.getSlot();
 		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize())
 			return;
-		
+
 		if(e.getWhoClicked() instanceof Player)
 		{
+			Click clickType = null;
 			if(e.getClick() == ClickType.LEFT || e.getClick() == ClickType.RIGHT || e.getClick() == ClickType.MIDDLE)
 			{
-				Player player = (Player) e.getWhoClicked();
-				InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
-				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-				Click clickType = Click.valueOf(e.getClick().toString());
-				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
-				DynamicGUI.get().getEventManager().callEvent(clickEvent);
-				if(clickEvent.isCancelled())
-				{
-					e.setCancelled(true);
-				}
+				clickType = Click.valueOf(e.getClick().toString());
+			}
+			Player player = (Player) e.getWhoClicked();
+			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
+			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
+
+			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
+			DynamicGUI.get().getEventManager().callEvent(clickEvent);
+			if(clickEvent.isCancelled())
+			{
+				e.setCancelled(true);
 			}
 		}
 	}	
