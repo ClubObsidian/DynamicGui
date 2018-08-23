@@ -39,10 +39,10 @@ sponge {
 }
 
 shadowJar {
-	relocate 'ninja.leaping.configurate', 'me.virustotal.dynamicgui.shaded.configurate'
-	relocate 'com.google.common', 'me.virustotal.dynamicgui.shaded.guava'
-	relocate 'com.google.gson', 'me.virustotal.dynamicgui.shaded.gson'
-	relocate 'org.yaml.snakeyaml', 'me.virustotal.dynamicgui.shaded.snakeyaml'
+	relocate 'ninja.leaping.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
+	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
+	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
+	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
     classifier = ''
 }
 
