@@ -56,9 +56,9 @@ dependencies {
     	exclude group: 'org.spongepowered', module: 'testmods'
     }
     
-	compile 'ninja.leaping.configurate:configurate-yaml:3.3'
-	compile 'ninja.leaping.configurate:configurate-json:3.3'
-	compile 'ninja.leaping.configurate:configurate-gson:3.3'
+	compile 'org.spongepowered:configurate-yaml:3.6'
+	compile 'org.spongepowered:configurate-json:3.6'
+	compile 'org.spongepowered:configurate-hocon:3.6'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.clubobsidian:trident:1.0.6'

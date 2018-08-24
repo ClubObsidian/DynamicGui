@@ -9,7 +9,8 @@ import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.gson.GsonConfigurationLoader;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.json.JSONConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
@@ -30,9 +31,9 @@ public class Configuration extends ConfigurationSection {
 				node = loader.load();
 				config.loader = loader;
 			}
-			else if(name.endsWith(".gson"))
+			else if(name.endsWith(".hocon"))
 			{
-				ConfigurationLoader<ConfigurationNode> loader = GsonConfigurationLoader.builder().setFile(file).build();
+				ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(file).build();
 				node = loader.load();
 				config.loader = loader;
 			}
@@ -89,9 +90,9 @@ public class Configuration extends ConfigurationSection {
 				node = loader.load();
 				config.loader = loader;
 			}
-			else if(type == ConfigurationType.GSON)
+			else if(type == ConfigurationType.HOCON)
 			{
-				ConfigurationLoader<ConfigurationNode> loader = GsonConfigurationLoader
+				ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader
 						.builder()
 						.setSource(callable)
 						.build();

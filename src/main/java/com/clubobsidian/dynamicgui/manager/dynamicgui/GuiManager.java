@@ -161,7 +161,7 @@ public class GuiManager {
 		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		
-		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml"}, true);
+		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "hocon"}, true);
 		
 		if(ar.size() != 0)
 		{
@@ -169,21 +169,17 @@ public class GuiManager {
 			{
 				try
 				{
-					if(file.getName().toLowerCase().endsWith(".yml"))
-					{
 						Configuration yaml = Configuration.load(file);
-						String guiName = file.getName().substring(0, file.getName().indexOf("."));
+						String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
 
 						String guiTitle = yaml.getString("gui-title");
 						int rows = yaml.getInt("rows");
 						List<Slot> slots = this.createSlots(rows, yaml);
-						//System.out.println("slot size: " + slots.size());
 						
 						final GUI gui = GuiManager.createGUI(yaml, plugin, guiName, guiTitle, rows, slots);
 
 						this.guis.add(gui);
 						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
-					}
 				}	
 				catch(NullPointerException ex)
 				{

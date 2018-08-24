@@ -4,6 +4,6 @@ public enum ConfigurationType {
 
 	YAML,
 	JSON,
-	GSON;
+	HOCON;
 	
 }
