@@ -53,11 +53,6 @@ public class GUI implements Serializable, FunctionOwner {
 		this.openingSounds = openingSounds;
 	}
 	
-	public GUI(GUI gui) 
-	{
-		this(gui.getName(),gui.getTitle(),gui.getRows(),gui.getPermission(),gui.getpMessage(),gui.getClose(),gui.getModeEnum(),gui.getNpcIds(),gui.getSlots(),gui.getLocations(), gui.getOpeningSounds());
-	}
-
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
 	{	
 		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
