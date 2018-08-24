@@ -3,6 +3,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -26,31 +27,28 @@ public class RemoveSlotFunction extends Function {
 	{
 		if(this.getData().equalsIgnoreCase("this"))
 		{
-			Slot slot = this.getOwner();
-			if(slot != null)
+			FunctionOwner owner = this.getOwner();
+			if(owner != null)
 			{
-				if(playerWrapper.getOpenInventoryWrapper().getInventory() != null)
+				if(owner instanceof Slot)
 				{
-					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
-					if(inv != null && gui != null)
+					Slot slot = (Slot) owner;
+					if(playerWrapper.getOpenInventoryWrapper().getInventory() != null)
 					{
-						for(Slot s : gui.getSlots())
+						InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+						GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+						if(inv != null && gui != null)
 						{
-							ItemStackWrapper<?> item = s.getItemStack();
-							if(item.getItemStack() != null)
+							for(Slot s : gui.getSlots())
 							{
-								try
+								ItemStackWrapper<?> item = s.getItemStack();
+								if(item.getItemStack() != null)
 								{
-									if(this.getOwner().getIndex() == s.getIndex())
+									if(slot.getIndex() == s.getIndex())
 									{
-										inv.setItem(this.getOwner().getIndex(), ItemStackManager.get().createItemStackWrapper("AIR", 1));
-										break;
+										inv.setItem(slot.getIndex(), ItemStackManager.get().createItemStackWrapper("AIR", 1));
+										return true;
 									}
-								}
-								catch(SecurityException | IllegalArgumentException ex)
-								{
-									ex.printStackTrace();
 								}
 							}
 						}
@@ -58,6 +56,6 @@ public class RemoveSlotFunction extends Function {
 				}
 			}
 		}
-		return true;
+		return false;
 	}	
 }

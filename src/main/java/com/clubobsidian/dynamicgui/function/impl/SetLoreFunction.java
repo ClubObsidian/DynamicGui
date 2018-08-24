@@ -7,6 +7,7 @@ import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -29,45 +30,53 @@ public class SetLoreFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		if(playerWrapper.getOpenInventoryWrapper() != null)
+		FunctionOwner owner = this.getOwner();
+		if(owner != null)
 		{
-			InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-			GUI gui = GuiApi.getCurrentGUI(playerWrapper);
-			if(inv.getInventory() != null)
+			if(owner instanceof Slot)
 			{
-				for(Slot s : gui.getSlots())
+				Slot slot = (Slot) owner;
+				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
-					ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-					if(item.getItemStack() != null)
+					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					if(inv.getInventory() != null)
 					{
-						if(this.getOwner().getIndex() == s.getIndex())
+						for(Slot s : gui.getSlots())
 						{
-
-							List<String> lore = new ArrayList<String>();
-							if(this.getData().contains(";"))
+							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
+							if(item.getItemStack() != null)
 							{
-								for(String str : this.getData().split(";"))
+								if(slot.getIndex() == s.getIndex())
 								{
-									String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
 
-									lore.add(l);
+									List<String> lore = new ArrayList<String>();
+									if(this.getData().contains(";"))
+									{
+										for(String str : this.getData().split(";"))
+										{
+											String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
+
+											lore.add(l);
+										}
+									}
+									else
+									{
+										String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+
+										lore.add(l);
+									}
+
+									item.setLore(lore);
+									inv.setItem(slot.getIndex(), item);
+									return true;
 								}
 							}
-							else
-							{
-								String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-
-								lore.add(l);
-							}
-
-							item.setLore(lore);
-							inv.setItem(this.getOwner().getIndex(), item);
-							break;
 						}
 					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 }

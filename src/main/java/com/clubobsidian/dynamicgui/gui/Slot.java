@@ -12,7 +12,7 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
-public class Slot implements Serializable {
+public class Slot implements Serializable, FunctionOwner {
 	
 	/**
 	 * 

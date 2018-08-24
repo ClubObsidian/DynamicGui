@@ -3,6 +3,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -24,28 +25,36 @@ public class SetNameFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		if(playerWrapper.getOpenInventoryWrapper() != null)
+		FunctionOwner owner = this.getOwner();
+		if(owner != null)
 		{
-			InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-			GUI gui = GuiApi.getCurrentGUI(playerWrapper);
-			if(inv != null)
+			if(owner instanceof Slot)
 			{
-				for(Slot s : gui.getSlots())
+				Slot slot = (Slot) owner;
+				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
-					ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-					if(item.getItemStack() != null)
+					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					if(inv != null)
 					{
-						if(this.getOwner().getIndex() == s.getIndex())
+						for(Slot s : gui.getSlots())
 						{
+							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
+							if(item.getItemStack() != null)
+							{
+								if(slot.getIndex() == s.getIndex())
+								{
 
-							item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
-							inv.setItem(this.getOwner().getIndex(), item);
-							break;
+									item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
+									inv.setItem(slot.getIndex(), item);
+									return true;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 }

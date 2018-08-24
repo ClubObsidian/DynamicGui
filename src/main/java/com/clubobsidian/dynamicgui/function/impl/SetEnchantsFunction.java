@@ -6,6 +6,7 @@ import java.util.Map;
 import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -28,56 +29,60 @@ public class SetEnchantsFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		Slot slot = this.getOwner();
-		if(slot != null)
+		FunctionOwner owner = this.getOwner();
+		if(owner != null)
 		{
-			if(playerWrapper.getOpenInventoryWrapper() != null)
+			if(owner instanceof Slot)
 			{
-				InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-				GUI gui = GuiApi.getCurrentGUI(playerWrapper);
-				if(inv != null)
+				Slot slot = (Slot) owner;
+				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
-					for(Slot s : gui.getSlots())
+					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					if(inv != null)
 					{
-						ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-						if(item.getItemStack() != null)
+						for(Slot s : gui.getSlots())
 						{
-							if(this.getOwner().getIndex() == s.getIndex())
+							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
+							if(item.getItemStack() != null)
 							{
-								Map<String, Integer> enchants = new HashMap<String, Integer>();
-								if(this.getData().contains(";"))
+								if(slot.getIndex() == s.getIndex())
 								{
-									for(String str : this.getData().split(";"))
+									Map<String, Integer> enchants = new HashMap<String, Integer>();
+									if(this.getData().contains(";"))
 									{
-										String[] split = str.split(",");
+										for(String str : this.getData().split(";"))
+										{
+											String[] split = str.split(",");
+											enchants.put(split[0], Integer.valueOf(split[1]));
+										}
+									}
+									else
+									{
+										String[] split = this.getData().split(",");
 										enchants.put(split[0], Integer.valueOf(split[1]));
 									}
-								}
-								else
-								{
-									String[] split = this.getData().split(",");
-									enchants.put(split[0], Integer.valueOf(split[1]));
+
+									for(EnchantmentWrapper ench : item.getEnchants())
+									{
+										item.removeEnchant(ench);
+									}
+
+									for(String str : enchants.keySet())
+									{
+										item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
+									}
+
+									inv.setItem(slot.getIndex(), item);
+									return true;
 								}
 
-								for(EnchantmentWrapper ench : item.getEnchants())
-								{
-									item.removeEnchant(ench);
-								}
-
-								for(String str : enchants.keySet())
-								{
-									item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
-								}
-
-								inv.setItem(this.getOwner().getIndex(), item);
-								break;
 							}
-
 						}
 					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}	
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Slot;
 
 public abstract class Function implements Cloneable, Serializable {
@@ -15,7 +16,7 @@ public abstract class Function implements Cloneable, Serializable {
 	private static final long serialVersionUID = 1492427006104061443L;
 	private String name;
 	private String data;
-	private Slot owner;
+	private FunctionOwner owner;
 	private int index = -1;
 	
 	public Function(String name)
@@ -53,12 +54,12 @@ public abstract class Function implements Cloneable, Serializable {
 		this.data = data;
 	}
 	
-	public void setOwner(Slot slot)
+	public void setOwner(FunctionOwner slot)
 	{
 		this.owner = slot;
 	}
 	
-	public Slot getOwner()
+	public FunctionOwner getOwner()
 	{
 		return this.owner;
 	}

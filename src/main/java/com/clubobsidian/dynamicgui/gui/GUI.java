@@ -2,7 +2,6 @@ package com.clubobsidian.dynamicgui.gui;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.SerializationUtils;
@@ -20,7 +19,7 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 
-public class GUI implements Serializable {
+public class GUI implements Serializable, FunctionOwner {
 
 	/**
 	 * 
