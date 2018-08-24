@@ -9,9 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
-import com.clubobsidian.dynamicgui.api.FunctionApi;
-import com.clubobsidian.dynamicgui.api.GuiApi;
-import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.configuration.Configuration;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
@@ -36,6 +33,9 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.objects.replacers.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.objects.replacers.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.objects.replacers.PlayerReplacer;
@@ -119,7 +119,7 @@ public class DynamicGUI  {
 
 	private void loadGuis()
 	{
-		GuiApi.loadGuis();
+		GuiManager.get(); //Initialize manager
 	}
 	
 	public void checkForProxy()
@@ -150,34 +150,34 @@ public class DynamicGUI  {
 	
 	private void loadFunctions()
 	{
-		FunctionApi.addFunction(new ConsoleCmdFunction("executec"));
-		//FunctionApi.addFunction(new ExpPayFunction("payexp"));
-		FunctionApi.addFunction(new GuiFunction("gui"));
-		FunctionApi.addFunction(new NoPermission("nopermission"));
-		FunctionApi.addFunction(new PayFunction("pay"));
-		FunctionApi.addFunction(new PermissionFunction("permission"));
-		FunctionApi.addFunction(new PlayerCmdFunction("executep"));
-		FunctionApi.addFunction(new PlayerMsgFunction("pmsg"));
-		FunctionApi.addFunction(new SendFunction("send"));	
-		FunctionApi.addFunction(new ServerBroadcastFunction("broadcast"));
-		FunctionApi.addFunction(new ParticleFunction("particles"));
-		FunctionApi.addFunction(new SoundFunction("sound"));
-		FunctionApi.addFunction(new SetNameFunction("setname"));
-		FunctionApi.addFunction(new SetLoreFunction("setlore"));
-		FunctionApi.addFunction(new SetTypeFunction("settype"));
-		FunctionApi.addFunction(new SetDataFunction("setdata"));
-		FunctionApi.addFunction(new SetEnchantsFunction("setenchants"));
-		FunctionApi.addFunction(new RemoveSlotFunction("removeslot"));
-		FunctionApi.addFunction(new StatisticFunction("statistic"));
-		FunctionApi.addFunction(new CheckLevelFunction("checklevel"));
+		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
+		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
+		FunctionManager.get().addFunction(new GuiFunction("gui"));
+		FunctionManager.get().addFunction(new NoPermission("nopermission"));
+		FunctionManager.get().addFunction(new PayFunction("pay"));
+		FunctionManager.get().addFunction(new PermissionFunction("permission"));
+		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
+		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
+		FunctionManager.get().addFunction(new SendFunction("send"));	
+		FunctionManager.get().addFunction(new ServerBroadcastFunction("broadcast"));
+		FunctionManager.get().addFunction(new ParticleFunction("particles"));
+		FunctionManager.get().addFunction(new SoundFunction("sound"));
+		FunctionManager.get().addFunction(new SetNameFunction("setname"));
+		FunctionManager.get().addFunction(new SetLoreFunction("setlore"));
+		FunctionManager.get().addFunction(new SetTypeFunction("settype"));
+		FunctionManager.get().addFunction(new SetDataFunction("setdata"));
+		FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
+		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
+		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
+		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
 	}
 	
 	private void loadReplacers()
 	{
-		ReplacerAPI.addReplacer(new PlayerReplacer("%player%"));
-		ReplacerAPI.addReplacer(new OnlinePlayersReplacer("%online-players%"));
-		ReplacerAPI.addReplacer(new UUIDReplacer("%uuid%"));
-		ReplacerAPI.addReplacer(new PlayerLevelReplacer("%player-level%"));
+		ReplacerManager.get().addReplacer(new PlayerReplacer("%player%"));
+		ReplacerManager.get().addReplacer(new OnlinePlayersReplacer("%online-players%"));
+		ReplacerManager.get().addReplacer(new UUIDReplacer("%uuid%"));
+		ReplacerManager.get().addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
 	private List<String> registeredCommands = new ArrayList<>();
@@ -241,7 +241,7 @@ public class DynamicGUI  {
 	{
 		try 
 		{
-			Field guis = GuiApi.class.getDeclaredField("guis");
+			Field guis = GuiManager.class.getDeclaredField("guis");
 			guis.setAccessible(true);
 			guis.set(null, new ArrayList<GUI>());
 		} 

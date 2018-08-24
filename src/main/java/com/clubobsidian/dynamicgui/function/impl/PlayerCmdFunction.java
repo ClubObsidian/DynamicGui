@@ -1,8 +1,8 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 
 public class PlayerCmdFunction extends Function {
 
@@ -19,7 +19,7 @@ public class PlayerCmdFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		playerWrapper.chat("/" + ReplacerAPI.replace(this.getData(), playerWrapper));
+		playerWrapper.chat("/" + ReplacerManager.get().replace(this.getData(), playerWrapper));
 		return true;
 	}
 }

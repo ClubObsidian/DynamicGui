@@ -3,13 +3,13 @@ package com.clubobsidian.dynamicgui.listener;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 import com.clubobsidian.trident.EventHandler;
@@ -26,9 +26,9 @@ public class InventoryClickListener implements Listener {
 			return;
 		}
 		
-		if(!GuiApi.hasGUICurrently(e.getPlayerWrapper()))
+		if(!GuiManager.get().hasGUICurrently(e.getPlayerWrapper()))
 		{
-			DynamicGUI.get().getLogger().info("Does not have a gui currently open " + GuiApi.hasGUICurrently(e.getPlayerWrapper()));
+			DynamicGUI.get().getLogger().info("Does not have a gui currently open " + GuiManager.get().hasGUICurrently(e.getPlayerWrapper()));
 			return;
 		}
 		
@@ -53,7 +53,7 @@ public class InventoryClickListener implements Listener {
 
 		DynamicGUI.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
-		GUI gui = GuiApi.getCurrentGUI(player);
+		GUI gui = GuiManager.get().getCurrentGUI(player);
 		Slot slot = null;
 		for(Slot s : gui.getSlots())
 		{

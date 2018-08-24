@@ -1,10 +1,10 @@
 package com.clubobsidian.dynamicgui.listener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.gui.GUI;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 import com.clubobsidian.trident.EventHandler;
@@ -17,7 +17,7 @@ public class PlayerInteractListener implements Listener {
 	{
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
 		{
-			for(GUI gui : GuiApi.getGuis())
+			for(GUI gui : GuiManager.get().getGuis())
 			{
 				if(gui.getLocations() != null)
 				{
@@ -30,7 +30,7 @@ public class PlayerInteractListener implements Listener {
 								@Override
 								public void run()
 								{
-									GuiApi.openGUI(e.getPlayerWrapper(), gui);
+									GuiManager.get().openGUI(e.getPlayerWrapper(), gui);
 								}
 							}, 1L);
 							break;

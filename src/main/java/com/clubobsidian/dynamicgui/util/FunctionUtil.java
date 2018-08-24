@@ -2,11 +2,11 @@ package com.clubobsidian.dynamicgui.util;
 
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.api.FunctionApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 
 public class FunctionUtil {
 	
@@ -83,13 +83,13 @@ public class FunctionUtil {
 			Function myFunc = null;
 			try 
 			{
-				if(FunctionApi.getFunctionByName(func.getName()) == null)
+				if(FunctionManager.get().getFunctionByName(func.getName()) == null)
 				{
 					System.out.println("Cannot find " + func.getName() + " continuing!");
 					continue;
 				}
 
-				myFunc = FunctionApi.getFunctionByName(func.getName()).clone();
+				myFunc = FunctionManager.get().getFunctionByName(func.getName()).clone();
 				myFunc.setData(func.getData());
 				myFunc.setOwner(slot);
 				myFunc.setIndex(i);

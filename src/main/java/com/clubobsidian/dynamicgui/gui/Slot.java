@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
@@ -207,7 +207,7 @@ public class Slot implements Serializable, FunctionOwner {
 		if(this.name != null)
 		{
 			String newName = this.name;
-			newName = ReplacerAPI.replace(newName, player);
+			newName = ReplacerManager.get().replace(newName, player);
 			item.setName(newName);
 		}
 		
@@ -220,7 +220,7 @@ public class Slot implements Serializable, FunctionOwner {
 			
 			for(int i = 0; i < newLore.size(); i++)
 			{
-				newLore.set(i, ReplacerAPI.replace(newLore.get(i), player));
+				newLore.set(i, ReplacerManager.get().replace(newLore.get(i), player));
 			}
 			
 		

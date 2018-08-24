@@ -3,8 +3,6 @@ package com.clubobsidian.dynamicgui.function.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.api.GuiApi;
-import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -12,6 +10,8 @@ import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class SetLoreFunction extends Function {
@@ -39,7 +39,7 @@ public class SetLoreFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					GUI gui = GuiManager.get().getCurrentGUI(playerWrapper);
 					if(inv.getInventory() != null)
 					{
 						for(Slot s : gui.getSlots())
@@ -55,14 +55,14 @@ public class SetLoreFunction extends Function {
 									{
 										for(String str : this.getData().split(";"))
 										{
-											String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
+											String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
 
 											lore.add(l);
 										}
 									}
 									else
 									{
-										String l  = ReplacerAPI.replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+										String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
 
 										lore.add(l);
 									}

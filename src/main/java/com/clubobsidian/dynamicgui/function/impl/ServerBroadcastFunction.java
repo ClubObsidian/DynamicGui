@@ -1,9 +1,9 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.ReplacerAPI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
 
@@ -22,7 +22,7 @@ public class ServerBroadcastFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		DynamicGUI.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerAPI.replace(this.getData(), playerWrapper)));
+		DynamicGUI.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerManager.get().replace(this.getData(), playerWrapper)));
 		return true;
 	}
 }

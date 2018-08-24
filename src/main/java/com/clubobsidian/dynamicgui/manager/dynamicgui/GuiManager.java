@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.api;
+package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,14 +27,32 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
-public class GuiApi {
+public class GuiManager {
 
-	private static List<GUI> guis = new ArrayList<>();
-	private static Map<UUID, GUI> playerGuis = new HashMap<>();
+	private static GuiManager instance;
 	
-	public static boolean hasGuiName(String name)
+	private List<GUI> guis;
+	private Map<UUID, GUI> playerGuis;
+	
+	private GuiManager()
 	{
-		for(GUI gui : GuiApi.guis)
+		this.guis = new ArrayList<>();
+		this.playerGuis = new HashMap<>();
+	}
+	
+	public static GuiManager get()
+	{
+		if(instance == null)
+		{
+			instance = new GuiManager();
+			instance.loadGuis();
+		}
+		return instance;
+	}
+	
+	public boolean hasGuiName(String name)
+	{
+		for(GUI gui : this.guis)
 		{
 			if(gui.getName().equals(name))
 				return true;
@@ -42,9 +60,9 @@ public class GuiApi {
 		return false;
 	}
 	
-	public static GUI getGuiByName(String name)
+	public GUI getGuiByName(String name)
 	{
-		for(GUI gui : GuiApi.guis)
+		for(GUI gui : this.guis)
 		{
 			if(gui.getName().equals(name))
 			{
@@ -53,85 +71,40 @@ public class GuiApi {
 		}
 		return null;
 	}
-	
-	public static void loadGuis()
-	{
-		System.out.println("Instance is null: " + (DynamicGUI.get() == null));
-		System.out.println("Plugin is null: " + (DynamicGUI.get().getPlugin() == null));
-		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
-		File guiFolder = plugin.getGuiFolder();
-		
-		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml"}, true);
-		
-		if(ar.size() != 0)
-		{
-			for(File file : ar)
-			{
-				try
-				{
-					if(file.getName().toLowerCase().endsWith(".yml"))
-					{
-						Configuration yaml = Configuration.load(file);
-						String guiName = file.getName().substring(0, file.getName().indexOf("."));
 
-						String guiTitle = yaml.getString("gui-title");
-						int rows = yaml.getInt("rows");
-						List<Slot> slots = GuiApi.getSlots(rows, yaml);
-						//System.out.println("slot size: " + slots.size());
-						
-						final GUI gui = new GUI(GuiApi.createGUI(yaml, plugin, guiName, guiTitle, rows, slots));
-
-						guis.add(gui);
-						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
-					}
-				}	
-				catch(NullPointerException ex)
-				{
-					DynamicGUI.get().getLogger().info("Error loading in file: " + file.getName());
-					ex.printStackTrace();
-				}	
-			}
-		} 
-		else 
-		{
-			DynamicGUI.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
-		}
-	}
-
-	public static void reloadGuis()
+	public void reloadGuis()
 	{
 		DynamicGUI.get().getLogger().info("Force reloading guis!");
-		guis.clear();
-		loadGuis();
+		this.guis.clear();
+		this.loadGuis();
 	}
 	
-	public static List<GUI> getGuis()
+	public List<GUI> getGuis()
 	{
-		return GuiApi.guis;
+		return this.guis;
 	}
 	
-	public static boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
+	public boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
 	{
-		return GuiApi.playerGuis.get(playerWrapper.getUniqueId()) != null;
+		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
 	}
 	
-	public static void cleanupGUI(PlayerWrapper<?> playerWrapper)
+	public void cleanupGUI(PlayerWrapper<?> playerWrapper)
 	{
-		DynamicGUI.get().getLogger().info("Cleanup gui was called");
-		GuiApi.playerGuis.remove(playerWrapper.getUniqueId());
+		this.playerGuis.remove(playerWrapper.getUniqueId());
 	}
 
-	public static GUI getCurrentGUI(PlayerWrapper<?> playerWrapper)
+	public GUI getCurrentGUI(PlayerWrapper<?> playerWrapper)
 	{
-		return GuiApi.playerGuis.get(playerWrapper.getUniqueId());
+		return this.playerGuis.get(playerWrapper.getUniqueId());
 	}
 	
-	public static boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
+	public boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
 	{
-		return GuiApi.openGUI(playerWrapper, GuiApi.getGuiByName(guiName));
+		return this.openGUI(playerWrapper, this.getGuiByName(guiName));
 	}
 	
-	public static boolean openGUI(PlayerWrapper<?> playerWrapper, GUI gui)
+	public boolean openGUI(PlayerWrapper<?> playerWrapper, GUI gui)
 	{
 		if(gui == null)
 		{
@@ -168,9 +141,9 @@ public class GuiApi {
 		if(inventoryWrapper == null)
 			return false;
 		
-		DynamicGUI.get().getLogger().info("After putting gui into player guis: " + GuiApi.hasGUICurrently(playerWrapper));
+		//DynamicGUI.get().getLogger().info("After putting gui into player guis: " + this.hasGUICurrently(playerWrapper));
 		playerWrapper.openInventory(inventoryWrapper);
-		GuiApi.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
+		this.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
 		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
 		{
 			@Override
@@ -183,7 +156,49 @@ public class GuiApi {
 		return true;
 	}
 	
-	private static Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
+	private void loadGuis()
+	{
+		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
+		File guiFolder = plugin.getGuiFolder();
+		
+		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml"}, true);
+		
+		if(ar.size() != 0)
+		{
+			for(File file : ar)
+			{
+				try
+				{
+					if(file.getName().toLowerCase().endsWith(".yml"))
+					{
+						Configuration yaml = Configuration.load(file);
+						String guiName = file.getName().substring(0, file.getName().indexOf("."));
+
+						String guiTitle = yaml.getString("gui-title");
+						int rows = yaml.getInt("rows");
+						List<Slot> slots = this.createSlots(rows, yaml);
+						//System.out.println("slot size: " + slots.size());
+						
+						final GUI gui = GuiManager.createGUI(yaml, plugin, guiName, guiTitle, rows, slots);
+
+						this.guis.add(gui);
+						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
+					}
+				}	
+				catch(NullPointerException ex)
+				{
+					DynamicGUI.get().getLogger().info("Error loading in file: " + file.getName());
+					ex.printStackTrace();
+				}	
+			}
+		} 
+		else 
+		{
+			DynamicGUI.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
+		}
+	}
+	
+	private Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
 	{
 		Map<String, List<Function>> failFunctions = new HashMap<>(); //check ends with
 		for(String key : section.getKeys())
@@ -193,8 +208,8 @@ public class GuiApi {
 				List<Function> failFuncs = new ArrayList<Function>();
 				for(String string : section.getStringList(key))
 				{
-					String[] array = FunctionApi.parseData(string);
-					if(FunctionApi.getFunctionByName(array[0]) == null)
+					String[] array = FunctionManager.get().parseData(string);
+					if(FunctionManager.get().getFunctionByName(array[0]) == null)
 						DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
 					Function func = new EmptyFunction(array[0], array[1]);
@@ -215,15 +230,15 @@ public class GuiApi {
 		return failFunctions;
 	}
 	
-	private static List<Function> createFunctions(ConfigurationSection section, String name)
+	private List<Function> createFunctions(ConfigurationSection section, String name)
 	{
 		List<Function> functions = new ArrayList<>();
 		if(section.get(name) != null)
 		{
 			for(String string : section.getStringList(name))
 			{
-				String[] array = FunctionApi.parseData(string);
-				if(FunctionApi.getFunctionByName(array[0]) == null)
+				String[] array = FunctionManager.get().parseData(string);
+				if(FunctionManager.get().getFunctionByName(array[0]) == null)
 					DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 
 				Function func = new EmptyFunction(array[0], array[1]);
@@ -234,7 +249,7 @@ public class GuiApi {
 		return functions;
 	}
 	
-	private static List<Slot> getSlots(int rows, Configuration yaml)
+	private List<Slot> createSlots(int rows, Configuration yaml)
 	{
 		ArrayList<Slot> slots = new ArrayList<Slot>();
 		for(int i = 0; i < rows * 9; i++)
@@ -254,16 +269,16 @@ public class GuiApi {
 				if(section.get("nbt") != null)
 					nbt = section.getString("nbt");
 				
-				List<Function> functions = GuiApi.createFunctions(section, "functions");
-				List<Function> leftClickFunctions = GuiApi.createFunctions(section, "leftclick-functions");
-				List<Function> rightClickFunctions = GuiApi.createFunctions(section, "rightclick-functions");
-				List<Function> middleClickFunctions = GuiApi.createFunctions(section, "middleclick-functions");
+				List<Function> functions = this.createFunctions(section, "functions");
+				List<Function> leftClickFunctions = this.createFunctions(section, "leftclick-functions");
+				List<Function> rightClickFunctions = this.createFunctions(section, "rightclick-functions");
+				List<Function> middleClickFunctions = this.createFunctions(section, "middleclick-functions");
 				
 				
-				Map<String,List<Function>> failFunctions = GuiApi.createFailFunctions(section, "-failfunctions");
-				Map<String,List<Function>> leftClickFailFunctions = GuiApi.createFailFunctions(section, "-leftclickfailfunctions");
-				Map<String,List<Function>> rightClickFailFunctions = GuiApi.createFailFunctions(section, "-rightclickfailfunctions");
-				Map<String,List<Function>> middleClickFailFunctions = GuiApi.createFailFunctions(section, "-middleclickfailfunctions");
+				Map<String,List<Function>> failFunctions = this.createFailFunctions(section, "-failfunctions");
+				Map<String,List<Function>> leftClickFailFunctions = this.createFailFunctions(section, "-leftclickfailfunctions");
+				Map<String,List<Function>> rightClickFailFunctions = this.createFailFunctions(section, "-rightclickfailfunctions");
+				Map<String,List<Function>> middleClickFailFunctions = this.createFailFunctions(section, "-middleclickfailfunctions");
 				//fail functions
 				
 			
@@ -273,8 +288,8 @@ public class GuiApi {
 				{
 					for(String string : section.getStringList("loadfunctions"))
 					{
-						String[] array = FunctionApi.parseData(string);
-						if(FunctionApi.getFunctionByName(array[0]) == null)
+						String[] array = FunctionManager.get().parseData(string);
+						if(FunctionManager.get().getFunctionByName(array[0]) == null)
 							DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
 						Function func = new EmptyFunction(array[0], array[1]);
@@ -290,8 +305,8 @@ public class GuiApi {
 						ArrayList<Function> failFuncs = new ArrayList<Function>();
 						for(String string : section.getStringList(key))
 						{
-							String[] array = FunctionApi.parseData(string);
-							if(FunctionApi.getFunctionByName(array[0]) == null)
+							String[] array = FunctionManager.get().parseData(string);
+							if(FunctionManager.get().getFunctionByName(array[0]) == null)
 								DynamicGUI.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
 							Function func = new EmptyFunction(array[0], array[1]);

@@ -7,11 +7,11 @@ import java.util.List;
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.FunctionApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
 import com.clubobsidian.dynamicgui.objects.SoundWrapper;
@@ -94,7 +94,7 @@ public class GUI implements Serializable, FunctionOwner {
 							Function func = null;
 							try 
 							{
-								func = FunctionApi.getFunctionByName(loadFunction.getName()).getClass().getConstructor(String.class).newInstance(loadFunction.getName());
+								func = FunctionManager.get().getFunctionByName(loadFunction.getName()).getClass().getConstructor(String.class).newInstance(loadFunction.getName());
 								func.setOwner(slot);
 							} 
 							catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
@@ -121,11 +121,11 @@ public class GUI implements Serializable, FunctionOwner {
 								{
 									for(Function fail : failFunctions)
 									{
-										if(FunctionApi.getFunctionByName(fail.getName()) == null)
+										if(FunctionManager.get().getFunctionByName(fail.getName()) == null)
 											continue;
 										try 
 										{
-											Function failFunction = FunctionApi.getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
+											Function failFunction = FunctionManager.get().getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
 											failFunction.setData(fail.getData());
 											failFunction.setOwner(slot);
 											boolean failResult = failFunction.function(player);
@@ -168,7 +168,7 @@ public class GUI implements Serializable, FunctionOwner {
 						Function func = null;
 						try 
 						{
-							func =  FunctionApi.getFunctionByName(loadFunction.getName()).getClass().getConstructor(String.class).newInstance(loadFunction.getName());
+							func =  FunctionManager.get().getFunctionByName(loadFunction.getName()).getClass().getConstructor(String.class).newInstance(loadFunction.getName());
 						} 
 						catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
 						{
@@ -196,11 +196,11 @@ public class GUI implements Serializable, FunctionOwner {
 							{
 								for(Function fail : failFunctions)
 								{
-									if(FunctionApi.getFunctionByName(fail.getName()) == null)
+									if(FunctionManager.get().getFunctionByName(fail.getName()) == null)
 										continue;
 									try 
 									{
-										Function failFunction = FunctionApi.getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
+										Function failFunction = FunctionManager.get().getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
 										failFunction.setData(fail.getData());
 										failFunction.setOwner(slot);
 										boolean failResult = failFunction.function(player);

@@ -1,6 +1,5 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -8,6 +7,7 @@ import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class SetNameFunction extends Function {
@@ -34,7 +34,7 @@ public class SetNameFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+					GUI gui = GuiManager.get().getCurrentGUI(playerWrapper);
 					if(inv != null)
 					{
 						for(Slot s : gui.getSlots())

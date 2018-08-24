@@ -1,9 +1,9 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class GuiFunction extends Function {
 
@@ -27,7 +27,7 @@ public class GuiFunction extends Function {
 			playerWrapper.closeInventory();
 		}
 		
-		if(!GuiApi.hasGuiName(gui))
+		if(!GuiManager.get().hasGuiName(gui))
 			return false;
 		
 		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
@@ -35,7 +35,7 @@ public class GuiFunction extends Function {
 			@Override
 			public void run()
 			{
-				GuiApi.openGUI(playerWrapper, gui);
+				GuiManager.get().openGUI(playerWrapper, gui);
 			}
 		},2L);
 		return true;

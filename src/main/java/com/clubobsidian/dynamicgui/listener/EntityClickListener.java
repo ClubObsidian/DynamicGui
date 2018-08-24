@@ -1,11 +1,10 @@
 package com.clubobsidian.dynamicgui.listener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent;
 import com.clubobsidian.dynamicgui.gui.GUI;
-
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.Listener;
 
@@ -17,11 +16,11 @@ public class EntityClickListener implements Listener {
 		EntityWrapper<?> entityWrapper = e.getEntityWrapper();
 		if(DynamicGUI.get().getPlugin().isNPC(entityWrapper))
 		{
-			for(GUI gui : GuiApi.getGuis())
+			for(GUI gui : GuiManager.get().getGuis())
 			{
 				if(gui.getNpcIds().contains(DynamicGUI.get().getPlugin().getNPC(entityWrapper).getId()))
 				{
-					GuiApi.openGUI(e.getPlayerWrapper(), gui);
+					GuiManager.get().openGUI(e.getPlayerWrapper(), gui);
 					break;
 				}
 			}

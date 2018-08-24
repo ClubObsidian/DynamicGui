@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.api;
+package com.clubobsidian.dynamicgui.builder;
 
 import com.clubobsidian.dynamicgui.function.EmptyFunction;
 import com.clubobsidian.dynamicgui.function.Function;

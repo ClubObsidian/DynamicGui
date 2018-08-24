@@ -9,9 +9,9 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class SpongeGUICommand implements CommandExecutor {
 
@@ -24,7 +24,7 @@ public class SpongeGUICommand implements CommandExecutor {
 			if(gui.isPresent())
 			{
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>((Player) src);
-				boolean executed = GuiApi.openGUI(playerWrapper, gui.get());
+				boolean executed = GuiManager.get().openGUI(playerWrapper, gui.get());
 				if(executed)
 				{
 					return CommandResult.success();

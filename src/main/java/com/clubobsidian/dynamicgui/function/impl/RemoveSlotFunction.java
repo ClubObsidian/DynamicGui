@@ -1,6 +1,5 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.api.GuiApi;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -8,6 +7,7 @@ import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 
 public class RemoveSlotFunction extends Function {
@@ -36,7 +36,7 @@ public class RemoveSlotFunction extends Function {
 					if(playerWrapper.getOpenInventoryWrapper().getInventory() != null)
 					{
 						InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-						GUI gui = GuiApi.getCurrentGUI(playerWrapper);
+						GUI gui = GuiManager.get().getCurrentGUI(playerWrapper);
 						if(inv != null && gui != null)
 						{
 							for(Slot s : gui.getSlots())

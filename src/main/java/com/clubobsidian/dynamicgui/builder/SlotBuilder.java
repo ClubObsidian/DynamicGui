@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.api;
+package com.clubobsidian.dynamicgui.builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
