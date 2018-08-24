@@ -161,7 +161,7 @@ public class GuiManager {
 		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		
-		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "hocon"}, true);
+		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "yaml", "json", "hocon"}, true);
 		
 		if(ar.size() != 0)
 		{

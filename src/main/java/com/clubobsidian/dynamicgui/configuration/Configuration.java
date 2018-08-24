@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
@@ -25,7 +26,7 @@ public class Configuration extends ConfigurationSection {
 			ConfigurationNode node = null;
 			String name = file.getName().toLowerCase();
 
-			if(name.endsWith(".yml"))
+			if(name.endsWith(".yml") || name.endsWith(".yaml"))
 			{
 				ConfigurationLoader<ConfigurationNode> loader = YAMLConfigurationLoader.builder().setFile(file).build();
 				node = loader.load();
@@ -61,6 +62,44 @@ public class Configuration extends ConfigurationSection {
 	public static Configuration load(Path path)
 	{
 		return load(path.toFile());
+	}
+	
+	public static Configuration load(URL url, File backup)
+	{
+		String fileName = url.getFile();
+		if(fileName.lastIndexOf(".") != -1)
+		{
+			String end = fileName.substring(fileName.lastIndexOf("."));
+			ConfigurationType type = null;
+			if(end.equalsIgnoreCase("yml") || end.equalsIgnoreCase("yaml"))
+			{
+				type = ConfigurationType.YAML;
+			}
+			else if(end.equalsIgnoreCase("hocon"))
+			{
+				type = ConfigurationType.HOCON;
+			}
+			else if(end.equalsIgnoreCase("json"))
+			{
+				type = ConfigurationType.JSON;
+			}
+			if(type != null)
+			{
+				try 
+				{
+					return Configuration.load(url.openStream(), type);
+				} 
+				catch (IOException e) 
+				{
+					e.printStackTrace();
+					if(backup.exists())
+					{
+						return Configuration.load(backup);
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	public static Configuration load(InputStream stream, ConfigurationType type)
@@ -120,6 +159,7 @@ public class Configuration extends ConfigurationSection {
 			try 
 			{
 				reader.close();
+				stream.close();
 			} 
 			catch (IOException e) 
 			{
