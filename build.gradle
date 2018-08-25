@@ -61,5 +61,5 @@ dependencies {
 	compile 'org.spongepowered:configurate-hocon:3.6'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'commons-io:commons-io:2.6'
-    compile 'com.github.clubobsidian:trident:1.0.6'
+    compile 'com.github.clubobsidian:trident:1.0.8'
 }

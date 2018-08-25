@@ -4,9 +4,9 @@ package com.clubobsidian.dynamicgui.event.inventory;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.InventoryEvent;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.trident.Cancellable;
+import com.clubobsidian.trident.Cancelable;
 
-public class InventoryClickEvent extends InventoryEvent implements Cancellable {
+public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 
 	private int slot;
 	private Click click;
@@ -29,13 +29,13 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
 	}
 
 	@Override
-	public boolean isCancelled() 
+	public boolean isCanceled() 
 	{
 		return this.cancelled;
 	}
 
 	@Override
-	public void setCancelled(boolean cancelled) 
+	public void setCanceled(boolean cancelled) 
 	{
 		this.cancelled = cancelled;
 	}

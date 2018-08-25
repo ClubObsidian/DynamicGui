@@ -74,11 +74,11 @@ public class InventoryClickListener {
 				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(inventory);
 				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
 				DynamicGUI.get().getEventManager().callEvent(clickEvent);
-				if(clickEvent.isCancelled())
+				if(clickEvent.isCanceled())
 				{
 					e.setCancelled(true);
 				}
-				DynamicGUI.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCancelled());
+				DynamicGUI.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCanceled());
 				DynamicGUI.get().getLogger().info("Is sponge event canclled: " + e.isCancelled());
 			}
 		}

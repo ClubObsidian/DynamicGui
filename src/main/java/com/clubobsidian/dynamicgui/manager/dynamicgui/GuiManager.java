@@ -238,8 +238,6 @@ public class GuiManager {
 	
 	private void loadGUIFromConfiguration(String guiName, Configuration config)
 	{
-		
-
 		String guiTitle = config.getString("gui-title");
 		int rows = config.getInt("rows");
 		List<Slot> slots = this.createSlots(rows, config);

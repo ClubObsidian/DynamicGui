@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
@@ -82,6 +83,7 @@ public class FakeBukkitServer extends FakeServer {
 	@Override
 	public void registerIncomingPluginChannel(DynamicGUIPlugin plugin, String channel) 
 	{
+		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, channel, (PluginMessageListener) plugin);
 		// TODO Auto-generated method stub
 		
 	}

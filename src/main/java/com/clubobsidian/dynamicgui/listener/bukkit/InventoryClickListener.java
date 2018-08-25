@@ -43,7 +43,7 @@ public class InventoryClickListener implements Listener {
 
 			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
 			DynamicGUI.get().getEventManager().callEvent(clickEvent);
-			if(clickEvent.isCancelled())
+			if(clickEvent.isCanceled())
 			{
 				e.setCancelled(true);
 			}

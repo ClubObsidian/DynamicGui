@@ -32,7 +32,7 @@ public class InventoryClickListener implements Listener {
 			return;
 		}
 		
-		e.setCancelled(true);
+		e.setCanceled(true);
 		
 		DynamicGUI.get().getLogger().info("From trident index is: " + e.getSlot());
 		DynamicGUI.get().getLogger().info("From trident title is: " + e.getInventoryWrapper().getTitle());
