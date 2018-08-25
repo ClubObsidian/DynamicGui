@@ -1,6 +1,9 @@
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -158,8 +161,13 @@ public class GuiManager {
 	
 	private void loadGuis()
 	{
-		DynamicGUIPlugin plugin = DynamicGUI.get().getPlugin();
-		File guiFolder = plugin.getGuiFolder();
+		this.loadFileGuis();
+		this.loadRemoteGuis();
+	}
+	
+	private void loadFileGuis()
+	{
+		File guiFolder = DynamicGUI.get().getPlugin().getGuiFolder();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "yaml", "json", "hocon"}, true);
 		
@@ -169,17 +177,9 @@ public class GuiManager {
 			{
 				try
 				{
-						Configuration yaml = Configuration.load(file);
-						String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-
-						String guiTitle = yaml.getString("gui-title");
-						int rows = yaml.getInt("rows");
-						List<Slot> slots = this.createSlots(rows, yaml);
-						
-						final GUI gui = GuiManager.createGUI(yaml, plugin, guiName, guiTitle, rows, slots);
-
-						this.guis.add(gui);
-						DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
+					Configuration yaml = Configuration.load(file);
+					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
+					this.loadGUIFromConfiguration(guiName, yaml);
 				}	
 				catch(NullPointerException ex)
 				{
@@ -192,6 +192,62 @@ public class GuiManager {
 		{
 			DynamicGUI.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
 		}
+	}
+	
+	public void loadRemoteGuis()
+	{
+		File configFile = new File(DynamicGUI.get().getPlugin().getDataFolder(), "config.yml");
+		File tempDirectory = new File(DynamicGUI.get().getPlugin().getDataFolder(), "temp");
+		if(tempDirectory.exists())
+		{
+			try 
+			{
+				FileUtils.deleteDirectory(tempDirectory);
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		tempDirectory.mkdir();
+		
+		Configuration config = Configuration.load(configFile);
+		if(config.get("remote-guis") != null)
+		{
+			ConfigurationSection remote = config.getConfigurationSection("remote-guis");
+			for(String key :  remote.getKeys())
+			{
+				ConfigurationSection guiSection = remote.getConfigurationSection(key);
+				String strUrl = guiSection.getString("url");
+				try 
+				{
+					URL url = new URL(strUrl);
+					String guiName = guiSection.getString("file-name");
+					File backupFile = new File(DynamicGUI.get().getPlugin().getGuiFolder(), guiName);
+					File tempFile = new File(tempDirectory, guiName);
+					Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
+					this.loadGUIFromConfiguration(guiName, guiConfiguration);
+				} 
+				catch (MalformedURLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private void loadGUIFromConfiguration(String guiName, Configuration config)
+	{
+		
+
+		String guiTitle = config.getString("gui-title");
+		int rows = config.getInt("rows");
+		List<Slot> slots = this.createSlots(rows, config);
+		
+		final GUI gui = GuiManager.createGUI(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
+
+		this.guis.add(gui);
+		DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
 	}
 	
 	private Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)

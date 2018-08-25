@@ -10,7 +10,7 @@ version: "spigot"
 servers:
 - "prison"
 
-remote-guis:
-  remote:
-    url: ""
-    backup: "backup.yml" #Will be used in the case of the remote-gui file not being loaded
+#remote-guis:
+#  remote:
+#    file-name: "remote.yml"
+#    url: "https://raw.githubusercontent.com/ClubObsidian/DynamicGUIExamples/master/examples/remote.yml"

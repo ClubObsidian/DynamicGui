@@ -9,6 +9,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
+import org.apache.commons.io.FileUtils;
+
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
@@ -63,42 +65,30 @@ public class Configuration extends ConfigurationSection {
 	{
 		return load(path.toFile());
 	}
-	
-	public static Configuration load(URL url, File backup)
+
+	public static Configuration load(URL url, File tempFile, File backupFile)
 	{
-		String fileName = url.getFile();
-		if(fileName.lastIndexOf(".") != -1)
+		try 
 		{
-			String end = fileName.substring(fileName.lastIndexOf("."));
-			ConfigurationType type = null;
-			if(end.equalsIgnoreCase("yml") || end.equalsIgnoreCase("yaml"))
+			FileUtils.copyURLToFile(url, tempFile, 10000, 10000);
+			if(tempFile.length() > 0 && tempFile.length() != backupFile.length())
 			{
-				type = ConfigurationType.YAML;
-			}
-			else if(end.equalsIgnoreCase("hocon"))
-			{
-				type = ConfigurationType.HOCON;
-			}
-			else if(end.equalsIgnoreCase("json"))
-			{
-				type = ConfigurationType.JSON;
-			}
-			if(type != null)
-			{
-				try 
+				if(backupFile.exists())
 				{
-					return Configuration.load(url.openStream(), type);
-				} 
-				catch (IOException e) 
-				{
-					e.printStackTrace();
-					if(backup.exists())
-					{
-						return Configuration.load(backup);
-					}
+					backupFile.delete();
 				}
+				FileUtils.copyFile(tempFile, backupFile);
 			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
 		}
+		if(backupFile.exists())
+		{
+			return Configuration.load(backupFile);
+		}
+
 		return null;
 	}
 
@@ -107,7 +97,7 @@ public class Configuration extends ConfigurationSection {
 		Configuration config = new Configuration();
 		ConfigurationNode node = null;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		
+
 		try
 		{
 			Callable<BufferedReader> callable = new Callable<BufferedReader>() 

@@ -43,6 +43,7 @@ import com.clubobsidian.dynamicgui.objects.replacers.UUIDReplacer;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
+
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
 
