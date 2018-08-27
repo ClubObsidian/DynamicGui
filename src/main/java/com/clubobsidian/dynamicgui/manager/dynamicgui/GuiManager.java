@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
+import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class GuiManager {
@@ -133,30 +134,27 @@ public class GuiManager {
 			}
 		}
 
-		List<Function> functions = clonedGUI.getFunctions();
-		//Map<String,List<Function>> failFunctions = clonedGUI.getFailFunctions();
+		boolean ran = FunctionUtil.tryFunctions(clonedGUI, playerWrapper);
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
 		
 		if(inventoryWrapper == null)
 			return false;
 		
-		//Run functions
-		//If the functions fail do not open and return later
-		
-		//DynamicGUI.get().getLogger().info("After putting gui into player guis: " + this.hasGUICurrently(playerWrapper));
-		playerWrapper.openInventory(inventoryWrapper);
-		this.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
-		DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
+		if(ran)
 		{
-			@Override
-			public void run()
+			playerWrapper.openInventory(inventoryWrapper);
+			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
+			DynamicGUI.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGUI.get().getPlugin(), new Runnable()
 			{
-				playerWrapper.updateInventory();
-			}
-		},2L);
-		
-		return true; //Return if the gui was opened
+				@Override
+				public void run()
+				{
+					playerWrapper.updateInventory();
+				}
+			},2L);
+		}
+		return ran;
 	}
 	
 	private void loadGuis()

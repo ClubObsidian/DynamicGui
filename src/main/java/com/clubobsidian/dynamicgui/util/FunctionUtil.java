@@ -11,40 +11,54 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 
 public class FunctionUtil {
 	
-	public static void tryFunctions(FunctionOwner owner, PlayerWrapper<?> player, int startingIndex)
+	public static boolean tryFunctions(FunctionOwner owner, PlayerWrapper<?> playerWrapper)
 	{
-		
+		FunctionResponse result = null;
+		if(owner.getFunctions() != null)
+		{
+			result = tryFunctions(playerWrapper, owner.getFunctions(), owner);
+			if(!result.result)
+			{
+				List<Function> failFunctions = owner.getFailFunctions(result.failedFunction);
+				if(failFunctions != null)
+				{
+					tryFunctions(playerWrapper, failFunctions, owner);
+				}
+				return false;
+			}
+		}
+		return true;
 	}
 	
-	public static void tryFunctions(Slot slot, Click InventoryClick, PlayerWrapper<?> player)
+	public static void tryFunctions(Slot slot, Click InventoryClick, PlayerWrapper<?> playerWrapper)
 	{
-		tryFunctions(slot, InventoryClick, player, 0);
+		tryFunctions(slot, InventoryClick, playerWrapper, 0);
 	}
 
-	private static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> player, int startingIndex)
+	private static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper, int startingIndex)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
 		{
-			result = tryFunctions(player, slot.getFunctions(), slot, startingIndex);
+			result = tryFunctions(playerWrapper, slot.getFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(player, failFunctions, slot, startingIndex);
+					tryFunctions(playerWrapper, failFunctions, slot);
 				}
 			}
 		}
 		if(inventoryClick == Click.LEFT && slot.getLeftClickFunctions() != null)
 		{
-			result = tryFunctions(player, slot.getLeftClickFunctions(), slot, startingIndex);
+			result = tryFunctions(playerWrapper, slot.getLeftClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getLeftClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(player, failFunctions, slot, startingIndex);
+					tryFunctions(playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -52,13 +66,13 @@ public class FunctionUtil {
 		}
 		else if(inventoryClick == Click.RIGHT && slot.getRightClickFunctions() != null)
 		{
-			result = tryFunctions(player, slot.getRightClickFunctions(), slot, startingIndex);
+			result = tryFunctions(playerWrapper, slot.getRightClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getRightClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(player, failFunctions, slot, startingIndex);
+					tryFunctions(playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -66,13 +80,13 @@ public class FunctionUtil {
 		}
 		else if(inventoryClick == Click.MIDDLE && slot.getMiddleClickFunctions() != null)
 		{
-			result = tryFunctions(player, slot.getMiddleClickFunctions(), slot, startingIndex);
+			result = tryFunctions(playerWrapper, slot.getMiddleClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getMiddleClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(player, failFunctions, slot, startingIndex);
+					tryFunctions(playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -80,10 +94,10 @@ public class FunctionUtil {
 		}
 	}
 
-	private static FunctionResponse tryFunctions(PlayerWrapper<?> player, List<Function> functions, FunctionOwner owner, int startingIndex)
+	private static FunctionResponse tryFunctions(PlayerWrapper<?> playerWrapper, List<Function> functions, FunctionOwner owner)
 	{
 		FunctionResponse response = new FunctionResponse(true);
-		for(int i = startingIndex; i < functions.size(); i++)
+		for(int i = 0; i < functions.size(); i++)
 		{
 			Function func = functions.get(i);
 			Function myFunc = null;
@@ -104,7 +118,7 @@ public class FunctionUtil {
 			{
 				ex.printStackTrace();
 			}
-			boolean result = myFunc.function(player);
+			boolean result = myFunc.function(playerWrapper);
 			if(!result)
 			{
 				response = new FunctionResponse(false, func.getName());

@@ -213,7 +213,7 @@ public class Slot implements Serializable, FunctionOwner {
 		
 		if(this.lore != null)
 		{
-			List<String> newLore = new ArrayList<String>();
+			List<String> newLore = new ArrayList<>();
 			
 			for(String newString : this.lore)
 				newLore.add(newString);

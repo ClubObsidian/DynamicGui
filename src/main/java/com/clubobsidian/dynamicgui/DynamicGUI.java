@@ -57,14 +57,14 @@ public class DynamicGUI  {
 
 	private static DynamicGUI instance = null;
 	
-	private DynamicGUIPlugin plugin;
 	private EventManager eventManager;
+	private DynamicGUIPlugin plugin;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
 	private DynamicGUI(DynamicGUIPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
-		this.plugin = plugin;
 		this.eventManager = new JavaAssistEventManager();
+		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
 	}
