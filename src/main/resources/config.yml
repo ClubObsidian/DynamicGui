@@ -1,8 +1,3 @@
-no-permission-function: "&4You do not have permission to use that function!"
-no-permission-gui: "&4You do not have permission to access that gui!"
-no-money: "&4You do not have enough money to use that function!"
-no-exp: "&4You do not have enough experience for that function!"
-no-points: "&4You do not have enough player points for that function!"
 no-gui: "&4That gui does not exist!"
 #checks to see if you are using the version spigot, if you have a custom version name change this
 #used to check the value for bungee, change this to "bungee" if you want to force bungee or "redis" if you want to force redis.

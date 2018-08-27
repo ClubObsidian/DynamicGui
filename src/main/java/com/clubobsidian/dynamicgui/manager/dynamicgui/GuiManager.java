@@ -116,24 +116,6 @@ public class GuiManager {
 		}
 		
 		GUI clonedGUI = gui.clone();
-		DynamicGUI.get().getLogger().info("Cloned gui: " + clonedGUI);
-		boolean permNull = (clonedGUI.getPermission() == null);
-		if(!permNull)
-		{
-			if(!playerWrapper.hasPermission(clonedGUI.getPermission()))
-			{
-				if(clonedGUI.getpMessage() == null)
-				{
-					playerWrapper.sendMessage(DynamicGUI.get().getNoPermissionGui());
-				}
-				else
-				{
-					playerWrapper.sendMessage(clonedGUI.getpMessage());
-				}
-				return false;
-			}
-		}
-
 		boolean ran = FunctionUtil.tryFunctions(clonedGUI, playerWrapper);
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
@@ -435,18 +417,6 @@ public class GuiManager {
 	private GUI createGUI(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
-		String permission = null;
-		if(yaml.get("permission") != null)
-		{
-			permission = yaml.getString("permission");
-		}
-
-		String pMessage = null;
-		if(yaml.get("pmessage") != null)
-		{
-			pMessage = ChatColor.translateAlternateColorCodes('&', yaml.getString("pmessage"));
-		}
-
 		if(yaml.get("alias") != null)
 		{
 			for(String alias : yaml.getStringList("alias"))
@@ -460,7 +430,6 @@ public class GuiManager {
 		{
 			close = yaml.getBoolean("close");
 		}
-
 
 		List<LocationWrapper<?>> locations = new ArrayList<>(); 
 		if(yaml.get("locations") != null)
@@ -487,6 +456,6 @@ public class GuiManager {
 		List<Function> functions = this.createFunctions(yaml, "functions");
 		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
 		
-		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
+		return new GUI(guiName, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
 	}
 }

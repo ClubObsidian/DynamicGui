@@ -16,8 +16,6 @@ public class GuiBuilder  {
 	private String name;
 	private String title;
 	private int rows;
-	private String permission;
-	private String pMessage;
 	private Boolean close;
 	private ModeEnum modeEnum;
 	private List<Integer> npcIds = new ArrayList<Integer>();
@@ -41,18 +39,6 @@ public class GuiBuilder  {
 	public GuiBuilder setRows(int rows)
 	{
 		this.rows = rows;
-		return this;
-	}
-	
-	public GuiBuilder setPermission(String permission)
-	{
-		this.permission = permission;
-		return this;
-	}
-	
-	public GuiBuilder setPermissionMessage(String pMessage)
-	{
-		this.pMessage = pMessage;
 		return this;
 	}
 	
@@ -127,6 +113,6 @@ public class GuiBuilder  {
 	
 	public GUI build()
 	{
-		return new GUI(this.name, this.title, this.rows, this.permission, this.pMessage, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
+		return new GUI(this.name, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
 	}
 }

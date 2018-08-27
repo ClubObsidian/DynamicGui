@@ -29,15 +29,13 @@ public class GUI implements Serializable, FunctionOwner {
 	private String name;
 	private String title;
 	private int rows;
-	private String permission;
-	private String pMessage;
 	private Boolean close;
 	private ModeEnum modeEnum;
 	private List<LocationWrapper<?>> locations;
 	private List<Integer> npcIds;
 	private List<Function> functions;
 	private Map<String, List<Function>> failFunctions;
-	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
+	public GUI(String name, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes(title);
@@ -45,8 +43,6 @@ public class GUI implements Serializable, FunctionOwner {
 			this.title = this.title.substring(0,31);
 		this.rows = rows;
 		this.slots = slots;
-		this.permission = permission;
-		this.pMessage = pMessage;
 		this.close = close;
 		this.modeEnum = modeEnum;
 		this.npcIds = npcIds;
@@ -231,16 +227,6 @@ public class GUI implements Serializable, FunctionOwner {
 	public String getTitle()
 	{
 		return this.title;
-	}
-	
-	public String getPermission()
-	{
-		return this.permission;
-	}
-	
-	public String getpMessage()
-	{
-		return this.pMessage;
 	}
 	
 	public int getRows()

@@ -109,11 +109,6 @@ public class DynamicGUI  {
 			}
 		}
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
-		this.noPermissionFunction = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-function"));
-		this.noPermissionGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-permission-gui"));
-		this.noMoney = ChatColor.translateAlternateColorCodes('&', config.getString("no-money"));
-		this.noExp = ChatColor.translateAlternateColorCodes('&', config.getString("no-exp"));
-		this.noPoints = ChatColor.translateAlternateColorCodes('&', config.getString("no-points"));
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
 		this.version = config.getString("version").trim();
 	}
@@ -353,31 +348,6 @@ public class DynamicGUI  {
 		this.registeredCommands.add(alias);
 	}*/
 
-	public String getNoPermissionFunction()
-	{
-		return this.noPermissionFunction;
-	}
-	
-	public String getNoPermissionGui()
-	{
-		return this.noPermissionGui;
-	}
-	
-	public String getNoMoney()
-	{
-		return this.noMoney;
-	}
-	
-	public String getNoExp()
-	{
-		return this.noExp;
-	}
-	
-	public String getNoPoints()
-	{
-		return this.noPoints;
-	}
-	
 	public String getNoGui()
 	{
 		return this.noGui;
