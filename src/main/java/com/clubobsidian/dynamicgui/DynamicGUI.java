@@ -115,7 +115,7 @@ public class DynamicGUI  {
 		this.noExp = ChatColor.translateAlternateColorCodes('&', config.getString("no-exp"));
 		this.noPoints = ChatColor.translateAlternateColorCodes('&', config.getString("no-points"));
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
-		this.version = config.getString("version");
+		this.version = config.getString("version").trim();
 	}
 
 	private void loadGuis()

@@ -12,7 +12,6 @@ import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class CitizensRegistry implements NPCRegistry 
 {
-
 	private Class<?> citizensApiClass;
 	private Class<?> npcClass;
 	private Method getNPCRegistryMethod;

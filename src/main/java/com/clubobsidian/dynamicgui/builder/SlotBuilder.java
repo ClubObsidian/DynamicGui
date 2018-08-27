@@ -243,5 +243,4 @@ public class SlotBuilder {
 	{
 		return new Slot(this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.permission, this.pMessage, this.index, this.functions, this.failFunctions, this.leftClickFunctions, this.leftClickFailFunctions, this.rightClickFunctions, this.rightClickFailFunctions, this.middleClickFunctions, this.middleClickFailFunctions, this.loadFunctions, this.failLoadFunctions, this.amount);
 	}
-
 }
