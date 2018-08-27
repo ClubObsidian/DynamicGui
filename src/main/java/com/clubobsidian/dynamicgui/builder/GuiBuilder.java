@@ -1,8 +1,11 @@
 package com.clubobsidian.dynamicgui.builder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
@@ -21,7 +24,8 @@ public class GuiBuilder  {
 	private List<Integer> npcIds = new ArrayList<Integer>();
 	private List<Slot> slots = new ArrayList<Slot>();
 	private List<LocationWrapper<?>> locs = new ArrayList<>();
-	private List<SoundWrapper> openingSounds = new ArrayList<>();
+	private List<Function> functions = new ArrayList<>();
+	private Map<String,List<Function>> failFunctions = new HashMap<>();
 	
 	public GuiBuilder setName(String name)
 	{
@@ -106,8 +110,24 @@ public class GuiBuilder  {
 		return this;
 	}
 	
+	public GuiBuilder addFunction(Function function)
+	{
+		this.functions.add(function);
+		return this;
+	}
+	
+	public GuiBuilder addFailFunction(String failOn, Function function)
+	{
+		if(this.failFunctions.get(failOn) == null)
+		{
+			this.failFunctions.put(failOn, new ArrayList<>());
+		}
+		this.failFunctions.get(failOn).add(function);
+		return this;
+	}
+	
 	public GUI build()
 	{
-		return new GUI(this.name, this.title, this.rows, this.permission, this.pMessage, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.openingSounds);
+		return new GUI(this.name, this.title, this.rows, this.permission, this.pMessage, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
 	}
 }

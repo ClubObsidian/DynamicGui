@@ -25,7 +25,6 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
-import com.clubobsidian.dynamicgui.objects.SoundWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -134,10 +133,8 @@ public class GuiManager {
 			}
 		}
 
-		for(SoundWrapper wrapper : clonedGUI.getOpeningSounds())
-		{
-			wrapper.playSoundToPlayer(playerWrapper); 
-		}
+		List<Function> functions = clonedGUI.getFunctions();
+		
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
 		
@@ -242,7 +239,7 @@ public class GuiManager {
 		int rows = config.getInt("rows");
 		List<Slot> slots = this.createSlots(rows, config);
 		
-		final GUI gui = GuiManager.createGUI(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
+		final GUI gui = this.createGUI(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
 
 		this.guis.add(gui);
 		DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
@@ -434,7 +431,7 @@ public class GuiManager {
 		return slots;
 	}
 	
-	private static GUI createGUI(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private GUI createGUI(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		String permission = null;
@@ -486,17 +483,9 @@ public class GuiManager {
 			npcIds = yaml.getIntList("npc-ids");
 		}
 		
-		List<SoundWrapper> openingSounds = new ArrayList<>();
+		List<Function> functions = this.createFunctions(yaml, "functions");
+		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
 		
-		if(yaml.get("opening-sounds") != null)
-		{
-			for(String str : yaml.getStringList("opening-sounds"))
-			{
-				String[] args = str.split(",");
-				openingSounds.add(new SoundWrapper(args[0], Float.parseFloat(args[1]), Float.parseFloat(args[2])));
-			}
-		}
-		
-		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locations, openingSounds);
+		return new GUI(guiName, guiTitle, rows, permission,pMessage, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
 	}
 }

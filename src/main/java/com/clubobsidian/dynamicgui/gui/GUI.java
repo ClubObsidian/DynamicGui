@@ -3,6 +3,7 @@ package com.clubobsidian.dynamicgui.gui;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -14,7 +15,6 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
-import com.clubobsidian.dynamicgui.objects.SoundWrapper;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
@@ -34,9 +34,10 @@ public class GUI implements Serializable, FunctionOwner {
 	private Boolean close;
 	private ModeEnum modeEnum;
 	private List<LocationWrapper<?>> locations;
-	private List<SoundWrapper> openingSounds;
 	private List<Integer> npcIds;
-	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<SoundWrapper> openingSounds)
+	private List<Function> functions;
+	private Map<String, List<Function>> failFunctions;
+	public GUI(String name, String title, int rows,String permission, String pMessage, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes(title);
@@ -50,7 +51,8 @@ public class GUI implements Serializable, FunctionOwner {
 		this.modeEnum = modeEnum;
 		this.npcIds = npcIds;
 		this.locations = locations;
-		this.openingSounds = openingSounds;
+		this.functions = functions;
+		this.failFunctions = failFunctions;
 	}
 	
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
@@ -266,14 +268,19 @@ public class GUI implements Serializable, FunctionOwner {
 		return this.locations;
 	}
 	
-	public List<SoundWrapper> getOpeningSounds()
-	{
-		return this.openingSounds;
-	}
-	
 	public ModeEnum getModeEnum()
 	{
 		return this.modeEnum;
+	}
+	
+	public List<Function> getFunctions()
+	{
+		return this.functions;
+	}
+	
+	public Map<String,List<Function>> getFailFunctions()
+	{
+		return this.failFunctions;
 	}
 	
 	public GUI clone()
