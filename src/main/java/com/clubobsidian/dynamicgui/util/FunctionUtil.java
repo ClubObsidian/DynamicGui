@@ -5,17 +5,23 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 
 public class FunctionUtil {
+	
+	public static void tryFunctions(FunctionOwner owner, PlayerWrapper<?> player, int startingIndex)
+	{
+		
+	}
 	
 	public static void tryFunctions(Slot slot, Click InventoryClick, PlayerWrapper<?> player)
 	{
 		tryFunctions(slot, InventoryClick, player, 0);
 	}
 
-	public static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> player, int startingIndex)
+	private static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> player, int startingIndex)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
@@ -74,7 +80,7 @@ public class FunctionUtil {
 		}
 	}
 
-	private static FunctionResponse tryFunctions(PlayerWrapper<?> player, List<Function> functions, Slot slot, int startingIndex)
+	private static FunctionResponse tryFunctions(PlayerWrapper<?> player, List<Function> functions, FunctionOwner owner, int startingIndex)
 	{
 		FunctionResponse response = new FunctionResponse(true);
 		for(int i = startingIndex; i < functions.size(); i++)
@@ -91,7 +97,7 @@ public class FunctionUtil {
 
 				myFunc = FunctionManager.get().getFunctionByName(func.getName()).clone();
 				myFunc.setData(func.getData());
-				myFunc.setOwner(slot);
+				myFunc.setOwner(owner);
 				myFunc.setIndex(i);
 			} 
 			catch (IllegalArgumentException | SecurityException ex) 

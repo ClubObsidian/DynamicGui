@@ -9,7 +9,6 @@ import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.GUI;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
-import com.clubobsidian.dynamicgui.objects.SoundWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class GuiBuilder  {

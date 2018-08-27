@@ -278,9 +278,9 @@ public class GUI implements Serializable, FunctionOwner {
 		return this.functions;
 	}
 	
-	public Map<String,List<Function>> getFailFunctions()
+	public List<Function> getFailFunctions(String key)
 	{
-		return this.failFunctions;
+		return this.failFunctions.get(key);
 	}
 	
 	public GUI clone()

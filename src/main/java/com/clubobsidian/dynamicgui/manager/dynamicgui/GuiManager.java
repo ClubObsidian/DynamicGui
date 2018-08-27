@@ -134,7 +134,7 @@ public class GuiManager {
 		}
 
 		List<Function> functions = clonedGUI.getFunctions();
-		Map<String,List<Function>> failFunctions = clonedGUI.getFailFunctions();
+		//Map<String,List<Function>> failFunctions = clonedGUI.getFailFunctions();
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
 		
