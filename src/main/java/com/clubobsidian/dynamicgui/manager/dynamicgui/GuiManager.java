@@ -134,12 +134,15 @@ public class GuiManager {
 		}
 
 		List<Function> functions = clonedGUI.getFunctions();
-		
+		Map<String,List<Function>> failFunctions = clonedGUI.getFailFunctions();
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
 		
 		if(inventoryWrapper == null)
 			return false;
+		
+		//Run functions
+		//If the functions fail do not open and return later
 		
 		//DynamicGUI.get().getLogger().info("After putting gui into player guis: " + this.hasGUICurrently(playerWrapper));
 		playerWrapper.openInventory(inventoryWrapper);
@@ -153,7 +156,7 @@ public class GuiManager {
 			}
 		},2L);
 		
-		return true;
+		return true; //Return if the gui was opened
 	}
 	
 	private void loadGuis()
