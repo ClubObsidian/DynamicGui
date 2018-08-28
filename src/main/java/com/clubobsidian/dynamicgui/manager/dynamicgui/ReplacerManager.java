@@ -3,8 +3,8 @@ package com.clubobsidian.dynamicgui.manager.dynamicgui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.objects.Replacer;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.replacer.impl.Replacer;
 
 public class ReplacerManager {
 	

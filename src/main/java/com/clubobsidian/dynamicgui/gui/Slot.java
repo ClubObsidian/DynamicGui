@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
 public class Slot implements Serializable, FunctionOwner {
 	

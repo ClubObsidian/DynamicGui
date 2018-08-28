@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.entity.player.bukkit;
+package com.clubobsidian.dynamicgui.entity.bukkit;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.plugin.Plugin;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;

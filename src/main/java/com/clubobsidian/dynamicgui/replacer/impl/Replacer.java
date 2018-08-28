@@ -1,6 +1,6 @@
-package com.clubobsidian.dynamicgui.objects;
+package com.clubobsidian.dynamicgui.replacer.impl;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public abstract class Replacer {
 	

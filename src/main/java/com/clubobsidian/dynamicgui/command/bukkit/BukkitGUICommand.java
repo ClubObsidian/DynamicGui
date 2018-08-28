@@ -5,8 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class BukkitGUICommand implements CommandExecutor {

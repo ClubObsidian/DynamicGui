@@ -3,7 +3,8 @@ package com.clubobsidian.dynamicgui.function.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;
@@ -11,7 +12,6 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
 public class SetEnchantsFunction extends Function {
 

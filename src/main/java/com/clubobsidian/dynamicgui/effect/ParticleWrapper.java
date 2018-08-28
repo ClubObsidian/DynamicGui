@@ -2,7 +2,7 @@ package com.clubobsidian.dynamicgui.effect;
 
 import java.io.Serializable;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public class ParticleWrapper implements Serializable {
 

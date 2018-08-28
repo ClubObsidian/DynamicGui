@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.configuration.Configuration;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.ExpPayFunction;
@@ -36,11 +36,11 @@ import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.objects.replacers.OnlinePlayersReplacer;
-import com.clubobsidian.dynamicgui.objects.replacers.PlayerLevelReplacer;
-import com.clubobsidian.dynamicgui.objects.replacers.PlayerReplacer;
-import com.clubobsidian.dynamicgui.objects.replacers.UUIDReplacer;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
+import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
+import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
+import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
+import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 

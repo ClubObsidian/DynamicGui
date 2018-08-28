@@ -10,8 +10,8 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.scheduler.sponge.SpongeScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;

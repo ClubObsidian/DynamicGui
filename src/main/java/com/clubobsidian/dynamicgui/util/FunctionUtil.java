@@ -2,7 +2,7 @@ package com.clubobsidian.dynamicgui.util;
 
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;

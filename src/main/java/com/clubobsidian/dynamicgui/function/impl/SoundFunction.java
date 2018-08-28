@@ -1,8 +1,8 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.objects.SoundWrapper;
+import com.clubobsidian.dynamicgui.sound.SoundWrapper;
 
 public class SoundFunction extends Function {
 

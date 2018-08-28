@@ -11,8 +11,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;

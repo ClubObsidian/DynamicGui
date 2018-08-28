@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.bukkit.Material;
 
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
 public class SlotBuilder {
 	

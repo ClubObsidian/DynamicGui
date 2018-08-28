@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.event;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.trident.Event;
 
 public class PlayerEvent extends Event {

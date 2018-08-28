@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.objects;
+package com.clubobsidian.dynamicgui.enchantment;
 
 import java.io.Serializable;
 

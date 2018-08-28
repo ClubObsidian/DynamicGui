@@ -1,7 +1,7 @@
 package com.clubobsidian.dynamicgui.event.block;
 
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.LocationEvent;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;

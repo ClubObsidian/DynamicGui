@@ -10,8 +10,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 

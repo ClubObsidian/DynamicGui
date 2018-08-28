@@ -2,7 +2,7 @@ package com.clubobsidian.dynamicgui.economy;
 
 import java.math.BigDecimal;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public interface Economy {
 

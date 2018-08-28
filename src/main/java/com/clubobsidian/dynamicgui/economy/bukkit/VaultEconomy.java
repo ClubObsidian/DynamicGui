@@ -9,7 +9,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 
 import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public class VaultEconomy implements Economy {
 

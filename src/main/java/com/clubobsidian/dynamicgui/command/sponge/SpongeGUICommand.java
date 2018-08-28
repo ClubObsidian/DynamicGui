@@ -9,8 +9,8 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class SpongeGUICommand implements CommandExecutor {

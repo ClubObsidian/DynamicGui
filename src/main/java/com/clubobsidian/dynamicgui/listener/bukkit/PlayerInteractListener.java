@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.bukkit.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.world.bukkit.BukkitLocationWrapper;
 

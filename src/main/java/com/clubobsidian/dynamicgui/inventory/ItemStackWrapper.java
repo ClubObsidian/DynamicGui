@@ -3,7 +3,7 @@ package com.clubobsidian.dynamicgui.inventory;
 import java.io.Serializable;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 
 public abstract class ItemStackWrapper<T> implements Serializable {
 

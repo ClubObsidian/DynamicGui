@@ -3,7 +3,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;

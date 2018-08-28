@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
 public class NoPermission extends Function {

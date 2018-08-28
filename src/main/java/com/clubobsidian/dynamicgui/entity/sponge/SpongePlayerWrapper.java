@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.entity.player.sponge;
+package com.clubobsidian.dynamicgui.entity.sponge;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +19,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;

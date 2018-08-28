@@ -8,9 +8,9 @@ import org.spongepowered.api.event.filter.cause.First;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongeEntityWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 
 public class EntityClickListener {
 

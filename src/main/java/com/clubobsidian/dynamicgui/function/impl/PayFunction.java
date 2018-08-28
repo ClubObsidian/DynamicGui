@@ -3,7 +3,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import java.math.BigDecimal;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
 public class PayFunction extends Function {

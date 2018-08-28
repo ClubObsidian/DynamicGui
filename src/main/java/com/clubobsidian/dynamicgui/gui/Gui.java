@@ -8,13 +8,12 @@ import java.util.Map;
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.objects.ModeEnum;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 

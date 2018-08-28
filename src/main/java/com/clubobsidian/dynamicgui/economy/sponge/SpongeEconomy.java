@@ -12,7 +12,7 @@ import org.spongepowered.api.service.economy.account.UniqueAccount;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 
 import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.plugin.sponge.SpongePlugin;
 
 public class SpongeEconomy implements Economy {

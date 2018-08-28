@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.function;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 /**
  * 

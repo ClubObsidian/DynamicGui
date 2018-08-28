@@ -13,8 +13,8 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 

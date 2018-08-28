@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.builder;
 
-import com.clubobsidian.dynamicgui.objects.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 
 public class MyEnchantmentBuilder {
 	

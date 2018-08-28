@@ -11,8 +11,8 @@ import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.player.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.world.sponge.SpongeLocationWrapper;

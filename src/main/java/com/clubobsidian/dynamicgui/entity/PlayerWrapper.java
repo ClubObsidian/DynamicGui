@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.entity.player;
+package com.clubobsidian.dynamicgui.entity;
 
 import java.util.UUID;
 

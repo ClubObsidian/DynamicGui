@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.SerializationUtils;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Slot;
 

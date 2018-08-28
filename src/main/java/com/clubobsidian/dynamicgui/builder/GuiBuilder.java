@@ -7,8 +7,8 @@ import java.util.Map;
 
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.objects.ModeEnum;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class GuiBuilder  {

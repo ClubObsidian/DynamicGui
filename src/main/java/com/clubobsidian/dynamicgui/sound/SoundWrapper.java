@@ -1,8 +1,8 @@
-package com.clubobsidian.dynamicgui.objects;
+package com.clubobsidian.dynamicgui.sound;
 
 import java.io.Serializable;
 
-import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public class SoundWrapper implements Serializable {
 
