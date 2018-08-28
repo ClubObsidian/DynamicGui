@@ -56,6 +56,12 @@ public class DynamicGUI  {
 	public static final String TAG = "DynamicGuiSlot";
 
 	private static DynamicGUI instance = null;
+
+	//Initialized on init
+	private String noGui;
+	private String version;
+	private boolean bungeecord;
+	private boolean redis;
 	
 	private EventManager eventManager;
 	private DynamicGUIPlugin plugin;
@@ -79,14 +85,14 @@ public class DynamicGUI  {
 		this.registerListeners();
 		this.loadReplacers();
 	}
-	
+
 	private void setupFileStructure()
 	{
 		if(!this.plugin.getDataFolder().exists())
 		{
 			this.plugin.getDataFolder().mkdirs();
 		}
-		
+
 		if(!this.plugin.getGuiFolder().exists())
 		{
 			this.plugin.getGuiFolder().mkdirs();
@@ -101,7 +107,7 @@ public class DynamicGUI  {
 			{
 				FileUtils
 				.copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"), 
-				this.plugin.getConfigFile());
+						this.plugin.getConfigFile());
 			} 
 			catch (IOException e) 
 			{
@@ -117,7 +123,7 @@ public class DynamicGUI  {
 	{
 		GuiManager.get(); //Initialize manager
 	}
-	
+
 	public void checkForProxy()
 	{
 		if(this.version.equalsIgnoreCase("bungee"))
@@ -134,7 +140,7 @@ public class DynamicGUI  {
 			this.getLogger().info("BungeeCord is not enabled!");
 		}
 	}
-	
+
 	private void registerListeners() 
 	{
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.EntityClickListener());
@@ -143,7 +149,7 @@ public class DynamicGUI  {
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryOpenListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.PlayerInteractListener());
 	}
-	
+
 	private void loadFunctions()
 	{
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
@@ -167,7 +173,7 @@ public class DynamicGUI  {
 		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
 		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
 	}
-	
+
 	private void loadReplacers()
 	{
 		ReplacerManager.get().addReplacer(new PlayerReplacer("%player%"));
@@ -177,33 +183,23 @@ public class DynamicGUI  {
 	}
 
 	private List<String> registeredCommands = new ArrayList<>();
-	
-	private String noPermissionFunction;
-	private String noPermissionGui;
-	private String noMoney;
-	private String noExp;
-	private String noPoints;
-	private String noGui;
-	
-	private String version;
-	
+
 	//private CommandMap cm = null;
-	
-	private boolean bungeecord;
-	private boolean redis;
+
+
 
 	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
-	
+
 	//TODO - port to dynamicgui plugins
 	/*@Override
 	public void onDisable()
 	{
-		
+
 		this.cleanupGuis();
 		this.cleanupCommands();
 	}*/
 
-	
+
 	private void startPlayerCountTimer()
 	{
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), new Runnable()
@@ -232,7 +228,7 @@ public class DynamicGUI  {
 		,1L, 20L);
 	}
 
-	
+
 	private void cleanupGuis()
 	{
 		try 
@@ -258,7 +254,7 @@ public class DynamicGUI  {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*private void cleanupCommands()
 	{
 		if(this.getCommandMap() != null)
@@ -282,7 +278,7 @@ public class DynamicGUI  {
 		}
 	}*/
 
-	
+
 	private void registerBungee()
 	{
 		this.bungeecord = true;
@@ -291,7 +287,7 @@ public class DynamicGUI  {
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord");
 		this.startPlayerCountTimer();
 	}
-	
+
 	private void registerRedis()
 	{
 		this.redis = true;
@@ -301,7 +297,7 @@ public class DynamicGUI  {
 		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee");
 		this.startPlayerCountTimer();
 	}
-	
+
 	/*private final CommandMap getCommandMap()
 	{
 		if (this.cm == null) 
@@ -357,32 +353,32 @@ public class DynamicGUI  {
 	{
 		return this.bungeecord;
 	}
-	
+
 	public boolean getRedisBungee()
 	{
 		return this.redis;
 	}
-	
+
 	public DynamicGUIPlugin getPlugin()
 	{
 		return this.plugin;
 	}
-	
+
 	public EventManager getEventManager()
 	{
 		return this.eventManager;
 	}
-	
+
 	public FakeServer getServer()
 	{
 		return this.server;
 	}
-	
+
 	public LoggerWrapper<?> getLogger()
 	{
 		return this.loggerWrapper;
 	}
-	
+
 	public Integer getGlobalServerPlayerCount()
 	{
 		Integer playerCount = 0;
@@ -392,17 +388,17 @@ public class DynamicGUI  {
 		}
 		return playerCount;
 	}
-	
+
 	public Integer getServerPlayerCount(String server)
 	{
 		return this.serverPlayerCount.get(server);
 	}
-	
+
 	public static DynamicGUI get() 
 	{
 		return instance;
 	}
-	
+
 	public static DynamicGUI createInstance(DynamicGUIPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		if(DynamicGUI.instance == null)
