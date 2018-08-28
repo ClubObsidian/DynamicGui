@@ -6,7 +6,7 @@ import com.clubobsidian.dynamicgui.DynamicGUI;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.gui.Gui2;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -53,7 +53,7 @@ public class InventoryClickListener implements Listener {
 
 		DynamicGUI.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
-		Gui2 gui = GuiManager.get().getCurrentGui(player);
+		Gui gui = GuiManager.get().getCurrentGui(player);
 		Slot slot = null;
 		for(Slot s : gui.getSlots())
 		{

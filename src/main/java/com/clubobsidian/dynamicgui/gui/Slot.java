@@ -42,7 +42,7 @@ public class Slot implements Serializable, FunctionOwner {
 	private Boolean close;
 	private int amount;
 	private ItemStackWrapper<?> itemStack;
-	private Gui2 owner;
+	private Gui owner;
 
 	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
 	{
@@ -224,12 +224,12 @@ public class Slot implements Serializable, FunctionOwner {
 		return this.itemStack;
 	}
 	
-	public void setOwner(Gui2 gui)
+	public void setOwner(Gui gui)
 	{
 		this.owner = gui;
 	}
 	
-	public Gui2 getOwner()
+	public Gui getOwner()
 	{
 		return this.owner;
 	}

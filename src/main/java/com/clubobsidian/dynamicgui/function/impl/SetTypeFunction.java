@@ -3,7 +3,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.gui.Gui2;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
@@ -34,7 +34,7 @@ public class SetTypeFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					Gui2 gui = GuiManager.get().getCurrentGui(playerWrapper);
+					Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
 					if(inv != null && gui != null)
 					{
 						for(Slot s : gui.getSlots())
