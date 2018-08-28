@@ -6,7 +6,7 @@ import java.util.Map;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.Gui2;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
@@ -38,7 +38,7 @@ public class SetEnchantsFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+					Gui2 gui = GuiManager.get().getCurrentGui(playerWrapper);
 					if(inv != null)
 					{
 						for(Slot s : gui.getSlots())

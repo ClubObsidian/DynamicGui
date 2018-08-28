@@ -19,7 +19,7 @@ import com.clubobsidian.dynamicgui.configuration.ConfigurationSection;
 import com.clubobsidian.dynamicgui.entity.player.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.EmptyFunction;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.Gui2;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
@@ -34,8 +34,8 @@ public class GuiManager {
 
 	private static GuiManager instance;
 	
-	private List<Gui> guis;
-	private Map<UUID, Gui> playerGuis;
+	private List<Gui2> guis;
+	private Map<UUID, Gui2> playerGuis;
 	
 	private GuiManager()
 	{
@@ -55,7 +55,7 @@ public class GuiManager {
 	
 	public boolean hasGuiName(String name)
 	{
-		for(Gui gui : this.guis)
+		for(Gui2 gui : this.guis)
 		{
 			if(gui.getName().equals(name))
 				return true;
@@ -63,9 +63,9 @@ public class GuiManager {
 		return false;
 	}
 	
-	public Gui getGuiByName(String name)
+	public Gui2 getGuiByName(String name)
 	{
-		for(Gui gui : this.guis)
+		for(Gui2 gui : this.guis)
 		{
 			if(gui.getName().equals(name))
 			{
@@ -82,7 +82,7 @@ public class GuiManager {
 		this.loadGuis();
 	}
 	
-	public List<Gui> getGuis()
+	public List<Gui2> getGuis()
 	{
 		return this.guis;
 	}
@@ -97,7 +97,7 @@ public class GuiManager {
 		this.playerGuis.remove(playerWrapper.getUniqueId());
 	}
 
-	public Gui getCurrentGui(PlayerWrapper<?> playerWrapper)
+	public Gui2 getCurrentGui(PlayerWrapper<?> playerWrapper)
 	{
 		return this.playerGuis.get(playerWrapper.getUniqueId());
 	}
@@ -107,7 +107,7 @@ public class GuiManager {
 		return this.openGui(playerWrapper, this.getGuiByName(guiName));
 	}
 	
-	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui)
+	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui2 gui)
 	{
 		if(gui == null)
 		{
@@ -115,7 +115,7 @@ public class GuiManager {
 			return false;
 		}
 		
-		Gui clonedGUI = gui.clone();
+		Gui2 clonedGUI = gui.clone();
 		boolean ran = FunctionUtil.tryFunctions(clonedGUI, playerWrapper);
 		
 		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
@@ -222,7 +222,7 @@ public class GuiManager {
 		int rows = config.getInt("rows");
 		List<Slot> slots = this.createSlots(rows, config);
 		
-		final Gui gui = this.createGui(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
+		final Gui2 gui = this.createGui(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
 
 		this.guis.add(gui);
 		DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
@@ -400,7 +400,7 @@ public class GuiManager {
 		return slots;
 	}
 	
-	private Gui createGui(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private Gui2 createGui(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		if(yaml.get("alias") != null)
@@ -442,6 +442,6 @@ public class GuiManager {
 		List<Function> functions = this.createFunctions(yaml, "functions");
 		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
 		
-		return new Gui(guiName, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
+		return new Gui2(guiName, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
 	}
 }

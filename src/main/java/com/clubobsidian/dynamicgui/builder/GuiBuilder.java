@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.Gui2;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.objects.ModeEnum;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -111,8 +111,8 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public Gui build()
+	public Gui2 build()
 	{
-		return new Gui(this.name, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
+		return new Gui2(this.name, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
 	}
 }
