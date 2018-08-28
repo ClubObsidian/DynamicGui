@@ -311,8 +311,6 @@ public class GuiManager {
 				Map<String,List<Function>> middleClickFailFunctions = this.createFailFunctions(section, "-middleclickfailfunctions");
 				//fail functions
 				
-			
-				
 				List<Function> loadFunctions = new ArrayList<>();
 				if(section.get("loadfunctions") != null)
 				{
@@ -375,22 +373,10 @@ public class GuiManager {
 						enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
 					}
 				}
-
-				String permission = null;
-				if(section.get("permission") != null)
-				{
-					permission = ChatColor.translateAlternateColorCodes('&',section.getString("permission"));
-				}
-
 				int amount = 1;
 				if(section.get("amount") != null)
 				{
 					amount = section.getInt("amount");
-				}
-				String pMessage = null;
-				if(section.get("pmessage") != null)
-				{
-					pMessage = ChatColor.translateAlternateColorCodes('&',section.getString("pmessage"));
 				}
 
 				Boolean close = null;
@@ -407,7 +393,7 @@ public class GuiManager {
 
 				
 				
-				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants,permission,pMessage, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, amount));
+				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, amount));
 			}
 		}
 		

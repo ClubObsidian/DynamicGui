@@ -39,20 +39,18 @@ public class Slot implements Serializable, FunctionOwner {
 	private Map<String, List<Function>> middleClickFailFunctions;
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
-	private String permission;
-	private String pMessage;
 	private Boolean close;
 	private int amount;
 	private ItemStackWrapper<?> itemStack;
 	private Gui owner;
 
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants,String permission, String pMessage, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
 	{
-		this(icon, name, nbt, data, close, lore, enchants, permission, pMessage, index, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, 1);
+		this(icon, name, nbt, data, close, lore, enchants, index, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, 1);
 		//, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, 
 	}
 	
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants,String permission, String pMessage, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
+	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
 	{
 		this.icon = icon;
 		this.failFunctions = failFunctions;
@@ -70,8 +68,6 @@ public class Slot implements Serializable, FunctionOwner {
 		this.nbt = nbt;
 		this.lore = lore;
 		this.enchants = enchants;
-		this.permission = permission;
-		this.pMessage = pMessage;
 		this.close = close;
 		this.index = index;
 		this.amount = amount;
@@ -170,21 +166,6 @@ public class Slot implements Serializable, FunctionOwner {
 	public List<Function> getLoadFunctions()
 	{
 		return this.loadFunctions;
-	}
-	
-	public String getPermission()
-	{
-		return this.permission;
-	}
-	
-	public String pMessage()
-	{
-		return this.permission;
-	}
-	
-	public String getpMessage()
-	{
-		return this.pMessage;
 	}
 	
 	public Boolean getClose()

@@ -20,8 +20,6 @@ public class SlotBuilder {
 	private Boolean close;
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
-	private String permission;
-	private String pMessage;
 	private int index;
 	
 	private List<Function> functions = new ArrayList<>();
@@ -241,6 +239,6 @@ public class SlotBuilder {
 	
 	public Slot build()
 	{
-		return new Slot(this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.permission, this.pMessage, this.index, this.functions, this.failFunctions, this.leftClickFunctions, this.leftClickFailFunctions, this.rightClickFunctions, this.rightClickFailFunctions, this.middleClickFunctions, this.middleClickFailFunctions, this.loadFunctions, this.failLoadFunctions, this.amount);
+		return new Slot(this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.index, this.functions, this.failFunctions, this.leftClickFunctions, this.leftClickFailFunctions, this.rightClickFunctions, this.rightClickFailFunctions, this.middleClickFunctions, this.middleClickFailFunctions, this.loadFunctions, this.failLoadFunctions, this.amount);
 	}
 }
