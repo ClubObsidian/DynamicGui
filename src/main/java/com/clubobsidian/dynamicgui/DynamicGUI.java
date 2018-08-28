@@ -31,7 +31,7 @@ import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
-import com.clubobsidian.dynamicgui.gui.GUI;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -239,7 +239,7 @@ public class DynamicGUI  {
 		{
 			Field guis = GuiManager.class.getDeclaredField("guis");
 			guis.setAccessible(true);
-			guis.set(null, new ArrayList<GUI>());
+			guis.set(null, new ArrayList<Gui>());
 		} 
 		catch (NoSuchFieldException e) 
 		{
