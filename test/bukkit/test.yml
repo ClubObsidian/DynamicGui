@@ -7,6 +7,12 @@ locations:
 npc-ids:
 - '0'
 
+functions:
+- "permission: gui.test"
+- "sound: LAVA,1.0,1.0"
+
+permission-failfunctions:
+- "pmsg: &4You do not have access to this gui!"
 
 '0':
   icon: "EXP_BOTTLE"
