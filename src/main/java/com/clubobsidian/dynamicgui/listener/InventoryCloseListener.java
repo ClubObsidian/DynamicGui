@@ -12,27 +12,27 @@ public class InventoryCloseListener implements Listener {
 	@EventHandler
 	public void inventoryClose(final InventoryCloseEvent e)
 	{
-		if(GuiManager.get().hasGUICurrently(e.getPlayerWrapper()))
+		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-			GuiManager.get().cleanupGUI(e.getPlayerWrapper());
+			GuiManager.get().cleanupGui(e.getPlayerWrapper());
 		}
 	}
 
 	@EventHandler
 	public void onQuit(final PlayerQuitEvent e)
 	{
-		if(GuiManager.get().hasGUICurrently(e.getPlayerWrapper()))
+		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-			GuiManager.get().cleanupGUI(e.getPlayerWrapper());
+			GuiManager.get().cleanupGui(e.getPlayerWrapper());
 		}
 	}
 	
 	@EventHandler
 	public void onKick(final PlayerKickEvent e)
 	{
-		if(GuiManager.get().hasGUICurrently(e.getPlayerWrapper()))
+		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-			GuiManager.get().cleanupGUI(e.getPlayerWrapper());
+			GuiManager.get().cleanupGui(e.getPlayerWrapper());
 		}
 	}
 }

@@ -33,7 +33,7 @@ public class SetDataFunction extends Function {
 				if(playerWrapper.getOpenInventoryWrapper() != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					Gui gui = GuiManager.get().getCurrentGUI(playerWrapper);
+					Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
 					if(inv != null && gui != null)
 					{
 						for(Slot s : gui.getSlots())

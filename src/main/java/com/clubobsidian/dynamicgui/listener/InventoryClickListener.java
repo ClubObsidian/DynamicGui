@@ -26,9 +26,9 @@ public class InventoryClickListener implements Listener {
 			return;
 		}
 		
-		if(!GuiManager.get().hasGUICurrently(e.getPlayerWrapper()))
+		if(!GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-			DynamicGUI.get().getLogger().info("Does not have a gui currently open " + GuiManager.get().hasGUICurrently(e.getPlayerWrapper()));
+			DynamicGUI.get().getLogger().info("Does not have a gui currently open " + GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()));
 			return;
 		}
 		
@@ -53,7 +53,7 @@ public class InventoryClickListener implements Listener {
 
 		DynamicGUI.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
-		Gui gui = GuiManager.get().getCurrentGUI(player);
+		Gui gui = GuiManager.get().getCurrentGui(player);
 		Slot slot = null;
 		for(Slot s : gui.getSlots())
 		{

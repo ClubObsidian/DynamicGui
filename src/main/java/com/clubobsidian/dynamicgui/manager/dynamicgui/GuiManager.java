@@ -87,17 +87,17 @@ public class GuiManager {
 		return this.guis;
 	}
 	
-	public boolean hasGUICurrently(PlayerWrapper<?> playerWrapper)
+	public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper)
 	{
 		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
 	}
 	
-	public void cleanupGUI(PlayerWrapper<?> playerWrapper)
+	public void cleanupGui(PlayerWrapper<?> playerWrapper)
 	{
 		this.playerGuis.remove(playerWrapper.getUniqueId());
 	}
 
-	public Gui getCurrentGUI(PlayerWrapper<?> playerWrapper)
+	public Gui getCurrentGui(PlayerWrapper<?> playerWrapper)
 	{
 		return this.playerGuis.get(playerWrapper.getUniqueId());
 	}
@@ -159,7 +159,7 @@ public class GuiManager {
 				{
 					Configuration yaml = Configuration.load(file);
 					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-					this.loadGUIFromConfiguration(guiName, yaml);
+					this.loadGuiFromConfiguration(guiName, yaml);
 				}	
 				catch(NullPointerException ex)
 				{
@@ -206,7 +206,7 @@ public class GuiManager {
 					File backupFile = new File(DynamicGUI.get().getPlugin().getGuiFolder(), guiName);
 					File tempFile = new File(tempDirectory, guiName);
 					Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
-					this.loadGUIFromConfiguration(guiName, guiConfiguration);
+					this.loadGuiFromConfiguration(guiName, guiConfiguration);
 				} 
 				catch (MalformedURLException e) 
 				{
@@ -216,7 +216,7 @@ public class GuiManager {
 		}
 	}
 	
-	private void loadGUIFromConfiguration(String guiName, Configuration config)
+	private void loadGuiFromConfiguration(String guiName, Configuration config)
 	{
 		String guiTitle = config.getString("gui-title");
 		int rows = config.getInt("rows");
