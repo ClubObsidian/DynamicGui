@@ -19,7 +19,7 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 
-public class GUI implements Serializable, FunctionOwner {
+public class Gui implements Serializable, FunctionOwner {
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class GUI implements Serializable, FunctionOwner {
 	private List<Integer> npcIds;
 	private List<Function> functions;
 	private Map<String, List<Function>> failFunctions;
-	public GUI(String name, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
+	public Gui(String name, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes(title);
@@ -269,7 +269,7 @@ public class GUI implements Serializable, FunctionOwner {
 		return this.failFunctions.get(key);
 	}
 	
-	public GUI clone()
+	public Gui clone()
 	{
 		return SerializationUtils.clone(this);
 	}

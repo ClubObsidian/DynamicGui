@@ -35,7 +35,7 @@ public class GuiFunction extends Function {
 			@Override
 			public void run()
 			{
-				GuiManager.get().openGUI(playerWrapper, gui);
+				GuiManager.get().openGui(playerWrapper, gui);
 			}
 		},2L);
 		return true;

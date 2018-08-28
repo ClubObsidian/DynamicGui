@@ -30,7 +30,7 @@ public class PlayerInteractListener implements Listener {
 								@Override
 								public void run()
 								{
-									GuiManager.get().openGUI(e.getPlayerWrapper(), gui);
+									GuiManager.get().openGui(e.getPlayerWrapper(), gui);
 								}
 							}, 1L);
 							break;

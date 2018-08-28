@@ -20,7 +20,7 @@ public class EntityClickListener implements Listener {
 			{
 				if(gui.getNpcIds().contains(DynamicGUI.get().getPlugin().getNPC(entityWrapper).getId()))
 				{
-					GuiManager.get().openGUI(e.getPlayerWrapper(), gui);
+					GuiManager.get().openGui(e.getPlayerWrapper(), gui);
 					break;
 				}
 			}

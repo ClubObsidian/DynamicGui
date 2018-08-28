@@ -20,7 +20,7 @@ public class BukkitGUICommand implements CommandExecutor {
 			{
 				Player player = (Player) sender;
 				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-				return GuiManager.get().openGUI(playerWrapper, args[0]);
+				return GuiManager.get().openGui(playerWrapper, args[0]);
 			}
 		}
 		return false;

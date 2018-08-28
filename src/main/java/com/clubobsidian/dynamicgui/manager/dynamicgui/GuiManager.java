@@ -102,12 +102,12 @@ public class GuiManager {
 		return this.playerGuis.get(playerWrapper.getUniqueId());
 	}
 	
-	public boolean openGUI(PlayerWrapper<?> playerWrapper, String guiName)
+	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName)
 	{
-		return this.openGUI(playerWrapper, this.getGuiByName(guiName));
+		return this.openGui(playerWrapper, this.getGuiByName(guiName));
 	}
 	
-	public boolean openGUI(PlayerWrapper<?> playerWrapper, Gui gui)
+	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui)
 	{
 		if(gui == null)
 		{
@@ -222,7 +222,7 @@ public class GuiManager {
 		int rows = config.getInt("rows");
 		List<Slot> slots = this.createSlots(rows, config);
 		
-		final Gui gui = this.createGUI(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
+		final Gui gui = this.createGui(config, DynamicGUI.get().getPlugin(), guiName, guiTitle, rows, slots);
 
 		this.guis.add(gui);
 		DynamicGUI.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
@@ -414,7 +414,7 @@ public class GuiManager {
 		return slots;
 	}
 	
-	private Gui createGUI(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private Gui createGui(final Configuration yaml, final DynamicGUIPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		if(yaml.get("alias") != null)
