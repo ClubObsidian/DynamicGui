@@ -30,12 +30,8 @@ public class FunctionUtil {
 		return true;
 	}
 	
-	public static void tryFunctions(Slot slot, Click InventoryClick, PlayerWrapper<?> playerWrapper)
-	{
-		tryFunctions(slot, InventoryClick, playerWrapper, 0);
-	}
 
-	private static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper, int startingIndex)
+	public static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
@@ -93,7 +89,7 @@ public class FunctionUtil {
 			}
 		}
 	}
-
+	
 	private static FunctionResponse tryFunctions(PlayerWrapper<?> playerWrapper, List<Function> functions, FunctionOwner owner)
 	{
 		FunctionResponse response = new FunctionResponse(true);
@@ -118,9 +114,12 @@ public class FunctionUtil {
 			{
 				ex.printStackTrace();
 			}
+			
+			//Runs the function
 			boolean result = myFunc.function(playerWrapper);
 			if(!result)
 			{
+				//If the function fails return a failed function response
 				response = new FunctionResponse(false, func.getName());
 				break;
 			}

@@ -1,5 +1,6 @@
 package com.clubobsidian.dynamicgui.entity.sponge;
 
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,7 +12,10 @@ import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
+import org.spongepowered.api.item.inventory.Container;
 import org.spongepowered.api.item.inventory.Inventory;
+import org.spongepowered.api.item.inventory.InventoryTransformations;
+import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
 import org.spongepowered.api.statistic.BlockStatistic;
 import org.spongepowered.api.statistic.StatisticTypes;
@@ -19,6 +23,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
@@ -99,7 +104,16 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	@Override
 	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
 	{
-		return new SpongeInventoryWrapper<Inventory>(this.getPlayer().getOpenInventory().get());
+		Container container = this.getPlayer().getOpenInventory().get();
+		
+		Iterator<Inventory> it = container.iterator();
+		while(it.hasNext())
+		{
+			Inventory next = it.next();
+			DynamicGui.get().getLogger().info("From sponge player wrapper:  " + next.getClass() + "  " + next + "  " + next.totalItems() + "  " + next.getArchetype() + "  " + next.getInventoryProperty(InventoryTitle.class).isPresent());
+		}
+		
+		return new SpongeInventoryWrapper<Inventory>(container.transform(InventoryTransformations.PLAYER_MAIN_HOTBAR_FIRST));
 	}
 
 	@Override

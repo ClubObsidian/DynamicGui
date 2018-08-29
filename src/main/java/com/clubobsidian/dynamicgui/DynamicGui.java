@@ -53,8 +53,6 @@ import com.google.common.io.ByteStreams;
 
 public class DynamicGui  {
 
-	public static final String TAG = "DynamicGuiSlot";
-
 	private static DynamicGui instance = null;
 
 	//Initialized on init

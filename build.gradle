@@ -43,7 +43,8 @@ shadowJar {
 	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
 	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
-    classifier = ''
+	baseName = 'DynamicGui'
+	classifier = ''
 }
 
 dependencies {
@@ -60,6 +61,6 @@ dependencies {
 	compile 'org.spongepowered:configurate-json:3.6'
 	compile 'org.spongepowered:configurate-hocon:3.6'
     compile 'org.apache.commons:commons-lang3:3.7'
-    compile 'commons-io:commons-io:2.6'
-    compile 'com.github.clubobsidian:trident:1.0.8'
+	compile 'commons-io:commons-io:2.6'
+	compile 'com.github.clubobsidian:trident:1.0.8'
 }
