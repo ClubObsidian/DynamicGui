@@ -7,7 +7,7 @@ import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.item.inventory.Inventory;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -20,7 +20,7 @@ public class InventoryCloseListener {
 	{
 		PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 		InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
-		DynamicGui2.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
+		DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
 	}
 	
 	//TODO - Check if kick event is needed
@@ -28,6 +28,6 @@ public class InventoryCloseListener {
 	public void onQuit(ClientConnectionEvent.Disconnect e, @First Player player)
 	{
 		PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>(player);
-		DynamicGui2.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
+		DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
 	}
 }

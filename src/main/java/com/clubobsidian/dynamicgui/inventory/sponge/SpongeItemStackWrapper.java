@@ -12,7 +12,7 @@ import org.spongepowered.api.item.enchantment.EnchantmentType;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
@@ -41,17 +41,17 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		if(itemType.isPresent())
 		{
 			ItemType itemStackType = itemType.get();
-			DynamicGui2.get().getLogger().info("type: " + type + " is null: " + itemStackType);
+			DynamicGui.get().getLogger().info("type: " + type + " is null: " + itemStackType);
 			ItemStack itemStack = ItemStack.builder()
 					.itemType(itemStackType)
 					.from(this.getItemStack())
 					.itemType(itemStackType)
 					.build();
 			this.setItemStack(itemStack);
-			DynamicGui2.get().getLogger().info("This itemstack is null or is it: " + itemStack.toString());
+			DynamicGui.get().getLogger().info("This itemstack is null or is it: " + itemStack.toString());
 		}
-		DynamicGui2.get().getLogger().info("From setType, itemstack: " + this.getItemStack().toString());
-		DynamicGui2.get().getLogger().info("Item type is present: " + itemType.isPresent());
+		DynamicGui.get().getLogger().info("From setType, itemstack: " + this.getItemStack().toString());
+		DynamicGui.get().getLogger().info("Item type is present: " + itemType.isPresent());
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
-public class SpongeGuiCommand2 implements CommandExecutor {
+public class SpongeGuiCommand implements CommandExecutor {
 
 	@Override
 	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException 

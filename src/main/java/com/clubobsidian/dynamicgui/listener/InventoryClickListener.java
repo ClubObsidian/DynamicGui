@@ -2,7 +2,7 @@ package com.clubobsidian.dynamicgui.listener;
 
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.function.Function;
@@ -22,36 +22,36 @@ public class InventoryClickListener implements Listener {
 	{
 		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
 		{
-			DynamicGui2.get().getLogger().info("Does not have an inventory currently open");
+			DynamicGui.get().getLogger().info("Does not have an inventory currently open");
 			return;
 		}
 		
 		if(!GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-			DynamicGui2.get().getLogger().info("Does not have a gui currently open " + GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()));
+			DynamicGui.get().getLogger().info("Does not have a gui currently open " + GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()));
 			return;
 		}
 		
 		e.setCanceled(true);
 		
-		DynamicGui2.get().getLogger().info("From trident index is: " + e.getSlot());
-		DynamicGui2.get().getLogger().info("From trident title is: " + e.getInventoryWrapper().getTitle());
+		DynamicGui.get().getLogger().info("From trident index is: " + e.getSlot());
+		DynamicGui.get().getLogger().info("From trident title is: " + e.getInventoryWrapper().getTitle());
 		
 		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
 		if(item.getItemStack() == null)
 		{
-			DynamicGui2.get().getLogger().info("ItemStack is null");
+			DynamicGui.get().getLogger().info("ItemStack is null");
 			return;
 		}
 		else
 		{
-			DynamicGui2.get().getLogger().info("From trident, itemstack is: " + item.getItemStack());
+			DynamicGui.get().getLogger().info("From trident, itemstack is: " + item.getItemStack());
 		}
 
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;
 
-		DynamicGui2.get().getLogger().info("Click is not null");
+		DynamicGui.get().getLogger().info("Click is not null");
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		Gui gui = GuiManager.get().getCurrentGui(player);
 		Slot slot = null;

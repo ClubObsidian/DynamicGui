@@ -36,7 +36,7 @@ import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
@@ -51,11 +51,11 @@ import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
-public class DynamicGui2  {
+public class DynamicGui  {
 
 	public static final String TAG = "DynamicGuiSlot";
 
-	private static DynamicGui2 instance = null;
+	private static DynamicGui instance = null;
 
 	//Initialized on init
 	private String noGui;
@@ -64,10 +64,10 @@ public class DynamicGui2  {
 	private boolean redis;
 	
 	private EventManager eventManager;
-	private DynamicGuiPlugin2 plugin;
+	private DynamicGuiPlugin plugin;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
-	private DynamicGui2(DynamicGuiPlugin2 plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
 		this.eventManager = new JavaAssistEventManager();
 		this.plugin = plugin;
@@ -209,7 +209,7 @@ public class DynamicGui2  {
 			{
 				for(String server : serverPlayerCount.keySet())
 				{
-					PlayerWrapper<?> player = Iterables.getFirst(DynamicGui2.get().getServer().getOnlinePlayers(), null);
+					PlayerWrapper<?> player = Iterables.getFirst(DynamicGui.get().getServer().getOnlinePlayers(), null);
 					if(player != null)
 					{
 						ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -220,7 +220,7 @@ public class DynamicGui2  {
 						{
 							toSend = "RedisBungee";
 						}
-						player.sendPluginMessage(DynamicGui2.get().getPlugin(), toSend, out.toByteArray());
+						player.sendPluginMessage(DynamicGui.get().getPlugin(), toSend, out.toByteArray());
 					}
 				}
 			}
@@ -359,7 +359,7 @@ public class DynamicGui2  {
 		return this.redis;
 	}
 
-	public DynamicGuiPlugin2 getPlugin()
+	public DynamicGuiPlugin getPlugin()
 	{
 		return this.plugin;
 	}
@@ -394,19 +394,19 @@ public class DynamicGui2  {
 		return this.serverPlayerCount.get(server);
 	}
 
-	public static DynamicGui2 get() 
+	public static DynamicGui get() 
 	{
 		return instance;
 	}
 
-	public static DynamicGui2 createInstance(DynamicGuiPlugin2 plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	public static DynamicGui createInstance(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
-		if(DynamicGui2.instance == null)
+		if(DynamicGui.instance == null)
 		{
-			DynamicGui2.instance = new DynamicGui2(plugin, server, loggerWrapper);
-			DynamicGui2.instance.init();
-			return DynamicGui2.instance;
+			DynamicGui.instance = new DynamicGui(plugin, server, loggerWrapper);
+			DynamicGui.instance.init();
+			return DynamicGui.instance;
 		}
-		return DynamicGui2.instance;
+		return DynamicGui.instance;
 	}
 }

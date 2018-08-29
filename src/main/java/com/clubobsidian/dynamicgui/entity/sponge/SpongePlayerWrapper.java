@@ -22,7 +22,7 @@ import org.spongepowered.api.world.World;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
@@ -115,7 +115,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 
 	@Override
-	public void sendPluginMessage(DynamicGuiPlugin2 plugin, String channel, byte[] message) 
+	public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) 
 	{	
 		RawDataChannel pluginChannel = Sponge.getGame().getChannelRegistrar().getOrCreateRaw(plugin, channel);
 		pluginChannel.sendTo(this.getPlayer(), buf -> buf.writeByteArray(message));

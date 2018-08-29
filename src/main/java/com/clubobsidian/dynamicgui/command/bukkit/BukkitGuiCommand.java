@@ -9,7 +9,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
-public class BukkitGuiCommand2 implements CommandExecutor {
+public class BukkitGuiCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) 

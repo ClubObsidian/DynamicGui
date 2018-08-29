@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
@@ -20,7 +20,7 @@ public class ConsoleCmdFunction extends Function {
 	@Override
 	public boolean function(final PlayerWrapper<?> playerWrapper)
 	{
-		DynamicGui2.get().getServer().dispatchServerCommand(ReplacerManager.get().replace(this.getData(), playerWrapper));
+		DynamicGui.get().getServer().dispatchServerCommand(ReplacerManager.get().replace(this.getData(), playerWrapper));
 		return true;
 	}
 }

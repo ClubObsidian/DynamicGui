@@ -4,13 +4,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.spongepowered.api.Sponge;
 
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 
 public class SpongeScheduler extends Scheduler {
 	
 	@Override
-	public void scheduleSyncDelayedTask(DynamicGuiPlugin2 plugin, Runnable runnable, Long delay) 
+	public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) 
 	{
 		delay = this.ticksToMillis(delay); 
 		Sponge.getScheduler().createSyncExecutor(plugin).schedule(runnable, delay, TimeUnit.MILLISECONDS);
@@ -18,7 +18,7 @@ public class SpongeScheduler extends Scheduler {
 
 	
 	@Override
-	public void scheduleSyncRepeatingTask(DynamicGuiPlugin2 plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
+	public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
 	{
 		delayInitial = this.ticksToMillis(delayInitial);
 		delayRepeating = this.ticksToMillis(delayRepeating);

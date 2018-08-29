@@ -6,7 +6,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
@@ -33,7 +33,7 @@ public class SpongeItemStackManager extends ItemStackManager {
 	{
 		if(itemStack == null)
 		{
-			DynamicGui2.get().getLogger().info("Created null itemstack from the itemstack manager");
+			DynamicGui.get().getLogger().info("Created null itemstack from the itemstack manager");
 			return new SpongeItemStackWrapper<ItemStack>(null);
 		}
 		return new SpongeItemStackWrapper<ItemStack>((ItemStack) itemStack);

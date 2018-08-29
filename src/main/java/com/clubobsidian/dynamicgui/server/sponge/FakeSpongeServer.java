@@ -9,10 +9,10 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-import com.clubobsidian.dynamicgui.DynamicGui2;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.sponge.SpongeScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -59,9 +59,9 @@ public class FakeSpongeServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		if(DynamicGui2.get().getRedisBungee() || DynamicGui2.get().getBungeeCord())
+		if(DynamicGui.get().getRedisBungee() || DynamicGui.get().getBungeeCord())
 		{
-			return DynamicGui2.get().getGlobalServerPlayerCount();
+			return DynamicGui.get().getGlobalServerPlayerCount();
 		}
 		return Sponge.getServer().getOnlinePlayers().size();
 	}
@@ -73,13 +73,13 @@ public class FakeSpongeServer extends FakeServer {
 	}
 
 	@Override
-	public void registerOutgoingPluginChannel(DynamicGuiPlugin2 plugin, String channel) {
+	public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGuiPlugin2 plugin, String channel) {
+	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel) {
 		// TODO Auto-generated method stub
 		
 	}
