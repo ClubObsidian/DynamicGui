@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.configuration.Configuration;
 import com.clubobsidian.dynamicgui.configuration.ConfigurationSection;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
@@ -25,7 +25,7 @@ import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -77,7 +77,7 @@ public class GuiManager {
 
 	public void reloadGuis()
 	{
-		DynamicGui.get().getLogger().info("Force reloading guis!");
+		DynamicGui2.get().getLogger().info("Force reloading guis!");
 		this.guis.clear();
 		this.loadGuis();
 	}
@@ -111,7 +111,7 @@ public class GuiManager {
 	{
 		if(gui == null)
 		{
-			playerWrapper.sendMessage(DynamicGui.get().getNoGui());
+			playerWrapper.sendMessage(DynamicGui2.get().getNoGui());
 			return false;
 		}
 		
@@ -127,7 +127,7 @@ public class GuiManager {
 		{
 			playerWrapper.openInventory(inventoryWrapper);
 			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
-			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
+			DynamicGui2.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui2.get().getPlugin(), new Runnable()
 			{
 				@Override
 				public void run()
@@ -147,7 +147,7 @@ public class GuiManager {
 	
 	private void loadFileGuis()
 	{
-		File guiFolder = DynamicGui.get().getPlugin().getGuiFolder();
+		File guiFolder = DynamicGui2.get().getPlugin().getGuiFolder();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "yaml", "json", "hocon"}, true);
 		
@@ -163,21 +163,21 @@ public class GuiManager {
 				}	
 				catch(NullPointerException ex)
 				{
-					DynamicGui.get().getLogger().info("Error loading in file: " + file.getName());
+					DynamicGui2.get().getLogger().info("Error loading in file: " + file.getName());
 					ex.printStackTrace();
 				}	
 			}
 		} 
 		else 
 		{
-			DynamicGui.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
+			DynamicGui2.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
 		}
 	}
 	
 	public void loadRemoteGuis()
 	{
-		File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
-		File tempDirectory = new File(DynamicGui.get().getPlugin().getDataFolder(), "temp");
+		File configFile = new File(DynamicGui2.get().getPlugin().getDataFolder(), "config.yml");
+		File tempDirectory = new File(DynamicGui2.get().getPlugin().getDataFolder(), "temp");
 		if(tempDirectory.exists())
 		{
 			try 
@@ -203,7 +203,7 @@ public class GuiManager {
 				{
 					URL url = new URL(strUrl);
 					String guiName = guiSection.getString("file-name");
-					File backupFile = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
+					File backupFile = new File(DynamicGui2.get().getPlugin().getGuiFolder(), guiName);
 					File tempFile = new File(tempDirectory, guiName);
 					Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
 					this.loadGuiFromConfiguration(guiName, guiConfiguration);
@@ -222,10 +222,10 @@ public class GuiManager {
 		int rows = config.getInt("rows");
 		List<Slot> slots = this.createSlots(rows, config);
 		
-		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiTitle, rows, slots);
+		final Gui gui = this.createGui(config, DynamicGui2.get().getPlugin(), guiName, guiTitle, rows, slots);
 
 		this.guis.add(gui);
-		DynamicGui.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
+		DynamicGui2.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
 	}
 	
 	private Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
@@ -240,7 +240,7 @@ public class GuiManager {
 				{
 					String[] array = FunctionManager.get().parseData(string);
 					if(FunctionManager.get().getFunctionByName(array[0]) == null)
-						DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+						DynamicGui2.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 					
 					Function func = new EmptyFunction(array[0], array[1]);
 					failFuncs.add(func);
@@ -269,7 +269,7 @@ public class GuiManager {
 			{
 				String[] array = FunctionManager.get().parseData(string);
 				if(FunctionManager.get().getFunctionByName(array[0]) == null)
-					DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					DynamicGui2.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 
 				Function func = new EmptyFunction(array[0], array[1]);
 				functions.add(func);
@@ -318,7 +318,7 @@ public class GuiManager {
 					{
 						String[] array = FunctionManager.get().parseData(string);
 						if(FunctionManager.get().getFunctionByName(array[0]) == null)
-							DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+							DynamicGui2.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 						
 						Function func = new EmptyFunction(array[0], array[1]);
 						loadFunctions.add(func);
@@ -335,7 +335,7 @@ public class GuiManager {
 						{
 							String[] array = FunctionManager.get().parseData(string);
 							if(FunctionManager.get().getFunctionByName(array[0]) == null)
-								DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+								DynamicGui2.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
 							
 							Function func = new EmptyFunction(array[0], array[1]);
 							failFuncs.add(func);
@@ -400,7 +400,7 @@ public class GuiManager {
 		return slots;
 	}
 	
-	private Gui createGui(final Configuration yaml, final DynamicGuiPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private Gui createGui(final Configuration yaml, final DynamicGuiPlugin2 plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		if(yaml.get("alias") != null)

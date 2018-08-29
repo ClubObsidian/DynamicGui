@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -30,7 +30,7 @@ public class GuiFunction extends Function {
 		if(!GuiManager.get().hasGuiName(gui))
 			return false;
 		
-		DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
+		DynamicGui2.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui2.get().getPlugin(), new Runnable()
 		{
 			@Override
 			public void run()

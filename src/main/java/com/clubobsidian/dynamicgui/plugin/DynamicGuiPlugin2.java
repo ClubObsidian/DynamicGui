@@ -6,7 +6,7 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.npc.NPCRegistry;
 
-public interface DynamicGUIPlugin extends NPCRegistry {
+public interface DynamicGuiPlugin2 extends NPCRegistry {
 
 	public void start();
 	public void stop();

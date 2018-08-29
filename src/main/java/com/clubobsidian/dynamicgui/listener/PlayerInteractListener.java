@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.listener;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.gui.Gui;
@@ -25,7 +25,7 @@ public class PlayerInteractListener implements Listener {
 					{
 						if(e.getLocationWrapper().equals(guiLocation))
 						{
-							DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
+							DynamicGui2.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui2.get().getPlugin(), new Runnable()
 							{
 								@Override
 								public void run()

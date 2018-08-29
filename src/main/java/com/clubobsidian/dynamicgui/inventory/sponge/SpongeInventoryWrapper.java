@@ -8,7 +8,7 @@ import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
@@ -41,7 +41,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 		{
 			return new SpongeItemStackWrapper<ItemStack>(item.get());
 		}
-		DynamicGui.get().getLogger().info("Item is not present for get item");
+		DynamicGui2.get().getLogger().info("Item is not present for get item");
 		return new SpongeItemStackWrapper<ItemStack>(null);
 	}
 	
@@ -49,11 +49,11 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
 		ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
-		DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
+		DynamicGui2.get().getLogger().info("Set itemstack is null: " + itemStack);
 		this.getInventory()
 		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
 		.set(itemStack);
-		DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
+		DynamicGui2.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
 	}
 	
 	@Override

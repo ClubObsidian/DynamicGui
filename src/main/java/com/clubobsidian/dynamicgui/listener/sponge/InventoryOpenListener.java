@@ -6,7 +6,7 @@ import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.inventory.Inventory;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -20,6 +20,6 @@ public class InventoryOpenListener {
 		PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 		InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
 		com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
-		DynamicGui.get().getEventManager().callEvent(inventoryOpenEvent);
+		DynamicGui2.get().getEventManager().callEvent(inventoryOpenEvent);
 	}
 }

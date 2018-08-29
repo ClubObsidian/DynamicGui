@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin2;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -61,9 +61,9 @@ public class FakeBukkitServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		if(DynamicGui.get().getRedisBungee() || DynamicGui.get().getBungeeCord())
+		if(DynamicGui2.get().getRedisBungee() || DynamicGui2.get().getBungeeCord())
 		{
-			return DynamicGui.get().getGlobalServerPlayerCount();
+			return DynamicGui2.get().getGlobalServerPlayerCount();
 		}
 		return Bukkit.getServer().getOnlinePlayers().size();
 	}
@@ -75,13 +75,13 @@ public class FakeBukkitServer extends FakeServer {
 	}
 
 	@Override
-	public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) 
+	public void registerOutgoingPluginChannel(DynamicGuiPlugin2 plugin, String channel) 
 	{
 		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, channel);
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel) 
+	public void registerIncomingPluginChannel(DynamicGuiPlugin2 plugin, String channel) 
 	{
 		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, channel, (PluginMessageListener) plugin);
 		// TODO Auto-generated method stub

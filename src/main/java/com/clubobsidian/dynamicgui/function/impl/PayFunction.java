@@ -2,7 +2,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 
 import java.math.BigDecimal;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.DynamicGui2;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
@@ -31,16 +31,16 @@ public class PayFunction extends Function {
 			ex.printStackTrace();
 			return false;
 		}
-		if(DynamicGui.get().getPlugin().getEconomy() == null)
+		if(DynamicGui2.get().getPlugin().getEconomy() == null)
 			return false;
 		
 		BigDecimal decimalAmt = new BigDecimal(amt);
-		if(DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1)
+		if(DynamicGui2.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1)
 		{
 			return false;
 		}
 
-		DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
+		DynamicGui2.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
 		return true;
 	}
 }
