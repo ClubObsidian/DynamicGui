@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 
 public abstract class FakeServer {
@@ -27,7 +27,7 @@ public abstract class FakeServer {
 	public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
 	public abstract int getGlobalPlayerCount();
 	public abstract ServerType getType();
-	public abstract void registerOutgoingPluginChannel(DynamicGUIPlugin plugin, String channel);
-	public abstract void registerIncomingPluginChannel(DynamicGUIPlugin plugin, String channel);
+	public abstract void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
+	public abstract void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel);
 	
 }

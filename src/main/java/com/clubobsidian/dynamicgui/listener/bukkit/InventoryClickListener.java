@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
@@ -42,7 +42,7 @@ public class InventoryClickListener implements Listener {
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
 
 			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
-			DynamicGUI.get().getEventManager().callEvent(clickEvent);
+			DynamicGui.get().getEventManager().callEvent(clickEvent);
 			if(clickEvent.isCanceled())
 			{
 				e.setCancelled(true);

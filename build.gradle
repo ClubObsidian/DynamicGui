@@ -33,7 +33,7 @@ sponge {
     plugin {
         id = 'dynamicgui'
         meta {
-			name = 'DynamicGUI'
+			name = 'DynamicGui'
 		}
     }
 }

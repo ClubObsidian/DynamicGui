@@ -15,7 +15,7 @@ import org.bukkit.plugin.Plugin;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
@@ -105,7 +105,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 	
 	@Override
-	public void sendPluginMessage(DynamicGUIPlugin plugin, String channel, byte[] message) 
+	public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) 
 	{
 		this.getPlayer().sendPluginMessage((Plugin) plugin, channel, message);
 	}

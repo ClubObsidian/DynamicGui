@@ -6,7 +6,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.InteractEntityEvent;
 import org.spongepowered.api.event.filter.cause.First;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongeEntityWrapper;
@@ -22,7 +22,7 @@ public class EntityClickListener {
 			PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>(player);
 			EntityWrapper<Entity> entityWrapper = new SpongeEntityWrapper<Entity>(e.getTargetEntity());
 
-			DynamicGUI.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+			DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
 		}
 	}
 }

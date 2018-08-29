@@ -5,7 +5,7 @@ import org.spongepowered.api.item.inventory.property.InventoryDimension;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
@@ -18,7 +18,7 @@ public class SpongeInventoryManager extends InventoryManager {
 		return Inventory.builder()
 				.property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
 				.property(InventoryDimension.PROPERTY_NAME, new InventoryDimension(9, size / 9))
-				.build(DynamicGUI.get().getPlugin());
+				.build(DynamicGui.get().getPlugin());
 	}
 
 	@Override

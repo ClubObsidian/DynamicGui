@@ -1,7 +1,7 @@
 package com.clubobsidian.dynamicgui.plugin.sponge;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.command.sponge.SpongeGUICommand;
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.command.sponge.SpongeGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.listener.sponge.EntityClickListener;
@@ -12,7 +12,7 @@ import com.clubobsidian.dynamicgui.listener.sponge.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.Sl4jLoggerWrapper;
 import com.clubobsidian.dynamicgui.npc.NPC;
 import com.clubobsidian.dynamicgui.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.sponge.FakeSpongeServer;
 import com.google.inject.Inject;
 
@@ -32,8 +32,8 @@ import org.spongepowered.api.text.Text;
 
 import org.slf4j.Logger;
 
-@Plugin(id = "dynamicgui", name = "DynamicGUI", version = "1.0")
-public class SpongePlugin implements DynamicGUIPlugin {
+@Plugin(id = "dynamicgui", name = "DynamicGui", version = "1.0")
+public class SpongePlugin implements DynamicGuiPlugin {
 
 	@Inject
 	private Logger logger;
@@ -67,9 +67,9 @@ public class SpongePlugin implements DynamicGUIPlugin {
 		this.configFile = new File(this.dataFolder, "config.yml");
 		this.guiFolder = new File(this.dataFolder, "guis");
 		
-		DynamicGUI.createInstance(this, new FakeSpongeServer(), new Sl4jLoggerWrapper<Logger>(this.logger));
+		DynamicGui.createInstance(this, new FakeSpongeServer(), new Sl4jLoggerWrapper<Logger>(this.logger));
 		CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
-				.executor(new SpongeGUICommand())
+				.executor(new SpongeGuiCommand())
 				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("gui"))))
 				.build();
 		

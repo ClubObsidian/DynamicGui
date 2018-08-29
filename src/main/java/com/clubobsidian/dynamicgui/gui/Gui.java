@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.SerializationUtils;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -99,7 +99,7 @@ public class Gui implements Serializable, FunctionOwner {
 					}
 					else
 					{
-						DynamicGUI.get().getLogger().error("Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
+						DynamicGui.get().getLogger().error("Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
 						run = false;
 					}
 					if(!run)

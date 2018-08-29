@@ -8,8 +8,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.clubobsidian.dynamicgui.DynamicGUI;
-import com.clubobsidian.dynamicgui.command.bukkit.BukkitGUICommand;
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.command.bukkit.BukkitGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
@@ -22,10 +22,10 @@ import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.npc.NPC;
 import com.clubobsidian.dynamicgui.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.npc.citizens.CitizensRegistry;
-import com.clubobsidian.dynamicgui.plugin.DynamicGUIPlugin;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
 
-public class BukkitPlugin extends JavaPlugin implements DynamicGUIPlugin {
+public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
 	private File configFile;
 	private File guiFolder;
@@ -44,7 +44,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGUIPlugin {
 		this.configFile = new File(this.getDataFolder(), "config.yml");
 		this.guiFolder = new File(this.getDataFolder(), "guis");
 		
-		DynamicGUI.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
+		DynamicGui.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{
@@ -58,7 +58,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGUIPlugin {
 			this.getNPCRegistries().add(new CitizensRegistry());
 		}
 		
-		this.getCommand("gui").setExecutor(new BukkitGUICommand());
+		this.getCommand("gui").setExecutor(new BukkitGuiCommand());
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
