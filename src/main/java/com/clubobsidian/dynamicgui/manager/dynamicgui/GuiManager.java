@@ -361,7 +361,7 @@ public class GuiManager {
 				List<String> lore = null;
 				if(section.get("lore") != null)
 				{
-					lore = new ArrayList<String>();
+					lore = new ArrayList<>();
 					for(String ls : section.getStringList("lore"))
 					{
 						lore.add(ChatColor.translateAlternateColorCodes('&', ls));

@@ -73,3 +73,9 @@ permission-failfunctions:
   functions:
   - "settype: GRASS"
   - "broadcast: &aType test passed"
+'11':
+  icon: "DIAMOND_BLOCK"
+  name: "&2Pay test"
+  functions:
+  - "pay: 100"
+  - "broadcast: &aPay test passed"

@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
@@ -62,16 +63,17 @@ public class VaultEconomy implements Economy {
 			{
 				e.printStackTrace();
 			}
-			
-			try 
-			{
-				balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getPlayer());
-			} 
-			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
-			{
-				e.printStackTrace();
-			}
 		}
+		
+		try 
+		{
+			balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getPlayer());
+		} 
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		return new BigDecimal(balance);
 	}
 
@@ -95,8 +97,9 @@ public class VaultEconomy implements Economy {
 		}
 		
 		double amtDouble = amt.doubleValue();
-		double compareTo = this.getBalance(playerWrapper).doubleValue();
-		if(amtDouble >= compareTo)
+		double balance = this.getBalance(playerWrapper).doubleValue();
+		
+		if(balance >= amtDouble)
 		{
 			try 
 			{
