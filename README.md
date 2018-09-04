@@ -10,3 +10,4 @@ A rewrite of the plugin originally made for Club Obsidian.
   * Nukkit - Planned
 * A number of functions to use to customize menus.
 * Custom replacers for different data.
+* Guis can be written in yaml, json or hocon.
