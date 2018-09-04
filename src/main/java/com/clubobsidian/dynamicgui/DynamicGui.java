@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
-import com.clubobsidian.dynamicgui.configuration.Configuration;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
@@ -45,6 +44,8 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 
 import com.clubobsidian.trident.EventManager;
 import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
+
+import com.clubobsidian.wrappy.Configuration;
 
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;

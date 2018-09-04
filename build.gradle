@@ -56,11 +56,8 @@ dependencies {
     compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.0-BETA-59'){
     	exclude group: 'org.spongepowered', module: 'testmods'
     }
-    
-	compile 'org.spongepowered:configurate-yaml:3.6'
-	compile 'org.spongepowered:configurate-json:3.6'
-	compile 'org.spongepowered:configurate-hocon:3.6'
     compile 'org.apache.commons:commons-lang3:3.7'
 	compile 'commons-io:commons-io:2.6'
+	compile 'com.github.clubobsidian:wrappy:1.0.0'
 	compile 'com.github.clubobsidian:trident:1.0.8'
 }

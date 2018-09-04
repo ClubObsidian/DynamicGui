@@ -14,8 +14,6 @@ import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.configuration.Configuration;
-import com.clubobsidian.dynamicgui.configuration.ConfigurationSection;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.EmptyFunction;
@@ -29,6 +27,8 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiManager {
 
@@ -218,7 +218,7 @@ public class GuiManager {
 	private void loadGuiFromConfiguration(String guiName, Configuration config)
 	{
 		String guiTitle = config.getString("gui-title");
-		int rows = config.getInt("rows");
+		int rows = config.getInteger("rows");
 		List<Slot> slots = this.createSlots(rows, config);
 		
 		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiTitle, rows, slots);
@@ -381,7 +381,7 @@ public class GuiManager {
 				int amount = 1;
 				if(section.get("amount") != null)
 				{
-					amount = section.getInt("amount");
+					amount = section.getInteger("amount");
 				}
 
 				Boolean close = null;
@@ -393,7 +393,7 @@ public class GuiManager {
 				short data = 0;
 				if(section.get("data") != null)
 				{
-					data = (short) section.getInt("data");
+					data = (short) section.getInteger("data");
 				}
 
 				
@@ -441,7 +441,7 @@ public class GuiManager {
 		
 		if(yaml.get("npc-ids") != null)
 		{
-			npcIds = yaml.getIntList("npc-ids");
+			npcIds = yaml.getIntegerList("npc-ids");
 		}
 		
 		List<Function> functions = this.createFunctions(yaml, "functions");
