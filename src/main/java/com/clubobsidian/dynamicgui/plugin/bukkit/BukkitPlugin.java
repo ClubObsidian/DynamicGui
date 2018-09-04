@@ -197,7 +197,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	@Override
 	public void createCommand(String gui, String alias)
 	{
-		DynamicGui.get().getLogger().info("Registered the command: " + alias + " for the gui " + gui);
+		DynamicGui.get().getLogger().info("Registered the command \"" + alias + "\" for the gui " + gui);
 
 		CustomCommand cmd = new CustomCommand(alias);			
 		try 

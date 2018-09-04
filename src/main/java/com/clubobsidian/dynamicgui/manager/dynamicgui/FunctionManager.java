@@ -63,7 +63,6 @@ public class FunctionManager {
 				dat +=  ":" + args[i];
 		}
 		
-		//System.out.println("_" + args[0] + "_");
 		ar[0] = args[0];
 		ar[1] = dat;
 		return ar;	

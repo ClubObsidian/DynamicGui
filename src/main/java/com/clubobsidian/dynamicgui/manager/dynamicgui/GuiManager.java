@@ -36,7 +36,6 @@ public class GuiManager {
 	
 	private List<Gui> guis;
 	private Map<UUID, Gui> playerGuis;
-	
 	private GuiManager()
 	{
 		this.guis = new ArrayList<>();
@@ -225,7 +224,7 @@ public class GuiManager {
 		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiTitle, rows, slots);
 
 		this.guis.add(gui);
-		DynamicGui.get().getLogger().info("gui " + gui.getName() + " has been loaded!");
+		DynamicGui.get().getLogger().info("gui \"" + gui.getName() + "\" has been loaded!");
 	}
 	
 	private Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
@@ -240,7 +239,9 @@ public class GuiManager {
 				{
 					String[] array = FunctionManager.get().parseData(string);
 					if(FunctionManager.get().getFunctionByName(array[0]) == null)
+					{
 						DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+					}
 					
 					Function func = new EmptyFunction(array[0], array[1]);
 					failFuncs.add(func);
@@ -269,7 +270,9 @@ public class GuiManager {
 			{
 				String[] array = FunctionManager.get().parseData(string);
 				if(FunctionManager.get().getFunctionByName(array[0]) == null)
+				{
 					DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+				}
 
 				Function func = new EmptyFunction(array[0], array[1]);
 				functions.add(func);
@@ -284,10 +287,8 @@ public class GuiManager {
 		ArrayList<Slot> slots = new ArrayList<Slot>();
 		for(int i = 0; i < rows * 9; i++)
 		{
-			System.out.println("Parsing slot " + i + " value is " + (yaml.get("" + i)));
 			if(yaml.get("" + i) != null)
 			{
-				System.out.println("Parsed slot is not null: " + i);
 				ConfigurationSection section = yaml.getConfigurationSection(i + "");
 				String icon = section.getString("icon");
 				String name = null;
@@ -318,7 +319,9 @@ public class GuiManager {
 					{
 						String[] array = FunctionManager.get().parseData(string);
 						if(FunctionManager.get().getFunctionByName(array[0]) == null)
+						{
 							DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+						}
 						
 						Function func = new EmptyFunction(array[0], array[1]);
 						loadFunctions.add(func);
@@ -335,7 +338,9 @@ public class GuiManager {
 						{
 							String[] array = FunctionManager.get().parseData(string);
 							if(FunctionManager.get().getFunctionByName(array[0]) == null)
+							{
 								DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
+							}
 							
 							Function func = new EmptyFunction(array[0], array[1]);
 							failFuncs.add(func);

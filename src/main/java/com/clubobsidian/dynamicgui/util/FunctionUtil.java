@@ -2,6 +2,7 @@ package com.clubobsidian.dynamicgui.util;
 
 import java.util.List;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
@@ -101,7 +102,7 @@ public class FunctionUtil {
 			{
 				if(FunctionManager.get().getFunctionByName(func.getName()) == null)
 				{
-					System.out.println("Cannot find " + func.getName() + " continuing!");
+					DynamicGui.get().getLogger().info("Cannot find " + func.getName() + " continuing!");
 					continue;
 				}
 
