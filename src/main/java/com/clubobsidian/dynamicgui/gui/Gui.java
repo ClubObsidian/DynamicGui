@@ -57,11 +57,9 @@ public class Gui implements Serializable, FunctionOwner {
 
 		for(int i = 0; i < this.slots.size(); i++)
 		{
-			System.out.println("Slot: " + i);
 			Slot slot = this.slots.get(i);
 			if(slot != null)
-			{
-				System.out.println("Slot is not null");
+			{;
 				slot.setOwner(this);
 				boolean run = true;
 				ItemStackWrapper<?> item = slot.buildItemStack(player);

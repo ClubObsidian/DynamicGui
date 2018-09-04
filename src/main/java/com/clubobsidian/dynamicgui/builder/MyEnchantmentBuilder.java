@@ -6,7 +6,6 @@ public class MyEnchantmentBuilder {
 	
 	private String enchantment;
 	private int level;
-	
 	public MyEnchantmentBuilder setEnchantment(String enchantment)
 	{
 		this.enchantment = enchantment;

@@ -35,7 +35,6 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
-		System.out.println("Set item at index " + index + " for item stack wrapper " + itemStackWrapper.toString());
 		this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack()); 
 	}
 	
