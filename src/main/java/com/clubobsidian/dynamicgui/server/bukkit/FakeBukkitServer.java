@@ -13,6 +13,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
@@ -75,16 +76,26 @@ public class FakeBukkitServer extends FakeServer {
 	}
 
 	@Override
-	public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) 
+	public void registerOutgoingPluginChannel(final DynamicGuiPlugin plugin, final String outGoingChannel) 
 	{
-		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, channel);
+		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, outGoingChannel);
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel) 
+	public void registerIncomingPluginChannel(final DynamicGuiPlugin plugin, final String incomingChannel, final MessagingRunnable runnable) 
 	{
-		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, channel, (PluginMessageListener) plugin);
-		// TODO Auto-generated method stub
-		
+		PluginMessageListener listener = new PluginMessageListener()
+		{
+			@Override
+			public void onPluginMessageReceived(String channel, Player player, byte[] message) 
+			{
+				if(channel.equals(incomingChannel))
+				{
+					PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+					runnable.run(playerWrapper, message);
+				}
+			}
+		};
+		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);
 	}
 }

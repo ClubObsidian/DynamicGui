@@ -34,6 +34,7 @@ import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
@@ -48,6 +49,7 @@ import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
 import com.clubobsidian.wrappy.Configuration;
 
 import com.google.common.collect.Iterables;
+import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
@@ -60,6 +62,7 @@ public class DynamicGui  {
 	private String version;
 	private boolean bungeecord;
 	private boolean redis;
+	private Map<String, Integer> serverPlayerCount;
 	
 	private EventManager eventManager;
 	private DynamicGuiPlugin plugin;
@@ -124,18 +127,50 @@ public class DynamicGui  {
 
 	public void checkForProxy()
 	{
+		MessagingRunnable runnable = new MessagingRunnable()
+		{
+			@Override
+			public void run(PlayerWrapper<?> playerWrapper, byte[] message) 
+			{
+				ByteArrayDataInput in = ByteStreams.newDataInput(message);
+				String packet = in.readUTF();
+				if(packet != null)
+				{
+					if(packet.equals("PlayerCount"))
+					{
+						String server = in.readUTF();
+						int playerCount = in.readInt();
+						serverPlayerCount.put(server, playerCount);
+					}
+				}
+			}
+			
+		};
+		
 		if(this.version.equalsIgnoreCase("bungee"))
 		{
-			this.registerBungee();
+			this.bungeecord = true;
+			this.getLogger().info("BungeeCord is enabled!");
+			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+			this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
 		}
 		else if(this.version.equalsIgnoreCase("redis"))
 		{
-			this.registerRedis();
+			this.redis = true;
+			this.getLogger().info("RedisBungee is enabled");
+			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
+			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+			this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", runnable);
 		}
 		else
 		{
 			this.bungeecord = false;
 			this.getLogger().info("BungeeCord is not enabled!");
+		}
+		if(this.bungeecord || this.redis)
+		{
+			this.serverPlayerCount = new HashMap<>();
+			this.startPlayerCountTimer();
 		}
 	}
 
@@ -180,12 +215,6 @@ public class DynamicGui  {
 		ReplacerManager.get().addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
-	//private CommandMap cm = null;
-
-
-
-	private Map<String, Integer> serverPlayerCount = new HashMap<String, Integer>();
-
 	//TODO - port to dynamicgui plugins
 	/*@Override
 	public void onDisable()
@@ -211,12 +240,12 @@ public class DynamicGui  {
 						ByteArrayDataOutput out = ByteStreams.newDataOutput();
 						out.writeUTF("PlayerCount");
 						out.writeUTF(server);
-						String toSend = "BungeeCord";
+						String sendTo = "BungeeCord";
 						if(redis)
 						{
-							toSend = "RedisBungee";
+							sendTo = "RedisBungee";
 						}
-						player.sendPluginMessage(DynamicGui.get().getPlugin(), toSend, out.toByteArray());
+						player.sendPluginMessage(DynamicGui.get().getPlugin(), sendTo, out.toByteArray());
 					}
 				}
 			}
@@ -250,95 +279,6 @@ public class DynamicGui  {
 			e.printStackTrace();
 		}
 	}
-
-	/*private void cleanupCommands()
-	{
-		if(this.getCommandMap() != null)
-		{
-			int amt = 0;
-			for(String cmd : this.registeredCommands)
-			{
-				if(this.getCommand(cmd) != null)
-				{
-					if(this.getCommand(cmd).isRegistered())
-					{
-						this.getCommand(cmd).unregister(this.getCommandMap());
-						this.getLogger().log(Level.INFO, cmd + " has been unregistered!");
-						amt++;
-					}
-				}
-			}
-
-			if(this.registeredCommands.size() > 0)
-				this.getLogger().log(Level.INFO, amt + " commands have been unregistered!");
-		}
-	}*/
-
-
-	private void registerBungee()
-	{
-		this.bungeecord = true;
-		this.getLogger().info("BungeeCord is enabled!");
-		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord");
-		this.startPlayerCountTimer();
-	}
-
-	private void registerRedis()
-	{
-		this.redis = true;
-		this.getLogger().info("RedisBungee is enabled");
-		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
-		this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-		this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee");
-		this.startPlayerCountTimer();
-	}
-
-	/*private final CommandMap getCommandMap()
-	{
-		if (this.cm == null) 
-		{
-			try 
-			{
-				final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-				f.setAccessible(true);
-				this.cm = (CommandMap) f.get(Bukkit.getServer());
-				return getCommandMap();
-			} 
-			catch (Exception e) 
-			{ 
-				e.printStackTrace(); 
-			}
-		} 
-		else if (this.cm != null) 
-		{
-			return this.cm; 
-		}
-		return getCommandMap();
-	}
-
-	public void loadCommand(String gui, String alias)
-	{
-		this.getPlugin().getLogger().log(Level.INFO, "Registered the command: " + alias + " for the gui " + gui);
-
-		CustomCommand cmd = new CustomCommand(alias);			
-		try 
-		{
-			Field commandField = this.getCommandMap().getClass().getDeclaredField("knownCommands");
-			commandField.setAccessible(true);
-			Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
-			commands.keySet().remove(alias);
-		}
-		catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) 
-		{
-			e.printStackTrace();
-		}
-		this.getCommandMap().register("", cmd);
-
-
-		cmd.setExecutor(new CustomCommandExecutor(gui, alias));
-		this.registeredCommands.add(alias);
-	}*/
 
 	public String getNoGui()
 	{
@@ -377,12 +317,7 @@ public class DynamicGui  {
 
 	public Integer getGlobalServerPlayerCount()
 	{
-		Integer playerCount = 0;
-		for(Integer count : this.serverPlayerCount.values())
-		{
-			playerCount += count;
-		}
-		return playerCount;
+		return this.serverPlayerCount.get("ALL");	
 	}
 
 	public Integer getServerPlayerCount(String server)

@@ -12,6 +12,7 @@ import org.spongepowered.api.text.Text;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.sponge.SpongeScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
@@ -79,7 +80,7 @@ public class FakeSpongeServer extends FakeServer {
 	}
 
 	@Override
-	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel) {
+	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable) {
 		// TODO Auto-generated method stub
 		
 	}
