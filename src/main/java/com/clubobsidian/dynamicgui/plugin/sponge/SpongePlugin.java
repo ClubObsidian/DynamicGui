@@ -18,6 +18,7 @@ import com.google.inject.Inject;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.spongepowered.api.Sponge;
@@ -131,6 +132,13 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		return this.configFile;
 	}
 
+	@Override
+	public List<String> getRegisteredCommands() 
+	{
+		// TODO Auto-generated method stub
+		return new ArrayList<>();
+	}
+	
 	@Override
 	public void createCommand(String guiName, String alias) {
 		// TODO Auto-generated method stub

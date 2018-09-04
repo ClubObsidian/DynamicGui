@@ -6,6 +6,8 @@ locations:
 - "0,64,0,world"
 npc-ids:
 - '0'
+alias:
+- "test"
 
 functions:
 - "permission: gui.test"

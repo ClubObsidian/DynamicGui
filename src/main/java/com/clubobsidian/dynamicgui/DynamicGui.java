@@ -180,8 +180,6 @@ public class DynamicGui  {
 		ReplacerManager.get().addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
-	private List<String> registeredCommands = new ArrayList<>();
-
 	//private CommandMap cm = null;
 
 

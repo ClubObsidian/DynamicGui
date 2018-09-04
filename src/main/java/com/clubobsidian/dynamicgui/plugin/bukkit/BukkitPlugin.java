@@ -1,15 +1,21 @@
 package com.clubobsidian.dynamicgui.plugin.bukkit;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.command.bukkit.BukkitGuiCommand;
+import com.clubobsidian.dynamicgui.command.bukkit.CustomCommand;
+import com.clubobsidian.dynamicgui.command.bukkit.CustomCommandExecutor;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
@@ -31,6 +37,8 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	private File guiFolder;
 	private Economy economy;
 	private List<NPCRegistry> npcRegistries;
+	private CommandMap commandMap;
+	private List<String> registeredCommands;
 	
 	@Override
 	public void onEnable()
@@ -41,6 +49,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	@Override
 	public void start() 
 	{
+		this.registeredCommands = new ArrayList<>();
 		this.configFile = new File(this.getDataFolder(), "config.yml");
 		this.guiFolder = new File(this.getDataFolder(), "guis");
 		
@@ -157,9 +166,56 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		return this.guiFolder;
 	}
 
-	@Override
-	public void createCommand(String guiName, String alias) 
+	private final CommandMap getCommandMap()
 	{
-		// TODO Auto-generated method stub
+		if (this.commandMap == null) 
+		{
+			try 
+			{
+				final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+				f.setAccessible(true);
+				this.commandMap = (CommandMap) f.get(Bukkit.getServer());
+				return this.commandMap;
+			} 
+			catch (Exception e) 
+			{ 
+				e.printStackTrace(); 
+			}
+		} 
+		else if (this.commandMap != null) 
+		{
+			return this.commandMap; 
+		}
+		return null;
+	}
+
+	public List<String> getRegisteredCommands()
+	{
+		return this.registeredCommands;
+	}
+	
+	@Override
+	public void createCommand(String gui, String alias)
+	{
+		DynamicGui.get().getLogger().info("Registered the command: " + alias + " for the gui " + gui);
+
+		CustomCommand cmd = new CustomCommand(alias);			
+		try 
+		{
+			Field commandField = this.getCommandMap().getClass().getDeclaredField("knownCommands");
+			commandField.setAccessible(true);
+			@SuppressWarnings("unchecked")
+			Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
+			commands.keySet().remove(alias);
+		}
+		catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) 
+		{
+			e.printStackTrace();
+		}
+		this.getCommandMap().register("", cmd);
+
+
+		cmd.setExecutor(new CustomCommandExecutor(gui));
+		this.getRegisteredCommands().add(alias);
 	}
 }
