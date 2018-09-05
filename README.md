@@ -11,10 +11,14 @@ Designed to make writing menus for players to interact with easier.
   * Bukkit - Fully supported
   * Sponge - Currently in development
   * Nukkit - Planned
-* A number of functions to use to customize menus.
-* Custom replacers for different data.
-* Guis can be written in yaml, json or hocon.
+* A number of functions to use to customize menus
+  * Functions use latebinding
+* Guis can be written in yaml, json or hocon
 * Proxy support
+* Custom replacers
+  * Built-in and support for PlaceholderAPI
+* Loading guis from a remote location
+  * Currently supports loading from a webserver
 
 ## Use cases
 
@@ -23,3 +27,4 @@ Some possible uses for DynamicGui.
 * Shop
 * Hub menu
 * Staff tools
+* Help menu
