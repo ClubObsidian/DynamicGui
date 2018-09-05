@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.impl.Replacer;
 
 public class ReplacerManager {
 	
 	private static ReplacerManager instance;
 	
-	private List<Replacer> replacers;
+	private List<ReplacerRegistry> registries;
 	private ReplacerManager()
 	{
-		this.replacers = new ArrayList<>();
+		this.registries = new ArrayList<>();
 	}
 	
 	public static ReplacerManager get()
@@ -25,18 +27,18 @@ public class ReplacerManager {
 		return instance;
 	}
 	
-	public String replace(String text, PlayerWrapper<?> player)
+	public String replace(String text, PlayerWrapper<?> playerWrapper)
 	{
 		String newText = text;
-		for(Replacer replacer : this.replacers)
+		for(ReplacerRegistry registry : this.registries)
 		{
-			newText = newText.replace(replacer.getToReplace(), replacer.replacement(newText, player));
+			newText = registry.replace(playerWrapper, text);
 		}
 		return newText;
 	}
 
-	public void addReplacer(Replacer replacer)
+	public void registerReplacerRegistry(ReplacerRegistry replacerRegistry) 
 	{
-		this.replacers.add(replacer);
+		this.registries.add(replacerRegistry);
 	}
 }

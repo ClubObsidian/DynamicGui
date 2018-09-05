@@ -25,10 +25,12 @@ import com.clubobsidian.dynamicgui.listener.bukkit.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
-import com.clubobsidian.dynamicgui.npc.NPC;
-import com.clubobsidian.dynamicgui.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.npc.citizens.CitizensRegistry;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.registry.npc.citizens.CitizensRegistry;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
@@ -65,6 +67,11 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		if(Bukkit.getServer().getPluginManager().getPlugin("Citizens") != null)
 		{
 			this.getNPCRegistries().add(new CitizensRegistry());
+		}
+		
+		if(Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
+		{
+			ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
 		}
 		
 		this.getCommand("gui").setExecutor(new BukkitGuiCommand());

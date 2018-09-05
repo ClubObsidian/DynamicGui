@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.npc;
+package com.clubobsidian.dynamicgui.registry.npc;
 
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 

@@ -15,5 +15,5 @@ public abstract class Replacer {
 		return this.toReplace;
 	}
 	
-	public abstract String replacement(String text, PlayerWrapper<?> player);
+	public abstract String replacement(String text, PlayerWrapper<?> playerWrapper);
 }

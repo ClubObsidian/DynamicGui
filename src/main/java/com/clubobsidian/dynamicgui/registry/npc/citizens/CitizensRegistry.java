@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.npc.citizens;
+package com.clubobsidian.dynamicgui.registry.npc.citizens;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 import org.bukkit.entity.Entity;
 
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.npc.NPC;
-import com.clubobsidian.dynamicgui.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class CitizensRegistry implements NPCRegistry 

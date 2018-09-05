@@ -36,6 +36,7 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
@@ -84,7 +85,7 @@ public class DynamicGui  {
 		this.loadGuis();
 		this.checkForProxy();
 		this.registerListeners();
-		this.loadReplacers();
+		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
 	}
 
 	private void setupFileStructure()
@@ -205,14 +206,6 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
 		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
 		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
-	}
-
-	private void loadReplacers()
-	{
-		ReplacerManager.get().addReplacer(new PlayerReplacer("%player%"));
-		ReplacerManager.get().addReplacer(new OnlinePlayersReplacer("%online-players%"));
-		ReplacerManager.get().addReplacer(new UUIDReplacer("%uuid%"));
-		ReplacerManager.get().addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 
 	//TODO - port to dynamicgui plugins
