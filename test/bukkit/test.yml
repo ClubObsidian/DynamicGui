@@ -60,7 +60,13 @@ permission-failfunctions:
   name: "&cName test"
   functions:
   - "setname: &fName test passed"
-  - "broadcast: Name test passed"
+  - "broadcast: &cName test passed"
+'8':
+  icon: "STONE"
+  name: "&eLore test"
+  functions:
+  - "setlore: &clore test;&cpassed"
+  - "broadcast: &cLore test passed"
 '9':
   icon: "SAND"
   name: "&aRemove test"
