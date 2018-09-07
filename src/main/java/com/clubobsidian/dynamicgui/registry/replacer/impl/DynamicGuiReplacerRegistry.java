@@ -19,10 +19,10 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 	private DynamicGuiReplacerRegistry()
 	{
 		this.replacers = new ArrayList<>();
-		this.replacers.add(new PlayerReplacer("%player%"));
-		this.replacers.add(new OnlinePlayersReplacer("%online-players%"));
-		this.replacers.add(new UUIDReplacer("%uuid%"));
-		this.replacers.add(new PlayerLevelReplacer("%player-level%"));
+		this.addReplacer(new PlayerReplacer("%player%"));
+		this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
+		this.addReplacer(new UUIDReplacer("%uuid%"));
+		this.addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}
 	
 	@Override

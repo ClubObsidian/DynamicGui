@@ -14,6 +14,7 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.server.sponge.FakeSpongeServer;
+
 import com.google.inject.Inject;
 
 import java.io.File;
