@@ -38,7 +38,7 @@ public class InventoryClickListener implements Listener {
 			return;
 
 		int slot = e.getSlot();
-		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize())
+		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize() && e.getClick() != ClickType.CREATIVE)
 		{
 			//Handle outside clicks
 			e.setCancelled(true);
