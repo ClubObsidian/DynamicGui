@@ -11,6 +11,7 @@ Designed to make writing menus for players to interact with easier.
 * Multi server support in one jar
   * Bukkit - Fully supported
   * Sponge - Currently in development
+  * Forge - Planned
 * A number of functions to use to customize menus
   * Functions use latebinding
 * Guis can be written in yaml, json or hocon
