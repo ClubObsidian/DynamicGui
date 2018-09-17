@@ -124,7 +124,7 @@ public class SlotBuilder {
 			}
 		}
 		
-		ArrayList<Function> funcs = new ArrayList<Function>();
+		List<Function> funcs = new ArrayList<>();
 		funcs.add(func);
 		this.failFunctions.put(key, funcs);
 		return this;
@@ -170,7 +170,7 @@ public class SlotBuilder {
 			}
 		}
 		
-		ArrayList<Function> funcs = new ArrayList<Function>();
+		List<Function> funcs = new ArrayList<>();
 		funcs.add(func);
 		this.rightClickFailFunctions.put(key, funcs);
 		return this;
@@ -193,7 +193,7 @@ public class SlotBuilder {
 			}
 		}
 		
-		ArrayList<Function> funcs = new ArrayList<Function>();
+		List<Function> funcs = new ArrayList<>();
 		funcs.add(func);
 		this.middleClickFailFunctions.put(key, funcs);
 		return this;
@@ -210,7 +210,7 @@ public class SlotBuilder {
 			}
 		}
 		
-		ArrayList<Function> funcs = new ArrayList<Function>();
+		List<Function> funcs = new ArrayList<>();
 		funcs.add(func);
 		this.failLoadFunctions.put(key, funcs);
 		return this;

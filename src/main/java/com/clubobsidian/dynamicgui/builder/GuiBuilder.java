@@ -89,7 +89,7 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public GuiBuilder addNpcId(ArrayList<Integer> npcIds)
+	public GuiBuilder addNpcId(List<Integer> npcIds)
 	{
 		for(Integer id : npcIds)
 		{
