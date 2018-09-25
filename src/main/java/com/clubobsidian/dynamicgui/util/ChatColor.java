@@ -15,8 +15,6 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
-import org.bukkit.map.MapFont.CharacterSprite;
-
 public enum ChatColor {
 
 	AQUA('b'),
