@@ -15,6 +15,8 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
+import org.bukkit.map.MapFont.CharacterSprite;
+
 public enum ChatColor {
 
 	AQUA('b'),
@@ -54,7 +56,24 @@ public enum ChatColor {
 	
 	public static String translateAlternateColorCodes(char translate, String message)
 	{
-		return message.replace(translate, '\u00A7');
+		char[] chars = message.toCharArray();
+		for(int i = 0; i < chars.length; i++)
+		{
+			if(chars[i] == translate)
+			{
+				if(i + 1 < chars.length)
+				{
+					for(ChatColor color : ChatColor.values())
+					{
+						if(chars[i + 1] == color.getColorCode())
+						{
+							chars[i] = '\u00A7';
+						}
+					}
+				}
+			}
+		}
+		return String.valueOf(chars);
 	}
 	
 	public static String translateAlternateColorCodes(String message)
