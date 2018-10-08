@@ -3,13 +3,13 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.1'
   }
 }
 
 plugins {
 	id 'java'
-	id 'com.github.johnrengelman.shadow' version '2.0.4'
+	id 'com.github.johnrengelman.shadow' version '4.0.1'
 	id 'org.spongepowered.plugin' version '0.8.1'
 }
 
@@ -58,6 +58,6 @@ dependencies {
     }
     compile 'org.apache.commons:commons-lang3:3.7'
 	compile 'commons-io:commons-io:2.6'
-	compile 'com.github.clubobsidian:wrappy:1.0.0'
+	compile 'com.github.clubobsidian:wrappy:1.4.0'
 	compile 'com.github.clubobsidian:trident:1.0.8'
 }
