@@ -34,6 +34,7 @@ import com.clubobsidian.dynamicgui.function.impl.PayFunction;
 import com.clubobsidian.dynamicgui.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerMsgFunction;
+import com.clubobsidian.dynamicgui.function.impl.RandomFunction;
 import com.clubobsidian.dynamicgui.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.function.impl.ServerBroadcastFunction;
@@ -209,6 +210,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
+		FunctionManager.get().addFunction(new RandomFunction("random"));
 		FunctionManager.get().addFunction(new SendFunction("send"));	
 		FunctionManager.get().addFunction(new ServerBroadcastFunction("broadcast"));
 		FunctionManager.get().addFunction(new ParticleFunction("particles"));
