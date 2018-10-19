@@ -71,5 +71,4 @@ public class SetDataFunction extends Function {
 		}
 		return false;
 	}	
-
 }

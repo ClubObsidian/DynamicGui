@@ -15,8 +15,8 @@
 */
 package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
@@ -30,10 +30,10 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
 	private static DynamicGuiReplacerRegistry instance;
 	
-	private List<Replacer> replacers;
+	private Map<String,Replacer> replacers;
 	private DynamicGuiReplacerRegistry()
 	{
-		this.replacers = new ArrayList<>();
+		this.replacers = new HashMap<>();
 		this.addReplacer(new PlayerReplacer("%player%"));
 		this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
 		this.addReplacer(new UUIDReplacer("%uuid%"));
@@ -43,7 +43,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 	@Override
 	public String replace(PlayerWrapper<?> playerWrapper, String text) 
 	{
-		for(Replacer replacer : this.replacers)
+		for(Replacer replacer : this.replacers.values())
 		{
 			text = replacer.replacement(text, playerWrapper);
 		}
@@ -59,8 +59,8 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 		return instance;
 	}
 	
-	public void addReplacer(Replacer replacer)
+	public boolean addReplacer(Replacer replacer)
 	{
-		this.replacers.add(replacer);
+		return this.replacers.put(replacer.getToReplace(), replacer) == null;
 	}
 }

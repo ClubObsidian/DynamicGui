@@ -59,7 +59,6 @@ public class SetNameFunction extends Function {
 							{
 								if(slot.getIndex() == s.getIndex())
 								{
-
 									item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
 									inv.setItem(slot.getIndex(), item);
 									return true;
