@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.replacer.impl;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class UUIDReplacer extends Replacer {
 

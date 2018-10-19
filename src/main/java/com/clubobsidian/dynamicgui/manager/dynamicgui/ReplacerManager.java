@@ -21,7 +21,7 @@ import java.util.List;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
-import com.clubobsidian.dynamicgui.replacer.impl.Replacer;
+import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class ReplacerManager {
 	

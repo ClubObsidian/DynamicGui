@@ -17,6 +17,7 @@ package com.clubobsidian.dynamicgui.replacer.impl;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class OnlinePlayersReplacer extends Replacer {
 

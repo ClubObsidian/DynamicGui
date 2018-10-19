@@ -20,10 +20,10 @@ import java.util.Map;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
-import com.clubobsidian.dynamicgui.replacer.impl.Replacer;
 import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
 
 public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
