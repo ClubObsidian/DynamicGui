@@ -34,22 +34,41 @@ public enum ChatColor {
 	WHITE('f'),
 	YELLOW('e'),
 	//Formatting
-	BOLD('l'),
-	ITALIC('o'),
-	MAGIC('k'),
-	RESET('r'),
-	STRIKETHROUGH('m'),
-	UNDERLINE('n');
+	BOLD('l', true),
+	ITALIC('o', true),
+	MAGIC('k', true),
+	RESET('r', true),
+	STRIKETHROUGH('m', true),
+	UNDERLINE('n', true);
+	
+	public static final char FORMATTING_CODE = '\u00A7';
 	
 	private char colorCode;
+	private boolean formatting;
 	private ChatColor(char colorCode)
 	{
+		this(colorCode, false);
+	}
+	
+	private ChatColor(char colorCode, boolean formatting)
+	{
 		this.colorCode = colorCode;
+		this.formatting = formatting;
 	}
 	
 	public char getColorCode()
 	{
 		return this.colorCode;
+	}
+	
+	public boolean isColor()
+	{
+		return !this.isFormatting();
+	}
+	
+	public boolean isFormatting()
+	{
+		return this.formatting;
 	}
 	
 	public static String translateAlternateColorCodes(char translate, String message)
@@ -65,7 +84,7 @@ public enum ChatColor {
 					{
 						if(chars[i + 1] == color.getColorCode())
 						{
-							chars[i] = '\u00A7';
+							chars[i] = ChatColor.FORMATTING_CODE;
 						}
 					}
 				}
@@ -77,5 +96,11 @@ public enum ChatColor {
 	public static String translateAlternateColorCodes(String message)
 	{
 		return translateAlternateColorCodes('&', message);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return ChatColor.FORMATTING_CODE + "" + this.getColorCode();
 	}
 }

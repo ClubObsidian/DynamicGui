@@ -161,7 +161,6 @@ public class DynamicGui  {
 					}
 				}
 			}
-			
 		};
 		
 		if(this.version.equalsIgnoreCase("bungee"))
