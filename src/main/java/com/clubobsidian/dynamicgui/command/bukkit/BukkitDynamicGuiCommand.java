@@ -1,5 +1,7 @@
 package com.clubobsidian.dynamicgui.command.bukkit;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -8,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class BukkitDynamicGuiCommand implements CommandExecutor {
@@ -72,10 +75,43 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
 				}
 			}
 		}
+		else if(args.length == 3)
+		{
+			String first = args[0];
+			String second = args[1];
+			String third = args[2];
+			if(first.equalsIgnoreCase("close"))
+			{
+				if(second.equalsIgnoreCase("all"))
+				{
+					Gui gui = GuiManager.get().getGuiByName(third);
+					if(gui == null)
+					{
+						sender.sendMessage("No gui can be found by that name");
+						return true;
+					}
+					else
+					{
+						sender.sendMessage("Guis of type " + third + " are now closed");
+						Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
+						while(it.hasNext())
+						{
+							Entry<UUID, Gui> next = it.next();
+							if(next.getValue().getName().equals(third))
+							{
+								Bukkit.getServer().getPlayer(next.getKey()).closeInventory();
+							}
+						}
+						return true;
+					}
+				}
+			}
+		}
 		else
 		{
 			sender.sendMessage("/dynamicgui reload");
-			sender.sendMessage("/dynamicgui close <player/all>");
+			sender.sendMessage("/dynamicgui close <player>");
+			sender.sendMessage("/dynamicgui close <all> <type>");
 			return true;
 		}
 		return true;
