@@ -8,3 +8,5 @@ commands:
     description: "DynamicGUI gui command!"
   guilist:
     description: "Lists out all the guis for DynamicGUI!"
+  dynamicgui:
+    descriptions: "Command for handling management of DynamicGui guis"

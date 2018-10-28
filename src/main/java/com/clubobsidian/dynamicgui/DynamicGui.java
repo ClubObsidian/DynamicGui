@@ -53,10 +53,6 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
-import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
-import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
-import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
-import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 

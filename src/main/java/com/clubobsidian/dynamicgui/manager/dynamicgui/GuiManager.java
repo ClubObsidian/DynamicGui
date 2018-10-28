@@ -101,6 +101,11 @@ public class GuiManager {
 		return this.guis;
 	}
 	
+	public Map<UUID, Gui> getPlayerGuis()
+	{
+		return this.playerGuis;
+	}
+	
 	public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper)
 	{
 		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;

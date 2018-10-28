@@ -28,6 +28,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.command.bukkit.BukkitDynamicGuiCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.BukkitGuiCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.CustomCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.CustomCommandExecutor;
@@ -90,6 +91,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		}
 		
 		this.getCommand("gui").setExecutor(new BukkitGuiCommand());
+		this.getCommand("dynamicgui").setExecutor(new BukkitDynamicGuiCommand());
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
