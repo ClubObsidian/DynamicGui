@@ -190,7 +190,7 @@ public class GuiManager {
 		} 
 		else 
 		{
-			DynamicGui.get().getLogger().info("No guis found, please add guis or issues may be encountered!");
+			DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
 		}
 	}
 	
@@ -231,6 +231,7 @@ public class GuiManager {
 				catch (MalformedURLException e) 
 				{
 					e.printStackTrace();
+					DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
 				}
 			}
 		}
