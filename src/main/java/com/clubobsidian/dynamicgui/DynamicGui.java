@@ -258,33 +258,6 @@ public class DynamicGui  {
 		,1L, 20L);
 	}
 
-
-	private void cleanupGuis()
-	{
-		try 
-		{
-			Field guis = GuiManager.class.getDeclaredField("guis");
-			guis.setAccessible(true);
-			guis.set(null, new ArrayList<Gui>());
-		} 
-		catch (NoSuchFieldException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (SecurityException e) 
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalArgumentException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IllegalAccessException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-
 	public String getNoGui()
 	{
 		return this.noGui;

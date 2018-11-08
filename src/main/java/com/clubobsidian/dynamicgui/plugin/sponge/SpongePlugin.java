@@ -160,4 +160,10 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void unloadCommands() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -32,5 +32,6 @@ public interface DynamicGuiPlugin extends NPCRegistry {
 	public File getGuiFolder();
 	public List<String> getRegisteredCommands();
 	public void createCommand(String guiName, String alias);
+	public void unloadCommands();
 	
 }

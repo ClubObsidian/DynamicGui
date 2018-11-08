@@ -218,12 +218,8 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		return this.registeredCommands;
 	}
 	
-	@Override
-	public void createCommand(String gui, String alias)
+	private void unregisterCommand(String alias)
 	{
-		DynamicGui.get().getLogger().info("Registered the command \"" + alias + "\" for the gui " + gui);
-
-		CustomCommand cmd = new CustomCommand(alias);			
 		try 
 		{
 			Field commandField = this.getCommandMap().getClass().getDeclaredField("knownCommands");
@@ -236,10 +232,29 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void createCommand(String gui, String alias)
+	{
+		DynamicGui.get().getLogger().info("Registered the command \"" + alias + "\" for the gui " + gui);
+
+		CustomCommand cmd = new CustomCommand(alias);			
+		this.unregisterCommand(alias);
+		
 		this.getCommandMap().register("", cmd);
 
 
 		cmd.setExecutor(new CustomCommandExecutor(gui));
 		this.getRegisteredCommands().add(alias);
+	}
+
+	@Override
+	public void unloadCommands() 
+	{
+		for(String cmd : this.getRegisteredCommands())
+		{
+			this.unregisterCommand(cmd);
+		}
 	}
 }

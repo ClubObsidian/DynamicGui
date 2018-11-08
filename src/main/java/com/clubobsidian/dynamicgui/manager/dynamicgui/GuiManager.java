@@ -92,6 +92,7 @@ public class GuiManager {
 	public void reloadGuis()
 	{
 		DynamicGui.get().getLogger().info("Force reloading guis!");
+		DynamicGui.get().getPlugin().unloadCommands();
 		this.guis.clear();
 		this.loadGuis();
 	}
