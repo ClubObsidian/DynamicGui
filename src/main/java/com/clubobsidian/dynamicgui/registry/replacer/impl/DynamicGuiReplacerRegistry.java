@@ -45,7 +45,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 	{
 		for(Replacer replacer : this.replacers.values())
 		{
-			text = replacer.replacement(text, playerWrapper);
+			text = text.replace(replacer.getToReplace(), replacer.replacement(text, playerWrapper));
 		}
 		return text;
 	}
