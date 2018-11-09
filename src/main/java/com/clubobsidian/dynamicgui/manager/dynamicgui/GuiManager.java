@@ -335,9 +335,9 @@ public class GuiManager {
 				//fail functions
 				
 				List<Function> loadFunctions = new ArrayList<>();
-				if(section.get("loadfunctions") != null)
+				if(section.get("load-functions") != null)
 				{
-					for(String string : section.getStringList("loadfunctions"))
+					for(String string : section.getStringList("load-functions"))
 					{
 						String[] array = FunctionManager.get().parseData(string);
 						if(FunctionManager.get().getFunctionByName(array[0]) == null)

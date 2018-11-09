@@ -32,7 +32,7 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 	public PlaceholderApiReplacerRegistry()
 	{
 		this.placeHolderApiClass = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
-		this.setPlaceHolders = ReflectionUtil.getMethod(placeHolderApiClass, "setPlaceholders", OfflinePlayer.class, String.class);
+		this.setPlaceHolders = ReflectionUtil.getMethod(this.placeHolderApiClass, "setPlaceholders", OfflinePlayer.class, String.class);
 	}
 
 	@Override
