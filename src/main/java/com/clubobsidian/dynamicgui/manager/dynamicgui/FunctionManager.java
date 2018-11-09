@@ -41,9 +41,9 @@ public class FunctionManager {
 		return instance;
 	}
 	
-	public Function getFunctionByName(String name)
+	public Function getFunctionByName(String functionName)
 	{
-		return this.functions.get(name);
+		return this.functions.get(functionName);
 	}
 	
 	public List<Function> getFunctions()
@@ -53,11 +53,16 @@ public class FunctionManager {
 		return funcs;
 	}
 	
-	public void addFunction(Function func)
+	public boolean addFunction(Function function)
 	{
-		this.functions.put(func.getName(), func);
+		return this.functions.put(function.getName(), function) != null;
 	}
 
+	public boolean removeFunctionByName(String functionName)
+	{
+		return this.functions.keySet().remove(functionName);
+	}
+	
 	public String[] parseData(String data)
 	{
 		String[] ar = new String[2];
