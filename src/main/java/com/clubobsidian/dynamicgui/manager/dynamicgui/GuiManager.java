@@ -135,18 +135,20 @@ public class GuiManager {
 			return false;
 		}
 		
-		Gui clonedGUI = gui.clone();
-		boolean ran = FunctionUtil.tryFunctions(clonedGUI, playerWrapper);
-		
-		InventoryWrapper<?> inventoryWrapper = clonedGUI.buildInventory(playerWrapper);
-		
-		if(inventoryWrapper == null)
-			return false;
+		Gui clonedGui = gui.clone();
+		boolean ran = FunctionUtil.tryGuiFunctions(clonedGui, playerWrapper);
 		
 		if(ran)
 		{
+			
+			InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
+			FunctionUtil.tryLoadFunctions(playerWrapper, clonedGui);
+			
+			if(inventoryWrapper == null)
+				return false;
+			
 			playerWrapper.openInventory(inventoryWrapper);
-			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGUI);
+			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
 			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
 			{
 				@Override

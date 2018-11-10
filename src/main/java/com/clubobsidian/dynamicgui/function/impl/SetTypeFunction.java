@@ -22,7 +22,6 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class SetTypeFunction extends Function {
 
@@ -46,11 +45,11 @@ public class SetTypeFunction extends Function {
 			if(owner instanceof Slot)
 			{
 				Slot slot = (Slot) owner;
-				if(playerWrapper.getOpenInventoryWrapper() != null)
+				Gui gui = slot.getOwner();
+				if(gui != null)
 				{
-					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-					if(inv != null && gui != null)
+					InventoryWrapper<?> inv = gui.getInventoryWrapper();
+					if(inv != null)
 					{
 						for(Slot s : gui.getSlots())
 						{

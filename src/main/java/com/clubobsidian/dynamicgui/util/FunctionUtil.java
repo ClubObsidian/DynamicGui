@@ -22,12 +22,13 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 
 public class FunctionUtil {
 	
-	public static boolean tryFunctions(FunctionOwner owner, PlayerWrapper<?> playerWrapper)
+	public static boolean tryGuiFunctions(FunctionOwner owner, PlayerWrapper<?> playerWrapper)
 	{
 		FunctionResponse result = null;
 		if(owner.getFunctions() != null)
@@ -46,6 +47,22 @@ public class FunctionUtil {
 		return true;
 	}
 	
+	public static void tryLoadFunctions(PlayerWrapper<?> playerWrapper, Gui clonedGui) 
+	{
+		for(Slot slot : clonedGui.getSlots())
+		{
+			FunctionResponse result = FunctionUtil.tryFunctions(playerWrapper, slot.getLoadFunctions(), slot);
+			if(!result.result)
+			{
+				List<Function> failFunctions = slot.getFailLoadFunctions(result.failedFunction);
+				if(failFunctions != null)
+				{
+					tryFunctions(playerWrapper, failFunctions, slot);
+				}
+			}
+		}
+		
+	}
 
 	public static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper)
 	{

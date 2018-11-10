@@ -12,7 +12,7 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-*/
+ */
 package com.clubobsidian.dynamicgui.function.impl;
 
 import java.util.ArrayList;
@@ -25,13 +25,12 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class SetLoreFunction extends Function {
 
-	
+
 	/**
 	 * 
 	 */
@@ -51,11 +50,11 @@ public class SetLoreFunction extends Function {
 			if(owner instanceof Slot)
 			{
 				Slot slot = (Slot) owner;
-				if(playerWrapper.getOpenInventoryWrapper() != null)
+				Gui gui = slot.getOwner();
+				if(gui != null)
 				{
 					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
-					Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-					if(inv.getInventory() != null)
+					if(inv != null)
 					{
 						for(Slot s : gui.getSlots())
 						{
@@ -64,7 +63,6 @@ public class SetLoreFunction extends Function {
 							{
 								if(slot.getIndex() == s.getIndex())
 								{
-
 									List<String> lore = new ArrayList<String>();
 									if(this.getData().contains(";"))
 									{

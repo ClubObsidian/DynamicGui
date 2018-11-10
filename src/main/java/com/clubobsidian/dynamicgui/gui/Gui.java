@@ -16,18 +16,15 @@
 package com.clubobsidian.dynamicgui.gui;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.SerializationUtils;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -49,6 +46,7 @@ public class Gui implements Serializable, FunctionOwner {
 	private List<Integer> npcIds;
 	private List<Function> functions;
 	private Map<String, List<Function>> failFunctions;
+	private transient InventoryWrapper<?> inventoryWrapper;
 	public Gui(String name, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
 	{
 		this.name = name;
@@ -63,6 +61,7 @@ public class Gui implements Serializable, FunctionOwner {
 		this.locations = locations;
 		this.functions = functions;
 		this.failFunctions = failFunctions;
+		this.inventoryWrapper = null;
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
@@ -74,80 +73,26 @@ public class Gui implements Serializable, FunctionOwner {
 		{
 			Slot slot = this.slots.get(i);
 			if(slot != null)
-			{;
+			{
 				slot.setOwner(this);
-				boolean run = true;
 				ItemStackWrapper<?> item = slot.buildItemStack(player);
+
 				if(this.modeEnum == ModeEnum.ADD)
 				{
-					int index = inventoryWrapper.addItem(item);
-					if(index != -1)
+					int itemIndex = inventoryWrapper.addItem(item);
+					if(itemIndex != -1)
 					{
-						slot.setIndex(index);
+						slot.setIndex(itemIndex);
 					}
 				}
 				else
 				{
 					inventoryWrapper.setItem(slot.getIndex(), item);
 				}
-				for(Function loadFunction : slot.getLoadFunctions())
-				{
-					Function func = null;
-					try 
-					{
-						func = FunctionManager.get().getFunctionByName(loadFunction.getName()).getClass().getConstructor(String.class).newInstance(loadFunction.getName());
-						func.setOwner(slot);
-					} 
-					catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException| NoSuchMethodException | SecurityException e) 
-					{
-						e.printStackTrace();
-					}
-					if(func != null)
-					{
-						func.setData(loadFunction.getData());
-						if(!func.function(player))
-						{
-							run = false;
-						}
-					}
-					else
-					{
-						DynamicGui.get().getLogger().error("Load function " + loadFunction.getName() + " does not exist, will not load in slot.");
-						run = false;
-					}
-					if(!run)
-					{
-						List<Function> failFunctions = slot.getFailLoadFunctions(func.getName());
-						if(failFunctions != null)
-						{
-							for(Function fail : failFunctions)
-							{
-								if(FunctionManager.get().getFunctionByName(fail.getName()) == null)
-									continue;
-								try 
-								{
-									Function failFunction = FunctionManager.get().getFunctionByName(fail.getName()).getClass().getConstructor(String.class).newInstance(fail.getName());
-									failFunction.setData(fail.getData());
-									failFunction.setOwner(slot);
-									boolean failResult = failFunction.function(player);
-									if(!failResult)
-									{
-										break;
-									}
-								} 
-								catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) 
-								{
-									e1.printStackTrace();
-									break;
-								}
-
-							}
-						}
-						break;
-					}
-				}
 			}
 		}
+		
+		this.inventoryWrapper = inventoryWrapper;
 		return inventoryWrapper;
 	}
 
@@ -155,7 +100,7 @@ public class Gui implements Serializable, FunctionOwner {
 	{
 		return this.name;
 	}
-	
+
 	public String getTitle()
 	{
 		return this.title;
@@ -199,6 +144,11 @@ public class Gui implements Serializable, FunctionOwner {
 	public List<Function> getFailFunctions(String key)
 	{
 		return this.failFunctions.get(key);
+	}
+	
+	public InventoryWrapper<?> getInventoryWrapper()
+	{
+		return this.inventoryWrapper;
 	}
 	
 	public Gui clone()
