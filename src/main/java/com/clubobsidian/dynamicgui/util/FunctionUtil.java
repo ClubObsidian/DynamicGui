@@ -54,7 +54,7 @@ public class FunctionUtil {
 			FunctionResponse result = FunctionUtil.tryFunctions(playerWrapper, slot.getLoadFunctions(), slot);
 			if(!result.result)
 			{
-				List<Function> failFunctions = slot.getFailLoadFunctions(result.failedFunction);
+				List<Function> failFunctions = slot.getLoadFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
 					tryFunctions(playerWrapper, failFunctions, slot);

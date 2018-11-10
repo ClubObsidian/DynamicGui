@@ -173,7 +173,7 @@ public class Slot implements Serializable, FunctionOwner {
 		return this.middleClickFailFunctions.get(key);
 	}
 	
-	public List<Function> getFailLoadFunctions(String key)
+	public List<Function> getLoadFailFunctions(String key)
 	{
 		return this.failLoadFunctions.get(key);
 	}

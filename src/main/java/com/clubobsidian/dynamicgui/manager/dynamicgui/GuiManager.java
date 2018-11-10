@@ -258,7 +258,7 @@ public class GuiManager {
 		{
 			if(key.endsWith(end))
 			{
-				List<Function> failFuncs = new ArrayList<Function>();
+				List<Function> failFuncs = new ArrayList<>();
 				for(String string : section.getStringList(key))
 				{
 					String[] array = FunctionManager.get().parseData(string);
@@ -308,7 +308,7 @@ public class GuiManager {
 	
 	private List<Slot> createSlots(int rows, Configuration yaml)
 	{
-		ArrayList<Slot> slots = new ArrayList<Slot>();
+		List<Slot> slots = new ArrayList<>();
 		for(int i = 0; i < rows * 9; i++)
 		{
 			if(yaml.get("" + i) != null)
@@ -336,51 +336,9 @@ public class GuiManager {
 				Map<String,List<Function>> middleClickFailFunctions = this.createFailFunctions(section, "-middleclickfailfunctions");
 				//fail functions
 				
-				List<Function> loadFunctions = new ArrayList<>();
-				if(section.get("load-functions") != null)
-				{
-					for(String string : section.getStringList("load-functions"))
-					{
-						String[] array = FunctionManager.get().parseData(string);
-						if(FunctionManager.get().getFunctionByName(array[0]) == null)
-						{
-							DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-						}
-						
-						Function func = new EmptyFunction(array[0], array[1]);
-						loadFunctions.add(func);
-					}
-				}
+				List<Function> loadFunctions = this.createFunctions(section, "load-functions");
+				Map<String, List<Function>> loadFailFunctions = this.createFailFunctions(section, "-loadfailfunctions");
 				
-				Map<String, List<Function>> failLoadFunctions = new HashMap<>();
-				for(String key : section.getKeys())
-				{
-					if(key.endsWith("-failloadfunctions"))
-					{
-						ArrayList<Function> failFuncs = new ArrayList<Function>();
-						for(String string : section.getStringList(key))
-						{
-							String[] array = FunctionManager.get().parseData(string);
-							if(FunctionManager.get().getFunctionByName(array[0]) == null)
-							{
-								DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-							}
-							
-							Function func = new EmptyFunction(array[0], array[1]);
-							failFuncs.add(func);
-						}
-						String[] split = key.split("-");
-						String str = split[0];
-						if(split.length > 2)
-						{
-							for(int j = 1; j < split.length - 1; j++)
-							{
-								str += "-" + split[j];
-							}
-						}
-						failLoadFunctions.put(str, failFuncs);
-					}
-				}
 				
 				List<String> lore = null;
 				if(section.get("lore") != null)
@@ -422,7 +380,7 @@ public class GuiManager {
 
 				
 				
-				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, amount));
+				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, loadFailFunctions, amount));
 			}
 		}
 		
