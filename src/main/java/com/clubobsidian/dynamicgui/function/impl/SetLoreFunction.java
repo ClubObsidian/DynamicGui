@@ -53,7 +53,7 @@ public class SetLoreFunction extends Function {
 				Gui gui = slot.getOwner();
 				if(gui != null)
 				{
-					InventoryWrapper<?> inv = playerWrapper.getOpenInventoryWrapper();
+					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
 						for(Slot s : gui.getSlots())
