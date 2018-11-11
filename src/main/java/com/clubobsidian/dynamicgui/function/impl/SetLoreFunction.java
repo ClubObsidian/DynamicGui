@@ -63,7 +63,7 @@ public class SetLoreFunction extends Function {
 							{
 								if(slot.getIndex() == s.getIndex())
 								{
-									List<String> lore = new ArrayList<String>();
+									List<String> lore = new ArrayList<>();
 									if(this.getData().contains(";"))
 									{
 										for(String str : this.getData().split(";"))
