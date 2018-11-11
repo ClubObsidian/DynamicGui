@@ -85,3 +85,17 @@ permission-failfunctions:
   functions:
   - "pay: 100"
   - "broadcast: &aPay test passed"
+'12':
+  icon: "DIRT"
+  name: "&cStatistic test"
+  functions:
+  - "statistic: MINE_BLOCK,DIRT,10"
+  - "broadcast: &cYou have mined at least 10 dirt blocks"
+'13':
+  icon: "SAND"
+  name: "&aRemove load test"
+  load-functions:
+  - "removeslot: this"
+  - "broadcast: &bRemove load test passed"
+  functions:
+  - "broadcast: Why is this broadcasting, you got removed"
