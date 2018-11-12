@@ -33,8 +33,8 @@ public class GuiBuilder  {
 	private int rows;
 	private Boolean close;
 	private ModeEnum modeEnum;
-	private List<Integer> npcIds = new ArrayList<Integer>();
-	private List<Slot> slots = new ArrayList<Slot>();
+	private List<Integer> npcIds = new ArrayList<>();
+	private List<Slot> slots = new ArrayList<>();
 	private List<LocationWrapper<?>> locs = new ArrayList<>();
 	private List<Function> functions = new ArrayList<>();
 	private Map<String,List<Function>> failFunctions = new HashMap<>();

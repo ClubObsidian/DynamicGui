@@ -17,17 +17,17 @@ package com.clubobsidian.dynamicgui.builder;
 
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 
-public class MyEnchantmentBuilder {
+public class EnchantmentBuilder {
 	
 	private String enchantment;
 	private int level;
-	public MyEnchantmentBuilder setEnchantment(String enchantment)
+	public EnchantmentBuilder setEnchantment(String enchantment)
 	{
 		this.enchantment = enchantment;
 		return this;
 	}
 	
-	public MyEnchantmentBuilder setLevel(int level)
+	public EnchantmentBuilder setLevel(int level)
 	{
 		this.level = level;
 		return this;
