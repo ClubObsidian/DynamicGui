@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -51,8 +52,6 @@ public class Gui implements Serializable, FunctionOwner {
 	{
 		this.name = name;
 		this.title = ChatColor.translateAlternateColorCodes(title);
-		if(this.title.length() > 32)
-			this.title = this.title.substring(0,31);
 		this.rows = rows;
 		this.slots = slots;
 		this.close = close;
@@ -66,7 +65,11 @@ public class Gui implements Serializable, FunctionOwner {
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
 	{	
-		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, this.title);
+		String inventoryTitle = ReplacerManager.get().replace(this.title, player);
+		if(inventoryTitle.length() > 32)
+			inventoryTitle = inventoryTitle.substring(0,31);
+		
+		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
 		InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
 
 		for(int i = 0; i < this.slots.size(); i++)
