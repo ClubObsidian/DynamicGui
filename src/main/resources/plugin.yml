@@ -1,6 +1,6 @@
 name: DynamicGui
 main: com.clubobsidian.dynamicgui.plugin.bukkit.BukkitPlugin
-version: 3.3.1
+version: 3.3.2
 author: VirusTotal
 softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup]
 commands:
