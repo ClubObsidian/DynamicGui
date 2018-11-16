@@ -111,7 +111,7 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
 		{
 			sender.sendMessage("/dynamicgui reload");
 			sender.sendMessage("/dynamicgui close <player>");
-			sender.sendMessage("/dynamicgui close <all> <type>");
+			sender.sendMessage("/dynamicgui close <all> <name>");
 			return true;
 		}
 		return true;
