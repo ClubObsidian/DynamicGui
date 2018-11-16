@@ -14,10 +14,13 @@ Designed to make writing menus for players to interact with easier.
   * Forge - Planned
 * A number of functions to use to customize menus
   * Functions use latebinding
+  * Addons can be written for more functions
 * Guis can be written in yaml, json or hocon
 * Proxy support
+  * Bungeecord
 * Custom replacers
-  * Built-in and support for PlaceholderAPI
+  * Built-in replacer support
+  * Support for PlaceholderAPI
 * Loading guis from a remote location
   * Currently supports loading from a webserver
 
