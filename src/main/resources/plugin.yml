@@ -10,3 +10,4 @@ commands:
     description: "Lists out all the guis for DynamicGUI!"
   dynamicgui:
     descriptions: "Command for handling management of DynamicGui guis"
+    aliases: ["dyngui"]
