@@ -21,6 +21,7 @@ import java.util.Map;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
+import com.clubobsidian.dynamicgui.replacer.impl.GlobalPlayerCountReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
@@ -36,6 +37,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 		this.replacers = new HashMap<>();
 		this.addReplacer(new PlayerReplacer("%player%"));
 		this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
+		this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
 		this.addReplacer(new UUIDReplacer("%uuid%"));
 		this.addReplacer(new PlayerLevelReplacer("%player-level%"));
 	}

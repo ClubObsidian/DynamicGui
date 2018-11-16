@@ -20,8 +20,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
+import org.bukkit.entity.Player;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
@@ -53,6 +55,7 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
+import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
@@ -87,6 +90,7 @@ public class DynamicGui  {
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
+		this.serverPlayerCount = new ConcurrentHashMap<>();
 	}
 
 	private void init()
@@ -131,6 +135,18 @@ public class DynamicGui  {
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
 		this.version = config.getString("version").trim();
+		for(final String str : config.getStringList("servers"))
+		{
+			DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + str  + "-playercount%")
+			{
+				@Override
+				public String replacement(String text, PlayerWrapper<?> player)
+				{
+					return String.valueOf(serverPlayerCount.get(str));
+				}
+			});
+			this.serverPlayerCount.put(str, 0);
+		}
 	}
 
 	private void loadGuis()
@@ -179,9 +195,9 @@ public class DynamicGui  {
 			this.bungeecord = false;
 			this.getLogger().info("BungeeCord is not enabled!");
 		}
+		
 		if(this.bungeecord || this.redis)
 		{
-			this.serverPlayerCount = new HashMap<>();
 			this.startPlayerCountTimer();
 		}
 	}
@@ -295,7 +311,12 @@ public class DynamicGui  {
 
 	public Integer getGlobalServerPlayerCount()
 	{
-		return this.serverPlayerCount.get("ALL");	
+		int globalPlayerCount = 0;
+		for(int playerCount : this.serverPlayerCount.values())
+		{
+			globalPlayerCount += playerCount;
+		}
+		return globalPlayerCount;	
 	}
 
 	public Integer getServerPlayerCount(String server)
