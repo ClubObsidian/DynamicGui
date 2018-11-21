@@ -150,7 +150,7 @@ public class VaultEconomy implements Economy {
 		
 		try 
 		{
-			this.depositPlayerMethod.invoke(this.economy, amt.doubleValue());
+			this.depositPlayerMethod.invoke(this.economy, playerWrapper.getPlayer(), amt.doubleValue());
 		} 
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
 		{
