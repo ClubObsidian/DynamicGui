@@ -16,19 +16,14 @@
 package com.clubobsidian.dynamicgui;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
-import org.bukkit.entity.Player;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
-import com.clubobsidian.dynamicgui.function.impl.ExpPayFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.NoPermission;
 import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
@@ -47,7 +42,6 @@ import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
-import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -165,7 +159,7 @@ public class DynamicGui  {
 				String packet = in.readUTF();
 				if(packet != null)
 				{
-					if(packet.equals("PlayerCount"))
+					if("PlayerCount".equals(packet))
 					{
 						String server = in.readUTF();
 						int playerCount = in.readInt();

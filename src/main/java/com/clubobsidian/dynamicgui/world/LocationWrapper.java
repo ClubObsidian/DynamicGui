@@ -68,7 +68,8 @@ public abstract class LocationWrapper<T> implements Serializable {
 			return false;
 		if(other.getY() != this.getY())
 			return false;
-		if(other.getZ() != this.getZ());
+		if(other.getZ() != this.getZ())
+			return false;
 		
 		return other.getWorldName().equals(this.getWorldName());
 	}
