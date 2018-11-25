@@ -27,12 +27,14 @@ Designed to make writing menus for players to interact with easier.
 
 ## Use cases
 
-Some possible uses for DynamicGui.
+Just a few uses for DynamicGui.
 
-* Shop
-* Hub menu
-* Staff tools
 * Help menu
+* Hub menu
+* Kit preview
+* Quests
+* Shop
+* Staff tools
 
 ## Contributing
 
