@@ -59,5 +59,5 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.8.1'
 	compile 'commons-io:commons-io:2.6'
 	compile 'com.github.clubobsidian:wrappy:1.6.0'
-	compile 'com.github.clubobsidian:trident:1.0.8'
+	compile 'com.github.clubobsidian:trident:1.1.0'
 }
