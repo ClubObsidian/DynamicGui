@@ -163,6 +163,11 @@ public class Slot implements Serializable, FunctionOwner {
 		return this.close;
 	}
 	
+	public void setClose(Boolean close)
+	{
+		this.close = close;
+	}
+	
 	public int getAmount()
 	{
 		return this.amount;

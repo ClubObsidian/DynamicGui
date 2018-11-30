@@ -18,6 +18,8 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class GuiFunction extends Function {
@@ -37,13 +39,15 @@ public class GuiFunction extends Function {
 	{
 		final String gui = this.getData();
 
-		if(playerWrapper.getOpenInventoryWrapper() != null)
-		{
-			playerWrapper.closeInventory();
-		}
-		
 		if(!GuiManager.get().hasGuiName(gui))
 			return false;
+		
+		FunctionOwner owner = this.getOwner();
+		if(owner instanceof Slot)
+		{
+			Slot slot = (Slot) owner;
+			slot.setClose(false);
+		}
 		
 		GuiManager.get().openGui(playerWrapper, gui);
 		return true;
