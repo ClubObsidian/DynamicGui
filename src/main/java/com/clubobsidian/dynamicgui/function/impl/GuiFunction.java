@@ -45,14 +45,7 @@ public class GuiFunction extends Function {
 		if(!GuiManager.get().hasGuiName(gui))
 			return false;
 		
-		DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				GuiManager.get().openGui(playerWrapper, gui);
-			}
-		},2L);
+		GuiManager.get().openGui(playerWrapper, gui);
 		return true;
 	}
 }
