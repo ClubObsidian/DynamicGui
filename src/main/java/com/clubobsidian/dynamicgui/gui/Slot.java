@@ -171,11 +171,6 @@ public class Slot implements Serializable, FunctionOwner {
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
 		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
-		if(this.nbt != null)
-		{
-			builderItem.setNBT(this.nbt);
-		}
-		
 		
 		if(this.getData() != 0)
 			builderItem.setDurability(this.getData());
@@ -207,6 +202,11 @@ public class Slot implements Serializable, FunctionOwner {
 		{
 			for(EnchantmentWrapper ench : this.enchants)
 				builderItem.addEnchant(ench);
+		}
+		
+		if(this.nbt != null)
+		{
+			builderItem.setNBT(this.nbt);
 		}
 		
 		this.itemStack = builderItem;

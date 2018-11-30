@@ -156,6 +156,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			{
 				newMeta.setLore(meta.getLore());
 			}
+			newItemStack.setItemMeta(newMeta);
 		}
 		
 		
