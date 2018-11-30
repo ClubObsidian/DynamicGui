@@ -48,6 +48,12 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 	
 	@Override
+	public void setAmount(int amount)
+	{
+		this.getItemStack().setAmount(amount);
+	}
+	
+	@Override
 	public String getType() 
 	{
 		return this.getItemStack().getType().toString();

@@ -24,14 +24,14 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
-public class SetDataFunction extends Function {
+public class SetNBTFunction extends Function {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6943230273788425141L;
 
-	public SetDataFunction(String name) 
+	public SetNBTFunction(String name) 
 	{
 		super(name);
 	}
@@ -58,18 +58,9 @@ public class SetDataFunction extends Function {
 							{
 								if(slot.getIndex() == s.getIndex())
 								{
-									try
-									{
-										short dura = Short.parseShort(this.getData());
-										item.setDurability(dura);
-										inv.setItem(slot.getIndex(), item);
-										return true;
-									}
-									catch(Exception ex)
-									{
-										DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
-										return false;
-									}
+									item.setNBT(this.getData());
+									inv.setItem(slot.getIndex(), item);
+									return true;
 								}
 							}
 						}

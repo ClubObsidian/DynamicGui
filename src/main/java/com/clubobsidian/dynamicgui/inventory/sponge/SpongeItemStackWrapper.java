@@ -74,6 +74,12 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	{
 		return this.getItemStack().getQuantity();
 	}
+	
+	@Override
+	public void setAmount(int amount)
+	{
+		this.getItemStack().setQuantity(amount);
+	}
 
 	@Override
 	public String getName() 
