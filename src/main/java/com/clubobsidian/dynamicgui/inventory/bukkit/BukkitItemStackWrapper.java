@@ -132,6 +132,33 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setNBT(String nbt) 
 	{
-		this.setItemStack(BukkitNBTUtil.setTag(this.getItemStack(), nbt));
+		ItemStack oldItemStack = this.getItemStack();
+		ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
+		
+		if(oldItemStack.hasItemMeta())
+		{
+			ItemMeta meta = oldItemStack.getItemMeta();
+			ItemMeta newMeta = newItemStack.getItemMeta();
+			if(meta.hasDisplayName())
+			{
+				newMeta.setDisplayName(meta.getDisplayName());
+			}
+			if(meta.hasEnchants())
+			{
+				Iterator<Entry<Enchantment,Integer>> it = meta.getEnchants().entrySet().iterator();
+				while(it.hasNext())
+				{
+					Entry<Enchantment,Integer> next = it.next();
+					newMeta.addEnchant(next.getKey(), next.getValue(), true);
+				}
+			}
+			if(meta.hasLore())
+			{
+				newMeta.setLore(meta.getLore());
+			}
+		}
+		
+		
+		this.setItemStack(newItemStack);
 	}
 }

@@ -22,12 +22,12 @@ import org.bukkit.inventory.ItemStack;
 
 public final class BukkitNBTUtil {
 
-	private BukkitNBTUtil() {}
-
 	private static Method parse;
 	private static Method asNMSCopy;
 	private static Method setTag;
 	private static Method asBukkitCopy;
+	
+	private BukkitNBTUtil() {}
 	
 	public static Object parse(String nbtStr)
 	{
