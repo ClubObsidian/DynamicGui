@@ -87,31 +87,6 @@ public class Slot implements Serializable, FunctionOwner {
 		this.index = index;
 		this.amount = amount;
 	}
-	
-	
-	public Slot(ItemStackWrapper<?> item, int index, boolean close)
-	{
-		this.icon = item.getType().toString();
-		this.functions = new ArrayList<Function>();
-		this.loadFunctions = new ArrayList<Function>();
-		this.copyDataFromItemStack(item);
-		this.close = close;
-		this.index = index;
-	}
-
-	private void copyDataFromItemStack(ItemStackWrapper<?> item)
-	{
-		this.amount = item.getAmount();
-		this.data = item.getDurability();
-		this.name = item.getName();
-		this.enchants = new ArrayList<EnchantmentWrapper>();
-		List<EnchantmentWrapper> enchants = item.getEnchants();
-		for(EnchantmentWrapper ench : enchants)
-		{
-			this.enchants.add(ench);
-		}
-		this.lore = item.getLore();
-	}
 
 	public String getIcon()
 	{
@@ -195,16 +170,21 @@ public class Slot implements Serializable, FunctionOwner {
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
 	{
-		ItemStackWrapper<?> item = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
+		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
+		if(this.nbt != null)
+		{
+			builderItem.setNBT(this.nbt);
+		}
+		
 		
 		if(this.getData() != 0)
-			item.setDurability(this.getData());
+			builderItem.setDurability(this.getData());
 		
 		if(this.name != null)
 		{
 			String newName = this.name;
 			newName = ReplacerManager.get().replace(newName, player);
-			item.setName(newName);
+			builderItem.setName(newName);
 		}
 		
 		if(this.lore != null)
@@ -220,18 +200,17 @@ public class Slot implements Serializable, FunctionOwner {
 			}
 			
 		
-			item.setLore(newLore);
+			builderItem.setLore(newLore);
 		}
 		
 		if(this.enchants != null)
 		{
 			for(EnchantmentWrapper ench : this.enchants)
-				item.addEnchant(ench);
+				builderItem.addEnchant(ench);
 		}
 		
-		
-		this.itemStack = item;
-		return item;
+		this.itemStack = builderItem;
+		return builderItem;
 	}
 	
 	public ItemStackWrapper<?> getItemStack()

@@ -27,6 +27,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -34,7 +35,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	 * 
 	 */
 	private static final long serialVersionUID = 3542885060265738780L;
-
+	
 	public BukkitItemStackWrapper(T itemStack) 
 	{
 		super(itemStack);
@@ -126,5 +127,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
 		}
 		return enchants;
+	}
+
+	@Override
+	public void setNBT(String nbt) 
+	{
+		this.setItemStack(BukkitNBTUtil.setTag(this.getItemStack(), nbt));
 	}
 }

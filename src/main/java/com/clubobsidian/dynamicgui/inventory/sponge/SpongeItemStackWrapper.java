@@ -198,4 +198,10 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		}
 		return enchants;
 	}
+
+	@Override
+	public void setNBT(String nbt) 
+	{
+		
+	}
 }

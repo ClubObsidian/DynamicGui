@@ -318,11 +318,15 @@ public class GuiManager {
 				String name = null;
 
 				if(section.get("name") != null)
+				{
 					name = ChatColor.translateAlternateColorCodes('&', section.getString("name"));
+				}
 
 				String nbt = null;
 				if(section.get("nbt") != null)
+				{
 					nbt = section.getString("nbt");
+				}
 				
 				List<Function> functions = this.createFunctions(section, "functions");
 				List<Function> leftClickFunctions = this.createFunctions(section, "leftclick-functions");
@@ -378,8 +382,6 @@ public class GuiManager {
 					data = (short) section.getInteger("data");
 				}
 
-				
-				
 				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, loadFailFunctions, amount));
 			}
 		}
