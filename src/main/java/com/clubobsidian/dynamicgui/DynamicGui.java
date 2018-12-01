@@ -274,7 +274,7 @@ public class DynamicGui  {
 				}
 			}
 		}		
-		,1L, 1000L);
+		,1L, 20L);
 	}
 
 	public String getNoGui()
