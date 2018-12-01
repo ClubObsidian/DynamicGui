@@ -216,8 +216,8 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new NoPermission("nopermission"));
 		
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
-		FunctionManager.get().addFunction(new MoneyWithdrawFunction("money-withdraw"));
-		FunctionManager.get().addFunction(new MoneyDepositFunction("money-deposit"));
+		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
+		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
 		
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
