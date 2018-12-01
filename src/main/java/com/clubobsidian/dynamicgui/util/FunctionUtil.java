@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 
 public class FunctionUtil {
 	
@@ -139,7 +140,12 @@ public class FunctionUtil {
 				}
 
 				myFunc = FunctionManager.get().getFunctionByName(func.getName()).clone();
-				myFunc.setData(func.getData());
+				String newData = func.getData();
+				if(newData != null && newData.length() > 0)
+				{
+					newData = ReplacerManager.get().replace(func.getData(), playerWrapper);
+				}
+				myFunc.setData(newData);
 				myFunc.setOwner(owner);
 				myFunc.setIndex(i);
 			} 

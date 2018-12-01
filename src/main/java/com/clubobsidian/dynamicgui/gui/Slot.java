@@ -173,7 +173,7 @@ public class Slot implements Serializable, FunctionOwner {
 		return this.amount;
 	}
 	
-	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> player)
+	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper)
 	{
 		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
 		
@@ -183,7 +183,7 @@ public class Slot implements Serializable, FunctionOwner {
 		if(this.name != null)
 		{
 			String newName = this.name;
-			newName = ReplacerManager.get().replace(newName, player);
+			newName = ReplacerManager.get().replace(newName, playerWrapper);
 			builderItem.setName(newName);
 		}
 		
@@ -196,7 +196,7 @@ public class Slot implements Serializable, FunctionOwner {
 			
 			for(int i = 0; i < newLore.size(); i++)
 			{
-				newLore.set(i, ReplacerManager.get().replace(newLore.get(i), player));
+				newLore.set(i, ReplacerManager.get().replace(newLore.get(i), playerWrapper));
 			}
 			
 		
@@ -211,7 +211,7 @@ public class Slot implements Serializable, FunctionOwner {
 		
 		if(this.nbt != null)
 		{
-			builderItem.setNBT(this.nbt);
+			builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
 		}
 		
 		this.itemStack = builderItem;
