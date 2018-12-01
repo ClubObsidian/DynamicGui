@@ -165,7 +165,6 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			newItemStack.setItemMeta(newMeta);
 		}
 		
-		
 		this.setItemStack(newItemStack);
 	}
 }
