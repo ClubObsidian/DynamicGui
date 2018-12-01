@@ -21,14 +21,14 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
-public class PayFunction extends Function {
+public class MoneyWithdrawFunction extends Function {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8941864727381394744L;
 
-	public PayFunction(String name) 
+	public MoneyWithdrawFunction(String name) 
 	{
 		super(name);
 	}
@@ -55,7 +55,6 @@ public class PayFunction extends Function {
 			return false;
 		}
 
-		DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
-		return true;
+		return DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
 	}
 }

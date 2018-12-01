@@ -25,9 +25,10 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
+import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
 import com.clubobsidian.dynamicgui.function.impl.NoPermission;
 import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
-import com.clubobsidian.dynamicgui.function.impl.PayFunction;
+import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerMsgFunction;
@@ -213,7 +214,11 @@ public class DynamicGui  {
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
 		FunctionManager.get().addFunction(new NoPermission("nopermission"));
-		FunctionManager.get().addFunction(new PayFunction("pay"));
+		
+		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
+		FunctionManager.get().addFunction(new MoneyWithdrawFunction("money-withdraw"));
+		FunctionManager.get().addFunction(new MoneyDepositFunction("money-deposit"));
+		
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
