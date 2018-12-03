@@ -52,4 +52,16 @@ public abstract class InventoryWrapper<T> implements Serializable {
 		}
 		return -1;
 	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj == null)
+			return false;
+		if(!(obj instanceof InventoryWrapper))
+			return false;
+		InventoryWrapper<?> wrapper = (InventoryWrapper<?>) obj;
+		
+		return this.getInventory().equals(wrapper.getInventory());
+	}
 }

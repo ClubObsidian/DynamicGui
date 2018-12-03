@@ -88,7 +88,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	{
 		return this.getPlayer().getLevel();
 	}
-
+	
 	@Override
 	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
 	{

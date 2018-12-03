@@ -52,11 +52,13 @@ public class InventoryClickListener implements Listener {
 			return;
 		}
 
+
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;
 
 		PlayerWrapper<?> player = e.getPlayerWrapper();
 		Gui gui = GuiManager.get().getCurrentGui(player);
+		
 		Slot slot = null;
 		for(Slot s : gui.getSlots())
 		{

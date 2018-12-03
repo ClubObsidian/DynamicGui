@@ -50,6 +50,7 @@ public class InventoryClickListener implements Listener {
 			{
 				clickType = Click.valueOf(e.getClick().toString());
 			}
+			
 			Player player = (Player) e.getWhoClicked();
 			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);

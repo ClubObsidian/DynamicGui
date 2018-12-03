@@ -27,10 +27,12 @@ import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
+import org.spongepowered.api.item.inventory.Carrier;
 import org.spongepowered.api.item.inventory.Container;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryTransformations;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
+import org.spongepowered.api.item.inventory.type.CarriedInventory;
 import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
 import org.spongepowered.api.statistic.BlockStatistic;
 import org.spongepowered.api.statistic.StatisticTypes;
@@ -115,7 +117,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		
 		return holder.get().level().get();
 	}
-
+	
 	@Override
 	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
 	{
