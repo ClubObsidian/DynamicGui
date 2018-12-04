@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
+import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
 import com.clubobsidian.dynamicgui.function.impl.NoPermission;
 import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
@@ -219,6 +220,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
+		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
 		
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));

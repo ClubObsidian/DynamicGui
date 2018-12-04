@@ -6,7 +6,7 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 
-public class MoneyDepositFunction extends Function {
+public class MoneyBalanceFunction extends Function {
 
 
 	/**
@@ -14,7 +14,7 @@ public class MoneyDepositFunction extends Function {
 	 */
 	private static final long serialVersionUID = -2637510737725573158L;
 
-	public MoneyDepositFunction(String name) 
+	public MoneyBalanceFunction(String name) 
 	{
 		super(name);
 	}
@@ -38,6 +38,6 @@ public class MoneyDepositFunction extends Function {
 		
 		BigDecimal decimalAmt = new BigDecimal(amt);
 
-		return DynamicGui.get().getPlugin().getEconomy().deposit(playerWrapper, decimalAmt);
+		return DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) >= 0;
 	}
 }

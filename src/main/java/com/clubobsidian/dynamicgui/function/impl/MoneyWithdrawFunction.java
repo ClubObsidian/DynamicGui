@@ -46,6 +46,7 @@ public class MoneyWithdrawFunction extends Function {
 			ex.printStackTrace();
 			return false;
 		}
+		
 		if(DynamicGui.get().getPlugin().getEconomy() == null)
 			return false;
 		
