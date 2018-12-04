@@ -80,6 +80,8 @@ public class InventoryClickListener implements Listener {
 		if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
 			return;
 
+		FunctionUtil.tryFunctions(slot, e.getClick(), player);
+		
 		Boolean close = null;
 		if(slot.getClose() != null)
 			close = slot.getClose();
@@ -91,7 +93,6 @@ public class InventoryClickListener implements Listener {
 		if(close)
 			player.closeInventory();
 
-		FunctionUtil.tryFunctions(slot, e.getClick(), player);
 
 	}
 }
