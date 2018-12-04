@@ -124,6 +124,11 @@ public class Gui implements Serializable, FunctionOwner {
 		return this.close;
 	}
 	
+	public void setClose(Boolean close)
+	{
+		this.close = close;
+	}
+	
 	public List<Integer> getNpcIds()
 	{
 		return this.npcIds;

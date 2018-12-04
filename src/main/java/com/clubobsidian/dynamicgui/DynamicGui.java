@@ -37,6 +37,7 @@ import com.clubobsidian.dynamicgui.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.function.impl.ServerBroadcastFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetAmountFunction;
+import com.clubobsidian.dynamicgui.function.impl.SetCloseFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetDataFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetEnchantsFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetLoreFunction;
@@ -234,6 +235,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
 		FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
 		FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
+		FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
 		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
 		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
 		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
