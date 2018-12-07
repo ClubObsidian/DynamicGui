@@ -36,10 +36,17 @@ public class StatisticFunction extends Function {
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
 		String[] split = this.getData().split(",");
-
+		String statisticString = null;
+		
+		if(split.length >= 2)
+			statisticString = split[0].toUpperCase();
+		
+		if(statisticString == null)
+			return false;
+		
 		if(split.length == 3)
 		{
-			Statistic stat = Statistic.valueOf(split[0]);
+			Statistic stat = Statistic.valueOf(statisticString);
 			String type = split[1];
 			Integer num = Integer.parseInt(split[2]);
 
