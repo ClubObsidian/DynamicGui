@@ -213,17 +213,18 @@ public class DynamicGui  {
 	private void loadFunctions()
 	{
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
+		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
-		FunctionManager.get().addFunction(new NoPermission("nopermission"));
+		
 		
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
 		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
 		
+		FunctionManager.get().addFunction(new NoPermission("nopermission"));
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
-		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
 		FunctionManager.get().addFunction(new RandomFunction("random"));
 		FunctionManager.get().addFunction(new SendFunction("send"));	

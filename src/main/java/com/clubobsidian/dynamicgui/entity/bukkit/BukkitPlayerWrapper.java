@@ -32,6 +32,7 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
+import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -150,11 +151,11 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	@Override
 	public int getStatistic(Statistic statistic, String data) 
 	{
-		if(Statistic.MINE_BLOCK == statistic)
+		if(StatisticType.MATERIAL == statistic.getStatisticType())
 		{
 			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(data));
 		}
-		else if(Statistic.KILL_ENTITY == statistic)
+		else if(StatisticType.ENTITY == statistic.getStatisticType())
 		{
 			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(data));
 		}

@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.util.Statistic;
+import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 
 public class StatisticFunction extends Function {
 
@@ -42,7 +43,7 @@ public class StatisticFunction extends Function {
 			String type = split[1];
 			Integer num = Integer.parseInt(split[2]);
 
-			if(stat == Statistic.MINE_BLOCK || stat == Statistic.KILL_ENTITY)
+			if(stat.getStatisticType() != StatisticType.NONE)
 			{
 				return playerWrapper.getStatistic(stat, type) >= num;
 			}
