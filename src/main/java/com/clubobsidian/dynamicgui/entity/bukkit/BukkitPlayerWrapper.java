@@ -149,15 +149,29 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 
 	@Override
-	public int getStatistic(Statistic statistic, String data) 
+	public int getStatistic(Statistic statistic, String data)
 	{
-		if(StatisticType.MATERIAL == statistic.getStatisticType())
+		if(data == null)
 		{
-			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(data));
+			return -1;
 		}
-		else if(StatisticType.ENTITY == statistic.getStatisticType())
+		String upperData = data.toUpperCase();
+
+		try
 		{
-			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(data));
+			if(StatisticType.MATERIAL == statistic.getStatisticType())
+			{
+				return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(upperData));
+			}
+			else if(StatisticType.ENTITY == statistic.getStatisticType())
+			{
+				return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
+			}
+		}
+		catch(IllegalArgumentException ex)
+		{
+			//Ignore and return -1
+			return -1;
 		}
 		return -1;
 	}

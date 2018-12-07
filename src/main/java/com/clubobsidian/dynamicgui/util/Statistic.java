@@ -68,6 +68,7 @@ public enum Statistic {
 	SPRINT_ONE_CM("SPRINT_ONE_CM", "SPRINT_ONE_CM"),
 	SWIM_ONE_CM("SWIM_ONE_CM", "SWIM_ONE_CM"),
 	TALKED_TO_VILLAGER("TALKED_TO_VILAGER", "TALKED_TO_VILLAGER"),
+	TIME_PLAYED_TICK("PLAY_ONE_TICK", "TIME_PLAYED"),
 	TIME_PLAYED("PLAY_ONE_MINUTE", "TIME_PLAYED"),
 	TIME_SINCE_DEATH("TIME_SINCE_DEATH", "TIME_SINCE_DEATH"),
 	TIME_SINCE_REST("TIME_SINCE_REST", "TIME_SINCE_REST"),
@@ -83,9 +84,7 @@ public enum Statistic {
 	private StatisticType statisticType;
 	private Statistic(String bukkitID, String spongeID)
 	{
-		this.bukkitID = bukkitID;
-		this.spongeID = spongeID;
-		this.statisticType = StatisticType.NONE;
+		this(bukkitID, spongeID, StatisticType.NONE);
 	}
 	
 	private Statistic(String bukkitID, String spongeID, StatisticType statisticType)

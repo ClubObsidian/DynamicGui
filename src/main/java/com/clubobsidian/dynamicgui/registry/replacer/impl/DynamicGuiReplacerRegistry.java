@@ -19,13 +19,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.replacer.impl.GlobalPlayerCountReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
+import com.clubobsidian.dynamicgui.replacer.impl.StatisticReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
+import com.clubobsidian.dynamicgui.util.Statistic;
+import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 
 public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
@@ -40,6 +45,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 		this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
 		this.addReplacer(new UUIDReplacer("%uuid%"));
 		this.addReplacer(new PlayerLevelReplacer("%player-level%"));
+		this.generateStatisticReplacers();
 	}
 	
 	@Override
@@ -47,7 +53,10 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 	{
 		for(Replacer replacer : this.replacers.values())
 		{
-			text = text.replace(replacer.getToReplace(), replacer.replacement(text, playerWrapper));
+			if(text.contains(replacer.getToReplace()))
+			{
+				text = text.replace(replacer.getToReplace(), replacer.replacement(text, playerWrapper));
+			}
 		}
 		return text;
 	}
@@ -64,5 +73,38 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 	public boolean addReplacer(Replacer replacer)
 	{
 		return this.replacers.put(replacer.getToReplace(), replacer) == null;
+	}
+	
+	private void generateStatisticReplacers()
+	{
+		for(Statistic statistic : Statistic.values())
+		{
+			if(statistic.getStatisticType() == StatisticType.MATERIAL)
+			{
+				for(String material : MaterialManager.get().getMaterials())
+				{
+					String lowerMaterial = material.toLowerCase();
+					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
+					System.out.println("material replacer: " + replacerName);
+					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
+				}
+			}
+			else if(statistic.getStatisticType() == StatisticType.ENTITY)
+			{
+				for(String entityType : EntityManager.get().getEntityTypes())
+				{
+					String lowerEntityType = entityType.toLowerCase();
+					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
+					System.out.println("entity type replacer: " + replacerName);
+					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));
+				}
+			}
+			else
+			{
+				String replacerName = "%statistic-" + statistic.name().toLowerCase() + "%";
+				System.out.println("statistic: " + replacerName);
+				this.addReplacer(new StatisticReplacer(replacerName, statistic));
+			}
+		}
 	}
 }
