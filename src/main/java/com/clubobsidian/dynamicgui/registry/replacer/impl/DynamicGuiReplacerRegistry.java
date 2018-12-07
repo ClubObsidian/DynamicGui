@@ -85,7 +85,6 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 				{
 					String lowerMaterial = material.toLowerCase();
 					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
-					System.out.println("material replacer: " + replacerName);
 					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
 				}
 			}
@@ -95,14 +94,12 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 				{
 					String lowerEntityType = entityType.toLowerCase();
 					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
-					System.out.println("entity type replacer: " + replacerName);
 					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));
 				}
 			}
 			else
 			{
 				String replacerName = "%statistic-" + statistic.name().toLowerCase() + "%";
-				System.out.println("statistic: " + replacerName);
 				this.addReplacer(new StatisticReplacer(replacerName, statistic));
 			}
 		}
