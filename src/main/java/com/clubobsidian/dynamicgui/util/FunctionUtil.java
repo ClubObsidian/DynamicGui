@@ -29,18 +29,18 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 
 public class FunctionUtil {
 	
-	public static boolean tryGuiFunctions(FunctionOwner owner, PlayerWrapper<?> playerWrapper)
+	public static boolean tryGuiFunctions(Gui owner, PlayerWrapper<?> playerWrapper)
 	{
 		FunctionResponse result = null;
 		if(owner.getFunctions() != null)
 		{
-			result = tryFunctions(playerWrapper, owner.getFunctions(), owner);
+			result = tryFunctions(owner, playerWrapper, owner.getFunctions(), owner);
 			if(!result.result)
 			{
 				List<Function> failFunctions = owner.getFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, owner);
+					tryFunctions(owner, playerWrapper, failFunctions, owner);
 				}
 				return false;
 			}
@@ -48,47 +48,47 @@ public class FunctionUtil {
 		return true;
 	}
 	
-	public static void tryLoadFunctions(PlayerWrapper<?> playerWrapper, Gui clonedGui) 
+	public static void tryLoadFunctions(PlayerWrapper<?> playerWrapper, Gui gui) 
 	{
-		for(Slot slot : clonedGui.getSlots())
+		for(Slot slot : gui.getSlots())
 		{
-			FunctionResponse result = FunctionUtil.tryFunctions(playerWrapper, slot.getLoadFunctions(), slot);
+			FunctionResponse result = FunctionUtil.tryFunctions(gui, playerWrapper, slot.getLoadFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getLoadFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, slot);
+					tryFunctions(gui, playerWrapper, failFunctions, slot);
 				}
 			}
 		}
 		
 	}
 
-	public static void tryFunctions(Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper)
+	public static void tryFunctions(Gui gui, Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper)
 	{
 		FunctionResponse result = null;
 		if(slot.getFunctions() != null)
 		{
-			result = tryFunctions(playerWrapper, slot.getFunctions(), slot);
+			result = tryFunctions(gui, playerWrapper, slot.getFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, slot);
+					tryFunctions(gui, playerWrapper, failFunctions, slot);
 				}
 			}
 		}
 		if(inventoryClick == Click.LEFT && slot.getLeftClickFunctions() != null)
 		{
-			result = tryFunctions(playerWrapper, slot.getLeftClickFunctions(), slot);
+			result = tryFunctions(gui, playerWrapper, slot.getLeftClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getLeftClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, slot);
+					tryFunctions(gui, playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -96,13 +96,13 @@ public class FunctionUtil {
 		}
 		else if(inventoryClick == Click.RIGHT && slot.getRightClickFunctions() != null)
 		{
-			result = tryFunctions(playerWrapper, slot.getRightClickFunctions(), slot);
+			result = tryFunctions(gui, playerWrapper, slot.getRightClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getRightClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, slot);
+					tryFunctions(gui, playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -110,13 +110,13 @@ public class FunctionUtil {
 		}
 		else if(inventoryClick == Click.MIDDLE && slot.getMiddleClickFunctions() != null)
 		{
-			result = tryFunctions(playerWrapper, slot.getMiddleClickFunctions(), slot);
+			result = tryFunctions(gui, playerWrapper, slot.getMiddleClickFunctions(), slot);
 			if(!result.result)
 			{
 				List<Function> failFunctions = slot.getMiddleClickFailFunctions(result.failedFunction);
 				if(failFunctions != null)
 				{
-					tryFunctions(playerWrapper, failFunctions, slot);
+					tryFunctions(gui, playerWrapper, failFunctions, slot);
 				}
 
 				return;
@@ -124,7 +124,7 @@ public class FunctionUtil {
 		}
 	}
 	
-	private static FunctionResponse tryFunctions(PlayerWrapper<?> playerWrapper, List<Function> functions, FunctionOwner owner)
+	private static FunctionResponse tryFunctions(Gui gui, PlayerWrapper<?> playerWrapper, List<Function> functions, FunctionOwner owner)
 	{
 		FunctionResponse response = new FunctionResponse(true);
 		for(int i = 0; i < functions.size(); i++)
@@ -135,7 +135,7 @@ public class FunctionUtil {
 			{
 				if(FunctionManager.get().getFunctionByName(func.getName()) == null)
 				{
-					DynamicGui.get().getLogger().info("Cannot find " + func.getName() + " continuing!");
+					DynamicGui.get().getLogger().error("Cannot find " + func.getName() + " for gui \"" + gui.getName() +"\" continuing!");
 					continue;
 				}
 
