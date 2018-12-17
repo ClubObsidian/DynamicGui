@@ -28,6 +28,9 @@ public class EntityClickListener implements Listener {
 	@EventHandler
 	public void onEntityClick(PlayerInteractEntityEvent e)
 	{
+		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+			return;
+		
 		EntityWrapper<?> entityWrapper = e.getEntityWrapper();
 		if(DynamicGui.get().getPlugin().isNPC(entityWrapper))
 		{

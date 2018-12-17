@@ -32,6 +32,9 @@ public class PlayerInteractListener implements Listener {
 	{
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
 		{
+			if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+				return;
+			
 			for(Gui gui : GuiManager.get().getGuis())
 			{
 				if(gui.getLocations() != null)
