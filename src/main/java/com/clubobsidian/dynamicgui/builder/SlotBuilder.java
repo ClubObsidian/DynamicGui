@@ -51,7 +51,7 @@ public class SlotBuilder {
 	
 	private List<Function> loadFunctions = new ArrayList<>();
 	private Map<String, List<Function>> failLoadFunctions = new HashMap<>();
-	private int amount;
+	private int amount = 1;
 	
 	public SlotBuilder setIcon(Material icon)
 	{
