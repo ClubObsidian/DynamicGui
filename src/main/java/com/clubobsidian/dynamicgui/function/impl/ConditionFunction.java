@@ -19,10 +19,19 @@ public class ConditionFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper) 
 	{
-		Expression expr = new Expression(this.getData());
-		if(!expr.isBoolean())
+		try
+		{
+			Expression expr = new Expression(this.getData());
+
+			if(!expr.isBoolean())
+				return false;
+
+			return expr.eval().intValue() == 1;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
 			return false;
-		
-		return expr.eval().intValue() == 1;
+		}
 	}
 }
