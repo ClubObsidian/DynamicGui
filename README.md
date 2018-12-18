@@ -16,6 +16,7 @@ Designed to make writing menus for players to interact with easier.
 * A number of functions to use to customize menus
   * Functions use latebinding
   * Addons can be written for more functions
+  * Use conditions with replacers using [EvalEx](https://github.com/uklimaschewski/EvalEx)
 * Guis can be written in yaml, json or hocon
 * Proxy support
   * Bungeecord
