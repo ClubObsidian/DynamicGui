@@ -23,6 +23,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
+import com.clubobsidian.dynamicgui.function.impl.ConditionFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
@@ -212,6 +213,8 @@ public class DynamicGui  {
 
 	private void loadFunctions()
 	{
+		FunctionManager.get().addFunction(new ConditionFunction("condition"));
+		
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));

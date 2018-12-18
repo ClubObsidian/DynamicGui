@@ -57,7 +57,8 @@ dependencies {
     	exclude group: 'org.spongepowered', module: 'testmods'
     }
     compile 'org.apache.commons:commons-lang3:3.8.1'
-	compile 'commons-io:commons-io:2.6'
-	compile 'com.github.clubobsidian:wrappy:1.8.0'
-	compile 'com.github.clubobsidian:trident:1.1.0'
+    compile 'commons-io:commons-io:2.6'
+    compile 'com.github.clubobsidian:wrappy:1.8.0'
+    compile 'com.github.clubobsidian:trident:1.1.0'
+    compile 'com.udojava:EvalEx:2.1'
 }
