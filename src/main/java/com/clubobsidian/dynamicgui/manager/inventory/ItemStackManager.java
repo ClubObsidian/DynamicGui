@@ -42,8 +42,8 @@ public abstract class ItemStackManager {
 	}
 	
 	public abstract Object createItemStack(String type, int quantity);
-	public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
 	
+	public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
 	public ItemStackWrapper<?> createItemStackWrapper(String type, int quantity)
 	{
 		Object itemStack = this.createItemStack(type, quantity);

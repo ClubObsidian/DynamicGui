@@ -21,7 +21,7 @@ Designed to make writing menus for players to interact with easier.
   * Bungeecord
 * Custom replacers
   * Built-in replacer support
-  * Support for PlaceholderAPI
+  * Support for [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 * Loading guis from a remote location
   * Currently supports loading from a webserver
 
