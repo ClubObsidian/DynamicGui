@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.spongepowered.api.entity.EntityTypes;
+import org.spongepowered.api.entity.living.player.Player;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 
 public class SpongeEntityManager extends EntityManager {
@@ -25,6 +28,12 @@ public class SpongeEntityManager extends EntityManager {
 		}
 	}
 
+	@Override
+	public PlayerWrapper<Player> createPlayerWrapper(Object player) 
+	{
+		return new SpongePlayerWrapper<Player>((Player) player);
+	}
+	
 	@Override
 	public List<String> getEntityTypes() 
 	{

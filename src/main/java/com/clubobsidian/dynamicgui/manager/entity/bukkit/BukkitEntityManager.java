@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 
 public class BukkitEntityManager extends EntityManager {
@@ -22,6 +25,12 @@ public class BukkitEntityManager extends EntityManager {
 		{
 			this.entityTypes.add(type.name());
 		}
+	}
+	
+	@Override
+	public PlayerWrapper<?> createPlayerWrapper(Object player) 
+	{
+		return new BukkitPlayerWrapper<Player>((Player) player);
 	}
 	
 	@Override

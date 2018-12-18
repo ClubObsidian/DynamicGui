@@ -37,6 +37,7 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
@@ -120,6 +121,16 @@ public class GuiManager {
 	public Gui getCurrentGui(PlayerWrapper<?> playerWrapper)
 	{
 		return this.playerGuis.get(playerWrapper.getUniqueId());
+	}
+	
+	public boolean openGui(Object player, String guiName)
+	{
+		return this.openGui(EntityManager.get().createPlayerWrapper(player), guiName);
+	}
+	
+	public boolean openGui(Object player, Gui gui)
+	{
+		return this.openGui(EntityManager.get().createPlayerWrapper(player), gui);
 	}
 	
 	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName)

@@ -3,6 +3,7 @@ package com.clubobsidian.dynamicgui.manager.entity;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.bukkit.BukkitEntityManager;
 import com.clubobsidian.dynamicgui.manager.entity.sponge.SpongeEntityManager;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -27,5 +28,6 @@ public abstract class EntityManager {
 		return instance;
 	}
 	
+	public abstract PlayerWrapper<?> createPlayerWrapper(Object player);
 	public abstract List<String> getEntityTypes();
 }
