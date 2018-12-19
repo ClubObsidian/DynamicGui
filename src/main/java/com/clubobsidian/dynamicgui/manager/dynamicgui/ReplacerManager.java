@@ -45,7 +45,7 @@ public class ReplacerManager {
 		String newText = text;
 		for(ReplacerRegistry registry : this.registries)
 		{
-			newText = registry.replace(playerWrapper, text);
+			newText = registry.replace(playerWrapper, newText);
 		}
 		return newText;
 	}
