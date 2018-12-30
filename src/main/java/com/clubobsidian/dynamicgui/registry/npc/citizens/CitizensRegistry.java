@@ -22,11 +22,14 @@ import org.bukkit.entity.Entity;
 
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.registry.npc.NPCMeta;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class CitizensRegistry implements NPCRegistry 
 {
+	private static String PLUGIN_NAME = "Citizens";
+	
 	private Class<?> citizensApiClass;
 	private Class<?> npcClass;
 	private Method getNPCRegistryMethod;
@@ -72,8 +75,10 @@ public class CitizensRegistry implements NPCRegistry
 			{
 				return null;
 			}
+			
 			int id = (int) this.getIdMethod.invoke(npc);
-			return new NPC(entityWrapper, id);
+			NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
+			return new NPC(entityWrapper, meta);
 		} 
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
 		{

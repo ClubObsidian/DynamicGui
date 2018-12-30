@@ -38,7 +38,7 @@ public class EntityClickListener implements Listener {
 		{
 			for(Gui gui : GuiManager.get().getGuis())
 			{
-				if(gui.getNpcIds().contains(npc.getId()))
+				if(gui.getNpcIds().contains(npc.getMeta().getId()))
 				{
 					GuiManager.get().openGui(e.getPlayerWrapper(), gui);
 					break;
