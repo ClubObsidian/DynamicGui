@@ -50,6 +50,8 @@ public class GuiManager {
 
 	private static GuiManager instance;
 	
+	private static int GUI_MAX_SIZE = 54;
+	
 	private List<Gui> guis;
 	private Map<UUID, Gui> playerGuis;
 	private GuiManager()
@@ -261,6 +263,15 @@ public class GuiManager {
 		if(rows == 0)
 			rows = 1;
 		
+		int lastSlot = getLastSlot(config) + 1;
+		
+		int calculatedRow = (lastSlot) / 9;
+		if(lastSlot % 9 != 0)
+			calculatedRow += 1;
+		
+		if(calculatedRow > rows)
+			rows = calculatedRow;
+		
 		List<Slot> slots = this.createSlots(rows, config);
 		
 		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiType, guiTitle, rows, slots);
@@ -450,5 +461,18 @@ public class GuiManager {
 		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
 		
 		return new Gui(guiName, guiType, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
+	}
+	
+	private int getLastSlot(Configuration yaml)
+	{
+		int lastIndex = 0;
+		for(int i = 0; i < GuiManager.GUI_MAX_SIZE; i++)
+		{
+			if(yaml.get(String.valueOf(i)) != null)
+			{
+				lastIndex = i;
+			}
+		}
+		return lastIndex;
 	}
 }
