@@ -25,6 +25,16 @@ Designed to make writing menus for players to interact with easier.
   * Support for [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 * Loading guis from a remote location
   * Currently supports loading from a webserver
+* Different gui types
+  * beacon
+  * brewing
+  * chest
+  * crafting
+  * dispenser
+  * dropper
+  * furnace
+  * hopper
+  * workbench
 
 ## Use cases
 
