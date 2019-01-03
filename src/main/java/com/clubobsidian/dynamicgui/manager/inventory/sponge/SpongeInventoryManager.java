@@ -37,6 +37,13 @@ public class SpongeInventoryManager extends InventoryManager {
 				.property(InventoryDimension.PROPERTY_NAME, new InventoryDimension(9, size / 9))
 				.build(DynamicGui.get().getPlugin());
 	}
+	
+	@Override
+	public Object createInventory(String title, String type) 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public InventoryWrapper<?> createInventoryWrapper(Object inventory) 

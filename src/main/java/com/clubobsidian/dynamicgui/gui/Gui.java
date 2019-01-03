@@ -39,6 +39,7 @@ public class Gui implements Serializable, FunctionOwner {
 	private static final long serialVersionUID = -6294818826223305057L;
 	private List<Slot> slots;
 	private String name;
+	private String type;
 	private String title;
 	private int rows;
 	private Boolean close;
@@ -48,9 +49,10 @@ public class Gui implements Serializable, FunctionOwner {
 	private List<Function> functions;
 	private Map<String, List<Function>> failFunctions;
 	private transient InventoryWrapper<?> inventoryWrapper;
-	public Gui(String name, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
 	{
 		this.name = name;
+		this.type = type;
 		this.title = ChatColor.translateAlternateColorCodes(title);
 		this.rows = rows;
 		this.slots = slots;
@@ -69,7 +71,16 @@ public class Gui implements Serializable, FunctionOwner {
 		if(inventoryTitle.length() > 32)
 			inventoryTitle = inventoryTitle.substring(0,31);
 		
-		Object serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
+		Object serverInventory = null;
+		if(this.type == null || this.type.equals("CHEST"))
+		{
+			serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
+		}
+		else
+		{
+			serverInventory = InventoryManager.get().createInventory(inventoryTitle, this.type);
+		}
+		
 		InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
 
 		for(int i = 0; i < this.slots.size(); i++)
@@ -102,6 +113,11 @@ public class Gui implements Serializable, FunctionOwner {
 	public String getName()
 	{
 		return this.name;
+	}
+	
+	public String getType()
+	{
+		return this.type;
 	}
 
 	public String getTitle()

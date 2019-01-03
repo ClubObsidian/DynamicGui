@@ -252,11 +252,18 @@ public class GuiManager {
 	
 	private void loadGuiFromConfiguration(String guiName, Configuration config)
 	{
+		String guiType = config.getString("gui-type");
+		if(guiType != null)
+			guiType = guiType.toUpperCase();
+		
 		String guiTitle = config.getString("gui-title");
 		int rows = config.getInteger("rows");
+		if(rows == 0)
+			rows = 1;
+		
 		List<Slot> slots = this.createSlots(rows, config);
 		
-		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiTitle, rows, slots);
+		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiType, guiTitle, rows, slots);
 
 		this.guis.add(gui);
 		DynamicGui.get().getLogger().info("gui \"" + gui.getName() + "\" has been loaded!");
@@ -400,7 +407,7 @@ public class GuiManager {
 		return slots;
 	}
 	
-	private Gui createGui(final Configuration yaml, final DynamicGuiPlugin plugin, final String guiName, final  String guiTitle, final int rows, final List<Slot> slots)
+	private Gui createGui(final Configuration yaml, final DynamicGuiPlugin plugin, final String guiName, final String guiType, final  String guiTitle, final int rows, final List<Slot> slots)
 	{
 		//int commandsLoaded = 0;
 		if(yaml.get("alias") != null)
@@ -442,6 +449,6 @@ public class GuiManager {
 		List<Function> functions = this.createFunctions(yaml, "functions");
 		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
 		
-		return new Gui(guiName, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
+		return new Gui(guiName, guiType, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
 	}
 }

@@ -42,6 +42,7 @@ public abstract class InventoryManager {
 	}
 	
 	public abstract Object createInventory(int size, String title);
+	public abstract Object createInventory(String title, String type);
 	
 	public abstract InventoryWrapper<?> createInventoryWrapper(Object inventory);
 	

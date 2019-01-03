@@ -29,6 +29,7 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 public class GuiBuilder  {
 	
 	private String name;
+	private String type;
 	private String title;
 	private int rows;
 	private Boolean close;
@@ -38,6 +39,12 @@ public class GuiBuilder  {
 	private List<LocationWrapper<?>> locs = new ArrayList<>();
 	private List<Function> functions = new ArrayList<>();
 	private Map<String,List<Function>> failFunctions = new HashMap<>();
+	
+	public GuiBuilder setType(String type)
+	{
+		this.type = type.toUpperCase();
+		return this;
+	}
 	
 	public GuiBuilder setName(String name)
 	{
@@ -128,6 +135,6 @@ public class GuiBuilder  {
 	
 	public Gui build()
 	{
-		return new Gui(this.name, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
+		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
 	}
 }

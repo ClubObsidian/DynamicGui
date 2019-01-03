@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.manager.inventory.bukkit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -28,6 +29,12 @@ public class BukkitInventoryManager extends InventoryManager {
 	public Object createInventory(int size, String title) 
 	{
 		return Bukkit.getServer().createInventory(null, size, title);
+	}
+	
+	@Override
+	public Object createInventory(String title, String type) 
+	{
+		return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
 	}
 
 	@Override
