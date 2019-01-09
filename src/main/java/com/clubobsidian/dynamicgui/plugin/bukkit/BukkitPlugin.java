@@ -25,6 +25,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -222,7 +223,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	{
 		try 
 		{
-			Field commandField = this.getCommandMap().getClass().getDeclaredField("knownCommands");
+			Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
 			commandField.setAccessible(true);
 			@SuppressWarnings("unchecked")
 			Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
