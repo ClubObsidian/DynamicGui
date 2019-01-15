@@ -20,7 +20,7 @@ Designed to make writing menus for players to interact with easier.
   * Functions use latebinding
   * Addons can be written for more functions
   * Use conditions with replacers using [EvalEx](https://github.com/uklimaschewski/EvalEx)
-* Guis can be written in yaml, json or hocon
+* Guis can be written in yaml, json, xml or hocon
 * Proxy support
   * Bungeecord
 * Custom replacers
