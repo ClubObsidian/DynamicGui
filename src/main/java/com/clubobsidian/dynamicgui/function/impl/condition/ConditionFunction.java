@@ -1,8 +1,11 @@
-package com.clubobsidian.dynamicgui.function.impl;
+package com.clubobsidian.dynamicgui.function.impl.condition;
+
+import java.math.BigDecimal;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.udojava.evalex.Expression;
+import com.udojava.evalex.Expression.LazyNumber;
 
 public class ConditionFunction extends Function {
 
@@ -22,7 +25,8 @@ public class ConditionFunction extends Function {
 		try
 		{
 			Expression expr = new Expression(this.getData());
-
+			expr.addLazyFunction(new EqualLazyFunction());
+			
 			if(!expr.isBoolean())
 				return false;
 
@@ -34,4 +38,28 @@ public class ConditionFunction extends Function {
 			return false;
 		}
 	}
+
+	public static LazyNumber ZERO = new LazyNumber() 
+	{
+		public BigDecimal eval() 
+		{
+			return BigDecimal.ZERO;
+		}
+		public String getString() 
+		{
+			return "0";
+		}
+	};
+
+	public static LazyNumber ONE = new LazyNumber() 
+	{
+		public BigDecimal eval() 
+		{
+			return BigDecimal.ONE;
+		}         
+		public String getString() 
+		{
+			return null;
+		}
+	};  
 }

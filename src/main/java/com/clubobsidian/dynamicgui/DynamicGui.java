@@ -23,7 +23,6 @@ import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
-import com.clubobsidian.dynamicgui.function.impl.ConditionFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
@@ -48,6 +47,7 @@ import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
+import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
