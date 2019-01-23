@@ -68,7 +68,7 @@ public class InventoryClickListener {
 			if(slotIndex.isPresent())
 			{
 				//Iterator<Inventory> it = e.getTargetInventory().iterator();k
-				Inventory inventory = slot.parent();
+				Inventory inventory = e.getTargetInventory();
 				
 				Optional<InventoryTitle> title = inventory.getInventoryProperty(InventoryTitle.class);
 				if(title.isPresent())
