@@ -93,7 +93,7 @@ public class InventoryClickListener {
 				DynamicGui.get().getLogger().info("ItemStack: " + itemStack);
 				
 				InventoryView view = InventoryView.TOP;
-				if(slotIndexClicked >= inventory.size())
+				if(slotIndexClicked >= inventory.capacity())
 				{
 					view = InventoryView.BOTTOM;
 				}
