@@ -60,7 +60,7 @@ public class InventoryClickListener implements Listener {
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
 			ItemStack itemStack = e.getInventory().getItem(slot);
 			ItemStackWrapper<?> itemStackWrapper = null;
-			if(itemStack.getType() == Material.AIR)
+			if(itemStack == null)
 			{
 				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(null);
 			}
