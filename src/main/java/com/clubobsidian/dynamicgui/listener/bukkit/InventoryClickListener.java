@@ -28,6 +28,7 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
+import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
@@ -45,6 +46,12 @@ public class InventoryClickListener implements Listener {
 		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize() && e.getClick() != ClickType.CREATIVE)
 		{
 			return;
+		}
+		
+		InventoryView view = InventoryView.TOP;
+		if(e.getRawSlot() >= e.getInventory().getSize())
+		{
+			view = InventoryView.BOTTOM;
 		}
 
 		if(e.getWhoClicked() instanceof Player)
@@ -69,7 +76,7 @@ public class InventoryClickListener implements Listener {
 				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(itemStack);
 			}
 			
-			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType);
+			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
 			DynamicGui.get().getEventManager().callEvent(clickEvent);
 			if(clickEvent.isCanceled())
 			{

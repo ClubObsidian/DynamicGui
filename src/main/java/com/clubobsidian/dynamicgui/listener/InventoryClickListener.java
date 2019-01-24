@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -48,6 +49,11 @@ public class InventoryClickListener implements Listener {
 		
 		ItemStackWrapper<?> item = e.getItemStackWrapper();
 		if(item.getItemStack() == null)
+		{
+			return;
+		}
+		
+		if(e.getView() != InventoryView.TOP)
 		{
 			return;
 		}

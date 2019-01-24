@@ -34,6 +34,7 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
+import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
@@ -91,10 +92,16 @@ public class InventoryClickListener {
 				DynamicGui.get().getLogger().info("SlotIndex: " + slotIndexClicked);
 				DynamicGui.get().getLogger().info("ItemStack: " + itemStack);
 				
+				InventoryView view = InventoryView.TOP;
+				if(slotIndexClicked >= inventory.size())
+				{
+					view = InventoryView.BOTTOM;
+				}
+				
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(inventory);
 				
-				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType);
+				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType, view);
 				DynamicGui.get().getEventManager().callEvent(clickEvent);
 				if(clickEvent.isCanceled())
 				{
