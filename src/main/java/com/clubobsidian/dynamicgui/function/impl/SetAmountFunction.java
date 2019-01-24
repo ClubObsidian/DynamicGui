@@ -51,27 +51,18 @@ public class SetAmountFunction extends Function {
 					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
-						for(Slot s : gui.getSlots())
+						ItemStackWrapper<?> item = slot.getItemStack();
+						try
 						{
-							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-							if(item.getItemStack() != null)
-							{
-								if(slot.getIndex() == s.getIndex())
-								{
-									try
-									{
-										Integer amount = Integer.parseInt(this.getData());
-										item.setAmount(amount);
-										inv.setItem(slot.getIndex(), item);
-										return true;
-									}
-									catch(Exception ex)
-									{
-										DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
-										return false;
-									}
-								}
-							}
+							Integer amount = Integer.parseInt(this.getData());
+							item.setAmount(amount);
+							inv.setItem(slot.getIndex(), item);
+							return true;
+						}
+						catch(Exception ex)
+						{
+							DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
+							return false;
 						}
 					}
 				}

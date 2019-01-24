@@ -55,44 +55,35 @@ public class SetEnchantsFunction extends Function {
 					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
-						for(Slot s : gui.getSlots())
+						ItemStackWrapper<?> item = slot.getItemStack();
+
+						Map<String, Integer> enchants = new HashMap<String, Integer>();
+						if(this.getData().contains(";"))
 						{
-							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-							if(item.getItemStack() != null)
+							for(String str : this.getData().split(";"))
 							{
-								if(slot.getIndex() == s.getIndex())
-								{
-									Map<String, Integer> enchants = new HashMap<String, Integer>();
-									if(this.getData().contains(";"))
-									{
-										for(String str : this.getData().split(";"))
-										{
-											String[] split = str.split(",");
-											enchants.put(split[0], Integer.valueOf(split[1]));
-										}
-									}
-									else
-									{
-										String[] split = this.getData().split(",");
-										enchants.put(split[0], Integer.valueOf(split[1]));
-									}
-
-									for(EnchantmentWrapper ench : item.getEnchants())
-									{
-										item.removeEnchant(ench);
-									}
-
-									for(String str : enchants.keySet())
-									{
-										item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
-									}
-
-									inv.setItem(slot.getIndex(), item);
-									return true;
-								}
-
+								String[] split = str.split(",");
+								enchants.put(split[0], Integer.valueOf(split[1]));
 							}
 						}
+						else
+						{
+							String[] split = this.getData().split(",");
+							enchants.put(split[0], Integer.valueOf(split[1]));
+						}
+
+						for(EnchantmentWrapper ench : item.getEnchants())
+						{
+							item.removeEnchant(ench);
+						}
+
+						for(String str : enchants.keySet())
+						{
+							item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
+						}
+
+						inv.setItem(slot.getIndex(), item);
+						return true;
 					}
 				}
 			}

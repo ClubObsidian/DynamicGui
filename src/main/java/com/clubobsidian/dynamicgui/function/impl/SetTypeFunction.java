@@ -51,19 +51,10 @@ public class SetTypeFunction extends Function {
 					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
-						for(Slot s : gui.getSlots())
-						{
-							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-							if(item.getItemStack() != null)
-							{
-								if(slot.getIndex() == s.getIndex())
-								{
-									item.setType(this.getData());
-									inv.setItem(slot.getIndex(), item);
-									return true;
-								}
-							}
-						}
+						ItemStackWrapper<?> item = slot.getItemStack();
+						item.setType(this.getData());
+						inv.setItem(slot.getIndex(), item);
+						return true;	
 					}
 				}
 			}

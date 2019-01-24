@@ -56,36 +56,28 @@ public class SetLoreFunction extends Function {
 					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
-						for(Slot s : gui.getSlots())
+						ItemStackWrapper<?> item = slot.getItemStack();
+
+						List<String> lore = new ArrayList<>();
+						if(this.getData().contains(";"))
 						{
-							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-							if(item.getItemStack() != null)
+							for(String str : this.getData().split(";"))
 							{
-								if(slot.getIndex() == s.getIndex())
-								{
-									List<String> lore = new ArrayList<>();
-									if(this.getData().contains(";"))
-									{
-										for(String str : this.getData().split(";"))
-										{
-											String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
+								String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
 
-											lore.add(l);
-										}
-									}
-									else
-									{
-										String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-
-										lore.add(l);
-									}
-
-									item.setLore(lore);
-									inv.setItem(slot.getIndex(), item);
-									return true;
-								}
+								lore.add(l);
 							}
 						}
+						else
+						{
+							String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+
+							lore.add(l);
+						}
+
+						item.setLore(lore);
+						inv.setItem(slot.getIndex(), item);
+						return true;
 					}
 				}
 			}

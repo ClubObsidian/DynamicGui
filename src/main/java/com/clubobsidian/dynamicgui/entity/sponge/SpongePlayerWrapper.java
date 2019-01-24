@@ -221,6 +221,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
 	@Override
 	public void updateInventory() {
+		
 		// TODO Auto-generated method stub
 	}
 }

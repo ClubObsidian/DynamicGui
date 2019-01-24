@@ -51,27 +51,19 @@ public class SetDataFunction extends Function {
 					InventoryWrapper<?> inv = gui.getInventoryWrapper();
 					if(inv != null)
 					{
-						for(Slot s : gui.getSlots())
+						ItemStackWrapper<?> item = slot.getItemStack();
+
+						try
 						{
-							ItemStackWrapper<?> item = inv.getItem(s.getIndex());
-							if(item.getItemStack() != null)
-							{
-								if(slot.getIndex() == s.getIndex())
-								{
-									try
-									{
-										short dura = Short.parseShort(this.getData());
-										item.setDurability(dura);
-										inv.setItem(slot.getIndex(), item);
-										return true;
-									}
-									catch(Exception ex)
-									{
-										DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
-										return false;
-									}
-								}
-							}
+							short dura = Short.parseShort(this.getData());
+							item.setDurability(dura);
+							inv.setItem(slot.getIndex(), item);
+							return true;
+						}
+						catch(Exception ex)
+						{
+							DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
+							return false;
 						}
 					}
 				}
