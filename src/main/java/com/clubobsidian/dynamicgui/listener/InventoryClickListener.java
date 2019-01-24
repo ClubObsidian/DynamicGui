@@ -46,13 +46,12 @@ public class InventoryClickListener implements Listener {
 		
 		e.setCanceled(true);
 		
-		ItemStackWrapper<?> item = e.getInventoryWrapper().getItem(e.getSlot());
+		ItemStackWrapper<?> item = e.getItemStackWrapper();
 		if(item.getItemStack() == null)
 		{
 			return;
 		}
-
-
+		
 		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 			return;
 

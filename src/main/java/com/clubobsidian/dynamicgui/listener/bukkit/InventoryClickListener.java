@@ -15,19 +15,23 @@
 */
 package com.clubobsidian.dynamicgui.listener.bukkit;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
 
 public class InventoryClickListener implements Listener {
 
@@ -54,8 +58,18 @@ public class InventoryClickListener implements Listener {
 			Player player = (Player) e.getWhoClicked();
 			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-
-			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slot, clickType);
+			ItemStack itemStack = e.getInventory().getItem(slot);
+			ItemStackWrapper<?> itemStackWrapper = null;
+			if(itemStack.getType() == Material.AIR)
+			{
+				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(null);
+			}
+			else
+			{
+				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(itemStack);
+			}
+			
+			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType);
 			DynamicGui.get().getEventManager().callEvent(clickEvent);
 			if(clickEvent.isCanceled())
 			{

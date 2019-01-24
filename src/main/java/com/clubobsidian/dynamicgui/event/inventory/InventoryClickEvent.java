@@ -19,18 +19,26 @@ package com.clubobsidian.dynamicgui.event.inventory;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.InventoryEvent;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.trident.Cancelable;
 
 public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 
+	private ItemStackWrapper<?> itemStackWrapper;
 	private int slot;
 	private Click click;
 	private boolean cancelled = false;
-	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, int slot, Click click)
+	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click)
 	{
 		super(playerWrapper, inventoryWrapper);
+		this.itemStackWrapper = itemStackWrapper;
 		this.slot = slot;
 		this.click = click;
+	}
+	
+	public ItemStackWrapper<?> getItemStackWrapper()
+	{
+		return this.itemStackWrapper;
 	}
 	
 	public int getSlot()

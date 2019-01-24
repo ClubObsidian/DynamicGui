@@ -22,8 +22,8 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
+import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.Inventory;
-import org.spongepowered.api.item.inventory.InventoryTransformations;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.Slot;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
@@ -35,7 +35,9 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.sponge.SpongeItemStackWrapper;
 
 public class InventoryClickListener {
 
@@ -67,9 +69,8 @@ public class InventoryClickListener {
 			Optional<SlotIndex> slotIndex = slot.getInventoryProperty(SlotIndex.class);
 			if(slotIndex.isPresent())
 			{
-				//Iterator<Inventory> it = e.getTargetInventory().iterator();k
-				Inventory inventory = e.getTargetInventory();
 				
+				Inventory inventory = slot.parent();
 				Optional<InventoryTitle> title = inventory.getInventoryProperty(InventoryTitle.class);
 				if(title.isPresent())
 				{
@@ -77,21 +78,23 @@ public class InventoryClickListener {
 				}
 				
 				int slotIndexClicked = slotIndex.get().getValue();
-				DynamicGui.get().getLogger().info("From sponge inventory listener, slot clicked on is: " + slotIndexClicked);
-				Optional<ItemStack> itemStack = slot.peek();
-				if(itemStack.isPresent())
+				ItemStack itemStack = transaction.getOriginal().createStack();
+				ItemStackWrapper<?> itemStackWrapper = null;
+				if(itemStack.getType() == ItemTypes.AIR)
 				{
-					DynamicGui.get().getLogger().info("ItemStack is there for slot: " + slotIndexClicked);
+					itemStackWrapper = new SpongeItemStackWrapper<ItemStack>(null);
 				}
 				else
 				{
-					DynamicGui.get().getLogger().info("ItemStack does not exist for slot: " + slotIndexClicked);
+					itemStackWrapper = new SpongeItemStackWrapper<ItemStack>(itemStack);
 				}
+				DynamicGui.get().getLogger().info("SlotIndex: " + slotIndexClicked);
+				DynamicGui.get().getLogger().info("ItemStack: " + itemStack);
 				
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(inventory);
 				
-				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, slotIndexClicked, clickType);
+				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType);
 				DynamicGui.get().getEventManager().callEvent(clickEvent);
 				if(clickEvent.isCanceled())
 				{

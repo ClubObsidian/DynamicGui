@@ -56,17 +56,13 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		if(itemType.isPresent())
 		{
 			ItemType itemStackType = itemType.get();
-			DynamicGui.get().getLogger().info("type: " + type + " is null: " + itemStackType);
 			ItemStack itemStack = ItemStack.builder()
 					.itemType(itemStackType)
 					.from(this.getItemStack())
 					.itemType(itemStackType)
 					.build();
 			this.setItemStack(itemStack);
-			DynamicGui.get().getLogger().info("This itemstack is null or is it: " + itemStack.toString());
 		}
-		DynamicGui.get().getLogger().info("From setType, itemstack: " + this.getItemStack().toString());
-		DynamicGui.get().getLogger().info("Item type is present: " + itemType.isPresent());
 	}
 
 	@Override

@@ -72,7 +72,7 @@ public class Gui implements Serializable, FunctionOwner {
 			inventoryTitle = inventoryTitle.substring(0,31);
 		
 		Object serverInventory = null;
-		if(this.type == null || this.type.equals("CHEST"))
+		if(this.type == null || this.type.equals(InventoryType.CHEST.toString()))
 		{
 			serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
 		}
