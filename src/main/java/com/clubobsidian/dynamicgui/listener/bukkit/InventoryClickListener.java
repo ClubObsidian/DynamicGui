@@ -15,7 +15,6 @@
 */
 package com.clubobsidian.dynamicgui.listener.bukkit;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,21 +38,18 @@ public class InventoryClickListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e)
 	{
-		if(e.getInventory() == null)
+		Inventory inventory = e.getInventory();
+		if(inventory == null)
 			return;
-
-		int slot = e.getSlot();
-		if(e.getSlot() < 0 || e.getSlot() > e.getInventory().getSize() && e.getClick() != ClickType.CREATIVE)
-		{
-			return;
-		}
 		
+		int slot = e.getSlot();
+		int rawSlot = e.getRawSlot();
 		InventoryView view = InventoryView.TOP;
-		if(e.getRawSlot() >= e.getInventory().getSize())
+		if(rawSlot >= e.getInventory().getSize())
 		{
 			view = InventoryView.BOTTOM;
 		}
-
+		
 		if(e.getWhoClicked() instanceof Player)
 		{
 			Click clickType = null;
@@ -63,9 +59,14 @@ public class InventoryClickListener implements Listener {
 			}
 			
 			Player player = (Player) e.getWhoClicked();
-			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
+			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(inventory);
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-			ItemStack itemStack = e.getInventory().getItem(slot);
+			ItemStack itemStack = null;
+			if(slot > 0 && slot < inventory.getSize())
+			{
+				itemStack = e.getInventory().getItem(slot);
+			}
+			
 			ItemStackWrapper<?> itemStackWrapper = null;
 			if(itemStack == null)
 			{
