@@ -46,13 +46,15 @@ Designed to make writing menus for players easier.
 
 Just a few uses for DynamicGui.
 
+* Crate rewards
 * Help menu
 * Hub menu
 * Kit preview
+* Player information
 * Quests
 * Shop
 * Staff tools
-* Crate rewards
+
 
 ## Contributing
 
@@ -62,6 +64,7 @@ backwards compatability. DynamicGui should not have any hard dependencies on plu
 Please use reflection if you want or need a plugin dependency. If you are writing against a plugin dependency a 
 registry should be created so that other plugin dependencies can be optionally used in the future. Before your code will
 be accepted please sign our [CLA](https://cla-assistant.io/ClubObsidian/DynamicGui).
+
 
 ## Development
 
