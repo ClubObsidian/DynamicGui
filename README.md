@@ -56,6 +56,9 @@ Just a few uses for DynamicGui.
 * Shop
 * Staff tools
 
+## Gui Examples
+
+You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamples).
 
 ## Contributing
 
