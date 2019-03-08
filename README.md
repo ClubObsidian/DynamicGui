@@ -7,8 +7,10 @@
 [![Documentation Status](https://readthedocs.org/projects/dynamicguidocs/badge/?version=latest)](https://dynamicguidocs.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+
 A rewrite of the plugin originally made for Club Obsidian. 
-Designed to make writing menus for players to interact with easier.
+Designed to make writing menus for players easier.
+
 
 ## Features
 
@@ -39,6 +41,7 @@ Designed to make writing menus for players to interact with easier.
   * hopper
   * workbench
 
+
 ## Use cases
 
 Just a few uses for DynamicGui.
@@ -49,6 +52,7 @@ Just a few uses for DynamicGui.
 * Quests
 * Shop
 * Staff tools
+* Crate rewards
 
 ## Contributing
 
