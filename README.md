@@ -60,6 +60,10 @@ Just a few uses for DynamicGui.
 
 You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamples).
 
+# Gui Documentation
+
+You find find [gui documentation here](https://dynamicguidocs.readthedocs.io/en/latest/).
+
 ## Contributing
 
 There are a few ways you can contribute to DynamicGui. The first is filling issue reports, which is a great help.
