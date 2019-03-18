@@ -17,7 +17,8 @@ Designed to make writing menus for players easier.
 
 * Multi server support in one jar
   * Bukkit - Fully supported
-  * Sponge - Currently in development
+  * Sponge - In alpha
+    * Things may break
   * Forge - Planned
 * A number of functions to use to customize menus
   * Functions use latebinding
