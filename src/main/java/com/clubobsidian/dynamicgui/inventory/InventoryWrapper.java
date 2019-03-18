@@ -39,18 +39,16 @@ public abstract class InventoryWrapper<T> implements Serializable {
 	public abstract ItemStackWrapper<?> getItem(int index);
 	public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
 	public abstract int getSize();
+	public abstract int getContentSize();
 	
 	public int addItem(ItemStackWrapper<?> itemStackWrapper) 
 	{
-		for(int i = 0; i < this.getSize(); i++)
-		{
-			if(this.getItem(i).getItemStack() == null)
-			{
-				this.setItem(i, itemStackWrapper);
-				return i;
-			}
-		}
-		return -1;
+		int index = this.getContentSize();
+		if(index >= this.getSize())
+			return -1;
+		
+		this.setItem(index, itemStackWrapper);
+		return index;
 	}
 	
 	@Override

@@ -58,4 +58,10 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	{
 		return this.getInventory().getSize();
 	}
+	
+	@Override
+	public int getContentSize() 
+	{
+		return this.getInventory().getContents().length;
+	}
 }
