@@ -82,7 +82,12 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public String getName() 
 	{
-		return this.getItemStack().getItemMeta().getDisplayName();
+		ItemMeta itemMeta = this.getItemStack().getItemMeta();
+		if(itemMeta.hasDisplayName())
+		{
+			return itemMeta.getDisplayName();
+		}
+		return null;
 	}
 
 	@Override

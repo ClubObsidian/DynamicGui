@@ -16,9 +16,13 @@
 package com.clubobsidian.dynamicgui.inventory.sponge;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.json.simple.parser.JSONParser;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataQuery;
@@ -26,12 +30,17 @@ import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentType;
-import org.spongepowered.api.item.inventory.Container;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
+import com.google.gson.JsonElement;
+
+import co.aikar.util.JSONUtil;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -94,9 +103,9 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		Optional<Text> name = this.getItemStack().get(Keys.DISPLAY_NAME);
 		if(name.isPresent())
 		{
-			return name.get().toPlain();
+			return TextSerializers.LEGACY_FORMATTING_CODE.serialize(name.get());
 		}
-		return "";
+		return null;
 	}
 
 	@Override
@@ -114,7 +123,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		{
 			for(Text text : itemLore.get())
 			{
-				lore.add(text.toPlain());
+				lore.add(TextSerializers.LEGACY_FORMATTING_CODE.serialize(text));
 			}
 		}
 		return lore;
@@ -149,6 +158,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setDurability(short durability) 
 	{
+		DynamicGui.get().getLogger().info("ItemStack is null: " + (this.getItemStack() == null));
 		DataContainer container = this.getItemStack().toContainer();
 		container = container.set(DataQuery.of("UnsafeDamage"), (int) durability);
 		ItemStack newStack = ItemStack.builder().fromContainer(container).build();
@@ -215,9 +225,53 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		return enchants;
 	}
 
+	/*
+	 		if(oldItemStack.hasItemMeta())
+		{
+			ItemMeta meta = oldItemStack.getItemMeta();
+			ItemMeta newMeta = newItemStack.getItemMeta();
+			if(meta.hasDisplayName())
+			{
+				newMeta.setDisplayName(meta.getDisplayName());
+			}
+			if(meta.hasEnchants())
+			{
+				Iterator<Entry<Enchantment,Integer>> it = meta.getEnchants().entrySet().iterator();
+				while(it.hasNext())
+				{
+					Entry<Enchantment,Integer> next = it.next();
+					newMeta.addEnchant(next.getKey(), next.getValue(), true);
+				}
+			}
+			if(meta.hasLore())
+			{
+				newMeta.setLore(meta.getLore());
+			}
+			newItemStack.setItemMeta(newMeta);
+		}
+		
+		this.setItemStack(newItemStack);
+	 
+	 */
+	
 	@Override
 	public void setNBT(String nbt) 
 	{
+		String name = this.getName();
+		List<String> lore = this.getLore();
+		List<EnchantmentWrapper> enchants = this.getEnchants();
 		
+		SpongeNBTUtil.setTag(this.getItemStack(), nbt);
+		
+		if(name != null)
+		{
+			this.setName(name);
+		}
+		
+		this.setLore(lore);
+		for(EnchantmentWrapper ench : enchants)
+		{
+			this.addEnchant(ench);
+		}
 	}
 }
