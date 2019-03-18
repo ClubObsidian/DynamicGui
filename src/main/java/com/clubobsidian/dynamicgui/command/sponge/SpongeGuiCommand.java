@@ -39,11 +39,8 @@ public class SpongeGuiCommand implements CommandExecutor {
 			if(gui.isPresent())
 			{
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>((Player) src);
-				boolean executed = GuiManager.get().openGui(playerWrapper, gui.get());
-				if(executed)
-				{
-					return CommandResult.success();
-				}
+				GuiManager.get().openGui(playerWrapper, gui.get());
+				return CommandResult.success();
 			}
 		}
 		return CommandResult.empty();

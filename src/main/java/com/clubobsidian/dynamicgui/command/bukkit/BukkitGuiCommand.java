@@ -35,7 +35,8 @@ public class BukkitGuiCommand implements CommandExecutor {
 			{
 				Player player = (Player) sender;
 				PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-				return GuiManager.get().openGui(playerWrapper, args[0]);
+				GuiManager.get().openGui(playerWrapper, args[0]);
+				return true;
 			}
 		}
 		return false;
