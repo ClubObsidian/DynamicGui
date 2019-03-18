@@ -39,7 +39,9 @@ public class GuiFunction extends Function {
 		final String gui = this.getData();
 
 		if(!GuiManager.get().hasGuiName(gui))
+		{
 			return false;
+		}
 		
 		FunctionOwner owner = this.getOwner();
 		if(owner instanceof Slot)

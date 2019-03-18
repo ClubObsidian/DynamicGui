@@ -41,6 +41,7 @@ import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -161,7 +162,17 @@ public class GuiManager {
 			if(inventoryWrapper == null)
 				return false;
 			
-			playerWrapper.openInventory(inventoryWrapper);
+			if(DynamicGui.get().getServer().getType() == ServerType.SPONGE)
+			{
+				DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> 
+				{
+					playerWrapper.openInventory(inventoryWrapper);
+				}, 1L);
+			}
+			else
+			{
+				playerWrapper.openInventory(inventoryWrapper);
+			}
 			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
 			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
 			{
