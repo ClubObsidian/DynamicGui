@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.ItemTypes;
 
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
@@ -30,5 +29,18 @@ public class SpongeMaterialManager extends MaterialManager {
 	public List<String> getMaterials() 
 	{
 		return this.materials;
+	}
+
+	@Override
+	public String normalizeMaterial(String material) 
+	{
+		if(material == null)
+			return null;
+		
+		material = material.toLowerCase();
+		if(!material.startsWith("minecraft:"))
+			material = "minecraft:" + material;
+		
+		return material;
 	}
 }

@@ -30,4 +30,12 @@ public class BukkitMaterialManager extends MaterialManager {
 		return this.materials;
 	}
 
+	@Override
+	public String normalizeMaterial(String material) 
+	{
+		if(material == null)
+			return null;
+		
+		return material.toUpperCase();
+	}
 }

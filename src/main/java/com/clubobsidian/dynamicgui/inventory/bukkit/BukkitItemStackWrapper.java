@@ -27,6 +27,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
@@ -65,7 +66,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		if(type == null)
 			return false;
 		
-		type = type.toUpperCase();
+		type = MaterialManager.get().normalizeMaterial(type);
 		try
 		{
 			Material.valueOf(type);

@@ -33,6 +33,7 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
@@ -59,9 +60,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		if(type == null)
 			return false;
 		
-		type = type.toLowerCase();
-		if(!type.startsWith("minecraft:"))
-			type = "minecraft:" + type;
+		type = MaterialManager.get().normalizeMaterial(type);
 		
 		Optional<ItemType> itemType = Sponge.getGame().getRegistry().getType(ItemType.class, type);
 		if(itemType.isPresent())

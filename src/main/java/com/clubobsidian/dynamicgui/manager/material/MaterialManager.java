@@ -28,5 +28,6 @@ public abstract class MaterialManager {
 	}
 	
 	public abstract List<String> getMaterials();
+	public abstract String normalizeMaterial(String material);
 
 }

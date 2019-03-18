@@ -38,6 +38,7 @@ import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.ChatColor;
@@ -343,7 +344,7 @@ public class GuiManager {
 			if(yaml.get("" + i) != null)
 			{
 				ConfigurationSection section = yaml.getConfigurationSection(i + "");
-				String icon = section.getString("icon");
+				String icon = MaterialManager.get().normalizeMaterial(section.getString("icon"));
 				String name = null;
 
 				if(section.get("name") != null)
