@@ -15,6 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.entity.sponge;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,6 +25,7 @@ import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.data.manipulator.mutable.entity.ExperienceHolderData;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleType;
+import org.spongepowered.api.effect.particle.ParticleTypes;
 import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
@@ -167,15 +169,30 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public void playEffect(String effect, int data) 
 	{
 		Location<World> location = this.getPlayer().getLocation();
-		Optional<ParticleType> particleType = Sponge.getGame().getRegistry().getType(ParticleType.class, effect);
-		if(particleType.isPresent())
+		Field particleField = null;
+		try
+		{
+			particleField = ParticleTypes.class.getDeclaredField(effect);
+		}
+		catch(NoSuchFieldException ex)
+		{
+			ex.printStackTrace();
+			return;
+		}
+
+		try 
 		{
 			ParticleEffect particleEffect = ParticleEffect
 					.builder()
-					.type(particleType.get())
+					.type((ParticleType) particleField.get(null))
 					.build();
 			location.getExtent().spawnParticles(particleEffect, location.getPosition());
-		}	
+		} 
+		catch (IllegalArgumentException | IllegalAccessException e) 
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override

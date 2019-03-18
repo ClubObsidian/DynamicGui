@@ -30,13 +30,26 @@ public class ParticleWrapper implements Serializable {
 	
 	public ParticleWrapper(String str)
 	{
-		String[] args = str.split(",");
-		this.effect = args[0];
-		this.data = Integer.parseInt(args[1]);
+		this.loadFromString(str);
+	}
+	
+	private void loadFromString(String str)
+	{
+		if(str.contains(","))
+		{
+			String[] args = str.split(",");
+			this.effect = args[0].toUpperCase();
+			this.data = Integer.parseInt(args[1]);
+		}
+		else
+		{
+			this.effect = str;
+			this.data = 0;
+		}
 	}
 	
 	public void spawnEffect(PlayerWrapper<?> player)
 	{
-		player.playEffect(this.effect, this.data);
+		player.playEffect(this.effect.toUpperCase(), this.data);
 	}	
 }
