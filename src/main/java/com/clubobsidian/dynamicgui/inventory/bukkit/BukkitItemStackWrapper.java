@@ -60,9 +60,23 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public void setType(String type) 
+	public boolean setType(String type) 
 	{
+		if(type == null)
+			return false;
+		
+		type = type.toUpperCase();
+		try
+		{
+			Material.valueOf(type);
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+		
 		this.getItemStack().setType(Material.valueOf(type));
+		return true;
 	}
 
 	@Override

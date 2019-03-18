@@ -48,7 +48,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract void setAmount(int amount);
 	
 	public abstract String getType();
-	public abstract void setType(String type);
+	public abstract boolean setType(String type);
 	
 	public abstract String getName();
 	public abstract void setName(String name);

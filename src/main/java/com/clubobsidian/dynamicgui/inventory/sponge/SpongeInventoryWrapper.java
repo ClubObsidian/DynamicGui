@@ -76,15 +76,15 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	{
 		Sponge.getScheduler().createTaskBuilder().execute(() ->
 		{
-		ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
-		DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
-		this.getInventory()
-		.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
-		.set(itemStack);
-		DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
+			ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
+			DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
+			this.getInventory()
+			.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
+			.set(itemStack);
+			DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
 		}).delay(1, TimeUnit.MILLISECONDS).submit(DynamicGui.get().getPlugin());
 	}
-	
+
 	@Override
 	public int getSize() 
 	{

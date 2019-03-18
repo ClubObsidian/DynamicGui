@@ -20,14 +20,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentType;
+import org.spongepowered.api.item.inventory.Container;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
@@ -50,8 +52,15 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 	
 	@Override
-	public void setType(String type) 
+	public boolean setType(String type) 
 	{
+		if(type == null)
+			return false;
+		
+		type = type.toLowerCase();
+		if(!type.startsWith("minecraft:"))
+			type = "minecraft:" + type;
+		
 		Optional<ItemType> itemType = Sponge.getGame().getRegistry().getType(ItemType.class, type);
 		if(itemType.isPresent())
 		{
@@ -62,7 +71,9 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 					.itemType(itemStackType)
 					.build();
 			this.setItemStack(itemStack);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
@@ -138,7 +149,10 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	@Override
 	public void setDurability(short durability) 
 	{
-		this.getItemStack().offer(Keys.ITEM_DURABILITY, (int) durability);
+		DataContainer container = this.getItemStack().toContainer();
+		container = container.set(DataQuery.of("UnsafeDamage"), (int) durability);
+		ItemStack newStack = ItemStack.builder().fromContainer(container).build();
+		this.setItemStack(newStack);
 	}
 
 	@Override
