@@ -82,7 +82,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 			.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
 			.set(itemStack);
 			DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
-		}).delay(1, TimeUnit.MILLISECONDS);
+		}).delay(1, TimeUnit.MILLISECONDS).submit(DynamicGui.get().getPlugin());
 	}
 
 	@Override
