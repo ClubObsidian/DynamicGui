@@ -16,13 +16,9 @@
 package com.clubobsidian.dynamicgui.inventory.sponge;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.json.simple.parser.JSONParser;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataQuery;
@@ -38,9 +34,6 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
-import com.google.gson.JsonElement;
-
-import co.aikar.util.JSONUtil;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -224,35 +217,6 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		}
 		return enchants;
 	}
-
-	/*
-	 		if(oldItemStack.hasItemMeta())
-		{
-			ItemMeta meta = oldItemStack.getItemMeta();
-			ItemMeta newMeta = newItemStack.getItemMeta();
-			if(meta.hasDisplayName())
-			{
-				newMeta.setDisplayName(meta.getDisplayName());
-			}
-			if(meta.hasEnchants())
-			{
-				Iterator<Entry<Enchantment,Integer>> it = meta.getEnchants().entrySet().iterator();
-				while(it.hasNext())
-				{
-					Entry<Enchantment,Integer> next = it.next();
-					newMeta.addEnchant(next.getKey(), next.getValue(), true);
-				}
-			}
-			if(meta.hasLore())
-			{
-				newMeta.setLore(meta.getLore());
-			}
-			newItemStack.setItemMeta(newMeta);
-		}
-		
-		this.setItemStack(newItemStack);
-	 
-	 */
 	
 	@Override
 	public void setNBT(String nbt) 

@@ -22,11 +22,8 @@ import java.lang.reflect.Method;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.common.item.inventory.util.ItemStackUtil;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-
 public final class SpongeNBTUtil {
 
-	private static Class<?> itemStackUtil;
 	private static Method getTagFromJson;
 	private static Method toNative;
 	private static Field tag;
@@ -42,10 +39,8 @@ public final class SpongeNBTUtil {
 			{
 				String parserClassName = "net.minecraft.nbt.JsonToNBT";
 				Class<?> jsonToNBT = Class.forName(parserClassName);
-				DynamicGui.get().getLogger().info("JsonNBTClass: " + (jsonToNBT));
 				getTagFromJson = jsonToNBT.getDeclaredMethod("func_180713_a", String.class);
 				getTagFromJson.setAccessible(true);
-				DynamicGui.get().getLogger().info("Get tag from JSON: " + getTagFromJson);
 			} 
 			catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) 
 			{
@@ -77,8 +72,6 @@ public final class SpongeNBTUtil {
 			Class<?> nmsItemStackClass = Class.forName(itemStackClassName);
 			if(tag == null)
 			{	
-				String nbtTagCompoundClassName = "net.minecraft.nbt.NBTTagCompound";
-				Class<?> nbtTagCompoundClass = Class.forName(nbtTagCompoundClassName);
 				tag = nmsItemStackClass.getDeclaredField("field_77990_d");
 				tag.setAccessible(true);
 			}
