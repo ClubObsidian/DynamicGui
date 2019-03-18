@@ -17,6 +17,7 @@ package com.clubobsidian.dynamicgui.inventory.bukkit;
 
 import java.io.Serializable;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,6 +63,14 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public int getContentSize() 
 	{
-		return this.getInventory().getContents().length;
+		int contentSize = 0;
+		for(ItemStack item : this.getInventory().getContents())
+		{
+			if(item != null && item.getType() != Material.AIR)
+			{
+				contentSize += 1;
+			}
+		}
+		return contentSize;
 	}
 }
