@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.plugin.sponge;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.command.sponge.SpongeDynamicGuiCommand;
 import com.clubobsidian.dynamicgui.command.sponge.SpongeGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
@@ -91,6 +92,15 @@ public class SpongePlugin implements DynamicGuiPlugin {
 				.build();
 		
 		Sponge.getGame().getCommandManager().register(this, guiSpec, "gui");
+		
+		CommandSpec dynamicGuiSpec = CommandSpec.builder().description(Text.of("DynamicGui command"))
+				.executor(new SpongeDynamicGuiCommand())
+				.arguments(GenericArguments.optional(GenericArguments.string(Text.of("sub"))),
+				GenericArguments.optional(GenericArguments.string(Text.of("subtwo"))),
+				GenericArguments.optional(GenericArguments.string(Text.of("subthree"))))
+				.build();
+		
+		Sponge.getGame().getCommandManager().register(this, dynamicGuiSpec, "dynamicgui", "dyngui");
 		
 		Sponge.getEventManager().registerListeners(this, new EntityClickListener());
 		Sponge.getEventManager().registerListeners(this, new InventoryClickListener());
