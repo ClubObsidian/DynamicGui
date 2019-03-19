@@ -8,9 +8,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-A rewrite of the plugin originally made for Club Obsidian.
- 
-Designed to make writing menus for players easier.
+A rewrite of the plugin originally created at Club Obsidian.
+
+Designed to make writing menus easy.
 
 
 ## Features
@@ -57,11 +57,13 @@ Just a few uses for DynamicGui.
 * Shop
 * Staff tools
 
-## Gui Examples
+## Getting Started
+
+### Gui Examples
 
 You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamples).
 
-# Gui Documentation
+### Gui Documentation
 
 You find find [gui documentation here](https://dynamicguidocs.readthedocs.io/en/latest/).
 
