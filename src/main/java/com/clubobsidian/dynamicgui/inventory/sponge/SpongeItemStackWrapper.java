@@ -15,6 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.inventory.sponge;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +25,10 @@ import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.enchantment.EnchantmentType;
+import org.spongepowered.api.item.enchantment.EnchantmentTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
@@ -34,6 +37,7 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
@@ -62,10 +66,15 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		
 		type = MaterialManager.get().normalizeMaterial(type);
 		
-		Optional<ItemType> itemType = Sponge.getGame().getRegistry().getType(ItemType.class, type);
-		if(itemType.isPresent())
+		Field typeField = ReflectionUtil.getFieldByName(ItemTypes.class, type);
+		if(typeField != null)
 		{
-			ItemType itemStackType = itemType.get();
+			ItemType itemStackType = new ReflectionUtil.ReflectionHelper<ItemType>().get(typeField);
+			if(itemStackType == null)
+			{
+				return false;
+			}
+			
 			ItemStack itemStack = ItemStack.builder()
 					.itemType(itemStackType)
 					.from(this.getItemStack())
@@ -166,10 +175,14 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		{
 			enchants = itemEnchants.get();
 		}
-		Optional<EnchantmentType> enchantmentType = Sponge.getGame().getRegistry().getType(EnchantmentType.class, enchant.getEnchant());
-		if(enchantmentType.isPresent())
+		Field enchantmentField = ReflectionUtil.getFieldByName(EnchantmentTypes.class, enchant.getEnchant().toUpperCase());
+		if(enchantmentField == null)
+			return;
+		
+		EnchantmentType enchantmentType = new ReflectionUtil.ReflectionHelper<EnchantmentType>().get(enchantmentField);
+		if(enchantmentType != null)
 		{
-			enchants.add(Enchantment.builder().type(enchantmentType.get()).level(enchant.getLevel()).build());
+			enchants.add(Enchantment.builder().type(enchantmentType).level(enchant.getLevel()).build());
 		}
 		
 		if(enchants.size() > 0)

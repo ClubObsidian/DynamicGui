@@ -15,6 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class ReflectionUtil {
@@ -60,5 +61,66 @@ public class ReflectionUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static Method findMethodByReturnType(Class<?> searchIn, Class<?> returnType)
+	{
+		for(Method m : searchIn.getDeclaredMethods())
+		{
+			if(m.getReturnType() == returnType)
+			{
+				m.setAccessible(true);
+				return m;
+			}
+		}
+		return null;
+	}
+	
+	public static Field getFieldByName(Class<?> searchIn, String name)
+	{
+		try 
+		{
+			Field f = searchIn.getDeclaredField(name);
+			f.setAccessible(true);
+			return f;
+		} 
+		catch (NoSuchFieldException | SecurityException e) 
+		{
+			return null;
+		}
+	}
+	
+	public static Field getFieldByType(Class<?> searchIn, Class<?> type)
+	{
+		for(Field f : searchIn.getDeclaredFields())
+		{
+			if(f.getType() == type)
+			{
+				f.setAccessible(true);
+				return f;
+			}
+		}
+		return null;
+	}
+	
+	public static class ReflectionHelper<T> {
+		
+		public T get(Field field)
+		{
+			return this.get(field, null);
+		}
+		
+		@SuppressWarnings("unchecked")
+		public T get(Field field, Object getFromClass)
+		{
+			try 
+			{
+				return (T) field.get(getFromClass);
+			} 
+			catch (IllegalArgumentException | IllegalAccessException e) 
+			{
+				return null;
+			}
+		}
 	}
 }

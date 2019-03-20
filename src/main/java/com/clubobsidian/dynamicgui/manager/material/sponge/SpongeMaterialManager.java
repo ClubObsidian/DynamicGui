@@ -37,10 +37,6 @@ public class SpongeMaterialManager extends MaterialManager {
 		if(material == null)
 			return null;
 		
-		material = material.toLowerCase();
-		if(!material.contains(":"))
-			material = "minecraft:" + material;
-		
-		return material;
+		return material.toUpperCase();
 	}
 }
