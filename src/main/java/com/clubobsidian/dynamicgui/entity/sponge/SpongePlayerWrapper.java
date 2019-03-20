@@ -22,11 +22,15 @@ import java.util.UUID;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.manipulator.mutable.entity.ExperienceHolderData;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.effect.particle.ParticleTypes;
 import org.spongepowered.api.effect.sound.SoundType;
+import org.spongepowered.api.effect.sound.SoundTypes;
+import org.spongepowered.api.entity.EntityType;
+import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.item.inventory.Carrier;
@@ -36,7 +40,9 @@ import org.spongepowered.api.item.inventory.InventoryTransformations;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.type.CarriedInventory;
 import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
+import org.spongepowered.api.scoreboard.critieria.Criterion;
 import org.spongepowered.api.statistic.BlockStatistic;
+import org.spongepowered.api.statistic.EntityStatistic;
 import org.spongepowered.api.statistic.StatisticTypes;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
@@ -47,6 +53,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 import com.clubobsidian.dynamicgui.util.Statistic;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
@@ -158,10 +165,15 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public void playSound(String sound, Float volume, Float pitch) 
 	{
 		Location<World> location = this.getPlayer().getLocation();
-		Optional<SoundType> soundType = Sponge.getGame().getRegistry().getType(SoundType.class, sound);
-		if(soundType.isPresent())
+		
+		Field soundField = ReflectionUtil.getFieldByName(SoundTypes.class, sound);
+		if(soundField == null)
+			return;
+		
+		SoundType soundType = new ReflectionUtil.ReflectionHelper<SoundType>().get(soundField);
+		if(soundType != null)
 		{
-			this.getPlayer().playSound(soundType.get(), location.getPosition(), volume, pitch, volume);
+			this.getPlayer().playSound(soundType, location.getPosition(), volume, pitch, volume);
 		}
 	}
 
@@ -169,26 +181,23 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public void playEffect(String effect, int data) 
 	{
 		Location<World> location = this.getPlayer().getLocation();
-		Field particleField = null;
-		try
-		{
-			particleField = ParticleTypes.class.getDeclaredField(effect);
-		}
-		catch(NoSuchFieldException ex)
-		{
-			ex.printStackTrace();
+		Field particleField = ReflectionUtil.getFieldByName(ParticleTypes.class, effect);
+		if(particleField == null)
 			return;
-		}
-
+		
+		ParticleType particleType = new ReflectionUtil.ReflectionHelper<ParticleType>().get(particleField);
+		if(particleType == null)
+			return;
+		
 		try 
 		{
 			ParticleEffect particleEffect = ParticleEffect
 					.builder()
-					.type((ParticleType) particleField.get(null))
+					.type(particleType)
 					.build();
 			location.getExtent().spawnParticles(particleEffect, location.getPosition());
 		} 
-		catch (IllegalArgumentException | IllegalAccessException e) 
+		catch (IllegalArgumentException e) 
 		{
 			e.printStackTrace();
 		}
@@ -204,35 +213,61 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 			Optional<Long> data = this.getPlayer().getStatisticData().get(spongeStatistic.get());
 			if(data.isPresent())
 			{
-				if(data.get() <= Integer.MAX_VALUE)
-				{
-					return data.get().intValue();
-				}
+				return data.get().intValue();
 			}
 		}
-		return -1;
+		return 0;
 	}
 
 	@Override
 	public int getStatistic(Statistic statistic, String data) 
 	{
-		/*if(statistic == Statistic.MINE_BLOCK)
+		if(statistic == Statistic.MINE_BLOCK)
 		{
-			Optional<BlockType> blockType = Sponge.getGame().getRegistry().getType(BlockType.class, data);
-			if(blockType.isPresent())
+			Field blockTypeField = ReflectionUtil.getFieldByName(BlockTypes.class, data);
+			if(blockTypeField == null)
+				return 0;
+			
+			BlockType blockType = new ReflectionUtil.ReflectionHelper<BlockType>().get(blockTypeField);
+			if(blockType == null)
+				return 0;
+			
+			if(blockType != null)
 			{
-				Optional<BlockStatistic> spongeStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType.get()));	
-				if(spongeStatistic.isPresent())
+				Optional<BlockStatistic> blockStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType);	
+				if(blockStatistic.isPresent())
 				{
-					spongeStatistic.get().
+					Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(blockStatistic.get());
+					if(statisticValue.isPresent())
+					{
+						return statisticValue.get().intValue();
+					}
 				}
 			}
 		}
 		else if(statistic == Statistic.KILL_ENTITY)
 		{
+			Field entityTypeField = ReflectionUtil.getFieldByName(EntityTypes.class, data);
+			if(entityTypeField == null)
+				return 0;
 			
-		}*/
-		// TODO Auto-generated method stub
+			EntityType entityType = new ReflectionUtil.ReflectionHelper<EntityType>().get(entityTypeField);
+			if(entityType == null)
+				return 0;
+			
+			if(entityType != null)
+			{
+				Optional<EntityStatistic> entityStatistic = Sponge.getGame().getRegistry().getEntityStatistic(StatisticTypes.ENTITIES_KILLED, entityType);	
+				if(entityStatistic.isPresent())
+				{
+					Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(entityStatistic.get());
+					if(statisticValue.isPresent())
+					{
+						return statisticValue.get().intValue();
+					}
+				}
+			}
+		}
 		return 0;
 	}
 
