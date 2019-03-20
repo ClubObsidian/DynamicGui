@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
 public class RemoveSlotFunction extends Function {
 
@@ -39,9 +40,10 @@ public class RemoveSlotFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		if(this.getData().equalsIgnoreCase("this"))
+		FunctionOwner owner = this.getOwner();
+
+		if(this.getData().equals("this"))
 		{
-			FunctionOwner owner = this.getOwner();
 			if(owner != null)
 			{
 				if(owner instanceof Slot)
@@ -53,18 +55,10 @@ public class RemoveSlotFunction extends Function {
 						InventoryWrapper<?> inv = gui.getInventoryWrapper();
 						if(inv != null)
 						{
-							for(Slot s : gui.getSlots())
-							{
-								ItemStackWrapper<?> item = s.getItemStack();
-								if(item.getItemStack() != null)
-								{
-									if(slot.getIndex() == s.getIndex())
-									{
-										inv.setItem(slot.getIndex(), ItemStackManager.get().createItemStackWrapper("AIR", 1));
-										return true;
-									}
-								}
-							}
+							ItemStackWrapper<?> item = slot.getItemStack();
+							item.setType("AIR");
+							inv.setItem(slot.getIndex(), item);
+							return true;	
 						}
 					}
 				}
