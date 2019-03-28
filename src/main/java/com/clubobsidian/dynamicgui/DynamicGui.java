@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
+import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
 import com.clubobsidian.dynamicgui.function.impl.NoPermission;
@@ -245,6 +246,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
 		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
 		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
+		FunctionManager.get().addFunction(new LogFunction("log"));
 	}
 
 	//TODO - port to dynamicgui plugins
