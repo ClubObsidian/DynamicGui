@@ -4,6 +4,7 @@
 [![Bounty](https://img.shields.io/bountysource/team/ClubObsidian/activity.svg)](https://github.com/ClubObsidian/DynamicGui/issues?q=is%3Aopen+is%3Aissue+label%3Abounty)
 [![CLA assistant](https://cla-assistant.io/readme/badge/ClubObsidian/DynamicGui)](https://cla-assistant.io/ClubObsidian/DynamicGui) 
 [![Build Status](https://travis-ci.org/ClubObsidian/DynamicGui.svg?branch=master)](https://travis-ci.org/ClubObsidian/DynamicGui)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5c517edfdbf946d3a9ac4187160eab0f)](https://www.codacy.com/app/virustotalop/DynamicGui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ClubObsidian/DynamicGui&amp;utm_campaign=Badge_Grade)
 [![Documentation Status](https://readthedocs.org/projects/dynamicguidocs/badge/?version=latest)](https://dynamicguidocs.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
