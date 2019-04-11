@@ -19,7 +19,6 @@ Designed to make writing menus easy.
   * Bukkit - Fully supported
   * Sponge - In alpha
     * Things may break
-  * Forge - Planned
 * A number of functions to use to customize menus
   * Functions use latebinding
   * Addons can be written for more functions
