@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.fuzzutil.StringFuzz;
 
 public class FunctionManager {
 	
@@ -43,7 +44,8 @@ public class FunctionManager {
 	
 	public Function getFunctionByName(String functionName)
 	{
-		return this.functions.get(functionName);
+		String normalized = StringFuzz.normalize(functionName);
+		return this.functions.get(normalized);
 	}
 	
 	public List<Function> getFunctions()
@@ -60,7 +62,8 @@ public class FunctionManager {
 
 	public boolean removeFunctionByName(String functionName)
 	{
-		return this.functions.keySet().remove(functionName);
+		String normalized = StringFuzz.normalize(functionName);
+		return this.functions.keySet().remove(normalized);
 	}
 	
 	public String[] parseData(String data)

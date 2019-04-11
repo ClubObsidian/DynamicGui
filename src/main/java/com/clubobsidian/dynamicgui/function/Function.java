@@ -21,6 +21,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
+import com.clubobsidian.fuzzutil.StringFuzz;
 
 public abstract class Function implements Cloneable, Serializable {
 	
@@ -35,7 +36,7 @@ public abstract class Function implements Cloneable, Serializable {
 	
 	public Function(String name)
 	{
-		this.name = name;
+		this.name = StringFuzz.normalize(name);
 		this.data = null;
 	}
 	
