@@ -17,7 +17,6 @@ package com.clubobsidian.dynamicgui.listener.sponge;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.item.inventory.InteractInventoryEvent;
 import org.spongepowered.api.item.inventory.Inventory;
@@ -30,7 +29,7 @@ import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 
 public class InventoryOpenListener {
 
-	@Listener(order = Order.EARLY)
+	@Listener
 	public void onInventoryOpen(InteractInventoryEvent.Open e, @First Player player)
 	{
 		if(!e.isCancelled())
