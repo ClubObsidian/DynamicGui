@@ -30,7 +30,7 @@ import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 
 public class InventoryOpenListener implements Listener {
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void inventoryOpen(InventoryOpenEvent e)
 	{
 		if(e.getPlayer() instanceof Player)
