@@ -42,13 +42,13 @@ public abstract class Function implements Cloneable, Serializable {
 	
 	public Function(String name, String data)
 	{
-		this.name = name;
+		this.name = StringFuzz.normalize(name);
 		this.data = data;
 	}
 	
 	public Function(Function function) 
 	{
-		this.name = function.getName();
+		this.name = StringFuzz.normalize(function.getName());
 		this.data = function.getData();
 	}
 
