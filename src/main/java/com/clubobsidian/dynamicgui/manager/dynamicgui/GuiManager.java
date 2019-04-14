@@ -45,6 +45,7 @@ import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -312,7 +313,7 @@ public class GuiManager {
 					failFuncs.add(func);
 				}
 				String[] split = key.split("-");
-				String str = split[0];
+				String str = StringFuzz.normalize(split[0]);
 				if(split.length > 3)
 				{
 					for(int j = 1; j < split.length - 1; j++)
