@@ -39,7 +39,7 @@ public class SoundWrapper implements Serializable {
 	
 	public SoundWrapper(String sound, Float volume, Float pitch)
 	{
-		this.sound = sound.toString();
+		this.sound = sound;
 		this.volume = volume;
 		this.pitch = pitch;
 	}

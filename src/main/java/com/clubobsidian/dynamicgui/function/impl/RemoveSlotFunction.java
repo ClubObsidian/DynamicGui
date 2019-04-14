@@ -22,8 +22,6 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
 public class RemoveSlotFunction extends Function {
 
