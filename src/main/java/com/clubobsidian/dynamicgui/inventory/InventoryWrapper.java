@@ -35,7 +35,6 @@ public abstract class InventoryWrapper<T> implements Serializable {
 		return this.inventory;
 	}
 	
-	public abstract String getTitle();
 	public abstract ItemStackWrapper<?> getItem(int index);
 	public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
 	public abstract int getSize();

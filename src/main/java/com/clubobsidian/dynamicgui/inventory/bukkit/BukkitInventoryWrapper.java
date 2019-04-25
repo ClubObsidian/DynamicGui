@@ -37,12 +37,6 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	}
 
 	@Override
-	public String getTitle() 
-	{
-		return this.getInventory().getTitle();
-	}
-
-	@Override
 	public ItemStackWrapper<ItemStack> getItem(int index) 
 	{
 		return new BukkitItemStackWrapper<ItemStack>(this.getInventory().getItem(index));
