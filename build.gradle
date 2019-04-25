@@ -52,7 +52,7 @@ dependencies {
     
     //Server implementations
     
-    compileOnly 'org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.bukkit:bukkit:1.14-R0.1-SNAPSHOT'
     compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
     	exclude group: 'org.spongepowered', module: 'testmods'
     }
