@@ -33,14 +33,11 @@ import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.entity.EntityTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.EventContextKeys;
-import org.spongepowered.api.item.inventory.Carrier;
 import org.spongepowered.api.item.inventory.Container;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryTransformations;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
-import org.spongepowered.api.item.inventory.type.CarriedInventory;
 import org.spongepowered.api.network.ChannelBinding.RawDataChannel;
-import org.spongepowered.api.scoreboard.critieria.Criterion;
 import org.spongepowered.api.statistic.BlockStatistic;
 import org.spongepowered.api.statistic.EntityStatistic;
 import org.spongepowered.api.statistic.StatisticTypes;
@@ -95,6 +92,18 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public boolean hasPermission(String permission) 
 	{
 		return this.getPlayer().hasPermission(permission);
+	}
+	
+	@Override	
+	public boolean addPermission(String permission)
+	{
+		return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
+	}
+	
+	@Override	
+	public boolean removePermission(String permission)
+	{
+		return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
 	}
 
 	@Override

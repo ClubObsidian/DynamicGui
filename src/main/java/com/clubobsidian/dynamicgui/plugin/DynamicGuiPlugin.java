@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.economy.Economy;
+import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 
 public interface DynamicGuiPlugin extends NPCRegistry {
@@ -26,6 +27,7 @@ public interface DynamicGuiPlugin extends NPCRegistry {
 	public void start();
 	public void stop();
 	public Economy getEconomy();
+	public Permission getPermission();
 	public List<NPCRegistry> getNPCRegistries();
 	public File getDataFolder();
 	public File getConfigFile();

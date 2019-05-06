@@ -22,19 +22,21 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
-import com.clubobsidian.dynamicgui.function.impl.NoPermission;
+import com.clubobsidian.dynamicgui.function.impl.NoPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerMsgFunction;
 import com.clubobsidian.dynamicgui.function.impl.RandomFunction;
+import com.clubobsidian.dynamicgui.function.impl.RemovePermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.function.impl.ServerBroadcastFunction;
@@ -227,8 +229,11 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
 		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
 		
-		FunctionManager.get().addFunction(new NoPermission("nopermission"));
+		FunctionManager.get().addFunction(new NoPermissionFunction("nopermission"));
 		FunctionManager.get().addFunction(new PermissionFunction("permission"));
+		FunctionManager.get().addFunction(new PermissionFunction("haspermission"));
+		FunctionManager.get().addFunction(new AddPermissionFunction("addpermission"));
+		FunctionManager.get().addFunction(new RemovePermissionFunction("removepermission"));
 		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
 		FunctionManager.get().addFunction(new RandomFunction("random"));
 		FunctionManager.get().addFunction(new SendFunction("send"));	

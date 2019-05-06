@@ -39,6 +39,8 @@ public abstract class PlayerWrapper<T> {
 	public abstract void chat(String message);
 	public abstract void sendMessage(String message);
 	public abstract boolean hasPermission(String permission);
+	public abstract boolean addPermission(String permission);
+	public abstract boolean removePermission(String permission);
 	public abstract int getExperience();
 	public abstract void setExperience(int experience);
 	public abstract int getLevel();

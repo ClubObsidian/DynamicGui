@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.listener.sponge.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.sponge.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.Sl4jLoggerWrapper;
+import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
@@ -129,7 +130,15 @@ public class SpongePlugin implements DynamicGuiPlugin {
 	}
 
 	@Override
-	public Economy getEconomy() {
+	public Economy getEconomy() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Permission getPermission()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

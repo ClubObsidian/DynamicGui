@@ -43,6 +43,8 @@ import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.permission.Permission;
+import com.clubobsidian.dynamicgui.permission.bukkit.VaultPermission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
@@ -55,6 +57,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	private File configFile;
 	private File guiFolder;
 	private Economy economy;
+	private Permission permission;
 	private List<NPCRegistry> npcRegistries;
 	private CommandMap commandMap;
 	private List<String> registeredCommands;
@@ -77,6 +80,12 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		if(!this.economy.setup())
 		{
 			this.economy = null;
+		}
+		
+		this.permission = new VaultPermission();
+		if(!this.permission.setup())
+		{
+			this.permission = null;
 		}
 		
 		this.npcRegistries = new ArrayList<>();
@@ -146,6 +155,12 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		return this.economy;
 	}
 
+	@Override
+	public Permission getPermission() 
+	{
+		return this.permission;
+	}
+	
 	@Override
 	public List<NPCRegistry> getNPCRegistries() 
 	{

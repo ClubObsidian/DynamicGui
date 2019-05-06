@@ -27,6 +27,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.plugin.Plugin;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
@@ -68,7 +69,19 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	@Override
 	public boolean hasPermission(String permission) 
 	{
-		return this.getPlayer().hasPermission(permission);
+		return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
+	}
+	
+	@Override	
+	public boolean addPermission(String permission)
+	{
+		return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
+	}
+	
+	@Override	
+	public boolean removePermission(String permission)
+	{
+		return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
 	}
 
 	@Override

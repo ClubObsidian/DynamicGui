@@ -13,26 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package com.clubobsidian.dynamicgui.function.impl;
+package com.clubobsidian.dynamicgui.permission;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
 
-public class NoPermission extends Function {
+public interface Permission {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6907686728880861860L;
-
-	public NoPermission(String name) 
-	{
-		super(name);
-	}
-
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		return !playerWrapper.hasPermission(this.getData());
-	}	
+	public boolean setup();
+	public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
+	public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission);
+	public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
+	
 }
