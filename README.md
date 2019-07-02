@@ -48,6 +48,7 @@ Designed to make writing menus easy.
 
 Just a few uses for DynamicGui.
 
+* Crafting recipes
 * Crate rewards
 * Help menu
 * Hub menu
