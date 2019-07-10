@@ -38,7 +38,7 @@ public class PlayerInteractListener implements Listener {
 		 	PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
 		 	LocationWrapper<?> locationWrapper = new BukkitLocationWrapper<Location>(e.getClickedBlock().getLocation());
 		 	com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
-		 	DynamicGui.get().getEventManager().callEvent(interactEvent);
+		 	DynamicGui.get().getEventBus().callEvent(interactEvent);
 		}
 	}
 }

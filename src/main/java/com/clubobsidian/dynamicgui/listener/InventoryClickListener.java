@@ -28,9 +28,8 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.Listener;
 
-public class InventoryClickListener implements Listener {
+public class InventoryClickListener {
 
 	@EventHandler
 	public void invClick(final InventoryClickEvent e)

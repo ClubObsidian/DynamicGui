@@ -51,7 +51,7 @@ public class PlayerInteractListener {
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 				LocationWrapper<?> locationWrapper = new SpongeLocationWrapper<Location<World>>(location.get());
 				com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
-				DynamicGui.get().getEventManager().callEvent(interactEvent);
+				DynamicGui.get().getEventBus().callEvent(interactEvent);
 			}
 		}
 	}

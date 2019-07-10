@@ -38,7 +38,7 @@ public class InventoryCloseListener implements Listener {
 		{
 			PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
 			InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
-			DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
+			DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
 		}
 	}
 	
@@ -46,13 +46,13 @@ public class InventoryCloseListener implements Listener {
 	public void onQuit(PlayerQuitEvent e)
 	{
 		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
+		DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
 	}
 	
 	@EventHandler
 	public void onKick(PlayerKickEvent e)
 	{
 		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerKickEvent(playerWrapper));
+		DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerKickEvent(playerWrapper));
 	}
 }

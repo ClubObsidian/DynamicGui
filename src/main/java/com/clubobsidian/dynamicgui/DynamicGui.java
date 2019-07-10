@@ -61,9 +61,8 @@ import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegi
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
-
-import com.clubobsidian.trident.EventManager;
-import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
+import com.clubobsidian.trident.EventBus;
+import com.clubobsidian.trident.eventbus.javassist.JavassistEventBus;
 
 import com.clubobsidian.wrappy.Configuration;
 
@@ -83,13 +82,13 @@ public class DynamicGui  {
 	private boolean redis;
 	private Map<String, Integer> serverPlayerCount;
 	
-	private EventManager eventManager;
+	private EventBus eventManager;
 	private DynamicGuiPlugin plugin;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
-		this.eventManager = new JavaAssistEventManager();
+		this.eventManager = new JavassistEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
@@ -312,7 +311,7 @@ public class DynamicGui  {
 		return this.plugin;
 	}
 
-	public EventManager getEventManager()
+	public EventBus getEventBus()
 	{
 		return this.eventManager;
 	}

@@ -22,9 +22,8 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.Listener;
 
-public class EntityClickListener implements Listener {
+public class EntityClickListener {
 
 	@EventHandler
 	public void onEntityClick(PlayerInteractEntityEvent e)
