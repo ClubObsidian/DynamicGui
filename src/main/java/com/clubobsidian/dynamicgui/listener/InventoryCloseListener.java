@@ -20,9 +20,8 @@ import com.clubobsidian.dynamicgui.event.player.PlayerKickEvent;
 import com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.Listener;
 
-public class InventoryCloseListener implements Listener {
+public class InventoryCloseListener {
 
 	@EventHandler
 	public void inventoryClose(final InventoryCloseEvent e)

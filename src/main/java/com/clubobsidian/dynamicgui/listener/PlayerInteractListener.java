@@ -22,9 +22,8 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.Listener;
 
-public class PlayerInteractListener implements Listener {
+public class PlayerInteractListener {
 	
 	@EventHandler
 	public void playerInteract(final PlayerInteractEvent e)
