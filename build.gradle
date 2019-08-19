@@ -43,6 +43,7 @@ shadowJar {
 	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
 	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
+	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 	baseName = 'DynamicGui'
 	classifier = ''
 }
