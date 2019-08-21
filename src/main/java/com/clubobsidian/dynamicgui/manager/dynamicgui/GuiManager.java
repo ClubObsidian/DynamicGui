@@ -158,7 +158,6 @@ public class GuiManager {
 		
 		if(ran)
 		{
-			
 			InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
 			
 			//Run slot load functions

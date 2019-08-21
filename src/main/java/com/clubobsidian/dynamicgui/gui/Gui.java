@@ -47,7 +47,7 @@ public class Gui implements Serializable, FunctionOwner {
 	private List<LocationWrapper<?>> locations;
 	private Map<String, List<Integer>> npcIds;
 	private transient InventoryWrapper<?> inventoryWrapper;
-	private transient GuiToken token;
+	private GuiToken token;
 	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, GuiToken token)
 	{
 		this.name = name;
