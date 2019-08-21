@@ -15,7 +15,6 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -41,19 +40,19 @@ public final class FunctionUtil {
 		{
 			Gui gui = (Gui) owner;
 			FunctionTree tree = gui.getToken().getFunctions();
-			return recurFunctionNodes(null, tree.getRootNodes(), type, playerWrapper);
+			return recurFunctionNodes(null, owner, tree.getRootNodes(), type, playerWrapper);
 		}
 		else if(owner instanceof Slot)
 		{
 			Slot slot = (Slot) owner;
 			FunctionTree tree = slot.getToken().getFunctionTree();
-			return recurFunctionNodes(null, tree.getRootNodes(), type, playerWrapper);
+			return recurFunctionNodes(null, owner, tree.getRootNodes(), type, playerWrapper);
 		}
 		
 		return false;
 	}
 
-	private static boolean recurFunctionNodes(FunctionResponse fail, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
+	private static boolean recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
 	{
 		for(FunctionNode node : functionNodes)
 		{
@@ -62,7 +61,7 @@ public final class FunctionUtil {
 			{
 				if(type != FunctionType.FAIL)
 				{
-					FunctionResponse response = runFunctionData(functionToken.getFunctions(), playerWrapper);
+					FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
 
 					if(!response.result)
 					{
@@ -71,7 +70,7 @@ public final class FunctionUtil {
 							return false;
 						}
 						
-						recurFunctionNodes(response, node.getChildren(), FunctionType.FAIL, playerWrapper);
+						recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
 						return false;
 					}
 				}
@@ -79,22 +78,22 @@ public final class FunctionUtil {
 				{
 					if(isFail(fail, functionToken))
 					{
-						FunctionResponse response = runFunctionData(functionToken.getFunctions(), playerWrapper);
+						FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
 						if(!response.result)
 						{
-							recurFunctionNodes(response, node.getChildren(), FunctionType.FAIL, playerWrapper);
+							recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
 							return false;
 						}
 					}
 				}
 			}
 
-			return recurFunctionNodes(null, node.getChildren(), type, playerWrapper);
+			return recurFunctionNodes(null, owner, node.getChildren(), type, playerWrapper);
 		}
 		return true;
 	}
 
-	private static FunctionResponse runFunctionData(List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
+	private static FunctionResponse runFunctionData(FunctionOwner owner, List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
 	{
 		for(FunctionData data : datas)
 		{
@@ -108,6 +107,7 @@ public final class FunctionUtil {
 			}
 			if(data.getData() != null)
 			{
+				function.setOwner(owner);
 				function.setData(functionData);
 			}
 			boolean ran = function.function(playerWrapper);
