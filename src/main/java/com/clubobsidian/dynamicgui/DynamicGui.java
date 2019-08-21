@@ -222,8 +222,6 @@ public class DynamicGui  {
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
 		
-		
-		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
 		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
