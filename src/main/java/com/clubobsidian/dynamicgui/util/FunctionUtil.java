@@ -15,6 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -40,19 +41,19 @@ public final class FunctionUtil {
 		{
 			Gui gui = (Gui) owner;
 			FunctionTree tree = gui.getToken().getFunctions();
-			return recurFunctionNodes(tree.getRootNodes(), type, playerWrapper);
+			return recurFunctionNodes(null, tree.getRootNodes(), type, playerWrapper);
 		}
 		else if(owner instanceof Slot)
 		{
 			Slot slot = (Slot) owner;
 			FunctionTree tree = slot.getToken().getFunctionTree();
-			return recurFunctionNodes(tree.getRootNodes(), type, playerWrapper);
+			return recurFunctionNodes(null, tree.getRootNodes(), type, playerWrapper);
 		}
 		
 		return false;
 	}
-	
-	private static boolean recurFunctionNodes(List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
+
+	private static boolean recurFunctionNodes(FunctionResponse fail, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
 	{
 		for(FunctionNode node : functionNodes)
 		{
@@ -61,39 +62,98 @@ public final class FunctionUtil {
 			{
 				if(type != FunctionType.FAIL)
 				{
-					boolean ran = runFunctionData(functionToken.getFunctions(), playerWrapper);
-					if(!ran)
+					FunctionResponse response = runFunctionData(functionToken.getFunctions(), playerWrapper);
+
+					if(!response.result)
 					{
-						runFunctionData(functionToken.getFailOnFunctions(), playerWrapper);
+						if(response.failedFunction == null)
+						{
+							return false;
+						}
+						
+						recurFunctionNodes(response, node.getChildren(), FunctionType.FAIL, playerWrapper);
 						return false;
 					}
 				}
+				else if(type == FunctionType.FAIL)
+				{
+					if(isFail(fail, functionToken))
+					{
+						FunctionResponse response = runFunctionData(functionToken.getFunctions(), playerWrapper);
+						if(!response.result)
+						{
+							recurFunctionNodes(response, node.getChildren(), FunctionType.FAIL, playerWrapper);
+							return false;
+						}
+					}
+				}
 			}
-			return recurFunctionNodes(node.getChildren(), type, playerWrapper);
+
+			return recurFunctionNodes(null, node.getChildren(), type, playerWrapper);
 		}
 		return true;
 	}
-	
-	private static boolean runFunctionData(List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
+
+	private static FunctionResponse runFunctionData(List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
 	{
 		for(FunctionData data : datas)
 		{
-			Function function = FunctionManager.get().getFunctionByName(data.getName());
+			String functionName = data.getName();
+			String functionData = data.getData();
+			Function function = FunctionManager.get().getFunctionByName(functionName);
 			if(function == null)
 			{
 				DynamicGui.get().getLogger().error("Invalid function " + data.getName());
-				return false;
+				return new FunctionResponse(false);
 			}
 			if(data.getData() != null)
 			{
-				function.setData(data.getData());
+				function.setData(functionData);
 			}
 			boolean ran = function.function(playerWrapper);
 			if(!ran)
 			{
-				return false;
+				return new FunctionResponse(false, functionName, functionData);
 			}	
 		}
-		return true;
+		return new FunctionResponse(true);
+	}
+
+	private static boolean isFail(FunctionResponse response, FunctionToken token)
+	{
+		for(FunctionData data : token.getFailOnFunctions())
+		{
+			if(data.getName().equals(response.failedFunction))
+			{
+				if(data.getData() == null)
+				{
+					return true;
+				}
+				else if(data.getData().equals(response.data))
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	private static class FunctionResponse 
+	{	
+		private boolean result;
+		private String failedFunction;
+		private String data;
+		public FunctionResponse(boolean result)
+		{
+			this(result, null, null);
+		}
+
+		public FunctionResponse(boolean result, String failedFunction, String data)
+		{
+			this.result = result;
+			this.failedFunction = failedFunction;
+			this.data = data;
+		}
 	}
 }
