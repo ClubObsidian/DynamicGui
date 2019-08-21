@@ -44,7 +44,7 @@ public class Slot implements Serializable, FunctionOwner {
 	private int amount;
 	private ItemStackWrapper<?> itemStack;
 	private Gui owner;
-	private transient SlotToken token;
+	private SlotToken token;
 	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, SlotToken token)
 	{
 		this.icon = icon;
