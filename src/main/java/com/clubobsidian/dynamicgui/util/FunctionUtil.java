@@ -21,14 +21,11 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.gui.Gui;
-import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public final class FunctionUtil {
 	
@@ -36,20 +33,7 @@ public final class FunctionUtil {
 	
 	public static boolean tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper)
 	{
-		if(owner instanceof Gui)
-		{
-			Gui gui = (Gui) owner;
-			FunctionTree tree = gui.getToken().getFunctions();
-			return recurFunctionNodes(null, owner, tree.getRootNodes(), type, playerWrapper);
-		}
-		else if(owner instanceof Slot)
-		{
-			Slot slot = (Slot) owner;
-			FunctionTree tree = slot.getToken().getFunctionTree();
-			return recurFunctionNodes(null, owner, tree.getRootNodes(), type, playerWrapper);
-		}
-		
-		return false;
+		return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
 	}
 
 	private static boolean recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)

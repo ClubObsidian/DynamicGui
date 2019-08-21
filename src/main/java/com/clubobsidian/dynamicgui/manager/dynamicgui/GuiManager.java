@@ -321,7 +321,7 @@ public class GuiManager {
 			
 			short data = slotToken.getData();
 
-			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken));
+			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree()));
 		}
 
 		
@@ -351,6 +351,6 @@ public class GuiManager {
 		
 		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
 		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken);
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions());
 	}
 }

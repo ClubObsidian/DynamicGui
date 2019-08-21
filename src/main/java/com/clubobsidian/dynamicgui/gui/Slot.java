@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 
 public class Slot implements Serializable, FunctionOwner {
@@ -44,8 +45,8 @@ public class Slot implements Serializable, FunctionOwner {
 	private int amount;
 	private ItemStackWrapper<?> itemStack;
 	private Gui owner;
-	private SlotToken token;
-	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, SlotToken token)
+	private FunctionTree functions;
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions)
 	{
 		this.icon = icon;
 		this.data = data;
@@ -56,7 +57,7 @@ public class Slot implements Serializable, FunctionOwner {
 		this.close = close;
 		this.index = index;
 		this.amount = amount;
-		this.token = token;
+		this.functions = functions;
 	}
 	
 	public int getIndex()
@@ -94,9 +95,10 @@ public class Slot implements Serializable, FunctionOwner {
 		this.close = close;
 	}
 	
-	public SlotToken getToken()
+	@Override
+	public FunctionTree getFunctions()
 	{
-		return this.token;
+		return this.functions;
 	}
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper)

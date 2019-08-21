@@ -79,7 +79,7 @@ public class InventoryClickListener {
 		if(slot == null)
 			return;
 
-		List<FunctionNode> functions = slot.getToken().getFunctionTree().getRootNodes();
+		List<FunctionNode> functions = slot.getFunctions().getRootNodes();
 
 		if(functions.size() == 0)
 			return;

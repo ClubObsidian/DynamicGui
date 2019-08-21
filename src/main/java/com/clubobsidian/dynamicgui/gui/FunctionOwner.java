@@ -15,12 +15,10 @@
 */
 package com.clubobsidian.dynamicgui.gui;
 
-import java.util.List;
-
-import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public interface FunctionOwner {
 
-	
+	public FunctionTree getFunctions();
 
 }

@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
@@ -47,8 +47,8 @@ public class Gui implements Serializable, FunctionOwner {
 	private List<LocationWrapper<?>> locations;
 	private Map<String, List<Integer>> npcIds;
 	private transient InventoryWrapper<?> inventoryWrapper;
-	private GuiToken token;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, GuiToken token)
+	private FunctionTree functions;
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
 	{
 		this.name = name;
 		this.type = type;
@@ -60,7 +60,7 @@ public class Gui implements Serializable, FunctionOwner {
 		this.npcIds = npcIds;
 		this.locations = locations;
 		this.inventoryWrapper = null;
-		this.token = token;
+		this.functions = functions;
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
@@ -163,9 +163,10 @@ public class Gui implements Serializable, FunctionOwner {
 		return this.inventoryWrapper;
 	}
 	
-	public GuiToken getToken()
+	@Override
+	public FunctionTree getFunctions()
 	{
-		return this.token;
+		return this.functions;
 	}
 	
 	public Gui clone()
