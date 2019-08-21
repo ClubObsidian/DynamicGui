@@ -122,33 +122,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		
 	}
 
-	//TODO
-	/*@Override
-	public void onPluginMessageReceived(String channel, Player player, byte[] message) 
-	{
-		//System.out.println("received: " + channel);
-		if (channel.equals("BungeeCord") || channel.equals("RedisBungee")) 
-		{
-			ByteArrayDataInput in = ByteStreams.newDataInput(message);
-			String packet = in.readUTF();
-			if(packet != null)
-			{
-				if(packet.equals("PlayerCount"))
-				{
-					//System.out.println("player count");
-					String server = in.readUTF();
-					//System.out.println("server: " + server);
-					if(this.serverPlayerCount.containsKey(server))
-					{
-						int playerCount = in.readInt();
-						//System.out.println("count: " + playerCount);
-						this.serverPlayerCount.put(server, playerCount);
-					}
-				}
-			}
-		}
-	}*/
-
 	@Override
 	public Economy getEconomy() 
 	{
@@ -165,33 +138,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	public List<NPCRegistry> getNPCRegistries() 
 	{
 		return this.npcRegistries;
-	}
-
-	@Override
-	public boolean isNPC(EntityWrapper<?> entity) 
-	{
-		for(NPCRegistry registry : this.getNPCRegistries())
-		{
-			if(registry.isNPC(entity))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public NPC getNPC(EntityWrapper<?> entityWrapper) 
-	{
-		for(NPCRegistry registry : this.getNPCRegistries())
-		{
-			NPC npc = registry.getNPC(entityWrapper);
-			if(npc != null)
-			{
-				return npc;
-			}
-		}
-		return null;
 	}
 
 	@Override

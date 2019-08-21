@@ -22,8 +22,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -31,8 +33,6 @@ import org.apache.commons.io.FileUtils;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.EmptyFunction;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
@@ -40,20 +40,20 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiManager {
 
 	private static GuiManager instance;
-	
-	private static int GUI_MAX_SIZE = 54;
 	
 	private List<Gui> guis;
 	private Map<UUID, Gui> playerGuis;
@@ -152,13 +152,20 @@ public class GuiManager {
 		}
 		
 		Gui clonedGui = gui.clone();
-		boolean ran = FunctionUtil.tryGuiFunctions(clonedGui, playerWrapper);
+		
+		//Run gui load functions
+		boolean ran = FunctionUtil.tryFunctions(gui, FunctionType.LOAD, playerWrapper);
 		
 		if(ran)
 		{
 			
 			InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
-			FunctionUtil.tryLoadFunctions(playerWrapper, clonedGui);
+			
+			//Run slot load functions
+			for(Slot slot : clonedGui.getSlots())
+			{
+				FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+			}
 			
 			if(inventoryWrapper == null)
 				return false;
@@ -267,225 +274,84 @@ public class GuiManager {
 	
 	private void loadGuiFromConfiguration(String guiName, Configuration config)
 	{
-		String guiType = config.getString("gui-type");
-		if(guiType != null)
-			guiType = guiType.toUpperCase();
-		
-		String guiTitle = config.getString("gui-title");
-		int rows = config.getInteger("rows");
-		if(rows == 0)
-			rows = 1;
-		
-		int lastSlot = getLastSlot(config) + 1;
-		
-		int calculatedRow = (lastSlot) / 9;
-		if(lastSlot % 9 != 0)
-			calculatedRow += 1;
-		
-		if(calculatedRow > rows)
-			rows = calculatedRow;
-		
-		List<Slot> slots = this.createSlots(rows, config);
-		
-		final Gui gui = this.createGui(config, DynamicGui.get().getPlugin(), guiName, guiType, guiTitle, rows, slots);
+		GuiToken guiToken = new GuiToken(config);
+		List<Slot> slots = this.createSlots(guiToken);
+		final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
 
 		this.guis.add(gui);
 		DynamicGui.get().getLogger().info("gui \"" + gui.getName() + "\" has been loaded!");
 	}
-	
-	private Map<String,List<Function>> createFailFunctions(ConfigurationSection section, String end)
-	{
-		Map<String, List<Function>> failFunctions = new HashMap<>(); //check ends with
-		for(String key : section.getKeys())
-		{
-			if(key.endsWith(end))
-			{
-				List<Function> failFuncs = new ArrayList<>();
-				for(String string : section.getStringList(key))
-				{
-					String[] array = FunctionManager.get().parseData(string);
-					if(FunctionManager.get().getFunctionByName(array[0]) == null)
-					{
-						DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-					}
-					
-					Function func = new EmptyFunction(array[0], array[1]);
-					failFuncs.add(func);
-				}
-				String[] split = key.split("-");
-				String str = StringFuzz.normalize(split[0]);
-				if(split.length > 3)
-				{
-					for(int j = 1; j < split.length - 1; j++)
-					{
-						str += "-" + split[j];
-					}
-				}
-				failFunctions.put(str, failFuncs);
-			}
-		}
-		return failFunctions;
-	}
-	
-	private List<Function> createFunctions(ConfigurationSection section, String name)
-	{
-		List<Function> functions = new ArrayList<>();
-		if(section.get(name) != null)
-		{
-			for(String string : section.getStringList(name))
-			{
-				String[] array = FunctionManager.get().parseData(string);
-				if(FunctionManager.get().getFunctionByName(array[0]) == null)
-				{
-					DynamicGui.get().getLogger().error("A function cannot be found by the name " + array[0] + " is a dependency not yet loaded?");
-				}
 
-				Function func = new EmptyFunction(array[0], array[1]);
-				functions.add(func);
-
-			}
-		}
-		return functions;
-	}
-	
-	private List<Slot> createSlots(int rows, Configuration yaml)
+	private List<Slot> createSlots(GuiToken guiToken)
 	{
 		List<Slot> slots = new ArrayList<>();
-		for(int i = 0; i < rows * 9; i++)
+		Iterator<Entry<Integer, SlotToken>> it = guiToken.getSlots().entrySet().iterator();
+		while(it.hasNext())
 		{
-			if(yaml.get("" + i) != null)
+			Entry<Integer, SlotToken> next = it.next();
+			int index = next.getKey();
+			SlotToken slotToken = next.getValue();
+			
+			String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
+			String name = slotToken.getName();
+
+			if(name != null)
 			{
-				ConfigurationSection section = yaml.getConfigurationSection(i + "");
-				String icon = MaterialManager.get().normalizeMaterial(section.getString("icon"));
-				String name = null;
-
-				if(section.get("name") != null)
-				{
-					name = ChatColor.translateAlternateColorCodes('&', section.getString("name"));
-				}
-
-				String nbt = null;
-				if(section.get("nbt") != null)
-				{
-					nbt = section.getString("nbt");
-				}
-				
-				List<Function> functions = this.createFunctions(section, "functions");
-				List<Function> leftClickFunctions = this.createFunctions(section, "leftclick-functions");
-				List<Function> rightClickFunctions = this.createFunctions(section, "rightclick-functions");
-				List<Function> middleClickFunctions = this.createFunctions(section, "middleclick-functions");
-				
-				
-				Map<String,List<Function>> failFunctions = this.createFailFunctions(section, "-failfunctions");
-				Map<String,List<Function>> leftClickFailFunctions = this.createFailFunctions(section, "-leftclickfailfunctions");
-				Map<String,List<Function>> rightClickFailFunctions = this.createFailFunctions(section, "-rightclickfailfunctions");
-				Map<String,List<Function>> middleClickFailFunctions = this.createFailFunctions(section, "-middleclickfailfunctions");
-				//fail functions
-				
-				List<Function> loadFunctions = this.createFunctions(section, "load-functions");
-				Map<String, List<Function>> loadFailFunctions = this.createFailFunctions(section, "-loadfailfunctions");
-				
-				
-				List<String> lore = null;
-				if(section.get("lore") != null)
-				{
-					lore = new ArrayList<>();
-					for(String ls : section.getStringList("lore"))
-					{
-						lore.add(ChatColor.translateAlternateColorCodes('&', ls));
-					}
-				}
-
-				List<EnchantmentWrapper> enchants = null;
-				if(section.get("enchants") != null)
-				{
-					enchants = new ArrayList<EnchantmentWrapper>();
-					for(String ench : section.getStringList("enchants"))
-					{
-						String[] args = ench.split(",");
-						enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
-					}
-				}
-				int amount = 1;
-				if(section.get("amount") != null)
-				{
-					amount = section.getInteger("amount");
-				}
-
-				Boolean close = null;
-				if(section.get("close") != null)
-				{
-					close = section.getBoolean("close");
-				}
-				
-				short data = 0;
-				if(section.get("data") != null)
-				{
-					data = (short) section.getInteger("data");
-				}
-
-				slots.add(new Slot(icon, name, nbt, data, close, lore, enchants, i, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, loadFailFunctions, amount));
+				name = ChatColor.translateAlternateColorCodes('&', name);
 			}
+
+			String nbt = slotToken.getNbt();
+
+			List<String> lore = new ArrayList<>();
+			for(String ls : slotToken.getLore())
+			{
+				lore.add(ChatColor.translateAlternateColorCodes('&', ls));
+			}
+
+			List<EnchantmentWrapper> enchants = new ArrayList<EnchantmentWrapper>();
+				
+			for(String ench : slotToken.getEnchants())
+			{
+					String[] args = ench.split(",");
+					enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
+			}
+			
+			int amount = slotToken.getAmount();
+			
+			boolean close = slotToken.isClosed();
+			
+			short data = slotToken.getData();
+
+			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken));
 		}
+
 		
 		return slots;
 	}
-	
-	private Gui createGui(final Configuration yaml, final DynamicGuiPlugin plugin, final String guiName, final String guiType, final  String guiTitle, final int rows, final List<Slot> slots)
+
+	private Gui createGui(final GuiToken guiToken, final String guiName, final List<Slot> slots, final DynamicGuiPlugin plugin)
 	{
-		//int commandsLoaded = 0;
-		if(yaml.get("alias") != null)
+		String type = guiToken.getType();
+		String title = guiToken.getTitle();
+		int rows = guiToken.getRows();
+		
+		for(String alias : guiToken.getAlias())
 		{
-			for(String alias : yaml.getStringList("alias"))
-			{
-				plugin.createCommand(guiName, alias);
-			}
+			plugin.createCommand(guiName, alias);
 		}
 
-		Boolean close = null;
-		if(yaml.get("close") != null)
-		{
-			close = yaml.getBoolean("close");
-		}
+		boolean close = guiToken.isClosed();
 
 		List<LocationWrapper<?>> locations = new ArrayList<>(); 
-		if(yaml.get("locations") != null)
+		for(String location : guiToken.getLocations())
 		{
-			for(String location : yaml.getStringList("locations"))
-			{
-				locations.add(LocationManager.get().toLocationWrapper(location));
-			}
+			locations.add(LocationManager.get().toLocationWrapper(location));
 		}
 
-		ModeEnum modeEnum = ModeEnum.ADD;
-		if(yaml.get("mode") != null)
-		{
-			modeEnum = ModeEnum.valueOf(yaml.getString("mode").toUpperCase());
-		}
-
-		List<Integer> npcIds = new ArrayList<>();
+		ModeEnum modeEnum = ModeEnum.valueOf(guiToken.getMode().toString());
 		
-		if(yaml.get("npc-ids") != null)
-		{
-			npcIds = yaml.getIntegerList("npc-ids");
-		}
+		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
 		
-		List<Function> functions = this.createFunctions(yaml, "functions");
-		Map<String,List<Function>> failFunctions = this.createFailFunctions(yaml, "-failfunctions");
-		
-		return new Gui(guiName, guiType, guiTitle, rows, close, modeEnum, npcIds, slots, locations, functions, failFunctions);
-	}
-	
-	private int getLastSlot(Configuration yaml)
-	{
-		int lastIndex = 0;
-		for(int i = 0; i < GuiManager.GUI_MAX_SIZE; i++)
-		{
-			if(yaml.get(String.valueOf(i)) != null)
-			{
-				lastIndex = i;
-			}
-		}
-		return lastIndex;
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken);
 	}
 }

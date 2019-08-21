@@ -133,8 +133,8 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public Gui build()
+	/*public Gui build()
 	{
-		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functions, this.failFunctions);
-	}
+		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs);
+	}*/
 }

@@ -19,167 +19,81 @@ import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
-public class FunctionUtil {
+public final class FunctionUtil {
 	
-	public static boolean tryGuiFunctions(Gui owner, PlayerWrapper<?> playerWrapper)
+	private FunctionUtil() {}
+	
+	public static boolean tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper)
 	{
-		FunctionResponse result = null;
-		if(owner.getFunctions() != null)
+		if(owner instanceof Gui)
 		{
-			result = tryFunctions(owner, playerWrapper, owner.getFunctions(), owner);
-			if(!result.result)
+			Gui gui = (Gui) owner;
+			FunctionTree tree = gui.getToken().getFunctions();
+			return recurFunctionNodes(tree.getRootNodes(), type, playerWrapper);
+		}
+		else if(owner instanceof Slot)
+		{
+			Slot slot = (Slot) owner;
+			FunctionTree tree = slot.getToken().getFunctionTree();
+			return recurFunctionNodes(tree.getRootNodes(), type, playerWrapper);
+		}
+		
+		return false;
+	}
+	
+	private static boolean recurFunctionNodes(List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
+	{
+		for(FunctionNode node : functionNodes)
+		{
+			FunctionToken functionToken = node.getToken();
+			if(functionToken.getTypes().contains(type))
 			{
-				List<Function> failFunctions = owner.getFailFunctions(result.failedFunction);
-				if(failFunctions != null)
+				if(type != FunctionType.FAIL)
 				{
-					tryFunctions(owner, playerWrapper, failFunctions, owner);
+					boolean ran = runFunctionData(functionToken.getFunctions(), playerWrapper);
+					if(!ran)
+					{
+						runFunctionData(functionToken.getFailOnFunctions(), playerWrapper);
+						return false;
+					}
 				}
-				return false;
 			}
+			return recurFunctionNodes(node.getChildren(), type, playerWrapper);
 		}
 		return true;
 	}
 	
-	public static void tryLoadFunctions(PlayerWrapper<?> playerWrapper, Gui gui) 
+	private static boolean runFunctionData(List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
 	{
-		for(Slot slot : gui.getSlots())
+		for(FunctionData data : datas)
 		{
-			FunctionResponse result = FunctionUtil.tryFunctions(gui, playerWrapper, slot.getLoadFunctions(), slot);
-			if(!result.result)
+			Function function = FunctionManager.get().getFunctionByName(data.getName());
+			if(function == null)
 			{
-				List<Function> failFunctions = slot.getLoadFailFunctions(result.failedFunction);
-				if(failFunctions != null)
-				{
-					tryFunctions(gui, playerWrapper, failFunctions, slot);
-				}
+				DynamicGui.get().getLogger().error("Invalid function " + data.getName());
+				return false;
 			}
-		}
-		
-	}
-
-	public static void tryFunctions(Gui gui, Slot slot, Click inventoryClick, PlayerWrapper<?> playerWrapper)
-	{
-		FunctionResponse result = null;
-		if(slot.getFunctions() != null)
-		{
-			result = tryFunctions(gui, playerWrapper, slot.getFunctions(), slot);
-			if(!result.result)
+			if(data.getData() != null)
 			{
-				List<Function> failFunctions = slot.getFailFunctions(result.failedFunction);
-				if(failFunctions != null)
-				{
-					tryFunctions(gui, playerWrapper, failFunctions, slot);
-				}
+				function.setData(data.getData());
 			}
-		}
-		if(inventoryClick == Click.LEFT && slot.getLeftClickFunctions() != null)
-		{
-			result = tryFunctions(gui, playerWrapper, slot.getLeftClickFunctions(), slot);
-			if(!result.result)
+			boolean ran = function.function(playerWrapper);
+			if(!ran)
 			{
-				List<Function> failFunctions = slot.getLeftClickFailFunctions(result.failedFunction);
-				if(failFunctions != null)
-				{
-					tryFunctions(gui, playerWrapper, failFunctions, slot);
-				}
-
-				return;
-			}
+				return false;
+			}	
 		}
-		else if(inventoryClick == Click.RIGHT && slot.getRightClickFunctions() != null)
-		{
-			result = tryFunctions(gui, playerWrapper, slot.getRightClickFunctions(), slot);
-			if(!result.result)
-			{
-				List<Function> failFunctions = slot.getRightClickFailFunctions(result.failedFunction);
-				if(failFunctions != null)
-				{
-					tryFunctions(gui, playerWrapper, failFunctions, slot);
-				}
-
-				return;
-			}
-		}
-		else if(inventoryClick == Click.MIDDLE && slot.getMiddleClickFunctions() != null)
-		{
-			result = tryFunctions(gui, playerWrapper, slot.getMiddleClickFunctions(), slot);
-			if(!result.result)
-			{
-				List<Function> failFunctions = slot.getMiddleClickFailFunctions(result.failedFunction);
-				if(failFunctions != null)
-				{
-					tryFunctions(gui, playerWrapper, failFunctions, slot);
-				}
-
-				return;
-			}
-		}
-	}
-	
-	private static FunctionResponse tryFunctions(Gui gui, PlayerWrapper<?> playerWrapper, List<Function> functions, FunctionOwner owner)
-	{
-		FunctionResponse response = new FunctionResponse(true);
-		for(int i = 0; i < functions.size(); i++)
-		{
-			Function func = functions.get(i);
-			Function myFunc = null;
-			try 
-			{
-				if(FunctionManager.get().getFunctionByName(func.getName()) == null)
-				{
-					DynamicGui.get().getLogger().error("Cannot find " + func.getName() + " for gui \"" + gui.getName() +"\" continuing!");
-					continue;
-				}
-
-				myFunc = FunctionManager.get().getFunctionByName(func.getName()).clone();
-				String newData = func.getData();
-				if(newData != null && newData.length() > 0)
-				{
-					newData = ReplacerManager.get().replace(func.getData(), playerWrapper);
-				}
-				myFunc.setData(newData);
-				myFunc.setOwner(owner);
-				myFunc.setIndex(i);
-			} 
-			catch (IllegalArgumentException | SecurityException ex) 
-			{
-				ex.printStackTrace();
-			}
-			
-			//Runs the function
-			boolean result = myFunc.function(playerWrapper);
-			if(!result)
-			{
-				//If the function fails return a failed function response
-				response = new FunctionResponse(false, func.getName());
-				break;
-			}
-		}
-		return response;
-	}
-	
-	private static class FunctionResponse 
-	{	
-		private boolean result;
-		private String failedFunction;
-		
-		public FunctionResponse(boolean result)
-		{
-			this(result, null);
-		}
-		
-		public FunctionResponse(boolean result, String failedFunction)
-		{
-			this.result = result;
-			this.failedFunction = failedFunction;
-		}
+		return true;
 	}
 }

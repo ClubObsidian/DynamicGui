@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 
-public interface DynamicGuiPlugin extends NPCRegistry {
+public interface DynamicGuiPlugin {
 
 	public void start();
 	public void stop();

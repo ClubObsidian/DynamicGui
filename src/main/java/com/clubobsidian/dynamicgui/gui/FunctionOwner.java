@@ -21,7 +21,6 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public interface FunctionOwner {
 
-	public List<Function> getFunctions();
-	public List<Function> getFailFunctions(String key);
+	
 
 }

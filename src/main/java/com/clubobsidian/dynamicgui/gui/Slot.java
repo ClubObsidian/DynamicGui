@@ -18,14 +18,13 @@ package com.clubobsidian.dynamicgui.gui;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 
 public class Slot implements Serializable, FunctionOwner {
 	
@@ -38,46 +37,17 @@ public class Slot implements Serializable, FunctionOwner {
 	private String nbt;
 	private short data;
 	private int index;
-	private List<Function> loadFunctions;
-	private Map<String, List<Function>> failLoadFunctions;
-	//All clicks
-	private List<Function> functions;
-	private Map<String, List<Function>> failFunctions;
-	//Left click
-	private List<Function> leftClickFunctions;
-	private Map<String, List<Function>> leftClickFailFunctions;
-	//Right click
-	private List<Function> rightClickFunctions;
-	private Map<String, List<Function>> rightClickFailFunctions;
-	//Middle click
-	private List<Function> middleClickFunctions;
-	private Map<String, List<Function>> middleClickFailFunctions;
+
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
 	private Boolean close;
 	private int amount;
 	private ItemStackWrapper<?> itemStack;
 	private Gui owner;
-
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, int index, List<Function> functions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, Map<String, List<Function>> failFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions)
-	{
-		this(icon, name, nbt, data, close, lore, enchants, index, functions, failFunctions, leftClickFunctions, leftClickFailFunctions, rightClickFunctions, rightClickFailFunctions, middleClickFunctions, middleClickFailFunctions, loadFunctions, failLoadFunctions, 1);
-		//, ArrayList<Function> leftClickFunctions, HashMap<String, ArrayList<Function>> leftClickFailFunctions, ArrayList<Function> rightClickFunctions, HashMap<String, ArrayList<Function>> rightClickFailFunctions, ArrayList<Function> middleClickFunctions, HashMap<String, ArrayList<Function>> middleClickFailFunctions, 
-	}
-	
-	public Slot(String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, int index, List<Function> functions, Map<String, List<Function>> failFunctions, List<Function> leftClickFunctions, Map<String, List<Function>> leftClickFailFunctions, List<Function> rightClickFunctions, Map<String, List<Function>> rightClickFailFunctions, List<Function> middleClickFunctions, Map<String, List<Function>> middleClickFailFunctions, List<Function> loadFunctions, Map<String, List<Function>> failLoadFunctions, int amount)
+	private transient SlotToken token;
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, SlotToken token)
 	{
 		this.icon = icon;
-		this.failFunctions = failFunctions;
-		this.loadFunctions = loadFunctions;
-		this.failLoadFunctions = failLoadFunctions;
-		this.functions = functions;
-		this.leftClickFunctions = leftClickFunctions;
-		this.leftClickFailFunctions = leftClickFailFunctions;
-		this.rightClickFunctions = rightClickFunctions;
-		this.rightClickFailFunctions = rightClickFailFunctions;
-		this.middleClickFunctions = middleClickFunctions;
-		this.middleClickFailFunctions = middleClickFailFunctions;
 		this.data = data;
 		this.name = name;
 		this.nbt = nbt;
@@ -86,11 +56,7 @@ public class Slot implements Serializable, FunctionOwner {
 		this.close = close;
 		this.index = index;
 		this.amount = amount;
-	}
-
-	public String getIcon()
-	{
-		return this.icon;
+		this.token = token;
 	}
 	
 	public int getIndex()
@@ -103,59 +69,19 @@ public class Slot implements Serializable, FunctionOwner {
 		this.index = index;
 	}
 	
+	public int getAmount()
+	{
+		return this.amount;
+	}
+	
+	public String getIcon()
+	{
+		return this.icon;
+	}
+	
 	public short getData()
 	{
 		return this.data;
-	}
-	
-	public List<Function> getFunctions()
-	{
-		return this.functions;
-	}
-	
-	public List<Function> getFailFunctions(String key)
-	{
-		return this.failFunctions.get(key);
-	}
-	
-	public List<Function> getLeftClickFunctions()
-	{
-		return this.leftClickFunctions;
-	}
-	
-	public List<Function> getLeftClickFailFunctions(String key)
-	{
-		return this.leftClickFailFunctions.get(key);
-	}
-	
-	public List<Function> getRightClickFunctions()
-	{
-		return this.rightClickFunctions;
-	}
-	
-	public List<Function> getRightClickFailFunctions(String key)
-	{
-		return this.rightClickFailFunctions.get(key);
-	}
-	
-	public List<Function> getMiddleClickFunctions()
-	{
-		return this.middleClickFunctions;
-	}
-	
-	public List<Function> getMiddleClickFailFunctions(String key)
-	{
-		return this.middleClickFailFunctions.get(key);
-	}
-	
-	public List<Function> getLoadFailFunctions(String key)
-	{
-		return this.failLoadFunctions.get(key);
-	}
-	
-	public List<Function> getLoadFunctions()
-	{
-		return this.loadFunctions;
 	}
 	
 	public Boolean getClose()
@@ -168,14 +94,14 @@ public class Slot implements Serializable, FunctionOwner {
 		this.close = close;
 	}
 	
-	public int getAmount()
+	public SlotToken getToken()
 	{
-		return this.amount;
+		return this.token;
 	}
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper)
 	{
-		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.getAmount());
+		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
 		
 		if(this.getData() != 0)
 			builderItem.setDurability(this.getData());

@@ -118,18 +118,6 @@ public class SpongePlugin implements DynamicGuiPlugin {
 	}
 
 	@Override
-	public boolean isNPC(EntityWrapper<?> entity) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public NPC getNPC(EntityWrapper<?> entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Economy getEconomy() 
 	{
 		// TODO Auto-generated method stub

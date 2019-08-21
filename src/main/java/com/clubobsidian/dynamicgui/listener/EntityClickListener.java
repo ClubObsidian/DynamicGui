@@ -15,12 +15,17 @@
 */
 package com.clubobsidian.dynamicgui.listener;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.trident.EventHandler;
 
 public class EntityClickListener {
@@ -30,17 +35,32 @@ public class EntityClickListener {
 	{
 		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 			return;
-		
+
 		EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-		NPC npc = DynamicGui.get().getPlugin().getNPC(entityWrapper);
-		if(npc != null)
+		List<NPCRegistry> registeries = DynamicGui.get().getPlugin().getNPCRegistries();
+		for(NPCRegistry registry : registeries)
 		{
 			for(Gui gui : GuiManager.get().getGuis())
 			{
-				if(gui.getNpcIds().contains(npc.getMeta().getId()))
+				Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
+				while(it.hasNext())
 				{
-					GuiManager.get().openGui(e.getPlayerWrapper(), gui);
-					break;
+					Entry<String, List<Integer>> next = it.next();
+					String registryName = next.getKey();
+					List<Integer> ids = next.getValue();
+
+					if(registryName.equals(registry.getName()))
+					{
+						NPC npc = registry.getNPC(entityWrapper);
+						if(npc != null)
+						{
+							if(ids.contains(npc.getMeta().getId()))
+							{
+								GuiManager.get().openGui(e.getPlayerWrapper(), gui);
+								break;
+							}
+						}
+					}
 				}
 			}
 		}

@@ -15,8 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.builder;
 
-import com.clubobsidian.dynamicgui.function.EmptyFunction;
-import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 
 public class FunctionBuilder {
 	
@@ -35,8 +34,8 @@ public class FunctionBuilder {
 		return this;
 	}
 	
-	public Function build()
+	public FunctionData build()
 	{
-		return new EmptyFunction(this.name, this.data);
+		return new FunctionData(this.name, this.data);
 	}
 }

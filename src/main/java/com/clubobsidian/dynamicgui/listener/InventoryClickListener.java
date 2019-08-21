@@ -19,12 +19,13 @@ import java.util.List;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 import com.clubobsidian.trident.EventHandler;
@@ -78,15 +79,13 @@ public class InventoryClickListener {
 		if(slot == null)
 			return;
 
-		List<Function> functions = slot.getFunctions();
-		List<Function> leftClickFunctions = slot.getLeftClickFunctions();
-		List<Function> rightClickFunctions = slot.getRightClickFunctions();
-		List<Function> middleClickFunctions = slot.getMiddleClickFunctions();
+		List<FunctionNode> functions = slot.getToken().getFunctionTree().getRootNodes();
 
-		if(functions == null && leftClickFunctions == null && rightClickFunctions == null && middleClickFunctions != null)
+		if(functions.size() == 0)
 			return;
 
-		FunctionUtil.tryFunctions(gui, slot, e.getClick(), player);
+		String clickString = e.getClick().toString();
+		FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
 		
 		Boolean close = null;
 		if(slot.getClose() != null)
@@ -98,7 +97,5 @@ public class InventoryClickListener {
 
 		if(close)
 			player.closeInventory();
-
-
 	}
 }
