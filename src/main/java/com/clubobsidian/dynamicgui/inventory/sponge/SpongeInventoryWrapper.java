@@ -26,6 +26,7 @@ import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
@@ -90,5 +91,11 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	public int getContentSize() 
 	{
 		return this.getInventory().size();
+	}
+
+	@Override
+	public void setTitle(PlayerWrapper<?> playerWrapper, String title) 
+	{
+		// TODO Auto-generated method stub
 	}
 }

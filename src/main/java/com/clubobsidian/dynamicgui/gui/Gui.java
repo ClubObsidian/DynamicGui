@@ -21,9 +21,11 @@ import java.util.Map;
 
 import org.apache.commons.lang3.SerializationUtils;
 
+import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
@@ -31,7 +33,7 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 
-public class Gui implements Serializable, FunctionOwner {
+public class Gui implements Serializable, FunctionOwner, AnimationHolder {
 
 	/**
 	 * 
@@ -48,7 +50,9 @@ public class Gui implements Serializable, FunctionOwner {
 	private Map<String, List<Integer>> npcIds;
 	private transient InventoryWrapper<?> inventoryWrapper;
 	private FunctionTree functions;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
+	private final int updateInterval;
+	private int tick;
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, int updateInterval)
 	{
 		this.name = name;
 		this.type = type;
@@ -61,11 +65,15 @@ public class Gui implements Serializable, FunctionOwner {
 		this.locations = locations;
 		this.inventoryWrapper = null;
 		this.functions = functions;
+		this.updateInterval = updateInterval;
+		this.tick = 0;
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
 	{	
 		String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
+		inventoryTitle = AnimationReplacerManager.get().replace(this, playerWrapper, inventoryTitle);
+		
 		if(inventoryTitle.length() > 32)
 			inventoryTitle = inventoryTitle.substring(0,31);
 		
@@ -167,6 +175,29 @@ public class Gui implements Serializable, FunctionOwner {
 	public FunctionTree getFunctions()
 	{
 		return this.functions;
+	}
+	
+	@Override
+	public int getUpdateInterval() 
+	{
+		return this.updateInterval;
+	}
+
+	@Override
+	public int getCurrentTick() 
+	{
+		return this.tick;
+	}
+
+	@Override
+	public int tick() 
+	{
+		this.tick += 1;
+		
+		if(this.tick > 20)
+			this.tick = 1;
+		
+		return this.tick; 
 	}
 	
 	public Gui clone()

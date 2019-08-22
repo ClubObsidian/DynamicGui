@@ -1,6 +1,8 @@
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -37,6 +39,7 @@ public class AnimationManager {
 			@Override
 			public void run()
 			{
+				List<TitleUpdater> titleUpdates = new ArrayList<>();
 				Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
 				while(it.hasNext())
 				{
@@ -46,6 +49,22 @@ public class AnimationManager {
 					Gui gui = next.getValue();
 					
 					boolean updated = false;
+					
+					if(gui.getUpdateInterval() != 0)
+					{
+						gui.tick();
+
+						if(gui.getCurrentTick() % gui.getUpdateInterval() == 0)
+						{
+							String title = gui.getTitle();
+							title = ReplacerManager.get().replace(title, playerWrapper);
+							title = AnimationReplacerManager.get().replace(gui, playerWrapper, title);
+							titleUpdates.add(new TitleUpdater(gui, playerWrapper, title));
+							updated = true;
+						}
+					}
+
+
 					for(Slot slot : gui.getSlots())
 					{
 						if(slot.getUpdateInterval() == 0)
@@ -69,8 +88,47 @@ public class AnimationManager {
 					{
 						playerWrapper.updateInventory();
 					}
+					
+					//Schedule title updates for the next tick
+					DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> 
+					{
+						for(TitleUpdater updater : titleUpdates)
+						{
+							updater.update();
+						}
+					}, 1L);
 				}
 			}
 		}, 1L, 1L);
+	}
+	
+	private static class TitleUpdater
+	{
+		private Gui gui;
+		private PlayerWrapper<?> playerWrapper;
+		private String title;
+		TitleUpdater(Gui gui, PlayerWrapper<?> playerWrapper, String title)
+		{
+			this.gui = gui;
+			this.playerWrapper = playerWrapper;
+			this.title = title;
+		}
+		
+		public boolean update()
+		{
+			Gui currentGui = GuiManager.get().getCurrentGui(this.playerWrapper);
+			if(currentGui != null && currentGui.equals(this.gui))
+			{
+				this.playerWrapper.updateInventory();
+				this.gui.getInventoryWrapper().setTitle(this.playerWrapper, this.title);
+				this.playerWrapper.updateInventory();
+			}
+			else
+			{
+				this.playerWrapper.closeInventory();
+			}
+			
+			return false;
+		}
 	}
 }

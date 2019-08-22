@@ -353,6 +353,8 @@ public class GuiManager {
 		
 		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
 		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions());
+		int updateInterval = guiToken.getUpdateInterval();
+		
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), updateInterval);
 	}
 }
