@@ -63,9 +63,9 @@ public class Gui implements Serializable, FunctionOwner {
 		this.functions = functions;
 	}
 
-	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
+	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
 	{	
-		String inventoryTitle = ReplacerManager.get().replace(this.title, player);
+		String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
 		if(inventoryTitle.length() > 32)
 			inventoryTitle = inventoryTitle.substring(0,31);
 		
@@ -87,7 +87,7 @@ public class Gui implements Serializable, FunctionOwner {
 			if(slot != null)
 			{
 				slot.setOwner(this);
-				ItemStackWrapper<?> item = slot.buildItemStack(player);
+				ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
 
 				if(this.modeEnum == ModeEnum.ADD)
 				{
