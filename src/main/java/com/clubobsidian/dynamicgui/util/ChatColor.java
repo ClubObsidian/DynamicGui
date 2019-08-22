@@ -15,24 +15,26 @@
 */
 package com.clubobsidian.dynamicgui.util;
 
+import java.awt.Color;
+
 public enum ChatColor {
 
-	AQUA('b'),
-	BLACK('0'),
-	BLUE('9'),
-	DARK_AQUA('3'),
-	DARK_BLUE('1'),
-	DARK_GRAY('8'),
-	DARK_GREEN('2'),
-	DARK_PURPLE('5'),
-	DARK_RED('4'),
-	GOLD('6'),
-	GRAY('7'),
-	GREEN('a'),
-	LIGHT_PURPLE('d'),
-	RED('c'),
-	WHITE('f'),
-	YELLOW('e'),
+	AQUA('b', 85, 255, 255),
+	BLACK('0', 0, 0, 0),
+	BLUE('9', 85, 85, 255),
+	DARK_AQUA('3', 0, 170, 170),
+	DARK_BLUE('1', 0, 0, 170),
+	DARK_GRAY('8', 85 , 85, 85),
+	DARK_GREEN('2', 0, 170, 0),
+	DARK_PURPLE('5', 170, 0, 170),
+	DARK_RED('4', 170, 0, 0),
+	GOLD('6', 170, 170, 0),
+	GRAY('7', 170, 170, 170),
+	GREEN('a', 85, 255, 85),
+	LIGHT_PURPLE('d', 255, 85, 255),
+	RED('c', 255, 85, 85),
+	WHITE('f', 255, 255, 255),
+	YELLOW('e', 255, 255, 85),
 	//Formatting
 	BOLD('l', true),
 	ITALIC('o', true),
@@ -45,9 +47,17 @@ public enum ChatColor {
 	
 	private char colorCode;
 	private boolean formatting;
-	private ChatColor(char colorCode)
+	private int red;
+	private int green;
+	private int blue;
+	private Color color;
+	private ChatColor(char colorCode, int red, int green, int blue)
 	{
 		this(colorCode, false);
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		this.color = new Color(red, green, blue);
 	}
 	
 	private ChatColor(char colorCode, boolean formatting)
@@ -69,6 +79,26 @@ public enum ChatColor {
 	public boolean isFormatting()
 	{
 		return this.formatting;
+	}
+	
+	public int getRed()
+	{
+		return this.red;
+	}
+	
+	public int getGreen()
+	{
+		return this.green;
+	}
+	
+	public int getBlue()
+	{
+		return this.blue;
+	}
+	
+	public Color getJavaColor()
+	{
+		return this.color;
 	}
 	
 	public static String translateAlternateColorCodes(char translate, String message)
