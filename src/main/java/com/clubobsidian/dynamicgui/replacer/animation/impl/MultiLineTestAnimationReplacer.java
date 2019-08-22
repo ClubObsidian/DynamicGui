@@ -30,6 +30,6 @@ public class MultiLineTestAnimationReplacer extends AnimationReplacer {
 	public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) 
 	{
 		int tick = holder.getCurrentTick();
-		return String.valueOf(tick + ";" + tick + ";");
+		return tick + "\n" + tick + "\n" + tick;
 	}
 }

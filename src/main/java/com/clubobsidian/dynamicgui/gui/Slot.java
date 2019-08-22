@@ -129,9 +129,9 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 			{
 				String lore = ReplacerManager.get().replace(newString, playerWrapper);
 				lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
-				if(lore.contains(";"))
+				if(lore.contains("\n"))
 				{
-					String[] split = lore.split(";");
+					String[] split = lore.split("\n");
 					for(String sp : split)
 					{
 						newLore.add(sp);
