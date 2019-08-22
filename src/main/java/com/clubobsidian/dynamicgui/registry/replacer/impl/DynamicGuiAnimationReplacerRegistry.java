@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.AnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.AnimationReplacer;
+import com.clubobsidian.dynamicgui.replacer.animation.impl.MultiLineTestAnimationReplacer;
 import com.clubobsidian.dynamicgui.replacer.animation.impl.TestAnimationReplacer;
 
 public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerRegistry {
@@ -33,6 +34,7 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
 	{
 		this.replacers = new HashMap<>();
 		this.addReplacer(new TestAnimationReplacer("%test-animation%"));
+		this.addReplacer(new MultiLineTestAnimationReplacer("%test-multiline-animation%"));
 	}
 
 	public static DynamicGuiAnimationReplacerRegistry get()

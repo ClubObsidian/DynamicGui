@@ -126,13 +126,21 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 			List<String> newLore = new ArrayList<>();
 			
 			for(String newString : this.lore)
-				newLore.add(newString);
-			
-			for(int i = 0; i < newLore.size(); i++)
 			{
-				String lore = ReplacerManager.get().replace(newLore.get(i), playerWrapper);
+				String lore = ReplacerManager.get().replace(newString, playerWrapper);
 				lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
-				newLore.set(i, lore);
+				if(lore.contains(";"))
+				{
+					String[] split = lore.split(";");
+					for(String sp : split)
+					{
+						newLore.add(sp);
+					}
+				}
+				else
+				{
+					newLore.add(lore);
+				}
 			}
 		
 			builderItem.setLore(newLore);
