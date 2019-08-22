@@ -1,6 +1,6 @@
 package com.clubobsidian.dynamicgui.animation;
 
-public interface Refresh {
+public interface Refreshable {
 
 	public int getUpdateInterval();
 	

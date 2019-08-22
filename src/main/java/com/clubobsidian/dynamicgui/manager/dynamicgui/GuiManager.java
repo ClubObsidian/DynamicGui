@@ -320,8 +320,10 @@ public class GuiManager {
 			boolean close = slotToken.isClosed();
 			
 			short data = slotToken.getData();
+			
+			int updateInterval = slotToken.getUpdateInterval();
 
-			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree()));
+			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree(), updateInterval));
 		}
 
 		

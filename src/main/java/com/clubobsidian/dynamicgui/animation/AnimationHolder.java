@@ -1,8 +1,8 @@
 package com.clubobsidian.dynamicgui.animation;
 
-public interface AnimationHolder extends Refresh {
+public interface AnimationHolder extends Refreshable {
 
-	public int currentTick();
+	public int getCurrentTick();
 	public int tick();
 	
 }

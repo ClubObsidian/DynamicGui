@@ -19,15 +19,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 
-public class Slot implements Serializable, FunctionOwner {
+public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	
 	/**
 	 * 
@@ -46,7 +47,9 @@ public class Slot implements Serializable, FunctionOwner {
 	private ItemStackWrapper<?> itemStack;
 	private Gui owner;
 	private FunctionTree functions;
-	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions)
+	private final int updateInterval;
+	private int tick;
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval)
 	{
 		this.icon = icon;
 		this.data = data;
@@ -58,6 +61,8 @@ public class Slot implements Serializable, FunctionOwner {
 		this.index = index;
 		this.amount = amount;
 		this.functions = functions;
+		this.updateInterval = updateInterval;
+		this.tick = 0;
 	}
 	
 	public int getIndex()
@@ -112,6 +117,7 @@ public class Slot implements Serializable, FunctionOwner {
 		{
 			String newName = this.name;
 			newName = ReplacerManager.get().replace(newName, playerWrapper);
+			newName = AnimationReplacerManager.get().replace(this, playerWrapper, newName);
 			builderItem.setName(newName);
 		}
 		
@@ -124,9 +130,10 @@ public class Slot implements Serializable, FunctionOwner {
 			
 			for(int i = 0; i < newLore.size(); i++)
 			{
-				newLore.set(i, ReplacerManager.get().replace(newLore.get(i), playerWrapper));
+				String lore = ReplacerManager.get().replace(newLore.get(i), playerWrapper);
+				lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
+				newLore.set(i, lore);
 			}
-			
 		
 			builderItem.setLore(newLore);
 		}
@@ -159,5 +166,28 @@ public class Slot implements Serializable, FunctionOwner {
 	public Gui getOwner()
 	{
 		return this.owner;
+	}
+
+	@Override
+	public int getUpdateInterval() 
+	{
+		return this.updateInterval;
+	}
+
+	@Override
+	public int getCurrentTick() 
+	{
+		return this.tick;
+	}
+
+	@Override
+	public int tick() 
+	{
+		this.tick += 1;
+		
+		if(this.tick > 20)
+			this.tick = 1;
+		
+		return this.tick; 
 	}
 }

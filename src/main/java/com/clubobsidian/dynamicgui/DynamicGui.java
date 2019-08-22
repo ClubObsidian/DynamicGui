@@ -52,11 +52,14 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
@@ -104,6 +107,8 @@ public class DynamicGui  {
 		this.checkForProxy();
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+		AnimationManager.get();
 	}
 
 	private void setupFileStructure()
