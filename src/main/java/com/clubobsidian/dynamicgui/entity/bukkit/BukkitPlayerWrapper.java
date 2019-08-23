@@ -158,7 +158,14 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	@Override
 	public int getStatistic(Statistic statistic) 
 	{
-		return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
+		try
+		{
+			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
+		}
+		catch(Exception ex)
+		{
+			return -1;
+		}
 	}
 
 	@Override
@@ -181,12 +188,12 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 				return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
 			}
 		}
-		catch(IllegalArgumentException ex)
+		catch(Exception ex)
 		{
 			//Ignore and return -1
 			return -1;
 		}
-		return -1;
+		return 0;
 	}
 
 	@SuppressWarnings("deprecation")

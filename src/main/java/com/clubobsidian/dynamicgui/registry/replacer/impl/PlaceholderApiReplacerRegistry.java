@@ -19,7 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
@@ -40,7 +39,7 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 	{
 		try 
 		{
-			return (String) this.setPlaceHolders.invoke(null, (Player) playerWrapper.getPlayer(), text);
+			return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
 		} 
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
 		{
