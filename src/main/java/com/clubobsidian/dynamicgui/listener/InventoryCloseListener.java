@@ -15,12 +15,9 @@
 */
 package com.clubobsidian.dynamicgui.listener;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.event.player.PlayerKickEvent;
 import com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent;
-import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.trident.EventHandler;
 
@@ -29,29 +26,15 @@ public class InventoryCloseListener {
 	@EventHandler
 	public void inventoryClose(final InventoryCloseEvent e)
 	{
-		PlayerWrapper<?> playerWrapper = e.getPlayerWrapper();
-		Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-		if(gui != null)
+		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
-
-			//Cleanup active gui
 			GuiManager.get().cleanupGui(e.getPlayerWrapper());
-
-			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> 
-			{
-				System.out.println("close");
-				Gui newGui = GuiManager.get().getCurrentGui(playerWrapper);
-				if(newGui == null)
-				{
-					playerWrapper.closeInventory();
-				}
-			},  1L);
 		}
 	}
 
 	@EventHandler
 	public void onQuit(final PlayerQuitEvent e)
-{
+	{
 		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
 			GuiManager.get().cleanupGui(e.getPlayerWrapper());
