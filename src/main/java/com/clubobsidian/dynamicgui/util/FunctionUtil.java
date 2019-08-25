@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
@@ -92,7 +93,8 @@ public final class FunctionUtil {
 			if(data.getData() != null)
 			{
 				function.setOwner(owner);
-				function.setData(functionData);
+				String newData = ReplacerManager.get().replace(functionData, playerWrapper);
+				function.setData(newData);
 			}
 			boolean ran = function.function(playerWrapper);
 			if(!ran)
