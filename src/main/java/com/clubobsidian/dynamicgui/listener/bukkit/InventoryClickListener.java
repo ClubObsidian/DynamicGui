@@ -77,7 +77,9 @@ public class InventoryClickListener implements Listener {
 				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(itemStack);
 			}
 			
-			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
+			boolean shiftClick = e.isShiftClick();
+			
+			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, shiftClick, view);
 			DynamicGui.get().getEventBus().callEvent(clickEvent);
 			if(clickEvent.isCanceled())
 			{
