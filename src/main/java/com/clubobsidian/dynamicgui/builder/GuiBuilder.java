@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class GuiBuilder  {
@@ -34,11 +34,16 @@ public class GuiBuilder  {
 	private int rows;
 	private Boolean close;
 	private ModeEnum modeEnum;
-	private List<Integer> npcIds = new ArrayList<>();
-	private List<Slot> slots = new ArrayList<>();
-	private List<LocationWrapper<?>> locs = new ArrayList<>();
-	private List<Function> functions = new ArrayList<>();
-	private Map<String,List<Function>> failFunctions = new HashMap<>();
+	private Map<String, List<Integer>> npcIds;
+	private List<Slot> slots;
+	private List<LocationWrapper<?>> locs;
+	private FunctionTree functionTree;
+	public GuiBuilder()
+	{
+		this.npcIds = new HashMap<>();
+		this.slots = new ArrayList<>();
+		this.locs = new ArrayList<>();
+	}
 	
 	public GuiBuilder setType(String type)
 	{
@@ -81,26 +86,33 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public GuiBuilder addNpcId(Integer id)
+	public GuiBuilder addNpcId(String plugin, Integer id)
 	{
-		this.npcIds.add(id);
+		List<Integer> npcs = this.npcIds.get(plugin);
+		if(npcs == null)
+		{
+			npcs = new ArrayList<>();
+			this.npcIds.put(plugin, npcs);
+		}
+		
+		npcs.add(id);
 		return this;
 	}
 	
-	public GuiBuilder addNpcId(Integer[] npcIds)
+	public GuiBuilder addNpcId(String plugin, Integer[] npcIds)
 	{
 		for(Integer id : npcIds)
 		{
-			this.npcIds.add(id);
+			this.addNpcId(plugin, id);
 		}
 		return this;
 	}
 	
-	public GuiBuilder addNpcId(List<Integer> npcIds)
+	public GuiBuilder addNpcId(String plugin, List<Integer> npcIds)
 	{
 		for(Integer id : npcIds)
 		{
-			this.npcIds.add(id);
+			this.addNpcId(plugin, id);
 		}
 		return this;
 	}
@@ -117,24 +129,14 @@ public class GuiBuilder  {
 		return this;
 	}
 	
-	public GuiBuilder addFunction(Function function)
+	public GuiBuilder setFunctionTree(FunctionTree functionTree)
 	{
-		this.functions.add(function);
+		this.functionTree = functionTree;
 		return this;
 	}
 	
-	public GuiBuilder addFailFunction(String failOn, Function function)
+	public Gui build()
 	{
-		if(this.failFunctions.get(failOn) == null)
-		{
-			this.failFunctions.put(failOn, new ArrayList<>());
-		}
-		this.failFunctions.get(failOn).add(function);
-		return this;
+		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree);
 	}
-	
-	/*public Gui build()
-	{
-		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs);
-	}*/
 }
