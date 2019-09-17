@@ -13,21 +13,13 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package com.clubobsidian.dynamicgui.listener;
+package com.clubobsidian.dynamicgui.registry.replacer;
 
-import com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
-import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.dynamicgui.animation.AnimationHolder;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
-public class InventoryOpenListener {
+public interface AnimationReplacerRegistry {
 
-	@EventHandler
-	public void inventoryOpen(final InventoryOpenEvent e)
-	{
-		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
-		{
-			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
-				e.getPlayerWrapper().closeInventory();
-		}
-	}
+	public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text);
+	
 }

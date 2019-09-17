@@ -18,8 +18,10 @@ package com.clubobsidian.dynamicgui.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class ReflectionUtil {
+public final class ReflectionUtil {
 
+	private ReflectionUtil() {}
+	
 	public static Class<?> classForName(String name)
 	{
 		try 

@@ -28,7 +28,7 @@ import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class CitizensRegistry implements NPCRegistry 
 {
-	private static String PLUGIN_NAME = "Citizens";
+	private static final String PLUGIN_NAME = "Citizens";
 	
 	private Class<?> citizensApiClass;
 	private Class<?> npcClass;
@@ -57,6 +57,12 @@ public class CitizensRegistry implements NPCRegistry
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public String getName()
+	{
+		return PLUGIN_NAME;
 	}
 	
 	@Override

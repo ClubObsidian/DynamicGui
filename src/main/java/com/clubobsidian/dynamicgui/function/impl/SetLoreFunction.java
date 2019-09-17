@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
@@ -59,20 +60,21 @@ public class SetLoreFunction extends Function {
 						ItemStackWrapper<?> item = slot.getItemStack();
 
 						List<String> lore = new ArrayList<>();
-						if(this.getData().contains(";"))
+						
+						String newData = this.getData();
+						newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+						newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
+						
+						if(newData.contains("\n"))
 						{
-							for(String str : this.getData().split(";"))
+							for(String str : this.getData().split("\n"))
 							{
-								String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', str), playerWrapper);	
-
-								lore.add(l);
+								lore.add(str);
 							}
 						}
 						else
 						{
-							String l  = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-
-							lore.add(l);
+							lore.add(newData);
 						}
 
 						item.setLore(lore);

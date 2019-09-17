@@ -22,6 +22,8 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class SetNameFunction extends Function {
@@ -52,7 +54,10 @@ public class SetNameFunction extends Function {
 					if(inv != null)
 					{
 						ItemStackWrapper<?> item = slot.getItemStack();
-						item.setName(ChatColor.translateAlternateColorCodes('&', this.getData()));
+						String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
+						newName = ReplacerManager.get().replace(newName, playerWrapper);
+						newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
+						item.setName(newName);
 						inv.setItem(slot.getIndex(), item);
 						return true;
 					}

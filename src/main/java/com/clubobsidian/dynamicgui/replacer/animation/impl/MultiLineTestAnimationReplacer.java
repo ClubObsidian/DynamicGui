@@ -13,34 +13,23 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package com.clubobsidian.dynamicgui.function;
+package com.clubobsidian.dynamicgui.replacer.animation.impl;
 
+import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.replacer.AnimationReplacer;
 
-/**
- * 
- * @author virustotal
- *
- * This function is empty on purpose. Meant as a data
- * holder for internal usage. By design this is how DynamicGUI
- * was written but Function is now an abstract class. This is
- * subject to change in the future.
- */
-public class EmptyFunction extends Function {
+public class MultiLineTestAnimationReplacer extends AnimationReplacer {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1802471782257186804L;
-
-	public EmptyFunction(String name, String data) 
+	public MultiLineTestAnimationReplacer(String toReplace) 
 	{
-		super(name, data);
+		super(toReplace);
 	}
 
 	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
+	public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) 
 	{
-		return false;
+		int tick = holder.getCurrentTick();
+		return tick + "\n" + tick + "\n" + tick;
 	}
 }

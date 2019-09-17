@@ -22,11 +22,11 @@ import java.util.Map;
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
@@ -45,11 +45,10 @@ public class Gui implements Serializable, FunctionOwner {
 	private Boolean close;
 	private ModeEnum modeEnum;
 	private List<LocationWrapper<?>> locations;
-	private List<Integer> npcIds;
-	private List<Function> functions;
-	private Map<String, List<Function>> failFunctions;
+	private Map<String, List<Integer>> npcIds;
 	private transient InventoryWrapper<?> inventoryWrapper;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, List<Integer> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, List<Function> functions, Map<String,List<Function>> failFunctions)
+	private FunctionTree functions;
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
 	{
 		this.name = name;
 		this.type = type;
@@ -60,14 +59,13 @@ public class Gui implements Serializable, FunctionOwner {
 		this.modeEnum = modeEnum;
 		this.npcIds = npcIds;
 		this.locations = locations;
-		this.functions = functions;
-		this.failFunctions = failFunctions;
 		this.inventoryWrapper = null;
+		this.functions = functions;
 	}
 
-	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> player)
+	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
 	{	
-		String inventoryTitle = ReplacerManager.get().replace(this.title, player);
+		String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
 		if(inventoryTitle.length() > 32)
 			inventoryTitle = inventoryTitle.substring(0,31);
 		
@@ -89,7 +87,7 @@ public class Gui implements Serializable, FunctionOwner {
 			if(slot != null)
 			{
 				slot.setOwner(this);
-				ItemStackWrapper<?> item = slot.buildItemStack(player);
+				ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
 
 				if(this.modeEnum == ModeEnum.ADD)
 				{
@@ -145,7 +143,7 @@ public class Gui implements Serializable, FunctionOwner {
 		this.close = close;
 	}
 	
-	public List<Integer> getNpcIds()
+	public Map<String, List<Integer>> getNpcIds()
 	{
 		return this.npcIds;
 	}
@@ -160,19 +158,15 @@ public class Gui implements Serializable, FunctionOwner {
 		return this.modeEnum;
 	}
 	
-	public List<Function> getFunctions()
-	{
-		return this.functions;
-	}
-	
-	public List<Function> getFailFunctions(String key)
-	{
-		return this.failFunctions.get(key);
-	}
-	
 	public InventoryWrapper<?> getInventoryWrapper()
 	{
 		return this.inventoryWrapper;
+	}
+	
+	@Override
+	public FunctionTree getFunctions()
+	{
+		return this.functions;
 	}
 	
 	public Gui clone()

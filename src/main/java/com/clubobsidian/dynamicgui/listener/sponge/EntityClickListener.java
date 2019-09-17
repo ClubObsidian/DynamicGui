@@ -37,7 +37,7 @@ public class EntityClickListener {
 			PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>(player);
 			EntityWrapper<Entity> entityWrapper = new SpongeEntityWrapper<Entity>(e.getTargetEntity());
 
-			DynamicGui.get().getEventManager().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+			DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
 		}
 	}
 }

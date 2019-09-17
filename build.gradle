@@ -43,6 +43,7 @@ shadowJar {
 	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
 	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
+	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 	baseName = 'DynamicGui'
 	classifier = ''
 }
@@ -59,7 +60,8 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.9'
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.clubobsidian:wrappy:1.8.0'
-    compile 'com.github.clubobsidian:trident:1.1.0'
+    compile 'com.github.clubobsidian:trident:2.0.1'
+    compile 'com.github.clubobsidian:dynamicguiparser:4f56cd4bbd'
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 }

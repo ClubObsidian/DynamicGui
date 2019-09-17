@@ -17,6 +17,9 @@ package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
@@ -55,7 +58,8 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 		{
 			if(text.contains(replacer.getToReplace()))
 			{
-				text = text.replace(replacer.getToReplace(), replacer.replacement(text, playerWrapper));
+				text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(text, playerWrapper));
+						//text.replace(replacer.getToReplace(), replacer.getToReplace());
 			}
 		}
 		return text;

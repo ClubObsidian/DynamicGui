@@ -16,15 +16,13 @@
 package com.clubobsidian.dynamicgui.builder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.bukkit.Material;
 
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public class SlotBuilder {
 	
@@ -36,22 +34,15 @@ public class SlotBuilder {
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
 	private int index;
-	
-	private List<Function> functions = new ArrayList<>();
-	private Map<String, List<Function>> failFunctions = new HashMap<>();
-	
-	private List<Function> leftClickFunctions = new ArrayList<>();
-	private Map<String, List<Function>> leftClickFailFunctions = new HashMap<>();
-	
-	private List<Function> rightClickFunctions = new ArrayList<>();
-	private Map<String, List<Function>> rightClickFailFunctions = new HashMap<>();
-	
-	private List<Function> middleClickFunctions = new ArrayList<>();
-	private Map<String, List<Function>> middleClickFailFunctions = new HashMap<>();
-	
-	private List<Function> loadFunctions = new ArrayList<>();
-	private Map<String, List<Function>> failLoadFunctions = new HashMap<>();
-	private int amount = 1;
+	private int amount;
+	private int updateInterval;
+	private FunctionTree functionTree;
+	public SlotBuilder()
+	{
+		this.enchants = new ArrayList<>();
+		this.amount = 1;
+		this.updateInterval = 0;
+	}
 	
 	public SlotBuilder setIcon(Material icon)
 	{
@@ -107,118 +98,9 @@ public class SlotBuilder {
 		return this;
 	}
 	
-	public SlotBuilder addFunction(Function func)
+	public SlotBuilder setUpdateInterval(int interval)
 	{
-		this.functions.add(func);
-		return this;
-	}
-	
-	public SlotBuilder addFailFunction(String key, Function func)
-	{
-		if(this.failFunctions.containsKey(key))
-		{
-			if(this.failFunctions.get(key) != null)
-			{
-				this.failFunctions.get(key).add(func);
-				return this;
-			}
-		}
-		
-		List<Function> funcs = new ArrayList<>();
-		funcs.add(func);
-		this.failFunctions.put(key, funcs);
-		return this;
-	}
-	
-	public SlotBuilder addLeftClickFunction(Function func)
-	{
-		this.leftClickFunctions.add(func);
-		return this;
-	}
-	
-	public SlotBuilder addLeftClickFailFunction(String key, Function func)
-	{
-		if(this.leftClickFailFunctions.containsKey(key))
-		{
-			if(this.leftClickFailFunctions.get(key) != null)
-			{
-				this.leftClickFailFunctions.get(key).add(func);
-				return this;
-			}
-		}
-		
-		ArrayList<Function> funcs = new ArrayList<Function>();
-		funcs.add(func);
-		this.leftClickFailFunctions.put(key, funcs);
-		return this;
-	}
-	
-	public SlotBuilder addRightClickFunction(Function func)
-	{
-		this.rightClickFunctions.add(func);
-		return this;
-	}
-	
-	public SlotBuilder addRightClickFailFunction(String key, Function func)
-	{
-		if(this.rightClickFailFunctions.containsKey(key))
-		{
-			if(this.rightClickFailFunctions.get(key) != null)
-			{
-				this.rightClickFailFunctions.get(key).add(func);
-				return this;
-			}
-		}
-		
-		List<Function> funcs = new ArrayList<>();
-		funcs.add(func);
-		this.rightClickFailFunctions.put(key, funcs);
-		return this;
-	}
-	
-	public SlotBuilder addMiddleClickFunction(Function func)
-	{
-		this.middleClickFunctions.add(func);
-		return this;
-	}
-	
-	public SlotBuilder addMiddleClickFailFunction(String key, Function func)
-	{
-		if(this.middleClickFailFunctions.containsKey(key))
-		{
-			if(this.middleClickFailFunctions.get(key) != null)
-			{
-				this.middleClickFailFunctions.get(key).add(func);
-				return this;
-			}
-		}
-		
-		List<Function> funcs = new ArrayList<>();
-		funcs.add(func);
-		this.middleClickFailFunctions.put(key, funcs);
-		return this;
-	}
-	
-	public SlotBuilder addFailLoadFunction(String key, Function func)
-	{
-		if(this.failLoadFunctions.containsKey(key))
-		{
-			if(this.failLoadFunctions.get(key) != null)
-			{
-				this.failLoadFunctions.get(key).add(func);
-				return this;
-			}
-		}
-		
-		List<Function> funcs = new ArrayList<>();
-		funcs.add(func);
-		this.failLoadFunctions.put(key, funcs);
-		return this;
-	}
-	
-	public SlotBuilder addLoadFunction(Function func)
-	{
-		this.loadFunctions.add(func);
+		this.updateInterval = interval;
 		return this;
 	}
 	
@@ -236,24 +118,30 @@ public class SlotBuilder {
 		return this;
 	}
 	
-	public SlotBuilder addLore(ArrayList<String> lore)
+	public SlotBuilder addLore(String... lore)
 	{
-		if(this.lore == null)
+		for(String l : lore)
 		{
-			this.lore = lore;
+			this.addLore(l);
 		}
-		else
-		{
-			for(String str : lore)
-			{
-				this.lore.add(str);
-			}
-		}
+		
+		return this;
+	}
+	
+	public SlotBuilder addEnchant(EnchantmentWrapper enchant)
+	{
+		this.enchants.add(enchant);
+		return this;
+	}
+	
+	public SlotBuilder setFunctionTree(FunctionTree functionTree)
+	{
+		this.functionTree = functionTree;
 		return this;
 	}
 	
 	public Slot build()
 	{
-		return new Slot(this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.index, this.functions, this.failFunctions, this.leftClickFunctions, this.leftClickFailFunctions, this.rightClickFunctions, this.rightClickFailFunctions, this.middleClickFunctions, this.middleClickFailFunctions, this.loadFunctions, this.failLoadFunctions, this.amount);
+		return new Slot(this.index, this.amount,this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval);
 	}
 }

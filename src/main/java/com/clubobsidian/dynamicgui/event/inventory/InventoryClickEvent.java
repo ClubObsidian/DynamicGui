@@ -28,14 +28,16 @@ public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 	private ItemStackWrapper<?> itemStackWrapper;
 	private int slot;
 	private Click click;
+	private boolean shiftClick;
 	private InventoryView view;
 	private boolean cancelled = false;
-	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click, InventoryView view)
+	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click, boolean shiftClick, InventoryView view)
 	{
 		super(playerWrapper, inventoryWrapper);
 		this.itemStackWrapper = itemStackWrapper;
 		this.slot = slot;
 		this.click = click;
+		this.shiftClick = shiftClick;
 		this.view = view;
 	}
 	
@@ -59,6 +61,11 @@ public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 		return this.click;
 	}
 
+	public boolean isShiftClick()
+	{
+		return this.shiftClick;
+	}
+	
 	@Override
 	public boolean isCanceled() 
 	{

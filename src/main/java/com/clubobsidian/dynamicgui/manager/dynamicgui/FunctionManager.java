@@ -45,7 +45,13 @@ public class FunctionManager {
 	public Function getFunctionByName(String functionName)
 	{
 		String normalized = StringFuzz.normalize(functionName);
-		return this.functions.get(normalized);
+		Function function = this.functions.get(normalized);
+		if(function == null)
+		{
+			return null;
+		}
+		
+		return function.clone();
 	}
 	
 	public List<Function> getFunctions()
@@ -64,30 +70,5 @@ public class FunctionManager {
 	{
 		String normalized = StringFuzz.normalize(functionName);
 		return this.functions.keySet().remove(normalized);
-	}
-	
-	public String[] parseData(String data)
-	{
-		String[] ar = new String[2];
-		String dat = null;
-		String[] args = data.split(":");
-		
-		if(data.charAt(data.indexOf(":") + 1) == ' ')
-		{
-			dat = args[1].substring(1);
-		}
-		else 
-		{
-			dat = args[1];
-		}
-		if(args.length > 2)
-		{
-			for(int i = 2; i < args.length; i++)
-				dat +=  ":" + args[i];
-		}
-		
-		ar[0] = args[0];
-		ar[1] = dat;
-		return ar;	
 	}
 }

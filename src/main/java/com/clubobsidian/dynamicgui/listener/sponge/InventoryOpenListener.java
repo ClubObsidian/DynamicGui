@@ -36,6 +36,6 @@ public class InventoryOpenListener {
 		PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 		InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
 		com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
-		DynamicGui.get().getEventManager().callEvent(inventoryOpenEvent);
+		DynamicGui.get().getEventBus().callEvent(inventoryOpenEvent);
 	}
 }

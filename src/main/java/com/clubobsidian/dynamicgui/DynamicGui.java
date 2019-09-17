@@ -52,18 +52,20 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
-
-import com.clubobsidian.trident.EventManager;
-import com.clubobsidian.trident.impl.javaassist.JavaAssistEventManager;
+import com.clubobsidian.trident.EventBus;
+import com.clubobsidian.trident.eventbus.javassist.JavassistEventBus;
 
 import com.clubobsidian.wrappy.Configuration;
 
@@ -83,13 +85,13 @@ public class DynamicGui  {
 	private boolean redis;
 	private Map<String, Integer> serverPlayerCount;
 	
-	private EventManager eventManager;
+	private EventBus eventManager;
 	private DynamicGuiPlugin plugin;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
 	{
-		this.eventManager = new JavaAssistEventManager();
+		this.eventManager = new JavassistEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
@@ -105,6 +107,8 @@ public class DynamicGui  {
 		this.checkForProxy();
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+		AnimationManager.get();
 	}
 
 	private void setupFileStructure()
@@ -223,8 +227,6 @@ public class DynamicGui  {
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
 		
-		
-		FunctionManager.get().addFunction(new MoneyWithdrawFunction("pay"));
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
 		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
@@ -312,7 +314,7 @@ public class DynamicGui  {
 		return this.plugin;
 	}
 
-	public EventManager getEventManager()
+	public EventBus getEventBus()
 	{
 		return this.eventManager;
 	}
