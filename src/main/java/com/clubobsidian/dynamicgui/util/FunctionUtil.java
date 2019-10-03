@@ -43,7 +43,7 @@ public final class FunctionUtil {
 		{
 			FunctionToken functionToken = node.getToken();
 			List<FunctionType> types = functionToken.getTypes();
-			if(types.contains(type) || (type.isClick() && types.contains(FunctionType.ALL)))
+			if(types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK)))
 			{
 				if(type != FunctionType.FAIL)
 				{
