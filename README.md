@@ -55,10 +55,12 @@ Just a few uses for DynamicGui.
 * Hub menu
 * Kit preview
 * Player information
+* Player statistics
 * Quests
 * Shop
 * Staff tools
-
+  * Punishments
+  
 ## Getting Started
 
 ### Gui Examples
