@@ -32,6 +32,7 @@ public interface DynamicGuiPlugin {
 	public File getDataFolder();
 	public File getConfigFile();
 	public File getGuiFolder();
+	public File getMacroFolder();
 	public List<String> getRegisteredCommands();
 	public void createCommand(String guiName, String alias);
 	public void unloadCommands();

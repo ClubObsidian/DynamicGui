@@ -64,6 +64,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 	private File guiFolder;
 	private File dataFolder;
 	private File configFile;
+	private File macroFolder;
 	
 	public final static String PLUGIN_ID = "dynamicgui";
 
@@ -85,6 +86,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		this.dataFolder = configDir.toFile();
 		this.configFile = new File(this.dataFolder, "config.yml");
 		this.guiFolder = new File(this.dataFolder, "guis");
+		this.macroFolder = new File(this.dataFolder, "macros");
 		
 		DynamicGui.createInstance(this, new FakeSpongeServer(), new Sl4jLoggerWrapper<Logger>(this.logger));
 		CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
@@ -153,6 +155,12 @@ public class SpongePlugin implements DynamicGuiPlugin {
 	public File getConfigFile() 
 	{
 		return this.configFile;
+	}
+	
+	@Override
+	public File getMacroFolder()
+	{
+		return this.macroFolder;
 	}
 
 	@Override

@@ -54,6 +54,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
 	private File configFile;
 	private File guiFolder;
+	private File macroFolder;
 	private Economy economy;
 	private Permission permission;
 	private List<NPCRegistry> npcRegistries;
@@ -72,6 +73,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		this.registeredCommands = new ArrayList<>();
 		this.configFile = new File(this.getDataFolder(), "config.yml");
 		this.guiFolder = new File(this.getDataFolder(), "guis");
+		this.macroFolder = new File(this.getDataFolder(), "macros");
 		
 		DynamicGui.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
 		this.economy = new VaultEconomy();
@@ -148,6 +150,12 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	public File getGuiFolder() 
 	{
 		return this.guiFolder;
+	}
+	
+	@Override
+	public File getMacroFolder()
+	{
+		return this.macroFolder;
 	}
 
 	private final CommandMap getCommandMap()

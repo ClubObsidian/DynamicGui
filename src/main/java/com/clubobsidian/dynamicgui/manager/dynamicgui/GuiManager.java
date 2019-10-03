@@ -37,11 +37,13 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -57,10 +59,12 @@ public class GuiManager {
 	
 	private List<Gui> guis;
 	private Map<UUID, Gui> playerGuis;
+	private Map<String, List<MacroToken>> globalMacros;
 	private GuiManager()
 	{
 		this.guis = new ArrayList<>();
 		this.playerGuis = new HashMap<>();
+		this.globalMacros = new HashMap<>();
 	}
 	
 	public static GuiManager get()
@@ -68,6 +72,7 @@ public class GuiManager {
 		if(instance == null)
 		{
 			instance = new GuiManager();
+			instance.loadGlobalMacros();
 			instance.loadGuis();
 		}
 		return instance;
@@ -100,6 +105,8 @@ public class GuiManager {
 		DynamicGui.get().getLogger().info("Force reloading guis!");
 		DynamicGui.get().getPlugin().unloadCommands();
 		this.guis.clear();
+		this.globalMacros.clear();
+		this.loadGlobalMacros();
 		this.loadGuis();
 	}
 	
@@ -193,6 +200,28 @@ public class GuiManager {
 		return ran;
 	}
 	
+	private void loadGlobalMacros()
+	{
+		File macroFolder = DynamicGui.get().getPlugin().getMacroFolder();
+		
+		Collection<File> macroFiles = FileUtils.listFiles(macroFolder, new String[]{"yml", "json", "conf", "xml"}, true);
+		
+		for(File file : macroFiles)
+		{
+			List<MacroToken> tokens = new ArrayList<>();
+			Configuration config = Configuration.load(file);
+			for(String key : config.getKeys())
+			{
+				ConfigurationSection section = config.getConfigurationSection(key);
+				MacroToken token = new MacroToken(section);
+				tokens.add(token);
+			}
+			
+			String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
+			this.globalMacros.put(macroName, tokens);
+		}
+	}
+	
 	private void loadGuis()
 	{
 		this.loadFileGuis();
@@ -273,12 +302,38 @@ public class GuiManager {
 	
 	private void loadGuiFromConfiguration(String guiName, Configuration config)
 	{
+		LoggerWrapper<?> logger = DynamicGui.get().getLogger();
+		
 		GuiToken guiToken = new GuiToken(config);
+		List<MacroToken> guiTokens = new ArrayList<>();
+		List<String> loadMacros = guiToken.getLoadMacros();
+		
+		if(loadMacros.size() > 0)
+		{
+			for(String macro : loadMacros)
+			{
+				List<MacroToken> macroTokens = this.globalMacros.get(macro);
+				if(macroTokens != null)
+				{
+					for(MacroToken t : macroTokens)
+					{
+						guiTokens.add(t);
+					}
+				}
+				else
+				{
+					logger.error("Invalid global macro specified " + macro + " in gui \"" + guiName + "\"");
+				}
+			}
+			
+			guiToken = new GuiToken(config, guiTokens);
+		}
+		
 		List<Slot> slots = this.createSlots(guiToken);
 		final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
 
 		this.guis.add(gui);
-		DynamicGui.get().getLogger().info("gui \"" + gui.getName() + "\" has been loaded!");
+		logger.info("gui \"" + gui.getName() + "\" has been loaded!");
 	}
 
 	private List<Slot> createSlots(GuiToken guiToken)

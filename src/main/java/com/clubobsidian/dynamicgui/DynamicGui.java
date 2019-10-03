@@ -122,6 +122,11 @@ public class DynamicGui  {
 		{
 			this.plugin.getGuiFolder().mkdirs();
 		}
+		
+		if(!this.plugin.getMacroFolder().exists())
+		{
+			this.plugin.getMacroFolder().mkdirs();
+		}
 	}
 
 	private void loadConfig()
