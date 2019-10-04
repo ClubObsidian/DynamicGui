@@ -378,7 +378,9 @@ public class GuiManager {
 			
 			int updateInterval = slotToken.getUpdateInterval();
 
-			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree(), updateInterval));
+			Map<String, String> metadata = slotToken.getMetadata();
+			
+			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
 		}
 
 		

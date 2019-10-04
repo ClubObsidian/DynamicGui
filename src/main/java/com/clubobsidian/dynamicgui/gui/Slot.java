@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.gui;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
@@ -49,7 +50,8 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private FunctionTree functions;
 	private final int updateInterval;
 	private int tick;
-	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval)
+	private Map<String, String> metadata;
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
 	{
 		this.icon = icon;
 		this.data = data;
@@ -63,6 +65,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		this.functions = functions;
 		this.updateInterval = updateInterval;
 		this.tick = 0;
+		this.metadata = metadata;
 	}
 	
 	public int getIndex()
@@ -197,5 +200,10 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 			this.tick = 1;
 		
 		return this.tick; 
+	}
+	
+	public Map<String, String> getMetadata()
+	{
+		return this.metadata;
 	}
 }

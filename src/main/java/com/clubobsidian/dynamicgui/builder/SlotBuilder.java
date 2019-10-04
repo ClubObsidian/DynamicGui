@@ -16,7 +16,11 @@
 package com.clubobsidian.dynamicgui.builder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Material;
 
@@ -37,12 +41,14 @@ public class SlotBuilder {
 	private int amount;
 	private int updateInterval;
 	private FunctionTree functionTree;
+	private Map<String, String> metadata;
 	public SlotBuilder()
 	{
 		this.enchants = new ArrayList<>();
 		this.amount = 1;
 		this.updateInterval = 0;
 		this.functionTree = new FunctionTree();
+		this.metadata = new HashMap<>();
 	}
 	
 	public SlotBuilder setIcon(Material icon)
@@ -141,8 +147,28 @@ public class SlotBuilder {
 		return this;
 	}
 	
+	public SlotBuilder addMetadata(String key, String value)
+	{
+		this.metadata.put(key, value);
+		return this;
+	}
+	
+	public SlotBuilder addMetadata(Map<String, String> metadata)
+	{
+		Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<String, String> next = it.next();
+			String key = next.getKey();
+			String value = next.getValue();
+			this.addMetadata(key, value);
+		}
+		
+		return this;
+	}
+	
 	public Slot build()
 	{
-		return new Slot(this.index, this.amount,this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval);
+		return new Slot(this.index, this.amount,this.icon, this.name, this.nbt, this.data, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval, this.metadata);
 	}
 }
