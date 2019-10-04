@@ -43,6 +43,7 @@ public class GuiBuilder  {
 		this.npcIds = new HashMap<>();
 		this.slots = new ArrayList<>();
 		this.locs = new ArrayList<>();
+		this.functionTree = new FunctionTree();
 	}
 	
 	public GuiBuilder setType(String type)
