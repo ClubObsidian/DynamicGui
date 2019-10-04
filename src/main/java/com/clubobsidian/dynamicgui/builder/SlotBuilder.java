@@ -42,6 +42,7 @@ public class SlotBuilder {
 		this.enchants = new ArrayList<>();
 		this.amount = 1;
 		this.updateInterval = 0;
+		this.functionTree = new FunctionTree();
 	}
 	
 	public SlotBuilder setIcon(Material icon)
