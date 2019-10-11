@@ -57,7 +57,10 @@ public final class FunctionUtil {
 						}
 						
 						recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-						return false;
+					}
+					else
+					{
+						recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
 					}
 				}
 				else if(type == FunctionType.FAIL)
@@ -68,14 +71,12 @@ public final class FunctionUtil {
 						if(!response.result)
 						{
 							recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-							return false;
 						}
 					}
 				}
-			}
-
-			return recurFunctionNodes(null, owner, node.getChildren(), type, playerWrapper);
+			}	
 		}
+		
 		return true;
 	}
 
