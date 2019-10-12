@@ -31,9 +31,11 @@ Designed to make writing menus easy.
   * Built-in replacer support
   * Support for [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
   * User defined macros
-    * Per Gui and global
+    * Per Gui, Slot and Global
+    * Supports macro chaining
 * Loading guis from a remote location
   * Currently supports loading from a webserver
+  * Can also load from websites like Github using url parameters
 * Different gui types
   * beacon
   * brewing
@@ -70,7 +72,7 @@ You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamp
 
 ### Gui Documentation
 
-You find find [gui documentation here](https://dynamicguidocs.readthedocs.io/en/latest/).
+You find find [gui documentation here](https://dynamicgui.github.io/documentation/).
 
 ## Contributing
 
