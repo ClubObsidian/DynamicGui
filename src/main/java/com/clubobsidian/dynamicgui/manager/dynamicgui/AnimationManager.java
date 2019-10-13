@@ -10,6 +10,8 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 public class AnimationManager {
 
@@ -62,6 +64,8 @@ public class AnimationManager {
 						
 							InventoryWrapper<?> inventoryWrapper = slot.getOwner().getInventoryWrapper();
 							inventoryWrapper.setItem(slotIndex, itemStackWrapper);
+							
+							FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
 						}
 					}
 					

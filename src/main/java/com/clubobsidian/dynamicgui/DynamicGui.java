@@ -50,6 +50,7 @@ import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
+import com.clubobsidian.dynamicgui.function.impl.condition.CheckTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationManager;
@@ -225,6 +226,7 @@ public class DynamicGui  {
 
 	private void loadFunctions()
 	{
+		FunctionManager.get().addFunction(new CheckTickFunction("checktick"));
 		FunctionManager.get().addFunction(new ConditionFunction("condition"));
 		
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
