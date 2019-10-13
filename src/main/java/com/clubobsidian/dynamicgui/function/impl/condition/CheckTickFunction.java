@@ -26,9 +26,13 @@ public class CheckTickFunction extends Function {
 		{
 			Slot slot = (Slot) owner;
 			int tick = slot.getCurrentTick();
+			int frame = slot.getFrame();
+			
 			try
 			{
-				String tickData = this.getData().replace("%tick%", String.valueOf(tick));
+				String tickData = this.getData()
+						.replace("%tick%", String.valueOf(tick))
+						.replace("%frame%", String.valueOf(frame));
 				Expression expr = new Expression(tickData);
 				expr.addLazyFunction(new EqualLazyFunction());
 				

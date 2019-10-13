@@ -50,6 +50,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private FunctionTree functions;
 	private final int updateInterval;
 	private int tick;
+	private int frame;
 	private Map<String, String> metadata;
 	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
 	{
@@ -65,6 +66,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		this.functions = functions;
 		this.updateInterval = updateInterval;
 		this.tick = 0;
+		this.frame = 0;
 		this.metadata = metadata;
 	}
 	
@@ -197,9 +199,24 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		this.tick += 1;
 		
 		if(this.tick > 20)
+		{
 			this.tick = 1;
+			this.frame += 1;
+			
+			//Reset frame
+			if(this.frame == Integer.MAX_VALUE)
+			{
+				this.frame = 0;
+			}
+		}
 		
 		return this.tick; 
+	}
+	
+	@Override
+	public int getFrame()
+	{
+		return this.frame;
 	}
 	
 	public Map<String, String> getMetadata()
