@@ -157,7 +157,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 				builderItem.addEnchant(ench);
 		}
 		
-		if(this.nbt != null)
+		if(this.nbt != null && !this.nbt.equals(""))
 		{
 			builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
 		}
