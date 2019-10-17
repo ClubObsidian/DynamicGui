@@ -219,6 +219,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		return this.frame;
 	}
 	
+	@Override
+	public void resetFrame()
+	{
+		this.frame = 0;
+	}
+	
 	public Map<String, String> getMetadata()
 	{
 		return this.metadata;
