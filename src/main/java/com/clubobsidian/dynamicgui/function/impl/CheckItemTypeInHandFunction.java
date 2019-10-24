@@ -30,13 +30,13 @@ public class CheckItemTypeInHandFunction extends Function {
 		{
 			types = Arrays.asList(this.getData().split(","));
 		}
-		ItemStackWrapper<?> item = playerWrapper.getItemInHand();
-		if(item == null && types.contains("AIR"))
+		ItemStackWrapper<?> wrapper = playerWrapper.getItemInHand();
+		if(wrapper.getItemStack() == null && types.contains("AIR"))
 		{
 			return true;
 		}
 		
-		String type = item.getType();
+		String type = wrapper.getType();
 		
 		return types.contains(type);
 	}
