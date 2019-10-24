@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
 
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
@@ -19,7 +20,7 @@ public class SpongeMaterialManager extends MaterialManager {
 	private void loadMaterials()
 	{
 		this.materials = new ArrayList<>();
-		for(Field field : ItemType.class.getDeclaredFields())
+		for(Field field : ItemTypes.class.getDeclaredFields())
 		{
 			this.materials.add(field.getName());
 		}
