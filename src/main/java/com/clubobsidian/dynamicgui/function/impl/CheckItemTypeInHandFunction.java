@@ -8,14 +8,14 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
-public class CheckItemInHandFunction extends Function {
+public class CheckItemTypeInHandFunction extends Function {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2308186311331769892L;
 
-	public CheckItemInHandFunction(String name) 
+	public CheckItemTypeInHandFunction(String name) 
 	{
 		super(name);
 	}
