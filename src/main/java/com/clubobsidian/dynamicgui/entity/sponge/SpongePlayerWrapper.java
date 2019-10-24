@@ -48,6 +48,7 @@ import org.spongepowered.api.world.World;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
@@ -149,6 +150,12 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		}
 		
 		return new SpongeInventoryWrapper<Inventory>(container.transform(InventoryTransformations.PLAYER_MAIN_HOTBAR_FIRST));
+	}
+	
+	@Override
+	public ItemStackWrapper<?> getItemInHand() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

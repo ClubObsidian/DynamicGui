@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.entity;
 import java.util.UUID;
 
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 
@@ -45,6 +46,7 @@ public abstract class PlayerWrapper<T> {
 	public abstract void setExperience(int experience);
 	public abstract int getLevel();
 	public abstract InventoryWrapper<?> getOpenInventoryWrapper();
+	public abstract ItemStackWrapper<?> getItemInHand();
 	public abstract void closeInventory();
 	public abstract void openInventory(InventoryWrapper<?> inventoryWrapper);
 	public abstract void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message);

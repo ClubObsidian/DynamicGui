@@ -23,6 +23,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
+import com.clubobsidian.dynamicgui.function.impl.CheckItemInHandFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
@@ -263,6 +264,8 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
 		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
 		FunctionManager.get().addFunction(new LogFunction("log"));
+		
+		FunctionManager.get().addFunction(new CheckItemInHandFunction("checkiteminhand"));
 	}
 
 	//TODO - port to dynamicgui plugins

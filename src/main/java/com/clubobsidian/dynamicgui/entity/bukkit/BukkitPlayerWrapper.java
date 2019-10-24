@@ -25,12 +25,16 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
@@ -112,6 +116,13 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 			return null;
 		}
 		return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
+	}
+	
+	@Override
+	public ItemStackWrapper<ItemStack> getItemInHand()
+	{
+		ItemStack hand = this.getPlayer().getInventory().getItemInHand();
+		return new BukkitItemStackWrapper<ItemStack>(hand);
 	}
 
 	@Override
