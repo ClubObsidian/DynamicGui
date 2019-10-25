@@ -156,6 +156,12 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
+	public String getNBT() 
+	{
+		return BukkitNBTUtil.getTag(this.getItemStack());
+	}
+	
+	@Override
 	public void setNBT(String nbt) 
 	{
 		ItemStack oldItemStack = this.getItemStack();
@@ -187,4 +193,5 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		
 		this.setItemStack(newItemStack);
 	}
+
 }

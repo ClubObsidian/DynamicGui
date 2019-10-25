@@ -26,6 +26,7 @@ public final class BukkitNBTUtil {
 	private static Method asNMSCopy;
 	private static Method setTag;
 	private static Method asBukkitCopy;
+	private static Method getTag;
 	
 	private BukkitNBTUtil() {}
 	
@@ -56,7 +57,52 @@ public final class BukkitNBTUtil {
 		}
 		return null;
 	}
-	
+
+	public static String getTag(ItemStack itemStack)
+	{
+		String version = VersionUtil.getVersion();
+		try 
+		{
+			if(asNMSCopy == null)
+			{
+				String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
+				Class<?> craftItemStackClass;
+
+				craftItemStackClass = Class.forName(craftItemStackClassName);
+
+				asNMSCopy = craftItemStackClass.getDeclaredMethod("asNMSCopy", ItemStack.class);
+				asNMSCopy.setAccessible(true);
+			}
+			
+			if(getTag == null)
+			{
+				String itemStackClassName = "net.minecraft.server." + version + ".ItemStack";
+				Class<?> nmsItemStackClass = Class.forName(itemStackClassName);
+				
+				getTag = nmsItemStackClass.getDeclaredMethod("getTag");
+				getTag.setAccessible(true);
+			}
+			
+			if(asBukkitCopy == null)
+			{
+				String itemStackClassName = "net.minecraft.server." + version + ".ItemStack";
+				Class<?> nmsItemStackClass = Class.forName(itemStackClassName);
+				String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
+				Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
+				asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", nmsItemStackClass);
+				asBukkitCopy.setAccessible(true);
+			}
+			
+			Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
+			return getTag.invoke(nmsItemStack).toString();
+		} 
+		catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static ItemStack setTag(ItemStack itemStack, String nbt)
 	{
 		String version = VersionUtil.getVersion();

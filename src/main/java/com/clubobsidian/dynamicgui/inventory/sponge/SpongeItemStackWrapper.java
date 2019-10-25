@@ -231,6 +231,13 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 	
 	@Override
+	public String getNBT() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public void setNBT(String nbt) 
 	{
 		String name = this.getName();

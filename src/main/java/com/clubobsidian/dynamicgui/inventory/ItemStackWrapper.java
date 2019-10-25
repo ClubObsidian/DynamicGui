@@ -63,6 +63,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract void removeEnchant(EnchantmentWrapper enchant);
 	public abstract List<EnchantmentWrapper> getEnchants();
 	
+	public abstract String getNBT();
 	public abstract void setNBT(String nbt);
 	
 }
