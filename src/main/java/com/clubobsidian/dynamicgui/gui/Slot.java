@@ -82,21 +82,6 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		this.index = index;
 	}
 	
-	public int getAmount()
-	{
-		return this.amount;
-	}
-	
-	public String getIcon()
-	{
-		return this.icon;
-	}
-	
-	public short getData()
-	{
-		return this.data;
-	}
-	
 	public Boolean getClose()
 	{
 		return this.close;
@@ -117,8 +102,10 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	{
 		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
 		
-		if(this.getData() != 0)
-			builderItem.setDurability(this.getData());
+		if(this.data != 0)
+		{
+			builderItem.setDurability(this.data);
+		}
 		
 		if(this.name != null)
 		{
