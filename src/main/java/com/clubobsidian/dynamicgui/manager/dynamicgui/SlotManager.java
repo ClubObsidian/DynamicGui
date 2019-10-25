@@ -29,10 +29,10 @@ public class SlotManager {
 	
 	private SlotManager()
 	{
-		this.createScheduler();
+		this.updateSlots();
 	}
 	
-	private void createScheduler()
+	private void updateSlots()
 	{
 		DynamicGui.get().getServer().getScheduler().scheduleSyncRepeatingTask(DynamicGui.get().getPlugin(), new Runnable()
 		{
@@ -50,13 +50,13 @@ public class SlotManager {
 					boolean updated = false;
 					for(Slot slot : gui.getSlots())
 					{
-						if(slot.getUpdateInterval() == 0)
+						if(slot.getUpdateInterval() == 0 && !slot.getUpdate())
 						{
 							continue;
 						}
 						
 						slot.tick();
-						if(slot.getCurrentTick() % slot.getUpdateInterval() == 0)
+						if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0))
 						{
 							updated = true;
 							ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);

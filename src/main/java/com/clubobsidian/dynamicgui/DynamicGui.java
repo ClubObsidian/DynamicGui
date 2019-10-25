@@ -56,6 +56,8 @@ import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.BackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.RefreshGuiFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.RefreshSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
@@ -243,6 +245,9 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new BackFunction("back"));
 		FunctionManager.get().addFunction(new HasBackFunction("hasback"));
 		FunctionManager.get().addFunction(new SetBackFunction("setback"));
+		
+		FunctionManager.get().addFunction(new RefreshGuiFunction("refreshgui"));
+		FunctionManager.get().addFunction(new RefreshSlotFunction("refreshslot"));
 		
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
