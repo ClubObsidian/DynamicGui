@@ -162,7 +162,7 @@ public class GuiManager {
 		Gui clonedGui = gui.clone();
 		
 		//Run gui load functions
-		boolean ran = FunctionUtil.tryFunctions(gui, FunctionType.LOAD, playerWrapper);
+		boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
 		
 		if(ran)
 		{

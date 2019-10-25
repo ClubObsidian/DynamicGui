@@ -15,6 +15,7 @@
 */
 package com.clubobsidian.dynamicgui.function.impl.gui;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -49,7 +50,11 @@ public class SetBackFunction extends Function {
 			gui = (Gui) owner;
 		}
 		
-		if(this.getData() == null)
+		if(gui == null)
+		{
+			return false;
+		}
+		else if(this.getData() == null)
 		{
 			return false;
 		}

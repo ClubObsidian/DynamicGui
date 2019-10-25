@@ -15,7 +15,6 @@
 */
 package com.clubobsidian.dynamicgui.function.impl.gui;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -58,7 +57,6 @@ public class GuiFunction extends Function {
 			back = (Gui) owner;
 		}
 		
-		DynamicGui.get().getLogger().info("before open: " + GuiManager.get().getCurrentGui(playerWrapper).getName());
 		GuiManager.get().openGui(playerWrapper, gui);
 		Gui newGui = GuiManager.get().getCurrentGui(playerWrapper);
 		
