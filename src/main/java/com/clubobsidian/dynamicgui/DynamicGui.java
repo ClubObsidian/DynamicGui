@@ -58,7 +58,7 @@ import com.clubobsidian.dynamicgui.function.impl.gui.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -114,7 +114,7 @@ public class DynamicGui  {
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
 		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
-		AnimationManager.get();
+		SlotManager.get();
 	}
 
 	private void setupFileStructure()

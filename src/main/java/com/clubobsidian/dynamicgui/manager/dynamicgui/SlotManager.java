@@ -13,21 +13,21 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
-public class AnimationManager {
+public class SlotManager {
 
-	private static AnimationManager instance;
+	private static SlotManager instance;
 	
-	public static AnimationManager get()
+	public static SlotManager get()
 	{
 		if(instance == null)
 		{
-			instance = new AnimationManager();
+			instance = new SlotManager();
 		}
 		return instance;
 	}
 	
 	
-	private AnimationManager()
+	private SlotManager()
 	{
 		this.createScheduler();
 	}
