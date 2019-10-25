@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
@@ -100,7 +101,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	
 	public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper)
 	{
-		ItemStackWrapper<?> builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
+		ItemStackWrapper<?> builderItem = this.itemStack;
+		
+		if(builderItem == null) 
+		{
+			builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
+		}
 		
 		if(this.data != 0)
 		{
@@ -143,7 +149,9 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		if(this.enchants != null)
 		{
 			for(EnchantmentWrapper ench : this.enchants)
+			{
 				builderItem.addEnchant(ench);
+			}
 		}
 		
 		if(this.nbt != null && !this.nbt.equals(""))
