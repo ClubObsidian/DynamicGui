@@ -45,7 +45,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private List<EnchantmentWrapper> enchants;
 	private Boolean close;
 	private int amount;
-	private ItemStackWrapper<?> itemStack;
+	private transient ItemStackWrapper<?> itemStack;
 	private Gui owner;
 	private FunctionTree functions;
 	private final int updateInterval;

@@ -26,7 +26,6 @@ import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
-import com.clubobsidian.dynamicgui.function.impl.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
@@ -54,6 +53,10 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.CheckTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.BackFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.GuiFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
+import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
@@ -235,7 +238,11 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
+		
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
+		FunctionManager.get().addFunction(new BackFunction("back"));
+		FunctionManager.get().addFunction(new HasBackFunction("hasback"));
+		FunctionManager.get().addFunction(new SetBackFunction("setback"));
 		
 		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
 		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
