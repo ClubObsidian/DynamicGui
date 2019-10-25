@@ -13,44 +13,55 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package com.clubobsidian.dynamicgui.function.impl;
+package com.clubobsidian.dynamicgui.function.impl.gui;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
-public class GuiFunction extends Function {
+public class SetBackFunction extends Function {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 848178368629667482L;
-	
-	public GuiFunction(String name) 
+	private static final long serialVersionUID = 4999698612673673935L;
+
+	public SetBackFunction(String name) 
 	{
 		super(name);
 	}
-	
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		final String gui = this.getData();
 
-		if(!GuiManager.get().hasGuiName(gui))
-		{
-			return false;
-		}
-		
+	@Override
+	public boolean function(PlayerWrapper<?> playerWrapper) 
+	{
+		Gui gui = null;
 		FunctionOwner owner = this.getOwner();
 		if(owner instanceof Slot)
 		{
 			Slot slot = (Slot) owner;
-			slot.setClose(false);
+			gui = slot.getOwner();
+		}
+		else if(owner instanceof Gui)
+		{
+			gui = (Gui) owner;
 		}
 		
-		GuiManager.get().openGui(playerWrapper, gui);
+		if(this.getData() == null)
+		{
+			return false;
+		}
+		
+		Gui backGui = GuiManager.get().getGuiByName(this.getData());
+		if(backGui == null)
+		{
+			return false;
+		}
+		
+		gui.setBack(backGui);
+		
 		return true;
 	}
 }

@@ -13,22 +13,23 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package com.clubobsidian.dynamicgui.function.impl.condition;
+package com.clubobsidian.dynamicgui.function.impl.gui;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
-import com.udojava.evalex.Expression;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
-public class CheckTickFunction extends Function {
+public class BackFunction extends Function {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9209750645416892269L;
+	private static final long serialVersionUID = 7851730396417693718L;
 
-	public CheckTickFunction(String name) 
+	public BackFunction(String name) 
 	{
 		super(name);
 	}
@@ -36,35 +37,25 @@ public class CheckTickFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper) 
 	{
+		Gui gui = null;
 		FunctionOwner owner = this.getOwner();
 		if(owner instanceof Slot)
 		{
 			Slot slot = (Slot) owner;
-			int tick = slot.getCurrentTick();
-			int frame = slot.getFrame();
-			
-			try
-			{
-				String tickData = this.getData()
-						.replace("%tick%", String.valueOf(tick))
-						.replace("%frame%", String.valueOf(frame));
-				Expression expr = new Expression(tickData);
-				expr.addLazyFunction(new EqualLazyFunction());
-				
-				if(!expr.isBoolean())
-				{
-					return false;
-				}
-				
-				return expr.eval().intValue() == 1;
-			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
-				return false;
-			}
+			gui = slot.getOwner();
 		}
+		else if(owner instanceof Gui)
+		{
+			gui = (Gui) owner;
+		}
+		
+		Gui back = gui.getBack();
+		if(back != null)
+		{
+			GuiManager.get().openGui(playerWrapper, back);
+			return true;
+		}
+		
 		return false;
 	}
-
 }
