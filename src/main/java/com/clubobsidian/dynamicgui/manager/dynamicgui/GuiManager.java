@@ -50,6 +50,7 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
+import com.clubobsidian.dynamicgui.util.ReplacerUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
@@ -227,6 +228,7 @@ public class GuiManager {
 	{
 		this.loadFileGuis();
 		this.loadRemoteGuis();
+		ReplacerUtil.getPatterns().clear();
 	}
 	
 	private void loadFileGuis()
