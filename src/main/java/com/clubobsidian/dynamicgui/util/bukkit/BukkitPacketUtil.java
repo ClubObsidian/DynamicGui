@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
-public final class PacketUtil {
+public final class BukkitPacketUtil {
 
-	private PacketUtil() {}
+	private BukkitPacketUtil() {}
 	
  	private static Class<?> craftItemClass;
  	private static Class<?> craftPlayerClass;
