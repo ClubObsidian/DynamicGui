@@ -66,6 +66,7 @@ public class SlotManager {
 							inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 							
 							FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+							slot.setUpdate(false);
 						}
 					}
 					
