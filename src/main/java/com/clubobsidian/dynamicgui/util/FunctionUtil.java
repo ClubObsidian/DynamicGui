@@ -92,12 +92,15 @@ public final class FunctionUtil {
 				DynamicGui.get().getLogger().error("Invalid function " + data.getName());
 				return new FunctionResponse(false);
 			}
+			
+			function.setOwner(owner);
+			
 			if(data.getData() != null)
 			{
-				function.setOwner(owner);
 				String newData = ReplacerManager.get().replace(functionData, playerWrapper);
 				function.setData(newData);
 			}
+			
 			boolean ran = function.function(playerWrapper);
 			if(!ran)
 			{

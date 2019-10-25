@@ -153,7 +153,8 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	}
 	
 	@Override
-	public ItemStackWrapper<?> getItemInHand() {
+	public ItemStackWrapper<?> getItemInHand() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
