@@ -18,11 +18,14 @@ package com.clubobsidian.dynamicgui.inventory.bukkit;
 import java.io.Serializable;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.util.bukkit.PacketUtil;
 
 public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrapper<T> implements Serializable {
 
@@ -45,7 +48,16 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	@Override
 	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
 	{
-		this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack()); 
+		this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack());
+	}
+	
+	@Override
+	public void updateItem(int index, PlayerWrapper<?> playerWrapper) 
+	{
+		ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
+		Player player = (Player) playerWrapper.getPlayer();
+		ItemStack itemStack = itemStackWrapper.getItemStack();
+		PacketUtil.sendSlotPacket(index, player, itemStack);
 	}
 	
 	@Override

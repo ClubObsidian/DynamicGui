@@ -47,7 +47,6 @@ public class SlotManager {
 					PlayerWrapper<?> playerWrapper = DynamicGui.get().getServer().getPlayer(key);
 					Gui gui = next.getValue();
 					
-					boolean updated = false;
 					for(Slot slot : gui.getSlots())
 					{
 						if(slot.getUpdateInterval() == 0 && !slot.getUpdate())
@@ -58,7 +57,6 @@ public class SlotManager {
 						slot.tick();
 						if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0))
 						{
-							updated = true;
 							ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
 							int slotIndex = slot.getIndex();
 						
@@ -66,13 +64,9 @@ public class SlotManager {
 							inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 							
 							FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+							inventoryWrapper.updateItem(slotIndex, playerWrapper);
 							slot.setUpdate(false);
 						}
-					}
-					
-					if(updated)
-					{
-						playerWrapper.updateInventory();
 					}
 				}
 			}

@@ -17,6 +17,8 @@ package com.clubobsidian.dynamicgui.inventory;
 
 import java.io.Serializable;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+
 public abstract class InventoryWrapper<T> implements Serializable {
 
 	/**
@@ -37,6 +39,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
 	
 	public abstract ItemStackWrapper<?> getItem(int index);
 	public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
+	public abstract void updateItem(int index, PlayerWrapper<?> playerWrapper);
 	public abstract int getSize();
 	public abstract int getContentSize();
 	
