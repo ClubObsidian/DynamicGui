@@ -107,6 +107,11 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		{
 			builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
 		}
+		else
+		{
+			builderItem.setType(this.icon);
+			builderItem.setAmount(this.amount);
+		}
 		
 		if(this.data != 0)
 		{

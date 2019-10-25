@@ -137,5 +137,4 @@ public final class BukkitPacketUtil {
  			e.printStackTrace();
  		}
  	}
-
 }
