@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
@@ -81,6 +80,41 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	public void setIndex(int index)
 	{
 		this.index = index;
+	}
+	
+	public String getIcon()
+	{
+		return this.icon;
+	}
+	
+	public int getAmount()
+	{
+		return this.amount;
+	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public String getNBT()
+	{
+		return this.nbt;
+	}
+	
+	public short getData()
+	{
+		return this.data;
+	}
+	
+	public List<String> getLore()
+	{
+		return this.lore;
+	}
+	
+	public List<EnchantmentWrapper> getEnchants()
+	{
+		return this.enchants;
 	}
 	
 	public Boolean getClose()
