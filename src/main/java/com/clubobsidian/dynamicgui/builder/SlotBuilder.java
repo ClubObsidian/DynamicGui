@@ -128,9 +128,39 @@ public class SlotBuilder {
 		return this;
 	}
 	
+	public SlotBuilder addLore(List<String> lore)
+	{
+		for(String l : lore)
+		{
+			this.addLore(l);
+		}
+		
+		return this;
+	}
+	
 	public SlotBuilder addEnchant(EnchantmentWrapper enchant)
 	{
 		this.enchants.add(enchant);
+		return this;
+	}
+	
+	public SlotBuilder addEnchant(EnchantmentWrapper... enchant)
+	{
+		for(EnchantmentWrapper ench : enchant)
+		{
+			this.addEnchant(ench);
+		}
+		
+		return this;
+	}
+	
+	public SlotBuilder addEnchant(List<EnchantmentWrapper> enchant)
+	{
+		for(EnchantmentWrapper ench : enchant)
+		{
+			this.addEnchant(ench);
+		}
+		
 		return this;
 	}
 	
