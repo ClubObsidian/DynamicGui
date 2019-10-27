@@ -22,10 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bukkit.Material;
-
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public class SlotBuilder {
@@ -49,12 +48,6 @@ public class SlotBuilder {
 		this.updateInterval = 0;
 		this.functionTree = new FunctionTree();
 		this.metadata = new HashMap<>();
-	}
-	
-	public SlotBuilder setIcon(Material icon)
-	{
-		this.icon = icon.name();
-		return this;
 	}
 	
 	public SlotBuilder setIcon(String icon)
@@ -164,6 +157,16 @@ public class SlotBuilder {
 			this.addMetadata(key, value);
 		}
 		
+		return this;
+	}
+	
+	public SlotBuilder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper)
+	{
+		this.setIcon(itemStackWrapper.getType());
+		this.setName(itemStackWrapper.getName());
+		this.setNBT(itemStackWrapper.getNBT());
+		this.setData(itemStackWrapper.getDurability());
+		this.setAmount(itemStackWrapper.getAmount());
 		return this;
 	}
 	
