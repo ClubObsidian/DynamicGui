@@ -94,7 +94,13 @@ public final class BukkitNBTUtil {
 			}
 			
 			Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
-			return getTag.invoke(nmsItemStack).toString();
+			Object tag = getTag.invoke(nmsItemStack);
+			if(tag == null)
+			{
+				return null;
+			}
+			
+			return tag.toString();
 		} 
 		catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
 		{
