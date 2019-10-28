@@ -61,7 +61,7 @@ dependencies {
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.clubobsidian:wrappy:1.8.0'
     compile 'com.github.clubobsidian:trident:2.0.1'
-    compile 'com.github.clubobsidian:dynamicguiparser:2.2.6'
+    compile 'com.github.clubobsidian:dynamicguiparser:2.2.7'
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 }
