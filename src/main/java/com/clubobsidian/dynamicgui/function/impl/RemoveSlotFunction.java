@@ -40,7 +40,7 @@ public class RemoveSlotFunction extends Function {
 	{
 		FunctionOwner owner = this.getOwner();
 
-		if(this.getData().equals("this"))
+		if(this.getData() == null || this.getData().equals("this"))
 		{
 			if(owner != null)
 			{
