@@ -49,7 +49,7 @@ public class EntityClickListener {
 					String registryName = next.getKey();
 					List<Integer> ids = next.getValue();
 
-					if(registryName.equals(registry.getName()))
+					if(registryName.equalsIgnoreCase(registry.getName()))
 					{
 						NPC npc = registry.getNPC(entityWrapper);
 						if(npc != null)
