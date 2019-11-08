@@ -66,4 +66,6 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract String getNBT();
 	public abstract void setNBT(String nbt);
 	
+	public abstract void setGlowing(boolean glowing);
+	
 }

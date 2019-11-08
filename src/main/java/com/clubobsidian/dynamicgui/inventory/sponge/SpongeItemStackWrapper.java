@@ -257,4 +257,11 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			this.addEnchant(ench);
 		}
 	}
+
+	@Override
+	public void setGlowing(boolean glowing) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

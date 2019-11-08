@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -175,6 +176,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			{
 				newMeta.setDisplayName(meta.getDisplayName());
 			}
+			
 			if(meta.hasEnchants())
 			{
 				Iterator<Entry<Enchantment,Integer>> it = meta.getEnchants().entrySet().iterator();
@@ -188,10 +190,35 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			{
 				newMeta.setLore(meta.getLore());
 			}
+			
+			for(ItemFlag flag : meta.getItemFlags())
+			{
+				newMeta.addItemFlags(flag);
+			}
+			
 			newItemStack.setItemMeta(newMeta);
 		}
 		
 		this.setItemStack(newItemStack);
 	}
 
+	@Override
+	public void setGlowing(boolean glowing) 
+	{
+		ItemStack item = this.getItemStack();
+		ItemMeta meta = item.getItemMeta();
+		if(glowing)
+		{
+			meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
+			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+		}
+		else
+		{
+			meta.removeEnchant(Enchantment.DIG_SPEED);
+			meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+			
+		}
+		
+		item.setItemMeta(meta);
+	}
 }

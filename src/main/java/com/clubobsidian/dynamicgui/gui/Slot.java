@@ -35,11 +35,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	 * 
 	 */
 	private static final long serialVersionUID = 2366997214615469494L;
+	private int index;
 	private String icon;
 	private String name;
 	private String nbt;
 	private short data;
-	private int index;
+	private boolean glow;
 
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
@@ -53,12 +54,13 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private int frame;
 	private Map<String, String> metadata;
 	private boolean update;
-	public Slot(int index, int amount, String icon, String name, String nbt, short data, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
 	{
 		this.icon = icon;
 		this.data = data;
 		this.name = name;
 		this.nbt = nbt;
+		this.glow = glow;
 		this.lore = lore;
 		this.enchants = enchants;
 		this.close = close;
@@ -100,6 +102,11 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	public String getNBT()
 	{
 		return this.nbt;
+	}
+	
+	public boolean getGlow()
+	{
+		return this.glow;
 	}
 	
 	public short getData()
@@ -191,6 +198,11 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 			{
 				builderItem.addEnchant(ench);
 			}
+		}
+		
+		if(this.glow)
+		{
+			builderItem.setGlowing(true);
 		}
 		
 		if(this.nbt != null && !this.nbt.equals(""))

@@ -377,11 +377,13 @@ public class GuiManager {
 			
 			short data = slotToken.getData();
 			
+			boolean glow = slotToken.getGlow();
+			
 			int updateInterval = slotToken.getUpdateInterval();
 
 			Map<String, String> metadata = slotToken.getMetadata();
 			
-			slots.add(new Slot(index, amount, icon, name, nbt, data, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
+			slots.add(new Slot(index, amount, icon, name, nbt, data, glow, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
 		}
 
 		
