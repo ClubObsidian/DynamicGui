@@ -65,7 +65,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	public boolean setType(String type) 
 	{
 		if(type == null)
+		{
 			return false;
+		}
 		
 		type = MaterialManager.get().normalizeMaterial(type);
 		try
@@ -104,6 +106,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	public List<String> getLore() 
 	{
 		ItemMeta itemMeta = this.getItemStack().getItemMeta();
+		if(!itemMeta.hasLore())
+		{
+			return new ArrayList<>();
+		}
+		
 		return itemMeta.getLore();
 	}
 
@@ -142,16 +149,20 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
 		this.getItemStack().setItemMeta(itemMeta);
 	}
-	
+
 	@Override
 	public List<EnchantmentWrapper> getEnchants() 
 	{
 		List<EnchantmentWrapper> enchants = new ArrayList<>();
-		Iterator<Entry<Enchantment,Integer>> it = this.getItemStack().getItemMeta().getEnchants().entrySet().iterator();
-		while(it.hasNext())
+		ItemMeta itemMeta = this.getItemStack().getItemMeta();
+		if(itemMeta.hasEnchants())
 		{
-			Entry<Enchantment,Integer> next = it.next();
-			enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
+			Iterator<Entry<Enchantment,Integer>> it = itemMeta.getEnchants().entrySet().iterator();
+			while(it.hasNext())
+			{
+				Entry<Enchantment,Integer> next = it.next();
+				enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
+			}
 		}
 		return enchants;
 	}

@@ -204,10 +204,7 @@ public class SlotBuilder {
 		this.setNBT(itemStackWrapper.getNBT());
 		this.setData(itemStackWrapper.getDurability());
 		this.setAmount(itemStackWrapper.getAmount());
-		for(String line : itemStackWrapper.getLore())
-		{
-			this.addLore(line);
-		}
+		this.addLore(itemStackWrapper.getLore());
 		
 		for(EnchantmentWrapper enchant : itemStackWrapper.getEnchants())
 		{
