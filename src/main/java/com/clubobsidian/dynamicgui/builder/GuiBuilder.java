@@ -23,6 +23,7 @@ import java.util.Map;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
@@ -38,6 +39,7 @@ public class GuiBuilder  {
 	private List<Slot> slots;
 	private List<LocationWrapper<?>> locs;
 	private FunctionTree functionTree;
+	private Gui backGui;
 	public GuiBuilder()
 	{
 		this.npcIds = new HashMap<>();
@@ -136,8 +138,26 @@ public class GuiBuilder  {
 		return this;
 	}
 	
+	public GuiBuilder setBack(Gui backGui)
+	{
+		this.backGui = backGui;
+		return this;
+	}
+	
+	public GuiBuilder setBack(String backGuiName)
+	{
+		this.backGui = GuiManager.get().getGuiByName(backGuiName);
+		return this;
+	}
+	
 	public Gui build()
 	{
-		return new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree);
+		Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree);
+		if(this.backGui != null)
+		{
+			gui.setBack(this.backGui);
+		}
+		
+		return gui;
 	}
 }
