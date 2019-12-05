@@ -54,6 +54,7 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.CheckTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
+import com.clubobsidian.dynamicgui.function.impl.cooldown.CooldownFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.BackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
@@ -250,6 +251,8 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
+		
+		FunctionManager.get().addFunction(new CooldownFunction("cooldown"));
 		
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
 		FunctionManager.get().addFunction(new BackFunction("back"));
