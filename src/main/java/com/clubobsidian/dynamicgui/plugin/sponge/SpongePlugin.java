@@ -115,8 +115,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 	@Override
 	public void stop() 
 	{
-		// TODO Auto-generated method stub
-		
+		DynamicGui.get().shutdown();
 	}
 
 	@Override

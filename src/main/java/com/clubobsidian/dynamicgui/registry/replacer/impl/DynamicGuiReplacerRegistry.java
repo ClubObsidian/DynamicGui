@@ -59,7 +59,6 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 			if(text.contains(replacer.getToReplace()))
 			{
 				text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(text, playerWrapper));
-						//text.replace(replacer.getToReplace(), replacer.getToReplace());
 			}
 		}
 		return text;

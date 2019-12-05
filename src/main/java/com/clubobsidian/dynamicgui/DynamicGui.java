@@ -62,12 +62,14 @@ import com.clubobsidian.dynamicgui.function.impl.gui.RefreshSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
@@ -116,8 +118,15 @@ public class DynamicGui  {
 		this.checkForProxy();
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+		ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
 		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
 		SlotManager.get();
+		CooldownManager.get();
+	}
+	
+	public void shutdown()
+	{
+		CooldownManager.get().shutdown();
 	}
 
 	private void setupFileStructure()
