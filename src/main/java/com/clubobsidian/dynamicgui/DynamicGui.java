@@ -54,6 +54,7 @@ import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.CheckTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
+import com.clubobsidian.dynamicgui.function.impl.cooldown.CooldownFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.BackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.GuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
@@ -62,12 +63,14 @@ import com.clubobsidian.dynamicgui.function.impl.gui.RefreshSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
@@ -116,8 +119,15 @@ public class DynamicGui  {
 		this.checkForProxy();
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+		ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
 		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
 		SlotManager.get();
+		CooldownManager.get();
+	}
+	
+	public void shutdown()
+	{
+		CooldownManager.get().shutdown();
 	}
 
 	private void setupFileStructure()
@@ -241,6 +251,8 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
 		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
+		
+		FunctionManager.get().addFunction(new CooldownFunction("cooldown"));
 		
 		FunctionManager.get().addFunction(new GuiFunction("gui"));
 		FunctionManager.get().addFunction(new BackFunction("back"));

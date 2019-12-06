@@ -118,8 +118,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 	@Override
 	public void stop() 
 	{
-		
-		
+		DynamicGui.get().shutdown();
 	}
 
 	@Override

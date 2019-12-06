@@ -18,6 +18,8 @@ package com.clubobsidian.dynamicgui.registry.replacer.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.AnimationReplacerRegistry;
@@ -58,7 +60,7 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
 		{
 			if(text.contains(replacer.getToReplace()))
 			{
-				text = text.replace(replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
+				text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
 			}
 		}
 		return text;
