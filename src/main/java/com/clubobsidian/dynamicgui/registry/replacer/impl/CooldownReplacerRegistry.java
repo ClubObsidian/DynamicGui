@@ -40,11 +40,19 @@ public class CooldownReplacerRegistry implements ReplacerRegistry {
 		UUID uuid = playerWrapper.getUniqueId();
 		
 		Collection<Cooldown> cooldowns = CooldownManager.get().getCooldowns(uuid);
-		if(cooldowns == null && text.contains(COOLDOWN_PREFIX))
+		if(cooldowns == null)
 		{
-			Matcher matcher = this.pattern.matcher(text);
-			return matcher.replaceAll("-1");
+			if(text.contains(COOLDOWN_PREFIX))
+			{
+				Matcher matcher = this.pattern.matcher(text);
+				return matcher.replaceAll("-1");
+			}
+			else
+			{
+				return text;
+			}
 		}
+		
 		
 		for(Cooldown cooldown : cooldowns)
 		{
