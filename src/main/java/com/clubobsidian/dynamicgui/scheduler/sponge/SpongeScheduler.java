@@ -40,6 +40,14 @@ public class SpongeScheduler extends Scheduler {
 		Sponge.getScheduler().createSyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
 	}
 	
+	@Override
+	public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
+	{
+		Long tickDelayInitial = this.ticksToMillis(delayInitial);
+		Long tickDelayRepeating = this.ticksToMillis(delayRepeating);
+		Sponge.getScheduler().createAsyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
+	}
+	
 	//Convert from ticks to milliseconds
 	private Long ticksToMillis(Long delay)
 	{

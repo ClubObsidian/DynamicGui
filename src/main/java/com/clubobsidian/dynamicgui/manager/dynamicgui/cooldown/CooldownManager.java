@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
@@ -31,11 +32,14 @@ public class CooldownManager {
 	
 	private Map<UUID, Map<String, Cooldown>> cooldowns;
 	private Configuration cooldownConfig;
+	private AtomicBoolean updateConfig;
 	private CooldownManager()
 	{
 		this.cooldowns = new ConcurrentHashMap<>();
 		this.cooldownConfig = this.loadConfig();
+		this.updateConfig = new AtomicBoolean(false);
 		this.scheduleCooldownUpdate();
+		this.scheduleConfigUpdate();
 	}
 	
 	private Configuration loadConfig()
@@ -46,11 +50,6 @@ public class CooldownManager {
 		for(String uuidStr : config.getKeys())
 		{
 			ConfigurationSection section = config.getConfigurationSection(uuidStr);
-			if(section.isEmpty())
-			{
-				config.set(uuidStr, null);
-				continue;
-			}
 			
 			Map<String, Cooldown> cooldownMap = new ConcurrentHashMap<>();
 			for(String cooldownName : section.getKeys())
@@ -62,6 +61,15 @@ public class CooldownManager {
 				{
 					cooldownMap.put(cooldownName, cooldownObj);
 				}
+				else
+				{
+					section.set(cooldownName, null);
+				}
+			}
+			
+			if(section.isEmpty())
+			{
+				config.set(uuidStr, null);
 			}
 			
 			if(cooldownMap.size() > 0)
@@ -89,6 +97,11 @@ public class CooldownManager {
 		}
 		
 		Cooldown cooldown = cooldownMap.get(name);
+		if(cooldown == null)
+		{
+			return -1L;
+		}
+		
 		return this.getRemainingCooldown(cooldown);
 	}
 	
@@ -155,6 +168,7 @@ public class CooldownManager {
 				this.cooldowns.put(uuid, cooldownMap);
 			}
 			
+			this.updateConfig.set(true);
 			cooldownMap.put(name, cooldown);
 			return cooldown;
 		}
@@ -163,6 +177,11 @@ public class CooldownManager {
 	}
 	
 	public void shutdown()
+	{
+		this.updateAndSaveConfig();
+	}
+	
+	private void updateAndSaveConfig()
 	{
 		Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
 		while(it.hasNext())
@@ -187,21 +206,32 @@ public class CooldownManager {
 	private void updateCache()
 	{
 		Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
+		boolean modified = false;
 		while(it.hasNext())
 		{
 			Entry<UUID, Map<String, Cooldown>> next = it.next();
+			UUID uuid = next.getKey();
+			String uuidStr = uuid.toString();
 			Map<String, Cooldown> cooldownMap = next.getValue();
 			Iterator<Entry<String, Cooldown>> cooldownIt = cooldownMap.entrySet().iterator();
 			while(cooldownIt.hasNext())
 			{
 				Entry<String, Cooldown> cooldownNext = cooldownIt.next();
+				String cooldownName = cooldownNext.getKey();
 				Cooldown cooldown = cooldownNext.getValue();
 				Long cooldownRemaining = this.getRemainingCooldown(cooldown);
 				if(cooldownRemaining == -1L)
 				{
 					cooldownIt.remove();
+					this.cooldownConfig.set(uuidStr + "." + cooldownName, null);
+					modified = true;
 				}
 			}
+		}
+		
+		if(modified)
+		{
+			this.updateConfig.set(true);
 		}
 	}
 	
@@ -213,6 +243,21 @@ public class CooldownManager {
 		server.getScheduler().scheduleSyncRepeatingTask(plugin, () ->
 		{
 			this.updateCache();
-		}, 20L, 20L);
+		}, 1L, 1L);
+	}
+	
+	private void scheduleConfigUpdate()
+	{
+		DynamicGui dynamicGui = DynamicGui.get();
+		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
+		FakeServer server = dynamicGui.getServer();
+		server.getScheduler().scheduleAsyncRepeatingTask(plugin, () ->
+		{
+			if(this.updateConfig.get())
+			{
+				this.updateConfig.set(false);
+				this.updateAndSaveConfig();
+			}
+		}, 1L, 1L);
 	}
 }
