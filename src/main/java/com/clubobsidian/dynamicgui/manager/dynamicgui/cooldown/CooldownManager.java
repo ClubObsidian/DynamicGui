@@ -176,6 +176,27 @@ public class CooldownManager {
 		return null;
 	}
 	
+	public boolean removeCooldown(PlayerWrapper<?> playerWrapper, String name)
+	{
+		return this.removeCooldown(playerWrapper.getUniqueId(), name);
+	}
+	
+	public boolean removeCooldown(UUID uuid, String name)
+	{
+		Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
+		if(cooldownMap == null)
+		{
+			return false;
+		}
+		
+		boolean removed = cooldownMap.remove(name) != null;
+		if(removed)
+		{
+			this.updateConfig.set(true);
+		}
+		return removed;
+	}
+	
 	public void shutdown()
 	{
 		this.updateAndSaveConfig();
