@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
+import com.clubobsidian.dynamicgui.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
@@ -45,6 +46,7 @@ import com.clubobsidian.dynamicgui.function.impl.SetAmountFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetCloseFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetDataFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetEnchantsFunction;
+import com.clubobsidian.dynamicgui.function.impl.SetGameRuleFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetGlowFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetLoreFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetNBTFunction;
@@ -292,6 +294,9 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new LogFunction("log"));
 		
 		FunctionManager.get().addFunction(new CheckItemTypeInHandFunction("checkitemtypeinhand"));
+		
+		FunctionManager.get().addFunction(new SetGameRuleFunction("setgamerule"));
+		FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
 	}
 
 	//TODO - port to dynamicgui plugins

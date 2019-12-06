@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.world.WorldWrapper;
 
 public abstract class FakeServer {
 
@@ -45,5 +46,6 @@ public abstract class FakeServer {
 	public abstract ServerType getType();
 	public abstract void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
 	public abstract void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable);
+	public abstract WorldWrapper<?> getWorld(String worldName);
 	
 }

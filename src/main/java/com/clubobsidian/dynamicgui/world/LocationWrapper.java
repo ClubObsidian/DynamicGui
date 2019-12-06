@@ -27,13 +27,14 @@ public abstract class LocationWrapper<T> implements Serializable {
 	private int x;
 	private int y;
 	private int z;
-	private String worldName;
-	public LocationWrapper(int x, int y, int z, String worldName)
+	private WorldWrapper<T> world;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public LocationWrapper(int x, int y, int z, WorldWrapper world)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.worldName = worldName;
+		this.world = world;
 	}
 	
 	public int getX()
@@ -50,9 +51,9 @@ public abstract class LocationWrapper<T> implements Serializable {
 		return this.z;
 	}
 	
-	public String getWorldName()
+	public WorldWrapper<T> getWorld()
 	{
-		return this.worldName;
+		return this.world;
 	}
 	
 	@Override
@@ -71,6 +72,6 @@ public abstract class LocationWrapper<T> implements Serializable {
 		if(other.getZ() != this.getZ())
 			return false;
 		
-		return other.getWorldName().equals(this.getWorldName());
+		return other.getWorld().equals(this.world);
 	}
 }

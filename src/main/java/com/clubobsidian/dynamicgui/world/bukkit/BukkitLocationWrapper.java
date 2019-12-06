@@ -28,6 +28,6 @@ public class BukkitLocationWrapper<T extends Location> extends LocationWrapper<T
 
 	public BukkitLocationWrapper(T location) 
 	{
-		super(location.getBlockX(), location.getBlockY(), location.getBlockZ(), location.getWorld().getName());
+		super(location.getBlockX(), location.getBlockY(), location.getBlockZ(), new BukkitWorldWrapper(location.getWorld().getName()));
 	}
 }

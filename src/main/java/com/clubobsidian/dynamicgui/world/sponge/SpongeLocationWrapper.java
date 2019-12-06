@@ -31,6 +31,6 @@ public class SpongeLocationWrapper<T> extends LocationWrapper<T> {
 	@SuppressWarnings("unchecked")
 	public SpongeLocationWrapper(T location) 
 	{
-		super(((Location<World>)location).getBlockX(), ((Location<World>)location).getBlockY(), ((Location<World>)location).getBlockZ(), ((Location<World>)location).getExtent().getName());
+		super(((Location<World>)location).getBlockX(), ((Location<World>)location).getBlockY(), ((Location<World>)location).getBlockZ(), new SpongeWorldWrapper(((Location<World>)location).getExtent().getName()));
 	}
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -33,6 +34,8 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
+import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
 
 public class FakeBukkitServer extends FakeServer {
 
@@ -112,5 +115,17 @@ public class FakeBukkitServer extends FakeServer {
 			}
 		};
 		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);
+	}
+
+	@Override
+	public WorldWrapper<?> getWorld(String worldName) 
+	{
+		World world = Bukkit.getServer().getWorld(worldName);
+		if(world == null)
+		{
+			return null;
+		}
+		
+		return new BukkitWorldWrapper(worldName);
 	}
 }
