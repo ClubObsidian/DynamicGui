@@ -28,12 +28,6 @@ public class CooldownReplacerRegistry implements ReplacerRegistry {
 	
 	private static final String COOLDOWN_PREFIX = "%cooldown_";
 	
-	private Pattern pattern;
-	public CooldownReplacerRegistry()
-	{
-		this.pattern = Pattern.compile(COOLDOWN_PREFIX + ".*%");
-	}
-	
 	@Override
 	public String replace(PlayerWrapper<?> playerWrapper, String text) 
 	{
@@ -42,27 +36,38 @@ public class CooldownReplacerRegistry implements ReplacerRegistry {
 		Collection<Cooldown> cooldowns = CooldownManager.get().getCooldowns(uuid);
 		if(cooldowns == null)
 		{
-			if(text.contains(COOLDOWN_PREFIX))
-			{
-				Matcher matcher = this.pattern.matcher(text);
-				return matcher.replaceAll("-1");
-			}
-			else
-			{
-				return text;
-			}
+			return text;
 		}
-		
 		
 		for(Cooldown cooldown : cooldowns)
 		{
 			String cooldownName = cooldown.getName();
-			String cooldownReplacer = COOLDOWN_PREFIX + cooldownName + "%";
+			String cooldownReplacer = COOLDOWN_PREFIX + cooldownName;
 			if(text.contains(cooldownReplacer))
 			{
-				Long cooldownRemaining = CooldownManager.get().getRemainingCooldown(playerWrapper, cooldownName);
-				String remainingStr = String.valueOf(cooldownRemaining);
-				text = StringUtils.replace(text, cooldownReplacer, remainingStr);
+				long seconds = CooldownManager.get().getRemainingCooldown(playerWrapper, cooldownName) / 1000;
+				
+				String hoursReplacer = COOLDOWN_PREFIX + cooldownName + "_hours%";
+				if(text.contains(hoursReplacer))
+				{
+					long hours = seconds / 3600;
+					text = StringUtils.replace(text, hoursReplacer, String.valueOf(hours));
+					seconds -= hours * 3600;
+				}
+				
+				String minutesReplacer = COOLDOWN_PREFIX + cooldownName + "_minutes%";
+				if(text.contains(minutesReplacer))
+				{
+					long minutes = seconds / 60;
+					text = StringUtils.replace(text, minutesReplacer, String.valueOf(minutes));
+					seconds -= minutes * 60;
+				}
+				
+				String secondsReplacer = COOLDOWN_PREFIX + cooldownName + "_seconds%";
+				if(text.contains(secondsReplacer))
+				{
+					text = StringUtils.replace(text, secondsReplacer, String.valueOf(seconds));
+				}
 			}
 		}
 		
