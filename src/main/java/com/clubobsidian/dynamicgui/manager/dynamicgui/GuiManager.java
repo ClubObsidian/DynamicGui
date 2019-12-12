@@ -262,7 +262,8 @@ public class GuiManager {
 	
 	private void loadFileGuis()
 	{
-		DynamicGuiPlugin plugin = DynamicGui.get().getPlugin();
+		DynamicGui dynamicGui = DynamicGui.get();
+		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
 		File guiFolder = plugin.getGuiFolder();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "conf", "xml"}, true);
@@ -286,6 +287,7 @@ public class GuiManager {
 						}
 						
 						this.guis.put(guiName, cachedGui);
+						dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
 					}
 					else
 					{
@@ -296,7 +298,7 @@ public class GuiManager {
 				}	
 				catch(NullPointerException ex)
 				{
-					DynamicGui.get().getLogger().info("Error loading in file: " + file.getName());
+					dynamicGui.getLogger().info("Error loading in file: " + file.getName());
 					ex.printStackTrace();
 				}	
 			}
