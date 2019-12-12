@@ -62,6 +62,7 @@ public class GuiManager {
 	private Map<UUID, Gui> playerGuis;
 	private Map<String, Gui> cachedGuis;
 	private Map<String, List<MacroToken>> globalMacros;
+	private Map<String, List<MacroToken>> cachedGlobalMacros;
 	private Map<String, Long> guiTimestamps;
 	private Map<String, Long> globalMacrosTimestamps;
 	private boolean macrosModified;
@@ -71,6 +72,7 @@ public class GuiManager {
 		this.playerGuis = new HashMap<>();
 		this.cachedGuis = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
+		this.cachedGlobalMacros = new HashMap<>();
 		this.guiTimestamps = new HashMap<>();
 		this.globalMacrosTimestamps = new HashMap<>();
 		this.macrosModified = false;
@@ -109,7 +111,8 @@ public class GuiManager {
 		DynamicGui.get().getPlugin().unloadCommands();
 		this.cachedGuis = this.guis;
 		this.guis = new HashMap<>();
-		this.globalMacros.clear();
+		this.cachedGlobalMacros = this.globalMacros;
+		this.globalMacros = new HashMap<>();
 		this.loadGlobalMacros();
 		this.loadGuis();
 	}
@@ -228,9 +231,25 @@ public class GuiManager {
 			{
 				this.macrosModified = true;
 				this.globalMacrosTimestamps.put(macroName, fileModified);
+				this.globalMacros.put(macroName, tokens);
 			}
-			
-			this.globalMacros.put(macroName, tokens);
+			else
+			{
+				List<MacroToken> cachedTokens = this.cachedGlobalMacros.get(macroName);
+				this.globalMacros.put(macroName, cachedTokens);
+			}
+		}
+		
+		Iterator<Entry<String, List<MacroToken>>> it = this.cachedGlobalMacros.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<String, List<MacroToken>> next = it.next();
+			String macroName = next.getKey();
+			if(!this.globalMacros.containsKey(macroName))
+			{
+				it.remove();
+				this.globalMacrosTimestamps.remove(macroName);
+			}
 		}
 	}
 	
