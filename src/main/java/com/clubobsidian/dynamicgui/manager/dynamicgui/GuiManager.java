@@ -215,20 +215,20 @@ public class GuiManager {
 		
 		for(File file : macroFiles)
 		{
-			List<MacroToken> tokens = new ArrayList<>();
-			Configuration config = Configuration.load(file);
-			for(String key : config.getKeys())
-			{
-				ConfigurationSection section = config.getConfigurationSection(key);
-				MacroToken token = new MacroToken(section);
-				tokens.add(token);
-			}
-			
 			String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
 			Long fileModified = file.lastModified();
 			Long cacheModified = this.globalMacrosTimestamps.get(macroName);
 			if(cacheModified == null || !fileModified.equals(cacheModified))
 			{
+				List<MacroToken> tokens = new ArrayList<>();
+				Configuration config = Configuration.load(file);
+				for(String key : config.getKeys())
+				{
+					ConfigurationSection section = config.getConfigurationSection(key);
+					MacroToken token = new MacroToken(section);
+					tokens.add(token);
+				}
+				
 				this.macrosModified = true;
 				this.globalMacrosTimestamps.put(macroName, fileModified);
 				this.globalMacros.put(macroName, tokens);
@@ -272,7 +272,7 @@ public class GuiManager {
 			{
 				try
 				{
-					Configuration yaml = Configuration.load(file);
+					
 					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
 					Long modifiedTime = file.lastModified();
 					Long cacheModifiedTime = this.guiTimestamps.get(guiName);
@@ -283,6 +283,7 @@ public class GuiManager {
 					}
 					else
 					{
+						Configuration yaml = Configuration.load(file);
 						this.guiTimestamps.put(guiName, modifiedTime);
 						this.loadGuiFromConfiguration(guiName, yaml);
 					}
