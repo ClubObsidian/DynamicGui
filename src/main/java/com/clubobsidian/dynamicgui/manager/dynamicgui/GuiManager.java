@@ -21,7 +21,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -61,12 +60,19 @@ public class GuiManager {
 	
 	private Map<String, Gui> guis;
 	private Map<UUID, Gui> playerGuis;
+	private Map<String, Gui> cachedGuis;
 	private Map<String, List<MacroToken>> globalMacros;
+	private Map<String, Long> guiTimestamps;
+	private Map<String, Long> globalMacrosTimestamps;
+	private boolean macrosModified;
 	private GuiManager()
 	{
 		this.guis = new HashMap<>();
 		this.playerGuis = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
+		this.guiTimestamps = new HashMap<>();
+		this.globalMacrosTimestamps = new HashMap<>();
+		this.macrosModified = false;
 	}
 	
 	public static GuiManager get()
@@ -100,7 +106,8 @@ public class GuiManager {
 	{
 		DynamicGui.get().getLogger().info("Force reloading guis!");
 		DynamicGui.get().getPlugin().unloadCommands();
-		this.guis.clear();
+		this.cachedGuis = this.guis;
+		this.guis = new HashMap<>();
 		this.globalMacros.clear();
 		this.loadGlobalMacros();
 		this.loadGuis();
@@ -214,6 +221,14 @@ public class GuiManager {
 			}
 			
 			String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
+			Long fileModified = file.lastModified();
+			Long cacheModified = this.globalMacrosTimestamps.get(macroName);
+			if(cacheModified == null || !fileModified.equals(cacheModified))
+			{
+				this.macrosModified = true;
+				this.globalMacrosTimestamps.put(macroName, fileModified);
+			}
+			
 			this.globalMacros.put(macroName, tokens);
 		}
 	}
@@ -238,7 +253,18 @@ public class GuiManager {
 				{
 					Configuration yaml = Configuration.load(file);
 					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-					this.loadGuiFromConfiguration(guiName, yaml);
+					Long modifiedTime = file.lastModified();
+					Long cacheModifiedTime = this.guiTimestamps.get(guiName);
+					if(!this.macrosModified && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime))
+					{
+						Gui cachedGui = this.cachedGuis.get(guiName);
+						this.guis.put(guiName, cachedGui);
+					}
+					else
+					{
+						this.guiTimestamps.put(guiName, modifiedTime);
+						this.loadGuiFromConfiguration(guiName, yaml);
+					}
 				}	
 				catch(NullPointerException ex)
 				{
@@ -251,6 +277,8 @@ public class GuiManager {
 		{
 			DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
 		}
+		
+		this.macrosModified = false;
 	}
 	
 	public void loadRemoteGuis()
