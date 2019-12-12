@@ -283,7 +283,7 @@ public class GuiManager {
 		this.macrosModified = false;
 	}
 	
-	public void loadRemoteGuis()
+	private void loadRemoteGuis()
 	{
 		File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
 		File tempDirectory = new File(DynamicGui.get().getPlugin().getDataFolder(), "temp");
