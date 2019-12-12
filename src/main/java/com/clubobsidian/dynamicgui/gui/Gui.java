@@ -49,7 +49,8 @@ public class Gui implements Serializable, FunctionOwner {
 	private transient InventoryWrapper<?> inventoryWrapper;
 	private FunctionTree functions;
 	private Gui back;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
+	private List<String> commandAliases;
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, List<String> commandAliases)
 	{
 		this.name = name;
 		this.type = type;
@@ -63,6 +64,7 @@ public class Gui implements Serializable, FunctionOwner {
 		this.inventoryWrapper = null;
 		this.functions = functions;
 		this.back = null;
+		this.commandAliases = commandAliases;
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
@@ -179,6 +181,11 @@ public class Gui implements Serializable, FunctionOwner {
 	public void setBack(Gui back)
 	{
 		this.back = back;
+	}
+	
+	public List<String> getCommandAliases()
+	{
+		return this.commandAliases;
 	}
 	
 	public Gui clone()

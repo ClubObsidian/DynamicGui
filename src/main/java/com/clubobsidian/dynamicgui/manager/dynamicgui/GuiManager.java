@@ -262,7 +262,8 @@ public class GuiManager {
 	
 	private void loadFileGuis()
 	{
-		File guiFolder = DynamicGui.get().getPlugin().getGuiFolder();
+		DynamicGuiPlugin plugin = DynamicGui.get().getPlugin();
+		File guiFolder = plugin.getGuiFolder();
 		
 		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "conf", "xml"}, true);
 		
@@ -279,6 +280,11 @@ public class GuiManager {
 					if(!this.macrosModified && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime))
 					{
 						Gui cachedGui = this.cachedGuis.get(guiName);
+						for(String alias : cachedGui.getCommandAliases())
+						{
+							plugin.createCommand(guiName, alias);
+						}
+						
 						this.guis.put(guiName, cachedGui);
 					}
 					else
@@ -455,8 +461,9 @@ public class GuiManager {
 		String type = guiToken.getType();
 		String title = guiToken.getTitle();
 		int rows = guiToken.getRows();
+		List<String> aliases = guiToken.getAlias();
 		
-		for(String alias : guiToken.getAlias())
+		for(String alias : aliases)
 		{
 			plugin.createCommand(guiName, alias);
 		}
@@ -473,6 +480,6 @@ public class GuiManager {
 		
 		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
 		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions());
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), aliases);
 	}
 }
