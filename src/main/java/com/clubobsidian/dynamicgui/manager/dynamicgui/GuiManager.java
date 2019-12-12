@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -58,12 +59,12 @@ public class GuiManager {
 
 	private static GuiManager instance;
 	
-	private List<Gui> guis;
+	private Map<String, Gui> guis;
 	private Map<UUID, Gui> playerGuis;
 	private Map<String, List<MacroToken>> globalMacros;
 	private GuiManager()
 	{
-		this.guis = new ArrayList<>();
+		this.guis = new HashMap<>();
 		this.playerGuis = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
 	}
@@ -81,23 +82,17 @@ public class GuiManager {
 	
 	public boolean hasGuiName(String name)
 	{
-		for(Gui gui : this.guis)
-		{
-			if(gui.getName().equals(name))
-				return true;
-		}
-		return false;
+		return this.guis.containsKey(name);
 	}
 	
 	public Gui getGuiByName(String name)
 	{
-		for(Gui gui : this.guis)
+		Gui gui = this.guis.get(name);
+		if(gui != null)
 		{
-			if(gui.getName().equals(name))
-			{
-				return gui.clone();
-			}
+			return gui.clone();
 		}
+		
 		return null;
 	}
 
@@ -113,7 +108,7 @@ public class GuiManager {
 	
 	public List<Gui> getGuis()
 	{
-		return this.guis;
+		return new ArrayList<>(this.guis.values());
 	}
 	
 	public Map<UUID, Gui> getPlayerGuis()
@@ -333,7 +328,7 @@ public class GuiManager {
 		List<Slot> slots = this.createSlots(guiToken);
 		final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
 
-		this.guis.add(gui);
+		this.guis.put(guiName, gui);
 		logger.info("gui \"" + gui.getName() + "\" has been loaded!");
 	}
 

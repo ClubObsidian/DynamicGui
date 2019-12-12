@@ -2,8 +2,6 @@ package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
 import java.util.Collection;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
