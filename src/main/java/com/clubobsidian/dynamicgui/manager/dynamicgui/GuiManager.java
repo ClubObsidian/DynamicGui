@@ -69,6 +69,7 @@ public class GuiManager {
 	{
 		this.guis = new HashMap<>();
 		this.playerGuis = new HashMap<>();
+		this.cachedGuis = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
 		this.guiTimestamps = new HashMap<>();
 		this.globalMacrosTimestamps = new HashMap<>();
@@ -237,6 +238,7 @@ public class GuiManager {
 	{
 		this.loadFileGuis();
 		this.loadRemoteGuis();
+		this.cleanupGuis();
 	}
 	
 	private void loadFileGuis()
@@ -320,6 +322,21 @@ public class GuiManager {
 					e.printStackTrace();
 					DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
 				}
+			}
+		}
+	}
+	
+	private void cleanupGuis()
+	{
+		Iterator<Entry<String, Gui>> it = this.cachedGuis.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<String, Gui> next = it.next();
+			String guiName = next.getKey();
+			if(!this.guis.containsKey(guiName))
+			{
+				it.remove();
+				this.guiTimestamps.remove(guiName);
 			}
 		}
 	}
