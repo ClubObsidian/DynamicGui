@@ -152,8 +152,7 @@ public class GuiBuilder  {
 	
 	public Gui build()
 	{
-		List<String> aliases = new ArrayList<>();
-		Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree, aliases);
+		Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree);
 		if(this.backGui != null)
 		{
 			gui.setBack(this.backGui);

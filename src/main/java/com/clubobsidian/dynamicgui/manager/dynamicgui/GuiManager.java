@@ -22,11 +22,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -61,21 +63,23 @@ public class GuiManager {
 	private Map<String, Gui> guis;
 	private Map<UUID, Gui> playerGuis;
 	private Map<String, Gui> cachedGuis;
+	private Map<String, GuiToken> cachedTokens;
 	private Map<String, List<MacroToken>> globalMacros;
 	private Map<String, List<MacroToken>> cachedGlobalMacros;
 	private Map<String, Long> guiTimestamps;
 	private Map<String, Long> globalMacrosTimestamps;
-	private boolean macrosModified;
+	private Set<String> modifiedMacros;
 	private GuiManager()
 	{
 		this.guis = new HashMap<>();
 		this.playerGuis = new HashMap<>();
 		this.cachedGuis = new HashMap<>();
+		this.cachedTokens = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
 		this.cachedGlobalMacros = new HashMap<>();
 		this.guiTimestamps = new HashMap<>();
 		this.globalMacrosTimestamps = new HashMap<>();
-		this.macrosModified = false;
+		this.modifiedMacros = new HashSet<>();
 	}
 	
 	public static GuiManager get()
@@ -229,7 +233,7 @@ public class GuiManager {
 					tokens.add(token);
 				}
 				
-				this.macrosModified = true;
+				this.modifiedMacros.add(macroName);
 				this.globalMacrosTimestamps.put(macroName, fileModified);
 				this.globalMacros.put(macroName, tokens);
 			}
@@ -278,10 +282,11 @@ public class GuiManager {
 					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
 					Long modifiedTime = file.lastModified();
 					Long cacheModifiedTime = this.guiTimestamps.get(guiName);
-					if(!this.macrosModified && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime))
+					GuiToken token = this.cachedTokens.get(guiName);
+					if(token != null && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime) && !hasUpdatedMacro(token))
 					{
 						Gui cachedGui = this.cachedGuis.get(guiName);
-						for(String alias : cachedGui.getCommandAliases())
+						for(String alias : token.getAlias())
 						{
 							plugin.createCommand(guiName, alias);
 						}
@@ -308,8 +313,23 @@ public class GuiManager {
 			DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
 		}
 		
-		this.macrosModified = false;
+		this.modifiedMacros.clear();
 	}
+	
+	private boolean hasUpdatedMacro(GuiToken token)
+	{
+		List<String> macros = token.getLoadMacros();
+		for(String macro : macros)
+		{
+			if(this.modifiedMacros.contains(macro))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	
 	private void loadRemoteGuis()
 	{
@@ -365,6 +385,7 @@ public class GuiManager {
 			{
 				it.remove();
 				this.guiTimestamps.remove(guiName);
+				this.cachedTokens.remove(guiName);
 			}
 		}
 	}
@@ -398,6 +419,7 @@ public class GuiManager {
 			guiToken = new GuiToken(config, guiTokens);
 		}
 		
+		this.cachedTokens.put(guiName, guiToken);
 		List<Slot> slots = this.createSlots(guiToken);
 		final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
 
@@ -482,6 +504,6 @@ public class GuiManager {
 		
 		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
 		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), aliases);
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions());
 	}
 }
