@@ -302,6 +302,8 @@ public class DynamicGui  {
 		
 		FunctionManager.get().addFunction(new SetGameRuleFunction("setgamerule"));
 		FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
+		
+		FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
 	}
 
 	//TODO - port to dynamicgui plugins
