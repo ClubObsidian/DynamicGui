@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public abstract class PlayerWrapper<T> {
 
@@ -55,5 +56,6 @@ public abstract class PlayerWrapper<T> {
 	public abstract int getStatistic(Statistic statistic);
 	public abstract int getStatistic(Statistic statistic, String data);
 	public abstract void updateInventory();
+	public abstract LocationWrapper<?> getLocation();
 		
 }
