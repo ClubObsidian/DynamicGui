@@ -57,6 +57,7 @@ public final class FunctionUtil {
 						}
 						
 						recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
+						return false;
 					}
 					else
 					{
