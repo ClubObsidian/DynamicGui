@@ -42,7 +42,7 @@ public class RefreshSlotFunction extends Function {
 			List<Integer> slotIndexs = new ArrayList<>();
 			if(!data.contains(","))
 			{
-				Integer parsed = Integer.parseInt(data);
+				int parsed = Integer.parseInt(data);
 				slotIndexs.add(parsed);
 			}
 			else
@@ -68,10 +68,9 @@ public class RefreshSlotFunction extends Function {
 			}
 			
 			List<Slot> slots = gui.getSlots();
-			for(Integer index : slotIndexs)
+			for(Slot slot : slots)
 			{
-				Slot slot = slots.get(index);
-				if(slot != null)
+				if(slotIndexs.contains(slot.getIndex()))
 				{
 					slot.setUpdate(true);
 				}
