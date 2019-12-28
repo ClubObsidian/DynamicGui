@@ -29,6 +29,8 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
@@ -48,6 +50,7 @@ public class SpongeDynamicGuiCommand implements CommandExecutor {
 				{
 					src.sendMessage(Text.of("Guis have been reloaded"));
 					GuiManager.get().reloadGuis();
+					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
 					return CommandResult.success();
 				}
 			}

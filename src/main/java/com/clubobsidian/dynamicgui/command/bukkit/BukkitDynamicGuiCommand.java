@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
@@ -27,6 +29,7 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
 				{
 					sender.sendMessage("Guis have been reloaded");
 					GuiManager.get().reloadGuis();
+					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
 					return true;
 				}
 			}
