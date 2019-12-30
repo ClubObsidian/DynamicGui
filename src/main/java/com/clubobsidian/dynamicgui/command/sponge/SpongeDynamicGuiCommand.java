@@ -44,18 +44,27 @@ public class SpongeDynamicGuiCommand implements CommandExecutor {
 		Optional<String> third = args.getOne("subthree");
 		if(first.isPresent() && !second.isPresent() && !third.isPresent())
 		{
-			if(first.get().equalsIgnoreCase("reload"))
+			if(src.hasPermission("dynamicgui.reload"))
 			{
-				if(src.hasPermission("dynamicgui.reload"))
+				if(first.get().equalsIgnoreCase("reload"))
 				{
+
 					src.sendMessage(Text.of("Guis have been reloaded"));
-					GuiManager.get().reloadGuis();
+					GuiManager.get().reloadGuis(false);
+					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+					return CommandResult.success();
+				}
+				else if(first.get().equalsIgnoreCase("forcereload"))
+				{
+
+					src.sendMessage(Text.of("Guis have been force reloaded"));
+					GuiManager.get().reloadGuis(true);
 					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
 					return CommandResult.success();
 				}
 			}
 		}
-		
+
 		if(second.isPresent() && !third.isPresent())
 		{
 			if(first.get().equalsIgnoreCase("close"))
@@ -140,6 +149,7 @@ public class SpongeDynamicGuiCommand implements CommandExecutor {
 		else
 		{
 			src.sendMessage(Text.of("/dynamicgui reload"));
+			src.sendMessage(Text.of("/dynamicgui forcereload"));
 			src.sendMessage(Text.of("/dynamicgui close <player>"));
 			src.sendMessage(Text.of("/dynamicgui close <all> <name>"));
 			return CommandResult.success();
