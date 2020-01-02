@@ -49,7 +49,7 @@ shadowJar {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     
     //Server implementations
     
