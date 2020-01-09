@@ -109,11 +109,10 @@ public enum Statistic {
 		return this.statisticType;
 	}
 	
-	public enum StatisticType {
-		
+	public enum StatisticType 
+	{	
 		NONE,
 		MATERIAL,
 		ENTITY
-		
 	}
 }
