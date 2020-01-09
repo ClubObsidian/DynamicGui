@@ -109,14 +109,24 @@ public class GuiManager {
 		return null;
 	}
 
-	public void reloadGuis()
+	public void reloadGuis(boolean force)
 	{
-		DynamicGui.get().getLogger().info("Force reloading guis!");
+		DynamicGui.get().getLogger().info("Reloading guis!");
 		DynamicGui.get().getPlugin().unloadCommands();
 		this.cachedGuis = this.guis;
 		this.guis = new HashMap<>();
 		this.cachedGlobalMacros = this.globalMacros;
+		
 		this.globalMacros = new HashMap<>();
+		if(force)
+		{
+			this.cachedTokens = new HashMap<>();
+			this.cachedGuis = new HashMap<>();
+			this.guiTimestamps = new HashMap<>();
+			this.globalMacrosTimestamps = new HashMap<>();
+			this.cachedGlobalMacros = new HashMap<>();
+		}
+		
 		this.loadGlobalMacros();
 		this.loadGuis();
 	}

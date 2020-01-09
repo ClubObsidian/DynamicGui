@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
@@ -21,12 +23,20 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
 		if(args.length == 1)
 		{
 			String first = args[0];
-			if(first.equalsIgnoreCase("reload"))
+			if(sender.hasPermission("dynamicgui.reload"))
 			{
-				if(sender.hasPermission("dynamicgui.reload"))
+				if(first.equalsIgnoreCase("reload"))
 				{
 					sender.sendMessage("Guis have been reloaded");
-					GuiManager.get().reloadGuis();
+					GuiManager.get().reloadGuis(false);
+					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+					return true;
+				}
+				else if(first.equals("forcereload"))
+				{
+					sender.sendMessage("Guis have been force reloaded");
+					GuiManager.get().reloadGuis(true);
+					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
 					return true;
 				}
 			}
@@ -110,6 +120,7 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
 		else
 		{
 			sender.sendMessage("/dynamicgui reload");
+			sender.sendMessage("/dynamicgui forcereload");
 			sender.sendMessage("/dynamicgui close <player>");
 			sender.sendMessage("/dynamicgui close <all> <name>");
 			return true;

@@ -39,7 +39,7 @@ public class ReplacerManager {
 		}
 		return instance;
 	}
-	
+
 	public String replace(String text, PlayerWrapper<?> playerWrapper)
 	{
 		String newText = text;
@@ -47,6 +47,7 @@ public class ReplacerManager {
 		{
 			newText = registry.replace(playerWrapper, newText);
 		}
+			
 		return newText;
 	}
 
