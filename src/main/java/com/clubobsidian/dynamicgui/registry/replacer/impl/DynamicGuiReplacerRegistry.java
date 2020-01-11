@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,7 +43,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
 	private static DynamicGuiReplacerRegistry instance;
 	
-	private Map<String,Replacer> replacers;
+	private Map<String, Replacer> replacers;
 	private Map<String, List<Replacer>> cachedReplacers;
 	private DynamicGuiReplacerRegistry()
 	{

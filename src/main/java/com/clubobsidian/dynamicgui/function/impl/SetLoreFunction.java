@@ -60,21 +60,28 @@ public class SetLoreFunction extends Function {
 						ItemStackWrapper<?> item = slot.getItemStack();
 
 						List<String> lore = new ArrayList<>();
-						
-						String newData = this.getData();
-						newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-						newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
-						
-						if(newData.contains("\n"))
+						if(this.getData() == null)
 						{
-							for(String str : this.getData().split("\n"))
-							{
-								lore.add(str);
-							}
+							lore = null;
 						}
 						else
 						{
-							lore.add(newData);
+							
+							String newData = this.getData();
+							newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+							newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
+
+							if(newData.contains("\n"))
+							{
+								for(String str : this.getData().split("\n"))
+								{
+									lore.add(str);
+								}
+							}
+							else
+							{
+								lore.add(newData);
+							}
 						}
 
 						item.setLore(lore);
