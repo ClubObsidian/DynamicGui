@@ -59,14 +59,16 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 	
 	@Override
-	public boolean setType(String type) 
+	public boolean setType(final String type) 
 	{
 		if(type == null)
+		{
 			return false;
+		}
 		
-		type = MaterialManager.get().normalizeMaterial(type);
+		String normalizedType = MaterialManager.get().normalizeMaterial(type);
 		
-		Field typeField = ReflectionUtil.getFieldByName(ItemTypes.class, type);
+		Field typeField = ReflectionUtil.getFieldByName(ItemTypes.class, normalizedType);
 		if(typeField != null)
 		{
 			ItemType itemStackType = new ReflectionUtil.ReflectionHelper<ItemType>().get(typeField);
@@ -83,6 +85,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 			this.setItemStack(itemStack);
 			return true;
 		}
+		
 		return false;
 	}
 

@@ -62,24 +62,26 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 
 	@Override
-	public boolean setType(String type) 
+	public boolean setType(final String type) 
 	{
 		if(type == null)
 		{
 			return false;
 		}
 		
-		type = MaterialManager.get().normalizeMaterial(type);
+		String normalizedType = MaterialManager.get().normalizeMaterial(type);
+		Material mat = null;
+		
 		try
 		{
-			Material.valueOf(type);
+			mat = Material.valueOf(normalizedType);
 		}
 		catch(Exception ex)
 		{
 			return false;
 		}
 		
-		this.getItemStack().setType(Material.valueOf(type));
+		this.getItemStack().setType(mat);
 		return true;
 	}
 
