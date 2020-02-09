@@ -2,7 +2,6 @@ package com.clubobsidian.dynamicgui.function.impl.cooldown;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.Cooldown;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 
 public class SetCooldownFunction extends Function {
