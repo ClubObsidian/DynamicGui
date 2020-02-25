@@ -69,7 +69,9 @@ public class Gui implements Serializable, FunctionOwner {
 	{	
 		String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
 		if(inventoryTitle.length() > 32)
+		{
 			inventoryTitle = inventoryTitle.substring(0,31);
+		}
 		
 		Object serverInventory = null;
 		if(this.type == null || this.type.equals(InventoryType.CHEST.toString()))
