@@ -161,27 +161,30 @@ public class DynamicGui  {
 			{
 				FileUtils
 				.copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"), 
-						this.plugin.getConfigFile());
+				this.plugin.getConfigFile());
 			} 
 			catch (IOException e) 
 			{
 				e.printStackTrace();
 			}
 		}
+		
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
 		this.version = config.getString("version").trim();
-		for(final String str : config.getStringList("servers"))
+		
+		for(final String server : config.getStringList("servers"))
 		{
-			DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + str  + "-playercount%")
+			this.serverPlayerCount.put(server, 0);
+			
+			DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server  + "-playercount%")
 			{
 				@Override
 				public String replacement(String text, PlayerWrapper<?> player)
 				{
-					return String.valueOf(serverPlayerCount.get(str));
+					return String.valueOf(serverPlayerCount.get(server));
 				}
 			});
-			this.serverPlayerCount.put(str, 0);
 		}
 	}
 
@@ -192,10 +195,9 @@ public class DynamicGui  {
 
 	public void checkForProxy()
 	{
-		MessagingRunnable runnable = new MessagingRunnable()
+		MessagingRunnable runnable = (playerWrapper, message) ->
 		{
-			@Override
-			public void run(PlayerWrapper<?> playerWrapper, byte[] message) 
+			if(message.length > 13)
 			{
 				ByteArrayDataInput in = ByteStreams.newDataInput(message);
 				String packet = in.readUTF();
@@ -205,12 +207,12 @@ public class DynamicGui  {
 					{
 						String server = in.readUTF();
 						int playerCount = in.readInt();
-						serverPlayerCount.put(server, playerCount);
+						this.serverPlayerCount.put(server, playerCount);
 					}
 				}
 			}
 		};
-		
+
 		if(this.version.equalsIgnoreCase("bungee"))
 		{
 			this.bungeecord = true;
@@ -231,7 +233,7 @@ public class DynamicGui  {
 			this.bungeecord = false;
 			this.getLogger().info("BungeeCord is not enabled!");
 		}
-		
+
 		if(this.bungeecord || this.redis)
 		{
 			this.startPlayerCountTimer();
@@ -306,42 +308,28 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
 	}
 
-	//TODO - port to dynamicgui plugins
-	/*@Override
-	public void onDisable()
-	{
-
-		this.cleanupGuis();
-		this.cleanupCommands();
-	}*/
-
-
 	private void startPlayerCountTimer()
 	{
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), new Runnable()
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () ->
 		{
-			@Override
-			public void run()
+			for(String server : serverPlayerCount.keySet())
 			{
-				for(String server : serverPlayerCount.keySet())
+				PlayerWrapper<?> player = Iterables.getFirst(DynamicGui.get().getServer().getOnlinePlayers(), null);
+				if(player != null)
 				{
-					PlayerWrapper<?> player = Iterables.getFirst(DynamicGui.get().getServer().getOnlinePlayers(), null);
-					if(player != null)
+					ByteArrayDataOutput out = ByteStreams.newDataOutput();
+					out.writeUTF("PlayerCount");
+					out.writeUTF(server);
+					String sendTo = "BungeeCord";
+					if(this.redis)
 					{
-						ByteArrayDataOutput out = ByteStreams.newDataOutput();
-						out.writeUTF("PlayerCount");
-						out.writeUTF(server);
-						String sendTo = "BungeeCord";
-						if(redis)
-						{
-							sendTo = "RedisBungee";
-						}
-						player.sendPluginMessage(DynamicGui.get().getPlugin(), sendTo, out.toByteArray());
+						sendTo = "RedisBungee";
 					}
+
+					player.sendPluginMessage(DynamicGui.get().getPlugin(), sendTo, out.toByteArray());
 				}
 			}
-		}		
-		,1L, 20L);
+		},1L, 20L);
 	}
 
 	public String getNoGui()
@@ -386,6 +374,7 @@ public class DynamicGui  {
 		{
 			globalPlayerCount += playerCount;
 		}
+		
 		return globalPlayerCount;	
 	}
 
