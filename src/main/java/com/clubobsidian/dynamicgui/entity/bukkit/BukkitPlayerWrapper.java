@@ -34,11 +34,11 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.world.bukkit.BukkitLocationWrapper;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -219,6 +219,6 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public LocationWrapper<?> getLocation() 
 	{
 		Location bukkitLoc = this.getPlayer().getLocation();
-		return new BukkitLocationWrapper<Location>(bukkitLoc);
+		return LocationManager.get().toLocationWrapper(bukkitLoc);
 	}
 }

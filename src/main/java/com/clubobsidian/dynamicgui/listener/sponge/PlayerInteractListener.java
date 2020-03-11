@@ -29,8 +29,8 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.event.player.Action;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.world.sponge.SpongeLocationWrapper;
 
 public class PlayerInteractListener {
 
@@ -48,8 +48,9 @@ public class PlayerInteractListener {
 				{
 					action = Action.RIGHT_CLICK_BLOCK;
 				}
+				
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
-				LocationWrapper<?> locationWrapper = new SpongeLocationWrapper<Location<World>>(location.get());
+				LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(location.get());
 				com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
 				DynamicGui.get().getEventBus().callEvent(interactEvent);
 				if(interactEvent.isCanceled())

@@ -50,11 +50,11 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.world.sponge.SpongeLocationWrapper;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -300,6 +300,6 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public LocationWrapper<?> getLocation() 
 	{
 		Location<World> spongeLoc = this.getPlayer().getLocation();
-		return new SpongeLocationWrapper<Location<World>>(spongeLoc);
+		return LocationManager.get().toLocationWrapper(spongeLoc);
 	}
 }

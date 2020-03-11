@@ -41,44 +41,16 @@ public abstract class LocationManager {
 		return instance;
 	}
 	
-	public Object toLocation(String location)
+	public abstract LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z);
+	public abstract LocationWrapper<?> toLocationWrapper(Object obj);
+	
+	public LocationWrapper<?> toLocationWrapper(String locationStr)
 	{
-		if(location == null || location.length() == 0)
-			return null;
-		if(!location.contains(","))
-			return null;
-		String[] split = location.split(",");
-		if(split.length != 4)
-			return null;
-		
-		try
-		{
-			int x = Integer.parseInt(split[0]);
-			int y = Integer.parseInt(split[1]);
-			int z = Integer.parseInt(split[2]);
-			String world = split[3];
-			return this.toLocation(world, x, y, z);
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		return null;
-	}
-	
-	public abstract Object toLocation(String world, int x, int y, int z);
-	
-	public abstract LocationWrapper<?> toLocationWrapper(Object location);
-	
-	public LocationWrapper<?> toLocationWrapper(String location)
-	{
-		Object obj = this.toLocation(location);
-		return this.toLocationWrapper(obj);
-	}
-	
-	public LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z)
-	{
-		Object location = this.toLocation(world, x, y, z);
-		return this.toLocationWrapper(location);
+		String[] split = locationStr.split(",");
+		Integer x = Integer.valueOf(split[0]);
+		Integer y = Integer.valueOf(split[1]);
+		Integer z = Integer.valueOf(split[2]);
+		String world = split[3];
+		return this.toLocationWrapper(world, x, y, z);
 	}
 }

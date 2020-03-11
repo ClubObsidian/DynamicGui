@@ -15,33 +15,32 @@
 */
 package com.clubobsidian.dynamicgui.manager.world.sponge;
 
-import java.util.Optional;
-
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.world.sponge.SpongeLocationWrapper;
+import com.clubobsidian.dynamicgui.world.sponge.SpongeWorldWrapper;
 
 public class SpongeLocationManager extends LocationManager {
 
+
 	@Override
-	public Object toLocation(String world, int x, int y, int z) 
+	public LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z) 
 	{
-		Optional<World> spongeWorld = Sponge.getServer().getWorld(world);
-		if(spongeWorld.isPresent())
-		{
-			return new Location<World>(spongeWorld.get(), x, y, z);
-		}
-		return null;
+		SpongeWorldWrapper worldWrapper = new SpongeWorldWrapper(world);
+		return new LocationWrapper<Location<World>>(x, y, z, worldWrapper);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public LocationWrapper<?> toLocationWrapper(Object location) 
+	public LocationWrapper<?> toLocationWrapper(Object obj) 
 	{
-		return new SpongeLocationWrapper<Location<World>>((Location<World>) location);
+		Location<World> location = (Location<World>) obj;
+		String worldName = location.getExtent().getName();
+		int x = location.getBlockX();
+		int y = location.getBlockY();
+		int z = location.getBlockZ();
+		
+		return this.toLocationWrapper(worldName, x, y, z);
 	}
 }

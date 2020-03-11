@@ -17,7 +17,7 @@ package com.clubobsidian.dynamicgui.world;
 
 import java.io.Serializable;
 
-public abstract class LocationWrapper<T> implements Serializable {
+public class LocationWrapper<T> implements Serializable {
 
 	/**
 	 * 

@@ -24,8 +24,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.world.bukkit.BukkitLocationWrapper;
 
 public class PlayerInteractListener implements Listener {
 
@@ -36,7 +36,7 @@ public class PlayerInteractListener implements Listener {
 		{
 			com.clubobsidian.dynamicgui.event.player.Action action = com.clubobsidian.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		 	LocationWrapper<?> locationWrapper = new BukkitLocationWrapper<Location>(e.getClickedBlock().getLocation());
+		 	LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(e.getClickedBlock().getLocation());
 		 	com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
 		 	DynamicGui.get().getEventBus().callEvent(interactEvent);
 		 	if(interactEvent.isCanceled())
