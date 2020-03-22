@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.ItemTypes;
 
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;

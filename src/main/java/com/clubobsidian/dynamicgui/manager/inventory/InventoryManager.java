@@ -17,9 +17,6 @@ package com.clubobsidian.dynamicgui.manager.inventory;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitInventoryManager;
-import com.clubobsidian.dynamicgui.manager.inventory.sponge.SpongeInventoryManager;
-import com.clubobsidian.dynamicgui.server.ServerType;
 
 public abstract class InventoryManager {
 
@@ -29,15 +26,9 @@ public abstract class InventoryManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == DynamicGui.get().getServer().getType())
-			{
-				instance = new BukkitInventoryManager();
-			}
-			else if(ServerType.SPONGE == DynamicGui.get().getServer().getType())
-			{
-				instance = new SpongeInventoryManager();
-			}
+			instance = DynamicGui.get().getInjector().getInstance(InventoryManager.class);
 		}
+		
 		return instance;
 	}
 	

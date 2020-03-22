@@ -35,6 +35,7 @@ import com.clubobsidian.dynamicgui.command.bukkit.CustomCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.CustomCommandExecutor;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
+import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.bukkit.EntityClickListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryClickListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryCloseListener;
@@ -42,6 +43,11 @@ import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.manager.entity.bukkit.BukkitEntityManager;
+import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitInventoryManager;
+import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitItemStackManager;
+import com.clubobsidian.dynamicgui.manager.material.bukkit.BukkitMaterialManager;
+import com.clubobsidian.dynamicgui.manager.world.bukkit.BukkitLocationManager;
 import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.permission.bukkit.VaultPermission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
@@ -49,6 +55,7 @@ import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.citizens.CitizensRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
+import com.google.inject.Injector;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
@@ -75,7 +82,17 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		this.guiFolder = new File(this.getDataFolder(), "guis");
 		this.macroFolder = new File(this.getDataFolder(), "macros");
 		
-		DynamicGui.createInstance(this, new FakeBukkitServer(), new JavaLoggerWrapper<Logger>(this.getLogger()));
+		new PluginModule()
+		.setEntity(BukkitEntityManager.class)
+		.setInventory(BukkitInventoryManager.class)
+		.setItemStack(BukkitItemStackManager.class)
+		.setLocation(BukkitLocationManager.class)
+		.setMaterial(BukkitMaterialManager.class)
+		.setLogger(new JavaLoggerWrapper<Logger>(this.getLogger()))
+		.setPlugin(this)
+		.setServer(new FakeBukkitServer())
+		.bootstrap();
+		
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{

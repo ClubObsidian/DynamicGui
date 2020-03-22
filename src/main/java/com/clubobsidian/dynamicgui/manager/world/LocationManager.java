@@ -16,9 +16,6 @@
 package com.clubobsidian.dynamicgui.manager.world;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.manager.world.bukkit.BukkitLocationManager;
-import com.clubobsidian.dynamicgui.manager.world.sponge.SpongeLocationManager;
-import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public abstract class LocationManager {
@@ -29,15 +26,9 @@ public abstract class LocationManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == DynamicGui.get().getServer().getType())
-			{
-				instance = new BukkitLocationManager();
-			}
-			else if(ServerType.SPONGE == DynamicGui.get().getServer().getType())
-			{
-				instance = new SpongeLocationManager();
-			}
+			instance = DynamicGui.get().getInjector().getInstance(LocationManager.class);
 		}
+		
 		return instance;
 	}
 	

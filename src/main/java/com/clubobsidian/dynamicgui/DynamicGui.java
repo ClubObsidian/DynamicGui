@@ -90,31 +90,36 @@ import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public class DynamicGui  {
 
-	private static DynamicGui instance = null;
+	@Inject
+	private static DynamicGui instance;
 
-	//Initialized on init
 	private String noGui;
 	private String version;
 	private boolean bungeecord;
 	private boolean redis;
 	private Map<String, Integer> serverPlayerCount;
-	
 	private EventBus eventManager;
 	private DynamicGuiPlugin plugin;
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
-	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
+	private Injector injector;
+	@Inject
+	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
 	{
 		this.eventManager = new JavassistEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
+		this.injector = injector;
 		this.serverPlayerCount = new ConcurrentHashMap<>();
 	}
 
+	@SuppressWarnings("unused")
 	private void init()
 	{
 		this.setupFileStructure();
@@ -314,7 +319,7 @@ public class DynamicGui  {
 		{
 			for(String server : serverPlayerCount.keySet())
 			{
-				PlayerWrapper<?> player = Iterables.getFirst(DynamicGui.get().getServer().getOnlinePlayers(), null);
+				PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
 				if(player != null)
 				{
 					ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -326,7 +331,7 @@ public class DynamicGui  {
 						sendTo = "RedisBungee";
 					}
 
-					player.sendPluginMessage(DynamicGui.get().getPlugin(), sendTo, out.toByteArray());
+					player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
 				}
 			}
 		},1L, 20L);
@@ -383,19 +388,13 @@ public class DynamicGui  {
 		return this.serverPlayerCount.get(server);
 	}
 
+	public Injector getInjector()
+	{
+		return this.injector;
+	}
+	
 	public static DynamicGui get() 
 	{
 		return instance;
-	}
-
-	public static DynamicGui createInstance(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper)
-	{
-		if(DynamicGui.instance == null)
-		{
-			DynamicGui.instance = new DynamicGui(plugin, server, loggerWrapper);
-			DynamicGui.instance.init();
-			return DynamicGui.instance;
-		}
-		return DynamicGui.instance;
 	}
 }

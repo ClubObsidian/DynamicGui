@@ -17,9 +17,6 @@ package com.clubobsidian.dynamicgui.manager.inventory;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitItemStackManager;
-import com.clubobsidian.dynamicgui.manager.inventory.sponge.SpongeItemStackManager;
-import com.clubobsidian.dynamicgui.server.ServerType;
 
 public abstract class ItemStackManager {
 
@@ -29,15 +26,9 @@ public abstract class ItemStackManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == DynamicGui.get().getServer().getType())
-			{
-				instance = new BukkitItemStackManager();
-			}
-			else if(ServerType.SPONGE == DynamicGui.get().getServer().getType())
-			{
-				instance = new SpongeItemStackManager();
-			}
+			instance = DynamicGui.get().getInjector().getInstance(ItemStackManager.class);
 		}
+		
 		return instance;
 	}
 	

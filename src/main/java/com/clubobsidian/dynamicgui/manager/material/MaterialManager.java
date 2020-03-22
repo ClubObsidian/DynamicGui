@@ -3,9 +3,6 @@ package com.clubobsidian.dynamicgui.manager.material;
 import java.util.List;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.manager.material.bukkit.BukkitMaterialManager;
-import com.clubobsidian.dynamicgui.manager.material.sponge.SpongeMaterialManager;
-import com.clubobsidian.dynamicgui.server.ServerType;
 
 public abstract class MaterialManager {
 
@@ -15,15 +12,9 @@ public abstract class MaterialManager {
 	{
 		if(instance == null)
 		{
-			if(ServerType.SPIGOT == DynamicGui.get().getServer().getType())
-			{
-				instance = new BukkitMaterialManager();
-			}
-			else if(ServerType.SPONGE == DynamicGui.get().getServer().getType())
-			{
-				instance = new SpongeMaterialManager();
-			}
+			instance = DynamicGui.get().getInjector().getInstance(MaterialManager.class);
 		}
+		
 		return instance;
 	}
 	
