@@ -55,7 +55,6 @@ import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.citizens.CitizensRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
-import com.google.inject.Injector;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
