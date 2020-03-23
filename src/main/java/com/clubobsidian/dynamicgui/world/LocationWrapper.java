@@ -57,6 +57,12 @@ public class LocationWrapper<T> implements Serializable {
 	}
 	
 	@Override
+	public String toString() 
+	{
+		return "LocationWrapper [x=" + x + ", y=" + y + ", z=" + z + ", world=" + world + "]";
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if(obj == null)

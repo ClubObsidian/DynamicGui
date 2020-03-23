@@ -19,16 +19,20 @@ import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.command.sponge.SpongeDynamicGuiCommand;
 import com.clubobsidian.dynamicgui.command.sponge.SpongeGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.sponge.EntityClickListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryClickListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.sponge.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.Sl4jLoggerWrapper;
+import com.clubobsidian.dynamicgui.manager.entity.sponge.SpongeEntityManager;
+import com.clubobsidian.dynamicgui.manager.inventory.sponge.SpongeInventoryManager;
+import com.clubobsidian.dynamicgui.manager.inventory.sponge.SpongeItemStackManager;
+import com.clubobsidian.dynamicgui.manager.material.sponge.SpongeMaterialManager;
+import com.clubobsidian.dynamicgui.manager.world.sponge.SpongeLocationManager;
 import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.server.sponge.FakeSpongeServer;
 
@@ -87,8 +91,18 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		this.configFile = new File(this.dataFolder, "config.yml");
 		this.guiFolder = new File(this.dataFolder, "guis");
 		this.macroFolder = new File(this.dataFolder, "macros");
-		
-		DynamicGui.createInstance(this, new FakeSpongeServer(), new Sl4jLoggerWrapper<Logger>(this.logger));
+
+		new PluginModule()
+		.setEntity(SpongeEntityManager.class)
+		.setInventory(SpongeInventoryManager.class)
+		.setItemStack(SpongeItemStackManager.class)
+		.setLocation(SpongeLocationManager.class)
+		.setMaterial(SpongeMaterialManager.class)
+		.setLogger(new Sl4jLoggerWrapper<Logger>(this.logger))
+		.setPlugin(this)
+		.setServer(new FakeSpongeServer())
+		.bootstrap();
+
 		CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
 				.executor(new SpongeGuiCommand())
 				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("gui"))))
