@@ -83,7 +83,7 @@ import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.javassist.JavassistEventBus;
-
+import com.clubobsidian.trident.eventbus.reflection.ReflectionEventBus;
 import com.clubobsidian.wrappy.Configuration;
 
 import com.google.common.collect.Iterables;
@@ -111,7 +111,7 @@ public class DynamicGui  {
 	@Inject
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
 	{
-		this.eventManager = new JavassistEventBus();
+		this.eventManager = new ReflectionEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
