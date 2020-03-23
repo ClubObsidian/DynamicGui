@@ -14,7 +14,6 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 
@@ -89,6 +88,11 @@ public class PluginModule implements Module {
 		binder.bind(FakeServer.class).toInstance(this.fakeServer);
 		binder.bind(new TypeLiteral<LoggerWrapper<?>>(){}).toInstance(this.loggerWrapper);
 		
+		binder.requestStaticInjection(EntityManager.class);
+		binder.requestStaticInjection(InventoryManager.class);
+		binder.requestStaticInjection(ItemStackManager.class);
+		binder.requestStaticInjection(MaterialManager.class);
+		binder.requestStaticInjection(LocationManager.class);
 		binder.requestStaticInjection(DynamicGui.class);
 	}
 	

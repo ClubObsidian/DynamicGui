@@ -15,20 +15,16 @@
 */
 package com.clubobsidian.dynamicgui.manager.world;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.google.inject.Inject;
 
 public abstract class LocationManager {
 
+	@Inject
 	private static LocationManager instance;
 	
 	public static LocationManager get()
 	{
-		if(instance == null)
-		{
-			instance = DynamicGui.get().getInjector().getInstance(LocationManager.class);
-		}
-		
 		return instance;
 	}
 	

@@ -15,20 +15,16 @@
 */
 package com.clubobsidian.dynamicgui.manager.inventory;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.google.inject.Inject;
 
 public abstract class InventoryManager {
 
+	@Inject
 	private static InventoryManager instance;
 	
 	public static InventoryManager get()
 	{
-		if(instance == null)
-		{
-			instance = DynamicGui.get().getInjector().getInstance(InventoryManager.class);
-		}
-		
 		return instance;
 	}
 	

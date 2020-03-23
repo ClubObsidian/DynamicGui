@@ -2,19 +2,15 @@ package com.clubobsidian.dynamicgui.manager.material;
 
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
+import com.google.inject.Inject;
 
 public abstract class MaterialManager {
 
+	@Inject
 	private static MaterialManager instance;
 	
 	public static MaterialManager get()
 	{
-		if(instance == null)
-		{
-			instance = DynamicGui.get().getInjector().getInstance(MaterialManager.class);
-		}
-		
 		return instance;
 	}
 	

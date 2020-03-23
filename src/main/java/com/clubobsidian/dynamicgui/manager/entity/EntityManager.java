@@ -2,20 +2,16 @@ package com.clubobsidian.dynamicgui.manager.entity;
 
 import java.util.List;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.google.inject.Inject;
 
 public abstract class EntityManager {
 
+	@Inject
 	private static EntityManager instance;
 	
 	public static EntityManager get()
-	{
-		if(instance == null)
-		{
-			instance = DynamicGui.get().getInjector().getInstance(EntityManager.class);
-		}
-		
+	{	
 		return instance;
 	}
 	

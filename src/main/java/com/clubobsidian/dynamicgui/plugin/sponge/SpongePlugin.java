@@ -91,7 +91,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		this.configFile = new File(this.dataFolder, "config.yml");
 		this.guiFolder = new File(this.dataFolder, "guis");
 		this.macroFolder = new File(this.dataFolder, "macros");
-		
+
 		new PluginModule()
 		.setEntity(SpongeEntityManager.class)
 		.setInventory(SpongeInventoryManager.class)
@@ -102,7 +102,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		.setPlugin(this)
 		.setServer(new FakeSpongeServer())
 		.bootstrap();
-		
+
 		CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
 				.executor(new SpongeGuiCommand())
 				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("gui"))))
