@@ -111,7 +111,7 @@ public class DynamicGui  {
 	@Inject
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
 	{
-		this.eventManager = new ReflectionEventBus();
+		this.eventManager = this.getVersionEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
@@ -391,6 +391,17 @@ public class DynamicGui  {
 	public Injector getInjector()
 	{
 		return this.injector;
+	}
+	
+	private EventBus getVersionEventBus()
+	{
+		String version = System.getProperty("java.version");
+		if(version.startsWith("1.8"))
+		{
+			return new JavassistEventBus();
+		}
+		
+		return new ReflectionEventBus();
 	}
 	
 	public static DynamicGui get() 
