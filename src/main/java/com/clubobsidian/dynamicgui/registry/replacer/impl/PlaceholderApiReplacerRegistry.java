@@ -26,12 +26,10 @@ import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 
-	private Class<?> placeHolderApiClass;
 	private Method setPlaceHolders;
 	public PlaceholderApiReplacerRegistry()
 	{
-		this.placeHolderApiClass = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
-		this.setPlaceHolders = ReflectionUtil.getMethod(this.placeHolderApiClass, "setPlaceholders", OfflinePlayer.class, String.class);
+		this.setPlaceHolders = this.getPlaceholdersMethod();
 	}
 
 	@Override
@@ -46,5 +44,11 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private Method getPlaceholdersMethod()
+	{
+		Class<?> clazz = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
+		return ReflectionUtil.getMethod(clazz, "setPlaceholders", OfflinePlayer.class, String.class);
 	}
 }
