@@ -30,7 +30,6 @@ public class CitizensRegistry implements NPCRegistry
 {
 	private static final String PLUGIN_NAME = "Citizens";
 	
-	private Class<?> citizensApiClass;
 	private Class<?> npcClass;
 	private Method getNPCRegistryMethod;
 	private Method getNPCMethod;
@@ -38,7 +37,6 @@ public class CitizensRegistry implements NPCRegistry
 	private Object npcRegistry;
 	public CitizensRegistry()
 	{
-		this.citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
 		this.npcClass = ReflectionUtil.classForName("net.citizensnpcs.api.npc.NPC");
 		this.npcRegistry = this.getNPCRegistry();
 		this.getIdMethod = ReflectionUtil.getMethod(this.npcClass, "getId");
@@ -47,7 +45,9 @@ public class CitizensRegistry implements NPCRegistry
 	
 	private Object getNPCRegistry()
 	{
-		this.getNPCRegistryMethod = ReflectionUtil.getMethod(this.citizensApiClass, "getNPCRegistry");
+		Class<?> citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
+		this.getNPCRegistryMethod = ReflectionUtil.getMethod(citizensApiClass, "getNPCRegistry");
+		
 		try 
 		{
 			return this.getNPCRegistryMethod.invoke(null);
@@ -56,6 +56,7 @@ public class CitizensRegistry implements NPCRegistry
 		{
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 	
