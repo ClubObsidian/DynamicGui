@@ -41,6 +41,7 @@ import com.clubobsidian.dynamicgui.function.impl.RandomFunction;
 import com.clubobsidian.dynamicgui.function.impl.RemovePermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.ResetFrameFunction;
+import com.clubobsidian.dynamicgui.function.impl.ResetTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.function.impl.ServerBroadcastFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetAmountFunction;
@@ -257,8 +258,9 @@ public class DynamicGui  {
 	private void loadFunctions()
 	{
 		FunctionManager.get().addFunction(new CheckTickFunction("checktick"));
-		FunctionManager.get().addFunction(new ResetFrameFunction("resetframe"));
 		FunctionManager.get().addFunction(new ConditionFunction("condition"));
+		FunctionManager.get().addFunction(new ResetFrameFunction("resetframe"));
+		FunctionManager.get().addFunction(new ResetTickFunction("resettick"));
 		
 		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
 		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));

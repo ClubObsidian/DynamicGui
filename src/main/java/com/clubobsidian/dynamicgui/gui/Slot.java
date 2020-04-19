@@ -240,6 +240,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	{
 		return this.tick;
 	}
+	
+	@Override
+	public void resetTick() 
+	{
+		this.tick = 0;
+	}
 
 	@Override
 	public int tick() 
