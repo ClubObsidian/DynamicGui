@@ -195,7 +195,9 @@ public class GuiManager {
 			}
 			
 			if(inventoryWrapper == null)
+			{
 				return false;
+			}
 			
 			if(DynamicGui.get().getServer().getType() == ServerType.SPONGE)
 			{
@@ -208,6 +210,7 @@ public class GuiManager {
 			{
 				playerWrapper.openInventory(inventoryWrapper);
 			}
+			
 			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
 			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
 			{
@@ -221,6 +224,33 @@ public class GuiManager {
 		return ran;
 	}
 	
+	private void loadGlobalMacroFromFile(File file)
+	{
+		String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
+		Long fileModified = file.lastModified();
+		Long cacheModified = this.globalMacrosTimestamps.get(macroName);
+		if(cacheModified == null || !fileModified.equals(cacheModified))
+		{
+			List<MacroToken> tokens = new ArrayList<>();
+			Configuration config = Configuration.load(file);
+			for(String key : config.getKeys())
+			{
+				ConfigurationSection section = config.getConfigurationSection(key);
+				MacroToken token = new MacroToken(section);
+				tokens.add(token);
+			}
+			
+			this.modifiedMacros.add(macroName);
+			this.globalMacrosTimestamps.put(macroName, fileModified);
+			this.globalMacros.put(macroName, tokens);
+		}
+		else
+		{
+			List<MacroToken> cachedTokens = this.cachedGlobalMacros.get(macroName);
+			this.globalMacros.put(macroName, cachedTokens);
+		}
+	}
+	
 	private void loadGlobalMacros()
 	{
 		File macroFolder = DynamicGui.get().getPlugin().getMacroFolder();
@@ -229,29 +259,7 @@ public class GuiManager {
 		
 		for(File file : macroFiles)
 		{
-			String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
-			Long fileModified = file.lastModified();
-			Long cacheModified = this.globalMacrosTimestamps.get(macroName);
-			if(cacheModified == null || !fileModified.equals(cacheModified))
-			{
-				List<MacroToken> tokens = new ArrayList<>();
-				Configuration config = Configuration.load(file);
-				for(String key : config.getKeys())
-				{
-					ConfigurationSection section = config.getConfigurationSection(key);
-					MacroToken token = new MacroToken(section);
-					tokens.add(token);
-				}
-				
-				this.modifiedMacros.add(macroName);
-				this.globalMacrosTimestamps.put(macroName, fileModified);
-				this.globalMacros.put(macroName, tokens);
-			}
-			else
-			{
-				List<MacroToken> cachedTokens = this.cachedGlobalMacros.get(macroName);
-				this.globalMacros.put(macroName, cachedTokens);
-			}
+			this.loadGlobalMacroFromFile(file);
 		}
 		
 		Iterator<Entry<String, List<MacroToken>>> it = this.cachedGlobalMacros.entrySet().iterator();
@@ -274,6 +282,42 @@ public class GuiManager {
 		this.cleanupGuis();
 	}
 	
+	private void loadGuiFromFile(File file)
+	{
+		DynamicGui dynamicGui = DynamicGui.get();
+		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
+		
+		try
+		{
+			String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
+			Long modifiedTime = file.lastModified();
+			Long cacheModifiedTime = this.guiTimestamps.get(guiName);
+			GuiToken token = this.cachedTokens.get(guiName);
+			if(token != null && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime) && !hasUpdatedMacro(token))
+			{
+				Gui cachedGui = this.cachedGuis.get(guiName);
+				for(String alias : token.getAlias())
+				{
+					plugin.createCommand(guiName, alias);
+				}
+				
+				this.guis.put(guiName, cachedGui);
+				dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
+			}
+			else
+			{
+				Configuration yaml = Configuration.load(file);
+				this.guiTimestamps.put(guiName, modifiedTime);
+				this.loadGuiFromConfiguration(guiName, yaml);
+			}
+		}	
+		catch(NullPointerException ex)
+		{
+			dynamicGui.getLogger().info("Error loading in file: " + file.getName());
+			ex.printStackTrace();
+		}
+	}
+	
 	private void loadFileGuis()
 	{
 		DynamicGui dynamicGui = DynamicGui.get();
@@ -286,36 +330,7 @@ public class GuiManager {
 		{
 			for(File file : ar)
 			{
-				try
-				{
-					
-					String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-					Long modifiedTime = file.lastModified();
-					Long cacheModifiedTime = this.guiTimestamps.get(guiName);
-					GuiToken token = this.cachedTokens.get(guiName);
-					if(token != null && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime) && !hasUpdatedMacro(token))
-					{
-						Gui cachedGui = this.cachedGuis.get(guiName);
-						for(String alias : token.getAlias())
-						{
-							plugin.createCommand(guiName, alias);
-						}
-						
-						this.guis.put(guiName, cachedGui);
-						dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
-					}
-					else
-					{
-						Configuration yaml = Configuration.load(file);
-						this.guiTimestamps.put(guiName, modifiedTime);
-						this.loadGuiFromConfiguration(guiName, yaml);
-					}
-				}	
-				catch(NullPointerException ex)
-				{
-					dynamicGui.getLogger().info("Error loading in file: " + file.getName());
-					ex.printStackTrace();
-				}	
+				this.loadGuiFromFile(file);
 			}
 		} 
 		else 
@@ -340,6 +355,22 @@ public class GuiManager {
 		return false;
 	}
 	
+	private void loadRemoteGui(File tempDirectory, String guiName, String strUrl)
+	{
+		try 
+		{
+			URL url = new URL(strUrl);
+			File backupFile = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
+			File tempFile = new File(tempDirectory, guiName);
+			Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
+			this.loadGuiFromConfiguration(guiName, guiConfiguration);
+		} 
+		catch (MalformedURLException e) 
+		{
+			e.printStackTrace();
+			DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
+		}
+	}
 	
 	private void loadRemoteGuis()
 	{
@@ -365,21 +396,9 @@ public class GuiManager {
 			for(String key :  remote.getKeys())
 			{
 				ConfigurationSection guiSection = remote.getConfigurationSection(key);
-				String strUrl = guiSection.getString("url");
-				try 
-				{
-					URL url = new URL(strUrl);
-					String guiName = guiSection.getString("file-name");
-					File backupFile = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
-					File tempFile = new File(tempDirectory, guiName);
-					Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
-					this.loadGuiFromConfiguration(guiName, guiConfiguration);
-				} 
-				catch (MalformedURLException e) 
-				{
-					e.printStackTrace();
-					DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
-				}
+				String strURL = guiSection.getString("url");
+				String guiName = guiSection.getString("file-name");
+				this.loadRemoteGui(tempDirectory, guiName, strURL);
 			}
 		}
 	}
@@ -463,7 +482,7 @@ public class GuiManager {
 				lore.add(ChatColor.translateAlternateColorCodes('&', ls));
 			}
 
-			List<EnchantmentWrapper> enchants = new ArrayList<EnchantmentWrapper>();
+			List<EnchantmentWrapper> enchants = new ArrayList<>();
 				
 			for(String ench : slotToken.getEnchants())
 			{
