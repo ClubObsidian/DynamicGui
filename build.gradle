@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens;
+
 buildscript {
   repositories {
     jcenter()
@@ -13,6 +15,8 @@ plugins {
 	id 'org.spongepowered.plugin' version '0.9.0'
 }
 
+
+version = '4.0.0'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -36,6 +40,13 @@ sponge {
 			name = 'DynamicGui'
 		}
     }
+}
+
+processResources {
+	from(sourceSets.main.resources) {
+		include 'plugin.yml'
+		filter(ReplaceTokens, tokens: ['VERSION' : project.version])
+	}
 }
 
 shadowJar {
