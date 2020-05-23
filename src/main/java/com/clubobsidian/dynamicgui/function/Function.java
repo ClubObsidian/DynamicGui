@@ -34,22 +34,20 @@ public abstract class Function implements Cloneable, Serializable {
 	private FunctionOwner owner;
 	private int index = -1;
 	
-	public Function(String name)
-	{
-		this.name = StringFuzz.normalize(name);
-		this.data = null;
-	}
-	
 	public Function(String name, String data)
 	{
 		this.name = StringFuzz.normalize(name);
 		this.data = data;
 	}
 	
+	public Function(String name)
+	{
+		this(name, null);
+	}
+	
 	public Function(Function function) 
 	{
-		this.name = StringFuzz.normalize(function.getName());
-		this.data = function.getData();
+		this(function.getName(), function.getData());
 	}
 
 	public abstract boolean function(PlayerWrapper<?> playerWrapper);
