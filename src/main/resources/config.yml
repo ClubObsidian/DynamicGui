@@ -1,7 +1,10 @@
 no-gui: "&4That gui does not exist!"
-#checks to see if you are using the version spigot, if you have a custom version name change this
-#used to check the value for bungee, change this to "bungee" if you want to force bungee or "redis" if you want to force redis.
-version: "spigot"
+#Configure proxy types
+# Proxy types:
+# bungee - If you use Bungeecord as your proxy
+# redis - If you use redis bungee on a bungeecord proxy
+# none - If you do not use a proxy
+proxy: "none"
 servers:
 - "prison"
 

@@ -18,8 +18,6 @@ package com.clubobsidian.dynamicgui.function.impl;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 
 public class SendFunction extends Function {
 
@@ -36,10 +34,6 @@ public class SendFunction extends Function {
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
 	{
-		ByteArrayDataOutput out = ByteStreams.newDataOutput();
-		out.writeUTF("Connect");
-		out.writeUTF(this.getData());
-		playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
-		return true;
+		return DynamicGui.get().sendToServer(playerWrapper, this.getData());
 	}
 }

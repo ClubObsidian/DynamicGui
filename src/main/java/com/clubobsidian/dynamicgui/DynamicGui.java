@@ -76,6 +76,7 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.proxy.Proxy;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
@@ -100,9 +101,7 @@ public class DynamicGui  {
 	private static DynamicGui instance;
 
 	private String noGui;
-	private String version;
-	private boolean bungeecord;
-	private boolean redis;
+	private Proxy proxy;
 	private Map<String, Integer> serverPlayerCount;
 	private EventBus eventManager;
 	private DynamicGuiPlugin plugin;
@@ -177,7 +176,25 @@ public class DynamicGui  {
 		
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
-		this.version = config.getString("version").trim();
+		String version = config.getString("version");
+		if(version != null)
+		{
+			version = version.trim();
+		}
+		
+		String proxyStr = config.getString("proxy");
+		if(proxyStr == null) 
+		{
+			proxyStr = version;
+			config.set("proxy", proxyStr);
+			config.save();
+		}
+		else
+		{
+			proxyStr = proxyStr.trim();
+		}
+		
+		this.proxy = this.findProxyByString(proxyStr);
 		
 		for(final String server : config.getStringList("servers"))
 		{
@@ -219,16 +236,14 @@ public class DynamicGui  {
 			}
 		};
 
-		if(this.version.equalsIgnoreCase("bungee"))
+		if(this.proxy == Proxy.BUNGEECORD)
 		{
-			this.bungeecord = true;
 			this.getLogger().info("BungeeCord is enabled!");
 			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
 			this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
 		}
-		else if(this.version.equalsIgnoreCase("redis"))
+		else if(this.proxy == Proxy.REDIS_BUNGEE)
 		{
-			this.redis = true;
 			this.getLogger().info("RedisBungee is enabled");
 			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
 			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
@@ -236,11 +251,10 @@ public class DynamicGui  {
 		}
 		else
 		{
-			this.bungeecord = false;
-			this.getLogger().info("BungeeCord is not enabled!");
+			this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
 		}
 
-		if(this.bungeecord || this.redis)
+		if(this.proxy != Proxy.NONE)
 		{
 			this.startPlayerCountTimer();
 		}
@@ -328,7 +342,7 @@ public class DynamicGui  {
 					out.writeUTF("PlayerCount");
 					out.writeUTF(server);
 					String sendTo = "BungeeCord";
-					if(this.redis)
+					if(this.proxy == Proxy.REDIS_BUNGEE)
 					{
 						sendTo = "RedisBungee";
 					}
@@ -344,14 +358,21 @@ public class DynamicGui  {
 		return this.noGui;
 	}
 
+	@Deprecated
 	public boolean getBungeeCord()
 	{
-		return this.bungeecord;
+		return this.proxy == Proxy.BUNGEECORD;
 	}
 
+	@Deprecated
 	public boolean getRedisBungee()
 	{
-		return this.redis;
+		return this.proxy == Proxy.REDIS_BUNGEE;
+	}
+	
+	public Proxy getProxy()
+	{
+		return this.proxy;
 	}
 
 	public DynamicGuiPlugin getPlugin()
@@ -409,5 +430,37 @@ public class DynamicGui  {
 	public static DynamicGui get() 
 	{
 		return instance;
+	}
+	
+	private Proxy findProxyByString(String proxyStr) 
+	{
+		if(proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) 
+		{
+			return Proxy.BUNGEECORD;
+		}
+		else if(proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee"))
+		{
+			return Proxy.REDIS_BUNGEE;
+		}
+		
+		return Proxy.NONE;
+	}
+
+	public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) 
+	{
+		if(this.server == null)
+		{
+			return false;
+		}
+		else if(this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) 
+		{
+			ByteArrayDataOutput out = ByteStreams.newDataOutput();
+			out.writeUTF("Connect");
+			out.writeUTF(server);
+			playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
+			return true;
+		}
+		
+		return false;
 	}
 }
