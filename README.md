@@ -75,12 +75,7 @@ You find find [gui documentation here](https://dynamicgui.github.io/documentatio
 
 ## Contributing
 
-There are a few ways you can contribute to DynamicGui. The first is filling issue reports, which is a great help.
-The second way you can contribute is by submitting code. We accept most contributions which do not break
-backwards compatability. DynamicGui should not have any hard dependencies on plugins on build-time or run-time.
-Please use reflection if you want or need a plugin dependency. If you are writing against a plugin dependency a 
-registry should be created so that other plugin dependencies can be optionally used in the future. Before your code will
-be accepted please sign our [CLA](https://cla-assistant.io/ClubObsidian/DynamicGui).
+Before contributing please read our [documentation on contributing.](CONTRIBUTING.md)
 
 
 ## Development
