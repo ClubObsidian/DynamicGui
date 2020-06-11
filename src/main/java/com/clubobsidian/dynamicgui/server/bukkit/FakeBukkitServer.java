@@ -37,6 +37,9 @@ import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+
 public class FakeBukkitServer extends FakeServer {
 
 	public FakeBukkitServer() 
@@ -48,6 +51,13 @@ public class FakeBukkitServer extends FakeServer {
 	public void broadcastMessage(String message) 
 	{
 		Bukkit.getServer().broadcastMessage(message);
+	}
+	
+	@Override
+	public void broadcastJsonMessage(String json) 
+	{
+		BaseComponent[] components = ComponentSerializer.parse(json);
+		Bukkit.getServer().spigot().broadcast(components);
 	}
 	
 	@Override

@@ -24,6 +24,7 @@ import java.util.UUID;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.World;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -48,6 +49,12 @@ public class FakeSpongeServer extends FakeServer {
 	public void broadcastMessage(String message) 
 	{
 		Sponge.getServer().getBroadcastChannel().send(Text.of(message));
+	}
+	
+	@Override
+	public void broadcastJsonMessage(String json)
+	{
+		Sponge.getServer().getBroadcastChannel().send(TextSerializers.JSON.deserialize(json));
 	}
 	
 	@Override

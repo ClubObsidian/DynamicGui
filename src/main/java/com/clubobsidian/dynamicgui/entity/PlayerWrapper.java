@@ -40,6 +40,7 @@ public abstract class PlayerWrapper<T> {
 	public abstract UUID getUniqueId();
 	public abstract void chat(String message);
 	public abstract void sendMessage(String message);
+	public abstract void sendJsonMessage(String data);
 	public abstract boolean hasPermission(String permission);
 	public abstract boolean addPermission(String permission);
 	public abstract boolean removePermission(String permission);

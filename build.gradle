@@ -26,6 +26,7 @@ repositories {
 	maven {
 		url = 'https://repo.spongepowered.org/maven'
     }
+    maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
     mavenCentral()
 	maven { 
     	url 'https://jitpack.io' 
@@ -64,7 +65,8 @@ dependencies {
     
     //Server implementations
     
-    compileOnly 'org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
     compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
     	exclude group: 'org.spongepowered', module: 'testmods'
     }

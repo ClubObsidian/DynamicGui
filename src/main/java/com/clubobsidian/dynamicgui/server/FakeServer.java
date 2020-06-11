@@ -38,6 +38,7 @@ public abstract class FakeServer {
 	}
 	
 	public abstract void broadcastMessage(String message);
+	public abstract void broadcastJsonMessage(String json);
 	public abstract void dispatchServerCommand(String command);
 	public abstract PlayerWrapper<?> getPlayer(UUID uuid);
 	public abstract PlayerWrapper<?> getPlayer(String name);

@@ -40,6 +40,9 @@ import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
 	public BukkitPlayerWrapper(T player) 
@@ -69,6 +72,13 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public void sendMessage(String message) 
 	{
 		this.getPlayer().sendMessage(message);
+	}
+	
+	@Override
+	public void sendJsonMessage(String json)
+	{
+		BaseComponent[] components = ComponentSerializer.parse(json);
+		this.getPlayer().spigot().sendMessage(components);
 	}
 
 	@Override

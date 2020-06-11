@@ -42,6 +42,7 @@ import org.spongepowered.api.statistic.BlockStatistic;
 import org.spongepowered.api.statistic.EntityStatistic;
 import org.spongepowered.api.statistic.StatisticTypes;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
@@ -89,6 +90,12 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 	public void sendMessage(String message) 
 	{
 		this.getPlayer().sendMessage(Text.of(message));
+	}
+	
+	@Override
+	public void sendJsonMessage(String json) 
+	{
+		this.getPlayer().sendMessage(TextSerializers.JSON.deserialize(json));
 	}
 
 	@Override
