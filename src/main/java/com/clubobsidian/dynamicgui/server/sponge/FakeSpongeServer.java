@@ -32,6 +32,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.proxy.Proxy;
 import com.clubobsidian.dynamicgui.scheduler.sponge.SpongeScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -86,10 +87,11 @@ public class FakeSpongeServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		if(DynamicGui.get().getRedisBungee() || DynamicGui.get().getBungeeCord())
+		if(DynamicGui.get().getProxy() != Proxy.NONE)
 		{
 			return DynamicGui.get().getGlobalServerPlayerCount();
 		}
+		
 		return Sponge.getServer().getOnlinePlayers().size();
 	}
 

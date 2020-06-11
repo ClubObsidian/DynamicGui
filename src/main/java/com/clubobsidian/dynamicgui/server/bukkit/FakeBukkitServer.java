@@ -31,6 +31,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.proxy.Proxy;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
@@ -72,7 +73,6 @@ public class FakeBukkitServer extends FakeServer {
 		return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(uuid));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public PlayerWrapper<?> getPlayer(String name) 
 	{
@@ -90,10 +90,11 @@ public class FakeBukkitServer extends FakeServer {
 	@Override
 	public int getGlobalPlayerCount() 
 	{
-		if(DynamicGui.get().getRedisBungee() || DynamicGui.get().getBungeeCord())
+		if(DynamicGui.get().getProxy() != Proxy.NONE)
 		{
 			return DynamicGui.get().getGlobalServerPlayerCount();
 		}
+		
 		return Bukkit.getServer().getOnlinePlayers().size();
 	}
 
