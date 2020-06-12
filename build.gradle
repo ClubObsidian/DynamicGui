@@ -65,7 +65,7 @@ dependencies {
     
     //Server implementations
     
-    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT'
     compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
     compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
     	exclude group: 'org.spongepowered', module: 'testmods'
