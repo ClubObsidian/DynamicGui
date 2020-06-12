@@ -114,20 +114,6 @@ public class PluginModule implements Module {
 	public boolean bootstrap()
 	{
 		Guice.createInjector(this);
-		DynamicGui dynamicGui = DynamicGui.get();
-		Class<?> dynamicGuiClass = dynamicGui.getClass();
-		try 
-		{
-			Method init = dynamicGuiClass.getDeclaredMethod("init");
-			init.setAccessible(true);
-			init.invoke(dynamicGui);
-			return true;
-		} 
-		catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return false;
+		return DynamicGui.get() != null;
 	}
 }

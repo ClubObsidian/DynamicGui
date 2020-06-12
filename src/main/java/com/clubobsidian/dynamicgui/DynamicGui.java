@@ -100,6 +100,17 @@ public class DynamicGui  {
 	@Inject
 	private static DynamicGui instance;
 
+	public static DynamicGui get() 
+	{
+		if(!instance.initialized)
+		{
+			instance.initialized = true;
+			instance.init();
+		}
+		
+		return instance;
+	}
+	
 	private String noGui;
 	private Proxy proxy;
 	private Map<String, Integer> serverPlayerCount;
@@ -108,6 +119,7 @@ public class DynamicGui  {
 	private FakeServer server;
 	private LoggerWrapper<?> loggerWrapper;
 	private Injector injector;
+	private boolean initialized;
 	@Inject
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
 	{
@@ -117,9 +129,9 @@ public class DynamicGui  {
 		this.loggerWrapper = loggerWrapper;
 		this.injector = injector;
 		this.serverPlayerCount = new ConcurrentHashMap<>();
+		this.initialized = false;
 	}
 
-	@SuppressWarnings("unused")
 	private void init()
 	{
 		this.setupFileStructure();
@@ -425,11 +437,6 @@ public class DynamicGui  {
 		}
 		
 		return new ReflectionEventBus();
-	}
-	
-	public static DynamicGui get() 
-	{
-		return instance;
 	}
 	
 	private Proxy findProxyByString(String proxyStr) 
