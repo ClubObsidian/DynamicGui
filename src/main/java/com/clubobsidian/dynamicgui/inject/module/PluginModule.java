@@ -15,9 +15,6 @@
 */
 package com.clubobsidian.dynamicgui.inject.module;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
