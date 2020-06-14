@@ -34,6 +34,11 @@ public class BukkitLocationManager extends LocationManager {
 	@Override
 	public LocationWrapper<?> toLocationWrapper(Object obj) 
 	{
+		if(!(obj instanceof Location))
+		{
+			return null;
+		}
+		
 		Location location = (Location) obj;
 		String worldName = location.getWorld().getName();
 		int x = location.getBlockX();

@@ -101,6 +101,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		this.getItemStack().setQuantity(amount);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String getName() 
 	{
@@ -118,6 +119,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		this.getItemStack().offer(Keys.DISPLAY_NAME, Text.of(name));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<String> getLore() 
 	{

@@ -32,9 +32,15 @@ public class SpongeLocationManager extends LocationManager {
 		return new LocationWrapper<Location<World>>(x, y, z, worldWrapper);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public LocationWrapper<?> toLocationWrapper(Object obj) 
 	{
+		if(!(obj instanceof Location))
+		{
+			return null;
+		}
+		
 		Location<World> location = (Location<World>) obj;
 		String worldName = location.getExtent().getName();
 		int x = location.getBlockX();

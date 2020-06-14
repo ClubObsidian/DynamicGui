@@ -218,7 +218,6 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 		return 0;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void updateInventory() 
 	{
