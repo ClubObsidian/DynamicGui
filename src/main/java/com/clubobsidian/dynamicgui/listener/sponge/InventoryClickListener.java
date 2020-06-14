@@ -46,7 +46,6 @@ public class InventoryClickListener {
 	public void inventoryClick(ClickInventoryEvent e, @First Player player)
 	{
 		Click clickType = null;
-		boolean shift = false;
 		if(e instanceof ClickInventoryEvent.Primary)
 		{
 			clickType = Click.LEFT;
@@ -61,13 +60,11 @@ public class InventoryClickListener {
 		}
 		else if(e instanceof ClickInventoryEvent.Shift.Primary)
 		{
-			clickType = Click.LEFT;
-			shift = true;
+			clickType = Click.SHIFT_LEFT;
 		}
 		else if(e instanceof ClickInventoryEvent.Shift.Secondary)
 		{
-			clickType = Click.RIGHT;
-			shift = true;
+			clickType = Click.SHIFT_RIGHT;
 		}
 		
 
@@ -113,7 +110,7 @@ public class InventoryClickListener {
 				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
 				InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(inventory);
 				
-				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType, shift, view);
+				com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType, view);
 				DynamicGui.get().getEventBus().callEvent(clickEvent);
 				if(clickEvent.isCanceled())
 				{
