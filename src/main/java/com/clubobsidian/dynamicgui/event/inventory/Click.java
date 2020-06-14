@@ -19,6 +19,8 @@ public enum Click {
 
 	LEFT,
 	RIGHT,
-	MIDDLE;
+	MIDDLE,
+	SHIFT_LEFT,
+	SHIFT_RIGHT;
 	
 }

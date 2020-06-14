@@ -53,7 +53,7 @@ public class InventoryClickListener implements Listener {
 		if(e.getWhoClicked() instanceof Player)
 		{
 			Click clickType = null;
-			if(e.getClick() == ClickType.LEFT || e.getClick() == ClickType.RIGHT || e.getClick() == ClickType.MIDDLE)
+			if(this.isClick(e.getClick()))
 			{
 				clickType = Click.valueOf(e.getClick().toString());
 			}
@@ -77,14 +77,30 @@ public class InventoryClickListener implements Listener {
 				itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(itemStack);
 			}
 			
-			boolean shiftClick = e.isShiftClick();
-			
-			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, shiftClick, view);
+			com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
 			DynamicGui.get().getEventBus().callEvent(clickEvent);
 			if(clickEvent.isCanceled())
 			{
 				e.setCancelled(true);
 			}
 		}
-	}	
+	}
+	
+	private boolean isClick(ClickType type)
+	{
+		switch(type) {
+			case LEFT:
+				return true;
+			case RIGHT:
+				return true;
+			case MIDDLE:
+				return true;
+			case SHIFT_LEFT:
+				return true;
+			case SHIFT_RIGHT:
+				return true;
+			default:
+				return false;
+		}
+	}
 }
