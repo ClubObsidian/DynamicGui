@@ -34,6 +34,7 @@ public class SlotBuilder {
 	private String nbt;
 	private short data;
 	private boolean glow;
+	private boolean moveable;
 	private Boolean close;
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
@@ -84,6 +85,12 @@ public class SlotBuilder {
 	public SlotBuilder setGlow(boolean glow)
 	{
 		this.glow = glow;
+		return this;
+	}
+	
+	public SlotBuilder setMoveable(boolean moveable)
+	{
+		this.moveable = moveable;
 		return this;
 	}
 	
@@ -216,6 +223,6 @@ public class SlotBuilder {
 	
 	public Slot build()
 	{
-		return new Slot(this.index, this.amount,this.icon, this.name, this.nbt, this.data, this.glow, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval, this.metadata);
+		return new Slot(this.index, this.amount,this.icon, this.name, this.nbt, this.data, this.glow, this.moveable, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval, this.metadata);
 	}
 }

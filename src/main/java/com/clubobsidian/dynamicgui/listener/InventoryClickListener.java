@@ -39,26 +39,22 @@ public class InventoryClickListener {
 		{
 			return;
 		}
-		
-		if(!GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+		else if(!GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
 			return;
 		}
 		
-		e.setCanceled(true);
 		
 		ItemStackWrapper<?> item = e.getItemStackWrapper();
 		if(item.getItemStack() == null)
 		{
 			return;
 		}
-		
-		if(e.getView() != InventoryView.TOP)
+		else if(e.getView() != InventoryView.TOP)
 		{
 			return;
 		}
-		
-		if(e.getClick() == null) //For other types of clicks besides left, right, middle
+		else if(e.getClick() == null) //For other types of clicks besides left, right, middle
 		{
 			return;
 		}
@@ -77,25 +73,42 @@ public class InventoryClickListener {
 		}
 
 		if(slot == null)
+		{
 			return;
+		}
+		
+		if(!slot.isMoveable())
+		{
+			e.setCanceled(true);
+		}
 
 		List<FunctionNode> functions = slot.getFunctions().getRootNodes();
 
 		if(functions.size() == 0)
+		{
 			return;
+		}
 
 		String clickString = e.getClick().toString();
 		FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
 		
 		Boolean close = null;
 		if(slot.getClose() != null)
+		{
 			close = slot.getClose();
+		}
 		else if(gui.getClose() != null)
+		{
 			close = gui.getClose();
+		}
 		else
+		{
 			close = true;
+		}
 
 		if(close)
+		{
 			player.closeInventory();
+		}
 	}
 }
