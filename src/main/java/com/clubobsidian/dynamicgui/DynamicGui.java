@@ -51,6 +51,7 @@ import com.clubobsidian.dynamicgui.function.impl.SetEnchantsFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetGameRuleFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetGlowFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetLoreFunction;
+import com.clubobsidian.dynamicgui.function.impl.SetMoveableFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetNBTFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
@@ -275,7 +276,7 @@ public class DynamicGui  {
 	private void registerListeners() 
 	{
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.EntityClickListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryClickListener());
+		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryInteractListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryCloseListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryOpenListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.PlayerInteractListener());
@@ -326,6 +327,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
 		FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
 		FunctionManager.get().addFunction(new SetGlowFunction("setglow"));
+		FunctionManager.get().addFunction(new SetMoveableFunction("setmoveable"));
 		FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
 		FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
 		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));

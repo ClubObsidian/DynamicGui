@@ -146,6 +146,20 @@ public class GuiManager {
 		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
 	}
 	
+	public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper)
+	{
+		if(playerWrapper.getOpenInventoryWrapper() == null)
+		{
+			return false;
+		}
+		else if(!this.hasGuiCurrently(playerWrapper))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void cleanupGui(PlayerWrapper<?> playerWrapper)
 	{
 		this.playerGuis.remove(playerWrapper.getUniqueId());

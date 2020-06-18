@@ -15,10 +15,13 @@
 */
 package com.clubobsidian.dynamicgui.listener;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
+import com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.gui.Slot;
@@ -30,20 +33,25 @@ import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 import com.clubobsidian.trident.EventHandler;
 
-public class InventoryClickListener {
+public class InventoryInteractListener {
 
 	@EventHandler
 	public void invClick(final InventoryClickEvent e)
 	{
-		if(e.getPlayerWrapper().getOpenInventoryWrapper() == null)
-		{
-			return;
-		}
-		else if(!GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+		PlayerWrapper<?> player = e.getPlayerWrapper();
+		if(!GuiManager.get().hasGuiOpen(player))
 		{
 			return;
 		}
 		
+		Gui gui = GuiManager.get().getCurrentGui(player);
+		
+		Slot slot = this.getSlotFromIndex(gui, e.getSlot());
+		if(slot == null)
+		{
+			e.setCanceled(true);
+			return;
+		}
 		
 		ItemStackWrapper<?> item = e.getItemStackWrapper();
 		if(item.getItemStack() == null)
@@ -59,29 +67,7 @@ public class InventoryClickListener {
 			return;
 		}
 
-		PlayerWrapper<?> player = e.getPlayerWrapper();
-		Gui gui = GuiManager.get().getCurrentGui(player);
 		
-		Slot slot = null;
-		for(Slot s : gui.getSlots())
-		{
-			if(e.getSlot() == s.getIndex())
-			{
-				slot = s;
-				break;
-			}
-		}
-
-		if(slot == null)
-		{
-			return;
-		}
-		
-		if(!slot.isMoveable())
-		{
-			e.setCanceled(true);
-		}
-
 		List<FunctionNode> functions = slot.getFunctions().getRootNodes();
 
 		if(functions.size() == 0)
@@ -91,6 +77,11 @@ public class InventoryClickListener {
 
 		String clickString = e.getClick().toString();
 		FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
+		
+		if(!slot.isMoveable())
+		{
+			e.setCanceled(true);
+		}
 		
 		Boolean close = null;
 		if(slot.getClose() != null)
@@ -110,5 +101,48 @@ public class InventoryClickListener {
 		{
 			player.closeInventory();
 		}
+	}
+	
+	@EventHandler
+	public void onDrag(InventoryDragEvent e)
+	{
+		PlayerWrapper<?> player = e.getPlayerWrapper();
+		if(!GuiManager.get().hasGuiOpen(player))
+		{
+			return;
+		}
+		
+		Gui gui = GuiManager.get().getCurrentGui(player);
+		
+		Iterator<Entry<Integer, ItemStackWrapper<?>>> it = e.getSlotItems().entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<Integer, ItemStackWrapper<?>> next = it.next();
+			int rawSlot = next.getKey();
+			if(rawSlot < 0 || rawSlot >= e.getInventoryWrapper().getSize())
+			{
+				return;
+			}
+			
+			Slot slot = this.getSlotFromIndex(gui, rawSlot);
+			if(slot == null || (slot != null && !slot.isMoveable()))
+			{
+				e.setCanceled(true);
+				return;
+			}
+		}
+	}
+	
+	private Slot getSlotFromIndex(Gui gui, int index)
+	{
+		for(Slot s : gui.getSlots())
+		{
+			if(index == s.getIndex())
+			{
+				return s;
+			}
+		}
+		
+		return null;
 	}
 }

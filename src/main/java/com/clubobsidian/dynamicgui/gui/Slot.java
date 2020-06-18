@@ -116,6 +116,11 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		return this.moveable;
 	}
 	
+	public void setMoveable(boolean moveable)
+	{
+		this.moveable = moveable;
+	}
+	
 	public short getData()
 	{
 		return this.data;

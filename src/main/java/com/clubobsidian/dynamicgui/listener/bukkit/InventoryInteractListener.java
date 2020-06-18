@@ -15,11 +15,17 @@
 */
 package com.clubobsidian.dynamicgui.listener.bukkit;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -33,14 +39,16 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
 
-public class InventoryClickListener implements Listener {
+public class InventoryInteractListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e)
 	{
 		Inventory inventory = e.getInventory();
 		if(inventory == null)
+		{
 			return;
+		}
 		
 		int slot = e.getSlot();
 		int rawSlot = e.getRawSlot();
@@ -84,6 +92,46 @@ public class InventoryClickListener implements Listener {
 				e.setCancelled(true);
 			}
 		}
+	}
+	
+	@EventHandler
+	public void onInventoryDrag(InventoryDragEvent e) 
+	{
+		Inventory inventory = e.getInventory();
+		if(inventory == null)
+		{
+			return;
+		}
+		
+		if(e.getWhoClicked() instanceof Player)
+		{
+			Player player = (Player) e.getWhoClicked();
+			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
+			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(inventory);
+			Map<Integer, ItemStackWrapper<?>> slotItems = this.wrapItemStacks(e.getNewItems());
+			com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent dragEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent(playerWrapper, inventoryWrapper, slotItems);
+			DynamicGui.get().getEventBus().callEvent(dragEvent);
+			if(dragEvent.isCanceled())
+			{
+				e.setCancelled(true);
+			}
+		}
+	}
+	
+	private Map<Integer, ItemStackWrapper<?>> wrapItemStacks(Map<Integer, ItemStack> stackMap)
+	{
+		Map<Integer, ItemStackWrapper<?>> wrapperMap = new TreeMap<>();
+		Iterator<Entry<Integer, ItemStack>> it = stackMap.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<Integer, ItemStack> next = it.next();
+			int rawSlot = next.getKey();
+			ItemStack original = next.getValue();
+			ItemStackWrapper<ItemStack> wrapper = new BukkitItemStackWrapper<>(original);
+			wrapperMap.put(rawSlot, wrapper);
+		}
+		
+		return wrapperMap;
 	}
 	
 	private boolean isClick(ClickType type)
