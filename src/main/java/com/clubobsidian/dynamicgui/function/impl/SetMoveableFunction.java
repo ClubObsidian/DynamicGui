@@ -5,8 +5,6 @@ import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
 public class SetMoveableFunction extends Function {
 

@@ -511,7 +511,7 @@ public class GuiManager {
 			short data = slotToken.getData();
 			
 			boolean glow = slotToken.getGlow();
-			boolean moveable = false; //TODO
+			boolean moveable = slotToken.isMoveable();
 			
 			int updateInterval = slotToken.getUpdateInterval();
 

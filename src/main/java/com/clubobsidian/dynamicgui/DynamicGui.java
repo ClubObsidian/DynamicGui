@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
+import com.clubobsidian.dynamicgui.function.impl.CheckMoveableFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckPlayerWorldFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GetGameRuleFunction;
@@ -327,6 +328,7 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
 		FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
 		FunctionManager.get().addFunction(new SetGlowFunction("setglow"));
+		FunctionManager.get().addFunction(new CheckMoveableFunction("checkmoveable"));
 		FunctionManager.get().addFunction(new SetMoveableFunction("setmoveable"));
 		FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
 		FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
