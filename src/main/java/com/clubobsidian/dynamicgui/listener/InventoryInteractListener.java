@@ -56,14 +56,15 @@ public class InventoryInteractListener {
 		}
 		
 		ItemStackWrapper<?> item = e.getItemStackWrapper();
-		if(item.getItemStack() == null)
+		if(e.getClick() == null) //For other types of clicks besides left, right, middle
 		{
+			e.setCanceled(true);
 			return;
 		}
-		else if(e.getClick() == null) //For other types of clicks besides left, right, middle
+		else if(item.getItemStack() == null)
 		{
 			return;
-		}
+		}	
 		else if(e.getView() == InventoryView.BOTTOM)
 		{
 			if(e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT)
