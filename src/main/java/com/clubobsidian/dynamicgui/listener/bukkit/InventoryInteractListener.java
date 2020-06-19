@@ -70,7 +70,11 @@ public class InventoryInteractListener implements Listener {
 			InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(inventory);
 			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
 			ItemStack itemStack = null;
-			if(slot >= 0 && slot < inventory.getSize())
+			if(rawSlot >= inventory.getSize())
+			{
+				itemStack = e.getWhoClicked().getInventory().getItem(slot);
+			}
+			else if(slot >= 0 && slot < inventory.getSize())
 			{
 				itemStack = e.getInventory().getItem(slot);
 			}

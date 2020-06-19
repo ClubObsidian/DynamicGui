@@ -20,11 +20,13 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.Click;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
@@ -58,12 +60,20 @@ public class InventoryInteractListener {
 		{
 			return;
 		}
-		else if(e.getView() != InventoryView.TOP)
+		else if(e.getClick() == null) //For other types of clicks besides left, right, middle
 		{
 			return;
 		}
-		else if(e.getClick() == null) //For other types of clicks besides left, right, middle
+		else if(e.getView() == InventoryView.BOTTOM)
 		{
+			if(e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT)
+			{
+				if(!this.canStack(gui, e.getInventoryWrapper(), item))
+				{
+					e.setCanceled(true);
+				}
+			}
+			
 			return;
 		}
 
@@ -144,5 +154,37 @@ public class InventoryInteractListener {
 		}
 		
 		return null;
+	}
+	
+	private boolean canStack(Gui gui, InventoryWrapper<?> inventory, ItemStackWrapper<?> clickedItem)
+	{
+		boolean canStack = false;
+		ItemStackWrapper<?>[] contents = inventory.getContents();
+		for(int i = 0; i < contents.length; i++)
+		{
+			ItemStackWrapper<?> stackTo = contents[i];
+			if(stackTo.getItemStack() == null || (stackTo.isSimilar(clickedItem) && validSize(clickedItem, stackTo)))
+			{
+				Slot slot = this.getSlotFromIndex(gui, i);
+				if(slot != null)
+				{
+					if(slot.isMoveable())
+					{
+						canStack = true;
+					}
+					else if(canStack && !slot.isMoveable())
+					{
+						canStack = false;
+					}
+				}
+			}
+		}
+		
+		return canStack;
+	}
+	
+	private boolean validSize(ItemStackWrapper<?> clickedItem, ItemStackWrapper<?> stackTo)
+	{
+		return stackTo.getAmount() + clickedItem.getAmount() <= clickedItem.getMaxStackSize();
 	}
 }

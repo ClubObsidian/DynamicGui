@@ -47,6 +47,8 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract int getAmount();
 	public abstract void setAmount(int amount);
 	
+	public abstract int getMaxStackSize();
+	
 	public abstract String getType();
 	public abstract boolean setType(String type);
 	
@@ -67,5 +69,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 	public abstract void setNBT(String nbt);
 	
 	public abstract void setGlowing(boolean glowing);
+	
+	public abstract boolean isSimilar(ItemStackWrapper<?> compareTo);
 	
 }
