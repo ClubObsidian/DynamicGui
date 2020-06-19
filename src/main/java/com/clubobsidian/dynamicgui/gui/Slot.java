@@ -41,6 +41,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private String nbt;
 	private short data;
 	private boolean glow;
+	private boolean moveable;
 
 	private List<String> lore;
 	private List<EnchantmentWrapper> enchants;
@@ -54,13 +55,14 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	private int frame;
 	private Map<String, String> metadata;
 	private boolean update;
-	public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
+	public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, boolean moveable, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata)
 	{
 		this.icon = icon;
 		this.data = data;
 		this.name = name;
 		this.nbt = nbt;
 		this.glow = glow;
+		this.moveable = moveable;
 		this.lore = lore;
 		this.enchants = enchants;
 		this.close = close;
@@ -107,6 +109,16 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	public boolean getGlow()
 	{
 		return this.glow;
+	}
+	
+	public boolean isMoveable()
+	{
+		return this.moveable;
+	}
+	
+	public void setMoveable(boolean moveable)
+	{
+		this.moveable = moveable;
 	}
 	
 	public short getData()

@@ -37,7 +37,7 @@ import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
 import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.bukkit.EntityClickListener;
-import com.clubobsidian.dynamicgui.listener.bukkit.InventoryClickListener;
+import com.clubobsidian.dynamicgui.listener.bukkit.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
@@ -119,7 +119,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		this.getCommand("gui").setExecutor(new BukkitGuiCommand());
 		this.getCommand("dynamicgui").setExecutor(new BukkitDynamicGuiCommand());
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);

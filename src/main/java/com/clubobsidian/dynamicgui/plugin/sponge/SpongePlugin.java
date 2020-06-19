@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.command.sponge.SpongeGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.sponge.EntityClickListener;
-import com.clubobsidian.dynamicgui.listener.sponge.InventoryClickListener;
+import com.clubobsidian.dynamicgui.listener.sponge.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.sponge.PlayerInteractListener;
@@ -120,7 +120,7 @@ public class SpongePlugin implements DynamicGuiPlugin {
 		Sponge.getGame().getCommandManager().register(this, dynamicGuiSpec, "dynamicgui", "dyngui");
 		
 		Sponge.getEventManager().registerListeners(this, new EntityClickListener());
-		Sponge.getEventManager().registerListeners(this, new InventoryClickListener());
+		Sponge.getEventManager().registerListeners(this, new InventoryInteractListener());
 		Sponge.getEventManager().registerListeners(this, new InventoryCloseListener());
 		Sponge.getEventManager().registerListeners(this, new InventoryOpenListener());
 		Sponge.getEventManager().registerListeners(this, new PlayerInteractListener());

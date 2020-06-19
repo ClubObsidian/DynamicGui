@@ -56,6 +56,12 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	}
 	
 	@Override
+	public int getMaxStackSize() 
+	{
+		return this.getItemStack().getMaxStackSize();
+	}
+	
+	@Override
 	public String getType() 
 	{
 		return this.getItemStack().getType().toString();
@@ -233,5 +239,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 		}
 		
 		item.setItemMeta(meta);
+	}
+
+	@Override
+	public boolean isSimilar(ItemStackWrapper<?> compareTo) 
+	{
+		return this.getItemStack().isSimilar((ItemStack) compareTo.getItemStack());
 	}
 }

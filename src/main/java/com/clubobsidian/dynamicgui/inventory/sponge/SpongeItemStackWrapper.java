@@ -100,6 +100,12 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	{
 		this.getItemStack().setQuantity(amount);
 	}
+	
+	@Override
+	public int getMaxStackSize() 
+	{
+		return this.getItemStack().getMaxStackQuantity();
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -268,5 +274,12 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isSimilar(ItemStackWrapper<?> compareTo) 
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -43,6 +43,13 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	}
 
 	@Override
+	public ItemStackWrapper<?>[] getContents() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public ItemStackWrapper<ItemStack> getItem(int index) 
 	{
 		int i = 0;
@@ -95,9 +102,8 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 	}
 	
 	@Override
-	public int getContentSize() 
+	public int getCurrentContentSize() 
 	{
 		return this.getInventory().size();
 	}
-
 }

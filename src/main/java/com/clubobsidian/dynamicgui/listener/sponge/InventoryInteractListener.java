@@ -40,7 +40,7 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.sponge.SpongeItemStackWrapper;
 
-public class InventoryClickListener {
+public class InventoryInteractListener {
 
 	@Listener
 	public void inventoryClick(ClickInventoryEvent e, @First Player player)

@@ -146,6 +146,20 @@ public class GuiManager {
 		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
 	}
 	
+	public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper)
+	{
+		if(playerWrapper.getOpenInventoryWrapper() == null)
+		{
+			return false;
+		}
+		else if(!this.hasGuiCurrently(playerWrapper))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void cleanupGui(PlayerWrapper<?> playerWrapper)
 	{
 		this.playerGuis.remove(playerWrapper.getUniqueId());
@@ -497,12 +511,13 @@ public class GuiManager {
 			short data = slotToken.getData();
 			
 			boolean glow = slotToken.getGlow();
+			boolean moveable = slotToken.isMoveable();
 			
 			int updateInterval = slotToken.getUpdateInterval();
 
 			Map<String, String> metadata = slotToken.getMetadata();
 			
-			slots.add(new Slot(index, amount, icon, name, nbt, data, glow, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
+			slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
 		}
 
 		
