@@ -79,14 +79,11 @@ public class InventoryInteractListener {
 
 		
 		List<FunctionNode> functions = slot.getFunctions().getRootNodes();
-
-		if(functions.size() == 0)
+		if(functions.size() > 0)
 		{
-			return;
+			String clickString = e.getClick().toString();
+			FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
 		}
-
-		String clickString = e.getClick().toString();
-		FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
 		
 		if(!slot.isMoveable())
 		{
