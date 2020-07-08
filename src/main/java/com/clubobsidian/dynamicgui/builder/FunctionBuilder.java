@@ -34,6 +34,13 @@ public class FunctionBuilder {
 		return this;
 	}
 	
+	public FunctionData create(String name, String data)
+	{
+		this.setName(name);
+		this.setData(data);
+		return this.build();
+	}
+	
 	public FunctionData build()
 	{
 		return new FunctionData(this.name, this.data);
