@@ -19,7 +19,10 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.event.player.PlayerKickEvent;
 import com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 
 public class InventoryCloseListener {
@@ -46,6 +49,8 @@ public class InventoryCloseListener {
 	{
 		if(GuiManager.get().hasGuiCurrently(playerWrapper))
 		{
+			Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+			FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
 			GuiManager.get().cleanupGui(playerWrapper);
 		}
 	}

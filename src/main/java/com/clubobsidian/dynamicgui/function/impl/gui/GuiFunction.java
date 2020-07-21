@@ -46,10 +46,10 @@ public class GuiFunction extends Function {
 		
 		Gui back = null;
 		FunctionOwner owner = this.getOwner();
+		//Find root gui
 		if(owner instanceof Slot)
 		{
 			Slot slot = (Slot) owner;
-			slot.setClose(false);
 			back = slot.getOwner();
 		}
 		else if(owner instanceof Gui)
@@ -57,12 +57,22 @@ public class GuiFunction extends Function {
 			back = (Gui) owner;
 		}
 		
+		//Clone gui
+		Gui clonedBack = back.clone();
+		//Make it so the gui doesn't close
+		if(owner instanceof Slot)
+		{
+			Slot slot = (Slot) owner;
+			slot.setClose(false);
+		}
+		back.setClose(false);
+		
 		GuiManager.get().openGui(playerWrapper, gui);
 		Gui newGui = GuiManager.get().getCurrentGui(playerWrapper);
 		
 		if(newGui.getBack() == null)
 		{
-			newGui.setBack(back);
+			newGui.setBack(clonedBack);
 		}
 		
 		return true;

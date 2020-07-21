@@ -15,22 +15,26 @@
 */
 package com.clubobsidian.dynamicgui.listener;
 
-import com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
+import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 
-public class InventoryOpenListener {
+public class GuiListener {
 
 	@EventHandler
-	public void inventoryOpen(final InventoryOpenEvent e)
+	public void onGuiOpen(GuiLoadEvent event)
 	{
-		System.out.println("Opened");
-		/*if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+		PlayerWrapper<?> wrapper = event.getPlayerWrapper();
+		Gui gui = GuiManager.get().getCurrentGui(wrapper);
+		PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
+		boolean open = (gui != null);
+		if(open)
 		{
-			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
-			{
-				e.getPlayerWrapper().closeInventory();
-			}
-		}*/
+			FunctionUtil.tryFunctions(gui, FunctionType.SWITCH_MENU, playerWrapper);
+		}
 	}
 }
