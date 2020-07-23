@@ -281,6 +281,7 @@ public class DynamicGui  {
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryCloseListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryOpenListener());
 		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.PlayerInteractListener());
+		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.GuiListener());
 	}
 
 	private void loadFunctions()

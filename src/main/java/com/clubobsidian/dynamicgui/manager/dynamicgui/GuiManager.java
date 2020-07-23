@@ -36,6 +36,7 @@ import org.apache.commons.io.FileUtils;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
@@ -53,6 +54,7 @@ import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.trident.Event;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -197,6 +199,12 @@ public class GuiManager {
 		
 		//Run gui load functions
 		boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
+		GuiLoadEvent event = new GuiLoadEvent(gui, playerWrapper);
+		if(!ran) 
+		{
+			event.setCanceled(true);
+		}
+		DynamicGui.get().getEventBus().callEvent(event);
 		
 		if(ran)
 		{
