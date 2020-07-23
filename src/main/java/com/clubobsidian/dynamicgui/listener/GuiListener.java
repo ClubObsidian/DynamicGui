@@ -60,7 +60,10 @@ public class GuiListener {
 		if(!this.users.remove(uuid))
 		{
 			Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-			FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
+			if(gui != null)
+			{
+				FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
+			}
 		}
 	}
 }
