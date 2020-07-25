@@ -41,6 +41,7 @@ public class ConditionFunction extends Function {
 		{
 			Expression expr = new Expression(this.getData());
 			expr.addLazyFunction(new EqualLazyFunction());
+			expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
 			
 			if(!expr.isBoolean())
 				return false;
