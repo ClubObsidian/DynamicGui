@@ -16,7 +16,6 @@
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,7 +53,6 @@ import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.trident.Event;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -377,14 +375,13 @@ public class GuiManager {
 		return false;
 	}
 	
-	private void loadRemoteGui(File tempDirectory, String guiName, String strUrl)
+	private void loadRemoteGui(String guiName, String strUrl)
 	{
 		try 
 		{
 			URL url = new URL(strUrl);
 			File backupFile = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
-			File tempFile = new File(tempDirectory, guiName);
-			Configuration guiConfiguration = Configuration.load(url, tempFile, backupFile);
+			Configuration guiConfiguration = Configuration.load(url, backupFile);
 			this.loadGuiFromConfiguration(guiName, guiConfiguration);
 		} 
 		catch (MalformedURLException e) 
@@ -397,19 +394,6 @@ public class GuiManager {
 	private void loadRemoteGuis()
 	{
 		File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
-		File tempDirectory = new File(DynamicGui.get().getPlugin().getDataFolder(), "temp");
-		if(tempDirectory.exists())
-		{
-			try 
-			{
-				FileUtils.deleteDirectory(tempDirectory);
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		tempDirectory.mkdir();
 		
 		Configuration config = Configuration.load(configFile);
 		if(config.get("remote-guis") != null)
@@ -420,7 +404,7 @@ public class GuiManager {
 				ConfigurationSection guiSection = remote.getConfigurationSection(key);
 				String strURL = guiSection.getString("url");
 				String guiName = guiSection.getString("file-name");
-				this.loadRemoteGui(tempDirectory, guiName, strURL);
+				this.loadRemoteGui(guiName, strURL);
 			}
 		}
 	}

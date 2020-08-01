@@ -24,7 +24,6 @@ public class InventoryOpenListener {
 	@EventHandler
 	public void inventoryOpen(final InventoryOpenEvent e)
 	{
-		System.out.println("Opened");
 		/*if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
 			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
