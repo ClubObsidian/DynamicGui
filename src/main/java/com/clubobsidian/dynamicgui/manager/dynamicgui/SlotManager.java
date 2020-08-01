@@ -79,7 +79,10 @@ public class SlotManager {
 							inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 							
 							FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-							inventoryWrapper.updateItem(slotIndex, playerWrapper);
+							if(!slot.getItemStack().getType().equalsIgnoreCase("air")) 
+							{
+								inventoryWrapper.updateItem(slotIndex, playerWrapper);
+							}
 							slot.setUpdate(false);
 						}
 					}
