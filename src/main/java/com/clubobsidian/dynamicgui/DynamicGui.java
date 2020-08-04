@@ -37,6 +37,7 @@ import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerCmdFunction;
+import com.clubobsidian.dynamicgui.function.impl.PlayerMiniMsgFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerMsgFunction;
 import com.clubobsidian.dynamicgui.function.impl.RandomFunction;
 import com.clubobsidian.dynamicgui.function.impl.RemovePermissionFunction;
@@ -45,6 +46,7 @@ import com.clubobsidian.dynamicgui.function.impl.ResetFrameFunction;
 import com.clubobsidian.dynamicgui.function.impl.ResetTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.function.impl.ServerBroadcastFunction;
+import com.clubobsidian.dynamicgui.function.impl.ServerMiniBroadcastFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetAmountFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetCloseFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetDataFunction;
@@ -344,6 +346,9 @@ public class DynamicGui  {
 		FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
 		
 		FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
+		
+		FunctionManager.get().addFunction(new PlayerMiniMsgFunction("minimsg"));
+		FunctionManager.get().addFunction(new ServerMiniBroadcastFunction("minibroadcast"));
 	}
 
 	private void startPlayerCountTimer()

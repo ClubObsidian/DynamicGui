@@ -48,6 +48,7 @@ shadowJar {
 	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
 	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 	relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
+	relocate 'net.kyori.adventure', 'com.clubobsidian.dynamicgui.shaded.adventure'
 	baseName = 'DynamicGui'
 	classifier = ''
 }
@@ -70,4 +71,6 @@ dependencies {
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     compile 'com.google.inject:guice:4.2.2'
+    compile 'net.kyori:adventure-text-minimessage:3.0.0-SNAPSHOT'
+    compile 'net.kyori:adventure-text-serializer-gson:4.0.0-SNAPSHOT'
 }
