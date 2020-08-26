@@ -35,15 +35,15 @@ Designed to make writing menus easy.
   * Currently supports loading from a webserver
   * Can also load from websites like Github using url parameters
 * Different gui types
-  * beacon
-  * brewing
-  * chest
-  * crafting
-  * dispenser
-  * dropper
-  * furnace
-  * hopper
-  * workbench
+  * Beacon
+  * Brewing stand
+  * Chest
+  * Crafting Table
+  * Dispenser
+  * Dropper
+  * Furnace
+  * Hopper
+  * Workbench
 
 
 ## Use cases
