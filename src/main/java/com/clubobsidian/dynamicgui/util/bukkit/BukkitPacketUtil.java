@@ -31,15 +31,15 @@ public final class BukkitPacketUtil {
  	private static Class<?> craftItemClass;
  	private static Class<?> craftPlayerClass;
  	private static Class<?> nmsPlayerClass;
- 	private static Class<?> craftInventoryViewClass;
+ 	private static Class<?> nmsHumanClass;
  	
  	private static Constructor<?> packetPlayOutSetSlotConstructor;
  	
  	private static Field itemStackHandle;
  	private static Field playerConnection;
  	private static Field networkManager;
- 	private static Field container;
- 	private static Field windowIdMethod;
+ 	private static Field windowIdField;
+ 	private static Field activeContainer;
  	
  	private static Method playerHandle;
  	private static Method sendPacket;
@@ -102,6 +102,11 @@ public final class BukkitPacketUtil {
  		String version = VersionUtil.getVersion();
  		try 
  		{
+ 			if(craftPlayerClass == null)
+ 			{
+ 				craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
+ 			}
+ 			
  			if(craftItemClass == null)
  			{
  				craftItemClass = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack"); 
@@ -113,6 +118,21 @@ public final class BukkitPacketUtil {
  				itemStackHandle.setAccessible(true);
  			}
  			
+ 			if(playerHandle == null)
+ 			{
+ 				playerHandle = craftPlayerClass.getDeclaredMethod("getHandle");
+ 			}
+ 			
+ 			if(nmsPlayerClass == null)
+ 			{
+ 				nmsPlayerClass = Class.forName("net.minecraft.server." + version + ".EntityPlayer");
+ 			}
+ 			
+ 			if(nmsHumanClass == null)
+ 			{
+ 				nmsHumanClass = Class.forName("net.minecraft.server." + version + ".EntityHuman");
+ 			}
+ 			
  			if(packetPlayOutSetSlotConstructor == null)
  			{
  				Class<?> packetClass = Class.forName("net.minecraft.server." + version + ".PacketPlayOutSetSlot");
@@ -120,30 +140,23 @@ public final class BukkitPacketUtil {
  				packetPlayOutSetSlotConstructor = packetClass.getDeclaredConstructor(int.class, int.class, nmsItemClass);
  			}
  			
- 			if(craftInventoryViewClass == null)
- 			{
- 				craftInventoryViewClass = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftInventoryView");
- 			}
- 			
- 			if(container == null)
- 			{
- 				container = craftInventoryViewClass.getDeclaredField("container");
- 				container.setAccessible(true);
- 			}
- 			
- 			if(windowIdMethod == null)
+ 			if(windowIdField == null)
  			{
  				Class<?> containerClass = Class.forName("net.minecraft.server." + version + ".Container");
- 				windowIdMethod = containerClass.getDeclaredField("windowId");
- 				windowIdMethod.setAccessible(true);
+ 				windowIdField = containerClass.getDeclaredField("windowId");
+ 				windowIdField.setAccessible(true);
  			}
  			
- 			InventoryView view = player.getOpenInventory();
+ 			if(activeContainer == null)
+ 			{
+ 				activeContainer = nmsHumanClass.getDeclaredField("activeContainer");
+ 			}
+ 			
+ 			Object nmsPlayer = playerHandle.invoke(player);
+ 			Object container = activeContainer.get(nmsPlayer);
  			
  			Object nmsItemStack = itemStackHandle.get(itemStack);
- 			Object containerFromView = container.get(view);
- 			int windowId = windowIdMethod.getInt(containerFromView);
- 			
+ 			int windowId = windowIdField.getInt(container); //container
  			Object packet = packetPlayOutSetSlotConstructor.newInstance(windowId, index, nmsItemStack);
  			sendPacket(player, packet);
  		}
