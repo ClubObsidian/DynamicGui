@@ -124,21 +124,25 @@ public class DynamicGui  {
 	private LoggerWrapper<?> loggerWrapper;
 	private Injector injector;
 	private boolean initialized;
+	private boolean useReflectionEventBus;
+	
 	@Inject
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
 	{
-		this.eventManager = this.getVersionEventBus();
 		this.plugin = plugin;
 		this.server = server;
 		this.loggerWrapper = loggerWrapper;
 		this.injector = injector;
 		this.serverPlayerCount = new ConcurrentHashMap<>();
 		this.initialized = false;
+		this.setupFileStructure();
+		this.saveDefaultConfig();
+		this.checkForEventBusOverride();
+		this.eventManager = this.getVersionEventBus();
 	}
 
 	private void init()
 	{
-		this.setupFileStructure();
 		this.loadConfig();
 		this.loadFunctions();
 		this.loadGuis();
@@ -174,7 +178,7 @@ public class DynamicGui  {
 		}
 	}
 
-	private void loadConfig()
+	private void saveDefaultConfig() 
 	{
 		if(!this.plugin.getConfigFile().exists())
 		{
@@ -189,7 +193,16 @@ public class DynamicGui  {
 				e.printStackTrace();
 			}
 		}
-		
+	}
+	
+	private void checkForEventBusOverride() 
+	{
+		Configuration config = Configuration.load(this.plugin.getConfigFile());
+		this.useReflectionEventBus = config.getBoolean("use-reflection-event-bus");
+	}
+	
+	private void loadConfig()
+	{
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
 		String version = config.getString("version");
@@ -441,11 +454,12 @@ public class DynamicGui  {
 	private EventBus getVersionEventBus()
 	{
 		String version = System.getProperty("java.version");
-		if(version.startsWith("1.8"))
+		if(version.startsWith("1.8") && !this.useReflectionEventBus)
 		{
 			return new JavassistEventBus();
 		}
 		
+		this.loggerWrapper.info("Falling back to the reflection eventbus for better compatability");
 		return new ReflectionEventBus();
 	}
 	
