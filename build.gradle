@@ -9,6 +9,14 @@ plugins {
 
 version = '4.0.0'
 
+def buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+
+if(buildNumber == null) {
+	buildNumber = "";
+} else {
+	version += "-" + buildNumber
+}
+
 // In this section you declare where to find the dependencies of your project
 repositories {
 	maven {
