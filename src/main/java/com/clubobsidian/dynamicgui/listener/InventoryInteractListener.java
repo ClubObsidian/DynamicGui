@@ -49,7 +49,7 @@ public class InventoryInteractListener {
 		Gui gui = GuiManager.get().getCurrentGui(player);
 		
 		Slot slot = this.getSlotFromIndex(gui, e.getSlot());
-		if(slot == null)
+		if(slot == null && e.getView() != InventoryView.BOTTOM)
 		{
 			e.setCanceled(true);
 			return;
@@ -64,7 +64,7 @@ public class InventoryInteractListener {
 		else if(item.getItemStack() == null)
 		{
 			return;
-		}	
+		}
 		else if(e.getView() == InventoryView.BOTTOM)
 		{
 			if(e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT)
