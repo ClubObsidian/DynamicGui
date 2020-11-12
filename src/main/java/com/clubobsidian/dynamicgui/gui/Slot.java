@@ -35,6 +35,9 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 	 * 
 	 */
 	private static final long serialVersionUID = 2366997214615469494L;
+	
+	public final static String IGNORE_MATERIAL = "AIR";
+	
 	private int index;
 	private String icon;
 	private String name;
@@ -165,72 +168,75 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 			builderItem.setType(this.icon);
 			builderItem.setAmount(this.amount);
 		}
-		
-		if(this.data != 0)
+
+		if(!this.icon.toUpperCase().equals(IGNORE_MATERIAL))
 		{
-			builderItem.setDurability(this.data);
-		}
-		
-		if(this.name != null)
-		{
-			String newName = this.name;
-			newName = ReplacerManager.get().replace(newName, playerWrapper);
-			newName = AnimationReplacerManager.get().replace(this, playerWrapper, newName);
-			builderItem.setName(newName);
-		}
-		
-		if(this.lore != null)
-		{
-			List<String> newLore = new ArrayList<>();
-			
-			for(String newString : this.lore)
+			if(this.data != 0)
 			{
-				String lore = ReplacerManager.get().replace(newString, playerWrapper);
-				lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
-				if(lore.contains("\n"))
+				builderItem.setDurability(this.data);
+			}
+
+			if(this.name != null)
+			{
+				String newName = this.name;
+				newName = ReplacerManager.get().replace(newName, playerWrapper);
+				newName = AnimationReplacerManager.get().replace(this, playerWrapper, newName);
+				builderItem.setName(newName);
+			}
+
+			if(this.lore != null)
+			{
+				List<String> newLore = new ArrayList<>();
+
+				for(String newString : this.lore)
 				{
-					String[] split = lore.split("\n");
-					for(String sp : split)
+					String lore = ReplacerManager.get().replace(newString, playerWrapper);
+					lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
+					if(lore.contains("\n"))
 					{
-						newLore.add(sp);
+						String[] split = lore.split("\n");
+						for(String sp : split)
+						{
+							newLore.add(sp);
+						}
+					}
+					else
+					{
+						newLore.add(lore);
 					}
 				}
-				else
+
+				builderItem.setLore(newLore);
+			}
+
+			if(this.enchants != null)
+			{
+				for(EnchantmentWrapper ench : this.enchants)
 				{
-					newLore.add(lore);
+					builderItem.addEnchant(ench);
 				}
 			}
-		
-			builderItem.setLore(newLore);
-		}
-		
-		if(this.enchants != null)
-		{
-			for(EnchantmentWrapper ench : this.enchants)
+
+			if(this.glow)
 			{
-				builderItem.addEnchant(ench);
+				builderItem.setGlowing(true);
+			}
+
+			if(this.nbt != null && !this.nbt.equals(""))
+			{
+				builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
 			}
 		}
-		
-		if(this.glow)
-		{
-			builderItem.setGlowing(true);
-		}
-		
-		if(this.nbt != null && !this.nbt.equals(""))
-		{
-			builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
-		}
-		
+
 		this.itemStack = builderItem;
 		return builderItem;
 	}
-	
+
 	public ItemStackWrapper<?> getItemStack()
 	{
 		return this.itemStack;
 	}
-	
+
 	public void setOwner(Gui gui)
 	{
 		this.owner = gui;
