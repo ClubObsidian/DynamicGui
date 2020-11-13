@@ -52,46 +52,78 @@ public class HasMetadataFunction extends Function {
 		FunctionOwner owner = this.getOwner();
 		MetadataHolder holder = null;
 		String first = split[0];
+		Gui gui = null;
 		
-		if(owner instanceof Gui && split.length == 3)
+		if(owner instanceof Gui && split.length >= 2)
 		{
-			if(first.equals("gui"))
+			if(split.length == 2)
 			{
 				holder = (MetadataHolder) owner;
 			}
 			else
 			{
-				int index = -1;
-				try 
+				gui = (Gui) owner;
+			}
+		}
+		else if(owner instanceof Slot && split.length >= 2)
+		{
+			if(first.equals("gui"))
+			{
+				holder = ((Slot) this.getOwner()).getOwner();
+			}
+			else if(split.length == 2)
+			{
+				holder = (MetadataHolder) this.getOwner();
+			}
+			else if(split.length == 3)
+			{
+				gui = ((Slot) owner).getOwner();
+			}
+		}
+		
+		//Check for slots
+		if(holder == null)
+		{
+			int index = -1;
+			try 
+			{
+				index = Integer.valueOf(first);
+			}
+			catch(Exception ex)
+			{
+				DynamicGui.get().getLogger().error("Invalid index " + first + " in HasMetadata function");
+				return false;
+			}
+			for(Slot s : gui.getSlots())
+			{
+				if(s.getIndex() == index)
 				{
-					index = Integer.valueOf(first);
-				}
-				catch(Exception ex)
-				{
-					DynamicGui.get().getLogger().error("Invalid index " + first + " in HasMetadata function");
-					return false;
-				}
-				Gui gui = (Gui) owner;
-				for(Slot s : gui.getSlots())
-				{
-					if(s.getIndex() == index)
-					{
-						holder = s;
-						break;
-					}
+					holder = s;
+					break;
 				}
 			}
 		}
-		else if(owner instanceof Slot)
-		{
-			holder = (MetadataHolder) this.getOwner();
-		}
+		
 		if(holder != null)
 		{
-			String key = split[1];
-			String value = split[2];
-			String metaValue = holder.getMetadata().get(key);
-			return value.equals(metaValue);
+			String key = null;
+			String value = null;
+			if(split.length == 2)
+			{
+				key = split[0];
+				value = split[1];
+			}
+			else if(split.length == 3)
+			{
+				key = split[1];
+				value = split[2];
+			}
+			
+			if(key != null)
+			{
+				String metaValue = holder.getMetadata().get(key);
+				return value.equals(metaValue);
+			}
 		}
 		
 		return false;
