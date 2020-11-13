@@ -71,6 +71,8 @@ import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.RefreshGuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.RefreshSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
+import com.clubobsidian.dynamicgui.function.impl.meta.HasMetadataFunction;
+import com.clubobsidian.dynamicgui.function.impl.meta.SetMetadataFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
@@ -362,6 +364,10 @@ public class DynamicGui  {
 		
 		FunctionManager.get().addFunction(new PlayerMiniMsgFunction("minimsg"));
 		FunctionManager.get().addFunction(new ServerMiniBroadcastFunction("minibroadcast"));
+		
+		FunctionManager.get().addFunction(new HasMetadataFunction("hasmetadata"));
+		FunctionManager.get().addFunction(new HasMetadataFunction("getmetadata"));
+		FunctionManager.get().addFunction(new SetMetadataFunction("setmetadata"));
 	}
 
 	private void startPlayerCountTimer()

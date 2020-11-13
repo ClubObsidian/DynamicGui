@@ -16,12 +16,14 @@
 package com.clubobsidian.dynamicgui.gui;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.SerializationUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
@@ -31,7 +33,7 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 
-public class Gui implements Serializable, FunctionOwner {
+public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 
 	/**
 	 * 
@@ -49,6 +51,7 @@ public class Gui implements Serializable, FunctionOwner {
 	private transient InventoryWrapper<?> inventoryWrapper;
 	private FunctionTree functions;
 	private Gui back;
+	private Map<String, String> metadata;
 	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
 	{
 		this.name = name;
@@ -63,6 +66,7 @@ public class Gui implements Serializable, FunctionOwner {
 		this.inventoryWrapper = null;
 		this.functions = functions;
 		this.back = null;
+		this.metadata = new HashMap<>();
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
@@ -171,6 +175,12 @@ public class Gui implements Serializable, FunctionOwner {
 	public FunctionTree getFunctions()
 	{
 		return this.functions;
+	}
+	
+	@Override
+	public Map<String, String> getMetadata()
+	{
+		return this.metadata;
 	}
 	
 	public Gui getBack()
