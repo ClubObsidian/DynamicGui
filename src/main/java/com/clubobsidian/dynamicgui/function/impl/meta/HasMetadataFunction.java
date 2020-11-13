@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.gui.property.MetadataHolder;
 
 public class HasMetadataFunction extends Function {
 
@@ -34,8 +35,6 @@ public class HasMetadataFunction extends Function {
 	{
 		super(name);
 	}
-
-	//HasMetadata (index),key,value
 	
 	@Override
 	public boolean function(PlayerWrapper<?> playerWrapper)
@@ -51,40 +50,47 @@ public class HasMetadataFunction extends Function {
 		
 		String[] split = this.getData().split(",");
 		FunctionOwner owner = this.getOwner();
-		Slot slot = null;
+		MetadataHolder holder = null;
+		String first = split[0];
 		
 		if(owner instanceof Gui && split.length == 3)
 		{
-			int index = -1;
-			String first = split[0];
-			try 
+			if(first.equals("gui"))
 			{
-				index = Integer.valueOf(first);
+				holder = (MetadataHolder) owner;
 			}
-			catch(Exception ex)
+			else
 			{
-				DynamicGui.get().getLogger().error("Invalid index " + first + " in HasMetadata function");
-				return false;
-			}
-			Gui gui = (Gui) owner;
-			for(Slot s : gui.getSlots())
-			{
-				if(s.getIndex() == index)
+				int index = -1;
+				try 
 				{
-					slot = s;
-					break;
+					index = Integer.valueOf(first);
+				}
+				catch(Exception ex)
+				{
+					DynamicGui.get().getLogger().error("Invalid index " + first + " in HasMetadata function");
+					return false;
+				}
+				Gui gui = (Gui) owner;
+				for(Slot s : gui.getSlots())
+				{
+					if(s.getIndex() == index)
+					{
+						holder = s;
+						break;
+					}
 				}
 			}
 		}
 		else if(owner instanceof Slot)
 		{
-			slot = (Slot) this.getOwner();
+			holder = (MetadataHolder) this.getOwner();
 		}
-		if(slot != null)
+		if(holder != null)
 		{
 			String key = split[1];
 			String value = split[2];
-			String metaValue = slot.getMetadata().get(key);
+			String metaValue = holder.getMetadata().get(key);
 			return value.equals(metaValue);
 		}
 		
