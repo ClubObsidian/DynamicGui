@@ -23,13 +23,14 @@ import java.util.Map;
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
-public class Slot implements Serializable, FunctionOwner, AnimationHolder {
+public class Slot implements Serializable, FunctionOwner, AnimationHolder, MetadataHolder {
 	
 	/**
 	 * 
@@ -294,6 +295,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder {
 		this.frame = 0;
 	}
 	
+	@Override
 	public Map<String, String> getMetadata()
 	{
 		return this.metadata;
