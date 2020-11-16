@@ -52,7 +52,7 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 	private FunctionTree functions;
 	private Gui back;
 	private Map<String, String> metadata;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions)
+	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata)
 	{
 		this.name = name;
 		this.type = type;
@@ -66,7 +66,7 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 		this.inventoryWrapper = null;
 		this.functions = functions;
 		this.back = null;
-		this.metadata = new HashMap<>();
+		this.metadata = metadata;
 	}
 
 	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)

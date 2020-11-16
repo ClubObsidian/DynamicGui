@@ -539,7 +539,8 @@ public class GuiManager {
 		ModeEnum modeEnum = ModeEnum.valueOf(guiToken.getMode().toString());
 		
 		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
+		Map<String, String> metadata = guiToken.getMetadata();
 		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions());
+		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), metadata);
 	}
 }

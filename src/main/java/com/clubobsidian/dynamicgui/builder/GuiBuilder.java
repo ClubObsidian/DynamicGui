@@ -17,8 +17,10 @@ package com.clubobsidian.dynamicgui.builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
@@ -39,6 +41,7 @@ public class GuiBuilder  {
 	private List<Slot> slots;
 	private List<LocationWrapper<?>> locs;
 	private FunctionTree functionTree;
+	private Map<String, String> metadata;
 	private Gui backGui;
 	public GuiBuilder()
 	{
@@ -46,6 +49,7 @@ public class GuiBuilder  {
 		this.slots = new ArrayList<>();
 		this.locs = new ArrayList<>();
 		this.functionTree = new FunctionTree();
+		this.metadata = new HashMap<>();
 	}
 	
 	public GuiBuilder setType(String type)
@@ -150,9 +154,29 @@ public class GuiBuilder  {
 		return this;
 	}
 	
+	public GuiBuilder addMetadata(String key, String value)
+	{
+		this.metadata.put(key, value);
+		return this;
+	}
+	
+	public GuiBuilder addMetadata(Map<String, String> metadata)
+	{
+		Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
+		while(it.hasNext())
+		{
+			Entry<String, String> next = it.next();
+			String key = next.getKey();
+			String value = next.getValue();
+			this.addMetadata(key, value);
+		}
+		
+		return this;
+	}
+	
 	public Gui build()
 	{
-		Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree);
+		Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree, this.metadata);
 		if(this.backGui != null)
 		{
 			gui.setBack(this.backGui);

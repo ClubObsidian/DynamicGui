@@ -73,7 +73,7 @@ dependencies {
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.clubobsidian:wrappy:2.0.1'
     compile 'com.github.clubobsidian:trident:2.0.1'
-    compile 'com.github.clubobsidian:dynamicguiparser:2.8.0'
+    compile 'com.github.clubobsidian:dynamicguiparser:2.9.0'
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     compile 'com.google.inject:guice:4.2.2'
