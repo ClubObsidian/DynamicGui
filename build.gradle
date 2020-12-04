@@ -19,17 +19,11 @@ if(buildNumber != null) {
 
 // In this section you declare where to find the dependencies of your project
 repositories {
-	maven {
-		url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
-	}
-	maven {
-		url = 'https://repo.spongepowered.org/maven'
-    }
+	maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
+	maven { url = 'https://repo.spongepowered.org/maven' }
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
     mavenCentral()
-	maven { 
-    	url 'https://jitpack.io' 
- 	}
+	maven { url 'https://jitpack.io' }
 }
 
 
@@ -79,6 +73,6 @@ dependencies {
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     compile 'com.google.inject:guice:4.2.2'
-    compile 'net.kyori:adventure-text-minimessage:4.0.0-SNAPSHOT'
-    compile 'net.kyori:adventure-text-serializer-gson:4.0.0-SNAPSHOT'
+    compile 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
+    compile 'net.kyori:adventure-text-serializer-gson:4.3.0'
 }
