@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import com.clubobsidian.dynamicgui.util.HashUtil;
 import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -66,8 +67,8 @@ public class GuiManager {
 	private Map<String, GuiToken> cachedTokens;
 	private Map<String, List<MacroToken>> globalMacros;
 	private Map<String, List<MacroToken>> cachedGlobalMacros;
-	private Map<String, Long> guiTimestamps;
-	private Map<String, Long> globalMacrosTimestamps;
+	private Map<String, byte[]> guiHashes;
+	private Map<String, byte[]> globalMacrosTimestamps;
 	private Set<String> modifiedMacros;
 	private GuiManager()
 	{
@@ -77,7 +78,7 @@ public class GuiManager {
 		this.cachedTokens = new HashMap<>();
 		this.globalMacros = new LinkedHashMap<>();
 		this.cachedGlobalMacros = new HashMap<>();
-		this.guiTimestamps = new HashMap<>();
+		this.guiHashes = new HashMap<>();
 		this.globalMacrosTimestamps = new HashMap<>();
 		this.modifiedMacros = new HashSet<>();
 	}
@@ -122,7 +123,7 @@ public class GuiManager {
 		{
 			this.cachedTokens = new HashMap<>();
 			this.cachedGuis = new HashMap<>();
-			this.guiTimestamps = new HashMap<>();
+			this.guiHashes = new HashMap<>();
 			this.globalMacrosTimestamps = new HashMap<>();
 			this.cachedGlobalMacros = new HashMap<>();
 		}
@@ -247,9 +248,9 @@ public class GuiManager {
 	private void loadGlobalMacroFromFile(File file)
 	{
 		String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
-		Long fileModified = file.lastModified();
-		Long cacheModified = this.globalMacrosTimestamps.get(macroName);
-		if(cacheModified == null || !fileModified.equals(cacheModified))
+		byte[] fileHash = HashUtil.getMD5(file);
+		byte[] cachedHash = this.globalMacrosTimestamps.get(macroName);
+		if(cachedHash == null || fileHash != cachedHash)
 		{
 			List<MacroToken> tokens = new ArrayList<>();
 			Configuration config = Configuration.load(file);
@@ -261,7 +262,7 @@ public class GuiManager {
 			}
 			
 			this.modifiedMacros.add(macroName);
-			this.globalMacrosTimestamps.put(macroName, fileModified);
+			this.globalMacrosTimestamps.put(macroName, fileHash);
 			this.globalMacros.put(macroName, tokens);
 		}
 		else
@@ -299,10 +300,11 @@ public class GuiManager {
 	{
 		this.loadFileGuis();
 		this.loadRemoteGuis();
+		this.modifiedMacros.clear();
 		this.cleanupGuis();
 	}
 	
-	private void loadGuiFromFile(File file)
+	private void loadGuiFromFile(Configuration yaml, File file)
 	{
 		DynamicGui dynamicGui = DynamicGui.get();
 		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
@@ -310,10 +312,10 @@ public class GuiManager {
 		try
 		{
 			String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-			Long modifiedTime = file.lastModified();
-			Long cacheModifiedTime = this.guiTimestamps.get(guiName);
+			byte[] cachedHash = this.guiHashes.get(guiName);
 			GuiToken token = this.cachedTokens.get(guiName);
-			if(token != null && cacheModifiedTime != null && cacheModifiedTime.equals(modifiedTime) && !hasUpdatedMacro(token))
+			byte[] guiHash = HashUtil.getMD5(file);
+			if(token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token))
 			{
 				Gui cachedGui = this.cachedGuis.get(guiName);
 				for(String alias : token.getAlias())
@@ -326,8 +328,7 @@ public class GuiManager {
 			}
 			else
 			{
-				Configuration yaml = Configuration.load(file);
-				this.guiTimestamps.put(guiName, modifiedTime);
+				this.guiHashes.put(guiName, guiHash);
 				this.loadGuiFromConfiguration(guiName, yaml);
 			}
 		}	
@@ -350,15 +351,14 @@ public class GuiManager {
 		{
 			for(File file : ar)
 			{
-				this.loadGuiFromFile(file);
+				Configuration config = Configuration.load(file);
+				this.loadGuiFromFile(config, file);
 			}
 		} 
 		else 
 		{
 			DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
 		}
-		
-		this.modifiedMacros.clear();
 	}
 	
 	private boolean hasUpdatedMacro(GuiToken token)
@@ -380,9 +380,9 @@ public class GuiManager {
 		try 
 		{
 			URL url = new URL(strUrl);
-			File backupFile = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
-			Configuration guiConfiguration = Configuration.load(url, backupFile);
-			this.loadGuiFromConfiguration(guiName, guiConfiguration);
+			File file = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
+			Configuration yaml = Configuration.load(url, file);
+			this.loadGuiFromFile(yaml, file);
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -419,7 +419,7 @@ public class GuiManager {
 			if(!this.guis.containsKey(guiName))
 			{
 				it.remove();
-				this.guiTimestamps.remove(guiName);
+				this.guiHashes.remove(guiName);
 				this.cachedTokens.remove(guiName);
 			}
 		}
