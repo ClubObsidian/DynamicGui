@@ -65,6 +65,11 @@ dependencies {
     compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
     	exclude group: 'org.spongepowered', module: 'testmods'
     }
+
+	//Plugins
+	compileOnly 'com.github.clubobsidian:foundry:2.0.0'
+
+	//Dependencies
     compile 'org.apache.commons:commons-lang3:3.9'
     compile 'commons-io:commons-io:2.6'
     compile 'com.github.clubobsidian:wrappy:2.1.0'

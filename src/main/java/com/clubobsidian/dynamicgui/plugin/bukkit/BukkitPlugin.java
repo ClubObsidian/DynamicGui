@@ -17,15 +17,18 @@ package com.clubobsidian.dynamicgui.plugin.bukkit;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.clubobsidian.dynamicgui.permission.bukkit.FoundryPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
@@ -91,19 +94,51 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		.setPlugin(this)
 		.setServer(new FakeBukkitServer())
 		.bootstrap();
-		
+
+
+		PluginManager pm = this.getServer().getPluginManager();
+
+		boolean vault = false;
+		boolean foundry = false;
+		if(pm.getPlugin("Vault") != null)
+		{
+			vault = true;
+		}
+		if(pm.getPlugin("Foundry") != null)
+		{
+			foundry = true;
+		}
+
+		if(vault && foundry)
+		{
+			this.permission = new FoundryPermission();
+		}
+		else if(vault)
+		{
+			this.permission = new VaultPermission();
+		}
+
+		if(this.permission != null && !this.permission.setup())
+		{
+			this.permission = null;
+		}
+
+		if(permission == null)
+		{
+			this.getLogger().log(Level.SEVERE, "Vault is not installed, permissions will not work");
+		}
+
 		this.economy = new VaultEconomy();
 		if(!this.economy.setup())
 		{
 			this.economy = null;
 		}
-		
-		this.permission = new VaultPermission();
-		if(!this.permission.setup())
+
+		if(this.economy == null)
 		{
-			this.permission = null;
+			this.getLogger().log(Level.SEVERE, "Vault is not installed, economy functions will not work");
 		}
-		
+
 		this.npcRegistries = new ArrayList<>();
 		
 		if(Bukkit.getServer().getPluginManager().getPlugin("Citizens") != null)
