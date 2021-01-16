@@ -140,24 +140,29 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		}
 
 		this.npcRegistries = new ArrayList<>();
-		
-		if(Bukkit.getServer().getPluginManager().getPlugin("Citizens") != null)
+
+		//Hack for adding citizens late
+		//For some reason citizens sometimes will load after DynamicGui
+		this.getServer().getScheduler().scheduleSyncDelayedTask(this, () ->
 		{
-			this.getNPCRegistries().add(new CitizensRegistry());
-		}
+			if(this.getServer().getPluginManager().getPlugin("Citizens") != null)
+			{
+				this.getNPCRegistries().add(new CitizensRegistry());
+			}
+		}, 1);
 		
-		if(Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
+		if(this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
 		{
 			ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
 		}
 		
 		this.getCommand("gui").setExecutor(new BukkitGuiCommand());
 		this.getCommand("dynamicgui").setExecutor(new BukkitDynamicGuiCommand());
-		Bukkit.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+		this.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
+		this.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
+		this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
+		this.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 	}
 
 	@Override
@@ -214,9 +219,9 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		{
 			try 
 			{
-				final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+				final Field f = this.getServer().getClass().getDeclaredField("commandMap");
 				f.setAccessible(true);
-				this.commandMap = (CommandMap) f.get(Bukkit.getServer());
+				this.commandMap = (CommandMap) f.get(this.getServer());
 				return this.commandMap;
 			} 
 			catch (Exception e) 
