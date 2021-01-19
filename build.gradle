@@ -51,6 +51,7 @@ shadowJar {
 	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 	relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
 	relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
+	relocate 'com.clubobsidian.fuzzutil', 'com.clubobsidian.dynamicgui.shaded.fuzzutil'
 	baseName = 'DynamicGui'
 	classifier = ''
 }
