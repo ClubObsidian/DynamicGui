@@ -140,7 +140,7 @@ public class DynamicGui  {
 		this.setupFileStructure();
 		this.saveDefaultConfig();
 		this.checkForEventBusOverride();
-		this.eventManager = this.getVersionEventBus();
+		this.eventManager = new JavassistEventBus();
 	}
 
 	private void init()
@@ -456,8 +456,9 @@ public class DynamicGui  {
 	{
 		return this.injector;
 	}
-	
-	private EventBus getVersionEventBus()
+
+	//Hack for checking for Java 8, temp work around for trident
+	/*private EventBus getVersionEventBus()
 	{
 		String version = System.getProperty("java.version");
 		if(version.startsWith("1.8") && !this.useReflectionEventBus)
@@ -467,7 +468,7 @@ public class DynamicGui  {
 		
 		this.loggerWrapper.info("Falling back to the reflection eventbus for better compatability");
 		return new ReflectionEventBus();
-	}
+	}*/
 	
 	private Proxy findProxyByString(String proxyStr) 
 	{
