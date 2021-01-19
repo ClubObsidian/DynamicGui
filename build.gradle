@@ -50,7 +50,7 @@ shadowJar {
 	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
 	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 	relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
-	relocate 'net.kyori.adventure', 'com.clubobsidian.dynamicgui.shaded.adventure'
+	relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
 	baseName = 'DynamicGui'
 	classifier = ''
 }
