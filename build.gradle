@@ -9,7 +9,7 @@ plugins {
 }
 
 
-version = '4.0.0'
+version = '4.1.0'
 
 def buildNumber = System.getenv("GITHUB_RUN_NUMBER")
 
