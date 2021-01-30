@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
@@ -103,6 +104,11 @@ public final class FunctionUtil {
 			}
 			
 			boolean ran = function.function(playerWrapper);
+			if(data.getModifier() == FunctionModifier.NOT)
+			{
+				ran = !ran;
+			}
+
 			if(!ran)
 			{
 				return new FunctionResponse(false, functionName, functionData);

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 
@@ -55,7 +56,12 @@ public class FunctionTokenBuilder {
 	
 	public FunctionTokenBuilder addFunction(String name, String data)
 	{
-		return this.addFailOnFunction(new FunctionData(name, data));
+		return this.addFunction(name, data, FunctionModifier.NONE);
+	}
+
+	public FunctionTokenBuilder addFunction(String name, String data, FunctionModifier modifier)
+	{
+		return this.addFunction(new FunctionData(name, data, modifier));
 	}
 	
 	public FunctionTokenBuilder addFunction(FunctionData data)
@@ -76,7 +82,12 @@ public class FunctionTokenBuilder {
 	
 	public FunctionTokenBuilder addFailOnFunction(String name, String data)
 	{
-		return this.addFailOnFunction(new FunctionData(name, data));
+		return this.addFailOnFunction(name, data, FunctionModifier.NONE);
+	}
+
+	public FunctionTokenBuilder addFailOnFunction(String name, String data, FunctionModifier modifier)
+	{
+		return this.addFailOnFunction(new FunctionData(name, data, modifier));
 	}
 	
 	public FunctionTokenBuilder addFailOnFunction(FunctionData data)

@@ -16,11 +16,13 @@
 package com.clubobsidian.dynamicgui.builder;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 
 public class FunctionBuilder {
 	
 	private String name;
 	private String data;
+	private FunctionModifier modifier = FunctionModifier.NONE;
 	
 	public FunctionBuilder setName(String name)
 	{
@@ -33,16 +35,29 @@ public class FunctionBuilder {
 		this.data = data;
 		return this;
 	}
-	
+
+	public FunctionBuilder setModifier(FunctionModifier modifier)
+	{
+		this.modifier = modifier;
+		return this;
+	}
+
 	public FunctionData create(String name, String data)
+	{
+		return this.create(name, data, FunctionModifier.NONE);
+	}
+
+
+	public FunctionData create(String name, String data, FunctionModifier modifier)
 	{
 		this.setName(name);
 		this.setData(data);
+		this.setModifier(modifier);
 		return this.build();
 	}
 	
 	public FunctionData build()
 	{
-		return new FunctionData(this.name, this.data);
+		return new FunctionData(this.name, this.data, this.modifier);
 	}
 }
