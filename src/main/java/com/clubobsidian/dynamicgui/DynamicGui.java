@@ -127,7 +127,6 @@ public class DynamicGui  {
 	private LoggerWrapper<?> loggerWrapper;
 	private Injector injector;
 	private boolean initialized;
-	private boolean useReflectionEventBus;
 	
 	@Inject
 	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
@@ -140,8 +139,7 @@ public class DynamicGui  {
 		this.initialized = false;
 		this.setupFileStructure();
 		this.saveDefaultConfig();
-		this.checkForEventBusOverride();
-		this.eventManager = new JavassistEventBus();
+		this.eventManager = new ReflectionEventBus();
 	}
 
 	private void init()
@@ -199,12 +197,6 @@ public class DynamicGui  {
 		}
 	}
 
-	private void checkForEventBusOverride()
-	{
-		Configuration config = Configuration.load(this.plugin.getConfigFile());
-		this.useReflectionEventBus = config.getBoolean("use-reflection-event-bus");
-	}
-	
 	private void loadConfig()
 	{
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
