@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.clubobsidian.dynamicgui.registry.replacer.impl.MetadataReplacerRegistry;
 import org.apache.commons.io.FileUtils;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
@@ -152,6 +153,7 @@ public class DynamicGui  {
 		this.registerListeners();
 		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
 		ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
+		ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
 		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
 		SlotManager.get();
 		CooldownManager.get();
@@ -196,8 +198,8 @@ public class DynamicGui  {
 			}
 		}
 	}
-	
-	private void checkForEventBusOverride() 
+
+	private void checkForEventBusOverride()
 	{
 		Configuration config = Configuration.load(this.plugin.getConfigFile());
 		this.useReflectionEventBus = config.getBoolean("use-reflection-event-bus");

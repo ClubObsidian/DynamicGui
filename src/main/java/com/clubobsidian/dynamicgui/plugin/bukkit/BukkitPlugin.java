@@ -90,7 +90,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 		.setItemStack(BukkitItemStackManager.class)
 		.setLocation(BukkitLocationManager.class)
 		.setMaterial(BukkitMaterialManager.class)
-		.setLogger(new JavaLoggerWrapper<Logger>(this.getLogger()))
+		.setLogger(new JavaLoggerWrapper<>(this.getLogger()))
 		.setPlugin(this)
 		.setServer(new FakeBukkitServer())
 		.bootstrap();
