@@ -79,7 +79,7 @@ dependencies {
     compile 'com.github.clubobsidian:dynamicguiparser:2.10.0'
     compile 'com.udojava:EvalEx:2.1'
     compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-    compile 'com.google.inject:guice:4.2.2'
+    compile 'com.google.inject:guice:5.0.0'
     compile 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
     compile 'net.kyori:adventure-text-serializer-gson:4.3.0'
 }
