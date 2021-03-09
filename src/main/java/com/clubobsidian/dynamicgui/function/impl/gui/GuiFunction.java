@@ -56,9 +56,7 @@ public class GuiFunction extends Function {
 		{
 			back = (Gui) owner;
 		}
-		
-		//Clone gui
-		Gui clonedBack = back.clone();
+
 		//Make it so the gui doesn't close
 		if(owner instanceof Slot)
 		{
@@ -66,6 +64,6 @@ public class GuiFunction extends Function {
 			slot.setClose(false);
 		}
 		back.setClose(false);
-		return GuiManager.get().openGui(playerWrapper, gui, back);
+		return GuiManager.get().openGui(playerWrapper, gui, back.clone());
 	}
 }
