@@ -64,6 +64,6 @@ public class GuiFunction extends Function {
 			slot.setClose(false);
 		}
 		back.setClose(false);
-		return GuiManager.get().openGui(playerWrapper, gui, back.clone());
+		return GuiManager.get().openGui(playerWrapper, gui, back);
 	}
 }

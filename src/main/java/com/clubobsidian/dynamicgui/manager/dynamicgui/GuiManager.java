@@ -207,7 +207,7 @@ public class GuiManager {
 		Gui clonedGui = gui.clone();
 		if(back != null)
 		{
-			clonedGui.setBack(back);
+			clonedGui.setBack(back.clone());
 		}
 		
 		//Run gui load functions
