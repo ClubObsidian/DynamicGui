@@ -183,18 +183,32 @@ public class GuiManager {
 	
 	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName)
 	{
-		return this.openGui(playerWrapper, this.getGuiByName(guiName));
+		return this.openGui(playerWrapper, guiName, null);
 	}
-	
+
+	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back)
+	{
+		return this.openGui(playerWrapper, this.getGuiByName(guiName), back);
+	}
+
 	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui)
+	{
+		return this.openGui(playerWrapper, gui, null);
+	}
+
+	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back)
 	{
 		if(gui == null)
 		{
 			playerWrapper.sendMessage(DynamicGui.get().getNoGui());
 			return false;
 		}
-		
+
 		Gui clonedGui = gui.clone();
+		if(back != null)
+		{
+			clonedGui.setBack(back);
+		}
 		
 		//Run gui load functions
 		boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
