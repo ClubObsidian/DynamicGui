@@ -43,6 +43,7 @@ public class BackFunction extends Function {
 		{
 			Slot slot = (Slot) owner;
 			gui = slot.getOwner();
+			slot.setClose(false);
 		}
 		else if(owner instanceof Gui)
 		{
@@ -57,7 +58,6 @@ public class BackFunction extends Function {
 			{
 				try
 				{
-					
 					Integer backAmount = Integer.parseInt(this.getData());
 					for(int i = 1; i < backAmount; i++)
 					{
