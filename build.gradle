@@ -21,19 +21,19 @@ if(buildNumber != null) {
 repositories {
 	maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
 	maven { url = 'https://repo.spongepowered.org/maven' }
-    maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
-    mavenCentral()
+	maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
+	mavenCentral()
 	maven { url 'https://jitpack.io' }
 }
 
 
 sponge {
-    plugin {
-        id = 'dynamicgui'
-        meta {
+	plugin {
+		id = 'dynamicgui'
+		meta {
 			name = 'DynamicGui'
 		}
-    }
+	}
 }
 
 processResources {
@@ -58,28 +58,28 @@ shadowJar {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    
-    //Server implementations
-    
-    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
-    compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
-    	exclude group: 'org.spongepowered', module: 'testmods'
-    }
+	testImplementation 'junit:junit:4.12'
+
+	//Server implementations
+
+	compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
+	compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
+		exclude group: 'org.spongepowered', module: 'testmods'
+	}
 
 	//Plugins
 	compileOnly 'com.github.clubobsidian:foundry:2.0.0'
 
 	//Dependencies
-    compile 'org.apache.commons:commons-lang3:3.9'
-    compile 'commons-io:commons-io:2.6'
-    compile 'com.github.clubobsidian:wrappy:2.1.0'
-    compile 'com.github.clubobsidian:trident:2.1.0'
-    compile 'com.github.clubobsidian:dynamicguiparser:2.10.0'
-    compile 'com.udojava:EvalEx:2.1'
-    compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-    compile 'com.google.inject:guice:4.2.2'
-    compile 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
-    compile 'net.kyori:adventure-text-serializer-gson:4.3.0'
+	compile 'org.apache.commons:commons-lang3:3.9'
+	compile 'commons-io:commons-io:2.6'
+	compile 'com.github.clubobsidian:wrappy:2.1.0'
+	compile 'com.github.clubobsidian:trident:2.1.0'
+	compile 'com.github.clubobsidian:dynamicguiparser:2.10.0'
+	compile 'com.udojava:EvalEx:2.1'
+	compile 'com.github.ClubObsidian:FuzzUtil:1.1.0'
+	compile 'com.google.inject:guice:4.2.2'
+	compile 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
+	compile 'net.kyori:adventure-text-serializer-gson:4.3.0'
 }
