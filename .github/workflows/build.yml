@@ -24,7 +24,7 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.BUILD_WEBHOOK }}
       with:
-        args: /build/libs/*.*
+        args: build/libs/*.*
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
