@@ -20,7 +20,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew shadowJar
     - name: Upload to Discord
-      uses: sinshutu/upload-to-discord@v2
+      uses: sinshutu/upload-to-discord@v2.0.0
       env:
         DISCORD_WEBHOOK: ${{ secrets.BUILD_WEBHOOK }}
       with:
