@@ -17,10 +17,8 @@ if(buildNumber != null) {
 	version += "-b" + buildNumber
 }
 
-// In this section you declare where to find the dependencies of your project
 repositories {
 	maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
-	maven { url = 'https://repo.spongepowered.org/maven' }
 	maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
 	mavenCentral()
 	maven { url 'https://jitpack.io' }
@@ -74,7 +72,7 @@ dependencies {
 	//Dependencies
 	compile 'org.apache.commons:commons-lang3:3.9'
 	compile 'commons-io:commons-io:2.6'
-	compile 'com.github.clubobsidian:wrappy:2.1.0'
+	compile 'com.github.clubobsidian:wrappy:2.2.1'
 	compile 'com.github.clubobsidian:trident:2.1.0'
 	compile 'com.github.clubobsidian:dynamicguiparser:2.10.0'
 	compile 'com.udojava:EvalEx:2.1'
