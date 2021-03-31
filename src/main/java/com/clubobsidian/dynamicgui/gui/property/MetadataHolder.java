@@ -20,6 +20,6 @@ import java.util.Map;
 
 public interface MetadataHolder {
 
-	public Map<String, String> getMetadata();
-	
+    public Map<String, String> getMetadata();
+
 }

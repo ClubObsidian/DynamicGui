@@ -29,40 +29,34 @@ import java.util.UUID;
 
 public class MetadataReplacerRegistry implements ReplacerRegistry {
 
-	private static MetadataReplacerRegistry instance;
-	
-	public static MetadataReplacerRegistry get()
-	{
-		if(instance == null)
-		{
-			instance = new MetadataReplacerRegistry();
-		}
-		
-		return instance;
-	}
-	
-	private static final String METADATA_PREFIX = "%metadata_";
-	
-	@Override
-	public String replace(PlayerWrapper<?> playerWrapper, String text) 
-	{
-		Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-		if(gui == null)
-		{
-			return text;
-		}
+    private static MetadataReplacerRegistry instance;
 
-		for(Map.Entry<String, String> entry : gui.getMetadata().entrySet())
-		{
-			String metadataKey = entry.getKey();
-			String metadataValue = entry.getValue();
-			String metadataReplacer = METADATA_PREFIX + metadataKey + "%";
-			if(text.contains(metadataReplacer))
-			{
-				text = StringUtils.replace(text, metadataReplacer, metadataValue);
-			}
-		}
-		
-		return text;
-	}
+    public static MetadataReplacerRegistry get() {
+        if (instance == null) {
+            instance = new MetadataReplacerRegistry();
+        }
+
+        return instance;
+    }
+
+    private static final String METADATA_PREFIX = "%metadata_";
+
+    @Override
+    public String replace(PlayerWrapper<?> playerWrapper, String text) {
+        Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+        if (gui == null) {
+            return text;
+        }
+
+        for (Map.Entry<String, String> entry : gui.getMetadata().entrySet()) {
+            String metadataKey = entry.getKey();
+            String metadataValue = entry.getValue();
+            String metadataReplacer = METADATA_PREFIX + metadataKey + "%";
+            if (text.contains(metadataReplacer)) {
+                text = StringUtils.replace(text, metadataReplacer, metadataValue);
+            }
+        }
+
+        return text;
+    }
 }

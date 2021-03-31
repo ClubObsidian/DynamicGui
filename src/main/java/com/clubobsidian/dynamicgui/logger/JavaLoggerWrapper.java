@@ -20,20 +20,17 @@ import java.util.logging.Logger;
 
 public class JavaLoggerWrapper<T extends Logger> extends LoggerWrapper<T> {
 
-	public JavaLoggerWrapper(T logger) 
-	{
-		super(logger);
-	}
+    public JavaLoggerWrapper(T logger) {
+        super(logger);
+    }
 
-	@Override
-	public void info(String message) 
-	{
-		this.getLogger().log(Level.INFO, message);
-	}
+    @Override
+    public void info(String message) {
+        this.getLogger().log(Level.INFO, message);
+    }
 
-	@Override
-	public void error(String message) 
-	{
-		this.getLogger().log(Level.SEVERE, message);
-	}
+    @Override
+    public void error(String message) {
+        this.getLogger().log(Level.SEVERE, message);
+    }
 }

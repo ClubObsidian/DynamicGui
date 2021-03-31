@@ -20,19 +20,17 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class NoPermissionFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6907686728880861860L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6907686728880861860L;
 
-	public NoPermissionFunction(String name) 
-	{
-		super(name);
-	}
+    public NoPermissionFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		return !playerWrapper.hasPermission(this.getData());
-	}	
+    @Override
+    public boolean function(final PlayerWrapper<?> playerWrapper) {
+        return !playerWrapper.hasPermission(this.getData());
+    }
 }

@@ -22,18 +22,15 @@ import com.udojava.evalex.Expression.LazyNumber;
 
 public class IgnoreCaseEqualLazyFunction extends AbstractLazyFunction {
 
-	protected IgnoreCaseEqualLazyFunction() 
-	{
-		super("STREQUALIGNORECASE", 2, true);
-	}
+    protected IgnoreCaseEqualLazyFunction() {
+        super("STREQUALIGNORECASE", 2, true);
+    }
 
-	@Override
-	public LazyNumber lazyEval(List<LazyNumber> lazyParams) 
-	{
-		if(lazyParams.get(0).getString().equalsIgnoreCase(lazyParams.get(1).getString()))
-		{
-			return ConditionFunction.ONE;
-		}
-		return ConditionFunction.ZERO;
-	}
+    @Override
+    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
+        if (lazyParams.get(0).getString().equalsIgnoreCase(lazyParams.get(1).getString())) {
+            return ConditionFunction.ONE;
+        }
+        return ConditionFunction.ZERO;
+    }
 }

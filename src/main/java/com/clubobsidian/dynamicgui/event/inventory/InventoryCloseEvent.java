@@ -21,8 +21,7 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 
 public class InventoryCloseEvent extends InventoryEvent {
 
-	public InventoryCloseEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) 
-	{
-		super(playerWrapper, inventoryWrapper);
-	}
+    public InventoryCloseEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
+        super(playerWrapper, inventoryWrapper);
+    }
 }

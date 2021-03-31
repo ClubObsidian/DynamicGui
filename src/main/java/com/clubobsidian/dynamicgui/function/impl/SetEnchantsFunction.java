@@ -30,64 +30,52 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 public class SetEnchantsFunction extends Function {
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8291956007296368761L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8291956007296368761L;
 
-	public SetEnchantsFunction(String name) 
-	{
-		super(name);
-	}
+    public SetEnchantsFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
-		if(owner != null)
-		{
-			if(owner instanceof Slot)
-			{
-				Slot slot = (Slot) owner;
-				Gui gui = slot.getOwner();
-				if(gui != null)
-				{
-					InventoryWrapper<?> inv = gui.getInventoryWrapper();
-					if(inv != null)
-					{
-						ItemStackWrapper<?> item = slot.getItemStack();
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
+        if (owner != null) {
+            if (owner instanceof Slot) {
+                Slot slot = (Slot) owner;
+                Gui gui = slot.getOwner();
+                if (gui != null) {
+                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                    if (inv != null) {
+                        ItemStackWrapper<?> item = slot.getItemStack();
 
-						Map<String, Integer> enchants = new HashMap<String, Integer>();
-						if(this.getData().contains(";"))
-						{
-							for(String str : this.getData().split(";"))
-							{
-								String[] split = str.split(",");
-								enchants.put(split[0], Integer.valueOf(split[1]));
-							}
-						}
-						else
-						{
-							String[] split = this.getData().split(",");
-							enchants.put(split[0], Integer.valueOf(split[1]));
-						}
+                        Map<String, Integer> enchants = new HashMap<String, Integer>();
+                        if (this.getData().contains(";")) {
+                            for (String str : this.getData().split(";")) {
+                                String[] split = str.split(",");
+                                enchants.put(split[0], Integer.valueOf(split[1]));
+                            }
+                        } else {
+                            String[] split = this.getData().split(",");
+                            enchants.put(split[0], Integer.valueOf(split[1]));
+                        }
 
-						for(EnchantmentWrapper ench : item.getEnchants())
-						{
-							item.removeEnchant(ench);
-						}
+                        for (EnchantmentWrapper ench : item.getEnchants()) {
+                            item.removeEnchant(ench);
+                        }
 
-						for(String str : enchants.keySet())
-						{
-							item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
-						}
+                        for (String str : enchants.keySet()) {
+                            item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
+                        }
 
-						inv.setItem(slot.getIndex(), item);
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}	
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

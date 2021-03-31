@@ -23,34 +23,30 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 
 public class SpongeScheduler extends Scheduler {
-	
-	@Override
-	public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) 
-	{
-		Long tickDelay = this.ticksToMillis(delay); 
-		Sponge.getScheduler().createSyncExecutor(plugin).schedule(runnable, tickDelay, TimeUnit.MILLISECONDS);
-	}
 
-	
-	@Override
-	public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
-	{
-		Long tickDelayInitial = this.ticksToMillis(delayInitial);
-		Long tickDelayRepeating = this.ticksToMillis(delayRepeating);
-		Sponge.getScheduler().createSyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
-	}
-	
-	@Override
-	public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
-	{
-		Long tickDelayInitial = this.ticksToMillis(delayInitial);
-		Long tickDelayRepeating = this.ticksToMillis(delayRepeating);
-		Sponge.getScheduler().createAsyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
-	}
-	
-	//Convert from ticks to milliseconds
-	private Long ticksToMillis(Long delay)
-	{
-		return delay *= 50;
-	}
+    @Override
+    public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) {
+        Long tickDelay = this.ticksToMillis(delay);
+        Sponge.getScheduler().createSyncExecutor(plugin).schedule(runnable, tickDelay, TimeUnit.MILLISECONDS);
+    }
+
+
+    @Override
+    public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
+        Long tickDelayInitial = this.ticksToMillis(delayInitial);
+        Long tickDelayRepeating = this.ticksToMillis(delayRepeating);
+        Sponge.getScheduler().createSyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
+        Long tickDelayInitial = this.ticksToMillis(delayInitial);
+        Long tickDelayRepeating = this.ticksToMillis(delayRepeating);
+        Sponge.getScheduler().createAsyncExecutor(plugin).scheduleAtFixedRate(runnable, tickDelayInitial, tickDelayRepeating, TimeUnit.MILLISECONDS);
+    }
+
+    //Convert from ticks to milliseconds
+    private Long ticksToMillis(Long delay) {
+        return delay *= 50;
+    }
 }

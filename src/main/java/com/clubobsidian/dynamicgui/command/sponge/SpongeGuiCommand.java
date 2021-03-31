@@ -30,19 +30,16 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class SpongeGuiCommand implements CommandExecutor {
 
-	@Override
-	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException 
-	{
-		if(src instanceof Player)
-		{
-			Optional<String> gui = args.getOne("gui");
-			if(gui.isPresent())
-			{
-				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>((Player) src);
-				GuiManager.get().openGui(playerWrapper, gui.get());
-				return CommandResult.success();
-			}
-		}
-		return CommandResult.empty();
-	}
+    @Override
+    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        if (src instanceof Player) {
+            Optional<String> gui = args.getOne("gui");
+            if (gui.isPresent()) {
+                PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>((Player) src);
+                GuiManager.get().openGui(playerWrapper, gui.get());
+                return CommandResult.success();
+            }
+        }
+        return CommandResult.empty();
+    }
 }

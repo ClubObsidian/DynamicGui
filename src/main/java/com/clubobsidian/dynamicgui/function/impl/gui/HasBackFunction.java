@@ -23,32 +23,27 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 
 public class HasBackFunction extends Function {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6693867193877376679L;
 
-	public HasBackFunction(String name) 
-	{
-		super(name);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6693867193877376679L;
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		Gui gui = null;
-		FunctionOwner owner = this.getOwner();
-		if(owner instanceof Slot)
-		{
-			Slot slot = (Slot) owner;
-			gui = slot.getOwner();
-		}
-		else if(owner instanceof Gui)
-		{
-			gui = (Gui) owner;
-		}
-		
-		return gui.getBack() != null;
-	}
+    public HasBackFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        Gui gui = null;
+        FunctionOwner owner = this.getOwner();
+        if (owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            gui = slot.getOwner();
+        } else if (owner instanceof Gui) {
+            gui = (Gui) owner;
+        }
+
+        return gui.getBack() != null;
+    }
 }

@@ -26,27 +26,36 @@ import com.clubobsidian.dynamicgui.world.WorldWrapper;
 
 public abstract class FakeServer {
 
-	private Scheduler scheduler;
-	public FakeServer(Scheduler scheduler)
-	{
-		this.scheduler = scheduler;
-	}
-	
-	public Scheduler getScheduler()
-	{
-		return this.scheduler;
-	}
-	
-	public abstract void broadcastMessage(String message);
-	public abstract void broadcastJsonMessage(String json);
-	public abstract void dispatchServerCommand(String command);
-	public abstract PlayerWrapper<?> getPlayer(UUID uuid);
-	public abstract PlayerWrapper<?> getPlayer(String name);
-	public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
-	public abstract int getGlobalPlayerCount();
-	public abstract ServerType getType();
-	public abstract void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
-	public abstract void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable);
-	public abstract WorldWrapper<?> getWorld(String worldName);
-	
+    private Scheduler scheduler;
+
+    public FakeServer(Scheduler scheduler) {
+        this.scheduler = scheduler;
+    }
+
+    public Scheduler getScheduler() {
+        return this.scheduler;
+    }
+
+    public abstract void broadcastMessage(String message);
+
+    public abstract void broadcastJsonMessage(String json);
+
+    public abstract void dispatchServerCommand(String command);
+
+    public abstract PlayerWrapper<?> getPlayer(UUID uuid);
+
+    public abstract PlayerWrapper<?> getPlayer(String name);
+
+    public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
+
+    public abstract int getGlobalPlayerCount();
+
+    public abstract ServerType getType();
+
+    public abstract void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
+
+    public abstract void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable);
+
+    public abstract WorldWrapper<?> getWorld(String worldName);
+
 }

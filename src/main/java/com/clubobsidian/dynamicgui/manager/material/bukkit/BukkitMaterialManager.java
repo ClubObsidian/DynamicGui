@@ -24,33 +24,29 @@ import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
 public class BukkitMaterialManager extends MaterialManager {
 
-	private List<String> materials;
-	public BukkitMaterialManager() 
-	{
-		this.loadMaterials();
-	}
+    private List<String> materials;
 
-	private void loadMaterials()
-	{
-		this.materials = new ArrayList<>();
-		for(Material material : Material.values())
-		{
-			this.materials.add(material.name());
-		}
-	}
-	
-	@Override
-	public List<String> getMaterials() 
-	{
-		return this.materials;
-	}
+    public BukkitMaterialManager() {
+        this.loadMaterials();
+    }
 
-	@Override
-	public String normalizeMaterial(String material) 
-	{
-		if(material == null)
-			return null;
-		
-		return material.toUpperCase();
-	}
+    private void loadMaterials() {
+        this.materials = new ArrayList<>();
+        for (Material material : Material.values()) {
+            this.materials.add(material.name());
+        }
+    }
+
+    @Override
+    public List<String> getMaterials() {
+        return this.materials;
+    }
+
+    @Override
+    public String normalizeMaterial(String material) {
+        if (material == null)
+            return null;
+
+        return material.toUpperCase();
+    }
 }

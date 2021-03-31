@@ -20,27 +20,27 @@ import com.clubobsidian.dynamicgui.permission.Permission;
 
 public class SpongePermission implements Permission {
 
-	@Override
-	public boolean setup() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean setup() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

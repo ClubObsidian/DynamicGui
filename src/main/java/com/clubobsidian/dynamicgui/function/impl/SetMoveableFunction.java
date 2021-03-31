@@ -24,41 +24,34 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 
 public class SetMoveableFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 453447798953153174L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 453447798953153174L;
 
-	public SetMoveableFunction(String name) 
-	{
-		super(name);
-	}
+    public SetMoveableFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		if(this.getOwner() instanceof Slot)
-		{
-			Boolean value = Boolean.valueOf(this.getData());
-			if(value != null)
-			{
-				FunctionOwner owner = this.getOwner();
-				if(owner != null)
-				{
-					if(owner instanceof Slot)
-					{
-						Slot slot = (Slot) owner;
-						Gui gui = slot.getOwner();
-						if(gui != null)
-						{
-							slot.setMoveable(value);
-							return true;
-						}
-					}
-				}
-			}
-		}
-		
-		return false;
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        if (this.getOwner() instanceof Slot) {
+            Boolean value = Boolean.valueOf(this.getData());
+            if (value != null) {
+                FunctionOwner owner = this.getOwner();
+                if (owner != null) {
+                    if (owner instanceof Slot) {
+                        Slot slot = (Slot) owner;
+                        Gui gui = slot.getOwner();
+                        if (gui != null) {
+                            slot.setMoveable(value);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }

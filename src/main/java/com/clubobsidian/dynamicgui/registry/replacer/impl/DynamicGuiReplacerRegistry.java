@@ -41,103 +41,83 @@ import com.clubobsidian.trident.EventHandler;
 
 public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
-	private static DynamicGuiReplacerRegistry instance;
-	
-	private Map<String, Replacer> replacers;
-	private Map<String, List<Replacer>> cachedReplacers;
-	private DynamicGuiReplacerRegistry()
-	{
-		this.replacers = new HashMap<>();
-		this.cachedReplacers = new HashMap<>();
-		this.addReplacer(new PlayerReplacer("%player%"));
-		this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
-		this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
-		this.addReplacer(new UUIDReplacer("%uuid%"));
-		this.addReplacer(new PlayerLevelReplacer("%player-level%"));
-		this.generateStatisticReplacers();
-		DynamicGui.get().getEventBus().registerEvents(this);
-	}
-	
-	@Override
-	public String replace(final PlayerWrapper<?> playerWrapper, final String text) 
-	{
-		String newText = text;
-		List<Replacer> cachedReplacerList = this.cachedReplacers.get(text);
-		if(cachedReplacerList != null)
-		{
-			for(Replacer replacer : cachedReplacerList)
-			{
-				newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
-			}
-		}
-		else
-		{
-			cachedReplacerList = new ArrayList<>();
-			for(Replacer replacer : this.replacers.values())
-			{
-				if(newText.contains(replacer.getToReplace()))
-				{
-					newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
-					cachedReplacerList.add(replacer);
-				}
-			}
-			
-			this.cachedReplacers.put(text, cachedReplacerList);
-		}
-		
-		
-		return newText;
-	}
+    private static DynamicGuiReplacerRegistry instance;
 
-	public static DynamicGuiReplacerRegistry get()
-	{
-		if(instance == null)
-		{
-			instance = new DynamicGuiReplacerRegistry();
-		}
-		return instance;
-	}
-	
-	public boolean addReplacer(Replacer replacer)
-	{
-		boolean put = this.replacers.put(replacer.getToReplace(), replacer) == null;
-		this.cachedReplacers.clear();
-		return put;
-	}
-	
-	@EventHandler
-	public void onReload(DynamicGuiReloadEvent event)
-	{
-		this.cachedReplacers.clear();
-	}
-	
-	private void generateStatisticReplacers()
-	{
-		for(Statistic statistic : Statistic.values())
-		{
-			if(statistic.getStatisticType() == StatisticType.MATERIAL)
-			{
-				for(String material : MaterialManager.get().getMaterials())
-				{
-					String lowerMaterial = material.toLowerCase();
-					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
-					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
-				}
-			}
-			else if(statistic.getStatisticType() == StatisticType.ENTITY)
-			{
-				for(String entityType : EntityManager.get().getEntityTypes())
-				{
-					String lowerEntityType = entityType.toLowerCase();
-					String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
-					this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));
-				}
-			}
-			else
-			{
-				String replacerName = "%statistic-" + statistic.name().toLowerCase() + "%";
-				this.addReplacer(new StatisticReplacer(replacerName, statistic));
-			}
-		}
-	}
+    private Map<String, Replacer> replacers;
+    private Map<String, List<Replacer>> cachedReplacers;
+
+    private DynamicGuiReplacerRegistry() {
+        this.replacers = new HashMap<>();
+        this.cachedReplacers = new HashMap<>();
+        this.addReplacer(new PlayerReplacer("%player%"));
+        this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
+        this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
+        this.addReplacer(new UUIDReplacer("%uuid%"));
+        this.addReplacer(new PlayerLevelReplacer("%player-level%"));
+        this.generateStatisticReplacers();
+        DynamicGui.get().getEventBus().registerEvents(this);
+    }
+
+    @Override
+    public String replace(final PlayerWrapper<?> playerWrapper, final String text) {
+        String newText = text;
+        List<Replacer> cachedReplacerList = this.cachedReplacers.get(text);
+        if (cachedReplacerList != null) {
+            for (Replacer replacer : cachedReplacerList) {
+                newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
+            }
+        } else {
+            cachedReplacerList = new ArrayList<>();
+            for (Replacer replacer : this.replacers.values()) {
+                if (newText.contains(replacer.getToReplace())) {
+                    newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
+                    cachedReplacerList.add(replacer);
+                }
+            }
+
+            this.cachedReplacers.put(text, cachedReplacerList);
+        }
+
+
+        return newText;
+    }
+
+    public static DynamicGuiReplacerRegistry get() {
+        if (instance == null) {
+            instance = new DynamicGuiReplacerRegistry();
+        }
+        return instance;
+    }
+
+    public boolean addReplacer(Replacer replacer) {
+        boolean put = this.replacers.put(replacer.getToReplace(), replacer) == null;
+        this.cachedReplacers.clear();
+        return put;
+    }
+
+    @EventHandler
+    public void onReload(DynamicGuiReloadEvent event) {
+        this.cachedReplacers.clear();
+    }
+
+    private void generateStatisticReplacers() {
+        for (Statistic statistic : Statistic.values()) {
+            if (statistic.getStatisticType() == StatisticType.MATERIAL) {
+                for (String material : MaterialManager.get().getMaterials()) {
+                    String lowerMaterial = material.toLowerCase();
+                    String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
+                    this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
+                }
+            } else if (statistic.getStatisticType() == StatisticType.ENTITY) {
+                for (String entityType : EntityManager.get().getEntityTypes()) {
+                    String lowerEntityType = entityType.toLowerCase();
+                    String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
+                    this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));
+                }
+            } else {
+                String replacerName = "%statistic-" + statistic.name().toLowerCase() + "%";
+                this.addReplacer(new StatisticReplacer(replacerName, statistic));
+            }
+        }
+    }
 }

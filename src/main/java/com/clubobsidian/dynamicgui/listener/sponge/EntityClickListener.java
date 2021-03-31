@@ -29,15 +29,13 @@ import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 
 public class EntityClickListener {
 
-	@Listener
-	public void onEntityClick(InteractEntityEvent e, @First Player player)
-	{
-		if(e.getTargetEntity() != null)
-		{
-			PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>(player);
-			EntityWrapper<Entity> entityWrapper = new SpongeEntityWrapper<Entity>(e.getTargetEntity());
+    @Listener
+    public void onEntityClick(InteractEntityEvent e, @First Player player) {
+        if (e.getTargetEntity() != null) {
+            PlayerWrapper<Player> playerWrapper = new SpongePlayerWrapper<Player>(player);
+            EntityWrapper<Entity> entityWrapper = new SpongeEntityWrapper<Entity>(e.getTargetEntity());
 
-			DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
-		}
-	}
+            DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+        }
+    }
 }

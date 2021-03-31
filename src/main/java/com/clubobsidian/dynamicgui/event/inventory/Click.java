@@ -17,10 +17,10 @@ package com.clubobsidian.dynamicgui.event.inventory;
 
 public enum Click {
 
-	LEFT,
-	RIGHT,
-	MIDDLE,
-	SHIFT_LEFT,
-	SHIFT_RIGHT;
-	
+    LEFT,
+    RIGHT,
+    MIDDLE,
+    SHIFT_LEFT,
+    SHIFT_RIGHT;
+
 }

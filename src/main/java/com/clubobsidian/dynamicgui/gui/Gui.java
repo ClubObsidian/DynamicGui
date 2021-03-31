@@ -35,166 +35,139 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6294818826223305057L;
-	private List<Slot> slots;
-	private String name;
-	private String type;
-	private String title;
-	private int rows;
-	private Boolean close;
-	private ModeEnum modeEnum;
-	private List<LocationWrapper<?>> locations;
-	private Map<String, List<Integer>> npcIds;
-	private transient InventoryWrapper<?> inventoryWrapper;
-	private FunctionTree functions;
-	private Gui back;
-	private Map<String, String> metadata;
-	public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata)
-	{
-		this.name = name;
-		this.type = type;
-		this.title = ChatColor.translateAlternateColorCodes(title);
-		this.rows = rows;
-		this.slots = slots;
-		this.close = close;
-		this.modeEnum = modeEnum;
-		this.npcIds = npcIds;
-		this.locations = locations;
-		this.inventoryWrapper = null;
-		this.functions = functions;
-		this.back = null;
-		this.metadata = metadata;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6294818826223305057L;
+    private List<Slot> slots;
+    private String name;
+    private String type;
+    private String title;
+    private int rows;
+    private Boolean close;
+    private ModeEnum modeEnum;
+    private List<LocationWrapper<?>> locations;
+    private Map<String, List<Integer>> npcIds;
+    private transient InventoryWrapper<?> inventoryWrapper;
+    private FunctionTree functions;
+    private Gui back;
+    private Map<String, String> metadata;
 
-	public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper)
-	{	
-		String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-		if(inventoryTitle.length() > 32)
-		{
-			inventoryTitle = inventoryTitle.substring(0,31);
-		}
-		
-		Object serverInventory = null;
-		if(this.type == null || this.type.equals(InventoryType.CHEST.toString()))
-		{
-			serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
-		}
-		else
-		{
-			serverInventory = InventoryManager.get().createInventory(inventoryTitle, this.type);
-		}
-		
-		InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
+    public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata) {
+        this.name = name;
+        this.type = type;
+        this.title = ChatColor.translateAlternateColorCodes(title);
+        this.rows = rows;
+        this.slots = slots;
+        this.close = close;
+        this.modeEnum = modeEnum;
+        this.npcIds = npcIds;
+        this.locations = locations;
+        this.inventoryWrapper = null;
+        this.functions = functions;
+        this.back = null;
+        this.metadata = metadata;
+    }
 
-		for(int i = 0; i < this.slots.size(); i++)
-		{
-			Slot slot = this.slots.get(i);
-			if(slot != null)
-			{
-				slot.setOwner(this);
-				ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
+    public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
+        String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
+        if (inventoryTitle.length() > 32) {
+            inventoryTitle = inventoryTitle.substring(0, 31);
+        }
 
-				if(this.modeEnum == ModeEnum.ADD)
-				{
-					int itemIndex = inventoryWrapper.addItem(item);
-					if(itemIndex != -1)
-					{
-						slot.setIndex(itemIndex);
-					}
-				}
-				else
-				{
-					inventoryWrapper.setItem(slot.getIndex(), item);
-				}
-			}
-		}
-		
-		this.inventoryWrapper = inventoryWrapper;
-		return inventoryWrapper;
-	}
+        Object serverInventory = null;
+        if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
+            serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
+        } else {
+            serverInventory = InventoryManager.get().createInventory(inventoryTitle, this.type);
+        }
 
-	public String getName()
-	{
-		return this.name;
-	}
-	
-	public String getType()
-	{
-		return this.type;
-	}
+        InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
 
-	public String getTitle()
-	{
-		return this.title;
-	}
-	
-	public int getRows()
-	{
-		return this.rows;
-	}
-	
-	public List<Slot> getSlots()
-	{
-		return this.slots;
-	}
-	
-	public Boolean getClose()
-	{
-		return this.close;
-	}
-	
-	public void setClose(Boolean close)
-	{
-		this.close = close;
-	}
-	
-	public Map<String, List<Integer>> getNpcIds()
-	{
-		return this.npcIds;
-	}
-	
-	public List<LocationWrapper<?>> getLocations()
-	{
-		return this.locations;
-	}
-	
-	public ModeEnum getModeEnum()
-	{
-		return this.modeEnum;
-	}
-	
-	public InventoryWrapper<?> getInventoryWrapper()
-	{
-		return this.inventoryWrapper;
-	}
-	
-	@Override
-	public FunctionTree getFunctions()
-	{
-		return this.functions;
-	}
-	
-	@Override
-	public Map<String, String> getMetadata()
-	{
-		return this.metadata;
-	}
-	
-	public Gui getBack()
-	{
-		return this.back;
-	}
-	
-	public void setBack(Gui back)
-	{
-		this.back = back;
-	}
-	
-	public Gui clone()
-	{
-		return SerializationUtils.clone(this);
-	}
+        for (int i = 0; i < this.slots.size(); i++) {
+            Slot slot = this.slots.get(i);
+            if (slot != null) {
+                slot.setOwner(this);
+                ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
+
+                if (this.modeEnum == ModeEnum.ADD) {
+                    int itemIndex = inventoryWrapper.addItem(item);
+                    if (itemIndex != -1) {
+                        slot.setIndex(itemIndex);
+                    }
+                } else {
+                    inventoryWrapper.setItem(slot.getIndex(), item);
+                }
+            }
+        }
+
+        this.inventoryWrapper = inventoryWrapper;
+        return inventoryWrapper;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getRows() {
+        return this.rows;
+    }
+
+    public List<Slot> getSlots() {
+        return this.slots;
+    }
+
+    public Boolean getClose() {
+        return this.close;
+    }
+
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    public Map<String, List<Integer>> getNpcIds() {
+        return this.npcIds;
+    }
+
+    public List<LocationWrapper<?>> getLocations() {
+        return this.locations;
+    }
+
+    public ModeEnum getModeEnum() {
+        return this.modeEnum;
+    }
+
+    public InventoryWrapper<?> getInventoryWrapper() {
+        return this.inventoryWrapper;
+    }
+
+    @Override
+    public FunctionTree getFunctions() {
+        return this.functions;
+    }
+
+    @Override
+    public Map<String, String> getMetadata() {
+        return this.metadata;
+    }
+
+    public Gui getBack() {
+        return this.back;
+    }
+
+    public void setBack(Gui back) {
+        this.back = back;
+    }
+
+    public Gui clone() {
+        return SerializationUtils.clone(this);
+    }
 }

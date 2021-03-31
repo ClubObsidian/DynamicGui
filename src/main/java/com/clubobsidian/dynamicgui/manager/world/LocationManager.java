@@ -20,24 +20,23 @@ import com.google.inject.Inject;
 
 public abstract class LocationManager {
 
-	@Inject
-	private static LocationManager instance;
-	
-	public static LocationManager get()
-	{
-		return instance;
-	}
-	
-	public abstract LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z);
-	public abstract LocationWrapper<?> toLocationWrapper(Object obj);
-	
-	public LocationWrapper<?> toLocationWrapper(String locationStr)
-	{
-		String[] split = locationStr.split(",");
-		Integer x = Integer.valueOf(split[0]);
-		Integer y = Integer.valueOf(split[1]);
-		Integer z = Integer.valueOf(split[2]);
-		String world = split[3];
-		return this.toLocationWrapper(world, x, y, z);
-	}
+    @Inject
+    private static LocationManager instance;
+
+    public static LocationManager get() {
+        return instance;
+    }
+
+    public abstract LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z);
+
+    public abstract LocationWrapper<?> toLocationWrapper(Object obj);
+
+    public LocationWrapper<?> toLocationWrapper(String locationStr) {
+        String[] split = locationStr.split(",");
+        Integer x = Integer.valueOf(split[0]);
+        Integer y = Integer.valueOf(split[1]);
+        Integer z = Integer.valueOf(split[2]);
+        String world = split[3];
+        return this.toLocationWrapper(world, x, y, z);
+    }
 }

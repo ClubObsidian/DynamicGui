@@ -32,65 +32,52 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 public class SetLoreFunction extends Function {
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6723628078978301156L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6723628078978301156L;
 
-	public SetLoreFunction(String name) 
-	{
-		super(name);
-	}
+    public SetLoreFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
-		if(owner != null)
-		{
-			if(owner instanceof Slot)
-			{
-				Slot slot = (Slot) owner;
-				Gui gui = slot.getOwner();
-				if(gui != null)
-				{
-					InventoryWrapper<?> inv = gui.getInventoryWrapper();
-					if(inv != null)
-					{
-						ItemStackWrapper<?> item = slot.getItemStack();
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
+        if (owner != null) {
+            if (owner instanceof Slot) {
+                Slot slot = (Slot) owner;
+                Gui gui = slot.getOwner();
+                if (gui != null) {
+                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                    if (inv != null) {
+                        ItemStackWrapper<?> item = slot.getItemStack();
 
-						List<String> lore = new ArrayList<>();
-						if(this.getData() == null)
-						{
-							lore = null;
-						}
-						else
-						{
-							
-							String newData = this.getData();
-							newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-							newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
+                        List<String> lore = new ArrayList<>();
+                        if (this.getData() == null) {
+                            lore = null;
+                        } else {
 
-							if(newData.contains("\n"))
-							{
-								for(String str : this.getData().split("\n"))
-								{
-									lore.add(str);
-								}
-							}
-							else
-							{
-								lore.add(newData);
-							}
-						}
+                            String newData = this.getData();
+                            newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
+                            newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
 
-						item.setLore(lore);
-						inv.setItem(slot.getIndex(), item);
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+                            if (newData.contains("\n")) {
+                                for (String str : this.getData().split("\n")) {
+                                    lore.add(str);
+                                }
+                            } else {
+                                lore.add(newData);
+                            }
+                        }
+
+                        item.setLore(lore);
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

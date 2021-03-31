@@ -21,21 +21,19 @@ import com.clubobsidian.dynamicgui.sound.SoundWrapper;
 
 public class SoundFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8363807525418126179L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8363807525418126179L;
 
-	public SoundFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		SoundWrapper wrapper = new SoundWrapper(this.getData());
-		wrapper.playSoundToPlayer(playerWrapper);
-		return true;
-	}
+    public SoundFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        SoundWrapper wrapper = new SoundWrapper(this.getData());
+        wrapper.playSoundToPlayer(playerWrapper);
+        return true;
+    }
 }

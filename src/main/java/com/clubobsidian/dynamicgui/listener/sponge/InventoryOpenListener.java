@@ -30,12 +30,11 @@ import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
 
 public class InventoryOpenListener {
 
-	@Listener(order = Order.EARLY)
-	public void onInventoryOpen(InteractInventoryEvent.Open e, @First Player player)
-	{
-		PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
-		InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
-		com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
-		DynamicGui.get().getEventBus().callEvent(inventoryOpenEvent);
-	}
+    @Listener(order = Order.EARLY)
+    public void onInventoryOpen(InteractInventoryEvent.Open e, @First Player player) {
+        PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
+        InventoryWrapper<?> inventoryWrapper = new SpongeInventoryWrapper<Inventory>(e.getTargetInventory());
+        com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
+        DynamicGui.get().getEventBus().callEvent(inventoryOpenEvent);
+    }
 }

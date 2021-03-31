@@ -26,71 +26,59 @@ import com.clubobsidian.dynamicgui.registry.npc.NPCMeta;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
-public class CitizensRegistry implements NPCRegistry 
-{
-	private static final String PLUGIN_NAME = "Citizens";
-	
-	private Class<?> npcClass;
-	private Method getNPCRegistryMethod;
-	private Method getNPCMethod;
-	private Method getIdMethod;
-	private Object npcRegistry;
-	public CitizensRegistry()
-	{
-		this.npcClass = ReflectionUtil.classForName("net.citizensnpcs.api.npc.NPC");
-		this.npcRegistry = this.getNPCRegistry();
-		this.getIdMethod = ReflectionUtil.getMethod(this.npcClass, "getId");
-		this.getNPCMethod = ReflectionUtil.getMethod(this.npcRegistry.getClass(), "getNPC", Entity.class);
-	}
-	
-	private Object getNPCRegistry()
-	{
-		Class<?> citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
-		this.getNPCRegistryMethod = ReflectionUtil.getMethod(citizensApiClass, "getNPCRegistry");
-		
-		try 
-		{
-			return this.getNPCRegistryMethod.invoke(null);
-		} 
-		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public String getName()
-	{
-		return PLUGIN_NAME;
-	}
-	
-	@Override
-	public boolean isNPC(EntityWrapper<?> entityWrapper) 
-	{
-		return this.getNPC(entityWrapper) != null;
-	}
+public class CitizensRegistry implements NPCRegistry {
+    private static final String PLUGIN_NAME = "Citizens";
 
-	@Override
-	public NPC getNPC(EntityWrapper<?> entityWrapper) 
-	{
-		try 
-		{
-			Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
-			if(npc == null)
-			{
-				return null;
-			}
-			
-			int id = (int) this.getIdMethod.invoke(npc);
-			NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
-			return new NPC(entityWrapper, meta);
-		} 
-		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
+    private Class<?> npcClass;
+    private Method getNPCRegistryMethod;
+    private Method getNPCMethod;
+    private Method getIdMethod;
+    private Object npcRegistry;
+
+    public CitizensRegistry() {
+        this.npcClass = ReflectionUtil.classForName("net.citizensnpcs.api.npc.NPC");
+        this.npcRegistry = this.getNPCRegistry();
+        this.getIdMethod = ReflectionUtil.getMethod(this.npcClass, "getId");
+        this.getNPCMethod = ReflectionUtil.getMethod(this.npcRegistry.getClass(), "getNPC", Entity.class);
+    }
+
+    private Object getNPCRegistry() {
+        Class<?> citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
+        this.getNPCRegistryMethod = ReflectionUtil.getMethod(citizensApiClass, "getNPCRegistry");
+
+        try {
+            return this.getNPCRegistryMethod.invoke(null);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return PLUGIN_NAME;
+    }
+
+    @Override
+    public boolean isNPC(EntityWrapper<?> entityWrapper) {
+        return this.getNPC(entityWrapper) != null;
+    }
+
+    @Override
+    public NPC getNPC(EntityWrapper<?> entityWrapper) {
+        try {
+            Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
+            if (npc == null) {
+                return null;
+            }
+
+            int id = (int) this.getIdMethod.invoke(npc);
+            NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
+            return new NPC(entityWrapper, meta);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

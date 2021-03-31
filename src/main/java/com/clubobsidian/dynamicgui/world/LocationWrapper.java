@@ -19,65 +19,60 @@ import java.io.Serializable;
 
 public class LocationWrapper<T> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3610165660936041660L;
-	
-	private int x;
-	private int y;
-	private int z;
-	private WorldWrapper<T> world;
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public LocationWrapper(int x, int y, int z, WorldWrapper world)
-	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.world = world;
-	}
-	
-	public int getX()
-	{
-		return this.x;
-	}
-	
-	public int getY()
-	{
-		return this.y;
-	}
-	public int getZ()
-	{
-		return this.z;
-	}
-	
-	public WorldWrapper<T> getWorld()
-	{
-		return this.world;
-	}
-	
-	@Override
-	public String toString() 
-	{
-		return "LocationWrapper [x=" + x + ", y=" + y + ", z=" + z + ", world=" + world + "]";
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3610165660936041660L;
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if(obj == null)
-			return false;
-		if(!(obj instanceof LocationWrapper))
-			return false;
-		
-		LocationWrapper<?> other = (LocationWrapper<?>) obj;
-		if(other.getX() != this.getX())
-			return false;
-		if(other.getY() != this.getY())
-			return false;
-		if(other.getZ() != this.getZ())
-			return false;
-		
-		return other.getWorld().equals(this.world);
-	}
+    private int x;
+    private int y;
+    private int z;
+    private WorldWrapper<T> world;
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public LocationWrapper(int x, int y, int z, WorldWrapper world) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.world = world;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public int getZ() {
+        return this.z;
+    }
+
+    public WorldWrapper<T> getWorld() {
+        return this.world;
+    }
+
+    @Override
+    public String toString() {
+        return "LocationWrapper [x=" + x + ", y=" + y + ", z=" + z + ", world=" + world + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof LocationWrapper))
+            return false;
+
+        LocationWrapper<?> other = (LocationWrapper<?>) obj;
+        if (other.getX() != this.getX())
+            return false;
+        if (other.getY() != this.getY())
+            return false;
+        if (other.getZ() != this.getZ())
+            return false;
+
+        return other.getWorld().equals(this.world);
+    }
 }

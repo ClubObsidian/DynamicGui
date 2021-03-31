@@ -28,42 +28,36 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class SetNameFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5599516930903780834L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5599516930903780834L;
 
-	public SetNameFunction(String name) 
-	{
-		super(name);
-	}
+    public SetNameFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
-		if(owner != null)
-		{
-			if(owner instanceof Slot)
-			{
-				Slot slot = (Slot) owner;
-				Gui gui = slot.getOwner();
-				if(gui != null)
-				{
-					InventoryWrapper<?> inv = gui.getInventoryWrapper();
-					if(inv != null)
-					{
-						ItemStackWrapper<?> item = slot.getItemStack();
-						String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
-						newName = ReplacerManager.get().replace(newName, playerWrapper);
-						newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
-						item.setName(newName);
-						inv.setItem(slot.getIndex(), item);
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
+        if (owner != null) {
+            if (owner instanceof Slot) {
+                Slot slot = (Slot) owner;
+                Gui gui = slot.getOwner();
+                if (gui != null) {
+                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                    if (inv != null) {
+                        ItemStackWrapper<?> item = slot.getItemStack();
+                        String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
+                        newName = ReplacerManager.get().replace(newName, playerWrapper);
+                        newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
+                        item.setName(newName);
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

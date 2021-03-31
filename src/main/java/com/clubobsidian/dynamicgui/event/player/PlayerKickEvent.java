@@ -20,8 +20,7 @@ import com.clubobsidian.dynamicgui.event.PlayerEvent;
 
 public class PlayerKickEvent extends PlayerEvent {
 
-	public PlayerKickEvent(PlayerWrapper<?> playerWrapper) 
-	{
-		super(playerWrapper);
-	}
+    public PlayerKickEvent(PlayerWrapper<?> playerWrapper) {
+        super(playerWrapper);
+    }
 }

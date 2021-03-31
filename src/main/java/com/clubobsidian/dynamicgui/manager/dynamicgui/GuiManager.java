@@ -59,502 +59,418 @@ import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiManager {
 
-	private static GuiManager instance;
-	
-	private Map<String, Gui> guis;
-	private Map<UUID, Gui> playerGuis;
-	private Map<String, Gui> cachedGuis;
-	private Map<String, GuiToken> cachedTokens;
-	private Map<String, List<MacroToken>> globalMacros;
-	private Map<String, List<MacroToken>> cachedGlobalMacros;
-	private Map<String, byte[]> guiHashes;
-	private Map<String, byte[]> globalMacrosTimestamps;
-	private Set<String> modifiedMacros;
-	private GuiManager()
-	{
-		this.guis = new HashMap<>();
-		this.playerGuis = new HashMap<>();
-		this.cachedGuis = new HashMap<>();
-		this.cachedTokens = new HashMap<>();
-		this.globalMacros = new LinkedHashMap<>();
-		this.cachedGlobalMacros = new HashMap<>();
-		this.guiHashes = new HashMap<>();
-		this.globalMacrosTimestamps = new HashMap<>();
-		this.modifiedMacros = new HashSet<>();
-	}
-	
-	public static GuiManager get()
-	{
-		if(instance == null)
-		{
-			instance = new GuiManager();
-			instance.loadGlobalMacros();
-			instance.loadGuis();
-		}
-		return instance;
-	}
-	
-	public boolean hasGuiName(String name)
-	{
-		return this.guis.containsKey(name);
-	}
-	
-	public Gui getGuiByName(String name)
-	{
-		Gui gui = this.guis.get(name);
-		if(gui != null)
-		{
-			return gui.clone();
-		}
-		
-		return null;
-	}
+    private static GuiManager instance;
 
-	public void reloadGuis(boolean force)
-	{
-		DynamicGui.get().getLogger().info("Reloading guis!");
-		DynamicGui.get().getPlugin().unloadCommands();
-		this.cachedGuis = this.guis;
-		this.guis = new HashMap<>();
-		this.cachedGlobalMacros = this.globalMacros;
-		
-		this.globalMacros = new HashMap<>();
-		if(force)
-		{
-			this.cachedTokens = new HashMap<>();
-			this.cachedGuis = new HashMap<>();
-			this.guiHashes = new HashMap<>();
-			this.globalMacrosTimestamps = new HashMap<>();
-			this.cachedGlobalMacros = new HashMap<>();
-		}
-		
-		this.loadGlobalMacros();
-		this.loadGuis();
-	}
-	
-	public List<Gui> getGuis()
-	{
-		return new ArrayList<>(this.guis.values());
-	}
-	
-	public Map<UUID, Gui> getPlayerGuis()
-	{
-		return this.playerGuis;
-	}
-	
-	public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper)
-	{
-		return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
-	}
-	
-	public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper)
-	{
-		if(playerWrapper.getOpenInventoryWrapper() == null)
-		{
-			return false;
-		}
-		else if(!this.hasGuiCurrently(playerWrapper))
-		{
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public void cleanupGui(PlayerWrapper<?> playerWrapper)
-	{
-		this.playerGuis.remove(playerWrapper.getUniqueId());
-	}
+    private Map<String, Gui> guis;
+    private Map<UUID, Gui> playerGuis;
+    private Map<String, Gui> cachedGuis;
+    private Map<String, GuiToken> cachedTokens;
+    private Map<String, List<MacroToken>> globalMacros;
+    private Map<String, List<MacroToken>> cachedGlobalMacros;
+    private Map<String, byte[]> guiHashes;
+    private Map<String, byte[]> globalMacrosTimestamps;
+    private Set<String> modifiedMacros;
 
-	public Gui getCurrentGui(PlayerWrapper<?> playerWrapper)
-	{
-		return this.playerGuis.get(playerWrapper.getUniqueId());
-	}
-	
-	public boolean openGui(Object player, String guiName)
-	{
-		return this.openGui(EntityManager.get().createPlayerWrapper(player), guiName);
-	}
-	
-	public boolean openGui(Object player, Gui gui)
-	{
-		return this.openGui(EntityManager.get().createPlayerWrapper(player), gui);
-	}
-	
-	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName)
-	{
-		return this.openGui(playerWrapper, guiName, null);
-	}
+    private GuiManager() {
+        this.guis = new HashMap<>();
+        this.playerGuis = new HashMap<>();
+        this.cachedGuis = new HashMap<>();
+        this.cachedTokens = new HashMap<>();
+        this.globalMacros = new LinkedHashMap<>();
+        this.cachedGlobalMacros = new HashMap<>();
+        this.guiHashes = new HashMap<>();
+        this.globalMacrosTimestamps = new HashMap<>();
+        this.modifiedMacros = new HashSet<>();
+    }
 
-	public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back)
-	{
-		return this.openGui(playerWrapper, this.getGuiByName(guiName), back);
-	}
+    public static GuiManager get() {
+        if (instance == null) {
+            instance = new GuiManager();
+            instance.loadGlobalMacros();
+            instance.loadGuis();
+        }
+        return instance;
+    }
 
-	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui)
-	{
-		return this.openGui(playerWrapper, gui, null);
-	}
+    public boolean hasGuiName(String name) {
+        return this.guis.containsKey(name);
+    }
 
-	public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back)
-	{
-		if(gui == null)
-		{
-			playerWrapper.sendMessage(DynamicGui.get().getNoGui());
-			return false;
-		}
+    public Gui getGuiByName(String name) {
+        Gui gui = this.guis.get(name);
+        if (gui != null) {
+            return gui.clone();
+        }
 
-		Gui clonedGui = gui.clone();
-		if(back != null)
-		{
-			clonedGui.setBack(back.clone());
-		}
-		
-		//Run gui load functions
-		boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
-		GuiLoadEvent event = new GuiLoadEvent(gui, playerWrapper);
-		if(!ran) 
-		{
-			event.setCanceled(true);
-		}
-		DynamicGui.get().getEventBus().callEvent(event);
-		
-		if(ran)
-		{
-			InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
-			
-			//Run slot load functions
-			for(Slot slot : clonedGui.getSlots())
-			{
-				FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-			}
-			
-			if(inventoryWrapper == null)
-			{
-				return false;
-			}
-			
-			if(DynamicGui.get().getServer().getType() == ServerType.SPONGE)
-			{
-				DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> 
-				{
-					playerWrapper.openInventory(inventoryWrapper);
-				}, 1L);
-			}
-			else
-			{
-				playerWrapper.openInventory(inventoryWrapper);
-			}
-			
-			this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-			DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					playerWrapper.updateInventory();
-				}
-			},2L);
-		}
-		return ran;
-	}
-	
-	private void loadGlobalMacroFromFile(File file)
-	{
-		String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
-		byte[] fileHash = HashUtil.getMD5(file);
-		byte[] cachedHash = this.globalMacrosTimestamps.get(macroName);
-		if(cachedHash == null || fileHash != cachedHash)
-		{
-			List<MacroToken> tokens = new ArrayList<>();
-			Configuration config = Configuration.load(file);
-			for(String key : config.getKeys())
-			{
-				ConfigurationSection section = config.getConfigurationSection(key);
-				MacroToken token = new MacroToken(section);
-				tokens.add(token);
-			}
-			
-			this.modifiedMacros.add(macroName);
-			this.globalMacrosTimestamps.put(macroName, fileHash);
-			this.globalMacros.put(macroName, tokens);
-		}
-		else
-		{
-			List<MacroToken> cachedTokens = this.cachedGlobalMacros.get(macroName);
-			this.globalMacros.put(macroName, cachedTokens);
-		}
-	}
-	
-	private void loadGlobalMacros()
-	{
-		File macroFolder = DynamicGui.get().getPlugin().getMacroFolder();
-		
-		Collection<File> macroFiles = FileUtils.listFiles(macroFolder, new String[]{"yml", "json", "conf", "xml"}, true);
-		
-		for(File file : macroFiles)
-		{
-			this.loadGlobalMacroFromFile(file);
-		}
-		
-		Iterator<Entry<String, List<MacroToken>>> it = this.cachedGlobalMacros.entrySet().iterator();
-		while(it.hasNext())
-		{
-			Entry<String, List<MacroToken>> next = it.next();
-			String macroName = next.getKey();
-			if(!this.globalMacros.containsKey(macroName))
-			{
-				it.remove();
-				this.globalMacrosTimestamps.remove(macroName);
-			}
-		}
-	}
-	
-	private void loadGuis()
-	{
-		this.loadFileGuis();
-		this.loadRemoteGuis();
-		this.modifiedMacros.clear();
-		this.cleanupGuis();
-	}
-	
-	private void loadGuiFromFile(Configuration yaml, File file)
-	{
-		DynamicGui dynamicGui = DynamicGui.get();
-		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
-		
-		try
-		{
-			String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
-			byte[] cachedHash = this.guiHashes.get(guiName);
-			GuiToken token = this.cachedTokens.get(guiName);
-			byte[] guiHash = HashUtil.getMD5(file);
-			if(token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token))
-			{
-				Gui cachedGui = this.cachedGuis.get(guiName);
-				for(String alias : token.getAlias())
-				{
-					plugin.createCommand(guiName, alias);
-				}
-				
-				this.guis.put(guiName, cachedGui);
-				dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
-			}
-			else
-			{
-				this.guiHashes.put(guiName, guiHash);
-				this.loadGuiFromConfiguration(guiName, yaml);
-			}
-		}	
-		catch(NullPointerException ex)
-		{
-			dynamicGui.getLogger().info("Error loading in file: " + file.getName());
-			ex.printStackTrace();
-		}
-	}
-	
-	private void loadFileGuis()
-	{
-		DynamicGui dynamicGui = DynamicGui.get();
-		DynamicGuiPlugin plugin = dynamicGui.getPlugin();
-		File guiFolder = plugin.getGuiFolder();
-		
-		Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "conf", "xml"}, true);
-		
-		if(ar.size() != 0)
-		{
-			for(File file : ar)
-			{
-				Configuration config = Configuration.load(file);
-				this.loadGuiFromFile(config, file);
-			}
-		} 
-		else 
-		{
-			DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
-		}
-	}
-	
-	private boolean hasUpdatedMacro(GuiToken token)
-	{
-		List<String> macros = token.getLoadMacros();
-		for(String macro : macros)
-		{
-			if(this.modifiedMacros.contains(macro))
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private void loadRemoteGui(String guiName, String strUrl)
-	{
-		try 
-		{
-			URL url = new URL(strUrl);
-			File file = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
-			Configuration yaml = Configuration.load(url, file);
-			this.loadGuiFromFile(yaml, file);
-		} 
-		catch (MalformedURLException e) 
-		{
-			e.printStackTrace();
-			DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
-		}
-	}
-	
-	private void loadRemoteGuis()
-	{
-		File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
-		
-		Configuration config = Configuration.load(configFile);
-		if(config.get("remote-guis") != null)
-		{
-			ConfigurationSection remote = config.getConfigurationSection("remote-guis");
-			for(String key :  remote.getKeys())
-			{
-				ConfigurationSection guiSection = remote.getConfigurationSection(key);
-				String strURL = guiSection.getString("url");
-				String guiName = guiSection.getString("file-name");
-				this.loadRemoteGui(guiName, strURL);
-			}
-		}
-	}
-	
-	private void cleanupGuis()
-	{
-		Iterator<Entry<String, Gui>> it = this.cachedGuis.entrySet().iterator();
-		while(it.hasNext())
-		{
-			Entry<String, Gui> next = it.next();
-			String guiName = next.getKey();
-			if(!this.guis.containsKey(guiName))
-			{
-				it.remove();
-				this.guiHashes.remove(guiName);
-				this.cachedTokens.remove(guiName);
-			}
-		}
-	}
-	
-	private void loadGuiFromConfiguration(String guiName, Configuration config)
-	{
-		LoggerWrapper<?> logger = DynamicGui.get().getLogger();
-		
-		GuiToken guiToken = new GuiToken(config);
-		List<MacroToken> guiTokens = new ArrayList<>();
-		List<String> loadMacros = guiToken.getLoadMacros();
-		
-		if(loadMacros.size() > 0)
-		{
-			for(String macro : loadMacros)
-			{
-				List<MacroToken> macroTokens = this.globalMacros.get(macro);
-				if(macroTokens != null)
-				{
-					for(MacroToken t : macroTokens)
-					{
-						guiTokens.add(t);
-					}
-				}
-				else
-				{
-					logger.error("Invalid global macro specified " + macro + " in gui \"" + guiName + "\"");
-				}
-			}
-			
-			guiToken = new GuiToken(config, guiTokens);
-		}
-		
-		this.cachedTokens.put(guiName, guiToken);
-		List<Slot> slots = this.createSlots(guiToken);
-		final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
+        return null;
+    }
 
-		this.guis.put(guiName, gui);
-		logger.info("gui \"" + gui.getName() + "\" has been loaded!");
-	}
+    public void reloadGuis(boolean force) {
+        DynamicGui.get().getLogger().info("Reloading guis!");
+        DynamicGui.get().getPlugin().unloadCommands();
+        this.cachedGuis = this.guis;
+        this.guis = new HashMap<>();
+        this.cachedGlobalMacros = this.globalMacros;
 
-	private List<Slot> createSlots(GuiToken guiToken)
-	{
-		List<Slot> slots = new ArrayList<>();
-		Iterator<Entry<Integer, SlotToken>> it = guiToken.getSlots().entrySet().iterator();
-		while(it.hasNext())
-		{
-			Entry<Integer, SlotToken> next = it.next();
-			int index = next.getKey();
-			SlotToken slotToken = next.getValue();
-			
-			String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
-			String name = slotToken.getName();
+        this.globalMacros = new HashMap<>();
+        if (force) {
+            this.cachedTokens = new HashMap<>();
+            this.cachedGuis = new HashMap<>();
+            this.guiHashes = new HashMap<>();
+            this.globalMacrosTimestamps = new HashMap<>();
+            this.cachedGlobalMacros = new HashMap<>();
+        }
 
-			if(name != null)
-			{
-				name = ChatColor.translateAlternateColorCodes('&', name);
-			}
+        this.loadGlobalMacros();
+        this.loadGuis();
+    }
 
-			String nbt = slotToken.getNbt();
+    public List<Gui> getGuis() {
+        return new ArrayList<>(this.guis.values());
+    }
 
-			List<String> lore = new ArrayList<>();
-			for(String ls : slotToken.getLore())
-			{
-				lore.add(ChatColor.translateAlternateColorCodes('&', ls));
-			}
+    public Map<UUID, Gui> getPlayerGuis() {
+        return this.playerGuis;
+    }
 
-			List<EnchantmentWrapper> enchants = new ArrayList<>();
-				
-			for(String ench : slotToken.getEnchants())
-			{
-					String[] args = ench.split(",");
-					enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
-			}
-			
-			int amount = slotToken.getAmount();
-			
-			boolean close = slotToken.isClosed();
-			
-			short data = slotToken.getData();
-			
-			boolean glow = slotToken.getGlow();
-			boolean moveable = slotToken.isMoveable();
-			
-			int updateInterval = slotToken.getUpdateInterval();
+    public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper) {
+        return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
+    }
 
-			Map<String, String> metadata = slotToken.getMetadata();
-			
-			slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
-		}
+    public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper) {
+        if (playerWrapper.getOpenInventoryWrapper() == null) {
+            return false;
+        } else if (!this.hasGuiCurrently(playerWrapper)) {
+            return false;
+        }
 
-		
-		return slots;
-	}
+        return true;
+    }
 
-	private Gui createGui(final GuiToken guiToken, final String guiName, final List<Slot> slots, final DynamicGuiPlugin plugin)
-	{
-		String type = guiToken.getType();
-		String title = guiToken.getTitle();
-		int rows = guiToken.getRows();
-		List<String> aliases = guiToken.getAlias();
-		
-		for(String alias : aliases)
-		{
-			plugin.createCommand(guiName, alias);
-		}
+    public void cleanupGui(PlayerWrapper<?> playerWrapper) {
+        this.playerGuis.remove(playerWrapper.getUniqueId());
+    }
 
-		boolean close = guiToken.isClosed();
+    public Gui getCurrentGui(PlayerWrapper<?> playerWrapper) {
+        return this.playerGuis.get(playerWrapper.getUniqueId());
+    }
 
-		List<LocationWrapper<?>> locations = new ArrayList<>(); 
-		for(String location : guiToken.getLocations())
-		{
-			locations.add(LocationManager.get().toLocationWrapper(location));
-		}
+    public boolean openGui(Object player, String guiName) {
+        return this.openGui(EntityManager.get().createPlayerWrapper(player), guiName);
+    }
 
-		ModeEnum modeEnum = ModeEnum.valueOf(guiToken.getMode().toString());
-		
-		Map<String, List<Integer>> npcIds = guiToken.getNpcs();
-		Map<String, String> metadata = guiToken.getMetadata();
-		
-		return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), metadata);
-	}
+    public boolean openGui(Object player, Gui gui) {
+        return this.openGui(EntityManager.get().createPlayerWrapper(player), gui);
+    }
+
+    public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName) {
+        return this.openGui(playerWrapper, guiName, null);
+    }
+
+    public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
+        return this.openGui(playerWrapper, this.getGuiByName(guiName), back);
+    }
+
+    public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
+        return this.openGui(playerWrapper, gui, null);
+    }
+
+    public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
+        if (gui == null) {
+            playerWrapper.sendMessage(DynamicGui.get().getNoGui());
+            return false;
+        }
+
+        Gui clonedGui = gui.clone();
+        if (back != null) {
+            clonedGui.setBack(back.clone());
+        }
+
+        //Run gui load functions
+        boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
+        GuiLoadEvent event = new GuiLoadEvent(gui, playerWrapper);
+        if (!ran) {
+            event.setCanceled(true);
+        }
+        DynamicGui.get().getEventBus().callEvent(event);
+
+        if (ran) {
+            InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
+
+            //Run slot load functions
+            for (Slot slot : clonedGui.getSlots()) {
+                FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+            }
+
+            if (inventoryWrapper == null) {
+                return false;
+            }
+
+            if (DynamicGui.get().getServer().getType() == ServerType.SPONGE) {
+                DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () ->
+                {
+                    playerWrapper.openInventory(inventoryWrapper);
+                }, 1L);
+            } else {
+                playerWrapper.openInventory(inventoryWrapper);
+            }
+
+            this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
+            DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    playerWrapper.updateInventory();
+                }
+            }, 2L);
+        }
+        return ran;
+    }
+
+    private void loadGlobalMacroFromFile(File file) {
+        String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
+        byte[] fileHash = HashUtil.getMD5(file);
+        byte[] cachedHash = this.globalMacrosTimestamps.get(macroName);
+        if (cachedHash == null || fileHash != cachedHash) {
+            List<MacroToken> tokens = new ArrayList<>();
+            Configuration config = Configuration.load(file);
+            for (String key : config.getKeys()) {
+                ConfigurationSection section = config.getConfigurationSection(key);
+                MacroToken token = new MacroToken(section);
+                tokens.add(token);
+            }
+
+            this.modifiedMacros.add(macroName);
+            this.globalMacrosTimestamps.put(macroName, fileHash);
+            this.globalMacros.put(macroName, tokens);
+        } else {
+            List<MacroToken> cachedTokens = this.cachedGlobalMacros.get(macroName);
+            this.globalMacros.put(macroName, cachedTokens);
+        }
+    }
+
+    private void loadGlobalMacros() {
+        File macroFolder = DynamicGui.get().getPlugin().getMacroFolder();
+
+        Collection<File> macroFiles = FileUtils.listFiles(macroFolder, new String[]{"yml", "json", "conf", "xml"}, true);
+
+        for (File file : macroFiles) {
+            this.loadGlobalMacroFromFile(file);
+        }
+
+        Iterator<Entry<String, List<MacroToken>>> it = this.cachedGlobalMacros.entrySet().iterator();
+        while (it.hasNext()) {
+            Entry<String, List<MacroToken>> next = it.next();
+            String macroName = next.getKey();
+            if (!this.globalMacros.containsKey(macroName)) {
+                it.remove();
+                this.globalMacrosTimestamps.remove(macroName);
+            }
+        }
+    }
+
+    private void loadGuis() {
+        this.loadFileGuis();
+        this.loadRemoteGuis();
+        this.modifiedMacros.clear();
+        this.cleanupGuis();
+    }
+
+    private void loadGuiFromFile(Configuration yaml, File file) {
+        DynamicGui dynamicGui = DynamicGui.get();
+        DynamicGuiPlugin plugin = dynamicGui.getPlugin();
+
+        try {
+            String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
+            byte[] cachedHash = this.guiHashes.get(guiName);
+            GuiToken token = this.cachedTokens.get(guiName);
+            byte[] guiHash = HashUtil.getMD5(file);
+            if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
+                Gui cachedGui = this.cachedGuis.get(guiName);
+                for (String alias : token.getAlias()) {
+                    plugin.createCommand(guiName, alias);
+                }
+
+                this.guis.put(guiName, cachedGui);
+                dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
+            } else {
+                this.guiHashes.put(guiName, guiHash);
+                this.loadGuiFromConfiguration(guiName, yaml);
+            }
+        } catch (NullPointerException ex) {
+            dynamicGui.getLogger().info("Error loading in file: " + file.getName());
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadFileGuis() {
+        DynamicGui dynamicGui = DynamicGui.get();
+        DynamicGuiPlugin plugin = dynamicGui.getPlugin();
+        File guiFolder = plugin.getGuiFolder();
+
+        Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "conf", "xml"}, true);
+
+        if (ar.size() != 0) {
+            for (File file : ar) {
+                Configuration config = Configuration.load(file);
+                this.loadGuiFromFile(config, file);
+            }
+        } else {
+            DynamicGui.get().getLogger().error("No guis found, please add guis or issues may occur!");
+        }
+    }
+
+    private boolean hasUpdatedMacro(GuiToken token) {
+        List<String> macros = token.getLoadMacros();
+        for (String macro : macros) {
+            if (this.modifiedMacros.contains(macro)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void loadRemoteGui(String guiName, String strUrl) {
+        try {
+            URL url = new URL(strUrl);
+            File file = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
+            Configuration yaml = Configuration.load(url, file);
+            this.loadGuiFromFile(yaml, file);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
+        }
+    }
+
+    private void loadRemoteGuis() {
+        File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
+
+        Configuration config = Configuration.load(configFile);
+        if (config.get("remote-guis") != null) {
+            ConfigurationSection remote = config.getConfigurationSection("remote-guis");
+            for (String key : remote.getKeys()) {
+                ConfigurationSection guiSection = remote.getConfigurationSection(key);
+                String strURL = guiSection.getString("url");
+                String guiName = guiSection.getString("file-name");
+                this.loadRemoteGui(guiName, strURL);
+            }
+        }
+    }
+
+    private void cleanupGuis() {
+        Iterator<Entry<String, Gui>> it = this.cachedGuis.entrySet().iterator();
+        while (it.hasNext()) {
+            Entry<String, Gui> next = it.next();
+            String guiName = next.getKey();
+            if (!this.guis.containsKey(guiName)) {
+                it.remove();
+                this.guiHashes.remove(guiName);
+                this.cachedTokens.remove(guiName);
+            }
+        }
+    }
+
+    private void loadGuiFromConfiguration(String guiName, Configuration config) {
+        LoggerWrapper<?> logger = DynamicGui.get().getLogger();
+
+        GuiToken guiToken = new GuiToken(config);
+        List<MacroToken> guiTokens = new ArrayList<>();
+        List<String> loadMacros = guiToken.getLoadMacros();
+
+        if (loadMacros.size() > 0) {
+            for (String macro : loadMacros) {
+                List<MacroToken> macroTokens = this.globalMacros.get(macro);
+                if (macroTokens != null) {
+                    for (MacroToken t : macroTokens) {
+                        guiTokens.add(t);
+                    }
+                } else {
+                    logger.error("Invalid global macro specified " + macro + " in gui \"" + guiName + "\"");
+                }
+            }
+
+            guiToken = new GuiToken(config, guiTokens);
+        }
+
+        this.cachedTokens.put(guiName, guiToken);
+        List<Slot> slots = this.createSlots(guiToken);
+        final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
+
+        this.guis.put(guiName, gui);
+        logger.info("gui \"" + gui.getName() + "\" has been loaded!");
+    }
+
+    private List<Slot> createSlots(GuiToken guiToken) {
+        List<Slot> slots = new ArrayList<>();
+        Iterator<Entry<Integer, SlotToken>> it = guiToken.getSlots().entrySet().iterator();
+        while (it.hasNext()) {
+            Entry<Integer, SlotToken> next = it.next();
+            int index = next.getKey();
+            SlotToken slotToken = next.getValue();
+
+            String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
+            String name = slotToken.getName();
+
+            if (name != null) {
+                name = ChatColor.translateAlternateColorCodes('&', name);
+            }
+
+            String nbt = slotToken.getNbt();
+
+            List<String> lore = new ArrayList<>();
+            for (String ls : slotToken.getLore()) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', ls));
+            }
+
+            List<EnchantmentWrapper> enchants = new ArrayList<>();
+
+            for (String ench : slotToken.getEnchants()) {
+                String[] args = ench.split(",");
+                enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
+            }
+
+            int amount = slotToken.getAmount();
+
+            boolean close = slotToken.isClosed();
+
+            short data = slotToken.getData();
+
+            boolean glow = slotToken.getGlow();
+            boolean moveable = slotToken.isMoveable();
+
+            int updateInterval = slotToken.getUpdateInterval();
+
+            Map<String, String> metadata = slotToken.getMetadata();
+
+            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
+        }
+
+
+        return slots;
+    }
+
+    private Gui createGui(final GuiToken guiToken, final String guiName, final List<Slot> slots, final DynamicGuiPlugin plugin) {
+        String type = guiToken.getType();
+        String title = guiToken.getTitle();
+        int rows = guiToken.getRows();
+        List<String> aliases = guiToken.getAlias();
+
+        for (String alias : aliases) {
+            plugin.createCommand(guiName, alias);
+        }
+
+        boolean close = guiToken.isClosed();
+
+        List<LocationWrapper<?>> locations = new ArrayList<>();
+        for (String location : guiToken.getLocations()) {
+            locations.add(LocationManager.get().toLocationWrapper(location));
+        }
+
+        ModeEnum modeEnum = ModeEnum.valueOf(guiToken.getMode().toString());
+
+        Map<String, List<Integer>> npcIds = guiToken.getNpcs();
+        Map<String, String> metadata = guiToken.getMetadata();
+
+        return new Gui(guiName, type, title, rows, close, modeEnum, npcIds, slots, locations, guiToken.getFunctions(), metadata);
+    }
 }

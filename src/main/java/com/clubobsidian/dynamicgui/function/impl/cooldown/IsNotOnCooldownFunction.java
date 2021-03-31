@@ -22,24 +22,21 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 public class IsNotOnCooldownFunction extends Function {
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2369277150280303056L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2369277150280303056L;
 
-	public IsNotOnCooldownFunction(String name) 
-	{
-		super(name);
-	}
+    public IsNotOnCooldownFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		if(this.getData() == null)
-		{
-			return false;
-		}
-		
-		return !CooldownManager.get().isOnCooldown(playerWrapper, this.getData());
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        if (this.getData() == null) {
+            return false;
+        }
+
+        return !CooldownManager.get().isOnCooldown(playerWrapper, this.getData());
+    }
 }

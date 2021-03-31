@@ -25,21 +25,18 @@ import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 
 public class BukkitInventoryManager extends InventoryManager {
 
-	@Override
-	public Object createInventory(int size, String title) 
-	{
-		return Bukkit.getServer().createInventory(null, size, title);
-	}
-	
-	@Override
-	public Object createInventory(String title, String type) 
-	{
-		return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
-	}
+    @Override
+    public Object createInventory(int size, String title) {
+        return Bukkit.getServer().createInventory(null, size, title);
+    }
 
-	@Override
-	public InventoryWrapper<?> createInventoryWrapper(Object inventory) 
-	{
-		return new BukkitInventoryWrapper<Inventory>((Inventory) inventory);
-	}
+    @Override
+    public Object createInventory(String title, String type) {
+        return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
+    }
+
+    @Override
+    public InventoryWrapper<?> createInventoryWrapper(Object inventory) {
+        return new BukkitInventoryWrapper<Inventory>((Inventory) inventory);
+    }
 }

@@ -19,9 +19,12 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public interface Permission {
 
-	public boolean setup();
-	public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
-	public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission);
-	public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
-	
+    public boolean setup();
+
+    public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
+
+    public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission);
+
+    public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
+
 }

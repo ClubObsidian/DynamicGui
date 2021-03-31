@@ -20,20 +20,19 @@ import com.google.inject.Inject;
 
 public abstract class ItemStackManager {
 
-	@Inject
-	private static ItemStackManager instance;
-	
-	public static ItemStackManager get()
-	{	
-		return instance;
-	}
-	
-	public abstract Object createItemStack(String type, int quantity);
-	
-	public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
-	public ItemStackWrapper<?> createItemStackWrapper(String type, int quantity)
-	{
-		Object itemStack = this.createItemStack(type, quantity);
-		return this.createItemStackWrapper(itemStack);
-	}
+    @Inject
+    private static ItemStackManager instance;
+
+    public static ItemStackManager get() {
+        return instance;
+    }
+
+    public abstract Object createItemStack(String type, int quantity);
+
+    public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
+
+    public ItemStackWrapper<?> createItemStackWrapper(String type, int quantity) {
+        Object itemStack = this.createItemStack(type, quantity);
+        return this.createItemStackWrapper(itemStack);
+    }
 }

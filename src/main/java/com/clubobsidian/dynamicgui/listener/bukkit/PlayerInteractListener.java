@@ -28,20 +28,17 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class PlayerInteractListener implements Listener {
 
-	@EventHandler
-	public void interact(final PlayerInteractEvent e)
-	{
-		if(e.getClickedBlock() != null)
-		{
-			com.clubobsidian.dynamicgui.event.player.Action action = com.clubobsidian.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
-			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		 	LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(e.getClickedBlock().getLocation());
-		 	com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
-		 	DynamicGui.get().getEventBus().callEvent(interactEvent);
-		 	if(interactEvent.isCanceled())
-		 	{
-		 		e.setCancelled(true);
-		 	}
-		}
-	}
+    @EventHandler
+    public void interact(final PlayerInteractEvent e) {
+        if (e.getClickedBlock() != null) {
+            com.clubobsidian.dynamicgui.event.player.Action action = com.clubobsidian.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
+            PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
+            LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(e.getClickedBlock().getLocation());
+            com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
+            DynamicGui.get().getEventBus().callEvent(interactEvent);
+            if (interactEvent.isCanceled()) {
+                e.setCancelled(true);
+            }
+        }
+    }
 }

@@ -31,28 +31,24 @@ import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 
 public class InventoryCloseListener implements Listener {
 
-	@EventHandler
-	public void inventoryClose(InventoryCloseEvent e)
-	{
-		if(e.getPlayer() instanceof Player)
-		{
-			PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
-			InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
-			DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
-		}
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent e)
-	{
-		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
-	}
-	
-	@EventHandler
-	public void onKick(PlayerKickEvent e)
-	{
-		PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-		DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerKickEvent(playerWrapper));
-	}
+    @EventHandler
+    public void inventoryClose(InventoryCloseEvent e) {
+        if (e.getPlayer() instanceof Player) {
+            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
+            InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
+            DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
+        }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
+        DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerQuitEvent(playerWrapper));
+    }
+
+    @EventHandler
+    public void onKick(PlayerKickEvent e) {
+        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
+        DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.event.player.PlayerKickEvent(playerWrapper));
+    }
 }

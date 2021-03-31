@@ -21,8 +21,7 @@ import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 
 public class BukkitEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 
-	public BukkitEntityWrapper(T entity) 
-	{
-		super(entity);
-	}
+    public BukkitEntityWrapper(T entity) {
+        super(entity);
+    }
 }

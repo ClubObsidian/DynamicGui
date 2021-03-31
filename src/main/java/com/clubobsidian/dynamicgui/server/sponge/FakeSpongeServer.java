@@ -41,89 +41,75 @@ import com.clubobsidian.dynamicgui.world.sponge.SpongeWorldWrapper;
 
 public class FakeSpongeServer extends FakeServer {
 
-	public FakeSpongeServer() 
-	{
-		super(new SpongeScheduler());
-	}
+    public FakeSpongeServer() {
+        super(new SpongeScheduler());
+    }
 
-	@Override
-	public void broadcastMessage(String message) 
-	{
-		Sponge.getServer().getBroadcastChannel().send(Text.of(message));
-	}
-	
-	@Override
-	public void broadcastJsonMessage(String json)
-	{
-		Sponge.getServer().getBroadcastChannel().send(TextSerializers.JSON.deserialize(json));
-	}
-	
-	@Override
-	public void dispatchServerCommand(String command)
-	{
-		Sponge.getCommandManager().process(Sponge.getServer().getConsole(), command);
-	}
+    @Override
+    public void broadcastMessage(String message) {
+        Sponge.getServer().getBroadcastChannel().send(Text.of(message));
+    }
 
-	@Override
-	public PlayerWrapper<?> getPlayer(UUID uuid) 
-	{
-		return new SpongePlayerWrapper<Player>(Sponge.getServer().getPlayer(uuid).get());
-	}
+    @Override
+    public void broadcastJsonMessage(String json) {
+        Sponge.getServer().getBroadcastChannel().send(TextSerializers.JSON.deserialize(json));
+    }
 
-	@Override
-	public PlayerWrapper<?> getPlayer(String name) 
-	{
-		return new SpongePlayerWrapper<Player>(Sponge.getServer().getPlayer(name).get());
-	}
+    @Override
+    public void dispatchServerCommand(String command) {
+        Sponge.getCommandManager().process(Sponge.getServer().getConsole(), command);
+    }
 
-	@Override
-	public Collection<PlayerWrapper<?>> getOnlinePlayers() 
-	{
-		List<PlayerWrapper<?>> onlinePlayers = new ArrayList<>();
-		Sponge.getServer().getOnlinePlayers().forEach(player -> onlinePlayers.add(new SpongePlayerWrapper<Player>(player)));
-		return onlinePlayers;
-	}
+    @Override
+    public PlayerWrapper<?> getPlayer(UUID uuid) {
+        return new SpongePlayerWrapper<Player>(Sponge.getServer().getPlayer(uuid).get());
+    }
 
-	@Override
-	public int getGlobalPlayerCount() 
-	{
-		if(DynamicGui.get().getProxy() != Proxy.NONE)
-		{
-			return DynamicGui.get().getGlobalServerPlayerCount();
-		}
-		
-		return Sponge.getServer().getOnlinePlayers().size();
-	}
+    @Override
+    public PlayerWrapper<?> getPlayer(String name) {
+        return new SpongePlayerWrapper<Player>(Sponge.getServer().getPlayer(name).get());
+    }
 
-	@Override
-	public ServerType getType() 
-	{
-		return ServerType.SPONGE;
-	}
+    @Override
+    public Collection<PlayerWrapper<?>> getOnlinePlayers() {
+        List<PlayerWrapper<?>> onlinePlayers = new ArrayList<>();
+        Sponge.getServer().getOnlinePlayers().forEach(player -> onlinePlayers.add(new SpongePlayerWrapper<Player>(player)));
+        return onlinePlayers;
+    }
 
-	@Override
-	public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public int getGlobalPlayerCount() {
+        if (DynamicGui.get().getProxy() != Proxy.NONE) {
+            return DynamicGui.get().getGlobalServerPlayerCount();
+        }
 
-	@Override
-	public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable) {
-		// TODO Auto-generated method stub
-		
-	}
+        return Sponge.getServer().getOnlinePlayers().size();
+    }
 
-	@Override
-	public WorldWrapper<?> getWorld(String worldName) 
-	{
-		Optional<World> world = Sponge.getServer().getWorld(worldName);
-		if(world.isPresent())
-		{
-			return new SpongeWorldWrapper(worldName);
-		}
-		else
-		{
-			return null;
-		}
-	}
+    @Override
+    public ServerType getType() {
+        return ServerType.SPONGE;
+    }
+
+    @Override
+    public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public WorldWrapper<?> getWorld(String worldName) {
+        Optional<World> world = Sponge.getServer().getWorld(worldName);
+        if (world.isPresent()) {
+            return new SpongeWorldWrapper(worldName);
+        } else {
+            return null;
+        }
+    }
 }

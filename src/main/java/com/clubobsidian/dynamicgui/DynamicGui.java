@@ -102,356 +102,305 @@ import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class DynamicGui  {
+public class DynamicGui {
 
-	@Inject
-	private static DynamicGui instance;
+    @Inject
+    private static DynamicGui instance;
 
-	public static DynamicGui get() 
-	{
-		if(!instance.initialized)
-		{
-			instance.initialized = true;
-			instance.init();
-		}
-		
-		return instance;
-	}
-	
-	private String noGui;
-	private Proxy proxy;
-	private Map<String, Integer> serverPlayerCount;
-	private EventBus eventManager;
-	private DynamicGuiPlugin plugin;
-	private FakeServer server;
-	private LoggerWrapper<?> loggerWrapper;
-	private Injector injector;
-	private boolean initialized;
-	
-	@Inject
-	private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector)
-	{
-		this.plugin = plugin;
-		this.server = server;
-		this.loggerWrapper = loggerWrapper;
-		this.injector = injector;
-		this.serverPlayerCount = new ConcurrentHashMap<>();
-		this.initialized = false;
-		this.setupFileStructure();
-		this.saveDefaultConfig();
-		this.eventManager = new ReflectionEventBus();
-	}
+    public static DynamicGui get() {
+        if (!instance.initialized) {
+            instance.initialized = true;
+            instance.init();
+        }
 
-	private void init()
-	{
-		this.loadConfig();
-		this.loadFunctions();
-		this.loadGuis();
-		this.checkForProxy();
-		this.registerListeners();
-		ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
-		ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
-		ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
-		AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
-		SlotManager.get();
-		CooldownManager.get();
-	}
-	
-	public void shutdown()
-	{
-		CooldownManager.get().shutdown();
-	}
+        return instance;
+    }
 
-	private void setupFileStructure()
-	{
-		if(!this.plugin.getDataFolder().exists())
-		{
-			this.plugin.getDataFolder().mkdirs();
-		}
+    private String noGui;
+    private Proxy proxy;
+    private Map<String, Integer> serverPlayerCount;
+    private EventBus eventManager;
+    private DynamicGuiPlugin plugin;
+    private FakeServer server;
+    private LoggerWrapper<?> loggerWrapper;
+    private Injector injector;
+    private boolean initialized;
 
-		if(!this.plugin.getGuiFolder().exists())
-		{
-			this.plugin.getGuiFolder().mkdirs();
-		}
-		
-		if(!this.plugin.getMacroFolder().exists())
-		{
-			this.plugin.getMacroFolder().mkdirs();
-		}
-	}
+    @Inject
+    private DynamicGui(DynamicGuiPlugin plugin, FakeServer server, LoggerWrapper<?> loggerWrapper, Injector injector) {
+        this.plugin = plugin;
+        this.server = server;
+        this.loggerWrapper = loggerWrapper;
+        this.injector = injector;
+        this.serverPlayerCount = new ConcurrentHashMap<>();
+        this.initialized = false;
+        this.setupFileStructure();
+        this.saveDefaultConfig();
+        this.eventManager = new ReflectionEventBus();
+    }
 
-	private void saveDefaultConfig() 
-	{
-		if(!this.plugin.getConfigFile().exists())
-		{
-			try 
-			{
-				FileUtils
-				.copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"), 
-				this.plugin.getConfigFile());
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-	}
+    private void init() {
+        this.loadConfig();
+        this.loadFunctions();
+        this.loadGuis();
+        this.checkForProxy();
+        this.registerListeners();
+        ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+        ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
+        ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
+        AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+        SlotManager.get();
+        CooldownManager.get();
+    }
 
-	private void loadConfig()
-	{
-		Configuration config = Configuration.load(this.plugin.getConfigFile());
-		this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
-		String version = config.getString("version");
-		if(version != null)
-		{
-			version = version.trim();
-		}
-		
-		String proxyStr = config.getString("proxy");
-		if(proxyStr == null) 
-		{
-			proxyStr = version;
-			config.set("proxy", proxyStr);
-			config.save();
-		}
-		else
-		{
-			proxyStr = proxyStr.trim();
-		}
-		
-		this.proxy = this.findProxyByString(proxyStr);
-		
-		for(final String server : config.getStringList("servers"))
-		{
-			this.serverPlayerCount.put(server, 0);
-			
-			DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server  + "-playercount%")
-			{
-				@Override
-				public String replacement(String text, PlayerWrapper<?> player)
-				{
-					return String.valueOf(serverPlayerCount.get(server));
-				}
-			});
-		}
-	}
+    public void shutdown() {
+        CooldownManager.get().shutdown();
+    }
 
-	private void loadGuis()
-	{
-		GuiManager.get(); //Initialize manager
-	}
+    private void setupFileStructure() {
+        if (!this.plugin.getDataFolder().exists()) {
+            this.plugin.getDataFolder().mkdirs();
+        }
 
-	public void checkForProxy()
-	{
-		MessagingRunnable runnable = (playerWrapper, message) ->
-		{
-			if(message.length > 13)
-			{
-				ByteArrayDataInput in = ByteStreams.newDataInput(message);
-				String packet = in.readUTF();
-				if(packet != null)
-				{
-					if("PlayerCount".equals(packet))
-					{
-						String server = in.readUTF();
-						int playerCount = in.readInt();
-						this.serverPlayerCount.put(server, playerCount);
-					}
-				}
-			}
-		};
+        if (!this.plugin.getGuiFolder().exists()) {
+            this.plugin.getGuiFolder().mkdirs();
+        }
 
-		if(this.proxy == Proxy.BUNGEECORD)
-		{
-			this.getLogger().info("BungeeCord is enabled!");
-			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-			this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
-		}
-		else if(this.proxy == Proxy.REDIS_BUNGEE)
-		{
-			this.getLogger().info("RedisBungee is enabled");
-			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
-			this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-			this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", runnable);
-		}
-		else
-		{
-			this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
-		}
+        if (!this.plugin.getMacroFolder().exists()) {
+            this.plugin.getMacroFolder().mkdirs();
+        }
+    }
 
-		if(this.proxy != Proxy.NONE)
-		{
-			this.startPlayerCountTimer();
-		}
-	}
+    private void saveDefaultConfig() {
+        if (!this.plugin.getConfigFile().exists()) {
+            try {
+                FileUtils
+                        .copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"),
+                                this.plugin.getConfigFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	private void registerListeners() 
-	{
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.EntityClickListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryInteractListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryCloseListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryOpenListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.PlayerInteractListener());
-		this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.GuiListener());
-	}
+    private void loadConfig() {
+        Configuration config = Configuration.load(this.plugin.getConfigFile());
+        this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
+        String version = config.getString("version");
+        if (version != null) {
+            version = version.trim();
+        }
 
-	private void loadFunctions()
-	{
-		FunctionManager.get().addFunction(new CheckTickFunction("checktick"));
-		FunctionManager.get().addFunction(new ConditionFunction("condition"));
-		FunctionManager.get().addFunction(new ResetFrameFunction("resetframe"));
-		FunctionManager.get().addFunction(new ResetTickFunction("resettick"));
-		
-		FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
-		FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
-		//FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
-		
-		FunctionManager.get().addFunction(new SetCooldownFunction("setcooldown"));
-		FunctionManager.get().addFunction(new IsOnCooldownFunction("isoncooldown"));
-		FunctionManager.get().addFunction(new IsNotOnCooldownFunction("isnotoncooldown"));
-		
-		FunctionManager.get().addFunction(new GuiFunction("gui"));
-		FunctionManager.get().addFunction(new BackFunction("back"));
-		FunctionManager.get().addFunction(new HasBackFunction("hasback"));
-		FunctionManager.get().addFunction(new SetBackFunction("setback"));
-		
-		FunctionManager.get().addFunction(new RefreshGuiFunction("refreshgui"));
-		FunctionManager.get().addFunction(new RefreshSlotFunction("refreshslot"));
-		
-		FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
-		FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
-		FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
-		
-		FunctionManager.get().addFunction(new NoPermissionFunction("nopermission"));
-		FunctionManager.get().addFunction(new PermissionFunction("permission"));
-		FunctionManager.get().addFunction(new PermissionFunction("haspermission"));
-		FunctionManager.get().addFunction(new AddPermissionFunction("addpermission"));
-		FunctionManager.get().addFunction(new RemovePermissionFunction("removepermission"));
-		FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
-		FunctionManager.get().addFunction(new RandomFunction("random"));
-		FunctionManager.get().addFunction(new SendFunction("send"));	
-		FunctionManager.get().addFunction(new ServerBroadcastFunction("broadcast"));
-		FunctionManager.get().addFunction(new ParticleFunction("particles"));
-		FunctionManager.get().addFunction(new SoundFunction("sound"));
-		FunctionManager.get().addFunction(new SetNameFunction("setname"));
-		FunctionManager.get().addFunction(new SetLoreFunction("setlore"));
-		FunctionManager.get().addFunction(new SetTypeFunction("settype"));
-		FunctionManager.get().addFunction(new SetDataFunction("setdata"));
-		FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
-		FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
-		FunctionManager.get().addFunction(new SetGlowFunction("setglow"));
-		FunctionManager.get().addFunction(new CheckMoveableFunction("checkmoveable"));
-		FunctionManager.get().addFunction(new SetMoveableFunction("setmoveable"));
-		FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
-		FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
-		FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
-		FunctionManager.get().addFunction(new StatisticFunction("statistic"));
-		FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
-		FunctionManager.get().addFunction(new LogFunction("log"));
-		
-		FunctionManager.get().addFunction(new CheckItemTypeInHandFunction("checkitemtypeinhand"));
-		
-		FunctionManager.get().addFunction(new SetGameRuleFunction("setgamerule"));
-		FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
-		
-		FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
-		
-		FunctionManager.get().addFunction(new PlayerMiniMsgFunction("minimsg"));
-		FunctionManager.get().addFunction(new ServerMiniBroadcastFunction("minibroadcast"));
-		
-		FunctionManager.get().addFunction(new HasMetadataFunction("hasmetadata"));
-		FunctionManager.get().addFunction(new HasMetadataFunction("getmetadata"));
-		FunctionManager.get().addFunction(new SetMetadataFunction("setmetadata"));
-	}
+        String proxyStr = config.getString("proxy");
+        if (proxyStr == null) {
+            proxyStr = version;
+            config.set("proxy", proxyStr);
+            config.save();
+        } else {
+            proxyStr = proxyStr.trim();
+        }
 
-	private void startPlayerCountTimer()
-	{
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () ->
-		{
-			for(String server : serverPlayerCount.keySet())
-			{
-				PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
-				if(player != null)
-				{
-					ByteArrayDataOutput out = ByteStreams.newDataOutput();
-					out.writeUTF("PlayerCount");
-					out.writeUTF(server);
-					String sendTo = "BungeeCord";
-					if(this.proxy == Proxy.REDIS_BUNGEE)
-					{
-						sendTo = "RedisBungee";
-					}
+        this.proxy = this.findProxyByString(proxyStr);
 
-					player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
-				}
-			}
-		},1L, 20L);
-	}
+        for (final String server : config.getStringList("servers")) {
+            this.serverPlayerCount.put(server, 0);
 
-	public String getNoGui()
-	{
-		return this.noGui;
-	}
+            DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server + "-playercount%") {
+                @Override
+                public String replacement(String text, PlayerWrapper<?> player) {
+                    return String.valueOf(serverPlayerCount.get(server));
+                }
+            });
+        }
+    }
 
-	@Deprecated
-	public boolean getBungeeCord()
-	{
-		return this.proxy == Proxy.BUNGEECORD;
-	}
+    private void loadGuis() {
+        GuiManager.get(); //Initialize manager
+    }
 
-	@Deprecated
-	public boolean getRedisBungee()
-	{
-		return this.proxy == Proxy.REDIS_BUNGEE;
-	}
-	
-	public Proxy getProxy()
-	{
-		return this.proxy;
-	}
+    public void checkForProxy() {
+        MessagingRunnable runnable = (playerWrapper, message) ->
+        {
+            if (message.length > 13) {
+                ByteArrayDataInput in = ByteStreams.newDataInput(message);
+                String packet = in.readUTF();
+                if (packet != null) {
+                    if ("PlayerCount".equals(packet)) {
+                        String server = in.readUTF();
+                        int playerCount = in.readInt();
+                        this.serverPlayerCount.put(server, playerCount);
+                    }
+                }
+            }
+        };
 
-	public DynamicGuiPlugin getPlugin()
-	{
-		return this.plugin;
-	}
+        if (this.proxy == Proxy.BUNGEECORD) {
+            this.getLogger().info("BungeeCord is enabled!");
+            this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+            this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
+        } else if (this.proxy == Proxy.REDIS_BUNGEE) {
+            this.getLogger().info("RedisBungee is enabled");
+            this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
+            this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
+            this.getServer().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", runnable);
+        } else {
+            this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
+        }
 
-	public EventBus getEventBus()
-	{
-		return this.eventManager;
-	}
+        if (this.proxy != Proxy.NONE) {
+            this.startPlayerCountTimer();
+        }
+    }
 
-	public FakeServer getServer()
-	{
-		return this.server;
-	}
+    private void registerListeners() {
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.EntityClickListener());
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryInteractListener());
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryCloseListener());
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.InventoryOpenListener());
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.PlayerInteractListener());
+        this.eventManager.registerEvents(new com.clubobsidian.dynamicgui.listener.GuiListener());
+    }
 
-	public LoggerWrapper<?> getLogger()
-	{
-		return this.loggerWrapper;
-	}
+    private void loadFunctions() {
+        FunctionManager.get().addFunction(new CheckTickFunction("checktick"));
+        FunctionManager.get().addFunction(new ConditionFunction("condition"));
+        FunctionManager.get().addFunction(new ResetFrameFunction("resetframe"));
+        FunctionManager.get().addFunction(new ResetTickFunction("resettick"));
 
-	public Integer getGlobalServerPlayerCount()
-	{
-		int globalPlayerCount = 0;
-		for(int playerCount : this.serverPlayerCount.values())
-		{
-			globalPlayerCount += playerCount;
-		}
-		
-		return globalPlayerCount;	
-	}
+        FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
+        FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
+        //FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 
-	public Integer getServerPlayerCount(String server)
-	{
-		return this.serverPlayerCount.get(server);
-	}
+        FunctionManager.get().addFunction(new SetCooldownFunction("setcooldown"));
+        FunctionManager.get().addFunction(new IsOnCooldownFunction("isoncooldown"));
+        FunctionManager.get().addFunction(new IsNotOnCooldownFunction("isnotoncooldown"));
 
-	public Injector getInjector()
-	{
-		return this.injector;
-	}
+        FunctionManager.get().addFunction(new GuiFunction("gui"));
+        FunctionManager.get().addFunction(new BackFunction("back"));
+        FunctionManager.get().addFunction(new HasBackFunction("hasback"));
+        FunctionManager.get().addFunction(new SetBackFunction("setback"));
 
-	//Hack for checking for Java 8, temp work around for trident
+        FunctionManager.get().addFunction(new RefreshGuiFunction("refreshgui"));
+        FunctionManager.get().addFunction(new RefreshSlotFunction("refreshslot"));
+
+        FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
+        FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
+        FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
+
+        FunctionManager.get().addFunction(new NoPermissionFunction("nopermission"));
+        FunctionManager.get().addFunction(new PermissionFunction("permission"));
+        FunctionManager.get().addFunction(new PermissionFunction("haspermission"));
+        FunctionManager.get().addFunction(new AddPermissionFunction("addpermission"));
+        FunctionManager.get().addFunction(new RemovePermissionFunction("removepermission"));
+        FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
+        FunctionManager.get().addFunction(new RandomFunction("random"));
+        FunctionManager.get().addFunction(new SendFunction("send"));
+        FunctionManager.get().addFunction(new ServerBroadcastFunction("broadcast"));
+        FunctionManager.get().addFunction(new ParticleFunction("particles"));
+        FunctionManager.get().addFunction(new SoundFunction("sound"));
+        FunctionManager.get().addFunction(new SetNameFunction("setname"));
+        FunctionManager.get().addFunction(new SetLoreFunction("setlore"));
+        FunctionManager.get().addFunction(new SetTypeFunction("settype"));
+        FunctionManager.get().addFunction(new SetDataFunction("setdata"));
+        FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
+        FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
+        FunctionManager.get().addFunction(new SetGlowFunction("setglow"));
+        FunctionManager.get().addFunction(new CheckMoveableFunction("checkmoveable"));
+        FunctionManager.get().addFunction(new SetMoveableFunction("setmoveable"));
+        FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
+        FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
+        FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
+        FunctionManager.get().addFunction(new StatisticFunction("statistic"));
+        FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
+        FunctionManager.get().addFunction(new LogFunction("log"));
+
+        FunctionManager.get().addFunction(new CheckItemTypeInHandFunction("checkitemtypeinhand"));
+
+        FunctionManager.get().addFunction(new SetGameRuleFunction("setgamerule"));
+        FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
+
+        FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
+
+        FunctionManager.get().addFunction(new PlayerMiniMsgFunction("minimsg"));
+        FunctionManager.get().addFunction(new ServerMiniBroadcastFunction("minibroadcast"));
+
+        FunctionManager.get().addFunction(new HasMetadataFunction("hasmetadata"));
+        FunctionManager.get().addFunction(new HasMetadataFunction("getmetadata"));
+        FunctionManager.get().addFunction(new SetMetadataFunction("setmetadata"));
+    }
+
+    private void startPlayerCountTimer() {
+        this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () ->
+        {
+            for (String server : serverPlayerCount.keySet()) {
+                PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
+                if (player != null) {
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                    out.writeUTF("PlayerCount");
+                    out.writeUTF(server);
+                    String sendTo = "BungeeCord";
+                    if (this.proxy == Proxy.REDIS_BUNGEE) {
+                        sendTo = "RedisBungee";
+                    }
+
+                    player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
+                }
+            }
+        }, 1L, 20L);
+    }
+
+    public String getNoGui() {
+        return this.noGui;
+    }
+
+    @Deprecated
+    public boolean getBungeeCord() {
+        return this.proxy == Proxy.BUNGEECORD;
+    }
+
+    @Deprecated
+    public boolean getRedisBungee() {
+        return this.proxy == Proxy.REDIS_BUNGEE;
+    }
+
+    public Proxy getProxy() {
+        return this.proxy;
+    }
+
+    public DynamicGuiPlugin getPlugin() {
+        return this.plugin;
+    }
+
+    public EventBus getEventBus() {
+        return this.eventManager;
+    }
+
+    public FakeServer getServer() {
+        return this.server;
+    }
+
+    public LoggerWrapper<?> getLogger() {
+        return this.loggerWrapper;
+    }
+
+    public Integer getGlobalServerPlayerCount() {
+        int globalPlayerCount = 0;
+        for (int playerCount : this.serverPlayerCount.values()) {
+            globalPlayerCount += playerCount;
+        }
+
+        return globalPlayerCount;
+    }
+
+    public Integer getServerPlayerCount(String server) {
+        return this.serverPlayerCount.get(server);
+    }
+
+    public Injector getInjector() {
+        return this.injector;
+    }
+
+    //Hack for checking for Java 8, temp work around for trident
 	/*private EventBus getVersionEventBus()
 	{
 		String version = System.getProperty("java.version");
@@ -463,36 +412,28 @@ public class DynamicGui  {
 		this.loggerWrapper.info("Falling back to the reflection eventbus for better compatability");
 		return new ReflectionEventBus();
 	}*/
-	
-	private Proxy findProxyByString(String proxyStr) 
-	{
-		if(proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) 
-		{
-			return Proxy.BUNGEECORD;
-		}
-		else if(proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee"))
-		{
-			return Proxy.REDIS_BUNGEE;
-		}
-		
-		return Proxy.NONE;
-	}
 
-	public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) 
-	{
-		if(this.server == null)
-		{
-			return false;
-		}
-		else if(this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) 
-		{
-			ByteArrayDataOutput out = ByteStreams.newDataOutput();
-			out.writeUTF("Connect");
-			out.writeUTF(server);
-			playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
-			return true;
-		}
-		
-		return false;
-	}
+    private Proxy findProxyByString(String proxyStr) {
+        if (proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) {
+            return Proxy.BUNGEECORD;
+        } else if (proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee")) {
+            return Proxy.REDIS_BUNGEE;
+        }
+
+        return Proxy.NONE;
+    }
+
+    public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
+        if (this.server == null) {
+            return false;
+        } else if (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) {
+            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            out.writeUTF("Connect");
+            out.writeUTF(server);
+            playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
+            return true;
+        }
+
+        return false;
+    }
 }

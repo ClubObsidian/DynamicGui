@@ -22,18 +22,15 @@ import java.util.List;
 
 public class ContainsLazyFunction extends AbstractLazyFunction {
 
-	protected ContainsLazyFunction()
-	{
-		super("STRCONTAINS", 2, true);
-	}
+    protected ContainsLazyFunction() {
+        super("STRCONTAINS", 2, true);
+    }
 
-	@Override
-	public LazyNumber lazyEval(List<LazyNumber> lazyParams) 
-	{
-		if(lazyParams.get(0).getString().contains(lazyParams.get(1).getString()))
-		{
-			return ConditionFunction.ONE;
-		}
-		return ConditionFunction.ZERO;
-	}
+    @Override
+    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
+        if (lazyParams.get(0).getString().contains(lazyParams.get(1).getString())) {
+            return ConditionFunction.ONE;
+        }
+        return ConditionFunction.ZERO;
+    }
 }

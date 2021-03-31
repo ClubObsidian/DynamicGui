@@ -24,61 +24,52 @@ import com.udojava.evalex.Expression.LazyNumber;
 
 public class ConditionFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3905599553938205838L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3905599553938205838L;
 
-	public ConditionFunction(String name) 
-	{
-		super(name);
-	}
+    public ConditionFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		try
-		{
-			Expression expr = new Expression(this.getData());
-			expr.addLazyFunction(new EqualLazyFunction());
-			expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
-			expr.addLazyFunction(new ContainsLazyFunction());
-			expr.addLazyFunction(new EndsWithLazyFunction());
-			expr.addLazyFunction(new StartsWithLazyFunction());
-			
-			if(!expr.isBoolean())
-				return false;
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        try {
+            Expression expr = new Expression(this.getData());
+            expr.addLazyFunction(new EqualLazyFunction());
+            expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
+            expr.addLazyFunction(new ContainsLazyFunction());
+            expr.addLazyFunction(new EndsWithLazyFunction());
+            expr.addLazyFunction(new StartsWithLazyFunction());
 
-			return expr.eval().intValue() == 1;
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return false;
-		}
-	}
+            if (!expr.isBoolean())
+                return false;
 
-	public static LazyNumber ZERO = new LazyNumber() 
-	{
-		public BigDecimal eval() 
-		{
-			return BigDecimal.ZERO;
-		}
-		public String getString() 
-		{
-			return "0";
-		}
-	};
+            return expr.eval().intValue() == 1;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
-	public static LazyNumber ONE = new LazyNumber() 
-	{
-		public BigDecimal eval() 
-		{
-			return BigDecimal.ONE;
-		}         
-		public String getString() 
-		{
-			return null;
-		}
-	};  
+    public static LazyNumber ZERO = new LazyNumber() {
+        public BigDecimal eval() {
+            return BigDecimal.ZERO;
+        }
+
+        public String getString() {
+            return "0";
+        }
+    };
+
+    public static LazyNumber ONE = new LazyNumber() {
+        public BigDecimal eval() {
+            return BigDecimal.ONE;
+        }
+
+        public String getString() {
+            return null;
+        }
+    };
 }

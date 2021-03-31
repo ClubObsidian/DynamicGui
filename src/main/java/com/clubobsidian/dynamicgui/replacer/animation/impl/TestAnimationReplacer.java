@@ -21,14 +21,12 @@ import com.clubobsidian.dynamicgui.replacer.AnimationReplacer;
 
 public class TestAnimationReplacer extends AnimationReplacer {
 
-	public TestAnimationReplacer(String toReplace) 
-	{
-		super(toReplace);
-	}
+    public TestAnimationReplacer(String toReplace) {
+        super(toReplace);
+    }
 
-	@Override
-	public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) 
-	{
-		return String.valueOf(holder.getCurrentTick());
-	}
+    @Override
+    public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) {
+        return String.valueOf(holder.getCurrentTick());
+    }
 }

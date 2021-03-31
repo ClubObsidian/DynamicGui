@@ -26,48 +26,39 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
 public class SetAmountFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6943230273788425141L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6943230273788425141L;
 
-	public SetAmountFunction(String name) 
-	{
-		super(name);
-	}
+    public SetAmountFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
-		if(owner != null)
-		{
-			if(owner instanceof Slot)
-			{
-				Slot slot = (Slot) owner;
-				Gui gui = slot.getOwner();
-				if(gui != null)
-				{
-					InventoryWrapper<?> inv = gui.getInventoryWrapper();
-					if(inv != null)
-					{
-						ItemStackWrapper<?> item = slot.getItemStack();
-						try
-						{
-							Integer amount = Integer.parseInt(this.getData());
-							item.setAmount(amount);
-							inv.setItem(slot.getIndex(), item);
-							return true;
-						}
-						catch(Exception ex)
-						{
-							DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}	
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
+        if (owner != null) {
+            if (owner instanceof Slot) {
+                Slot slot = (Slot) owner;
+                Gui gui = slot.getOwner();
+                if (gui != null) {
+                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                    if (inv != null) {
+                        ItemStackWrapper<?> item = slot.getItemStack();
+                        try {
+                            Integer amount = Integer.parseInt(this.getData());
+                            item.setAmount(amount);
+                            inv.setItem(slot.getIndex(), item);
+                            return true;
+                        } catch (Exception ex) {
+                            DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

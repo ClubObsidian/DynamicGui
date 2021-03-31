@@ -25,29 +25,24 @@ import com.clubobsidian.trident.EventPriority;
 
 public class InventoryCloseListener {
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void inventoryClose(final InventoryCloseEvent e)
-	{
-		this.handleInventoryClose(e.getPlayerWrapper());
-	}
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void inventoryClose(final InventoryCloseEvent e) {
+        this.handleInventoryClose(e.getPlayerWrapper());
+    }
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onQuit(final PlayerQuitEvent e)
-	{
-		this.handleInventoryClose(e.getPlayerWrapper());
-	}
-	
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onKick(final PlayerKickEvent e)
-	{
-		this.handleInventoryClose(e.getPlayerWrapper());
-	}
-	
-	private void handleInventoryClose(PlayerWrapper<?> playerWrapper) 
-	{
-		if(GuiManager.get().hasGuiCurrently(playerWrapper))
-		{
-			GuiManager.get().cleanupGui(playerWrapper);
-		}
-	}
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onQuit(final PlayerQuitEvent e) {
+        this.handleInventoryClose(e.getPlayerWrapper());
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onKick(final PlayerKickEvent e) {
+        this.handleInventoryClose(e.getPlayerWrapper());
+    }
+
+    private void handleInventoryClose(PlayerWrapper<?> playerWrapper) {
+        if (GuiManager.get().hasGuiCurrently(playerWrapper)) {
+            GuiManager.get().cleanupGui(playerWrapper);
+        }
+    }
 }

@@ -20,14 +20,12 @@ import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class PlayerReplacer extends Replacer {
 
-	public PlayerReplacer(String toReplace) 
-	{
-		super(toReplace);
-	}
+    public PlayerReplacer(String toReplace) {
+        super(toReplace);
+    }
 
-	@Override
-	public String replacement(String text, PlayerWrapper<?> player)
-	{
-		return player.getName();
-	}	
+    @Override
+    public String replacement(String text, PlayerWrapper<?> player) {
+        return player.getName();
+    }
 }

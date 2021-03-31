@@ -22,18 +22,15 @@ import java.util.List;
 
 public class EndsWithLazyFunction extends AbstractLazyFunction {
 
-	protected EndsWithLazyFunction()
-	{
-		super("STRENDSWITH", 2, true);
-	}
+    protected EndsWithLazyFunction() {
+        super("STRENDSWITH", 2, true);
+    }
 
-	@Override
-	public LazyNumber lazyEval(List<LazyNumber> lazyParams) 
-	{
-		if(lazyParams.get(0).getString().endsWith(lazyParams.get(1).getString()))
-		{
-			return ConditionFunction.ONE;
-		}
-		return ConditionFunction.ZERO;
-	}
+    @Override
+    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
+        if (lazyParams.get(0).getString().endsWith(lazyParams.get(1).getString())) {
+            return ConditionFunction.ONE;
+        }
+        return ConditionFunction.ZERO;
+    }
 }

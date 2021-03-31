@@ -24,71 +24,60 @@ import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
 public abstract class Function implements Cloneable, Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1492427006104061443L;
-	private String name;
-	private String data;
-	private FunctionOwner owner;
-	private int index = -1;
-	
-	public Function(String name, String data)
-	{
-		this.name = StringFuzz.normalize(name);
-		this.data = data;
-	}
-	
-	public Function(String name)
-	{
-		this(name, null);
-	}
-	
-	public Function(Function function) 
-	{
-		this(function.getName(), function.getData());
-	}
 
-	public abstract boolean function(PlayerWrapper<?> playerWrapper);
-		
-	public String getName()
-	{
-		return this.name;
-	}
-	
-	public String getData()
-	{
-		return this.data;
-	}
-	
-	public void setData(String data)
-	{
-		this.data = data;
-	}
-	
-	public void setOwner(FunctionOwner slot)
-	{
-		this.owner = slot;
-	}
-	
-	public FunctionOwner getOwner()
-	{
-		return this.owner;
-	}
-	
-	public void setIndex(int index)
-	{
-		this.index = index;
-	}
-	
-	public int getIndex()
-	{
-		return this.index;
-	}
-	
-	public Function clone()
-	{
-		return SerializationUtils.clone(this);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1492427006104061443L;
+    private String name;
+    private String data;
+    private FunctionOwner owner;
+    private int index = -1;
+
+    public Function(String name, String data) {
+        this.name = StringFuzz.normalize(name);
+        this.data = data;
+    }
+
+    public Function(String name) {
+        this(name, null);
+    }
+
+    public Function(Function function) {
+        this(function.getName(), function.getData());
+    }
+
+    public abstract boolean function(PlayerWrapper<?> playerWrapper);
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setOwner(FunctionOwner slot) {
+        this.owner = slot;
+    }
+
+    public FunctionOwner getOwner() {
+        return this.owner;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    public Function clone() {
+        return SerializationUtils.clone(this);
+    }
 }

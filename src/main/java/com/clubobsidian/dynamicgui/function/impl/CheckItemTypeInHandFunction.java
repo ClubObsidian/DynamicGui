@@ -25,31 +25,28 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
 public class CheckItemTypeInHandFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2308186311331769892L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2308186311331769892L;
 
-	public CheckItemTypeInHandFunction(String name) 
-	{
-		super(name);
-	}
+    public CheckItemTypeInHandFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		List<String> types = new ArrayList<>();
-		types.add(this.getData());
-		
-		if(this.getData().contains(","))
-		{
-			types = Arrays.asList(this.getData().split(","));
-		}
-		
-		ItemStackWrapper<?> wrapper = playerWrapper.getItemInHand();
-		
-		String type = wrapper.getType();
-		
-		return types.contains(type);
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        List<String> types = new ArrayList<>();
+        types.add(this.getData());
+
+        if (this.getData().contains(",")) {
+            types = Arrays.asList(this.getData().split(","));
+        }
+
+        ItemStackWrapper<?> wrapper = playerWrapper.getItemInHand();
+
+        String type = wrapper.getType();
+
+        return types.contains(type);
+    }
 }

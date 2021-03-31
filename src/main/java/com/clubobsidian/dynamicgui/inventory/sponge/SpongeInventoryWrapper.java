@@ -30,80 +30,71 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
-public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrapper<T>{
+public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrapper<T> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4524275635001827647L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4524275635001827647L;
 
-	public SpongeInventoryWrapper(T inventory) 
-	{
-		super(inventory);
-	}
+    public SpongeInventoryWrapper(T inventory) {
+        super(inventory);
+    }
 
-	@Override
-	public ItemStackWrapper<?>[] getContents() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public ItemStackWrapper<ItemStack> getItem(int index) 
-	{
-		int i = 0;
-		Iterator<Inventory> inv = this.getInventory().iterator();
-		while(inv.hasNext())
-		{
-			Inventory next = inv.next();
-			DynamicGui.get().getLogger().info("i: " + i + "   " + next.toString());
-			i += 1;
-		}
-		Optional<ItemStack> item = this.getInventory()
-		.query(QueryOperationTypes.INVENTORY_PROPERTY
-		.of(SlotIndex.of(index))).first().peek();
-		
-		if(item.isPresent())
-		{
-			return new SpongeItemStackWrapper<ItemStack>(item.get());
-		}
-		DynamicGui.get().getLogger().info("Item is not present for get item");
-		return new SpongeItemStackWrapper<ItemStack>(null);
-	}
-	
-	@Override
-	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
-	{
-		Runnable setRunnable = () ->
-		{
-			ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
-			DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
-			this.getInventory()
-			.query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
-			.set(itemStack);
-			DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
-		};
-		setRunnable.run();
-		Sponge.getScheduler().createTaskBuilder().execute(setRunnable).delay(1, TimeUnit.MILLISECONDS).submit(DynamicGui.get().getPlugin());
-	}
+    @Override
+    public ItemStackWrapper<?>[] getContents() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateItem(int index, PlayerWrapper<?> playerWrapper) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public int getSize() 
-	{
-		return this.getInventory().capacity();
-	}
-	
-	@Override
-	public int getCurrentContentSize() 
-	{
-		return this.getInventory().size();
-	}
+    @Override
+    public ItemStackWrapper<ItemStack> getItem(int index) {
+        int i = 0;
+        Iterator<Inventory> inv = this.getInventory().iterator();
+        while (inv.hasNext()) {
+            Inventory next = inv.next();
+            DynamicGui.get().getLogger().info("i: " + i + "   " + next.toString());
+            i += 1;
+        }
+        Optional<ItemStack> item = this.getInventory()
+                .query(QueryOperationTypes.INVENTORY_PROPERTY
+                        .of(SlotIndex.of(index))).first().peek();
+
+        if (item.isPresent()) {
+            return new SpongeItemStackWrapper<ItemStack>(item.get());
+        }
+        DynamicGui.get().getLogger().info("Item is not present for get item");
+        return new SpongeItemStackWrapper<ItemStack>(null);
+    }
+
+    @Override
+    public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) {
+        Runnable setRunnable = () ->
+        {
+            ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
+            DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
+            this.getInventory()
+                    .query(QueryOperationTypes.INVENTORY_PROPERTY.of(SlotIndex.of(index)))
+                    .set(itemStack);
+            DynamicGui.get().getLogger().info("Inventory " + index + " set get after: " + this.getItem(index).getItemStack());
+        };
+        setRunnable.run();
+        Sponge.getScheduler().createTaskBuilder().execute(setRunnable).delay(1, TimeUnit.MILLISECONDS).submit(DynamicGui.get().getPlugin());
+    }
+
+    @Override
+    public void updateItem(int index, PlayerWrapper<?> playerWrapper) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public int getSize() {
+        return this.getInventory().capacity();
+    }
+
+    @Override
+    public int getCurrentContentSize() {
+        return this.getInventory().size();
+    }
 }

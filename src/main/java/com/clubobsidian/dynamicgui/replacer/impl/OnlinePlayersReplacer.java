@@ -21,14 +21,12 @@ import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class OnlinePlayersReplacer extends Replacer {
 
-	public OnlinePlayersReplacer(String toReplace) 
-	{
-		super(toReplace);
-	}
+    public OnlinePlayersReplacer(String toReplace) {
+        super(toReplace);
+    }
 
-	@Override
-	public String replacement(String text, PlayerWrapper<?> player)
-	{
-		return String.valueOf(DynamicGui.get().getServer().getOnlinePlayers().size());
-	}
+    @Override
+    public String replacement(String text, PlayerWrapper<?> player) {
+        return String.valueOf(DynamicGui.get().getServer().getOnlinePlayers().size());
+    }
 }

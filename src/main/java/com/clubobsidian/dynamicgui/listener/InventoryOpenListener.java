@@ -21,9 +21,8 @@ import com.clubobsidian.trident.EventHandler;
 
 public class InventoryOpenListener {
 
-	@EventHandler
-	public void inventoryOpen(final InventoryOpenEvent e)
-	{
+    @EventHandler
+    public void inventoryOpen(final InventoryOpenEvent e) {
 		/*if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
 		{
 			if(e.getPlayerWrapper().getOpenInventoryWrapper().getInventory() != null)
@@ -31,5 +30,5 @@ public class InventoryOpenListener {
 				e.getPlayerWrapper().closeInventory();
 			}
 		}*/
-	}
+    }
 }

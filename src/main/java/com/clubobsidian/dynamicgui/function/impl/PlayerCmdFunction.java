@@ -21,20 +21,18 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 
 public class PlayerCmdFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 220426382325192292L;
-	
-	public PlayerCmdFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		playerWrapper.chat("/" + ReplacerManager.get().replace(this.getData(), playerWrapper));
-		return true;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 220426382325192292L;
+
+    public PlayerCmdFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        playerWrapper.chat("/" + ReplacerManager.get().replace(this.getData(), playerWrapper));
+        return true;
+    }
 }

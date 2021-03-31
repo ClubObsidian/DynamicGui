@@ -24,20 +24,18 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class ServerBroadcastFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8252199196221271208L;
-	
-	public ServerBroadcastFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		DynamicGui.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&',  ReplacerManager.get().replace(this.getData(), playerWrapper)));
-		return true;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8252199196221271208L;
+
+    public ServerBroadcastFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        DynamicGui.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', ReplacerManager.get().replace(this.getData(), playerWrapper)));
+        return true;
+    }
 }

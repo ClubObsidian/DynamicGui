@@ -25,39 +25,33 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
 public class SetNBTFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6943230273788425141L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6943230273788425141L;
 
-	public SetNBTFunction(String name) 
-	{
-		super(name);
-	}
+    public SetNBTFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
-		if(owner != null)
-		{
-			if(owner instanceof Slot)
-			{
-				Slot slot = (Slot) owner;
-				Gui gui = slot.getOwner();
-				if(gui != null)
-				{
-					InventoryWrapper<?> inv = gui.getInventoryWrapper();
-					if(inv != null)
-					{
-						ItemStackWrapper<?> item = slot.getItemStack();
-						item.setNBT(this.getData());
-						inv.setItem(slot.getIndex(), item);
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}	
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
+        if (owner != null) {
+            if (owner instanceof Slot) {
+                Slot slot = (Slot) owner;
+                Gui gui = slot.getOwner();
+                if (gui != null) {
+                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                    if (inv != null) {
+                        ItemStackWrapper<?> item = slot.getItemStack();
+                        item.setNBT(this.getData());
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

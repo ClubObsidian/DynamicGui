@@ -22,37 +22,32 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 
 public class ReplacerManager {
-	
-	private static ReplacerManager instance;
-	
-	private List<ReplacerRegistry> registries;
-	private ReplacerManager()
-	{
-		this.registries = new ArrayList<>();
-	}
-	
-	public static ReplacerManager get()
-	{
-		if(instance == null)
-		{
-			instance = new ReplacerManager();
-		}
-		return instance;
-	}
 
-	public String replace(String text, PlayerWrapper<?> playerWrapper)
-	{
-		String newText = text;
-		for(ReplacerRegistry registry : this.registries)
-		{
-			newText = registry.replace(playerWrapper, newText);
-		}
-			
-		return newText;
-	}
+    private static ReplacerManager instance;
 
-	public void registerReplacerRegistry(ReplacerRegistry replacerRegistry) 
-	{
-		this.registries.add(replacerRegistry);
-	}
+    private List<ReplacerRegistry> registries;
+
+    private ReplacerManager() {
+        this.registries = new ArrayList<>();
+    }
+
+    public static ReplacerManager get() {
+        if (instance == null) {
+            instance = new ReplacerManager();
+        }
+        return instance;
+    }
+
+    public String replace(String text, PlayerWrapper<?> playerWrapper) {
+        String newText = text;
+        for (ReplacerRegistry registry : this.registries) {
+            newText = registry.replace(playerWrapper, newText);
+        }
+
+        return newText;
+    }
+
+    public void registerReplacerRegistry(ReplacerRegistry replacerRegistry) {
+        this.registries.add(replacerRegistry);
+    }
 }

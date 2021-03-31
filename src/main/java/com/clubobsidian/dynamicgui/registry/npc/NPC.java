@@ -19,21 +19,19 @@ import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 
 public class NPC {
 
-	private EntityWrapper<?> entityWrapper;
-	private NPCMeta meta;
-	public NPC(EntityWrapper<?> entityWrapper, NPCMeta meta)
-	{
-		this.entityWrapper = entityWrapper;
-		this.meta = meta;
-	}
-	
-	public EntityWrapper<?> getEntityWrapper()
-	{
-		return this.entityWrapper;
-	}
-	
-	public NPCMeta getMeta()
-	{
-		return this.meta;
-	}
+    private EntityWrapper<?> entityWrapper;
+    private NPCMeta meta;
+
+    public NPC(EntityWrapper<?> entityWrapper, NPCMeta meta) {
+        this.entityWrapper = entityWrapper;
+        this.meta = meta;
+    }
+
+    public EntityWrapper<?> getEntityWrapper() {
+        return this.entityWrapper;
+    }
+
+    public NPCMeta getMeta() {
+        return this.meta;
+    }
 }

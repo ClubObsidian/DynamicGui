@@ -34,30 +34,25 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class PlayerInteractListener {
 
-	@Listener
-	public void playerInteract(InteractBlockEvent e, @First Player player)
-	{
-		Optional<Location<World>> location = e.getTargetBlock().getLocation();
-		if(location.isPresent())
-		{
-			if(location.get().getBlockType() != BlockTypes.AIR)
-			{
+    @Listener
+    public void playerInteract(InteractBlockEvent e, @First Player player) {
+        Optional<Location<World>> location = e.getTargetBlock().getLocation();
+        if (location.isPresent()) {
+            if (location.get().getBlockType() != BlockTypes.AIR) {
 
-				Action action = Action.LEFT_CLICK_BLOCK;
-				if(e instanceof InteractBlockEvent.Secondary)
-				{
-					action = Action.RIGHT_CLICK_BLOCK;
-				}
-				
-				PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
-				LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(location.get());
-				com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
-				DynamicGui.get().getEventBus().callEvent(interactEvent);
-				if(interactEvent.isCanceled())
-			 	{
-			 		e.setCancelled(true);
-			 	}
-			}
-		}
-	}
+                Action action = Action.LEFT_CLICK_BLOCK;
+                if (e instanceof InteractBlockEvent.Secondary) {
+                    action = Action.RIGHT_CLICK_BLOCK;
+                }
+
+                PlayerWrapper<?> playerWrapper = new SpongePlayerWrapper<Player>(player);
+                LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(location.get());
+                com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
+                DynamicGui.get().getEventBus().callEvent(interactEvent);
+                if (interactEvent.isCanceled()) {
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
 }

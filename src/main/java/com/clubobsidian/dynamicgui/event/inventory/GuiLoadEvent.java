@@ -23,35 +23,31 @@ import com.clubobsidian.trident.Event;
 
 public class GuiLoadEvent extends Event implements Cancelable {
 
-	private Gui gui;
-	private PlayerWrapper<?> playerWrapper;
-	private boolean cancelled;
-	public GuiLoadEvent(Gui gui, PlayerWrapper<?> playerWrapper)
-	{
-		this.gui = gui;
-		this.playerWrapper = playerWrapper;
-		this.cancelled = false;
-	}
-	
-	public Gui gui()
-	{
-		return this.gui;
-	}
-	
-	public PlayerWrapper<?> getPlayerWrapper()
-	{
-		return this.playerWrapper;
-	}
-	
-	@Override
-	public boolean isCanceled() 
-	{
-		return this.cancelled;
-	}
+    private Gui gui;
+    private PlayerWrapper<?> playerWrapper;
+    private boolean cancelled;
 
-	@Override
-	public void setCanceled(boolean cancelled) 
-	{
-		this.cancelled = cancelled;
-	}
+    public GuiLoadEvent(Gui gui, PlayerWrapper<?> playerWrapper) {
+        this.gui = gui;
+        this.playerWrapper = playerWrapper;
+        this.cancelled = false;
+    }
+
+    public Gui gui() {
+        return this.gui;
+    }
+
+    public PlayerWrapper<?> getPlayerWrapper() {
+        return this.playerWrapper;
+    }
+
+    @Override
+    public boolean isCanceled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCanceled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 }

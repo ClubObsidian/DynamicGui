@@ -37,152 +37,119 @@ import com.clubobsidian.trident.EventHandler;
 
 public class InventoryInteractListener {
 
-	@EventHandler
-	public void invClick(final InventoryClickEvent e)
-	{
-		PlayerWrapper<?> player = e.getPlayerWrapper();
-		if(!GuiManager.get().hasGuiOpen(player))
-		{
-			return;
-		}
-		
-		Gui gui = GuiManager.get().getCurrentGui(player);
-		
-		Slot slot = this.getSlotFromIndex(gui, e.getSlot());
-		if(slot == null && e.getView() != InventoryView.BOTTOM)
-		{
-			e.setCanceled(true);
-			return;
-		}
-		
-		ItemStackWrapper<?> item = e.getItemStackWrapper();
-		if(e.getClick() == null) //For other types of clicks besides left, right, middle
-		{
-			e.setCanceled(true);
-			return;
-		}
-		else if(item.getItemStack() == null)
-		{
-			return;
-		}
-		else if(e.getView() == InventoryView.BOTTOM)
-		{
-			if(e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT)
-			{
-				if(!this.canStack(gui, e.getInventoryWrapper(), item))
-				{
-					e.setCanceled(true);
-				}
-			}
-			
-			return;
-		}
+    @EventHandler
+    public void invClick(final InventoryClickEvent e) {
+        PlayerWrapper<?> player = e.getPlayerWrapper();
+        if (!GuiManager.get().hasGuiOpen(player)) {
+            return;
+        }
 
-		
-		List<FunctionNode> functions = slot.getFunctions().getRootNodes();
-		if(functions.size() > 0)
-		{
-			String clickString = e.getClick().toString();
-			FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
-		}
-		
-		if(!slot.isMoveable())
-		{
-			e.setCanceled(true);
-		}
-		
-		Boolean close = null;
-		if(slot.getClose() != null)
-		{
-			close = slot.getClose();
-		}
-		else if(gui.getClose() != null)
-		{
-			close = gui.getClose();
-		}
-		else
-		{
-			close = true;
-		}
+        Gui gui = GuiManager.get().getCurrentGui(player);
 
-		if(close)
-		{
-			player.closeInventory();
-		}
-	}
-	
-	@EventHandler
-	public void onDrag(InventoryDragEvent e)
-	{
-		PlayerWrapper<?> player = e.getPlayerWrapper();
-		if(!GuiManager.get().hasGuiOpen(player))
-		{
-			return;
-		}
-		
-		Gui gui = GuiManager.get().getCurrentGui(player);
-		
-		Iterator<Entry<Integer, ItemStackWrapper<?>>> it = e.getSlotItems().entrySet().iterator();
-		while(it.hasNext())
-		{
-			Entry<Integer, ItemStackWrapper<?>> next = it.next();
-			int rawSlot = next.getKey();
-			if(rawSlot < 0 || rawSlot >= e.getInventoryWrapper().getSize())
-			{
-				return;
-			}
-			
-			Slot slot = this.getSlotFromIndex(gui, rawSlot);
-			if(slot == null || (slot != null && !slot.isMoveable()))
-			{
-				e.setCanceled(true);
-				return;
-			}
-		}
-	}
-	
-	private Slot getSlotFromIndex(Gui gui, int index)
-	{
-		for(Slot s : gui.getSlots())
-		{
-			if(index == s.getIndex())
-			{
-				return s;
-			}
-		}
-		
-		return null;
-	}
-	
-	private boolean canStack(Gui gui, InventoryWrapper<?> inventory, ItemStackWrapper<?> clickedItem)
-	{
-		boolean canStack = false;
-		ItemStackWrapper<?>[] contents = inventory.getContents();
-		for(int i = 0; i < contents.length; i++)
-		{
-			ItemStackWrapper<?> stackTo = contents[i];
-			if(stackTo.getItemStack() == null || (stackTo.isSimilar(clickedItem) && validSize(clickedItem, stackTo)))
-			{
-				Slot slot = this.getSlotFromIndex(gui, i);
-				if(slot != null)
-				{
-					if(slot.isMoveable())
-					{
-						canStack = true;
-					}
-					else if(canStack && !slot.isMoveable())
-					{
-						canStack = false;
-					}
-				}
-			}
-		}
-		
-		return canStack;
-	}
-	
-	private boolean validSize(ItemStackWrapper<?> clickedItem, ItemStackWrapper<?> stackTo)
-	{
-		return stackTo.getAmount() + clickedItem.getAmount() <= clickedItem.getMaxStackSize();
-	}
+        Slot slot = this.getSlotFromIndex(gui, e.getSlot());
+        if (slot == null && e.getView() != InventoryView.BOTTOM) {
+            e.setCanceled(true);
+            return;
+        }
+
+        ItemStackWrapper<?> item = e.getItemStackWrapper();
+        if (e.getClick() == null) //For other types of clicks besides left, right, middle
+        {
+            e.setCanceled(true);
+            return;
+        } else if (item.getItemStack() == null) {
+            return;
+        } else if (e.getView() == InventoryView.BOTTOM) {
+            if (e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT) {
+                if (!this.canStack(gui, e.getInventoryWrapper(), item)) {
+                    e.setCanceled(true);
+                }
+            }
+
+            return;
+        }
+
+
+        List<FunctionNode> functions = slot.getFunctions().getRootNodes();
+        if (functions.size() > 0) {
+            String clickString = e.getClick().toString();
+            FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
+        }
+
+        if (!slot.isMoveable()) {
+            e.setCanceled(true);
+        }
+
+        Boolean close = null;
+        if (slot.getClose() != null) {
+            close = slot.getClose();
+        } else if (gui.getClose() != null) {
+            close = gui.getClose();
+        } else {
+            close = true;
+        }
+
+        if (close) {
+            player.closeInventory();
+        }
+    }
+
+    @EventHandler
+    public void onDrag(InventoryDragEvent e) {
+        PlayerWrapper<?> player = e.getPlayerWrapper();
+        if (!GuiManager.get().hasGuiOpen(player)) {
+            return;
+        }
+
+        Gui gui = GuiManager.get().getCurrentGui(player);
+
+        Iterator<Entry<Integer, ItemStackWrapper<?>>> it = e.getSlotItems().entrySet().iterator();
+        while (it.hasNext()) {
+            Entry<Integer, ItemStackWrapper<?>> next = it.next();
+            int rawSlot = next.getKey();
+            if (rawSlot < 0 || rawSlot >= e.getInventoryWrapper().getSize()) {
+                return;
+            }
+
+            Slot slot = this.getSlotFromIndex(gui, rawSlot);
+            if (slot == null || (slot != null && !slot.isMoveable())) {
+                e.setCanceled(true);
+                return;
+            }
+        }
+    }
+
+    private Slot getSlotFromIndex(Gui gui, int index) {
+        for (Slot s : gui.getSlots()) {
+            if (index == s.getIndex()) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean canStack(Gui gui, InventoryWrapper<?> inventory, ItemStackWrapper<?> clickedItem) {
+        boolean canStack = false;
+        ItemStackWrapper<?>[] contents = inventory.getContents();
+        for (int i = 0; i < contents.length; i++) {
+            ItemStackWrapper<?> stackTo = contents[i];
+            if (stackTo.getItemStack() == null || (stackTo.isSimilar(clickedItem) && validSize(clickedItem, stackTo))) {
+                Slot slot = this.getSlotFromIndex(gui, i);
+                if (slot != null) {
+                    if (slot.isMoveable()) {
+                        canStack = true;
+                    } else if (canStack && !slot.isMoveable()) {
+                        canStack = false;
+                    }
+                }
+            }
+        }
+
+        return canStack;
+    }
+
+    private boolean validSize(ItemStackWrapper<?> clickedItem, ItemStackWrapper<?> stackTo) {
+        return stackTo.getAmount() + clickedItem.getAmount() <= clickedItem.getMaxStackSize();
+    }
 }

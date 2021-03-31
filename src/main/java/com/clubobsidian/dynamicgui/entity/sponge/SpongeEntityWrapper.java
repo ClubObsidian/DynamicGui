@@ -21,8 +21,7 @@ import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 
 public class SpongeEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 
-	public SpongeEntityWrapper(T entity) 
-	{
-		super(entity);
-	}
+    public SpongeEntityWrapper(T entity) {
+        super(entity);
+    }
 }

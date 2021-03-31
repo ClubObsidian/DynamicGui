@@ -21,25 +21,22 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class ServerBroadcastJsonFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7108356107897317545L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7108356107897317545L;
 
-	public ServerBroadcastJsonFunction(String name) 
-	{
-		super(name);
-	}
+    public ServerBroadcastJsonFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		if(this.getData() == null)
-		{
-			return false;
-		}
-		
-		DynamicGui.get().getServer().broadcastJsonMessage(this.getData());
-		return true;
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        if (this.getData() == null) {
+            return false;
+        }
+
+        DynamicGui.get().getServer().broadcastJsonMessage(this.getData());
+        return true;
+    }
 }

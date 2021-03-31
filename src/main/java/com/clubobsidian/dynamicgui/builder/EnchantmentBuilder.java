@@ -18,23 +18,21 @@ package com.clubobsidian.dynamicgui.builder;
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 
 public class EnchantmentBuilder {
-	
-	private String enchantment;
-	private int level;
-	public EnchantmentBuilder setEnchantment(String enchantment)
-	{
-		this.enchantment = enchantment;
-		return this;
-	}
-	
-	public EnchantmentBuilder setLevel(int level)
-	{
-		this.level = level;
-		return this;
-	}
-	
-	public EnchantmentWrapper build()
-	{
-		return new EnchantmentWrapper(this.enchantment, level);
-	}
+
+    private String enchantment;
+    private int level;
+
+    public EnchantmentBuilder setEnchantment(String enchantment) {
+        this.enchantment = enchantment;
+        return this;
+    }
+
+    public EnchantmentBuilder setLevel(int level) {
+        this.level = level;
+        return this;
+    }
+
+    public EnchantmentWrapper build() {
+        return new EnchantmentWrapper(this.enchantment, level);
+    }
 }

@@ -20,14 +20,12 @@ import com.clubobsidian.dynamicgui.replacer.Replacer;
 
 public class UUIDReplacer extends Replacer {
 
-	public UUIDReplacer(String toReplace) 
-	{
-		super(toReplace);
-	}
+    public UUIDReplacer(String toReplace) {
+        super(toReplace);
+    }
 
-	@Override
-	public String replacement(String text, PlayerWrapper<?> player)
-	{
-		return player.getUniqueId().toString();
-	}	
+    @Override
+    public String replacement(String text, PlayerWrapper<?> player) {
+        return player.getUniqueId().toString();
+    }
 }

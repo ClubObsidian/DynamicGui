@@ -59,254 +59,216 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
-	public SpongePlayerWrapper(T player) 
-	{
-		super(player);
-	}
+    public SpongePlayerWrapper(T player) {
+        super(player);
+    }
 
-	@Override
-	public String getName() 
-	{
-		return this.getPlayer().getName();
-	}
+    @Override
+    public String getName() {
+        return this.getPlayer().getName();
+    }
 
-	@Override
-	public UUID getUniqueId() 
-	{
-		return this.getPlayer().getUniqueId();
-	}
+    @Override
+    public UUID getUniqueId() {
+        return this.getPlayer().getUniqueId();
+    }
 
-	@Override
-	public void chat(String message) 
-	{
-		this.getPlayer().simulateChat(Text.of(message), Sponge.getCauseStackManager()
-				.pushCauseFrame()
-				.pushCause(this.getPlayer())
-				.addContext(EventContextKeys.PLAYER_SIMULATED, this.getPlayer().getProfile())
-				.getCurrentCause());
-	}
+    @Override
+    public void chat(String message) {
+        this.getPlayer().simulateChat(Text.of(message), Sponge.getCauseStackManager()
+                .pushCauseFrame()
+                .pushCause(this.getPlayer())
+                .addContext(EventContextKeys.PLAYER_SIMULATED, this.getPlayer().getProfile())
+                .getCurrentCause());
+    }
 
-	@Override
-	public void sendMessage(String message) 
-	{
-		this.getPlayer().sendMessage(Text.of(message));
-	}
-	
-	@Override
-	public void sendJsonMessage(String json) 
-	{
-		this.getPlayer().sendMessage(TextSerializers.JSON.deserialize(json));
-	}
+    @Override
+    public void sendMessage(String message) {
+        this.getPlayer().sendMessage(Text.of(message));
+    }
 
-	@Override
-	public boolean hasPermission(String permission) 
-	{
-		return this.getPlayer().hasPermission(permission);
-	}
-	
-	@Override	
-	public boolean addPermission(String permission)
-	{
-		return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
-	}
-	
-	@Override	
-	public boolean removePermission(String permission)
-	{
-		return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
-	}
+    @Override
+    public void sendJsonMessage(String json) {
+        this.getPlayer().sendMessage(TextSerializers.JSON.deserialize(json));
+    }
 
-	@Override
-	public int getExperience() 
-	{
-		Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-		if(!holder.isPresent())
-			return -1;
-		
-		return holder.get().totalExperience().get();
-	}
+    @Override
+    public boolean hasPermission(String permission) {
+        return this.getPlayer().hasPermission(permission);
+    }
 
-	@Override
-	public void setExperience(int experience) 
-	{
-		Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-		if(!holder.isPresent())
-			return;
-		
-		holder.get().totalExperience().set(experience);
-	}
+    @Override
+    public boolean addPermission(String permission) {
+        return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
+    }
 
-	@Override
-	public int getLevel() 
-	{
-		Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-		if(!holder.isPresent())
-			return -1;
-		
-		return holder.get().level().get();
-	}
-	
-	@Override
-	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
-	{
-		Container container = this.getPlayer().getOpenInventory().get();
-		
-		Iterator<Inventory> it = container.iterator();
-		while(it.hasNext())
-		{
-			Inventory next = it.next();
-			DynamicGui.get().getLogger().info("From sponge player wrapper:  " + next.getClass() + "  " + next + "  " + next.totalItems() + "  " + next.getArchetype() + "  " + next.getInventoryProperty(InventoryTitle.class).isPresent());
-		}
-		
-		return new SpongeInventoryWrapper<Inventory>(container.transform(InventoryTransformations.PLAYER_MAIN_HOTBAR_FIRST));
-	}
-	
-	@Override
-	public ItemStackWrapper<?> getItemInHand() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public boolean removePermission(String permission) {
+        return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
+    }
 
-	@Override
-	public void closeInventory() 
-	{
-		this.getPlayer().closeInventory();
-	}
+    @Override
+    public int getExperience() {
+        Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
+        if (!holder.isPresent())
+            return -1;
 
-	@Override
-	public void openInventory(InventoryWrapper<?> inventoryWrapper) 
-	{
-		this.getPlayer().openInventory((Inventory) inventoryWrapper.getInventory());	
-	}
+        return holder.get().totalExperience().get();
+    }
 
-	@Override
-	public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) 
-	{	
-		RawDataChannel pluginChannel = Sponge.getGame().getChannelRegistrar().getOrCreateRaw(plugin, channel);
-		pluginChannel.sendTo(this.getPlayer(), buf -> buf.writeByteArray(message));
-	}
+    @Override
+    public void setExperience(int experience) {
+        Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
+        if (!holder.isPresent())
+            return;
 
-	@Override
-	public void playSound(String sound, Float volume, Float pitch) 
-	{
-		Location<World> location = this.getPlayer().getLocation();
-		
-		Field soundField = ReflectionUtil.getFieldByName(SoundTypes.class, sound);
-		if(soundField == null)
-			return;
-		
-		SoundType soundType = new ReflectionUtil.ReflectionHelper<SoundType>().get(soundField);
-		if(soundType != null)
-		{
-			this.getPlayer().playSound(soundType, location.getPosition(), volume, pitch, volume);
-		}
-	}
+        holder.get().totalExperience().set(experience);
+    }
 
-	@Override
-	public void playEffect(String effect, int data) 
-	{
-		Location<World> location = this.getPlayer().getLocation();
-		Field particleField = ReflectionUtil.getFieldByName(ParticleTypes.class, effect);
-		if(particleField == null)
-			return;
-		
-		ParticleType particleType = new ReflectionUtil.ReflectionHelper<ParticleType>().get(particleField);
-		if(particleType == null)
-			return;
-		
-		try 
-		{
-			ParticleEffect particleEffect = ParticleEffect
-					.builder()
-					.type(particleType)
-					.build();
-			location.getExtent().spawnParticles(particleEffect, location.getPosition());
-		} 
-		catch (IllegalArgumentException e) 
-		{
-			e.printStackTrace();
-		}
+    @Override
+    public int getLevel() {
+        Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
+        if (!holder.isPresent())
+            return -1;
 
-	}
+        return holder.get().level().get();
+    }
 
-	@Override
-	public int getStatistic(Statistic statistic) 
-	{
-		Optional<org.spongepowered.api.statistic.Statistic> spongeStatistic = Sponge.getGame().getRegistry().getType(org.spongepowered.api.statistic.Statistic.class, statistic.getSpongeID());
-		if(spongeStatistic.isPresent())
-		{
-			Optional<Long> data = this.getPlayer().getStatisticData().get(spongeStatistic.get());
-			if(data.isPresent())
-			{
-				return data.get().intValue();
-			}
-		}
-		return 0;
-	}
+    @Override
+    public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
+        Container container = this.getPlayer().getOpenInventory().get();
 
-	@Override
-	public int getStatistic(Statistic statistic, String data) 
-	{
-		if(statistic == Statistic.MINE_BLOCK)
-		{
-			Field blockTypeField = ReflectionUtil.getFieldByName(BlockTypes.class, data);
-			if(blockTypeField == null)
-				return 0;
-			
-			BlockType blockType = new ReflectionUtil.ReflectionHelper<BlockType>().get(blockTypeField);
-			if(blockType == null)
-				return 0;
-			
-			if(blockType != null)
-			{
-				Optional<BlockStatistic> blockStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType);	
-				if(blockStatistic.isPresent())
-				{
-					Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(blockStatistic.get());
-					if(statisticValue.isPresent())
-					{
-						return statisticValue.get().intValue();
-					}
-				}
-			}
-		}
-		else if(statistic == Statistic.KILL_ENTITY)
-		{
-			Field entityTypeField = ReflectionUtil.getFieldByName(EntityTypes.class, data);
-			if(entityTypeField == null)
-				return 0;
-			
-			EntityType entityType = new ReflectionUtil.ReflectionHelper<EntityType>().get(entityTypeField);
-			if(entityType == null)
-				return 0;
-			
-			if(entityType != null)
-			{
-				Optional<EntityStatistic> entityStatistic = Sponge.getGame().getRegistry().getEntityStatistic(StatisticTypes.ENTITIES_KILLED, entityType);	
-				if(entityStatistic.isPresent())
-				{
-					Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(entityStatistic.get());
-					if(statisticValue.isPresent())
-					{
-						return statisticValue.get().intValue();
-					}
-				}
-			}
-		}
-		return 0;
-	}
+        Iterator<Inventory> it = container.iterator();
+        while (it.hasNext()) {
+            Inventory next = it.next();
+            DynamicGui.get().getLogger().info("From sponge player wrapper:  " + next.getClass() + "  " + next + "  " + next.totalItems() + "  " + next.getArchetype() + "  " + next.getInventoryProperty(InventoryTitle.class).isPresent());
+        }
 
-	@Override
-	public void updateInventory() {
-		
-		// TODO Auto-generated method stub
-	}
+        return new SpongeInventoryWrapper<Inventory>(container.transform(InventoryTransformations.PLAYER_MAIN_HOTBAR_FIRST));
+    }
 
-	@Override
-	public LocationWrapper<?> getLocation() 
-	{
-		Location<World> spongeLoc = this.getPlayer().getLocation();
-		return LocationManager.get().toLocationWrapper(spongeLoc);
-	}
+    @Override
+    public ItemStackWrapper<?> getItemInHand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void closeInventory() {
+        this.getPlayer().closeInventory();
+    }
+
+    @Override
+    public void openInventory(InventoryWrapper<?> inventoryWrapper) {
+        this.getPlayer().openInventory((Inventory) inventoryWrapper.getInventory());
+    }
+
+    @Override
+    public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) {
+        RawDataChannel pluginChannel = Sponge.getGame().getChannelRegistrar().getOrCreateRaw(plugin, channel);
+        pluginChannel.sendTo(this.getPlayer(), buf -> buf.writeByteArray(message));
+    }
+
+    @Override
+    public void playSound(String sound, Float volume, Float pitch) {
+        Location<World> location = this.getPlayer().getLocation();
+
+        Field soundField = ReflectionUtil.getFieldByName(SoundTypes.class, sound);
+        if (soundField == null)
+            return;
+
+        SoundType soundType = new ReflectionUtil.ReflectionHelper<SoundType>().get(soundField);
+        if (soundType != null) {
+            this.getPlayer().playSound(soundType, location.getPosition(), volume, pitch, volume);
+        }
+    }
+
+    @Override
+    public void playEffect(String effect, int data) {
+        Location<World> location = this.getPlayer().getLocation();
+        Field particleField = ReflectionUtil.getFieldByName(ParticleTypes.class, effect);
+        if (particleField == null)
+            return;
+
+        ParticleType particleType = new ReflectionUtil.ReflectionHelper<ParticleType>().get(particleField);
+        if (particleType == null)
+            return;
+
+        try {
+            ParticleEffect particleEffect = ParticleEffect
+                    .builder()
+                    .type(particleType)
+                    .build();
+            location.getExtent().spawnParticles(particleEffect, location.getPosition());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public int getStatistic(Statistic statistic) {
+        Optional<org.spongepowered.api.statistic.Statistic> spongeStatistic = Sponge.getGame().getRegistry().getType(org.spongepowered.api.statistic.Statistic.class, statistic.getSpongeID());
+        if (spongeStatistic.isPresent()) {
+            Optional<Long> data = this.getPlayer().getStatisticData().get(spongeStatistic.get());
+            if (data.isPresent()) {
+                return data.get().intValue();
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int getStatistic(Statistic statistic, String data) {
+        if (statistic == Statistic.MINE_BLOCK) {
+            Field blockTypeField = ReflectionUtil.getFieldByName(BlockTypes.class, data);
+            if (blockTypeField == null)
+                return 0;
+
+            BlockType blockType = new ReflectionUtil.ReflectionHelper<BlockType>().get(blockTypeField);
+            if (blockType == null)
+                return 0;
+
+            if (blockType != null) {
+                Optional<BlockStatistic> blockStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType);
+                if (blockStatistic.isPresent()) {
+                    Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(blockStatistic.get());
+                    if (statisticValue.isPresent()) {
+                        return statisticValue.get().intValue();
+                    }
+                }
+            }
+        } else if (statistic == Statistic.KILL_ENTITY) {
+            Field entityTypeField = ReflectionUtil.getFieldByName(EntityTypes.class, data);
+            if (entityTypeField == null)
+                return 0;
+
+            EntityType entityType = new ReflectionUtil.ReflectionHelper<EntityType>().get(entityTypeField);
+            if (entityType == null)
+                return 0;
+
+            if (entityType != null) {
+                Optional<EntityStatistic> entityStatistic = Sponge.getGame().getRegistry().getEntityStatistic(StatisticTypes.ENTITIES_KILLED, entityType);
+                if (entityStatistic.isPresent()) {
+                    Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(entityStatistic.get());
+                    if (statisticValue.isPresent()) {
+                        return statisticValue.get().intValue();
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public void updateInventory() {
+
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public LocationWrapper<?> getLocation() {
+        Location<World> spongeLoc = this.getPlayer().getLocation();
+        return LocationManager.get().toLocationWrapper(spongeLoc);
+    }
 }

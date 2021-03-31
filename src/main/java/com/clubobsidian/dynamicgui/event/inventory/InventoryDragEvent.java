@@ -25,29 +25,26 @@ import com.clubobsidian.trident.Cancelable;
 
 public class InventoryDragEvent extends InventoryEvent implements Cancelable {
 
-	private Map<Integer, ItemStackWrapper<?>> slotItems;
-	private boolean cancelled;
- 	public InventoryDragEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, Map<Integer, ItemStackWrapper<?>> slotItems)
-	{
-		super(playerWrapper, inventoryWrapper);
-		this.slotItems = slotItems;
-		this.cancelled = false;
-	}
+    private Map<Integer, ItemStackWrapper<?>> slotItems;
+    private boolean cancelled;
 
- 	public Map<Integer, ItemStackWrapper<?>> getSlotItems()
- 	{
- 		return this.slotItems;
- 	}
- 	
-	@Override
-	public boolean isCanceled() 
-	{
-		return this.cancelled;
-	}
+    public InventoryDragEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, Map<Integer, ItemStackWrapper<?>> slotItems) {
+        super(playerWrapper, inventoryWrapper);
+        this.slotItems = slotItems;
+        this.cancelled = false;
+    }
 
-	@Override
-	public void setCanceled(boolean cancel) 
-	{
-		this.cancelled = cancel;
-	}
+    public Map<Integer, ItemStackWrapper<?>> getSlotItems() {
+        return this.slotItems;
+    }
+
+    @Override
+    public boolean isCanceled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCanceled(boolean cancel) {
+        this.cancelled = cancel;
+    }
 }

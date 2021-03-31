@@ -30,128 +30,102 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 
 public final class FunctionUtil {
-	
-	private FunctionUtil() {}
-	
-	public static boolean tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper)
-	{
-		return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
-	}
 
-	private static boolean recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper)
-	{
-		for(FunctionNode node : functionNodes)
-		{
-			FunctionToken functionToken = node.getToken();
-			List<FunctionType> types = functionToken.getTypes();
-			if(types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK)))
-			{
-				if(type != FunctionType.FAIL)
-				{
-					FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
+    private FunctionUtil() {
+    }
 
-					if(!response.result)
-					{
-						if(response.failedFunction == null)
-						{
-							return false;
-						}
-						
-						recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-						return false;
-					}
-					else
-					{
-						recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
-					}
-				}
-				else if(type == FunctionType.FAIL)
-				{
-					if(isFail(fail, functionToken))
-					{
-						FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
-						if(!response.result)
-						{
-							recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-						}
-					}
-				}
-			}	
-		}
-		
-		return true;
-	}
+    public static boolean tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
+        return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
+    }
 
-	private static FunctionResponse runFunctionData(FunctionOwner owner, List<FunctionData> datas, PlayerWrapper<?> playerWrapper)
-	{
-		for(FunctionData data : datas)
-		{
-			String functionName = data.getName();
-			String functionData = data.getData();
-			Function function = FunctionManager.get().getFunctionByName(functionName);
-			if(function == null)
-			{
-				DynamicGui.get().getLogger().error("Invalid function " + data.getName());
-				return new FunctionResponse(false);
-			}
-			
-			function.setOwner(owner);
-			
-			if(data.getData() != null)
-			{
-				String newData = ReplacerManager.get().replace(functionData, playerWrapper);
-				function.setData(newData);
-			}
-			
-			boolean ran = function.function(playerWrapper);
-			if(data.getModifier() == FunctionModifier.NOT)
-			{
-				ran = !ran;
-			}
+    private static boolean recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper) {
+        for (FunctionNode node : functionNodes) {
+            FunctionToken functionToken = node.getToken();
+            List<FunctionType> types = functionToken.getTypes();
+            if (types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
+                if (type != FunctionType.FAIL) {
+                    FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
 
-			if(!ran)
-			{
-				return new FunctionResponse(false, functionName, functionData);
-			}	
-		}
-		return new FunctionResponse(true);
-	}
+                    if (!response.result) {
+                        if (response.failedFunction == null) {
+                            return false;
+                        }
 
-	private static boolean isFail(FunctionResponse response, FunctionToken token)
-	{
-		for(FunctionData data : token.getFailOnFunctions())
-		{
-			if(data.getName().equals(response.failedFunction))
-			{
-				if(data.getData() == null)
-				{
-					return true;
-				}
-				else if(data.getData().equals(response.data))
-				{
-					return true;
-				}
-			}
-		}
-		
-		return false;
-	}
+                        recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
+                        return false;
+                    } else {
+                        recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
+                    }
+                } else if (type == FunctionType.FAIL) {
+                    if (isFail(fail, functionToken)) {
+                        FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
+                        if (!response.result) {
+                            recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
+                        }
+                    }
+                }
+            }
+        }
 
-	private static class FunctionResponse 
-	{	
-		private boolean result;
-		private String failedFunction;
-		private String data;
-		public FunctionResponse(boolean result)
-		{
-			this(result, null, null);
-		}
+        return true;
+    }
 
-		public FunctionResponse(boolean result, String failedFunction, String data)
-		{
-			this.result = result;
-			this.failedFunction = failedFunction;
-			this.data = data;
-		}
-	}
+    private static FunctionResponse runFunctionData(FunctionOwner owner, List<FunctionData> datas, PlayerWrapper<?> playerWrapper) {
+        for (FunctionData data : datas) {
+            String functionName = data.getName();
+            String functionData = data.getData();
+            Function function = FunctionManager.get().getFunctionByName(functionName);
+            if (function == null) {
+                DynamicGui.get().getLogger().error("Invalid function " + data.getName());
+                return new FunctionResponse(false);
+            }
+
+            function.setOwner(owner);
+
+            if (data.getData() != null) {
+                String newData = ReplacerManager.get().replace(functionData, playerWrapper);
+                function.setData(newData);
+            }
+
+            boolean ran = function.function(playerWrapper);
+            if (data.getModifier() == FunctionModifier.NOT) {
+                ran = !ran;
+            }
+
+            if (!ran) {
+                return new FunctionResponse(false, functionName, functionData);
+            }
+        }
+        return new FunctionResponse(true);
+    }
+
+    private static boolean isFail(FunctionResponse response, FunctionToken token) {
+        for (FunctionData data : token.getFailOnFunctions()) {
+            if (data.getName().equals(response.failedFunction)) {
+                if (data.getData() == null) {
+                    return true;
+                } else if (data.getData().equals(response.data)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static class FunctionResponse {
+        private boolean result;
+        private String failedFunction;
+        private String data;
+
+        public FunctionResponse(boolean result) {
+            this(result, null, null);
+        }
+
+        public FunctionResponse(boolean result, String failedFunction, String data) {
+            this.result = result;
+            this.failedFunction = failedFunction;
+            this.data = data;
+        }
+    }
 }

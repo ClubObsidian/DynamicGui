@@ -23,21 +23,18 @@ import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 
 public class BukkitScheduler extends Scheduler {
 
-	@Override
-	public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) 
-	{
-		Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) plugin, runnable, delay);
-	}
+    @Override
+    public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) plugin, runnable, delay);
+    }
 
-	@Override
-	public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
-	{
-		Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) plugin, runnable, delayInitial, delayRepeating);
-	}
+    @Override
+    public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) plugin, runnable, delayInitial, delayRepeating);
+    }
 
-	@Override
-	public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) 
-	{
-		Bukkit.getServer().getScheduler().runTaskTimerAsynchronously((Plugin) plugin, runnable, delayInitial, delayRepeating);
-	}
+    @Override
+    public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
+        Bukkit.getServer().getScheduler().runTaskTimerAsynchronously((Plugin) plugin, runnable, delayInitial, delayRepeating);
+    }
 }

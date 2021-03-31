@@ -26,22 +26,20 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class CustomCommandExecutor implements CommandExecutor {
 
-	private String gui;
-	public CustomCommandExecutor(String gui)
-	{
+    private String gui;
 
-		this.gui = gui;
-	}
+    public CustomCommandExecutor(String gui) {
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label,String[] args) 
-	{
-		if(sender instanceof Player)
-		{
-			Player player = (Player) sender;
-			PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
-			return GuiManager.get().openGui(playerWrapper, this.gui);
-		}
-		return false;
-	}
+        this.gui = gui;
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+            return GuiManager.get().openGui(playerWrapper, this.gui);
+        }
+        return false;
+    }
 }

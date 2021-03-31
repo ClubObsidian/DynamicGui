@@ -22,18 +22,15 @@ import java.util.List;
 
 public class StartsWithLazyFunction extends AbstractLazyFunction {
 
-	protected StartsWithLazyFunction()
-	{
-		super("STRSTARTSWITH", 2, true);
-	}
+    protected StartsWithLazyFunction() {
+        super("STRSTARTSWITH", 2, true);
+    }
 
-	@Override
-	public LazyNumber lazyEval(List<LazyNumber> lazyParams) 
-	{
-		if(lazyParams.get(0).getString().startsWith(lazyParams.get(1).getString()))
-		{
-			return ConditionFunction.ONE;
-		}
-		return ConditionFunction.ZERO;
-	}
+    @Override
+    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
+        if (lazyParams.get(0).getString().startsWith(lazyParams.get(1).getString())) {
+            return ConditionFunction.ONE;
+        }
+        return ConditionFunction.ZERO;
+    }
 }

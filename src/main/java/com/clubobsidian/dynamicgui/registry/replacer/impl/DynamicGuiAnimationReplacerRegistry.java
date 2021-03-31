@@ -29,40 +29,34 @@ import com.clubobsidian.dynamicgui.replacer.animation.impl.TestAnimationReplacer
 
 public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerRegistry {
 
-	private static DynamicGuiAnimationReplacerRegistry instance;
-	
-	private Map<String, AnimationReplacer> replacers;
-	private DynamicGuiAnimationReplacerRegistry()
-	{
-		this.replacers = new HashMap<>();
-		this.addReplacer(new TestAnimationReplacer("%test-animation%"));
-		this.addReplacer(new MultiLineTestAnimationReplacer("%test-multiline-animation%"));
-	}
+    private static DynamicGuiAnimationReplacerRegistry instance;
 
-	public static DynamicGuiAnimationReplacerRegistry get()
-	{
-		if(instance == null)
-		{
-			instance = new DynamicGuiAnimationReplacerRegistry();
-		}
-		return instance;
-	}
-	
-	public boolean addReplacer(AnimationReplacer replacer)
-	{
-		return this.replacers.put(replacer.getToReplace(), replacer) == null;
-	}
-	
-	@Override
-	public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text) 
-	{
-		for(AnimationReplacer replacer : this.replacers.values())
-		{
-			if(text.contains(replacer.getToReplace()))
-			{
-				text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
-			}
-		}
-		return text;
-	}
+    private Map<String, AnimationReplacer> replacers;
+
+    private DynamicGuiAnimationReplacerRegistry() {
+        this.replacers = new HashMap<>();
+        this.addReplacer(new TestAnimationReplacer("%test-animation%"));
+        this.addReplacer(new MultiLineTestAnimationReplacer("%test-multiline-animation%"));
+    }
+
+    public static DynamicGuiAnimationReplacerRegistry get() {
+        if (instance == null) {
+            instance = new DynamicGuiAnimationReplacerRegistry();
+        }
+        return instance;
+    }
+
+    public boolean addReplacer(AnimationReplacer replacer) {
+        return this.replacers.put(replacer.getToReplace(), replacer) == null;
+    }
+
+    @Override
+    public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text) {
+        for (AnimationReplacer replacer : this.replacers.values()) {
+            if (text.contains(replacer.getToReplace())) {
+                text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
+            }
+        }
+        return text;
+    }
 }

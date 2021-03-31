@@ -22,20 +22,18 @@ import com.clubobsidian.dynamicgui.util.ChatColor;
 
 public class PlayerMsgFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6244543904061733902L;
-	
-	public PlayerMsgFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		playerWrapper.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerManager.get().replace(this.getData(), playerWrapper)));
-		return true;
-	}	
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6244543904061733902L;
+
+    public PlayerMsgFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(final PlayerWrapper<?> playerWrapper) {
+        playerWrapper.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerManager.get().replace(this.getData(), playerWrapper)));
+        return true;
+    }
 }

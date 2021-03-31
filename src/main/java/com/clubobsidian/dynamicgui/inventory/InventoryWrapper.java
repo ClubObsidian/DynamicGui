@@ -21,48 +21,50 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public abstract class InventoryWrapper<T> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1039529042564261223L;
-	
-	private T inventory;
-	public InventoryWrapper(T inventory) 
-	{
-		this.inventory = inventory;
-	}
-	
-	public T getInventory()
-	{
-		return this.inventory;
-	}
-	
-	public abstract ItemStackWrapper<?>[] getContents();
-	public abstract ItemStackWrapper<?> getItem(int index);
-	public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
-	public abstract void updateItem(int index, PlayerWrapper<?> playerWrapper);
-	public abstract int getSize();
-	public abstract int getCurrentContentSize();
-	
-	public int addItem(ItemStackWrapper<?> itemStackWrapper) 
-	{
-		int index = this.getCurrentContentSize();
-		if(index >= this.getSize())
-			return -1;
-		
-		this.setItem(index, itemStackWrapper);
-		return index;
-	}
-	
-	@Override
-	public boolean equals(Object obj)
-	{
-		if(obj == null)
-			return false;
-		if(!(obj instanceof InventoryWrapper))
-			return false;
-		InventoryWrapper<?> wrapper = (InventoryWrapper<?>) obj;
-		
-		return this.getInventory().equals(wrapper.getInventory());
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1039529042564261223L;
+
+    private T inventory;
+
+    public InventoryWrapper(T inventory) {
+        this.inventory = inventory;
+    }
+
+    public T getInventory() {
+        return this.inventory;
+    }
+
+    public abstract ItemStackWrapper<?>[] getContents();
+
+    public abstract ItemStackWrapper<?> getItem(int index);
+
+    public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
+
+    public abstract void updateItem(int index, PlayerWrapper<?> playerWrapper);
+
+    public abstract int getSize();
+
+    public abstract int getCurrentContentSize();
+
+    public int addItem(ItemStackWrapper<?> itemStackWrapper) {
+        int index = this.getCurrentContentSize();
+        if (index >= this.getSize())
+            return -1;
+
+        this.setItem(index, itemStackWrapper);
+        return index;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof InventoryWrapper))
+            return false;
+        InventoryWrapper<?> wrapper = (InventoryWrapper<?>) obj;
+
+        return this.getInventory().equals(wrapper.getInventory());
+    }
 }

@@ -30,64 +30,53 @@ import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
 public class SlotManager {
 
-	private static SlotManager instance;
-	
-	public static SlotManager get()
-	{
-		if(instance == null)
-		{
-			instance = new SlotManager();
-		}
-		return instance;
-	}
-	
-	
-	private SlotManager()
-	{
-		this.updateSlots();
-	}
-	
-	private void updateSlots()
-	{
-		DynamicGui.get().getServer().getScheduler().scheduleSyncRepeatingTask(DynamicGui.get().getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
-				while(it.hasNext())
-				{
-					Entry<UUID, Gui> next = it.next();
-					UUID key = next.getKey();
-					PlayerWrapper<?> playerWrapper = DynamicGui.get().getServer().getPlayer(key);
-					Gui gui = next.getValue();
-					
-					for(Slot slot : gui.getSlots())
-					{
-						if(slot.getUpdateInterval() == 0 && !slot.getUpdate())
-						{
-							continue;
-						}
-						
-						slot.tick();
-						if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0))
-						{
-							ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
-							int slotIndex = slot.getIndex();
-						
-							InventoryWrapper<?> inventoryWrapper = slot.getOwner().getInventoryWrapper();
-							inventoryWrapper.setItem(slotIndex, itemStackWrapper);
-							
-							FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-							if(!slot.getItemStack().getType().equalsIgnoreCase("air")) 
-							{
-								inventoryWrapper.updateItem(slotIndex, playerWrapper);
-							}
-							slot.setUpdate(false);
-						}
-					}
-				}
-			}
-		}, 1L, 1L);
-	}
+    private static SlotManager instance;
+
+    public static SlotManager get() {
+        if (instance == null) {
+            instance = new SlotManager();
+        }
+        return instance;
+    }
+
+
+    private SlotManager() {
+        this.updateSlots();
+    }
+
+    private void updateSlots() {
+        DynamicGui.get().getServer().getScheduler().scheduleSyncRepeatingTask(DynamicGui.get().getPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
+                while (it.hasNext()) {
+                    Entry<UUID, Gui> next = it.next();
+                    UUID key = next.getKey();
+                    PlayerWrapper<?> playerWrapper = DynamicGui.get().getServer().getPlayer(key);
+                    Gui gui = next.getValue();
+
+                    for (Slot slot : gui.getSlots()) {
+                        if (slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
+                            continue;
+                        }
+
+                        slot.tick();
+                        if (slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
+                            ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
+                            int slotIndex = slot.getIndex();
+
+                            InventoryWrapper<?> inventoryWrapper = slot.getOwner().getInventoryWrapper();
+                            inventoryWrapper.setItem(slotIndex, itemStackWrapper);
+
+                            FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+                            if (!slot.getItemStack().getType().equalsIgnoreCase("air")) {
+                                inventoryWrapper.updateItem(slotIndex, playerWrapper);
+                            }
+                            slot.setUpdate(false);
+                        }
+                    }
+                }
+            }
+        }, 1L, 1L);
+    }
 }

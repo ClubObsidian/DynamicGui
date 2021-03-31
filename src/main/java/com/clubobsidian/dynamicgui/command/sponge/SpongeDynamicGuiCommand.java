@@ -36,124 +36,93 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class SpongeDynamicGuiCommand implements CommandExecutor {
 
-	@Override
-	public CommandResult execute(CommandSource src, CommandContext args) throws CommandException 
-	{
-		Optional<String> first = args.getOne("sub");
-		Optional<String> second = args.getOne("subtwo");
-		Optional<String> third = args.getOne("subthree");
-		if(first.isPresent() && !second.isPresent() && !third.isPresent())
-		{
-			if(src.hasPermission("dynamicgui.reload"))
-			{
-				if(first.get().equalsIgnoreCase("reload"))
-				{
+    @Override
+    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        Optional<String> first = args.getOne("sub");
+        Optional<String> second = args.getOne("subtwo");
+        Optional<String> third = args.getOne("subthree");
+        if (first.isPresent() && !second.isPresent() && !third.isPresent()) {
+            if (src.hasPermission("dynamicgui.reload")) {
+                if (first.get().equalsIgnoreCase("reload")) {
 
-					src.sendMessage(Text.of("Guis have been reloaded"));
-					GuiManager.get().reloadGuis(false);
-					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
-					return CommandResult.success();
-				}
-				else if(first.get().equalsIgnoreCase("forcereload"))
-				{
+                    src.sendMessage(Text.of("Guis have been reloaded"));
+                    GuiManager.get().reloadGuis(false);
+                    DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+                    return CommandResult.success();
+                } else if (first.get().equalsIgnoreCase("forcereload")) {
 
-					src.sendMessage(Text.of("Guis have been force reloaded"));
-					GuiManager.get().reloadGuis(true);
-					DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
-					return CommandResult.success();
-				}
-			}
-		}
+                    src.sendMessage(Text.of("Guis have been force reloaded"));
+                    GuiManager.get().reloadGuis(true);
+                    DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+                    return CommandResult.success();
+                }
+            }
+        }
 
-		if(second.isPresent() && !third.isPresent())
-		{
-			if(first.get().equalsIgnoreCase("close"))
-			{
-				if(src.hasPermission("dynamicgui.close"))
-				{
-					if(second.get().equalsIgnoreCase("all"))
-					{
-						src.sendMessage(Text.of("All open DynamicGui guis have been closed"));
-						for(UUID uuid : GuiManager.get().getPlayerGuis().keySet())
-						{
-							Optional<Player> player = Sponge.getServer().getPlayer(uuid);
-							if(player.isPresent())
-							{
-								player.get().closeInventory();
-							}
-						}
-						return CommandResult.success();
-					}
-					else
-					{
-						Optional<Player> player = Sponge.getServer().getPlayer(second.get());
-						if(!player.isPresent())
-						{
-							src.sendMessage(Text.of("That player is not online, so their gui cannot be closed"));
-							return CommandResult.success();
-						}
-						else
-						{
+        if (second.isPresent() && !third.isPresent()) {
+            if (first.get().equalsIgnoreCase("close")) {
+                if (src.hasPermission("dynamicgui.close")) {
+                    if (second.get().equalsIgnoreCase("all")) {
+                        src.sendMessage(Text.of("All open DynamicGui guis have been closed"));
+                        for (UUID uuid : GuiManager.get().getPlayerGuis().keySet()) {
+                            Optional<Player> player = Sponge.getServer().getPlayer(uuid);
+                            if (player.isPresent()) {
+                                player.get().closeInventory();
+                            }
+                        }
+                        return CommandResult.success();
+                    } else {
+                        Optional<Player> player = Sponge.getServer().getPlayer(second.get());
+                        if (!player.isPresent()) {
+                            src.sendMessage(Text.of("That player is not online, so their gui cannot be closed"));
+                            return CommandResult.success();
+                        } else {
 
-							if(GuiManager.get().getPlayerGuis().get(player.get().getUniqueId()) != null)
-							{
-								src.sendMessage(Text.of(player.get().getName() + "'s gui has been closed"));
-								player.get().closeInventory();
-								return CommandResult.success();
-							}
-							else
-							{
-								src.sendMessage(Text.of(player.get().getName() + " did not have a DynamicGui gui open"));
-								return CommandResult.success();
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		
-		if(third.isPresent())
-		{
-			if(first.get().equalsIgnoreCase("close"))
-			{
-				if(second.get().equalsIgnoreCase("all"))
-				{
-					Gui gui = GuiManager.get().getGuiByName(third.get());
-					if(gui == null)
-					{
-						src.sendMessage(Text.of("No gui can be found by that name"));
-						return CommandResult.success();
-					}
-					else
-					{
-						src.sendMessage(Text.of("Guis of type " + third.get() + " are now closed"));
-						Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
-						while(it.hasNext())
-						{
-							Entry<UUID, Gui> next = it.next();
-							if(next.getValue().getName().equals(third.get()))
-							{
-								Optional<Player> player = Sponge.getServer().getPlayer(next.getKey());
-								if(player.isPresent())
-								{
-									player.get().closeInventory();
-								}
-							}
-						}
-						return CommandResult.success();
-					}
-				}
-			}
-		}
-		else
-		{
-			src.sendMessage(Text.of("/dynamicgui reload"));
-			src.sendMessage(Text.of("/dynamicgui forcereload"));
-			src.sendMessage(Text.of("/dynamicgui close <player>"));
-			src.sendMessage(Text.of("/dynamicgui close <all> <name>"));
-			return CommandResult.success();
-		}
-		return CommandResult.empty();
-	}
+                            if (GuiManager.get().getPlayerGuis().get(player.get().getUniqueId()) != null) {
+                                src.sendMessage(Text.of(player.get().getName() + "'s gui has been closed"));
+                                player.get().closeInventory();
+                                return CommandResult.success();
+                            } else {
+                                src.sendMessage(Text.of(player.get().getName() + " did not have a DynamicGui gui open"));
+                                return CommandResult.success();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        if (third.isPresent()) {
+            if (first.get().equalsIgnoreCase("close")) {
+                if (second.get().equalsIgnoreCase("all")) {
+                    Gui gui = GuiManager.get().getGuiByName(third.get());
+                    if (gui == null) {
+                        src.sendMessage(Text.of("No gui can be found by that name"));
+                        return CommandResult.success();
+                    } else {
+                        src.sendMessage(Text.of("Guis of type " + third.get() + " are now closed"));
+                        Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
+                        while (it.hasNext()) {
+                            Entry<UUID, Gui> next = it.next();
+                            if (next.getValue().getName().equals(third.get())) {
+                                Optional<Player> player = Sponge.getServer().getPlayer(next.getKey());
+                                if (player.isPresent()) {
+                                    player.get().closeInventory();
+                                }
+                            }
+                        }
+                        return CommandResult.success();
+                    }
+                }
+            }
+        } else {
+            src.sendMessage(Text.of("/dynamicgui reload"));
+            src.sendMessage(Text.of("/dynamicgui forcereload"));
+            src.sendMessage(Text.of("/dynamicgui close <player>"));
+            src.sendMessage(Text.of("/dynamicgui close <all> <name>"));
+            return CommandResult.success();
+        }
+        return CommandResult.empty();
+    }
 }

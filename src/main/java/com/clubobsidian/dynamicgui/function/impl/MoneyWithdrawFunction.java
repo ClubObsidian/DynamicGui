@@ -23,39 +23,33 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class MoneyWithdrawFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8941864727381394744L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8941864727381394744L;
 
-	public MoneyWithdrawFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		double amt;
-		try
-		{
-			amt = Double.parseDouble(this.getData());
-		}
-		catch(Exception ex)
-		{ 
-			ex.printStackTrace();
-			return false;
-		}
-		
-		if(DynamicGui.get().getPlugin().getEconomy() == null)
-			return false;
-		
-		BigDecimal decimalAmt = new BigDecimal(amt);
-		if(DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1)
-		{
-			return false;
-		}
+    public MoneyWithdrawFunction(String name) {
+        super(name);
+    }
 
-		return DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
-	}
+    @Override
+    public boolean function(final PlayerWrapper<?> playerWrapper) {
+        double amt;
+        try {
+            amt = Double.parseDouble(this.getData());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        if (DynamicGui.get().getPlugin().getEconomy() == null)
+            return false;
+
+        BigDecimal decimalAmt = new BigDecimal(amt);
+        if (DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
+            return false;
+        }
+
+        return DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
+    }
 }

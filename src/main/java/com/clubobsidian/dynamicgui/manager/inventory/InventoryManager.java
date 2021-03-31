@@ -20,22 +20,21 @@ import com.google.inject.Inject;
 
 public abstract class InventoryManager {
 
-	@Inject
-	private static InventoryManager instance;
-	
-	public static InventoryManager get()
-	{
-		return instance;
-	}
-	
-	public abstract Object createInventory(int size, String title);
-	public abstract Object createInventory(String title, String type);
-	
-	public abstract InventoryWrapper<?> createInventoryWrapper(Object inventory);
-	
-	public InventoryWrapper<?> createInventoryWrapper(int size, String title)
-	{
-		Object inventory = this.createInventory(size,title);
-		return this.createInventoryWrapper(inventory);
-	}
+    @Inject
+    private static InventoryManager instance;
+
+    public static InventoryManager get() {
+        return instance;
+    }
+
+    public abstract Object createInventory(int size, String title);
+
+    public abstract Object createInventory(String title, String type);
+
+    public abstract InventoryWrapper<?> createInventoryWrapper(Object inventory);
+
+    public InventoryWrapper<?> createInventoryWrapper(int size, String title) {
+        Object inventory = this.createInventory(size, title);
+        return this.createInventoryWrapper(inventory);
+    }
 }

@@ -21,26 +21,23 @@ import com.clubobsidian.dynamicgui.world.WorldWrapper;
 
 public class CheckPlayerWorldFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7760274986999938696L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7760274986999938696L;
 
-	public CheckPlayerWorldFunction(String name) 
-	{
-		super(name);
-	}
+    public CheckPlayerWorldFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		if(this.getData() == null)
-		{
-			return false;
-		}
-		
-		String worldName = this.getData();
-		WorldWrapper<?> worldWrapper = playerWrapper.getLocation().getWorld();
-		return worldName.equals(worldWrapper.getName());
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        if (this.getData() == null) {
+            return false;
+        }
+
+        String worldName = this.getData();
+        WorldWrapper<?> worldWrapper = playerWrapper.getLocation().getWorld();
+        return worldName.equals(worldWrapper.getName());
+    }
 }

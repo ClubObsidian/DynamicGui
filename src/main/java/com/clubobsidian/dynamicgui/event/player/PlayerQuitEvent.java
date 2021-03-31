@@ -20,8 +20,7 @@ import com.clubobsidian.dynamicgui.event.PlayerEvent;
 
 public class PlayerQuitEvent extends PlayerEvent {
 
-	public PlayerQuitEvent(PlayerWrapper<?> playerWrapper) 
-	{
-		super(playerWrapper);
-	}
+    public PlayerQuitEvent(PlayerWrapper<?> playerWrapper) {
+        super(playerWrapper);
+    }
 }

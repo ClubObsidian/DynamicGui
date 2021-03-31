@@ -21,15 +21,13 @@ import com.clubobsidian.dynamicgui.replacer.AnimationReplacer;
 
 public class MultiLineTestAnimationReplacer extends AnimationReplacer {
 
-	public MultiLineTestAnimationReplacer(String toReplace) 
-	{
-		super(toReplace);
-	}
+    public MultiLineTestAnimationReplacer(String toReplace) {
+        super(toReplace);
+    }
 
-	@Override
-	public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) 
-	{
-		int tick = holder.getCurrentTick();
-		return tick + "\n" + tick + "\n" + tick;
-	}
+    @Override
+    public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) {
+        int tick = holder.getCurrentTick();
+        return tick + "\n" + tick + "\n" + tick;
+    }
 }

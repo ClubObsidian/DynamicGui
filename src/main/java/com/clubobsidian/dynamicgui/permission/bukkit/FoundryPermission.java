@@ -28,12 +28,11 @@ import java.lang.reflect.Method;
 
 public class FoundryPermission extends VaultPermission {
 
-	@Override
-	public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) 
-	{
-		Player player = (Player) playerWrapper.getPlayer();
-		return FoundryPlugin.get()
-				.getPermissionManager()
-				.hasPermission(player, permission);
-	}
+    @Override
+    public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
+        Player player = (Player) playerWrapper.getPlayer();
+        return FoundryPlugin.get()
+                .getPermissionManager()
+                .hasPermission(player, permission);
+    }
 }

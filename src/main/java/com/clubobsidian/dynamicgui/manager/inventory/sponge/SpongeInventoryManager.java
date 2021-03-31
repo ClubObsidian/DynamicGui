@@ -31,50 +31,41 @@ import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 
 public class SpongeInventoryManager extends InventoryManager {
 
-	@Override
-	public Object createInventory(int size, String title) 
-	{
-		return Inventory.builder()
-				.of(InventoryArchetypes.DOUBLE_CHEST)
-				.property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
-				.property(InventoryDimension.PROPERTY_NAME, new InventoryDimension(9, size / 9))
-				.build(DynamicGui.get().getPlugin());
-	}
-	
-	@Override
-	public Object createInventory(String title, String type) 
-	{
-		if(type == null)
-			return null;
-		
-		//We should have used the sponge registry here but retrievals kept failing
-		Field inventoryField = null;
-		try
-		{
-			 inventoryField = InventoryArchetypes.class.getDeclaredField(type);
-		}
-		catch(NoSuchFieldException ex)
-		{
-			ex.printStackTrace();
-			return null;
-		}
-		try 
-		{
-			return Inventory.builder()
-					.of((InventoryArchetype) inventoryField.get(null))
-					.property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
-					.build(DynamicGui.get().getPlugin());
-		} 
-		catch (IllegalArgumentException | IllegalAccessException ex)
-		{
-			ex.printStackTrace();
-			return null;
-		}
-	}
+    @Override
+    public Object createInventory(int size, String title) {
+        return Inventory.builder()
+                .of(InventoryArchetypes.DOUBLE_CHEST)
+                .property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
+                .property(InventoryDimension.PROPERTY_NAME, new InventoryDimension(9, size / 9))
+                .build(DynamicGui.get().getPlugin());
+    }
 
-	@Override
-	public InventoryWrapper<?> createInventoryWrapper(Object inventory) 
-	{
-		return new SpongeInventoryWrapper<Inventory>((Inventory) inventory);
-	}
+    @Override
+    public Object createInventory(String title, String type) {
+        if (type == null)
+            return null;
+
+        //We should have used the sponge registry here but retrievals kept failing
+        Field inventoryField = null;
+        try {
+            inventoryField = InventoryArchetypes.class.getDeclaredField(type);
+        } catch (NoSuchFieldException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        try {
+            return Inventory.builder()
+                    .of((InventoryArchetype) inventoryField.get(null))
+                    .property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
+                    .build(DynamicGui.get().getPlugin());
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public InventoryWrapper<?> createInventoryWrapper(Object inventory) {
+        return new SpongeInventoryWrapper<Inventory>((Inventory) inventory);
+    }
 }

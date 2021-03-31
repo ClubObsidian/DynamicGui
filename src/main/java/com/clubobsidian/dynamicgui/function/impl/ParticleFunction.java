@@ -21,21 +21,19 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class ParticleFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6719256169872302172L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6719256169872302172L;
 
-	public ParticleFunction(String name) 
-	{
-		super(name);
-	}
+    public ParticleFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		ParticleWrapper wrapper = new ParticleWrapper(this.getData());
-		wrapper.spawnEffect(playerWrapper);
-		return true;
-	}	
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        ParticleWrapper wrapper = new ParticleWrapper(this.getData());
+        wrapper.spawnEffect(playerWrapper);
+        return true;
+    }
 }

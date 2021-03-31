@@ -26,29 +26,24 @@ import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 
 public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 
-	private Method setPlaceHolders;
-	public PlaceholderApiReplacerRegistry()
-	{
-		this.setPlaceHolders = this.getPlaceholdersMethod();
-	}
+    private Method setPlaceHolders;
 
-	@Override
-	public String replace(PlayerWrapper<?> playerWrapper, String text) 
-	{
-		try 
-		{
-			return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
-		} 
-		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private Method getPlaceholdersMethod()
-	{
-		Class<?> clazz = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
-		return ReflectionUtil.getMethod(clazz, "setPlaceholders", OfflinePlayer.class, String.class);
-	}
+    public PlaceholderApiReplacerRegistry() {
+        this.setPlaceHolders = this.getPlaceholdersMethod();
+    }
+
+    @Override
+    public String replace(PlayerWrapper<?> playerWrapper, String text) {
+        try {
+            return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Method getPlaceholdersMethod() {
+        Class<?> clazz = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
+        return ReflectionUtil.getMethod(clazz, "setPlaceholders", OfflinePlayer.class, String.class);
+    }
 }

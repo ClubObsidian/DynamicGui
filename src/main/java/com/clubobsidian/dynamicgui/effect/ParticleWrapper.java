@@ -21,35 +21,29 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public class ParticleWrapper implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5003322741003989392L;
-	private String effect;
-	private int data;
-	
-	public ParticleWrapper(String str)
-	{
-		this.loadFromString(str);
-	}
-	
-	private void loadFromString(String str)
-	{
-		if(str.contains(","))
-		{
-			String[] args = str.split(",");
-			this.effect = args[0].toUpperCase();
-			this.data = Integer.parseInt(args[1]);
-		}
-		else
-		{
-			this.effect = str;
-			this.data = 0;
-		}
-	}
-	
-	public void spawnEffect(PlayerWrapper<?> player)
-	{
-		player.playEffect(this.effect.toUpperCase(), this.data);
-	}	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5003322741003989392L;
+    private String effect;
+    private int data;
+
+    public ParticleWrapper(String str) {
+        this.loadFromString(str);
+    }
+
+    private void loadFromString(String str) {
+        if (str.contains(",")) {
+            String[] args = str.split(",");
+            this.effect = args[0].toUpperCase();
+            this.data = Integer.parseInt(args[1]);
+        } else {
+            this.effect = str;
+            this.data = 0;
+        }
+    }
+
+    public void spawnEffect(PlayerWrapper<?> player) {
+        player.playEffect(this.effect.toUpperCase(), this.data);
+    }
 }

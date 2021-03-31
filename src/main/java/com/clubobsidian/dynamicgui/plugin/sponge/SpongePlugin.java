@@ -58,140 +58,129 @@ import org.slf4j.Logger;
 @Plugin(id = "dynamicgui", name = "DynamicGui", version = "1.0")
 public class SpongePlugin implements DynamicGuiPlugin {
 
-	@Inject
-	private Logger logger;
-	
-	@Inject
-	@ConfigDir(sharedRoot = false)
-	private Path configDir;
-	
-	private File guiFolder;
-	private File dataFolder;
-	private File configFile;
-	private File macroFolder;
-	
-	public final static String PLUGIN_ID = "dynamicgui";
+    @Inject
+    private Logger logger;
 
-	@Listener
-	public void gameStart(GameStartedServerEvent e)
-	{
-		this.start();
-	}
-	
-	@Listener
-	public void gameStopped(GameStoppedServerEvent e)
-	{
-		this.stop();
-	}
-	
-	@Override
-	public void start() 
-	{
-		this.dataFolder = configDir.toFile();
-		this.configFile = new File(this.dataFolder, "config.yml");
-		this.guiFolder = new File(this.dataFolder, "guis");
-		this.macroFolder = new File(this.dataFolder, "macros");
+    @Inject
+    @ConfigDir(sharedRoot = false)
+    private Path configDir;
 
-		new PluginModule()
-		.setEntity(SpongeEntityManager.class)
-		.setInventory(SpongeInventoryManager.class)
-		.setItemStack(SpongeItemStackManager.class)
-		.setLocation(SpongeLocationManager.class)
-		.setMaterial(SpongeMaterialManager.class)
-		.setLogger(new Sl4jLoggerWrapper<Logger>(this.logger))
-		.setPlugin(this)
-		.setServer(new FakeSpongeServer())
-		.bootstrap();
+    private File guiFolder;
+    private File dataFolder;
+    private File configFile;
+    private File macroFolder;
 
-		CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
-				.executor(new SpongeGuiCommand())
-				.arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("gui"))))
-				.build();
-		
-		Sponge.getGame().getCommandManager().register(this, guiSpec, "gui");
-		
-		CommandSpec dynamicGuiSpec = CommandSpec.builder().description(Text.of("DynamicGui command"))
-				.executor(new SpongeDynamicGuiCommand())
-				.arguments(GenericArguments.optional(GenericArguments.string(Text.of("sub"))),
-				GenericArguments.optional(GenericArguments.string(Text.of("subtwo"))),
-				GenericArguments.optional(GenericArguments.string(Text.of("subthree"))))
-				.build();
-		
-		Sponge.getGame().getCommandManager().register(this, dynamicGuiSpec, "dynamicgui", "dyngui");
-		
-		Sponge.getEventManager().registerListeners(this, new EntityClickListener());
-		Sponge.getEventManager().registerListeners(this, new InventoryInteractListener());
-		Sponge.getEventManager().registerListeners(this, new InventoryCloseListener());
-		Sponge.getEventManager().registerListeners(this, new InventoryOpenListener());
-		Sponge.getEventManager().registerListeners(this, new PlayerInteractListener());
-	}
+    public final static String PLUGIN_ID = "dynamicgui";
 
-	@Override
-	public void stop() 
-	{
-		DynamicGui.get().shutdown();
-	}
+    @Listener
+    public void gameStart(GameStartedServerEvent e) {
+        this.start();
+    }
 
-	@Override
-	public Economy getEconomy() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Permission getPermission()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Listener
+    public void gameStopped(GameStoppedServerEvent e) {
+        this.stop();
+    }
 
-	@Override
-	public List<NPCRegistry> getNPCRegistries() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void start() {
+        this.dataFolder = configDir.toFile();
+        this.configFile = new File(this.dataFolder, "config.yml");
+        this.guiFolder = new File(this.dataFolder, "guis");
+        this.macroFolder = new File(this.dataFolder, "macros");
 
-	@Override
-	public File getGuiFolder() 
-	{
-		return this.guiFolder;
-	}
+        new PluginModule()
+                .setEntity(SpongeEntityManager.class)
+                .setInventory(SpongeInventoryManager.class)
+                .setItemStack(SpongeItemStackManager.class)
+                .setLocation(SpongeLocationManager.class)
+                .setMaterial(SpongeMaterialManager.class)
+                .setLogger(new Sl4jLoggerWrapper<Logger>(this.logger))
+                .setPlugin(this)
+                .setServer(new FakeSpongeServer())
+                .bootstrap();
 
-	@Override
-	public File getDataFolder() 
-	{
-		return this.dataFolder;
-	}
+        CommandSpec guiSpec = CommandSpec.builder().description(Text.of("GUI command"))
+                .executor(new SpongeGuiCommand())
+                .arguments(GenericArguments.onlyOne(GenericArguments.string(Text.of("gui"))))
+                .build();
 
-	@Override
-	public File getConfigFile() 
-	{
-		return this.configFile;
-	}
-	
-	@Override
-	public File getMacroFolder()
-	{
-		return this.macroFolder;
-	}
+        Sponge.getGame().getCommandManager().register(this, guiSpec, "gui");
 
-	@Override
-	public List<String> getRegisteredCommands() 
-	{
-		// TODO Auto-generated method stub
-		return new ArrayList<>();
-	}
-	
-	@Override
-	public void createCommand(String guiName, String alias) {
-		// TODO Auto-generated method stub
-		
-	}
+        CommandSpec dynamicGuiSpec = CommandSpec.builder().description(Text.of("DynamicGui command"))
+                .executor(new SpongeDynamicGuiCommand())
+                .arguments(GenericArguments.optional(GenericArguments.string(Text.of("sub"))),
+                        GenericArguments.optional(GenericArguments.string(Text.of("subtwo"))),
+                        GenericArguments.optional(GenericArguments.string(Text.of("subthree"))))
+                .build();
 
-	@Override
-	public void unloadCommands() {
-		// TODO Auto-generated method stub
-		
-	}
+        Sponge.getGame().getCommandManager().register(this, dynamicGuiSpec, "dynamicgui", "dyngui");
+
+        Sponge.getEventManager().registerListeners(this, new EntityClickListener());
+        Sponge.getEventManager().registerListeners(this, new InventoryInteractListener());
+        Sponge.getEventManager().registerListeners(this, new InventoryCloseListener());
+        Sponge.getEventManager().registerListeners(this, new InventoryOpenListener());
+        Sponge.getEventManager().registerListeners(this, new PlayerInteractListener());
+    }
+
+    @Override
+    public void stop() {
+        DynamicGui.get().shutdown();
+    }
+
+    @Override
+    public Economy getEconomy() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Permission getPermission() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<NPCRegistry> getNPCRegistries() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public File getGuiFolder() {
+        return this.guiFolder;
+    }
+
+    @Override
+    public File getDataFolder() {
+        return this.dataFolder;
+    }
+
+    @Override
+    public File getConfigFile() {
+        return this.configFile;
+    }
+
+    @Override
+    public File getMacroFolder() {
+        return this.macroFolder;
+    }
+
+    @Override
+    public List<String> getRegisteredCommands() {
+        // TODO Auto-generated method stub
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void createCommand(String guiName, String alias) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void unloadCommands() {
+        // TODO Auto-generated method stub
+
+    }
 }

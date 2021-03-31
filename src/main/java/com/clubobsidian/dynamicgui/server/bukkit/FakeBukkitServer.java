@@ -43,100 +43,83 @@ import net.md_5.bungee.chat.ComponentSerializer;
 
 public class FakeBukkitServer extends FakeServer {
 
-	public FakeBukkitServer() 
-	{
-		super(new BukkitScheduler());
-	}
+    public FakeBukkitServer() {
+        super(new BukkitScheduler());
+    }
 
-	@Override
-	public void broadcastMessage(String message) 
-	{
-		Bukkit.getServer().broadcastMessage(message);
-	}
-	
-	@Override
-	public void broadcastJsonMessage(String json) 
-	{
-		BaseComponent[] components = ComponentSerializer.parse(json);
-		Bukkit.getServer().spigot().broadcast(components);
-	}
-	
-	@Override
-	public void dispatchServerCommand(String command)
-	{
-		Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
-	}
+    @Override
+    public void broadcastMessage(String message) {
+        Bukkit.getServer().broadcastMessage(message);
+    }
 
-	@Override
-	public PlayerWrapper<?> getPlayer(UUID uuid) 
-	{
-		return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(uuid));
-	}
+    @Override
+    public void broadcastJsonMessage(String json) {
+        BaseComponent[] components = ComponentSerializer.parse(json);
+        Bukkit.getServer().spigot().broadcast(components);
+    }
 
-	@Override
-	public PlayerWrapper<?> getPlayer(String name) 
-	{
-		return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(name));
-	}
+    @Override
+    public void dispatchServerCommand(String command) {
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+    }
 
-	@Override
-	public Collection<PlayerWrapper<?>> getOnlinePlayers() 
-	{
-		List<PlayerWrapper<?>> onlinePlayers = new ArrayList<>();
-		Bukkit.getServer().getOnlinePlayers().forEach(player -> onlinePlayers.add(new BukkitPlayerWrapper<Player>(player)));
-		return onlinePlayers;
-	}
+    @Override
+    public PlayerWrapper<?> getPlayer(UUID uuid) {
+        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(uuid));
+    }
 
-	@Override
-	public int getGlobalPlayerCount() 
-	{
-		if(DynamicGui.get().getProxy() != Proxy.NONE)
-		{
-			return DynamicGui.get().getGlobalServerPlayerCount();
-		}
-		
-		return Bukkit.getServer().getOnlinePlayers().size();
-	}
+    @Override
+    public PlayerWrapper<?> getPlayer(String name) {
+        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(name));
+    }
 
-	@Override
-	public ServerType getType() 
-	{
-		return ServerType.SPIGOT;
-	}
+    @Override
+    public Collection<PlayerWrapper<?>> getOnlinePlayers() {
+        List<PlayerWrapper<?>> onlinePlayers = new ArrayList<>();
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> onlinePlayers.add(new BukkitPlayerWrapper<Player>(player)));
+        return onlinePlayers;
+    }
 
-	@Override
-	public void registerOutgoingPluginChannel(final DynamicGuiPlugin plugin, final String outGoingChannel) 
-	{
-		Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, outGoingChannel);
-	}
+    @Override
+    public int getGlobalPlayerCount() {
+        if (DynamicGui.get().getProxy() != Proxy.NONE) {
+            return DynamicGui.get().getGlobalServerPlayerCount();
+        }
 
-	@Override
-	public void registerIncomingPluginChannel(final DynamicGuiPlugin plugin, final String incomingChannel, final MessagingRunnable runnable) 
-	{
-		PluginMessageListener listener = new PluginMessageListener()
-		{
-			@Override
-			public void onPluginMessageReceived(String channel, Player player, byte[] message) 
-			{
-				if(channel.equals(incomingChannel))
-				{
-					PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
-					runnable.run(playerWrapper, message);
-				}
-			}
-		};
-		Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);
-	}
+        return Bukkit.getServer().getOnlinePlayers().size();
+    }
 
-	@Override
-	public WorldWrapper<?> getWorld(String worldName) 
-	{
-		World world = Bukkit.getServer().getWorld(worldName);
-		if(world == null)
-		{
-			return null;
-		}
-		
-		return new BukkitWorldWrapper(worldName);
-	}
+    @Override
+    public ServerType getType() {
+        return ServerType.SPIGOT;
+    }
+
+    @Override
+    public void registerOutgoingPluginChannel(final DynamicGuiPlugin plugin, final String outGoingChannel) {
+        Bukkit.getServer().getMessenger().registerOutgoingPluginChannel((Plugin) plugin, outGoingChannel);
+    }
+
+    @Override
+    public void registerIncomingPluginChannel(final DynamicGuiPlugin plugin, final String incomingChannel, final MessagingRunnable runnable) {
+        PluginMessageListener listener = new PluginMessageListener() {
+            @Override
+            public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+                if (channel.equals(incomingChannel)) {
+                    PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+                    runnable.run(playerWrapper, message);
+                }
+            }
+        };
+        Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);
+    }
+
+    @Override
+    public WorldWrapper<?> getWorld(String worldName) {
+        World world = Bukkit.getServer().getWorld(worldName);
+        if (world == null) {
+            return null;
+        }
+
+        return new BukkitWorldWrapper(worldName);
+    }
 }

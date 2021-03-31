@@ -24,17 +24,28 @@ import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 
 public interface DynamicGuiPlugin {
 
-	public void start();
-	public void stop();
-	public Economy getEconomy();
-	public Permission getPermission();
-	public List<NPCRegistry> getNPCRegistries();
-	public File getDataFolder();
-	public File getConfigFile();
-	public File getGuiFolder();
-	public File getMacroFolder();
-	public List<String> getRegisteredCommands();
-	public void createCommand(String guiName, String alias);
-	public void unloadCommands();
-	
+    public void start();
+
+    public void stop();
+
+    public Economy getEconomy();
+
+    public Permission getPermission();
+
+    public List<NPCRegistry> getNPCRegistries();
+
+    public File getDataFolder();
+
+    public File getConfigFile();
+
+    public File getGuiFolder();
+
+    public File getMacroFolder();
+
+    public List<String> getRegisteredCommands();
+
+    public void createCommand(String guiName, String alias);
+
+    public void unloadCommands();
+
 }

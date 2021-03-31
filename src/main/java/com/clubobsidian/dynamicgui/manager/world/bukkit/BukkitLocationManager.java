@@ -24,26 +24,23 @@ import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
 
 public class BukkitLocationManager extends LocationManager {
 
-	@Override
-	public LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z) 
-	{
-		BukkitWorldWrapper worldWrapper = new BukkitWorldWrapper(world);
-		return new LocationWrapper<World>(x, y, z, worldWrapper);
-	}
+    @Override
+    public LocationWrapper<?> toLocationWrapper(String world, int x, int y, int z) {
+        BukkitWorldWrapper worldWrapper = new BukkitWorldWrapper(world);
+        return new LocationWrapper<World>(x, y, z, worldWrapper);
+    }
 
-	@Override
-	public LocationWrapper<?> toLocationWrapper(Object obj) 
-	{
-		if(!(obj instanceof Location))
-		{
-			return null;
-		}
-		
-		Location location = (Location) obj;
-		String worldName = location.getWorld().getName();
-		int x = location.getBlockX();
-		int y = location.getBlockY();
-		int z = location.getBlockZ();
-		return this.toLocationWrapper(worldName, x, y, z);
-	}
+    @Override
+    public LocationWrapper<?> toLocationWrapper(Object obj) {
+        if (!(obj instanceof Location)) {
+            return null;
+        }
+
+        Location location = (Location) obj;
+        String worldName = location.getWorld().getName();
+        int x = location.getBlockX();
+        int y = location.getBlockY();
+        int z = location.getBlockZ();
+        return this.toLocationWrapper(worldName, x, y, z);
+    }
 }

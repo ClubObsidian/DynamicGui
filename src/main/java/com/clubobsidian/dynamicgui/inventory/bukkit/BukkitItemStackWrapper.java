@@ -33,217 +33,181 @@ import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3542885060265738780L;
-	
-	public BukkitItemStackWrapper(T itemStack) 
-	{
-		super(itemStack);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3542885060265738780L;
 
-	@Override
-	public int getAmount() 
-	{
-		return this.getItemStack().getAmount();
-	}
-	
-	@Override
-	public void setAmount(int amount)
-	{
-		this.getItemStack().setAmount(amount);
-	}
-	
-	@Override
-	public int getMaxStackSize() 
-	{
-		return this.getItemStack().getMaxStackSize();
-	}
-	
-	@Override
-	public String getType() 
-	{
-		return this.getItemStack().getType().toString();
-	}
+    public BukkitItemStackWrapper(T itemStack) {
+        super(itemStack);
+    }
 
-	@Override
-	public boolean setType(final String type) 
-	{
-		if(type == null)
-		{
-			return false;
-		}
-		
-		String normalizedType = MaterialManager.get().normalizeMaterial(type);
-		Material mat = null;
-		
-		try
-		{
-			mat = Material.valueOf(normalizedType);
-		}
-		catch(Exception ex)
-		{
-			return false;
-		}
-		
-		this.getItemStack().setType(mat);
-		return true;
-	}
+    @Override
+    public int getAmount() {
+        return this.getItemStack().getAmount();
+    }
 
-	@Override
-	public String getName() 
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		if(itemMeta.hasDisplayName())
-		{
-			return itemMeta.getDisplayName();
-		}
-		return null;
-	}
+    @Override
+    public void setAmount(int amount) {
+        this.getItemStack().setAmount(amount);
+    }
 
-	@Override
-	public void setName(String name) 
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		itemMeta.setDisplayName(name);
-		this.getItemStack().setItemMeta(itemMeta);
-	}
+    @Override
+    public int getMaxStackSize() {
+        return this.getItemStack().getMaxStackSize();
+    }
 
-	@Override
-	public List<String> getLore() 
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		if(!itemMeta.hasLore())
-		{
-			return new ArrayList<>();
-		}
-		
-		return itemMeta.getLore();
-	}
+    @Override
+    public String getType() {
+        return this.getItemStack().getType().toString();
+    }
 
-	@Override
-	public void setLore(List<String> lore) 
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		itemMeta.setLore(lore);
-		this.getItemStack().setItemMeta(itemMeta);
-	}
+    @Override
+    public boolean setType(final String type) {
+        if (type == null) {
+            return false;
+        }
 
-	@Override
-	public short getDurability() 
-	{
-		return this.getItemStack().getDurability();
-	}
+        String normalizedType = MaterialManager.get().normalizeMaterial(type);
+        Material mat = null;
 
-	@Override
-	public void setDurability(short durability) 
-	{
-		this.getItemStack().setDurability(durability);
-	}
+        try {
+            mat = Material.valueOf(normalizedType);
+        } catch (Exception ex) {
+            return false;
+        }
 
-	@Override
-	public void addEnchant(EnchantmentWrapper enchant) 
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		itemMeta.addEnchant(Enchantment.getByName(enchant.getEnchant()), enchant.getLevel(), true);
-		this.getItemStack().setItemMeta(itemMeta);
-	}
+        this.getItemStack().setType(mat);
+        return true;
+    }
 
-	@Override
-	public void removeEnchant(EnchantmentWrapper enchant)
-	{
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
-		this.getItemStack().setItemMeta(itemMeta);
-	}
+    @Override
+    public String getName() {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        if (itemMeta.hasDisplayName()) {
+            return itemMeta.getDisplayName();
+        }
+        return null;
+    }
 
-	@Override
-	public List<EnchantmentWrapper> getEnchants() 
-	{
-		List<EnchantmentWrapper> enchants = new ArrayList<>();
-		ItemMeta itemMeta = this.getItemStack().getItemMeta();
-		if(itemMeta.hasEnchants())
-		{
-			Iterator<Entry<Enchantment,Integer>> it = itemMeta.getEnchants().entrySet().iterator();
-			while(it.hasNext())
-			{
-				Entry<Enchantment,Integer> next = it.next();
-				enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
-			}
-		}
-		return enchants;
-	}
+    @Override
+    public void setName(String name) {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        itemMeta.setDisplayName(name);
+        this.getItemStack().setItemMeta(itemMeta);
+    }
 
-	@Override
-	public String getNBT() 
-	{
-		return BukkitNBTUtil.getTag(this.getItemStack());
-	}
-	
-	@Override
-	public void setNBT(String nbt) 
-	{
-		ItemStack oldItemStack = this.getItemStack();
-		ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
-		
-		if(oldItemStack.hasItemMeta())
-		{
-			ItemMeta meta = oldItemStack.getItemMeta();
-			ItemMeta newMeta = newItemStack.getItemMeta();
-			if(meta.hasDisplayName())
-			{
-				newMeta.setDisplayName(meta.getDisplayName());
-			}
-			
-			if(meta.hasEnchants())
-			{
-				Iterator<Entry<Enchantment,Integer>> it = meta.getEnchants().entrySet().iterator();
-				while(it.hasNext())
-				{
-					Entry<Enchantment,Integer> next = it.next();
-					newMeta.addEnchant(next.getKey(), next.getValue(), true);
-				}
-			}
-			if(meta.hasLore())
-			{
-				newMeta.setLore(meta.getLore());
-			}
-			
-			for(ItemFlag flag : meta.getItemFlags())
-			{
-				newMeta.addItemFlags(flag);
-			}
-			
-			newItemStack.setItemMeta(newMeta);
-		}
-		
-		this.setItemStack(newItemStack);
-	}
+    @Override
+    public List<String> getLore() {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        if (!itemMeta.hasLore()) {
+            return new ArrayList<>();
+        }
 
-	@Override
-	public void setGlowing(boolean glowing) 
-	{
-		ItemStack item = this.getItemStack();
-		ItemMeta meta = item.getItemMeta();
-		if(glowing)
-		{
-			meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
-			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-		}
-		else
-		{
-			meta.removeEnchant(Enchantment.DIG_SPEED);
-			meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
-			
-		}
-		
-		item.setItemMeta(meta);
-	}
+        return itemMeta.getLore();
+    }
 
-	@Override
-	public boolean isSimilar(ItemStackWrapper<?> compareTo) 
-	{
-		return this.getItemStack().isSimilar((ItemStack) compareTo.getItemStack());
-	}
+    @Override
+    public void setLore(List<String> lore) {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        itemMeta.setLore(lore);
+        this.getItemStack().setItemMeta(itemMeta);
+    }
+
+    @Override
+    public short getDurability() {
+        return this.getItemStack().getDurability();
+    }
+
+    @Override
+    public void setDurability(short durability) {
+        this.getItemStack().setDurability(durability);
+    }
+
+    @Override
+    public void addEnchant(EnchantmentWrapper enchant) {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        itemMeta.addEnchant(Enchantment.getByName(enchant.getEnchant()), enchant.getLevel(), true);
+        this.getItemStack().setItemMeta(itemMeta);
+    }
+
+    @Override
+    public void removeEnchant(EnchantmentWrapper enchant) {
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
+        this.getItemStack().setItemMeta(itemMeta);
+    }
+
+    @Override
+    public List<EnchantmentWrapper> getEnchants() {
+        List<EnchantmentWrapper> enchants = new ArrayList<>();
+        ItemMeta itemMeta = this.getItemStack().getItemMeta();
+        if (itemMeta.hasEnchants()) {
+            Iterator<Entry<Enchantment, Integer>> it = itemMeta.getEnchants().entrySet().iterator();
+            while (it.hasNext()) {
+                Entry<Enchantment, Integer> next = it.next();
+                enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
+            }
+        }
+        return enchants;
+    }
+
+    @Override
+    public String getNBT() {
+        return BukkitNBTUtil.getTag(this.getItemStack());
+    }
+
+    @Override
+    public void setNBT(String nbt) {
+        ItemStack oldItemStack = this.getItemStack();
+        ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
+
+        if (oldItemStack.hasItemMeta()) {
+            ItemMeta meta = oldItemStack.getItemMeta();
+            ItemMeta newMeta = newItemStack.getItemMeta();
+            if (meta.hasDisplayName()) {
+                newMeta.setDisplayName(meta.getDisplayName());
+            }
+
+            if (meta.hasEnchants()) {
+                Iterator<Entry<Enchantment, Integer>> it = meta.getEnchants().entrySet().iterator();
+                while (it.hasNext()) {
+                    Entry<Enchantment, Integer> next = it.next();
+                    newMeta.addEnchant(next.getKey(), next.getValue(), true);
+                }
+            }
+            if (meta.hasLore()) {
+                newMeta.setLore(meta.getLore());
+            }
+
+            for (ItemFlag flag : meta.getItemFlags()) {
+                newMeta.addItemFlags(flag);
+            }
+
+            newItemStack.setItemMeta(newMeta);
+        }
+
+        this.setItemStack(newItemStack);
+    }
+
+    @Override
+    public void setGlowing(boolean glowing) {
+        ItemStack item = this.getItemStack();
+        ItemMeta meta = item.getItemMeta();
+        if (glowing) {
+            meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        } else {
+            meta.removeEnchant(Enchantment.DIG_SPEED);
+            meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        }
+
+        item.setItemMeta(meta);
+    }
+
+    @Override
+    public boolean isSimilar(ItemStackWrapper<?> compareTo) {
+        return this.getItemStack().isSimilar((ItemStack) compareTo.getItemStack());
+    }
 }

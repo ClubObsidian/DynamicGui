@@ -20,109 +20,83 @@ import java.lang.reflect.Method;
 
 public final class ReflectionUtil {
 
-	private ReflectionUtil() {}
-	
-	public static Class<?> classForName(String name)
-	{
-		try 
-		{
-			return Class.forName(name);
-		}
-		catch (ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
+    private ReflectionUtil() {
+    }
 
-	public static Method getMethod(Class<?> cl, String methodName) 
-	{
-		try 
-		{
-			Method method = cl.getDeclaredMethod(methodName);
-			method.setAccessible(true);
-			return method;
-		} 
-		catch (NoSuchMethodException | SecurityException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static Method getMethod(Class<?> cl, String methodName, Class<?>...params)
-	{
-		try 
-		{
-			Method method = cl.getDeclaredMethod(methodName, params);
-			method.setAccessible(true);
-			return method;
-		} 
-		catch (NoSuchMethodException | SecurityException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static Method findMethodByReturnType(Class<?> searchIn, Class<?> returnType)
-	{
-		for(Method m : searchIn.getDeclaredMethods())
-		{
-			if(m.getReturnType() == returnType)
-			{
-				m.setAccessible(true);
-				return m;
-			}
-		}
-		return null;
-	}
-	
-	public static Field getFieldByName(Class<?> searchIn, String name)
-	{
-		try 
-		{
-			Field f = searchIn.getDeclaredField(name);
-			f.setAccessible(true);
-			return f;
-		} 
-		catch (NoSuchFieldException | SecurityException e) 
-		{
-			return null;
-		}
-	}
-	
-	public static Field getFieldByType(Class<?> searchIn, Class<?> type)
-	{
-		for(Field f : searchIn.getDeclaredFields())
-		{
-			if(f.getType() == type)
-			{
-				f.setAccessible(true);
-				return f;
-			}
-		}
-		return null;
-	}
-	
-	public static class ReflectionHelper<T> {
-		
-		public T get(Field field)
-		{
-			return this.get(field, null);
-		}
-		
-		@SuppressWarnings("unchecked")
-		public T get(Field field, Object getFromClass)
-		{
-			try 
-			{
-				return (T) field.get(getFromClass);
-			} 
-			catch (IllegalArgumentException | IllegalAccessException e) 
-			{
-				return null;
-			}
-		}
-	}
+    public static Class<?> classForName(String name) {
+        try {
+            return Class.forName(name);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Method getMethod(Class<?> cl, String methodName) {
+        try {
+            Method method = cl.getDeclaredMethod(methodName);
+            method.setAccessible(true);
+            return method;
+        } catch (NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Method getMethod(Class<?> cl, String methodName, Class<?>... params) {
+        try {
+            Method method = cl.getDeclaredMethod(methodName, params);
+            method.setAccessible(true);
+            return method;
+        } catch (NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Method findMethodByReturnType(Class<?> searchIn, Class<?> returnType) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (m.getReturnType() == returnType) {
+                m.setAccessible(true);
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public static Field getFieldByName(Class<?> searchIn, String name) {
+        try {
+            Field f = searchIn.getDeclaredField(name);
+            f.setAccessible(true);
+            return f;
+        } catch (NoSuchFieldException | SecurityException e) {
+            return null;
+        }
+    }
+
+    public static Field getFieldByType(Class<?> searchIn, Class<?> type) {
+        for (Field f : searchIn.getDeclaredFields()) {
+            if (f.getType() == type) {
+                f.setAccessible(true);
+                return f;
+            }
+        }
+        return null;
+    }
+
+    public static class ReflectionHelper<T> {
+
+        public T get(Field field) {
+            return this.get(field, null);
+        }
+
+        @SuppressWarnings("unchecked")
+        public T get(Field field, Object getFromClass) {
+            try {
+                return (T) field.get(getFromClass);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                return null;
+            }
+        }
+    }
 }

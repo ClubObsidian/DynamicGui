@@ -25,43 +25,36 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 
 public class RemoveSlotFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -88925446185236878L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -88925446185236878L;
 
-	public RemoveSlotFunction(String name) 
-	{
-		super(name);
-	}
+    public RemoveSlotFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper)
-	{
-		FunctionOwner owner = this.getOwner();
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        FunctionOwner owner = this.getOwner();
 
-		if(this.getData() == null || this.getData().equals("this"))
-		{
-			if(owner != null)
-			{
-				if(owner instanceof Slot)
-				{
-					Slot slot = (Slot) owner;
-					Gui gui = slot.getOwner();
-					if(gui != null)
-					{
-						InventoryWrapper<?> inv = gui.getInventoryWrapper();
-						if(inv != null)
-						{
-							ItemStackWrapper<?> item = slot.getItemStack();
-							item.setType("AIR");
-							inv.setItem(slot.getIndex(), item);
-							return true;	
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}	
+        if (this.getData() == null || this.getData().equals("this")) {
+            if (owner != null) {
+                if (owner instanceof Slot) {
+                    Slot slot = (Slot) owner;
+                    Gui gui = slot.getOwner();
+                    if (gui != null) {
+                        InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                        if (inv != null) {
+                            ItemStackWrapper<?> item = slot.getItemStack();
+                            item.setType("AIR");
+                            inv.setItem(slot.getIndex(), item);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

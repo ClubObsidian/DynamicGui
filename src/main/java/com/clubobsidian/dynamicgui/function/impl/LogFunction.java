@@ -21,20 +21,18 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class LogFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 848178368629667482L;
-	
-	public LogFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		DynamicGui.get().getLogger().info(this.getData());
-		return true;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 848178368629667482L;
+
+    public LogFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(final PlayerWrapper<?> playerWrapper) {
+        DynamicGui.get().getLogger().info(this.getData());
+        return true;
+    }
 }

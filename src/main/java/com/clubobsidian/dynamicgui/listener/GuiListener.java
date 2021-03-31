@@ -30,40 +30,34 @@ import com.clubobsidian.trident.EventHandler;
 
 public class GuiListener {
 
-	private Set<UUID> users;
-	
-	public GuiListener()
-	{
-		this.users = new HashSet<>();
-	}
-	
-	@EventHandler
-	public void onGuiOpen(GuiLoadEvent event)
-	{
-		PlayerWrapper<?> wrapper = event.getPlayerWrapper();
-		Gui gui = GuiManager.get().getCurrentGui(wrapper);
-		PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
-		boolean open = (gui != null);
-		if(open)
-		{
-			UUID uuid = wrapper.getUniqueId();
-			this.users.add(uuid);
-			FunctionUtil.tryFunctions(gui, FunctionType.SWITCH_MENU, playerWrapper);
-		}
-	}
-	
-	@EventHandler
-	public void onClose(InventoryCloseEvent event)
-	{
-		PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
-		UUID uuid = playerWrapper.getUniqueId();
-		if(!this.users.remove(uuid))
-		{
-			Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-			if(gui != null)
-			{
-				FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
-			}
-		}
-	}
+    private Set<UUID> users;
+
+    public GuiListener() {
+        this.users = new HashSet<>();
+    }
+
+    @EventHandler
+    public void onGuiOpen(GuiLoadEvent event) {
+        PlayerWrapper<?> wrapper = event.getPlayerWrapper();
+        Gui gui = GuiManager.get().getCurrentGui(wrapper);
+        PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
+        boolean open = (gui != null);
+        if (open) {
+            UUID uuid = wrapper.getUniqueId();
+            this.users.add(uuid);
+            FunctionUtil.tryFunctions(gui, FunctionType.SWITCH_MENU, playerWrapper);
+        }
+    }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
+        UUID uuid = playerWrapper.getUniqueId();
+        if (!this.users.remove(uuid)) {
+            Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+            if (gui != null) {
+                FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
+            }
+        }
+    }
 }

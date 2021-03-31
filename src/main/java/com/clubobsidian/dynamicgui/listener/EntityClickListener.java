@@ -30,39 +30,32 @@ import com.clubobsidian.trident.EventHandler;
 
 public class EntityClickListener {
 
-	@EventHandler
-	public void onEntityClick(PlayerInteractEntityEvent e)
-	{
-		if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
-			return;
+    @EventHandler
+    public void onEntityClick(PlayerInteractEntityEvent e) {
+        if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+            return;
 
-		EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-		List<NPCRegistry> registeries = DynamicGui.get().getPlugin().getNPCRegistries();
-		for(NPCRegistry registry : registeries)
-		{
-			for(Gui gui : GuiManager.get().getGuis())
-			{
-				Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
-				while(it.hasNext())
-				{
-					Entry<String, List<Integer>> next = it.next();
-					String registryName = next.getKey();
-					List<Integer> ids = next.getValue();
+        EntityWrapper<?> entityWrapper = e.getEntityWrapper();
+        List<NPCRegistry> registeries = DynamicGui.get().getPlugin().getNPCRegistries();
+        for (NPCRegistry registry : registeries) {
+            for (Gui gui : GuiManager.get().getGuis()) {
+                Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
+                while (it.hasNext()) {
+                    Entry<String, List<Integer>> next = it.next();
+                    String registryName = next.getKey();
+                    List<Integer> ids = next.getValue();
 
-					if(registryName.equalsIgnoreCase(registry.getName()))
-					{
-						NPC npc = registry.getNPC(entityWrapper);
-						if(npc != null)
-						{
-							if(ids.contains(npc.getMeta().getId()))
-							{
-								GuiManager.get().openGui(e.getPlayerWrapper(), gui);
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                    if (registryName.equalsIgnoreCase(registry.getName())) {
+                        NPC npc = registry.getNPC(entityWrapper);
+                        if (npc != null) {
+                            if (ids.contains(npc.getMeta().getId())) {
+                                GuiManager.get().openGui(e.getPlayerWrapper(), gui);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

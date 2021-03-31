@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.gui;
 
-public enum ModeEnum  {
-	
-	SET,
-	ADD;
-	
+public enum ModeEnum {
+
+    SET,
+    ADD;
+
 }

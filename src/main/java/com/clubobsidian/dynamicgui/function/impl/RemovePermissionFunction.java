@@ -20,19 +20,17 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class RemovePermissionFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6578996849784218130L;
-	
-	public RemovePermissionFunction(String name) 
-	{
-		super(name);
-	}
-	
-	@Override
-	public boolean function(final PlayerWrapper<?> playerWrapper)
-	{
-		return playerWrapper.removePermission(this.getData());
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6578996849784218130L;
+
+    public RemovePermissionFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean function(final PlayerWrapper<?> playerWrapper) {
+        return playerWrapper.removePermission(this.getData());
+    }
 }

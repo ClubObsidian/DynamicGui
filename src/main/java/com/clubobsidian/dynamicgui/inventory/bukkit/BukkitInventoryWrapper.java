@@ -29,69 +29,59 @@ import com.clubobsidian.dynamicgui.util.bukkit.BukkitPacketUtil;
 
 public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrapper<T> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 954426075975347755L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 954426075975347755L;
 
-	public BukkitInventoryWrapper(T inventory) 
-	{
-		super(inventory);
-	}
+    public BukkitInventoryWrapper(T inventory) {
+        super(inventory);
+    }
 
-	@Override
-	public ItemStackWrapper<?>[] getContents() 
-	{
-		ItemStack[] bukkitContents = this.getInventory().getContents();
-		ItemStackWrapper<?>[] wrapperContents = new ItemStackWrapper<?>[bukkitContents.length];
-		for(int i = 0; i < bukkitContents.length; i++)
-		{
-			ItemStack itemStack = bukkitContents[i];
-			ItemStackWrapper<?> wrapped = new BukkitItemStackWrapper<>(itemStack);
-			wrapperContents[i] = wrapped;
-		}
-		
-		return wrapperContents;
-	}
-	
-	@Override
-	public ItemStackWrapper<ItemStack> getItem(int index) 
-	{
-		return new BukkitItemStackWrapper<ItemStack>(this.getInventory().getItem(index));
-	}
+    @Override
+    public ItemStackWrapper<?>[] getContents() {
+        ItemStack[] bukkitContents = this.getInventory().getContents();
+        ItemStackWrapper<?>[] wrapperContents = new ItemStackWrapper<?>[bukkitContents.length];
+        for (int i = 0; i < bukkitContents.length; i++) {
+            ItemStack itemStack = bukkitContents[i];
+            ItemStackWrapper<?> wrapped = new BukkitItemStackWrapper<>(itemStack);
+            wrapperContents[i] = wrapped;
+        }
 
-	@Override
-	public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) 
-	{
-		this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack());
-	}
-	
-	@Override
-	public void updateItem(int index, PlayerWrapper<?> playerWrapper) 
-	{
-		ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
-		Player player = (Player) playerWrapper.getPlayer();
-		ItemStack itemStack = itemStackWrapper.getItemStack();
-		BukkitPacketUtil.sendSlotPacket(index, player, itemStack);
-	}
-	
-	@Override
-	public int getSize() 
-	{
-		return this.getInventory().getSize();
-	}
-	
-	@Override
-	public int getCurrentContentSize() 
-	{
-		int contentSize = 0;
-		for(ItemStack item : this.getInventory().getContents())
-		{
-			if(item != null && item.getType() != Material.AIR)
-			{
-				contentSize += 1;
-			}
-		}
-		return contentSize;
-	}
+        return wrapperContents;
+    }
+
+    @Override
+    public ItemStackWrapper<ItemStack> getItem(int index) {
+        return new BukkitItemStackWrapper<ItemStack>(this.getInventory().getItem(index));
+    }
+
+    @Override
+    public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) {
+        this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack());
+    }
+
+    @Override
+    public void updateItem(int index, PlayerWrapper<?> playerWrapper) {
+        ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
+        Player player = (Player) playerWrapper.getPlayer();
+        ItemStack itemStack = itemStackWrapper.getItemStack();
+        BukkitPacketUtil.sendSlotPacket(index, player, itemStack);
+    }
+
+    @Override
+    public int getSize() {
+        return this.getInventory().getSize();
+    }
+
+    @Override
+    public int getCurrentContentSize() {
+        int contentSize = 0;
+        for (ItemStack item : this.getInventory().getContents()) {
+            if (item != null && item.getType() != Material.AIR) {
+                contentSize += 1;
+            }
+        }
+        return contentSize;
+    }
 }

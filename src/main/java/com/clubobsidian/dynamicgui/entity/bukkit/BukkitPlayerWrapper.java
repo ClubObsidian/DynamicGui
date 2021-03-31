@@ -45,189 +45,153 @@ import net.md_5.bungee.chat.ComponentSerializer;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
-	public BukkitPlayerWrapper(T player) 
-	{
-		super(player);
-	}
+    public BukkitPlayerWrapper(T player) {
+        super(player);
+    }
 
-	@Override
-	public String getName() 
-	{
-		return this.getPlayer().getName();
-	}
-	
-	@Override
-	public UUID getUniqueId() 
-	{
-		return this.getPlayer().getUniqueId();
-	}
+    @Override
+    public String getName() {
+        return this.getPlayer().getName();
+    }
 
-	@Override
-	public void chat(String message) 
-	{
-		this.getPlayer().chat(message);
-	}
+    @Override
+    public UUID getUniqueId() {
+        return this.getPlayer().getUniqueId();
+    }
 
-	@Override
-	public void sendMessage(String message) 
-	{
-		this.getPlayer().sendMessage(message);
-	}
-	
-	@Override
-	public void sendJsonMessage(String json)
-	{
-		BaseComponent[] components = ComponentSerializer.parse(json);
-		this.getPlayer().spigot().sendMessage(components);
-	}
+    @Override
+    public void chat(String message) {
+        this.getPlayer().chat(message);
+    }
 
-	@Override
-	public boolean hasPermission(String permission) 
-	{
-		return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
-	}
-	
-	@Override	
-	public boolean addPermission(String permission)
-	{
-		return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
-	}
-	
-	@Override	
-	public boolean removePermission(String permission)
-	{
-		return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
-	}
+    @Override
+    public void sendMessage(String message) {
+        this.getPlayer().sendMessage(message);
+    }
 
-	@Override
-	public int getExperience() 
-	{
-		System.out.println("Total exp: " + this.getPlayer().getTotalExperience());
-		return this.getPlayer().getTotalExperience();
-	}
+    @Override
+    public void sendJsonMessage(String json) {
+        BaseComponent[] components = ComponentSerializer.parse(json);
+        this.getPlayer().spigot().sendMessage(components);
+    }
 
-	@Override
-	public void setExperience(int experience) 
-	{
-		this.getPlayer().setTotalExperience(experience);
-	}
+    @Override
+    public boolean hasPermission(String permission) {
+        return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
+    }
 
-	@Override
-	public int getLevel() 
-	{
-		return this.getPlayer().getLevel();
-	}
-	
-	@Override
-	public InventoryWrapper<Inventory> getOpenInventoryWrapper() 
-	{
-		InventoryView openInventory = this.getPlayer().getOpenInventory();
-		if(openInventory == null)
-		{
-			return null;
-		}
-		return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
-	}
-	
-	@Override
-	public ItemStackWrapper<ItemStack> getItemInHand()
-	{
-		ItemStack hand = this.getPlayer().getInventory().getItemInHand();
-		return new BukkitItemStackWrapper<ItemStack>(hand);
-	}
+    @Override
+    public boolean addPermission(String permission) {
+        return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
+    }
 
-	@Override
-	public void closeInventory() 
-	{
-		if(this.getPlayer().getOpenInventory() != null)
-		{
-			this.getPlayer().getOpenInventory().close();
-		}
-	}
+    @Override
+    public boolean removePermission(String permission) {
+        return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
+    }
 
-	@Override
-	public void openInventory(InventoryWrapper<?> inventoryWrapper) 
-	{
-		Object inventory = inventoryWrapper.getInventory();
-		if(inventory instanceof Inventory)
-		{
-			this.getPlayer().openInventory((Inventory) inventory);
-		}
-	}
-	
-	@Override
-	public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) 
-	{
-		this.getPlayer().sendPluginMessage((Plugin) plugin, channel, message);
-	}
+    @Override
+    public int getExperience() {
+        System.out.println("Total exp: " + this.getPlayer().getTotalExperience());
+        return this.getPlayer().getTotalExperience();
+    }
 
-	@Override
-	public void playSound(String sound, Float volume, Float pitch) 
-	{
-		Player player = this.getPlayer();
-		Location playerLocation = player.getLocation();
-		player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
-	}
+    @Override
+    public void setExperience(int experience) {
+        this.getPlayer().setTotalExperience(experience);
+    }
 
-	@Override
-	public void playEffect(String effect, int data) 
-	{
-		Player player = this.getPlayer();
-		Location playerLocation = player.getLocation();
-		playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
-	}
+    @Override
+    public int getLevel() {
+        return this.getPlayer().getLevel();
+    }
 
-	@Override
-	public int getStatistic(Statistic statistic) 
-	{
-		try
-		{
-			return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
-		}
-		catch(Exception ex)
-		{
-			return -1;
-		}
-	}
+    @Override
+    public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
+        InventoryView openInventory = this.getPlayer().getOpenInventory();
+        if (openInventory == null) {
+            return null;
+        }
+        return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
+    }
 
-	@Override
-	public int getStatistic(Statistic statistic, String data)
-	{
-		if(data == null)
-		{
-			return -1;
-		}
-		String upperData = data.toUpperCase();
+    @Override
+    public ItemStackWrapper<ItemStack> getItemInHand() {
+        ItemStack hand = this.getPlayer().getInventory().getItemInHand();
+        return new BukkitItemStackWrapper<ItemStack>(hand);
+    }
 
-		try
-		{
-			if(StatisticType.MATERIAL == statistic.getStatisticType())
-			{
-				return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(upperData));
-			}
-			else if(StatisticType.ENTITY == statistic.getStatisticType())
-			{
-				return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
-			}
-		}
-		catch(Exception ex)
-		{
-			//Ignore and return -1
-			return -1;
-		}
-		return 0;
-	}
+    @Override
+    public void closeInventory() {
+        if (this.getPlayer().getOpenInventory() != null) {
+            this.getPlayer().getOpenInventory().close();
+        }
+    }
 
-	@Override
-	public void updateInventory() 
-	{
-		this.getPlayer().updateInventory();
-	}
+    @Override
+    public void openInventory(InventoryWrapper<?> inventoryWrapper) {
+        Object inventory = inventoryWrapper.getInventory();
+        if (inventory instanceof Inventory) {
+            this.getPlayer().openInventory((Inventory) inventory);
+        }
+    }
 
-	@Override
-	public LocationWrapper<?> getLocation() 
-	{
-		Location bukkitLoc = this.getPlayer().getLocation();
-		return LocationManager.get().toLocationWrapper(bukkitLoc);
-	}
+    @Override
+    public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) {
+        this.getPlayer().sendPluginMessage((Plugin) plugin, channel, message);
+    }
+
+    @Override
+    public void playSound(String sound, Float volume, Float pitch) {
+        Player player = this.getPlayer();
+        Location playerLocation = player.getLocation();
+        player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
+    }
+
+    @Override
+    public void playEffect(String effect, int data) {
+        Player player = this.getPlayer();
+        Location playerLocation = player.getLocation();
+        playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
+    }
+
+    @Override
+    public int getStatistic(Statistic statistic) {
+        try {
+            return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
+        } catch (Exception ex) {
+            return -1;
+        }
+    }
+
+    @Override
+    public int getStatistic(Statistic statistic, String data) {
+        if (data == null) {
+            return -1;
+        }
+        String upperData = data.toUpperCase();
+
+        try {
+            if (StatisticType.MATERIAL == statistic.getStatisticType()) {
+                return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(upperData));
+            } else if (StatisticType.ENTITY == statistic.getStatisticType()) {
+                return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
+            }
+        } catch (Exception ex) {
+            //Ignore and return -1
+            return -1;
+        }
+        return 0;
+    }
+
+    @Override
+    public void updateInventory() {
+        this.getPlayer().updateInventory();
+    }
+
+    @Override
+    public LocationWrapper<?> getLocation() {
+        Location bukkitLoc = this.getPlayer().getLocation();
+        return LocationManager.get().toLocationWrapper(bukkitLoc);
+    }
 }

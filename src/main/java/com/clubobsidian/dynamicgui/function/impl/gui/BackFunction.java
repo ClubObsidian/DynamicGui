@@ -24,60 +24,48 @@ import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
 public class BackFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7851730396417693718L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7851730396417693718L;
 
-	public BackFunction(String name) 
-	{
-		super(name);
-	}
+    public BackFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		Gui gui = null;
-		FunctionOwner owner = this.getOwner();
-		if(owner instanceof Slot)
-		{
-			Slot slot = (Slot) owner;
-			gui = slot.getOwner();
-			slot.setClose(false);
-		}
-		else if(owner instanceof Gui)
-		{
-			gui = (Gui) owner;
-		}
-		
-		
-		Gui back = gui.getBack();
-		if(back != null)
-		{
-			if(this.getData() != null)
-			{
-				try
-				{
-					Integer backAmount = Integer.parseInt(this.getData());
-					for(int i = 1; i < backAmount; i++)
-					{
-						Gui nextBack = back.getBack();
-						if(nextBack != null)
-						{
-							back = nextBack;
-						}
-					}
-				}
-				catch(NumberFormatException ex)
-				{
-					return false;
-				}
-			}
-			
-			GuiManager.get().openGui(playerWrapper, back);
-			return true;
-		}
-		
-		return false;
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        Gui gui = null;
+        FunctionOwner owner = this.getOwner();
+        if (owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            gui = slot.getOwner();
+            slot.setClose(false);
+        } else if (owner instanceof Gui) {
+            gui = (Gui) owner;
+        }
+
+
+        Gui back = gui.getBack();
+        if (back != null) {
+            if (this.getData() != null) {
+                try {
+                    Integer backAmount = Integer.parseInt(this.getData());
+                    for (int i = 1; i < backAmount; i++) {
+                        Gui nextBack = back.getBack();
+                        if (nextBack != null) {
+                            back = nextBack;
+                        }
+                    }
+                } catch (NumberFormatException ex) {
+                    return false;
+                }
+            }
+
+            GuiManager.get().openGui(playerWrapper, back);
+            return true;
+        }
+
+        return false;
+    }
 }

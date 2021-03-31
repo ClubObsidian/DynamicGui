@@ -20,26 +20,23 @@ import com.clubobsidian.dynamicgui.function.Function;
 
 public class PlayerMsgJsonFunction extends Function {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1691264533250689175L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1691264533250689175L;
 
-	public PlayerMsgJsonFunction(String name) 
-	{
-		super(name);
-	}
+    public PlayerMsgJsonFunction(String name) {
+        super(name);
+    }
 
-	@Override
-	public boolean function(PlayerWrapper<?> playerWrapper) 
-	{
-		if(this.getData() == null)
-		{
-			return false;
-		}
-		
-		playerWrapper.sendJsonMessage(this.getData());
-		return true;
-	}
+    @Override
+    public boolean function(PlayerWrapper<?> playerWrapper) {
+        if (this.getData() == null) {
+            return false;
+        }
+
+        playerWrapper.sendJsonMessage(this.getData());
+        return true;
+    }
 
 }

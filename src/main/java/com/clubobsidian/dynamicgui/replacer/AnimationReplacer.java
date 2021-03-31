@@ -19,17 +19,16 @@ import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public abstract class AnimationReplacer {
-	
-	private String toReplace;
-	public AnimationReplacer(String toReplace)
-	{
-		this.toReplace = toReplace;
-	}
-	
-	public String getToReplace()
-	{
-		return this.toReplace;
-	}
-	
-	public abstract String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text);
+
+    private String toReplace;
+
+    public AnimationReplacer(String toReplace) {
+        this.toReplace = toReplace;
+    }
+
+    public String getToReplace() {
+        return this.toReplace;
+    }
+
+    public abstract String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text);
 }

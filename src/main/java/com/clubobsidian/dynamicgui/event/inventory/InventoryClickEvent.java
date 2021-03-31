@@ -25,49 +25,43 @@ import com.clubobsidian.trident.Cancelable;
 
 public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 
-	private ItemStackWrapper<?> itemStackWrapper;
-	private int slot;
-	private Click click;
-	private InventoryView view;
-	private boolean cancelled = false;
-	public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click, InventoryView view)
-	{
-		super(playerWrapper, inventoryWrapper);
-		this.itemStackWrapper = itemStackWrapper;
-		this.slot = slot;
-		this.click = click;
-		this.view = view;
-	}
-	
-	public ItemStackWrapper<?> getItemStackWrapper()
-	{
-		return this.itemStackWrapper;
-	}
-	
-	public int getSlot()
-	{
-		return this.slot;
-	}
-	
-	public InventoryView getView()
-	{
-		return this.view;
-	}
-	
-	public Click getClick()
-	{
-		return this.click;
-	}
-	
-	@Override
-	public boolean isCanceled() 
-	{
-		return this.cancelled;
-	}
+    private ItemStackWrapper<?> itemStackWrapper;
+    private int slot;
+    private Click click;
+    private InventoryView view;
+    private boolean cancelled = false;
 
-	@Override
-	public void setCanceled(boolean cancelled) 
-	{
-		this.cancelled = cancelled;
-	}
+    public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click, InventoryView view) {
+        super(playerWrapper, inventoryWrapper);
+        this.itemStackWrapper = itemStackWrapper;
+        this.slot = slot;
+        this.click = click;
+        this.view = view;
+    }
+
+    public ItemStackWrapper<?> getItemStackWrapper() {
+        return this.itemStackWrapper;
+    }
+
+    public int getSlot() {
+        return this.slot;
+    }
+
+    public InventoryView getView() {
+        return this.view;
+    }
+
+    public Click getClick() {
+        return this.click;
+    }
+
+    @Override
+    public boolean isCanceled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCanceled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 }
