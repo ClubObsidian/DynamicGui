@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.HashUtil;
 import org.apache.commons.io.FileUtils;
 
@@ -206,9 +207,9 @@ public class GuiManager {
                 return false;
             }
 
-            if (DynamicGui.get().getServer().getType() == ServerType.SPONGE) {
-                DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () ->
-                {
+            FakeServer server = DynamicGui.get().getServer();
+            if (server.getType() == ServerType.SPONGE) {
+                server.getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
                     playerWrapper.openInventory(inventoryWrapper);
                 }, 1L);
             } else {
@@ -216,11 +217,8 @@ public class GuiManager {
             }
 
             this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-            DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), new Runnable() {
-                @Override
-                public void run() {
-                    playerWrapper.updateInventory();
-                }
+            DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
+                playerWrapper.updateInventory();
             }, 2L);
         }
         return ran;

@@ -69,8 +69,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
 
     @Override
     public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) {
-        Runnable setRunnable = () ->
-        {
+        Runnable setRunnable = () -> {
             ItemStack itemStack = (ItemStack) itemStackWrapper.getItemStack();
             DynamicGui.get().getLogger().info("Set itemstack is null: " + itemStack);
             this.getInventory()

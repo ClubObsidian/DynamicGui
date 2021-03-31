@@ -330,8 +330,7 @@ public class DynamicGui {
     }
 
     private void startPlayerCountTimer() {
-        this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () ->
-        {
+        this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () -> {
             for (String server : serverPlayerCount.keySet()) {
                 PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
                 if (player != null) {

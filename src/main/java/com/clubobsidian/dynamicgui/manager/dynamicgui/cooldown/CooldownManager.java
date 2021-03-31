@@ -192,8 +192,7 @@ public class CooldownManager {
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
-            cooldownMap.forEach((cooldownName, cooldownObj) ->
-            {
+            cooldownMap.forEach((cooldownName, cooldownObj) -> {
                 Long time = cooldownObj.getTime();
                 Long cooldown = cooldownObj.getCooldown();
                 ConfigurationSection cooldownSection = this.cooldownConfig.getConfigurationSection(uuidStr + "." + cooldownName);
@@ -236,8 +235,7 @@ public class CooldownManager {
         DynamicGui dynamicGui = DynamicGui.get();
         DynamicGuiPlugin plugin = dynamicGui.getPlugin();
         FakeServer server = dynamicGui.getServer();
-        server.getScheduler().scheduleSyncRepeatingTask(plugin, () ->
-        {
+        server.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             this.updateCache();
         }, 1L, 1L);
     }
@@ -246,8 +244,7 @@ public class CooldownManager {
         DynamicGui dynamicGui = DynamicGui.get();
         DynamicGuiPlugin plugin = dynamicGui.getPlugin();
         FakeServer server = dynamicGui.getServer();
-        server.getScheduler().scheduleAsyncRepeatingTask(plugin, () ->
-        {
+        server.getScheduler().scheduleAsyncRepeatingTask(plugin, () -> {
             if (this.updateConfig.get()) {
                 this.updateConfig.set(false);
                 this.updateAndSaveConfig();

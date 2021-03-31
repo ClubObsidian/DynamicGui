@@ -6,7 +6,7 @@ no-gui: "&4That gui does not exist!"
 # none - If you do not use a proxy
 proxy: "none"
 servers:
-- "prison"
+  - "prison"
 
 #remote-guis:
 #  remote:

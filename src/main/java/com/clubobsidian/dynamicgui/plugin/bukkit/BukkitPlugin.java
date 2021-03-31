@@ -132,8 +132,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
         //Hack for adding citizens late
         //For some reason citizens sometimes will load after DynamicGui
-        this.getServer().getScheduler().scheduleSyncDelayedTask(this, () ->
-        {
+        this.getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
             if (this.getServer().getPluginManager().getPlugin("Citizens") != null) {
                 this.getNPCRegistries().add(new CitizensRegistry());
             }
