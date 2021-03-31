@@ -44,6 +44,7 @@ public class ConditionFunction extends Function {
 			expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
 			expr.addLazyFunction(new ContainsLazyFunction());
 			expr.addLazyFunction(new EndsWithLazyFunction());
+			expr.addLazyFunction(new StartsWithLazyFunction());
 			
 			if(!expr.isBoolean())
 				return false;
