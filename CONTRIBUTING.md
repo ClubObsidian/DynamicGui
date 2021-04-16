@@ -1,10 +1,19 @@
 # Contributing
 
-First off thank you for considering contributing to this project! 
+First off thank you for considering contributing to DynamicGui! Below are a few different ways you can contribute.
 
-There are a few ways you can contribute to DynamicGui. 
-* The first is [filling issue reports](https://github.com/ClubObsidian/DynamicGui/issues), which is a great help to improve stability and add new features to DynamicGui. 
-* The second way you can contribute is by submitting code. 
-  * We accept most contributions which do not break backwards compatability. DynamicGui should not have any hard dependencies on plugins on build-time or run-time. Please use reflection if you want or need a plugin dependency. If you are writing against a plugin dependency a [registry](https://github.com/ClubObsidian/DynamicGui/tree/master/src/main/java/com/clubobsidian/dynamicgui/registry) should be created so that similar plugins can add compability. 
  
+## Issues
+
+If you run into a bug please report it, **please note if this is a bug that could result in item duplication or some other security risk please report it to `virustotal#0001` on the DynamicGui Discord server.** If the bug is not a security risk or could do damage to servers that are using the plugin please file a bug report at https://github.com/ClubObsidian/DynamicGui/issues
+
+## Code
+
+We gladly accept most contributions which do not break backwards compatability. For the most part we try to avoid hard or soft dependencies on plugins on build-time or run-time. Please use reflection if you want or need a plugin dependency. If you are writing against a plugin dependency a [registry](https://github.com/ClubObsidian/DynamicGui/tree/master/src/main/java/com/clubobsidian/dynamicgui/registry) should be created so that similar plugins can add compability.
+
 **Please note before your code will be accepted please sign our [CLA.](https://cla-assistant.io/ClubObsidian/DynamicGui)**
+
+
+## Features
+
+* We are always looking new features, if you think you have a good idea the worst case scenario is that we won't implement it!
