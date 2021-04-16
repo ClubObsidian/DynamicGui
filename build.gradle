@@ -1,4 +1,4 @@
-import org.apache.tools.ant.filters.ReplaceTokens;
+import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
 	id 'java'
@@ -67,8 +67,8 @@ shadowJar {
 	relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
 	relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
 
-	baseName = 'DynamicGui'
-	classifier = ''
+	archiveBaseName.set('DynamicGui')
+	archiveClassifier.set('')
 }
 
 dependencies {
