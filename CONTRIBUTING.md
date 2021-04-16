@@ -16,4 +16,4 @@ We gladly accept most contributions which do not break backwards compatability. 
 
 ## Features
 
-* We are always looking new features, if you think you have a good idea the worst case scenario is that we won't implement it!
+* We are always looking new features, if you think you have a good idea create an issue about it and we will see if we will implement it!
