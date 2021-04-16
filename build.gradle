@@ -42,6 +42,7 @@ processResources {
 }
 
 shadowJar {
+	minimize()
 	relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
 	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
