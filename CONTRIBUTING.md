@@ -11,6 +11,10 @@ If you run into a bug please report it, **please note if this is a bug that coul
 
 We gladly accept most contributions which do not break backwards compatability. For the most part we try to avoid hard or soft dependencies on plugins on build-time or run-time. Please use reflection if you want or need a plugin dependency. If you are writing against a plugin dependency a [registry](https://github.com/ClubObsidian/DynamicGui/tree/master/src/main/java/com/clubobsidian/dynamicgui/registry) should be created so that similar plugins can add compability.
 
+## Documentation
+
+If you are updating documentation please put `[ci skip]` in your commit so that your commit gets skipped by github actions, you can [read more about that here.](https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/)
+
 **Please note before your code will be accepted please sign our [CLA.](https://cla-assistant.io/ClubObsidian/DynamicGui)**
 
 
