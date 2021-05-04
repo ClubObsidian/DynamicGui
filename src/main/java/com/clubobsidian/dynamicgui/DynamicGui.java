@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.clubobsidian.dynamicgui.function.impl.meta.CopyBackMetadataFunction;
+import com.clubobsidian.dynamicgui.function.impl.meta.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.MetadataReplacerRegistry;
 import org.apache.commons.io.FileUtils;
 
@@ -329,6 +330,8 @@ public class DynamicGui {
         FunctionManager.get().addFunction(new HasMetadataFunction("getmetadata"));
         FunctionManager.get().addFunction(new SetMetadataFunction("setmetadata"));
         FunctionManager.get().addFunction(new CopyBackMetadataFunction("copybackmetadata"));
+
+        FunctionManager.get().addFunction(new IsBedrockPlayerFunction("isbedrockplayer"));
     }
 
     private void startPlayerCountTimer() {
