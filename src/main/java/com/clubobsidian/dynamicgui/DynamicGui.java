@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.clubobsidian.dynamicgui.function.impl.meta.CopyBackMetadataFunction;
-import com.clubobsidian.dynamicgui.function.impl.meta.IsBedrockPlayerFunction;
+import com.clubobsidian.dynamicgui.function.impl.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.MetadataReplacerRegistry;
 import org.apache.commons.io.FileUtils;
 
@@ -93,7 +93,6 @@ import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
-import com.clubobsidian.trident.eventbus.javassist.JavassistEventBus;
 import com.clubobsidian.trident.eventbus.reflection.ReflectionEventBus;
 import com.clubobsidian.wrappy.Configuration;
 
