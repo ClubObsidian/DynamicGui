@@ -189,7 +189,7 @@ public class GuiManager {
 
         //Run gui load functions
         boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
-        GuiLoadEvent event = new GuiLoadEvent(gui, playerWrapper);
+        GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
         if (!ran) {
             event.setCanceled(true);
         }
@@ -207,6 +207,7 @@ public class GuiManager {
                 return false;
             }
 
+            this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
             FakeServer server = DynamicGui.get().getServer();
             if (server.getType() == ServerType.SPONGE) {
                 server.getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
@@ -215,8 +216,6 @@ public class GuiManager {
             } else {
                 playerWrapper.openInventory(inventoryWrapper);
             }
-
-            this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
             DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
                 playerWrapper.updateInventory();
             }, 2L);
