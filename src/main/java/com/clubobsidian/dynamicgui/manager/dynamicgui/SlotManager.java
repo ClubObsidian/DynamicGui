@@ -15,10 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.UUID;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.Gui;
@@ -28,12 +24,16 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.UUID;
+
 public class SlotManager {
 
     private static SlotManager instance;
 
     public static SlotManager get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new SlotManager();
         }
         return instance;
@@ -49,19 +49,19 @@ public class SlotManager {
             @Override
             public void run() {
                 Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
-                while (it.hasNext()) {
+                while(it.hasNext()) {
                     Entry<UUID, Gui> next = it.next();
                     UUID key = next.getKey();
                     PlayerWrapper<?> playerWrapper = DynamicGui.get().getServer().getPlayer(key);
                     Gui gui = next.getValue();
 
-                    for (Slot slot : gui.getSlots()) {
-                        if (slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
+                    for(Slot slot : gui.getSlots()) {
+                        if(slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
                             continue;
                         }
 
                         slot.tick();
-                        if (slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
+                        if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
                             ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
                             int slotIndex = slot.getIndex();
 
@@ -69,7 +69,7 @@ public class SlotManager {
                             inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 
                             FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-                            if (!slot.getItemStack().getType().equalsIgnoreCase("air")) {
+                            if(!slot.getItemStack().getType().equalsIgnoreCase("air")) {
                                 inventoryWrapper.updateItem(slotIndex, playerWrapper);
                             }
                             slot.setUpdate(false);

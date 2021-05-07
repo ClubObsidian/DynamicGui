@@ -15,21 +15,20 @@
  */
 package com.clubobsidian.dynamicgui.inventory.bukkit;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
-
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -64,7 +63,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public boolean setType(final String type) {
-        if (type == null) {
+        if(type == null) {
             return false;
         }
 
@@ -73,7 +72,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
         try {
             mat = Material.valueOf(normalizedType);
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             return false;
         }
 
@@ -84,7 +83,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public String getName() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if (itemMeta.hasDisplayName()) {
+        if(itemMeta.hasDisplayName()) {
             return itemMeta.getDisplayName();
         }
         return null;
@@ -100,7 +99,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public List<String> getLore() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if (!itemMeta.hasLore()) {
+        if(!itemMeta.hasLore()) {
             return new ArrayList<>();
         }
 
@@ -142,9 +141,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public List<EnchantmentWrapper> getEnchants() {
         List<EnchantmentWrapper> enchants = new ArrayList<>();
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if (itemMeta.hasEnchants()) {
+        if(itemMeta.hasEnchants()) {
             Iterator<Entry<Enchantment, Integer>> it = itemMeta.getEnchants().entrySet().iterator();
-            while (it.hasNext()) {
+            while(it.hasNext()) {
                 Entry<Enchantment, Integer> next = it.next();
                 enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
             }
@@ -162,25 +161,25 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         ItemStack oldItemStack = this.getItemStack();
         ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
 
-        if (oldItemStack.hasItemMeta()) {
+        if(oldItemStack.hasItemMeta()) {
             ItemMeta meta = oldItemStack.getItemMeta();
             ItemMeta newMeta = newItemStack.getItemMeta();
-            if (meta.hasDisplayName()) {
+            if(meta.hasDisplayName()) {
                 newMeta.setDisplayName(meta.getDisplayName());
             }
 
-            if (meta.hasEnchants()) {
+            if(meta.hasEnchants()) {
                 Iterator<Entry<Enchantment, Integer>> it = meta.getEnchants().entrySet().iterator();
-                while (it.hasNext()) {
+                while(it.hasNext()) {
                     Entry<Enchantment, Integer> next = it.next();
                     newMeta.addEnchant(next.getKey(), next.getValue(), true);
                 }
             }
-            if (meta.hasLore()) {
+            if(meta.hasLore()) {
                 newMeta.setLore(meta.getLore());
             }
 
-            for (ItemFlag flag : meta.getItemFlags()) {
+            for(ItemFlag flag : meta.getItemFlags()) {
                 newMeta.addItemFlags(flag);
             }
 
@@ -194,7 +193,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public void setGlowing(boolean glowing) {
         ItemStack item = this.getItemStack();
         ItemMeta meta = item.getItemMeta();
-        if (glowing) {
+        if(glowing) {
             meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {

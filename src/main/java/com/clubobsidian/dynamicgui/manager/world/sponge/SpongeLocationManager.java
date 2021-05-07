@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.manager.world.sponge;
 
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
-
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.world.sponge.SpongeWorldWrapper;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 public class SpongeLocationManager extends LocationManager {
 
@@ -34,7 +33,7 @@ public class SpongeLocationManager extends LocationManager {
     @SuppressWarnings("unchecked")
     @Override
     public LocationWrapper<?> toLocationWrapper(Object obj) {
-        if (!(obj instanceof Location)) {
+        if(!(obj instanceof Location)) {
             return null;
         }
 

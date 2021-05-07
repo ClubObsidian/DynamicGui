@@ -34,7 +34,7 @@ public class CheckLevelFunction extends Function {
         int level = -1;
         try {
             level = Integer.parseInt(this.getData());
-        } catch (NumberFormatException ex) {
+        } catch(NumberFormatException ex) {
             ex.printStackTrace();
             return false;
         }

@@ -15,18 +15,18 @@
  */
 package com.clubobsidian.dynamicgui.economy;
 
-import java.math.BigDecimal;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+
+import java.math.BigDecimal;
 
 public interface Economy {
 
-    public boolean setup();
+    boolean setup();
 
-    public BigDecimal getBalance(PlayerWrapper<?> playerWrapper);
+    BigDecimal getBalance(PlayerWrapper<?> playerWrapper);
 
-    public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt);
+    boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt);
 
-    public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt);
+    boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt);
 
 }

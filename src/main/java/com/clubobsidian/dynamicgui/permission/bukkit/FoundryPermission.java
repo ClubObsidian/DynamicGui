@@ -16,15 +16,8 @@
 package com.clubobsidian.dynamicgui.permission.bukkit;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.foundry.FoundryPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class FoundryPermission extends VaultPermission {
 

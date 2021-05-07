@@ -25,10 +25,10 @@ import com.clubobsidian.trident.Cancelable;
 
 public class InventoryClickEvent extends InventoryEvent implements Cancelable {
 
-    private ItemStackWrapper<?> itemStackWrapper;
-    private int slot;
-    private Click click;
-    private InventoryView view;
+    private final ItemStackWrapper<?> itemStackWrapper;
+    private final int slot;
+    private final Click click;
+    private final InventoryView view;
     private boolean cancelled = false;
 
     public InventoryClickEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, ItemStackWrapper<?> itemStackWrapper, int slot, Click click, InventoryView view) {

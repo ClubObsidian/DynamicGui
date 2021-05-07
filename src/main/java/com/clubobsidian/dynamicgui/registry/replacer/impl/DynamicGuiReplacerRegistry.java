@@ -15,13 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
@@ -38,13 +31,19 @@ import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 import com.clubobsidian.trident.EventHandler;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
     private static DynamicGuiReplacerRegistry instance;
 
-    private Map<String, Replacer> replacers;
-    private Map<String, List<Replacer>> cachedReplacers;
+    private final Map<String, Replacer> replacers;
+    private final Map<String, List<Replacer>> cachedReplacers;
 
     private DynamicGuiReplacerRegistry() {
         this.replacers = new HashMap<>();
@@ -62,14 +61,14 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     public String replace(final PlayerWrapper<?> playerWrapper, final String text) {
         String newText = text;
         List<Replacer> cachedReplacerList = this.cachedReplacers.get(text);
-        if (cachedReplacerList != null) {
-            for (Replacer replacer : cachedReplacerList) {
+        if(cachedReplacerList != null) {
+            for(Replacer replacer : cachedReplacerList) {
                 newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
             }
         } else {
             cachedReplacerList = new ArrayList<>();
-            for (Replacer replacer : this.replacers.values()) {
-                if (newText.contains(replacer.getToReplace())) {
+            for(Replacer replacer : this.replacers.values()) {
+                if(newText.contains(replacer.getToReplace())) {
                     newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
                     cachedReplacerList.add(replacer);
                 }
@@ -83,7 +82,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     }
 
     public static DynamicGuiReplacerRegistry get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new DynamicGuiReplacerRegistry();
         }
         return instance;
@@ -101,15 +100,15 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     }
 
     private void generateStatisticReplacers() {
-        for (Statistic statistic : Statistic.values()) {
-            if (statistic.getStatisticType() == StatisticType.MATERIAL) {
-                for (String material : MaterialManager.get().getMaterials()) {
+        for(Statistic statistic : Statistic.values()) {
+            if(statistic.getStatisticType() == StatisticType.MATERIAL) {
+                for(String material : MaterialManager.get().getMaterials()) {
                     String lowerMaterial = material.toLowerCase();
                     String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
                     this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
                 }
-            } else if (statistic.getStatisticType() == StatisticType.ENTITY) {
-                for (String entityType : EntityManager.get().getEntityTypes()) {
+            } else if(statistic.getStatisticType() == StatisticType.ENTITY) {
+                for(String entityType : EntityManager.get().getEntityTypes()) {
                     String lowerEntityType = entityType.toLowerCase();
                     String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
                     this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));

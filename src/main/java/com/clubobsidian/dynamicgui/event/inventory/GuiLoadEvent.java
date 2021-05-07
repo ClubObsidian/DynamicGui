@@ -23,8 +23,8 @@ import com.clubobsidian.trident.Event;
 
 public class GuiLoadEvent extends Event implements Cancelable {
 
-    private Gui gui;
-    private PlayerWrapper<?> playerWrapper;
+    private final Gui gui;
+    private final PlayerWrapper<?> playerWrapper;
     private boolean cancelled;
 
     public GuiLoadEvent(Gui gui, PlayerWrapper<?> playerWrapper) {

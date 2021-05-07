@@ -28,7 +28,7 @@ public class CustomCommand extends Command {
     }
 
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (this.executer != null) {
+        if(this.executer != null) {
             this.executer.onCommand(sender, this, commandLabel, args);
         }
         return false;

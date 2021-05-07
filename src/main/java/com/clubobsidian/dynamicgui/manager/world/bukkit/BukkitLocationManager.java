@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.manager.world.bukkit;
 
-import org.bukkit.Location;
-import org.bukkit.World;
-
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
+import org.bukkit.Location;
+import org.bukkit.World;
 
 public class BukkitLocationManager extends LocationManager {
 
@@ -32,7 +31,7 @@ public class BukkitLocationManager extends LocationManager {
 
     @Override
     public LocationWrapper<?> toLocationWrapper(Object obj) {
-        if (!(obj instanceof Location)) {
+        if(!(obj instanceof Location)) {
             return null;
         }
 

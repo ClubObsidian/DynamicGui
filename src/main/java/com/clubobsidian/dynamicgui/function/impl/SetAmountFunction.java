@@ -38,20 +38,20 @@ public class SetAmountFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Slot) {
+        if(owner != null) {
+            if(owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 Gui gui = slot.getOwner();
-                if (gui != null) {
+                if(gui != null) {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if (inv != null) {
+                    if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
                         try {
                             Integer amount = Integer.parseInt(this.getData());
                             item.setAmount(amount);
                             inv.setItem(slot.getIndex(), item);
                             return true;
-                        } catch (Exception ex) {
+                        } catch(Exception ex) {
                             DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
                             return false;
                         }

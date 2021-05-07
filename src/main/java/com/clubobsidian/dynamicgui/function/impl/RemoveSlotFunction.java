@@ -38,14 +38,14 @@ public class RemoveSlotFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
 
-        if (this.getData() == null || this.getData().equals("this")) {
-            if (owner != null) {
-                if (owner instanceof Slot) {
+        if(this.getData() == null || this.getData().equals("this")) {
+            if(owner != null) {
+                if(owner instanceof Slot) {
                     Slot slot = (Slot) owner;
                     Gui gui = slot.getOwner();
-                    if (gui != null) {
+                    if(gui != null) {
                         InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                        if (inv != null) {
+                        if(inv != null) {
                             ItemStackWrapper<?> item = slot.getItemStack();
                             item.setType("AIR");
                             inv.setItem(slot.getIndex(), item);

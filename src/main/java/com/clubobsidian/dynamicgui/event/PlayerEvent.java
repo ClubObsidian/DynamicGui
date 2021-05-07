@@ -20,7 +20,7 @@ import com.clubobsidian.trident.Event;
 
 public class PlayerEvent extends Event {
 
-    private PlayerWrapper<?> playerWrapper;
+    private final PlayerWrapper<?> playerWrapper;
 
     public PlayerEvent(PlayerWrapper<?> playerWrapper) {
         this.playerWrapper = playerWrapper;

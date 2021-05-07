@@ -15,17 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.entity;
 
-import java.util.UUID;
-
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
+import java.util.UUID;
+
 public abstract class PlayerWrapper<T> {
 
-    private T player;
+    private final T player;
 
     public PlayerWrapper(T player) {
         this.player = player;

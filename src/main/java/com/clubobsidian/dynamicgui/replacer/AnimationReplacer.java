@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public abstract class AnimationReplacer {
 
-    private String toReplace;
+    private final String toReplace;
 
     public AnimationReplacer(String toReplace) {
         this.toReplace = toReplace;

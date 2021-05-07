@@ -15,28 +15,27 @@
  */
 package com.clubobsidian.dynamicgui.listener.bukkit;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void interact(final PlayerInteractEvent e) {
-        if (e.getClickedBlock() != null) {
+        if(e.getClickedBlock() != null) {
             com.clubobsidian.dynamicgui.event.player.Action action = com.clubobsidian.dynamicgui.event.player.Action.valueOf(e.getAction().toString());
             PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
             LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(e.getClickedBlock().getLocation());
             com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
             DynamicGui.get().getEventBus().callEvent(interactEvent);
-            if (interactEvent.isCanceled()) {
+            if(interactEvent.isCanceled()) {
                 e.setCancelled(true);
             }
         }

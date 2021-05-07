@@ -39,15 +39,15 @@ public class SetGlowFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {
             Boolean value = Boolean.valueOf(this.getData());
-            if (value != null) {
+            if(value != null) {
                 FunctionOwner owner = this.getOwner();
-                if (owner != null) {
-                    if (owner instanceof Slot) {
+                if(owner != null) {
+                    if(owner instanceof Slot) {
                         Slot slot = (Slot) owner;
                         Gui gui = slot.getOwner();
-                        if (gui != null) {
+                        if(gui != null) {
                             InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                            if (inv != null) {
+                            if(inv != null) {
                                 ItemStackWrapper<?> item = slot.getItemStack();
 
                                 item.setGlowing(value);
@@ -58,7 +58,7 @@ public class SetGlowFunction extends Function {
                     }
                 }
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as a glow");
             ex.printStackTrace();
         }

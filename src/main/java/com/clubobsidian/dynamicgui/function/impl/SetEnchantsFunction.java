@@ -15,9 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.function.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
@@ -26,6 +23,9 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SetEnchantsFunction extends Function {
 
@@ -42,18 +42,18 @@ public class SetEnchantsFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Slot) {
+        if(owner != null) {
+            if(owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 Gui gui = slot.getOwner();
-                if (gui != null) {
+                if(gui != null) {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if (inv != null) {
+                    if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
 
                         Map<String, Integer> enchants = new HashMap<String, Integer>();
-                        if (this.getData().contains(";")) {
-                            for (String str : this.getData().split(";")) {
+                        if(this.getData().contains(";")) {
+                            for(String str : this.getData().split(";")) {
                                 String[] split = str.split(",");
                                 enchants.put(split[0], Integer.valueOf(split[1]));
                             }
@@ -62,11 +62,11 @@ public class SetEnchantsFunction extends Function {
                             enchants.put(split[0], Integer.valueOf(split[1]));
                         }
 
-                        for (EnchantmentWrapper ench : item.getEnchants()) {
+                        for(EnchantmentWrapper ench : item.getEnchants()) {
                             item.removeEnchant(ench);
                         }
 
-                        for (String str : enchants.keySet()) {
+                        for(String str : enchants.keySet()) {
                             item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
                         }
 

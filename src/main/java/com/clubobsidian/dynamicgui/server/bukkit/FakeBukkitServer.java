@@ -15,17 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.server.bukkit;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
@@ -37,9 +26,18 @@ import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
-
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 public class FakeBukkitServer extends FakeServer {
 
@@ -82,7 +80,7 @@ public class FakeBukkitServer extends FakeServer {
 
     @Override
     public int getGlobalPlayerCount() {
-        if (DynamicGui.get().getProxy() != Proxy.NONE) {
+        if(DynamicGui.get().getProxy() != Proxy.NONE) {
             return DynamicGui.get().getGlobalServerPlayerCount();
         }
 
@@ -104,7 +102,7 @@ public class FakeBukkitServer extends FakeServer {
         PluginMessageListener listener = new PluginMessageListener() {
             @Override
             public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-                if (channel.equals(incomingChannel)) {
+                if(channel.equals(incomingChannel)) {
                     PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
                     runnable.run(playerWrapper, message);
                 }
@@ -116,7 +114,7 @@ public class FakeBukkitServer extends FakeServer {
     @Override
     public WorldWrapper<?> getWorld(String worldName) {
         World world = Bukkit.getServer().getWorld(worldName);
-        if (world == null) {
+        if(world == null) {
             return null;
         }
 

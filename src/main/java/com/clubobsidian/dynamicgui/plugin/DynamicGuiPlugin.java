@@ -15,37 +15,37 @@
  */
 package com.clubobsidian.dynamicgui.plugin;
 
-import java.io.File;
-import java.util.List;
-
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 
+import java.io.File;
+import java.util.List;
+
 public interface DynamicGuiPlugin {
 
-    public void start();
+    void start();
 
-    public void stop();
+    void stop();
 
-    public Economy getEconomy();
+    Economy getEconomy();
 
-    public Permission getPermission();
+    Permission getPermission();
 
-    public List<NPCRegistry> getNPCRegistries();
+    List<NPCRegistry> getNPCRegistries();
 
-    public File getDataFolder();
+    File getDataFolder();
 
-    public File getConfigFile();
+    File getConfigFile();
 
-    public File getGuiFolder();
+    File getGuiFolder();
 
-    public File getMacroFolder();
+    File getMacroFolder();
 
-    public List<String> getRegisteredCommands();
+    List<String> getRegisteredCommands();
 
-    public void createCommand(String guiName, String alias);
+    void createCommand(String guiName, String alias);
 
-    public void unloadCommands();
+    void unloadCommands();
 
 }

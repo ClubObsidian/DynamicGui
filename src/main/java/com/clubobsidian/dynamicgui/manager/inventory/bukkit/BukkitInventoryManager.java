@@ -15,13 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.manager.inventory.bukkit;
 
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 
 public class BukkitInventoryManager extends InventoryManager {
 

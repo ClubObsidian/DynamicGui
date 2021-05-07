@@ -23,8 +23,8 @@ public class EnchantmentWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = 1056076873542226033L;
-    private String enchant;
-    private int level;
+    private final String enchant;
+    private final int level;
 
     public EnchantmentWrapper(String enchant, int level) {
         this.enchant = enchant;

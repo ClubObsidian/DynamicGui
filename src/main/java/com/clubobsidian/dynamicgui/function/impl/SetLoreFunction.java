@@ -15,9 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.function.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
@@ -28,6 +25,9 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.util.ChatColor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetLoreFunction extends Function {
 
@@ -44,17 +44,17 @@ public class SetLoreFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Slot) {
+        if(owner != null) {
+            if(owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 Gui gui = slot.getOwner();
-                if (gui != null) {
+                if(gui != null) {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if (inv != null) {
+                    if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
 
                         List<String> lore = new ArrayList<>();
-                        if (this.getData() == null) {
+                        if(this.getData() == null) {
                             lore = null;
                         } else {
 
@@ -62,8 +62,8 @@ public class SetLoreFunction extends Function {
                             newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
                             newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
 
-                            if (newData.contains("\n")) {
-                                for (String str : this.getData().split("\n")) {
+                            if(newData.contains("\n")) {
+                                for(String str : this.getData().split("\n")) {
                                     lore.add(str);
                                 }
                             } else {

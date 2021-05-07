@@ -15,15 +15,14 @@
  */
 package com.clubobsidian.dynamicgui.manager.entity.bukkit;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.bukkit.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BukkitEntityManager extends EntityManager {
 
@@ -35,7 +34,7 @@ public class BukkitEntityManager extends EntityManager {
 
     private void loadEntityTypes() {
         this.entityTypes = new ArrayList<>();
-        for (EntityType type : EntityType.values()) {
+        for(EntityType type : EntityType.values()) {
             this.entityTypes.add(type.name());
         }
     }

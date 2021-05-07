@@ -28,7 +28,7 @@ public class ContainsLazyFunction extends AbstractLazyFunction {
 
     @Override
     public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
-        if (lazyParams.get(0).getString().contains(lazyParams.get(1).getString())) {
+        if(lazyParams.get(0).getString().contains(lazyParams.get(1).getString())) {
             return ConditionFunction.ONE;
         }
         return ConditionFunction.ZERO;

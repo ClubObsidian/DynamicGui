@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.world.sponge;
 
-import java.util.Optional;
-
+import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.world.World;
 
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import java.util.Optional;
 
 public class SpongeWorldWrapper extends WorldWrapper<World> {
 
@@ -46,7 +45,7 @@ public class SpongeWorldWrapper extends WorldWrapper<World> {
     @Override
     public String getGameRule(String rule) {
         Optional<String> gameRule = this.getWorld().getGameRule(rule);
-        if (gameRule.isPresent()) {
+        if(gameRule.isPresent()) {
             return gameRule.get();
         }
 

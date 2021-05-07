@@ -24,8 +24,8 @@ import com.clubobsidian.dynamicgui.util.Statistic;
  */
 public class StatisticReplacer extends Replacer {
 
-    private Statistic statistic;
-    private String data;
+    private final Statistic statistic;
+    private final String data;
 
     public StatisticReplacer(String toReplace, Statistic statistic) {
         this(toReplace, statistic, null);
@@ -39,7 +39,7 @@ public class StatisticReplacer extends Replacer {
 
     @Override
     public String replacement(String text, PlayerWrapper<?> playerWrapper) {
-        if (this.data != null) {
+        if(this.data != null) {
             return String.valueOf(playerWrapper.getStatistic(this.statistic, data));
         }
         return String.valueOf(playerWrapper.getStatistic(this.statistic));

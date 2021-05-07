@@ -35,7 +35,7 @@ public class CheckTickFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner instanceof Slot) {
+        if(owner instanceof Slot) {
             Slot slot = (Slot) owner;
             int tick = slot.getCurrentTick();
             int frame = slot.getFrame();
@@ -47,12 +47,12 @@ public class CheckTickFunction extends Function {
                 Expression expr = new Expression(tickData);
                 expr.addLazyFunction(new EqualLazyFunction());
 
-                if (!expr.isBoolean()) {
+                if(!expr.isBoolean()) {
                     return false;
                 }
 
                 return expr.eval().intValue() == 1;
-            } catch (Exception ex) {
+            } catch(Exception ex) {
                 ex.printStackTrace();
                 return false;
             }

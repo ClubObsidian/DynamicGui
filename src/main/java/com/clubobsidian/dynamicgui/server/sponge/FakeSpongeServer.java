@@ -15,18 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.server.sponge;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.serializer.TextSerializers;
-import org.spongepowered.api.world.World;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
@@ -38,6 +26,17 @@ import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.world.sponge.SpongeWorldWrapper;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
+import org.spongepowered.api.world.World;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class FakeSpongeServer extends FakeServer {
 
@@ -79,7 +78,7 @@ public class FakeSpongeServer extends FakeServer {
 
     @Override
     public int getGlobalPlayerCount() {
-        if (DynamicGui.get().getProxy() != Proxy.NONE) {
+        if(DynamicGui.get().getProxy() != Proxy.NONE) {
             return DynamicGui.get().getGlobalServerPlayerCount();
         }
 
@@ -106,7 +105,7 @@ public class FakeSpongeServer extends FakeServer {
     @Override
     public WorldWrapper<?> getWorld(String worldName) {
         Optional<World> world = Sponge.getServer().getWorld(worldName);
-        if (world.isPresent()) {
+        if(world.isPresent()) {
             return new SpongeWorldWrapper(worldName);
         } else {
             return null;

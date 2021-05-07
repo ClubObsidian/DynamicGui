@@ -15,17 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.builder;
 
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public class SlotBuilder {
 
@@ -37,12 +37,12 @@ public class SlotBuilder {
     private boolean moveable;
     private Boolean close;
     private List<String> lore;
-    private List<EnchantmentWrapper> enchants;
+    private final List<EnchantmentWrapper> enchants;
     private int index;
     private int amount;
     private int updateInterval;
     private FunctionTree functionTree;
-    private Map<String, String> metadata;
+    private final Map<String, String> metadata;
 
     public SlotBuilder() {
         this.enchants = new ArrayList<>();
@@ -108,7 +108,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(String lore) {
-        if (this.lore == null) {
+        if(this.lore == null) {
             this.lore = new ArrayList<String>();
             this.lore.add(lore);
         } else {
@@ -118,7 +118,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(String... lore) {
-        for (String l : lore) {
+        for(String l : lore) {
             this.addLore(l);
         }
 
@@ -126,7 +126,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(List<String> lore) {
-        for (String l : lore) {
+        for(String l : lore) {
             this.addLore(l);
         }
 
@@ -139,7 +139,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addEnchant(EnchantmentWrapper... enchant) {
-        for (EnchantmentWrapper ench : enchant) {
+        for(EnchantmentWrapper ench : enchant) {
             this.addEnchant(ench);
         }
 
@@ -147,7 +147,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addEnchant(List<EnchantmentWrapper> enchant) {
-        for (EnchantmentWrapper ench : enchant) {
+        for(EnchantmentWrapper ench : enchant) {
             this.addEnchant(ench);
         }
 
@@ -166,7 +166,7 @@ public class SlotBuilder {
 
     public SlotBuilder addMetadata(Map<String, String> metadata) {
         Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<String, String> next = it.next();
             String key = next.getKey();
             String value = next.getValue();
@@ -184,7 +184,7 @@ public class SlotBuilder {
         this.setAmount(itemStackWrapper.getAmount());
         this.addLore(itemStackWrapper.getLore());
 
-        for (EnchantmentWrapper enchant : itemStackWrapper.getEnchants()) {
+        for(EnchantmentWrapper enchant : itemStackWrapper.getEnchants()) {
             this.addEnchant(enchant);
         }
 

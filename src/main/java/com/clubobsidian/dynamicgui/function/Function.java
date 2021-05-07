@@ -15,13 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.function;
 
-import java.io.Serializable;
-
-import org.apache.commons.lang3.SerializationUtils;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.fuzzutil.StringFuzz;
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.Serializable;
 
 public abstract class Function implements Cloneable, Serializable {
 
@@ -29,7 +28,7 @@ public abstract class Function implements Cloneable, Serializable {
      *
      */
     private static final long serialVersionUID = 1492427006104061443L;
-    private String name;
+    private final String name;
     private String data;
     private FunctionOwner owner;
     private int index = -1;

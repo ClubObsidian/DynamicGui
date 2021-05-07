@@ -36,21 +36,21 @@ public class StatisticFunction extends Function {
         String[] split = this.getData().split(",");
         String statisticString = null;
 
-        if (split.length >= 2)
+        if(split.length >= 2)
             statisticString = split[0].toUpperCase();
 
-        if (statisticString == null)
+        if(statisticString == null)
             return false;
 
-        if (split.length == 3) {
+        if(split.length == 3) {
             Statistic stat = Statistic.valueOf(statisticString);
             String type = split[1];
             Integer num = Integer.parseInt(split[2]);
 
-            if (stat.getStatisticType() != StatisticType.NONE) {
+            if(stat.getStatisticType() != StatisticType.NONE) {
                 return playerWrapper.getStatistic(stat, type) >= num;
             }
-        } else if (split.length == 2) {
+        } else if(split.length == 2) {
             Statistic stat = Statistic.valueOf(split[0]);
             Integer num = Integer.parseInt(split[1]);
             return playerWrapper.getStatistic(stat) >= num;

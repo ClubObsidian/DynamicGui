@@ -15,11 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.inventory.sponge;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataQuery;
@@ -33,12 +34,10 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.util.ReflectionUtil;
-import com.clubobsidian.dynamicgui.util.sponge.SpongeNBTUtil;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -58,16 +57,16 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public boolean setType(final String type) {
-        if (type == null) {
+        if(type == null) {
             return false;
         }
 
         String normalizedType = MaterialManager.get().normalizeMaterial(type);
 
         Field typeField = ReflectionUtil.getFieldByName(ItemTypes.class, normalizedType);
-        if (typeField != null) {
+        if(typeField != null) {
             ItemType itemStackType = new ReflectionUtil.ReflectionHelper<ItemType>().get(typeField);
-            if (itemStackType == null) {
+            if(itemStackType == null) {
                 return false;
             }
 
@@ -102,7 +101,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public String getName() {
         Optional<Text> name = this.getItemStack().get(Keys.DISPLAY_NAME);
-        if (name.isPresent()) {
+        if(name.isPresent()) {
             return TextSerializers.LEGACY_FORMATTING_CODE.serialize(name.get());
         }
         return null;
@@ -118,8 +117,8 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public List<String> getLore() {
         List<String> lore = new ArrayList<>();
         Optional<List<Text>> itemLore = this.getItemStack().get(Keys.ITEM_LORE);
-        if (itemLore.isPresent()) {
-            for (Text text : itemLore.get()) {
+        if(itemLore.isPresent()) {
+            for(Text text : itemLore.get()) {
                 lore.add(TextSerializers.LEGACY_FORMATTING_CODE.serialize(text));
             }
         }
@@ -129,7 +128,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public void setLore(List<String> lore) {
         List<Text> textLore = new ArrayList<>();
-        for (String l : lore) {
+        for(String l : lore) {
             textLore.add(Text.of(l));
         }
         this.getItemStack().offer(Keys.ITEM_LORE, textLore);
@@ -138,9 +137,9 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public short getDurability() {
         Optional<Integer> itemDurability = this.getItemStack().get(Keys.ITEM_DURABILITY);
-        if (itemDurability.isPresent()) {
+        if(itemDurability.isPresent()) {
             int dura = itemDurability.get();
-            if (dura <= Short.MAX_VALUE) {
+            if(dura <= Short.MAX_VALUE) {
                 return (short) dura;
             }
         }
@@ -160,19 +159,19 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public void addEnchant(EnchantmentWrapper enchant) {
         List<Enchantment> enchants = new ArrayList<>();
         Optional<List<Enchantment>> itemEnchants = this.getItemStack().get(Keys.ITEM_ENCHANTMENTS);
-        if (itemEnchants.isPresent()) {
+        if(itemEnchants.isPresent()) {
             enchants = itemEnchants.get();
         }
         Field enchantmentField = ReflectionUtil.getFieldByName(EnchantmentTypes.class, enchant.getEnchant().toUpperCase());
-        if (enchantmentField == null)
+        if(enchantmentField == null)
             return;
 
         EnchantmentType enchantmentType = new ReflectionUtil.ReflectionHelper<EnchantmentType>().get(enchantmentField);
-        if (enchantmentType != null) {
+        if(enchantmentType != null) {
             enchants.add(Enchantment.builder().type(enchantmentType).level(enchant.getLevel()).build());
         }
 
-        if (enchants.size() > 0) {
+        if(enchants.size() > 0) {
             this.getItemStack().offer(Keys.ITEM_ENCHANTMENTS, enchants);
         }
     }
@@ -181,13 +180,13 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public void removeEnchant(EnchantmentWrapper enchant) {
         List<Enchantment> enchants = new ArrayList<>();
         Optional<List<Enchantment>> itemEnchants = this.getItemStack().get(Keys.ITEM_ENCHANTMENTS);
-        if (itemEnchants.isPresent()) {
+        if(itemEnchants.isPresent()) {
             enchants = itemEnchants.get();
         }
         Optional<EnchantmentType> enchantmentType = Sponge.getGame().getRegistry().getType(EnchantmentType.class, enchant.getEnchant());
-        if (enchantmentType.isPresent()) {
-            for (Enchantment ench : enchants) {
-                if (ench.getType().equals(enchantmentType.get())) {
+        if(enchantmentType.isPresent()) {
+            for(Enchantment ench : enchants) {
+                if(ench.getType().equals(enchantmentType.get())) {
                     enchants.remove(ench);
                     break;
                 }
@@ -200,8 +199,8 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public List<EnchantmentWrapper> getEnchants() {
         List<EnchantmentWrapper> enchants = new ArrayList<>();
         Optional<List<Enchantment>> itemEnchants = this.getItemStack().get(Keys.ITEM_ENCHANTMENTS);
-        if (itemEnchants.isPresent()) {
-            for (Enchantment ench : itemEnchants.get()) {
+        if(itemEnchants.isPresent()) {
+            for(Enchantment ench : itemEnchants.get()) {
                 enchants.add(new EnchantmentWrapper(ench.getType().getId(), ench.getLevel()));
             }
         }
@@ -222,12 +221,12 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
         SpongeNBTUtil.setTag(this.getItemStack(), nbt);
 
-        if (name != null) {
+        if(name != null) {
             this.setName(name);
         }
 
         this.setLore(lore);
-        for (EnchantmentWrapper ench : enchants) {
+        for(EnchantmentWrapper ench : enchants) {
             this.addEnchant(ench);
         }
     }

@@ -16,7 +16,6 @@
 package com.clubobsidian.dynamicgui.listener;
 
 import com.clubobsidian.dynamicgui.event.inventory.InventoryOpenEvent;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.trident.EventHandler;
 
 public class InventoryOpenListener {

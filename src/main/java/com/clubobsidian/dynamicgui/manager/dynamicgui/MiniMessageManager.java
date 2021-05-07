@@ -16,31 +16,30 @@
 
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
 import com.clubobsidian.trident.EventHandler;
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MiniMessageManager {
 
     public static MiniMessageManager instance;
 
     public static MiniMessageManager get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new MiniMessageManager();
         }
         return instance;
     }
 
-    private Map<String, String> json;
-    private MiniMessage miniMessage;
-    private GsonComponentSerializer serializer;
+    private final Map<String, String> json;
+    private final MiniMessage miniMessage;
+    private final GsonComponentSerializer serializer;
 
     private MiniMessageManager() {
         this.json = new HashMap<>();
@@ -54,7 +53,7 @@ public class MiniMessageManager {
 
     public String toJson(String data) {
         String cached = this.json.get(data);
-        if (cached == null) {
+        if(cached == null) {
             Component component = this.miniMessage.deserialize(data);
             cached = this.serializer.serialize(component);
             this.json.put(data, cached);

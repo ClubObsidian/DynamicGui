@@ -15,25 +15,24 @@
  */
 package com.clubobsidian.dynamicgui.registry.npc.citizens;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.bukkit.entity.Entity;
-
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCMeta;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import org.bukkit.entity.Entity;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class CitizensRegistry implements NPCRegistry {
     private static final String PLUGIN_NAME = "Citizens";
 
-    private Class<?> npcClass;
+    private final Class<?> npcClass;
     private Method getNPCRegistryMethod;
-    private Method getNPCMethod;
-    private Method getIdMethod;
-    private Object npcRegistry;
+    private final Method getNPCMethod;
+    private final Method getIdMethod;
+    private final Object npcRegistry;
 
     public CitizensRegistry() {
         this.npcClass = ReflectionUtil.classForName("net.citizensnpcs.api.npc.NPC");
@@ -48,7 +47,7 @@ public class CitizensRegistry implements NPCRegistry {
 
         try {
             return this.getNPCRegistryMethod.invoke(null);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
@@ -69,14 +68,14 @@ public class CitizensRegistry implements NPCRegistry {
     public NPC getNPC(EntityWrapper<?> entityWrapper) {
         try {
             Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
-            if (npc == null) {
+            if(npc == null) {
                 return null;
             }
 
             int id = (int) this.getIdMethod.invoke(npc);
             NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
             return new NPC(entityWrapper, meta);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

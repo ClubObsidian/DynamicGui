@@ -24,7 +24,7 @@ import com.clubobsidian.trident.Cancelable;
 
 public class PlayerInteractEvent extends LocationEvent implements Cancelable {
 
-    private Action action;
+    private final Action action;
     private boolean canceled;
 
     public PlayerInteractEvent(PlayerWrapper<?> playerWrapper, LocationWrapper<?> locationWrapper, Action action) {

@@ -38,6 +38,6 @@ public enum InventoryType {
     //SMITHING,
     SMOKER,
     //STONECUTTER,
-    WORKBENCH;
+    WORKBENCH
 
 }

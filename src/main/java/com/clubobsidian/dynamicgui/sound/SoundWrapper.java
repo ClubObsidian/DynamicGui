@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.sound;
 
-import java.io.Serializable;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+
+import java.io.Serializable;
 
 public class SoundWrapper implements Serializable {
 
@@ -25,9 +25,9 @@ public class SoundWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = -8096584636206059158L;
-    private String sound;
-    private Float volume;
-    private Float pitch;
+    private final String sound;
+    private final Float volume;
+    private final Float pitch;
 
     public SoundWrapper(String str) {
         String[] args = str.split(",");

@@ -17,8 +17,8 @@ package com.clubobsidian.dynamicgui.registry.npc;
 
 public class NPCMeta {
 
-    private int id;
-    private String plugin;
+    private final int id;
+    private final String plugin;
 
     public NPCMeta(int id, String plugin) {
         this.id = id;

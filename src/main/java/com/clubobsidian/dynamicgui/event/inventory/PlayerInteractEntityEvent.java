@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.event.PlayerEvent;
 
 public class PlayerInteractEntityEvent extends PlayerEvent {
 
-    private EntityWrapper<?> entityWrapper;
+    private final EntityWrapper<?> entityWrapper;
 
     public PlayerInteractEntityEvent(PlayerWrapper<?> playerWrapper, EntityWrapper<?> entityWrapper) {
         super(playerWrapper);

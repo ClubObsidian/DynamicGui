@@ -15,10 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.inventory;
 
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+
 import java.io.Serializable;
 import java.util.List;
-
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 
 public abstract class ItemStackWrapper<T> implements Serializable {
 

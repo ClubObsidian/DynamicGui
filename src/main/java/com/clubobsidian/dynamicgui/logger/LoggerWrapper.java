@@ -17,7 +17,7 @@ package com.clubobsidian.dynamicgui.logger;
 
 public abstract class LoggerWrapper<T> {
 
-    private T logger;
+    private final T logger;
 
     public LoggerWrapper(T logger) {
         this.logger = logger;

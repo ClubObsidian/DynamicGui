@@ -15,20 +15,19 @@
  */
 package com.clubobsidian.dynamicgui.inventory.sponge;
 
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.query.QueryOperationTypes;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrapper<T> {
 
@@ -51,7 +50,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
     public ItemStackWrapper<ItemStack> getItem(int index) {
         int i = 0;
         Iterator<Inventory> inv = this.getInventory().iterator();
-        while (inv.hasNext()) {
+        while(inv.hasNext()) {
             Inventory next = inv.next();
             DynamicGui.get().getLogger().info("i: " + i + "   " + next.toString());
             i += 1;
@@ -60,7 +59,7 @@ public class SpongeInventoryWrapper<T extends Inventory> extends InventoryWrappe
                 .query(QueryOperationTypes.INVENTORY_PROPERTY
                         .of(SlotIndex.of(index))).first().peek();
 
-        if (item.isPresent()) {
+        if(item.isPresent()) {
             return new SpongeItemStackWrapper<ItemStack>(item.get());
         }
         DynamicGui.get().getLogger().info("Item is not present for get item");

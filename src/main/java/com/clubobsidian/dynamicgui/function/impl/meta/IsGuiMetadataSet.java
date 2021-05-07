@@ -36,12 +36,12 @@ public class IsGuiMetadataSet extends Function {
         if(this.getOwner() instanceof Gui) {
             gui = (Gui) this.getOwner();
         } else if(this.getOwner() instanceof Slot) {
-            gui = ((Slot)this.getOwner()).getOwner();
+            gui = ((Slot) this.getOwner()).getOwner();
         } else {
             String clazzName = this.getOwner().getClass().getName();
             DynamicGui.get().getLogger().error("Invalid function owner type: " + clazzName);
             return false;
         }
-        return gui.getMetadata().get(this.getData())  != null;
+        return gui.getMetadata().get(this.getData()) != null;
     }
 }

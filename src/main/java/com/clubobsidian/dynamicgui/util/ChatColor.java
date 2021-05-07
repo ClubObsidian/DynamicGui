@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.util;
 
-import java.awt.Color;
+import java.awt.*;
 
 public enum ChatColor {
 
@@ -45,14 +45,14 @@ public enum ChatColor {
 
     public static final char FORMATTING_CODE = '\u00A7';
 
-    private char colorCode;
-    private boolean formatting;
+    private final char colorCode;
+    private final boolean formatting;
     private int red;
     private int green;
     private int blue;
     private Color color;
 
-    private ChatColor(char colorCode, int red, int green, int blue) {
+    ChatColor(char colorCode, int red, int green, int blue) {
         this(colorCode, false);
         this.red = red;
         this.green = green;
@@ -60,7 +60,7 @@ public enum ChatColor {
         this.color = new Color(red, green, blue);
     }
 
-    private ChatColor(char colorCode, boolean formatting) {
+    ChatColor(char colorCode, boolean formatting) {
         this.colorCode = colorCode;
         this.formatting = formatting;
     }
@@ -95,11 +95,11 @@ public enum ChatColor {
 
     public static String translateAlternateColorCodes(char translate, String message) {
         char[] chars = message.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == translate) {
-                if (i + 1 < chars.length) {
-                    for (ChatColor color : ChatColor.values()) {
-                        if (chars[i + 1] == color.getColorCode()) {
+        for(int i = 0; i < chars.length; i++) {
+            if(chars[i] == translate) {
+                if(i + 1 < chars.length) {
+                    for(ChatColor color : ChatColor.values()) {
+                        if(chars[i + 1] == color.getColorCode()) {
                             chars[i] = ChatColor.FORMATTING_CODE;
                         }
                     }

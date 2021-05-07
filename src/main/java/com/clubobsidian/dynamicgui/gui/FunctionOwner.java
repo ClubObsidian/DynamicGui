@@ -19,6 +19,6 @@ import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 public interface FunctionOwner {
 
-    public FunctionTree getFunctions();
+    FunctionTree getFunctions();
 
 }

@@ -79,15 +79,15 @@ public enum Statistic {
     WALK_ONE_CM("WALK_ONE_CM", "WALK_ONE_CM"),
     WALK_UNDER_WATER_ONE_CM("WALK_UNDER_WATER_ONE_CM", null);
 
-    private String bukkitID;
-    private String spongeID;
-    private StatisticType statisticType;
+    private final String bukkitID;
+    private final String spongeID;
+    private final StatisticType statisticType;
 
-    private Statistic(String bukkitID, String spongeID) {
+    Statistic(String bukkitID, String spongeID) {
         this(bukkitID, spongeID, StatisticType.NONE);
     }
 
-    private Statistic(String bukkitID, String spongeID, StatisticType statisticType) {
+    Statistic(String bukkitID, String spongeID, StatisticType statisticType) {
         this.bukkitID = bukkitID;
         this.spongeID = spongeID;
         this.statisticType = statisticType;

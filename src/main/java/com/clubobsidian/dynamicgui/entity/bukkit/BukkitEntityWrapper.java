@@ -15,9 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.entity.bukkit;
 
-import org.bukkit.entity.Entity;
-
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
+import org.bukkit.entity.Entity;
 
 public class BukkitEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 

@@ -19,7 +19,7 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public abstract class Replacer {
 
-    private String toReplace;
+    private final String toReplace;
 
     public Replacer(String toReplace) {
         this.toReplace = toReplace;

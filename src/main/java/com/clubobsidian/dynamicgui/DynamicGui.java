@@ -15,16 +15,6 @@
  */
 package com.clubobsidian.dynamicgui;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import com.clubobsidian.dynamicgui.function.impl.meta.CopyBackMetadataFunction;
-import com.clubobsidian.dynamicgui.function.impl.IsBedrockPlayerFunction;
-import com.clubobsidian.dynamicgui.function.impl.meta.IsGuiMetadataSet;
-import com.clubobsidian.dynamicgui.registry.replacer.impl.MetadataReplacerRegistry;
-import org.apache.commons.io.FileUtils;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
@@ -33,12 +23,13 @@ import com.clubobsidian.dynamicgui.function.impl.CheckMoveableFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckPlayerWorldFunction;
 import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.GetGameRuleFunction;
+import com.clubobsidian.dynamicgui.function.impl.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyBalanceFunction;
 import com.clubobsidian.dynamicgui.function.impl.MoneyDepositFunction;
+import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.function.impl.NoPermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.ParticleFunction;
-import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerCmdFunction;
 import com.clubobsidian.dynamicgui.function.impl.PlayerMiniMsgFunction;
@@ -75,34 +66,41 @@ import com.clubobsidian.dynamicgui.function.impl.gui.HasBackFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.RefreshGuiFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.RefreshSlotFunction;
 import com.clubobsidian.dynamicgui.function.impl.gui.SetBackFunction;
+import com.clubobsidian.dynamicgui.function.impl.meta.CopyBackMetadataFunction;
 import com.clubobsidian.dynamicgui.function.impl.meta.HasMetadataFunction;
+import com.clubobsidian.dynamicgui.function.impl.meta.IsGuiMetadataSet;
 import com.clubobsidian.dynamicgui.function.impl.meta.SetMetadataFunction;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.SlotManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.proxy.Proxy;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.DynamicGuiReplacerRegistry;
+import com.clubobsidian.dynamicgui.registry.replacer.impl.MetadataReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.reflection.ReflectionEventBus;
 import com.clubobsidian.wrappy.Configuration;
-
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import org.apache.commons.io.FileUtils;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DynamicGui {
 
@@ -110,7 +108,7 @@ public class DynamicGui {
     private static DynamicGui instance;
 
     public static DynamicGui get() {
-        if (!instance.initialized) {
+        if(!instance.initialized) {
             instance.initialized = true;
             instance.init();
         }
@@ -120,12 +118,12 @@ public class DynamicGui {
 
     private String noGui;
     private Proxy proxy;
-    private Map<String, Integer> serverPlayerCount;
-    private EventBus eventManager;
-    private DynamicGuiPlugin plugin;
-    private FakeServer server;
-    private LoggerWrapper<?> loggerWrapper;
-    private Injector injector;
+    private final Map<String, Integer> serverPlayerCount;
+    private final EventBus eventManager;
+    private final DynamicGuiPlugin plugin;
+    private final FakeServer server;
+    private final LoggerWrapper<?> loggerWrapper;
+    private final Injector injector;
     private boolean initialized;
 
     @Inject
@@ -160,26 +158,26 @@ public class DynamicGui {
     }
 
     private void setupFileStructure() {
-        if (!this.plugin.getDataFolder().exists()) {
+        if(!this.plugin.getDataFolder().exists()) {
             this.plugin.getDataFolder().mkdirs();
         }
 
-        if (!this.plugin.getGuiFolder().exists()) {
+        if(!this.plugin.getGuiFolder().exists()) {
             this.plugin.getGuiFolder().mkdirs();
         }
 
-        if (!this.plugin.getMacroFolder().exists()) {
+        if(!this.plugin.getMacroFolder().exists()) {
             this.plugin.getMacroFolder().mkdirs();
         }
     }
 
     private void saveDefaultConfig() {
-        if (!this.plugin.getConfigFile().exists()) {
+        if(!this.plugin.getConfigFile().exists()) {
             try {
                 FileUtils
                         .copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"),
                                 this.plugin.getConfigFile());
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         }
@@ -189,12 +187,12 @@ public class DynamicGui {
         Configuration config = Configuration.load(this.plugin.getConfigFile());
         this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
         String version = config.getString("version");
-        if (version != null) {
+        if(version != null) {
             version = version.trim();
         }
 
         String proxyStr = config.getString("proxy");
-        if (proxyStr == null) {
+        if(proxyStr == null) {
             proxyStr = version;
             config.set("proxy", proxyStr);
             config.save();
@@ -204,7 +202,7 @@ public class DynamicGui {
 
         this.proxy = this.findProxyByString(proxyStr);
 
-        for (final String server : config.getStringList("servers")) {
+        for(final String server : config.getStringList("servers")) {
             this.serverPlayerCount.put(server, 0);
 
             DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server + "-playercount%") {
@@ -223,11 +221,11 @@ public class DynamicGui {
     public void checkForProxy() {
         MessagingRunnable runnable = (playerWrapper, message) ->
         {
-            if (message.length > 13) {
+            if(message.length > 13) {
                 ByteArrayDataInput in = ByteStreams.newDataInput(message);
                 String packet = in.readUTF();
-                if (packet != null) {
-                    if ("PlayerCount".equals(packet)) {
+                if(packet != null) {
+                    if("PlayerCount".equals(packet)) {
                         String server = in.readUTF();
                         int playerCount = in.readInt();
                         this.serverPlayerCount.put(server, playerCount);
@@ -236,11 +234,11 @@ public class DynamicGui {
             }
         };
 
-        if (this.proxy == Proxy.BUNGEECORD) {
+        if(this.proxy == Proxy.BUNGEECORD) {
             this.getLogger().info("BungeeCord is enabled!");
             this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
             this.getServer().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
-        } else if (this.proxy == Proxy.REDIS_BUNGEE) {
+        } else if(this.proxy == Proxy.REDIS_BUNGEE) {
             this.getLogger().info("RedisBungee is enabled");
             this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
             this.getServer().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
@@ -249,7 +247,7 @@ public class DynamicGui {
             this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
         }
 
-        if (this.proxy != Proxy.NONE) {
+        if(this.proxy != Proxy.NONE) {
             this.startPlayerCountTimer();
         }
     }
@@ -337,14 +335,14 @@ public class DynamicGui {
 
     private void startPlayerCountTimer() {
         this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () -> {
-            for (String server : serverPlayerCount.keySet()) {
+            for(String server : serverPlayerCount.keySet()) {
                 PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
-                if (player != null) {
+                if(player != null) {
                     ByteArrayDataOutput out = ByteStreams.newDataOutput();
                     out.writeUTF("PlayerCount");
                     out.writeUTF(server);
                     String sendTo = "BungeeCord";
-                    if (this.proxy == Proxy.REDIS_BUNGEE) {
+                    if(this.proxy == Proxy.REDIS_BUNGEE) {
                         sendTo = "RedisBungee";
                     }
 
@@ -390,7 +388,7 @@ public class DynamicGui {
 
     public Integer getGlobalServerPlayerCount() {
         int globalPlayerCount = 0;
-        for (int playerCount : this.serverPlayerCount.values()) {
+        for(int playerCount : this.serverPlayerCount.values()) {
             globalPlayerCount += playerCount;
         }
 
@@ -419,9 +417,9 @@ public class DynamicGui {
 	}*/
 
     private Proxy findProxyByString(String proxyStr) {
-        if (proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) {
+        if(proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) {
             return Proxy.BUNGEECORD;
-        } else if (proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee")) {
+        } else if(proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee")) {
             return Proxy.REDIS_BUNGEE;
         }
 
@@ -429,9 +427,9 @@ public class DynamicGui {
     }
 
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
-        if (this.server == null) {
+        if(this.server == null) {
             return false;
-        } else if (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) {
+        } else if(this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(server);

@@ -38,13 +38,13 @@ public class SetDataFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Slot) {
+        if(owner != null) {
+            if(owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 Gui gui = slot.getOwner();
-                if (gui != null) {
+                if(gui != null) {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if (inv != null) {
+                    if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
 
                         try {
@@ -52,7 +52,7 @@ public class SetDataFunction extends Function {
                             item.setDurability(dura);
                             inv.setItem(slot.getIndex(), item);
                             return true;
-                        } catch (Exception ex) {
+                        } catch(Exception ex) {
                             DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
                             return false;
                         }

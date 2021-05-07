@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.command.sponge.SpongeGuiCommand;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.sponge.EntityClickListener;
-import com.clubobsidian.dynamicgui.listener.sponge.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryCloseListener;
+import com.clubobsidian.dynamicgui.listener.sponge.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.sponge.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.sponge.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.Sl4jLoggerWrapper;
@@ -35,14 +35,8 @@ import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.server.sponge.FakeSpongeServer;
-
 import com.google.inject.Inject;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
@@ -53,7 +47,10 @@ import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
 
-import org.slf4j.Logger;
+import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 @Plugin(id = "dynamicgui", name = "DynamicGui", version = "1.0")
 public class SpongePlugin implements DynamicGuiPlugin {

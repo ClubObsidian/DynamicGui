@@ -15,16 +15,15 @@
  */
 package com.clubobsidian.dynamicgui.manager.entity.sponge;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.spongepowered.api.entity.EntityTypes;
-import org.spongepowered.api.entity.living.player.Player;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
 import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import org.spongepowered.api.entity.EntityTypes;
+import org.spongepowered.api.entity.living.player.Player;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpongeEntityManager extends EntityManager {
 
@@ -36,7 +35,7 @@ public class SpongeEntityManager extends EntityManager {
 
     private void loadEntityTypes() {
         this.entityTypes = new ArrayList<>();
-        for (Field field : EntityTypes.class.getDeclaredFields()) {
+        for(Field field : EntityTypes.class.getDeclaredFields()) {
             this.entityTypes.add(field.getName());
         }
     }

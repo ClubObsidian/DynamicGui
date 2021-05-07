@@ -15,8 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.listener.sponge;
 
-import java.util.Optional;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.event.player.Action;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -25,23 +29,18 @@ import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
-import com.clubobsidian.dynamicgui.event.player.Action;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import java.util.Optional;
 
 public class PlayerInteractListener {
 
     @Listener
     public void playerInteract(InteractBlockEvent e, @First Player player) {
         Optional<Location<World>> location = e.getTargetBlock().getLocation();
-        if (location.isPresent()) {
-            if (location.get().getBlockType() != BlockTypes.AIR) {
+        if(location.isPresent()) {
+            if(location.get().getBlockType() != BlockTypes.AIR) {
 
                 Action action = Action.LEFT_CLICK_BLOCK;
-                if (e instanceof InteractBlockEvent.Secondary) {
+                if(e instanceof InteractBlockEvent.Secondary) {
                     action = Action.RIGHT_CLICK_BLOCK;
                 }
 
@@ -49,7 +48,7 @@ public class PlayerInteractListener {
                 LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(location.get());
                 com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
                 DynamicGui.get().getEventBus().callEvent(interactEvent);
-                if (interactEvent.isCanceled()) {
+                if(interactEvent.isCanceled()) {
                     e.setCancelled(true);
                 }
             }

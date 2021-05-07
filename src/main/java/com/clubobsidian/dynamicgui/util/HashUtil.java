@@ -38,7 +38,7 @@ public final class HashUtil {
         try {
             byte[] fileBytes = Files.readAllBytes(file.toPath());
             return getHash(hash, fileBytes);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return new byte[0];
@@ -50,7 +50,7 @@ public final class HashUtil {
             md.reset();
             md.update(data);
             return md.digest();
-        } catch (NoSuchAlgorithmException e) {
+        } catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return new byte[0];

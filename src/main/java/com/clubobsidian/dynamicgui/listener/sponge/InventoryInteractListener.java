@@ -15,9 +15,15 @@
  */
 package com.clubobsidian.dynamicgui.listener.sponge;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.Click;
+import com.clubobsidian.dynamicgui.gui.InventoryView;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.sponge.SpongeItemStackWrapper;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.filter.cause.First;
@@ -30,30 +36,23 @@ import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.item.inventory.property.SlotIndex;
 import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.entity.sponge.SpongePlayerWrapper;
-import com.clubobsidian.dynamicgui.event.inventory.Click;
-import com.clubobsidian.dynamicgui.gui.InventoryView;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.sponge.SpongeItemStackWrapper;
+import java.util.List;
+import java.util.Optional;
 
 public class InventoryInteractListener {
 
     @Listener
     public void inventoryClick(ClickInventoryEvent e, @First Player player) {
         Click clickType = null;
-        if (e instanceof ClickInventoryEvent.Primary) {
+        if(e instanceof ClickInventoryEvent.Primary) {
             clickType = Click.LEFT;
-        } else if (e instanceof ClickInventoryEvent.Middle) {
+        } else if(e instanceof ClickInventoryEvent.Middle) {
             clickType = Click.MIDDLE;
-        } else if (e instanceof ClickInventoryEvent.Secondary) {
+        } else if(e instanceof ClickInventoryEvent.Secondary) {
             clickType = Click.RIGHT;
-        } else if (e instanceof ClickInventoryEvent.Shift.Primary) {
+        } else if(e instanceof ClickInventoryEvent.Shift.Primary) {
             clickType = Click.SHIFT_LEFT;
-        } else if (e instanceof ClickInventoryEvent.Shift.Secondary) {
+        } else if(e instanceof ClickInventoryEvent.Shift.Secondary) {
             clickType = Click.SHIFT_RIGHT;
         }
 
@@ -62,22 +61,22 @@ public class InventoryInteractListener {
 
         DynamicGui.get().getLogger().info("Click type: " + clickType);
         List<SlotTransaction> transactions = e.getTransactions();
-        if (transactions.size() > 0) {
+        if(transactions.size() > 0) {
             SlotTransaction transaction = transactions.get(0);
             Slot slot = transaction.getSlot().transform();
             Optional<SlotIndex> slotIndex = slot.getInventoryProperty(SlotIndex.class);
-            if (slotIndex.isPresent()) {
+            if(slotIndex.isPresent()) {
 
                 Inventory inventory = slot.parent();
                 Optional<InventoryTitle> title = inventory.getInventoryProperty(InventoryTitle.class);
-                if (title.isPresent()) {
+                if(title.isPresent()) {
                     DynamicGui.get().getLogger().info("inventory: " + title.get().getValue().toPlain());
                 }
 
                 int slotIndexClicked = slotIndex.get().getValue();
                 ItemStack itemStack = transaction.getOriginal().createStack();
                 ItemStackWrapper<?> itemStackWrapper = null;
-                if (itemStack.getType() == ItemTypes.AIR) {
+                if(itemStack.getType() == ItemTypes.AIR) {
                     itemStackWrapper = new SpongeItemStackWrapper<ItemStack>(null);
                 } else {
                     itemStackWrapper = new SpongeItemStackWrapper<ItemStack>(itemStack);
@@ -86,7 +85,7 @@ public class InventoryInteractListener {
                 DynamicGui.get().getLogger().info("ItemStack: " + itemStack);
 
                 InventoryView view = InventoryView.TOP;
-                if (slotIndexClicked >= inventory.capacity()) {
+                if(slotIndexClicked >= inventory.capacity()) {
                     view = InventoryView.BOTTOM;
                 }
 
@@ -95,7 +94,7 @@ public class InventoryInteractListener {
 
                 com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slotIndexClicked, clickType, view);
                 DynamicGui.get().getEventBus().callEvent(clickEvent);
-                if (clickEvent.isCanceled()) {
+                if(clickEvent.isCanceled()) {
                     e.setCancelled(true);
                 }
                 DynamicGui.get().getLogger().info("Is trident event cancelled: " + clickEvent.isCanceled());

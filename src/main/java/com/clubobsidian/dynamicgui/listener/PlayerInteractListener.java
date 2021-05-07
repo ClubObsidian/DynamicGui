@@ -20,22 +20,21 @@ import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-
 import com.clubobsidian.trident.EventHandler;
 
 public class PlayerInteractListener {
 
     @EventHandler
     public void playerInteract(final PlayerInteractEvent e) {
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
-            if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
+        if(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
                 return;
             }
 
-            for (Gui gui : GuiManager.get().getGuis()) {
-                if (gui.getLocations() != null) {
-                    for (LocationWrapper<?> guiLocation : gui.getLocations()) {
-                        if (e.getLocationWrapper().equals(guiLocation)) {
+            for(Gui gui : GuiManager.get().getGuis()) {
+                if(gui.getLocations() != null) {
+                    for(LocationWrapper<?> guiLocation : gui.getLocations()) {
+                        if(e.getLocationWrapper().equals(guiLocation)) {
                             GuiManager.get().openGui(e.getPlayerWrapper(), gui);
                             e.setCanceled(true);
                             break;

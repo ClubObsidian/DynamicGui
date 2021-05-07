@@ -15,23 +15,22 @@
  */
 package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.clubobsidian.dynamicgui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.AnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.AnimationReplacer;
 import com.clubobsidian.dynamicgui.replacer.animation.impl.MultiLineTestAnimationReplacer;
 import com.clubobsidian.dynamicgui.replacer.animation.impl.TestAnimationReplacer;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerRegistry {
 
     private static DynamicGuiAnimationReplacerRegistry instance;
 
-    private Map<String, AnimationReplacer> replacers;
+    private final Map<String, AnimationReplacer> replacers;
 
     private DynamicGuiAnimationReplacerRegistry() {
         this.replacers = new HashMap<>();
@@ -40,7 +39,7 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
     }
 
     public static DynamicGuiAnimationReplacerRegistry get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new DynamicGuiAnimationReplacerRegistry();
         }
         return instance;
@@ -52,8 +51,8 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
 
     @Override
     public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text) {
-        for (AnimationReplacer replacer : this.replacers.values()) {
-            if (text.contains(replacer.getToReplace())) {
+        for(AnimationReplacer replacer : this.replacers.values()) {
+            if(text.contains(replacer.getToReplace())) {
                 text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
             }
         }

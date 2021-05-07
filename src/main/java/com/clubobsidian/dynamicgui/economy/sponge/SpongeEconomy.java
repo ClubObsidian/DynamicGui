@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.economy.sponge;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
+import com.clubobsidian.dynamicgui.economy.Economy;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.plugin.sponge.SpongePlugin;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
@@ -26,9 +26,8 @@ import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
 import org.spongepowered.api.service.economy.transaction.ResultType;
 
-import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.sponge.SpongePlugin;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 public class SpongeEconomy implements Economy {
 
@@ -37,7 +36,7 @@ public class SpongeEconomy implements Economy {
     @Override
     public boolean setup() {
         Optional<EconomyService> economyService = Sponge.getServiceManager().provide(EconomyService.class);
-        if (!economyService.isPresent()) {
+        if(!economyService.isPresent()) {
             return false;
         }
         return (this.economy = economyService.get()) != null;
@@ -45,12 +44,12 @@ public class SpongeEconomy implements Economy {
 
     @Override
     public BigDecimal getBalance(PlayerWrapper<?> playerWrapper) {
-        if (playerWrapper.getPlayer() == null)
+        if(playerWrapper.getPlayer() == null)
             return new BigDecimal(-1);
 
         Player player = (Player) playerWrapper.getPlayer();
         Optional<UniqueAccount> account = this.economy.getOrCreateAccount(player.getUniqueId());
-        if (!account.isPresent()) {
+        if(!account.isPresent()) {
             return new BigDecimal(-1);
         }
         return account.get().getBalance(this.economy.getDefaultCurrency());
@@ -59,7 +58,7 @@ public class SpongeEconomy implements Economy {
     @Override
     public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
         Optional<UniqueAccount> account = this.economy.getOrCreateAccount(playerWrapper.getUniqueId());
-        if (!account.isPresent()) {
+        if(!account.isPresent()) {
             return false;
         }
         return account.get().withdraw(this.economy.getDefaultCurrency(), amt,
@@ -69,7 +68,7 @@ public class SpongeEconomy implements Economy {
     @Override
     public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
         Optional<UniqueAccount> account = this.economy.getOrCreateAccount(playerWrapper.getUniqueId());
-        if (!account.isPresent()) {
+        if(!account.isPresent()) {
             return false;
         }
         return account.get().deposit(this.economy.getDefaultCurrency(), amt,

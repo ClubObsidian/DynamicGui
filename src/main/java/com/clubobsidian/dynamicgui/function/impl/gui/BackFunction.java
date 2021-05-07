@@ -37,27 +37,27 @@ public class BackFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui = null;
         FunctionOwner owner = this.getOwner();
-        if (owner instanceof Slot) {
+        if(owner instanceof Slot) {
             Slot slot = (Slot) owner;
             gui = slot.getOwner();
             slot.setClose(false);
-        } else if (owner instanceof Gui) {
+        } else if(owner instanceof Gui) {
             gui = (Gui) owner;
         }
 
 
         Gui back = gui.getBack();
-        if (back != null) {
-            if (this.getData() != null) {
+        if(back != null) {
+            if(this.getData() != null) {
                 try {
                     Integer backAmount = Integer.parseInt(this.getData());
-                    for (int i = 1; i < backAmount; i++) {
+                    for(int i = 1; i < backAmount; i++) {
                         Gui nextBack = back.getBack();
-                        if (nextBack != null) {
+                        if(nextBack != null) {
                             back = nextBack;
                         }
                     }
-                } catch (NumberFormatException ex) {
+                } catch(NumberFormatException ex) {
                     return false;
                 }
             }

@@ -15,26 +15,26 @@
  */
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
+import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.fuzzutil.StringFuzz;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.fuzzutil.StringFuzz;
-
 public class FunctionManager {
 
     private static FunctionManager instance;
 
-    private Map<String, Function> functions;
+    private final Map<String, Function> functions;
 
     private FunctionManager() {
         this.functions = new HashMap<>();
     }
 
     public static FunctionManager get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new FunctionManager();
         }
         return instance;
@@ -43,7 +43,7 @@ public class FunctionManager {
     public Function getFunctionByName(String functionName) {
         String normalized = StringFuzz.normalize(functionName);
         Function function = this.functions.get(normalized);
-        if (function == null) {
+        if(function == null) {
             return null;
         }
 

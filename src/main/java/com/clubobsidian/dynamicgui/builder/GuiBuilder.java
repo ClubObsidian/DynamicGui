@@ -15,19 +15,19 @@
  */
 package com.clubobsidian.dynamicgui.builder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GuiBuilder {
 
@@ -37,11 +37,11 @@ public class GuiBuilder {
     private int rows;
     private Boolean close;
     private ModeEnum modeEnum;
-    private Map<String, List<Integer>> npcIds;
-    private List<Slot> slots;
-    private List<LocationWrapper<?>> locs;
+    private final Map<String, List<Integer>> npcIds;
+    private final List<Slot> slots;
+    private final List<LocationWrapper<?>> locs;
     private FunctionTree functionTree;
-    private Map<String, String> metadata;
+    private final Map<String, String> metadata;
     private Gui backGui;
 
     public GuiBuilder() {
@@ -89,7 +89,7 @@ public class GuiBuilder {
 
     public GuiBuilder addNpcId(String plugin, Integer id) {
         List<Integer> npcs = this.npcIds.get(plugin);
-        if (npcs == null) {
+        if(npcs == null) {
             npcs = new ArrayList<>();
             this.npcIds.put(plugin, npcs);
         }
@@ -99,14 +99,14 @@ public class GuiBuilder {
     }
 
     public GuiBuilder addNpcId(String plugin, Integer[] npcIds) {
-        for (Integer id : npcIds) {
+        for(Integer id : npcIds) {
             this.addNpcId(plugin, id);
         }
         return this;
     }
 
     public GuiBuilder addNpcId(String plugin, List<Integer> npcIds) {
-        for (Integer id : npcIds) {
+        for(Integer id : npcIds) {
             this.addNpcId(plugin, id);
         }
         return this;
@@ -144,7 +144,7 @@ public class GuiBuilder {
 
     public GuiBuilder addMetadata(Map<String, String> metadata) {
         Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<String, String> next = it.next();
             String key = next.getKey();
             String value = next.getValue();
@@ -156,7 +156,7 @@ public class GuiBuilder {
 
     public Gui build() {
         Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree, this.metadata);
-        if (this.backGui != null) {
+        if(this.backGui != null) {
             gui.setBack(this.backGui);
         }
 

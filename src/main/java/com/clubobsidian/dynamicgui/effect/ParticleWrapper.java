@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.effect;
 
-import java.io.Serializable;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+
+import java.io.Serializable;
 
 public class ParticleWrapper implements Serializable {
 
@@ -33,7 +33,7 @@ public class ParticleWrapper implements Serializable {
     }
 
     private void loadFromString(String str) {
-        if (str.contains(",")) {
+        if(str.contains(",")) {
             String[] args = str.split(",");
             this.effect = args[0].toUpperCase();
             this.data = Integer.parseInt(args[1]);

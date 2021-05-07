@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 public class LocationEvent extends PlayerEvent {
 
-    private LocationWrapper<?> locationWrapper;
+    private final LocationWrapper<?> locationWrapper;
 
     public LocationEvent(PlayerWrapper<?> playerWrapper, LocationWrapper<?> locationWrapper) {
         super(playerWrapper);

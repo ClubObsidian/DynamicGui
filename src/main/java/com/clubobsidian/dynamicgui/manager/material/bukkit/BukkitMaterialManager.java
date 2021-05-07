@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.manager.material.bukkit;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import org.bukkit.Material;
 
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BukkitMaterialManager extends MaterialManager {
 
@@ -32,7 +31,7 @@ public class BukkitMaterialManager extends MaterialManager {
 
     private void loadMaterials() {
         this.materials = new ArrayList<>();
-        for (Material material : Material.values()) {
+        for(Material material : Material.values()) {
             this.materials.add(material.name());
         }
     }
@@ -44,7 +43,7 @@ public class BukkitMaterialManager extends MaterialManager {
 
     @Override
     public String normalizeMaterial(String material) {
-        if (material == null)
+        if(material == null)
             return null;
 
         return material.toUpperCase();

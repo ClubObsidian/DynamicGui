@@ -19,6 +19,6 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public interface MessagingRunnable {
 
-    public void run(PlayerWrapper<?> playerWrapper, byte[] message);
+    void run(PlayerWrapper<?> playerWrapper, byte[] message);
 
 }

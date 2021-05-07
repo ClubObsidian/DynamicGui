@@ -15,13 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.gui;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.SerializationUtils;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -31,6 +24,11 @@ import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 
 public class Gui implements Serializable, FunctionOwner, MetadataHolder {
@@ -39,19 +37,19 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
      *
      */
     private static final long serialVersionUID = -6294818826223305057L;
-    private List<Slot> slots;
-    private String name;
-    private String type;
-    private String title;
-    private int rows;
+    private final List<Slot> slots;
+    private final String name;
+    private final String type;
+    private final String title;
+    private final int rows;
     private Boolean close;
-    private ModeEnum modeEnum;
-    private List<LocationWrapper<?>> locations;
-    private Map<String, List<Integer>> npcIds;
+    private final ModeEnum modeEnum;
+    private final List<LocationWrapper<?>> locations;
+    private final Map<String, List<Integer>> npcIds;
     private transient InventoryWrapper<?> inventoryWrapper;
-    private FunctionTree functions;
+    private final FunctionTree functions;
     private Gui back;
-    private Map<String, String> metadata;
+    private final Map<String, String> metadata;
 
     public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata) {
         this.name = name;
@@ -71,12 +69,12 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 
     public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
         String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-        if (inventoryTitle.length() > 32) {
+        if(inventoryTitle.length() > 32) {
             inventoryTitle = inventoryTitle.substring(0, 31);
         }
 
         Object serverInventory = null;
-        if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
+        if(this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
             serverInventory = InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
         } else {
             serverInventory = InventoryManager.get().createInventory(inventoryTitle, this.type);
@@ -84,15 +82,15 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 
         InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
 
-        for (int i = 0; i < this.slots.size(); i++) {
+        for(int i = 0; i < this.slots.size(); i++) {
             Slot slot = this.slots.get(i);
-            if (slot != null) {
+            if(slot != null) {
                 slot.setOwner(this);
                 ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
 
-                if (this.modeEnum == ModeEnum.ADD) {
+                if(this.modeEnum == ModeEnum.ADD) {
                     int itemIndex = inventoryWrapper.addItem(item);
-                    if (itemIndex != -1) {
+                    if(itemIndex != -1) {
                         slot.setIndex(itemIndex);
                     }
                 } else {

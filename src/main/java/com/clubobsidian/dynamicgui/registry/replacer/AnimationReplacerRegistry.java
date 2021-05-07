@@ -20,6 +20,6 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 
 public interface AnimationReplacerRegistry {
 
-    public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text);
+    String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text);
 
 }

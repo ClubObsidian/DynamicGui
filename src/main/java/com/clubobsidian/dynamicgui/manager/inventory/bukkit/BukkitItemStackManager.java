@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.manager.inventory.bukkit;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class BukkitItemStackManager extends ItemStackManager {
 
@@ -31,7 +30,7 @@ public class BukkitItemStackManager extends ItemStackManager {
 
     @Override
     public ItemStackWrapper<?> createItemStackWrapper(Object itemStack) {
-        if (itemStack == null) {
+        if(itemStack == null) {
             return new BukkitItemStackWrapper<ItemStack>(null);
         }
         return new BukkitItemStackWrapper<ItemStack>((ItemStack) itemStack);

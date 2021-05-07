@@ -15,10 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.manager.entity;
 
-import java.util.List;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.google.inject.Inject;
+
+import java.util.List;
 
 public abstract class EntityManager {
 

@@ -19,10 +19,10 @@ import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 
 public interface NPCRegistry {
 
-    public String getName();
+    String getName();
 
-    public boolean isNPC(EntityWrapper<?> entityWrapper);
+    boolean isNPC(EntityWrapper<?> entityWrapper);
 
-    public NPC getNPC(EntityWrapper<?> entityWrapper);
+    NPC getNPC(EntityWrapper<?> entityWrapper);
 
 }

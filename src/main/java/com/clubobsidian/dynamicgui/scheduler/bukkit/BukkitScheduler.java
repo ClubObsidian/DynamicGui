@@ -15,11 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.scheduler.bukkit;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 
 public class BukkitScheduler extends Scheduler {
 

@@ -15,8 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.manager.inventory.sponge;
 
-import java.lang.reflect.Field;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
+import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
 import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.InventoryArchetype;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
@@ -24,10 +26,7 @@ import org.spongepowered.api.item.inventory.property.InventoryDimension;
 import org.spongepowered.api.item.inventory.property.InventoryTitle;
 import org.spongepowered.api.text.Text;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
+import java.lang.reflect.Field;
 
 public class SpongeInventoryManager extends InventoryManager {
 
@@ -42,14 +41,14 @@ public class SpongeInventoryManager extends InventoryManager {
 
     @Override
     public Object createInventory(String title, String type) {
-        if (type == null)
+        if(type == null)
             return null;
 
         //We should have used the sponge registry here but retrievals kept failing
         Field inventoryField = null;
         try {
             inventoryField = InventoryArchetypes.class.getDeclaredField(type);
-        } catch (NoSuchFieldException ex) {
+        } catch(NoSuchFieldException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -58,7 +57,7 @@ public class SpongeInventoryManager extends InventoryManager {
                     .of((InventoryArchetype) inventoryField.get(null))
                     .property(InventoryTitle.PROPERTY_NAME, InventoryTitle.of(Text.of(title)))
                     .build(DynamicGui.get().getPlugin());
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch(IllegalArgumentException | IllegalAccessException ex) {
             ex.printStackTrace();
             return null;
         }

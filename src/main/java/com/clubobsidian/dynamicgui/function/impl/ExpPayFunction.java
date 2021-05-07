@@ -35,12 +35,12 @@ public class ExpPayFunction extends Function {
         int amt;
         try {
             amt = Integer.parseInt(this.getData());
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             DynamicGui.get().getLogger().info("Experience is set to an invalid number for data " + this.getData() + ", failing gracefully!");
             return false;
         }
         System.out.println("Exp: " + playerWrapper.getExperience());
-        if (playerWrapper.getExperience() < amt) {
+        if(playerWrapper.getExperience() < amt) {
             return false;
         }
 

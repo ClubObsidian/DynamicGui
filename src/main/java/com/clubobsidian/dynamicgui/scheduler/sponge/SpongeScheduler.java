@@ -15,12 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.scheduler.sponge;
 
-import java.util.concurrent.TimeUnit;
-
-import org.spongepowered.api.Sponge;
-
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
+import org.spongepowered.api.Sponge;
+
+import java.util.concurrent.TimeUnit;
 
 public class SpongeScheduler extends Scheduler {
 

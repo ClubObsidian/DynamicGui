@@ -15,10 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.listener;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map.Entry;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.PlayerInteractEntityEvent;
@@ -28,27 +24,31 @@ import com.clubobsidian.dynamicgui.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.trident.EventHandler;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 public class EntityClickListener {
 
     @EventHandler
     public void onEntityClick(PlayerInteractEntityEvent e) {
-        if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+        if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
             return;
 
         EntityWrapper<?> entityWrapper = e.getEntityWrapper();
         List<NPCRegistry> registeries = DynamicGui.get().getPlugin().getNPCRegistries();
-        for (NPCRegistry registry : registeries) {
-            for (Gui gui : GuiManager.get().getGuis()) {
+        for(NPCRegistry registry : registeries) {
+            for(Gui gui : GuiManager.get().getGuis()) {
                 Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
-                while (it.hasNext()) {
+                while(it.hasNext()) {
                     Entry<String, List<Integer>> next = it.next();
                     String registryName = next.getKey();
                     List<Integer> ids = next.getValue();
 
-                    if (registryName.equalsIgnoreCase(registry.getName())) {
+                    if(registryName.equalsIgnoreCase(registry.getName())) {
                         NPC npc = registry.getNPC(entityWrapper);
-                        if (npc != null) {
-                            if (ids.contains(npc.getMeta().getId())) {
+                        if(npc != null) {
+                            if(ids.contains(npc.getMeta().getId())) {
                                 GuiManager.get().openGui(e.getPlayerWrapper(), gui);
                                 break;
                             }

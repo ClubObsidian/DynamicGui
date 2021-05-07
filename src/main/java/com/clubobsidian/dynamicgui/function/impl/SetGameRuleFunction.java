@@ -33,17 +33,17 @@ public class SetGameRuleFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if (this.getData() == null) {
+        if(this.getData() == null) {
             return false;
-        } else if (!this.getData().contains(",")) {
+        } else if(!this.getData().contains(",")) {
             return false;
         }
 
-        String split[] = this.getData().split(",");
-        if (split.length == 3) {
+        String[] split = this.getData().split(",");
+        if(split.length == 3) {
             String worldName = split[0];
             WorldWrapper<?> world = DynamicGui.get().getServer().getWorld(worldName);
-            if (world == null) {
+            if(world == null) {
                 return false;
             }
 

@@ -40,13 +40,13 @@ public class SetNameFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-        if (owner != null) {
-            if (owner instanceof Slot) {
+        if(owner != null) {
+            if(owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 Gui gui = slot.getOwner();
-                if (gui != null) {
+                if(gui != null) {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if (inv != null) {
+                    if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
                         String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
                         newName = ReplacerManager.get().replace(newName, playerWrapper);

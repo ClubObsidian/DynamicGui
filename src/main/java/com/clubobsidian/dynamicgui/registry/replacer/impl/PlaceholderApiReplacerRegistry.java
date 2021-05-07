@@ -15,18 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.bukkit.OfflinePlayer;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import org.bukkit.OfflinePlayer;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 
-    private Method setPlaceHolders;
+    private final Method setPlaceHolders;
 
     public PlaceholderApiReplacerRegistry() {
         this.setPlaceHolders = this.getPlaceholdersMethod();
@@ -36,7 +35,7 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         try {
             return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

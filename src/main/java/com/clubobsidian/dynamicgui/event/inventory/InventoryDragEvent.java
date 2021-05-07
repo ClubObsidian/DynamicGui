@@ -15,17 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.event.inventory;
 
-import java.util.Map;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.InventoryEvent;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.trident.Cancelable;
 
+import java.util.Map;
+
 public class InventoryDragEvent extends InventoryEvent implements Cancelable {
 
-    private Map<Integer, ItemStackWrapper<?>> slotItems;
+    private final Map<Integer, ItemStackWrapper<?>> slotItems;
     private boolean cancelled;
 
     public InventoryDragEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper, Map<Integer, ItemStackWrapper<?>> slotItems) {

@@ -24,10 +24,10 @@ public class LocationWrapper<T> implements Serializable {
      */
     private static final long serialVersionUID = -3610165660936041660L;
 
-    private int x;
-    private int y;
-    private int z;
-    private WorldWrapper<T> world;
+    private final int x;
+    private final int y;
+    private final int z;
+    private final WorldWrapper<T> world;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public LocationWrapper(int x, int y, int z, WorldWrapper world) {
@@ -60,17 +60,17 @@ public class LocationWrapper<T> implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if(obj == null)
             return false;
-        if (!(obj instanceof LocationWrapper))
+        if(!(obj instanceof LocationWrapper))
             return false;
 
         LocationWrapper<?> other = (LocationWrapper<?>) obj;
-        if (other.getX() != this.getX())
+        if(other.getX() != this.getX())
             return false;
-        if (other.getY() != this.getY())
+        if(other.getY() != this.getY())
             return false;
-        if (other.getZ() != this.getZ())
+        if(other.getZ() != this.getZ())
             return false;
 
         return other.getWorld().equals(this.world);

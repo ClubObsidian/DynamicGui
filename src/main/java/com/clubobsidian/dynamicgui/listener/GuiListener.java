@@ -15,10 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.listener;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
@@ -28,9 +24,13 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.util.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class GuiListener {
 
-    private Set<UUID> users;
+    private final Set<UUID> users;
 
     public GuiListener() {
         this.users = new HashSet<>();
@@ -42,7 +42,7 @@ public class GuiListener {
         Gui gui = GuiManager.get().getCurrentGui(wrapper);
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         boolean open = (gui != null);
-        if (open) {
+        if(open) {
             UUID uuid = wrapper.getUniqueId();
             this.users.add(uuid);
             FunctionUtil.tryFunctions(gui, FunctionType.SWITCH_MENU, playerWrapper);
@@ -53,9 +53,9 @@ public class GuiListener {
     public void onClose(InventoryCloseEvent event) {
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         UUID uuid = playerWrapper.getUniqueId();
-        if (!this.users.remove(uuid)) {
+        if(!this.users.remove(uuid)) {
             Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-            if (gui != null) {
+            if(gui != null) {
                 FunctionUtil.tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
             }
         }

@@ -15,19 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.entity.bukkit;
 
-import java.util.UUID;
-
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
@@ -39,9 +26,20 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+
+import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -109,7 +107,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
         InventoryView openInventory = this.getPlayer().getOpenInventory();
-        if (openInventory == null) {
+        if(openInventory == null) {
             return null;
         }
         return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
@@ -123,7 +121,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void closeInventory() {
-        if (this.getPlayer().getOpenInventory() != null) {
+        if(this.getPlayer().getOpenInventory() != null) {
             this.getPlayer().getOpenInventory().close();
         }
     }
@@ -131,7 +129,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public void openInventory(InventoryWrapper<?> inventoryWrapper) {
         Object inventory = inventoryWrapper.getInventory();
-        if (inventory instanceof Inventory) {
+        if(inventory instanceof Inventory) {
             this.getPlayer().openInventory((Inventory) inventory);
         }
     }
@@ -159,25 +157,25 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     public int getStatistic(Statistic statistic) {
         try {
             return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             return -1;
         }
     }
 
     @Override
     public int getStatistic(Statistic statistic, String data) {
-        if (data == null) {
+        if(data == null) {
             return -1;
         }
         String upperData = data.toUpperCase();
 
         try {
-            if (StatisticType.MATERIAL == statistic.getStatisticType()) {
+            if(StatisticType.MATERIAL == statistic.getStatisticType()) {
                 return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(upperData));
-            } else if (StatisticType.ENTITY == statistic.getStatisticType()) {
+            } else if(StatisticType.ENTITY == statistic.getStatisticType()) {
                 return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             //Ignore and return -1
             return -1;
         }

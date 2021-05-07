@@ -15,12 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.util.sponge;
 
+import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.common.item.inventory.util.ItemStackUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.common.item.inventory.util.ItemStackUtil;
 
 public final class SpongeNBTUtil {
 
@@ -33,19 +33,19 @@ public final class SpongeNBTUtil {
     }
 
     public static Object parse(String nbtStr) {
-        if (getTagFromJson == null) {
+        if(getTagFromJson == null) {
             try {
                 String parserClassName = "net.minecraft.nbt.JsonToNBT";
                 Class<?> jsonToNBT = Class.forName(parserClassName);
                 getTagFromJson = jsonToNBT.getDeclaredMethod("func_180713_a", String.class);
                 getTagFromJson.setAccessible(true);
-            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+            } catch(ClassNotFoundException | NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
             }
         }
         try {
             return getTagFromJson.invoke(null, nbtStr);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -53,19 +53,19 @@ public final class SpongeNBTUtil {
 
     public static ItemStack setTag(ItemStack itemStack, String nbt) {
         try {
-            if (toNative == null) {
+            if(toNative == null) {
                 toNative = ItemStackUtil.class.getDeclaredMethod("toNative", ItemStack.class);
                 toNative.setAccessible(true);
             }
 
             String itemStackClassName = "net.minecraft.item.ItemStack";
             Class<?> nmsItemStackClass = Class.forName(itemStackClassName);
-            if (tag == null) {
+            if(tag == null) {
                 tag = nmsItemStackClass.getDeclaredField("field_77990_d");
                 tag.setAccessible(true);
             }
 
-            if (fromNative == null) {
+            if(fromNative == null) {
                 fromNative = ItemStackUtil.class.getDeclaredMethod("fromNative", nmsItemStackClass);
                 fromNative.setAccessible(true);
             }
@@ -75,7 +75,7 @@ public final class SpongeNBTUtil {
             tag.set(nmsItemStack, nbtCompound);
             ItemStack spongeItemStack = (ItemStack) fromNative.invoke(null, nmsItemStack);
             return spongeItemStack;
-        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException | NoSuchFieldException | SecurityException ex) {
+        } catch(NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException | NoSuchFieldException | SecurityException ex) {
             ex.printStackTrace();
         }
         return null;

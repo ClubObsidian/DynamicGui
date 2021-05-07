@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 
 public class InventoryEvent extends PlayerEvent {
 
-    private InventoryWrapper<?> inventoryWrapper;
+    private final InventoryWrapper<?> inventoryWrapper;
 
     public InventoryEvent(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
         super(playerWrapper);

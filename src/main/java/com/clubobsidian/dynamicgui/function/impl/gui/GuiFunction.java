@@ -37,22 +37,22 @@ public class GuiFunction extends Function {
     public boolean function(final PlayerWrapper<?> playerWrapper) {
         final String gui = this.getData();
 
-        if (!GuiManager.get().hasGuiName(gui)) {
+        if(!GuiManager.get().hasGuiName(gui)) {
             return false;
         }
 
         Gui back = null;
         FunctionOwner owner = this.getOwner();
         //Find root gui
-        if (owner instanceof Slot) {
+        if(owner instanceof Slot) {
             Slot slot = (Slot) owner;
             back = slot.getOwner();
-        } else if (owner instanceof Gui) {
+        } else if(owner instanceof Gui) {
             back = (Gui) owner;
         }
 
         //Make it so the gui doesn't close
-        if (owner instanceof Slot) {
+        if(owner instanceof Slot) {
             Slot slot = (Slot) owner;
             slot.setClose(false);
         }

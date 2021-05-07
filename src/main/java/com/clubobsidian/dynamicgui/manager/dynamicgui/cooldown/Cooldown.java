@@ -17,9 +17,9 @@ package com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown;
 
 public class Cooldown {
 
-    private String name;
-    private Long time;
-    private Long cooldown;
+    private final String name;
+    private final Long time;
+    private final Long cooldown;
 
     public Cooldown(String name, Long time, Long cooldown) {
         this.name = name;

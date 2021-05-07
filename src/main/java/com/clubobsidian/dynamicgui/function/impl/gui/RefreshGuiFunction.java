@@ -36,14 +36,14 @@ public class RefreshGuiFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui = null;
         FunctionOwner owner = this.getOwner();
-        if (owner instanceof Slot) {
+        if(owner instanceof Slot) {
             Slot slot = (Slot) owner;
             gui = slot.getOwner();
-        } else if (owner instanceof Gui) {
+        } else if(owner instanceof Gui) {
             gui = (Gui) owner;
         }
 
-        for (Slot slot : gui.getSlots()) {
+        for(Slot slot : gui.getSlots()) {
             slot.setUpdate(true);
         }
 

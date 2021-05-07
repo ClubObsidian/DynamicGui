@@ -15,12 +15,12 @@
  */
 package com.clubobsidian.dynamicgui.function.impl.condition;
 
-import java.math.BigDecimal;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.udojava.evalex.Expression;
 import com.udojava.evalex.Expression.LazyNumber;
+
+import java.math.BigDecimal;
 
 public class ConditionFunction extends Function {
 
@@ -43,11 +43,11 @@ public class ConditionFunction extends Function {
             expr.addLazyFunction(new EndsWithLazyFunction());
             expr.addLazyFunction(new StartsWithLazyFunction());
 
-            if (!expr.isBoolean())
+            if(!expr.isBoolean())
                 return false;
 
             return expr.eval().intValue() == 1;
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
             return false;
         }

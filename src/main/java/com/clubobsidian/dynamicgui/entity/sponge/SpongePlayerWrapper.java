@@ -15,11 +15,16 @@
  */
 package com.clubobsidian.dynamicgui.entity.sponge;
 
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.UUID;
-
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import com.clubobsidian.dynamicgui.util.Statistic;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
@@ -46,16 +51,10 @@ import org.spongepowered.api.text.serializer.TextSerializers;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.inventory.sponge.SpongeInventoryWrapper;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.util.ReflectionUtil;
-import com.clubobsidian.dynamicgui.util.Statistic;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.UUID;
 
 public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
@@ -110,7 +109,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public int getExperience() {
         Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-        if (!holder.isPresent())
+        if(!holder.isPresent())
             return -1;
 
         return holder.get().totalExperience().get();
@@ -119,7 +118,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public void setExperience(int experience) {
         Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-        if (!holder.isPresent())
+        if(!holder.isPresent())
             return;
 
         holder.get().totalExperience().set(experience);
@@ -128,7 +127,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public int getLevel() {
         Optional<ExperienceHolderData> holder = this.getPlayer().get(ExperienceHolderData.class);
-        if (!holder.isPresent())
+        if(!holder.isPresent())
             return -1;
 
         return holder.get().level().get();
@@ -139,7 +138,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         Container container = this.getPlayer().getOpenInventory().get();
 
         Iterator<Inventory> it = container.iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Inventory next = it.next();
             DynamicGui.get().getLogger().info("From sponge player wrapper:  " + next.getClass() + "  " + next + "  " + next.totalItems() + "  " + next.getArchetype() + "  " + next.getInventoryProperty(InventoryTitle.class).isPresent());
         }
@@ -174,11 +173,11 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         Location<World> location = this.getPlayer().getLocation();
 
         Field soundField = ReflectionUtil.getFieldByName(SoundTypes.class, sound);
-        if (soundField == null)
+        if(soundField == null)
             return;
 
         SoundType soundType = new ReflectionUtil.ReflectionHelper<SoundType>().get(soundField);
-        if (soundType != null) {
+        if(soundType != null) {
             this.getPlayer().playSound(soundType, location.getPosition(), volume, pitch, volume);
         }
     }
@@ -187,11 +186,11 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     public void playEffect(String effect, int data) {
         Location<World> location = this.getPlayer().getLocation();
         Field particleField = ReflectionUtil.getFieldByName(ParticleTypes.class, effect);
-        if (particleField == null)
+        if(particleField == null)
             return;
 
         ParticleType particleType = new ReflectionUtil.ReflectionHelper<ParticleType>().get(particleField);
-        if (particleType == null)
+        if(particleType == null)
             return;
 
         try {
@@ -200,7 +199,7 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
                     .type(particleType)
                     .build();
             location.getExtent().spawnParticles(particleEffect, location.getPosition());
-        } catch (IllegalArgumentException e) {
+        } catch(IllegalArgumentException e) {
             e.printStackTrace();
         }
 
@@ -209,9 +208,9 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public int getStatistic(Statistic statistic) {
         Optional<org.spongepowered.api.statistic.Statistic> spongeStatistic = Sponge.getGame().getRegistry().getType(org.spongepowered.api.statistic.Statistic.class, statistic.getSpongeID());
-        if (spongeStatistic.isPresent()) {
+        if(spongeStatistic.isPresent()) {
             Optional<Long> data = this.getPlayer().getStatisticData().get(spongeStatistic.get());
-            if (data.isPresent()) {
+            if(data.isPresent()) {
                 return data.get().intValue();
             }
         }
@@ -220,38 +219,38 @@ public class SpongePlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public int getStatistic(Statistic statistic, String data) {
-        if (statistic == Statistic.MINE_BLOCK) {
+        if(statistic == Statistic.MINE_BLOCK) {
             Field blockTypeField = ReflectionUtil.getFieldByName(BlockTypes.class, data);
-            if (blockTypeField == null)
+            if(blockTypeField == null)
                 return 0;
 
             BlockType blockType = new ReflectionUtil.ReflectionHelper<BlockType>().get(blockTypeField);
-            if (blockType == null)
+            if(blockType == null)
                 return 0;
 
-            if (blockType != null) {
+            if(blockType != null) {
                 Optional<BlockStatistic> blockStatistic = Sponge.getGame().getRegistry().getBlockStatistic(StatisticTypes.BLOCKS_BROKEN, blockType);
-                if (blockStatistic.isPresent()) {
+                if(blockStatistic.isPresent()) {
                     Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(blockStatistic.get());
-                    if (statisticValue.isPresent()) {
+                    if(statisticValue.isPresent()) {
                         return statisticValue.get().intValue();
                     }
                 }
             }
-        } else if (statistic == Statistic.KILL_ENTITY) {
+        } else if(statistic == Statistic.KILL_ENTITY) {
             Field entityTypeField = ReflectionUtil.getFieldByName(EntityTypes.class, data);
-            if (entityTypeField == null)
+            if(entityTypeField == null)
                 return 0;
 
             EntityType entityType = new ReflectionUtil.ReflectionHelper<EntityType>().get(entityTypeField);
-            if (entityType == null)
+            if(entityType == null)
                 return 0;
 
-            if (entityType != null) {
+            if(entityType != null) {
                 Optional<EntityStatistic> entityStatistic = Sponge.getGame().getRegistry().getEntityStatistic(StatisticTypes.ENTITIES_KILLED, entityType);
-                if (entityStatistic.isPresent()) {
+                if(entityStatistic.isPresent()) {
                     Optional<Long> statisticValue = this.getPlayer().getStatisticData().get(entityStatistic.get());
-                    if (statisticValue.isPresent()) {
+                    if(statisticValue.isPresent()) {
                         return statisticValue.get().intValue();
                     }
                 }

@@ -19,8 +19,8 @@ import com.clubobsidian.dynamicgui.entity.EntityWrapper;
 
 public class NPC {
 
-    private EntityWrapper<?> entityWrapper;
-    private NPCMeta meta;
+    private final EntityWrapper<?> entityWrapper;
+    private final NPCMeta meta;
 
     public NPC(EntityWrapper<?> entityWrapper, NPCMeta meta) {
         this.entityWrapper = entityWrapper;

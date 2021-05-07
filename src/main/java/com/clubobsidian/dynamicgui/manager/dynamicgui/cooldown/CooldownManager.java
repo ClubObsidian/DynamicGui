@@ -15,6 +15,13 @@
  */
 package com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
@@ -24,28 +31,21 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.FakeServer;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
-
 public class CooldownManager {
 
     private static CooldownManager instance;
 
     public static CooldownManager get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new CooldownManager();
         }
 
         return instance;
     }
 
-    private Map<UUID, Map<String, Cooldown>> cooldowns;
-    private Configuration cooldownConfig;
-    private AtomicBoolean updateConfig;
+    private final Map<UUID, Map<String, Cooldown>> cooldowns;
+    private final Configuration cooldownConfig;
+    private final AtomicBoolean updateConfig;
 
     private CooldownManager() {
         this.cooldowns = new ConcurrentHashMap<>();
@@ -59,26 +59,26 @@ public class CooldownManager {
         File dataFolder = DynamicGui.get().getPlugin().getDataFolder();
         File cooldownsFile = new File(dataFolder, "cooldowns.yml");
         Configuration config = Configuration.load(cooldownsFile);
-        for (String uuidStr : config.getKeys()) {
+        for(String uuidStr : config.getKeys()) {
             ConfigurationSection section = config.getConfigurationSection(uuidStr);
 
             Map<String, Cooldown> cooldownMap = new ConcurrentHashMap<>();
-            for (String cooldownName : section.getKeys()) {
+            for(String cooldownName : section.getKeys()) {
                 Long time = section.getLong(cooldownName + ".time");
                 Long cooldown = section.getLong(cooldownName + ".cooldown");
                 Cooldown cooldownObj = new Cooldown(cooldownName, time, cooldown);
-                if (this.getRemainingCooldown(cooldownObj) != -1L) {
+                if(this.getRemainingCooldown(cooldownObj) != -1L) {
                     cooldownMap.put(cooldownName, cooldownObj);
                 } else {
                     section.set(cooldownName, null);
                 }
             }
 
-            if (section.isEmpty()) {
+            if(section.isEmpty()) {
                 config.set(uuidStr, null);
             }
 
-            if (cooldownMap.size() > 0) {
+            if(cooldownMap.size() > 0) {
                 UUID uuid = UUID.fromString(uuidStr);
                 this.cooldowns.put(uuid, cooldownMap);
             }
@@ -94,12 +94,12 @@ public class CooldownManager {
 
     public Long getRemainingCooldown(UUID uuid, String name) {
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
-        if (cooldownMap == null) {
+        if(cooldownMap == null) {
             return -1L;
         }
 
         Cooldown cooldown = cooldownMap.get(name);
-        if (cooldown == null) {
+        if(cooldown == null) {
             return -1L;
         }
 
@@ -111,7 +111,7 @@ public class CooldownManager {
         Long cooldownTime = cooldown.getTime();
         Long cooldownAmount = cooldown.getCooldown();
 
-        if ((currentTime - cooldownTime) >= cooldownAmount) {
+        if((currentTime - cooldownTime) >= cooldownAmount) {
             return -1L;
         } else {
             return cooldownAmount - (currentTime - cooldownTime);
@@ -133,7 +133,7 @@ public class CooldownManager {
 
     public Collection<Cooldown> getCooldowns(UUID uuid) {
         Map<String, Cooldown> cooldowns = this.cooldowns.get(uuid);
-        if (cooldowns == null) {
+        if(cooldowns == null) {
             return null;
         }
 
@@ -147,11 +147,11 @@ public class CooldownManager {
 
     public Cooldown createCooldown(UUID uuid, String name, Long cooldownTime) {
         Long cooldownRemaining = this.getRemainingCooldown(uuid, name);
-        if (cooldownRemaining == -1L) {
+        if(cooldownRemaining == -1L) {
             Long currentTime = System.currentTimeMillis();
             Cooldown cooldown = new Cooldown(name, currentTime, cooldownTime);
             Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
-            if (cooldownMap == null) {
+            if(cooldownMap == null) {
                 cooldownMap = new ConcurrentHashMap<>();
                 this.cooldowns.put(uuid, cooldownMap);
             }
@@ -170,12 +170,12 @@ public class CooldownManager {
 
     public boolean removeCooldown(UUID uuid, String name) {
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
-        if (cooldownMap == null) {
+        if(cooldownMap == null) {
             return false;
         }
 
         boolean removed = cooldownMap.remove(name) != null;
-        if (removed) {
+        if(removed) {
             this.updateConfig.set(true);
         }
         return removed;
@@ -187,7 +187,7 @@ public class CooldownManager {
 
     private void updateAndSaveConfig() {
         Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<UUID, Map<String, Cooldown>> next = it.next();
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
@@ -207,18 +207,18 @@ public class CooldownManager {
     private void updateCache() {
         Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
         boolean modified = false;
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<UUID, Map<String, Cooldown>> next = it.next();
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
             Iterator<Entry<String, Cooldown>> cooldownIt = cooldownMap.entrySet().iterator();
-            while (cooldownIt.hasNext()) {
+            while(cooldownIt.hasNext()) {
                 Entry<String, Cooldown> cooldownNext = cooldownIt.next();
                 String cooldownName = cooldownNext.getKey();
                 Cooldown cooldown = cooldownNext.getValue();
                 Long cooldownRemaining = this.getRemainingCooldown(cooldown);
-                if (cooldownRemaining == -1L) {
+                if(cooldownRemaining == -1L) {
                     cooldownIt.remove();
                     this.cooldownConfig.set(uuidStr + "." + cooldownName, null);
                     modified = true;
@@ -226,7 +226,7 @@ public class CooldownManager {
             }
         }
 
-        if (modified) {
+        if(modified) {
             this.updateConfig.set(true);
         }
     }
@@ -245,7 +245,7 @@ public class CooldownManager {
         DynamicGuiPlugin plugin = dynamicGui.getPlugin();
         FakeServer server = dynamicGui.getServer();
         server.getScheduler().scheduleAsyncRepeatingTask(plugin, () -> {
-            if (this.updateConfig.get()) {
+            if(this.updateConfig.get()) {
                 this.updateConfig.set(false);
                 this.updateAndSaveConfig();
             }

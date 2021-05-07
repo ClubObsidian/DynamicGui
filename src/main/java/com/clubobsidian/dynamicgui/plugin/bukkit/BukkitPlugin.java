@@ -15,22 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.plugin.bukkit;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import com.clubobsidian.dynamicgui.permission.bukkit.FoundryPermission;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.command.bukkit.BukkitDynamicGuiCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.BukkitGuiCommand;
@@ -40,8 +24,8 @@ import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
 import com.clubobsidian.dynamicgui.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.listener.bukkit.EntityClickListener;
-import com.clubobsidian.dynamicgui.listener.bukkit.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryCloseListener;
+import com.clubobsidian.dynamicgui.listener.bukkit.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
@@ -52,12 +36,25 @@ import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitItemStackManag
 import com.clubobsidian.dynamicgui.manager.material.bukkit.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.bukkit.BukkitLocationManager;
 import com.clubobsidian.dynamicgui.permission.Permission;
+import com.clubobsidian.dynamicgui.permission.bukkit.FoundryPermission;
 import com.clubobsidian.dynamicgui.permission.bukkit.VaultPermission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.citizens.CitizensRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.impl.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
@@ -98,33 +95,33 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
         boolean vault = false;
         boolean foundry = false;
-        if (pm.getPlugin("Vault") != null) {
+        if(pm.getPlugin("Vault") != null) {
             vault = true;
         }
-        if (pm.getPlugin("Foundry") != null) {
+        if(pm.getPlugin("Foundry") != null) {
             foundry = true;
         }
 
-        if (vault && foundry) {
+        if(vault && foundry) {
             this.permission = new FoundryPermission();
-        } else if (vault) {
+        } else if(vault) {
             this.permission = new VaultPermission();
         }
 
-        if (this.permission != null && !this.permission.setup()) {
+        if(this.permission != null && !this.permission.setup()) {
             this.permission = null;
         }
 
-        if (permission == null) {
+        if(permission == null) {
             this.getLogger().log(Level.SEVERE, "Vault is not installed, permissions will not work");
         }
 
         this.economy = new VaultEconomy();
-        if (!this.economy.setup()) {
+        if(!this.economy.setup()) {
             this.economy = null;
         }
 
-        if (this.economy == null) {
+        if(this.economy == null) {
             this.getLogger().log(Level.SEVERE, "Vault is not installed, economy functions will not work");
         }
 
@@ -133,12 +130,12 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         //Hack for adding citizens late
         //For some reason citizens sometimes will load after DynamicGui
         this.getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
-            if (this.getServer().getPluginManager().getPlugin("Citizens") != null) {
+            if(this.getServer().getPluginManager().getPlugin("Citizens") != null) {
                 this.getNPCRegistries().add(new CitizensRegistry());
             }
         }, 1);
 
-        if (this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if(this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
@@ -192,16 +189,16 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     }
 
     private final CommandMap getCommandMap() {
-        if (this.commandMap == null) {
+        if(this.commandMap == null) {
             try {
                 final Field f = this.getServer().getClass().getDeclaredField("commandMap");
                 f.setAccessible(true);
                 this.commandMap = (CommandMap) f.get(this.getServer());
                 return this.commandMap;
-            } catch (Exception e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
-        } else if (this.commandMap != null) {
+        } else if(this.commandMap != null) {
             return this.commandMap;
         }
         return null;
@@ -218,7 +215,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
             @SuppressWarnings("unchecked")
             Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
             commands.keySet().remove(alias);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        } catch(IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
     }
@@ -239,7 +236,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     @Override
     public void unloadCommands() {
-        for (String cmd : this.getRegisteredCommands()) {
+        for(String cmd : this.getRegisteredCommands()) {
             this.unregisterCommand(cmd);
         }
     }

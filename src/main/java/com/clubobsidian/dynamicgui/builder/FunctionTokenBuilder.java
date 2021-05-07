@@ -15,21 +15,21 @@
  */
 package com.clubobsidian.dynamicgui.builder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class FunctionTokenBuilder {
 
-    private String name;
-    private List<FunctionType> types;
-    private List<FunctionData> functions;
-    private List<FunctionData> failOnFunctions;
+    private final String name;
+    private final List<FunctionType> types;
+    private final List<FunctionData> functions;
+    private final List<FunctionData> failOnFunctions;
 
     public FunctionTokenBuilder() {
         this.name = UUID.randomUUID().toString();
@@ -45,7 +45,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addType(String... types) {
-        for (String t : types) {
+        for(String t : types) {
             this.addType(t);
         }
         return this;
@@ -65,7 +65,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addFunction(FunctionData... datas) {
-        for (FunctionData data : datas) {
+        for(FunctionData data : datas) {
             this.addFunction(data);
         }
 
@@ -86,7 +86,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addFailOnFunction(FunctionData... datas) {
-        for (FunctionData data : datas) {
+        for(FunctionData data : datas) {
             this.addFunction(data);
         }
 

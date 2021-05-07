@@ -17,14 +17,14 @@ package com.clubobsidian.dynamicgui.animation;
 
 public interface AnimationHolder extends Refreshable {
 
-    public int getCurrentTick();
+    int getCurrentTick();
 
-    public void resetTick();
+    void resetTick();
 
-    public int tick();
+    int tick();
 
-    public int getFrame();
+    int getFrame();
 
-    public void resetFrame();
+    void resetFrame();
 
 }

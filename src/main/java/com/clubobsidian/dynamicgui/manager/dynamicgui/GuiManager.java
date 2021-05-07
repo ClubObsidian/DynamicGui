@@ -15,6 +15,34 @@
  */
 package com.clubobsidian.dynamicgui.manager.dynamicgui;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
+import com.clubobsidian.dynamicgui.event.inventory.GuiPreloadEvent;
+import com.clubobsidian.dynamicgui.gui.Gui;
+import com.clubobsidian.dynamicgui.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.dynamicgui.server.ServerType;
+import com.clubobsidian.dynamicgui.util.ChatColor;
+import com.clubobsidian.dynamicgui.util.FunctionUtil;
+import com.clubobsidian.dynamicgui.util.HashUtil;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,48 +58,19 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
-import com.clubobsidian.dynamicgui.event.inventory.GuiPreloadEvent;
-import com.clubobsidian.dynamicgui.server.FakeServer;
-import com.clubobsidian.dynamicgui.util.HashUtil;
-import org.apache.commons.io.FileUtils;
-
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
-import com.clubobsidian.dynamicgui.gui.Gui;
-import com.clubobsidian.dynamicgui.gui.ModeEnum;
-import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.ServerType;
-import com.clubobsidian.dynamicgui.util.ChatColor;
-import com.clubobsidian.dynamicgui.util.FunctionUtil;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
-
 public class GuiManager {
 
     private static GuiManager instance;
 
     private Map<String, Gui> guis;
-    private Map<UUID, Gui> playerGuis;
+    private final Map<UUID, Gui> playerGuis;
     private Map<String, Gui> cachedGuis;
     private Map<String, GuiToken> cachedTokens;
     private Map<String, List<MacroToken>> globalMacros;
     private Map<String, List<MacroToken>> cachedGlobalMacros;
     private Map<String, byte[]> guiHashes;
     private Map<String, byte[]> globalMacrosTimestamps;
-    private Set<String> modifiedMacros;
+    private final Set<String> modifiedMacros;
 
     private GuiManager() {
         this.guis = new HashMap<>();
@@ -86,7 +85,7 @@ public class GuiManager {
     }
 
     public static GuiManager get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new GuiManager();
             instance.loadGlobalMacros();
             instance.loadGuis();
@@ -100,7 +99,7 @@ public class GuiManager {
 
     public Gui getGuiByName(String name) {
         Gui gui = this.guis.get(name);
-        if (gui != null) {
+        if(gui != null) {
             return gui.clone();
         }
 
@@ -115,7 +114,7 @@ public class GuiManager {
         this.cachedGlobalMacros = this.globalMacros;
 
         this.globalMacros = new HashMap<>();
-        if (force) {
+        if(force) {
             this.cachedTokens = new HashMap<>();
             this.cachedGuis = new HashMap<>();
             this.guiHashes = new HashMap<>();
@@ -140,13 +139,9 @@ public class GuiManager {
     }
 
     public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper) {
-        if (playerWrapper.getOpenInventoryWrapper() == null) {
+        if(playerWrapper.getOpenInventoryWrapper() == null) {
             return false;
-        } else if (!this.hasGuiCurrently(playerWrapper)) {
-            return false;
-        }
-
-        return true;
+        } else return this.hasGuiCurrently(playerWrapper);
     }
 
     public void cleanupGui(PlayerWrapper<?> playerWrapper) {
@@ -178,13 +173,13 @@ public class GuiManager {
     }
 
     public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
-        if (gui == null) {
+        if(gui == null) {
             playerWrapper.sendMessage(DynamicGui.get().getNoGui());
             return false;
         }
 
         Gui clonedGui = gui.clone();
-        if (back != null) {
+        if(back != null) {
             clonedGui.setBack(back.clone());
         }
 
@@ -194,26 +189,26 @@ public class GuiManager {
         //Run gui load functions
         boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
         GuiLoadEvent loadEvent = new GuiLoadEvent(clonedGui, playerWrapper);
-        if (!ran) {
+        if(!ran) {
             loadEvent.setCanceled(true);
         }
         DynamicGui.get().getEventBus().callEvent(loadEvent);
 
-        if (ran) {
+        if(ran) {
             InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
 
             //Run slot load functions
-            for (Slot slot : clonedGui.getSlots()) {
+            for(Slot slot : clonedGui.getSlots()) {
                 FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
             }
 
-            if (inventoryWrapper == null) {
+            if(inventoryWrapper == null) {
                 return false;
             }
 
             this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
             FakeServer server = DynamicGui.get().getServer();
-            if (server.getType() == ServerType.SPONGE) {
+            if(server.getType() == ServerType.SPONGE) {
                 server.getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
                     playerWrapper.openInventory(inventoryWrapper);
                 }, 1L);
@@ -231,10 +226,10 @@ public class GuiManager {
         String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
         byte[] fileHash = HashUtil.getMD5(file);
         byte[] cachedHash = this.globalMacrosTimestamps.get(macroName);
-        if (cachedHash == null || fileHash != cachedHash) {
+        if(cachedHash == null || fileHash != cachedHash) {
             List<MacroToken> tokens = new ArrayList<>();
             Configuration config = Configuration.load(file);
-            for (String key : config.getKeys()) {
+            for(String key : config.getKeys()) {
                 ConfigurationSection section = config.getConfigurationSection(key);
                 MacroToken token = new MacroToken(section);
                 tokens.add(token);
@@ -254,15 +249,15 @@ public class GuiManager {
 
         Collection<File> macroFiles = FileUtils.listFiles(macroFolder, new String[]{"yml", "json", "conf", "xml"}, true);
 
-        for (File file : macroFiles) {
+        for(File file : macroFiles) {
             this.loadGlobalMacroFromFile(file);
         }
 
         Iterator<Entry<String, List<MacroToken>>> it = this.cachedGlobalMacros.entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<String, List<MacroToken>> next = it.next();
             String macroName = next.getKey();
-            if (!this.globalMacros.containsKey(macroName)) {
+            if(!this.globalMacros.containsKey(macroName)) {
                 it.remove();
                 this.globalMacrosTimestamps.remove(macroName);
             }
@@ -285,9 +280,9 @@ public class GuiManager {
             byte[] cachedHash = this.guiHashes.get(guiName);
             GuiToken token = this.cachedTokens.get(guiName);
             byte[] guiHash = HashUtil.getMD5(file);
-            if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
+            if(token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
-                for (String alias : token.getAlias()) {
+                for(String alias : token.getAlias()) {
                     plugin.createCommand(guiName, alias);
                 }
 
@@ -297,7 +292,7 @@ public class GuiManager {
                 this.guiHashes.put(guiName, guiHash);
                 this.loadGuiFromConfiguration(guiName, yaml);
             }
-        } catch (NullPointerException ex) {
+        } catch(NullPointerException ex) {
             dynamicGui.getLogger().info("Error loading in file: " + file.getName());
             ex.printStackTrace();
         }
@@ -310,8 +305,8 @@ public class GuiManager {
 
         Collection<File> ar = FileUtils.listFiles(guiFolder, new String[]{"yml", "json", "conf", "xml"}, true);
 
-        if (ar.size() != 0) {
-            for (File file : ar) {
+        if(ar.size() != 0) {
+            for(File file : ar) {
                 Configuration config = Configuration.load(file);
                 this.loadGuiFromFile(config, file);
             }
@@ -322,8 +317,8 @@ public class GuiManager {
 
     private boolean hasUpdatedMacro(GuiToken token) {
         List<String> macros = token.getLoadMacros();
-        for (String macro : macros) {
-            if (this.modifiedMacros.contains(macro)) {
+        for(String macro : macros) {
+            if(this.modifiedMacros.contains(macro)) {
                 return true;
             }
         }
@@ -337,7 +332,7 @@ public class GuiManager {
             File file = new File(DynamicGui.get().getPlugin().getGuiFolder(), guiName);
             Configuration yaml = Configuration.load(url, file);
             this.loadGuiFromFile(yaml, file);
-        } catch (MalformedURLException e) {
+        } catch(MalformedURLException e) {
             e.printStackTrace();
             DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
         }
@@ -347,9 +342,9 @@ public class GuiManager {
         File configFile = new File(DynamicGui.get().getPlugin().getDataFolder(), "config.yml");
 
         Configuration config = Configuration.load(configFile);
-        if (config.get("remote-guis") != null) {
+        if(config.get("remote-guis") != null) {
             ConfigurationSection remote = config.getConfigurationSection("remote-guis");
-            for (String key : remote.getKeys()) {
+            for(String key : remote.getKeys()) {
                 ConfigurationSection guiSection = remote.getConfigurationSection(key);
                 String strURL = guiSection.getString("url");
                 String guiName = guiSection.getString("file-name");
@@ -360,10 +355,10 @@ public class GuiManager {
 
     private void cleanupGuis() {
         Iterator<Entry<String, Gui>> it = this.cachedGuis.entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<String, Gui> next = it.next();
             String guiName = next.getKey();
-            if (!this.guis.containsKey(guiName)) {
+            if(!this.guis.containsKey(guiName)) {
                 it.remove();
                 this.guiHashes.remove(guiName);
                 this.cachedTokens.remove(guiName);
@@ -378,11 +373,11 @@ public class GuiManager {
         List<MacroToken> guiTokens = new ArrayList<>();
         List<String> loadMacros = guiToken.getLoadMacros();
 
-        if (loadMacros.size() > 0) {
-            for (String macro : loadMacros) {
+        if(loadMacros.size() > 0) {
+            for(String macro : loadMacros) {
                 List<MacroToken> macroTokens = this.globalMacros.get(macro);
-                if (macroTokens != null) {
-                    for (MacroToken t : macroTokens) {
+                if(macroTokens != null) {
+                    for(MacroToken t : macroTokens) {
                         guiTokens.add(t);
                     }
                 } else {
@@ -404,7 +399,7 @@ public class GuiManager {
     private List<Slot> createSlots(GuiToken guiToken) {
         List<Slot> slots = new ArrayList<>();
         Iterator<Entry<Integer, SlotToken>> it = guiToken.getSlots().entrySet().iterator();
-        while (it.hasNext()) {
+        while(it.hasNext()) {
             Entry<Integer, SlotToken> next = it.next();
             int index = next.getKey();
             SlotToken slotToken = next.getValue();
@@ -412,20 +407,20 @@ public class GuiManager {
             String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
             String name = slotToken.getName();
 
-            if (name != null) {
+            if(name != null) {
                 name = ChatColor.translateAlternateColorCodes('&', name);
             }
 
             String nbt = slotToken.getNbt();
 
             List<String> lore = new ArrayList<>();
-            for (String ls : slotToken.getLore()) {
+            for(String ls : slotToken.getLore()) {
                 lore.add(ChatColor.translateAlternateColorCodes('&', ls));
             }
 
             List<EnchantmentWrapper> enchants = new ArrayList<>();
 
-            for (String ench : slotToken.getEnchants()) {
+            for(String ench : slotToken.getEnchants()) {
                 String[] args = ench.split(",");
                 enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
             }
@@ -456,14 +451,14 @@ public class GuiManager {
         int rows = guiToken.getRows();
         List<String> aliases = guiToken.getAlias();
 
-        for (String alias : aliases) {
+        for(String alias : aliases) {
             plugin.createCommand(guiName, alias);
         }
 
         boolean close = guiToken.isClosed();
 
         List<LocationWrapper<?>> locations = new ArrayList<>();
-        for (String location : guiToken.getLocations()) {
+        for(String location : guiToken.getLocations()) {
             locations.add(LocationManager.get().toLocationWrapper(location));
         }
 

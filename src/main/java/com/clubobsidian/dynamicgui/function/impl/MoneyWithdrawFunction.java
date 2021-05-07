@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.function.impl;
 
-import java.math.BigDecimal;
-
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
+
+import java.math.BigDecimal;
 
 public class MoneyWithdrawFunction extends Function {
 
@@ -37,16 +37,16 @@ public class MoneyWithdrawFunction extends Function {
         double amt;
         try {
             amt = Double.parseDouble(this.getData());
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
             return false;
         }
 
-        if (DynamicGui.get().getPlugin().getEconomy() == null)
+        if(DynamicGui.get().getPlugin().getEconomy() == null)
             return false;
 
         BigDecimal decimalAmt = new BigDecimal(amt);
-        if (DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
+        if(DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
             return false;
         }
 

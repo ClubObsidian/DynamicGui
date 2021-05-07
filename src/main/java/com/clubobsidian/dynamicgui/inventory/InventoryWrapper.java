@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.inventory;
 
-import java.io.Serializable;
-
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+
+import java.io.Serializable;
 
 public abstract class InventoryWrapper<T> implements Serializable {
 
@@ -26,7 +26,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
      */
     private static final long serialVersionUID = 1039529042564261223L;
 
-    private T inventory;
+    private final T inventory;
 
     public InventoryWrapper(T inventory) {
         this.inventory = inventory;
@@ -50,7 +50,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
 
     public int addItem(ItemStackWrapper<?> itemStackWrapper) {
         int index = this.getCurrentContentSize();
-        if (index >= this.getSize())
+        if(index >= this.getSize())
             return -1;
 
         this.setItem(index, itemStackWrapper);
@@ -59,9 +59,9 @@ public abstract class InventoryWrapper<T> implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if(obj == null)
             return false;
-        if (!(obj instanceof InventoryWrapper))
+        if(!(obj instanceof InventoryWrapper))
             return false;
         InventoryWrapper<?> wrapper = (InventoryWrapper<?>) obj;
 

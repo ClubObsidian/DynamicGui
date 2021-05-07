@@ -36,18 +36,18 @@ public class SetCloseFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {
             Boolean value = Boolean.valueOf(this.getData());
-            if (value != null) {
-                if (this.getOwner() instanceof Slot) {
+            if(value != null) {
+                if(this.getOwner() instanceof Slot) {
                     Slot slot = (Slot) this.getOwner();
                     slot.setClose(value);
                     return true;
-                } else if (this.getOwner() instanceof Gui) {
+                } else if(this.getOwner() instanceof Gui) {
                     Gui gui = (Gui) this.getOwner();
                     gui.setClose(value);
                     return true;
                 }
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             DynamicGui.get().getLogger().info("Error parsing value " + this.getData() + " for setclose function");
             ex.printStackTrace();
         }
