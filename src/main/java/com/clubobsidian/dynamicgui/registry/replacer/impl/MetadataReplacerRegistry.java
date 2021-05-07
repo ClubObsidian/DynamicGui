@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.registry.replacer.impl;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
+import com.clubobsidian.dynamicgui.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
@@ -71,11 +72,19 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
         return text;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCanceled = true)
-    public void onGuiLoad(GuiLoadEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGuiPreload(GuiPreloadEvent event) {
         UUID uuid = event.getPlayerWrapper().getUniqueId();
         Gui gui = event.gui();
         this.cachedGuis.put(uuid, gui);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGuiLoad(GuiLoadEvent event) {
+        if(event.isCanceled()) {
+            UUID uuid = event.getPlayerWrapper().getUniqueId();
+            this.cachedGuis.remove(uuid);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCanceled = true)

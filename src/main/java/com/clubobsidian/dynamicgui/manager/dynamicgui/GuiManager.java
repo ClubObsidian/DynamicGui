@@ -30,6 +30,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import com.clubobsidian.dynamicgui.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.HashUtil;
 import org.apache.commons.io.FileUtils;
@@ -187,13 +188,16 @@ public class GuiManager {
             clonedGui.setBack(back.clone());
         }
 
+        GuiPreloadEvent preloadEvent = new GuiPreloadEvent(clonedGui, playerWrapper);
+        DynamicGui.get().getEventBus().callEvent(preloadEvent);
+
         //Run gui load functions
         boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
-        GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
+        GuiLoadEvent loadEvent = new GuiLoadEvent(clonedGui, playerWrapper);
         if (!ran) {
-            event.setCanceled(true);
+            loadEvent.setCanceled(true);
         }
-        DynamicGui.get().getEventBus().callEvent(event);
+        DynamicGui.get().getEventBus().callEvent(loadEvent);
 
         if (ran) {
             InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
