@@ -24,12 +24,10 @@ public class GuiPreloadEvent extends Event {
 
     private final Gui gui;
     private final PlayerWrapper<?> playerWrapper;
-    private final boolean cancelled;
 
     public GuiPreloadEvent(Gui gui, PlayerWrapper<?> playerWrapper) {
         this.gui = gui;
         this.playerWrapper = playerWrapper;
-        this.cancelled = false;
     }
 
     public Gui gui() {
