@@ -80,7 +80,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onGuiLoad(GuiLoadEvent event) {
-        if(event.isCanceled()) {
+        if(event.isCancelled()) {
             UUID uuid = event.getPlayerWrapper().getUniqueId();
             this.cachedGuis.remove(uuid);
         }
