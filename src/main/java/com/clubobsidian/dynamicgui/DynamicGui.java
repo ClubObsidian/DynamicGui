@@ -88,6 +88,7 @@ import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
+import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.trident.eventbus.reflection.ReflectionEventBus;
 import com.clubobsidian.wrappy.Configuration;
 import com.google.common.collect.Iterables;
@@ -136,7 +137,7 @@ public class DynamicGui {
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
-        this.eventManager = new ReflectionEventBus();
+        this.eventManager = new MethodHandleEventBus();
     }
 
     private void init() {

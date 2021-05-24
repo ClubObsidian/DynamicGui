@@ -19,11 +19,11 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.InventoryEvent;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.trident.Cancelable;
+import com.clubobsidian.trident.Cancellable;
 
 import java.util.Map;
 
-public class InventoryDragEvent extends InventoryEvent implements Cancelable {
+public class InventoryDragEvent extends InventoryEvent implements Cancellable {
 
     private final Map<Integer, ItemStackWrapper<?>> slotItems;
     private boolean cancelled;
@@ -38,13 +38,23 @@ public class InventoryDragEvent extends InventoryEvent implements Cancelable {
         return this.slotItems;
     }
 
-    @Override
+    @Deprecated
     public boolean isCanceled() {
         return this.cancelled;
     }
 
-    @Override
+    @Deprecated
     public void setCanceled(boolean cancel) {
+        this.cancelled = cancel;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
         this.cancelled = cancel;
     }
 }

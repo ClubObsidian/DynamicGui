@@ -21,9 +21,9 @@ import com.clubobsidian.dynamicgui.event.InventoryEvent;
 import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.trident.Cancelable;
+import com.clubobsidian.trident.Cancellable;
 
-public class InventoryClickEvent extends InventoryEvent implements Cancelable {
+public class InventoryClickEvent extends InventoryEvent implements Cancellable {
 
     private final ItemStackWrapper<?> itemStackWrapper;
     private final int slot;
@@ -55,13 +55,23 @@ public class InventoryClickEvent extends InventoryEvent implements Cancelable {
         return this.click;
     }
 
-    @Override
+    @Deprecated
     public boolean isCanceled() {
         return this.cancelled;
     }
 
-    @Override
+    @Deprecated
     public void setCanceled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
 }

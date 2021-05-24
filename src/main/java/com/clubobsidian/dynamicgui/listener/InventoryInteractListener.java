@@ -47,21 +47,21 @@ public class InventoryInteractListener {
 
         Slot slot = this.getSlotFromIndex(gui, e.getSlot());
         if(slot == null && e.getView() != InventoryView.BOTTOM) {
-            e.setCanceled(true);
+            e.setCancelled(true);
             return;
         }
 
         ItemStackWrapper<?> item = e.getItemStackWrapper();
         if(e.getClick() == null) //For other types of clicks besides left, right, middle
         {
-            e.setCanceled(true);
+            e.setCancelled(true);
             return;
         } else if(item.getItemStack() == null) {
             return;
         } else if(e.getView() == InventoryView.BOTTOM) {
             if(e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT) {
                 if(!this.canStack(gui, e.getInventoryWrapper(), item)) {
-                    e.setCanceled(true);
+                    e.setCancelled(true);
                 }
             }
 
@@ -76,7 +76,7 @@ public class InventoryInteractListener {
         }
 
         if(!slot.isMoveable()) {
-            e.setCanceled(true);
+            e.setCancelled(true);
         }
 
         Boolean close = null;
@@ -112,7 +112,7 @@ public class InventoryInteractListener {
 
             Slot slot = this.getSlotFromIndex(gui, rawSlot);
             if(slot == null || (slot != null && !slot.isMoveable())) {
-                e.setCanceled(true);
+                e.setCancelled(true);
                 return;
             }
         }

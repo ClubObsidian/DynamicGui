@@ -20,9 +20,9 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.LocationEvent;
 import com.clubobsidian.dynamicgui.event.player.Action;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
-import com.clubobsidian.trident.Cancelable;
+import com.clubobsidian.trident.Cancellable;
 
-public class PlayerInteractEvent extends LocationEvent implements Cancelable {
+public class PlayerInteractEvent extends LocationEvent implements Cancellable {
 
     private final Action action;
     private boolean canceled;
@@ -37,13 +37,23 @@ public class PlayerInteractEvent extends LocationEvent implements Cancelable {
         return this.action;
     }
 
-    @Override
+    @Deprecated
     public boolean isCanceled() {
         return this.canceled;
     }
 
-    @Override
+    @Deprecated
     public void setCanceled(boolean cancel) {
+        this.canceled = cancel;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return this.canceled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
         this.canceled = cancel;
     }
 }

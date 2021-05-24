@@ -18,10 +18,10 @@ package com.clubobsidian.dynamicgui.event.inventory;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.Gui;
-import com.clubobsidian.trident.Cancelable;
+import com.clubobsidian.trident.Cancellable;
 import com.clubobsidian.trident.Event;
 
-public class GuiLoadEvent extends Event implements Cancelable {
+public class GuiLoadEvent extends Event implements Cancellable {
 
     private final Gui gui;
     private final PlayerWrapper<?> playerWrapper;
@@ -41,13 +41,23 @@ public class GuiLoadEvent extends Event implements Cancelable {
         return this.playerWrapper;
     }
 
-    @Override
+    @Deprecated
     public boolean isCanceled() {
         return this.cancelled;
     }
 
-    @Override
+    @Deprecated
     public void setCanceled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }
 }

@@ -190,7 +190,7 @@ public class GuiManager {
         boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
         GuiLoadEvent loadEvent = new GuiLoadEvent(clonedGui, playerWrapper);
         if(!ran) {
-            loadEvent.setCanceled(true);
+            loadEvent.setCancelled(true);
         }
         DynamicGui.get().getEventBus().callEvent(loadEvent);
 

@@ -36,7 +36,7 @@ public class PlayerInteractListener {
                     for(LocationWrapper<?> guiLocation : gui.getLocations()) {
                         if(e.getLocationWrapper().equals(guiLocation)) {
                             GuiManager.get().openGui(e.getPlayerWrapper(), gui);
-                            e.setCanceled(true);
+                            e.setCancelled(true);
                             break;
                         }
                     }
