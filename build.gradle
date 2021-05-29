@@ -6,7 +6,6 @@ plugins {
 	id 'idea'
 }
 
-
 version = '4.1.0'
 
 def buildNumber = System.getenv("BUILD_NUMBER")
@@ -21,7 +20,6 @@ repositories {
 	mavenCentral()
 	maven { url 'https://jitpack.io' }
 }
-
 
 sponge {
 	plugin {
