@@ -89,7 +89,7 @@ dependencies {
 	implementation 'com.github.clubobsidian:dynamicguiparser:2.10.0'
 	implementation 'com.udojava:EvalEx:2.1'
 	implementation 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-	implementation 'com.google.inject:guice:4.2.2'
+	implementation 'com.google.inject:guice:5.0.1'
 	implementation 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
 	implementation 'net.kyori:adventure-text-serializer-gson:4.3.0'
 }
