@@ -17,15 +17,3 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew shadowJar
-    - name: Upload to Discord
-      uses: sinshutu/upload-to-discord@v2.0.0
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.BUILD_WEBHOOK }}
-      with:
-        args: build/libs/*.*
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: dynamicgui
-        # Directory containing files to upload
-        path: build/libs
