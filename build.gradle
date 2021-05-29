@@ -11,7 +11,7 @@ plugins {
 
 version = '4.1.0'
 
-def buildNumber = System.getenv("GITHUB_RUN_NUMBER")
+def buildNumber = System.getenv("BUILD_NUMBER")
 
 if(buildNumber != null) {
 	version += "-b" + buildNumber
