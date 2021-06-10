@@ -15,15 +15,19 @@
  */
 package com.clubobsidian.dynamicgui.registry.replacer.impl;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.event.inventory.GuiLoadEvent;
+import com.clubobsidian.dynamicgui.event.inventory.GuiPreloadEvent;
+import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.Cooldown;
-import com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.trident.EventHandler;
+import com.clubobsidian.trident.EventPriority;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,6 +44,13 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
     }
 
     private static final String METADATA_PREFIX = "%metadata_";
+
+    private Map<UUID, Gui> cachedGuis;
+
+    private MetadataReplacerRegistry() {
+        this.cachedGuis = new HashMap<>();
+        DynamicGui.get().getEventBus().registerEvents(this);
+    }
 
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
@@ -58,5 +69,26 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
         }
 
         return text;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGuiLoad(GuiPreloadEvent event) {
+        UUID uuid = event.getPlayerWrapper().getUniqueId();
+        Gui gui = event.gui();
+        this.cachedGuis.put(uuid, gui);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onGuiLoad(GuiLoadEvent event) {
+        if(event.isCancelled()) {
+            UUID uuid = event.getPlayerWrapper().getUniqueId();
+            this.cachedGuis.remove(uuid);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onInventoryClose(InventoryCloseEvent event) {
+        UUID uuid = event.getPlayerWrapper().getUniqueId();
+        this.cachedGuis.remove(uuid);
     }
 }
