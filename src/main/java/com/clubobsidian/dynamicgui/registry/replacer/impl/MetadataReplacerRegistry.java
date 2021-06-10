@@ -36,7 +36,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
     private static MetadataReplacerRegistry instance;
 
     public static MetadataReplacerRegistry get() {
-        if (instance == null) {
+        if(instance == null) {
             instance = new MetadataReplacerRegistry();
         }
 
@@ -45,7 +45,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
 
     private static final String METADATA_PREFIX = "%metadata_";
 
-    private Map<UUID, Gui> cachedGuis;
+    private final Map<UUID, Gui> cachedGuis;
 
     private MetadataReplacerRegistry() {
         this.cachedGuis = new HashMap<>();
@@ -55,15 +55,15 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
-        if (gui == null) {
+        if(gui == null) {
             return text;
         }
 
-        for (Map.Entry<String, String> entry : gui.getMetadata().entrySet()) {
+        for(Map.Entry<String, String> entry : gui.getMetadata().entrySet()) {
             String metadataKey = entry.getKey();
             String metadataValue = entry.getValue();
             String metadataReplacer = METADATA_PREFIX + metadataKey + "%";
-            if (text.contains(metadataReplacer)) {
+            if(text.contains(metadataReplacer)) {
                 text = StringUtils.replace(text, metadataReplacer, metadataValue);
             }
         }
