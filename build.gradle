@@ -60,6 +60,7 @@ shadowJar {
 	relocate 'com.typesafe.config', 'com.clubobsidian.dynamicgui.shaded.typesafeconfig'
 	relocate 'com.google.j2objc', 'com.clubobsidian.dynamicgui.shaded.j2objc'
 	relocate 'com.google.inject', 'com.clubobsidian.dynamicgui.shaded.guice'
+	relocate 'javax.annotation', 'com.clubobsidian.dynamicgui.shaded.javaxannotation'
 	relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
 	relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
 
