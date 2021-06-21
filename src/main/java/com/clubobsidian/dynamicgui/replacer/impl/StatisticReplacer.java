@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.util.Statistic;
 /*
  *  Generated in DynamicGuiReplacerRegistry
  */
+@Deprecated
 public class StatisticReplacer extends Replacer {
 
     private final Statistic statistic;
