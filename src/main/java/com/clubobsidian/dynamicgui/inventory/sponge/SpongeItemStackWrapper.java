@@ -238,6 +238,11 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
+    public void addItemFlags(List<String> ItemFlag) {
+        // TODO
+    }
+
+    @Override
     public boolean isSimilar(ItemStackWrapper<?> compareTo) {
         // TODO Auto-generated method stub
         return false;
