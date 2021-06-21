@@ -206,16 +206,16 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setItemFlags(List<String> itemFlags) {
+    public void addItemFlags(List<String> itemFlags) {
         ItemStack item = this.getItemStack();
         ItemMeta meta = item.getItemMeta();
-
         for(String itemFlag : itemFlags) {
             ItemFlag flag = ItemFlag.valueOf(itemFlag);
             if(flag != null) {
                 meta.addItemFlags(flag);
             }
         }
+        item.setItemMeta(meta);
     }
 
     @Override

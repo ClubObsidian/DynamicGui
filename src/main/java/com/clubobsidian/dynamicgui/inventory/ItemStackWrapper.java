@@ -76,7 +76,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 
     public abstract void setGlowing(boolean glowing);
 
-    public abstract void setItemFlags(List<String> itemFlags);
+    public abstract void addItemFlags(List<String> itemFlags);
 
     public abstract boolean isSimilar(ItemStackWrapper<?> compareTo);
 

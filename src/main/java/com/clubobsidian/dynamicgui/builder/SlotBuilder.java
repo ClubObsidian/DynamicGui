@@ -21,6 +21,8 @@ import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +40,7 @@ public class SlotBuilder {
     private Boolean close;
     private List<String> lore;
     private final List<EnchantmentWrapper> enchants;
+    private final List<String> itemFlags;
     private int index;
     private int amount;
     private int updateInterval;
@@ -46,6 +49,7 @@ public class SlotBuilder {
 
     public SlotBuilder() {
         this.enchants = new ArrayList<>();
+        this.itemFlags = new ArrayList<>();
         this.amount = 1;
         this.updateInterval = 0;
         this.functionTree = new FunctionTree();
@@ -154,6 +158,16 @@ public class SlotBuilder {
         return this;
     }
 
+    public SlotBuilder addItemFlag(String... itemFlags) {
+        this.addItemFlag(Arrays.asList(itemFlags));
+        return this;
+    }
+
+    public SlotBuilder addItemFlag(Collection<String> itemFlags) {
+        this.itemFlags.addAll(itemFlags);
+        return this;
+    }
+
     public SlotBuilder setFunctionTree(FunctionTree functionTree) {
         this.functionTree = functionTree;
         return this;
@@ -192,6 +206,6 @@ public class SlotBuilder {
     }
 
     public Slot build() {
-        return new Slot(this.index, this.amount, this.icon, this.name, this.nbt, this.data, this.glow, this.moveable, this.close, this.lore, this.enchants, this.functionTree, this.updateInterval, this.metadata);
+        return new Slot(this.index, this.amount, this.icon, this.name, this.nbt, this.data, this.glow, this.moveable, this.close, this.lore, this.enchants, this.itemFlags, this.functionTree, this.updateInterval, this.metadata);
     }
 }

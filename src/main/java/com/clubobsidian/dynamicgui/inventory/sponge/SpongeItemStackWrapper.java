@@ -238,7 +238,7 @@ public class SpongeItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setItemFlags(List<String> ItemFlag) {
+    public void addItemFlags(List<String> ItemFlag) {
         // TODO
     }
 

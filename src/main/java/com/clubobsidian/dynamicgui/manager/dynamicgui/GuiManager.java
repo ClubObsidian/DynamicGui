@@ -426,6 +426,8 @@ public class GuiManager {
                 enchants.add(new EnchantmentWrapper(args[0], Integer.parseInt(args[1])));
             }
 
+            List<String> itemFlags = slotToken.getItemFlags();
+
             int amount = slotToken.getAmount();
 
             boolean close = slotToken.isClosed();
@@ -439,7 +441,8 @@ public class GuiManager {
 
             Map<String, String> metadata = slotToken.getMetadata();
 
-            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable, close, lore, enchants, slotToken.getFunctionTree(), updateInterval, metadata));
+            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable,
+                    close, lore, enchants, itemFlags, slotToken.getFunctionTree(), updateInterval, metadata));
         }
 
 

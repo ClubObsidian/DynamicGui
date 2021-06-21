@@ -49,6 +49,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
 
     private final List<String> lore;
     private final List<EnchantmentWrapper> enchants;
+    private final List<String> itemFlags;
     private Boolean close;
     private final int amount;
     private transient ItemStackWrapper<?> itemStack;
@@ -60,7 +61,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private final Map<String, String> metadata;
     private boolean update;
 
-    public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, boolean moveable, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, FunctionTree functions, int updateInterval, Map<String, String> metadata) {
+    public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, boolean moveable, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, List<String> itemFlags, FunctionTree functions, int updateInterval, Map<String, String> metadata) {
         this.icon = icon;
         this.data = data;
         this.name = name;
@@ -69,6 +70,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         this.moveable = moveable;
         this.lore = lore;
         this.enchants = enchants;
+        this.itemFlags = itemFlags;
         this.close = close;
         this.index = index;
         this.amount = amount;
@@ -126,6 +128,10 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
 
     public List<EnchantmentWrapper> getEnchants() {
         return this.enchants;
+    }
+
+    public List<String> getItemFlags() {
+        return this.itemFlags;
     }
 
     public Boolean getClose() {
@@ -187,6 +193,8 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
                     builderItem.addEnchant(ench);
                 }
             }
+
+            builderItem.addItemFlags(this.itemFlags);
 
             if(this.glow) {
                 builderItem.setGlowing(true);
