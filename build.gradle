@@ -67,7 +67,7 @@ dependencies {
 	//Server implementations
 
 	compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
+	compileOnly 'net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT'
 
 	//Plugins
 	compileOnly 'com.github.clubobsidian:foundry:2.0.0'
