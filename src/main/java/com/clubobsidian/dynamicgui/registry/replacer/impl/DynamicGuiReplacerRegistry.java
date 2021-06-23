@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.replacer.impl.GlobalPlayerCountReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
+import com.clubobsidian.dynamicgui.replacer.impl.PreviousGuiReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.StatisticReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
 import com.clubobsidian.dynamicgui.util.Statistic;
@@ -53,6 +54,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
         this.addReplacer(new UUIDReplacer("%uuid%"));
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
+        this.addReplacer(new PreviousGuiReplacer("%previous-gui%-name"));
         this.generateStatisticReplacers();
         DynamicGui.get().getEventBus().registerEvents(this);
     }
