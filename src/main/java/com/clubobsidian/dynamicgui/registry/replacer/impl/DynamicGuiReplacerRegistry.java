@@ -54,7 +54,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
         this.addReplacer(new UUIDReplacer("%uuid%"));
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
-        this.addReplacer(new PreviousGuiReplacer("%previous-gui%-name"));
+        this.addReplacer(new PreviousGuiReplacer("%previous-gui-name%"));
         this.generateStatisticReplacers();
         DynamicGui.get().getEventBus().registerEvents(this);
     }
