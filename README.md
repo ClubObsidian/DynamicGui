@@ -17,8 +17,7 @@ Designed to make writing menus easy.
 
 * Multi server support in one jar
   * Bukkit - Fully supported
-  * Sponge - In alpha
-    * Things may break
+  * Sponge - Support dropped for now
 * A number of functions to use to customize menus
   * Functions use latebinding
   * Addons can be written for more functions

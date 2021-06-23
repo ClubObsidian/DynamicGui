@@ -1,12 +1,14 @@
 plugins {
 	id 'java'
 	id 'com.github.johnrengelman.shadow' version '5.0.0'
-	id 'org.spongepowered.plugin' version '0.9.0'
 	id 'eclipse'
 	id 'idea'
 }
 
 version = '4.1.0'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 def buildNumber = System.getenv("BUILD_NUMBER")
 
@@ -19,15 +21,6 @@ repositories {
 	maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
 	mavenCentral()
 	maven { url 'https://jitpack.io' }
-}
-
-sponge {
-	plugin {
-		id = 'dynamicgui'
-		meta {
-			name = 'DynamicGui'
-		}
-	}
 }
 
 processResources {
@@ -75,9 +68,6 @@ dependencies {
 
 	compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
 	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
-	compileOnly('org.spongepowered:spongevanilla:1.12.2-7.1.5'){
-		exclude group: 'org.spongepowered', module: 'testmods'
-	}
 
 	//Plugins
 	compileOnly 'com.github.clubobsidian:foundry:2.0.0'

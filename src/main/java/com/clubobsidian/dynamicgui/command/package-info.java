@@ -13,14 +13,5 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.entity.sponge;
 
-import com.clubobsidian.dynamicgui.entity.EntityWrapper;
-import org.spongepowered.api.entity.Entity;
-
-public class SpongeEntityWrapper<T extends Entity> extends EntityWrapper<T> {
-
-    public SpongeEntityWrapper(T entity) {
-        super(entity);
-    }
-}
+package com.clubobsidian.dynamicgui.command;
