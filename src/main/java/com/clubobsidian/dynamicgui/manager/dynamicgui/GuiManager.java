@@ -188,7 +188,7 @@ public class GuiManager {
 
         //Run gui load functions
         boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
-        GuiLoadEvent event = new GuiLoadEvent(gui, playerWrapper);
+        GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
         if(!ran) {
             event.setCancelled(true);
         }
