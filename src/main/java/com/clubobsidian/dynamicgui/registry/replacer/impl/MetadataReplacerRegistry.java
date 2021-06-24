@@ -54,7 +54,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
 
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
-        Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+        Gui gui = this.cachedGuis.get(playerWrapper.getUniqueId());
         if(gui == null) {
             return text;
         }
