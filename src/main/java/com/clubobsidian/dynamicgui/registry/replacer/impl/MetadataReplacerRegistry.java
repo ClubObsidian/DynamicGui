@@ -86,9 +86,13 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {
-        UUID uuid = event.getPlayerWrapper().getUniqueId();
-        this.cachedGuis.remove(uuid);
+        PlayerWrapper<?> wrapper = event.getPlayerWrapper();
+        UUID uuid = wrapper.getUniqueId();
+        Gui gui = this.cachedGuis.get(uuid);
+        if(gui != null && gui.equals(GuiManager.get().getCurrentGui(wrapper))) {
+            this.cachedGuis.remove(uuid);
+        }
     }
 }
