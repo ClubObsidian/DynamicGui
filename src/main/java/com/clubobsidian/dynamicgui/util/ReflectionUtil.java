@@ -17,9 +17,6 @@ package com.clubobsidian.dynamicgui.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class ReflectionUtil {
 
@@ -57,9 +54,9 @@ public final class ReflectionUtil {
         return null;
     }
 
-    public static Method findMethodByReturnType(Class<?> searchIn, Class<?> returnType) {
+    public static Method getMethodByReturnType(Class<?> searchIn, Class<?> returnType) {
         for(Method m : searchIn.getDeclaredMethods()) {
-            if(m.getReturnType() == returnType) {
+            if(m.getReturnType().equals(returnType)) {
                 m.setAccessible(true);
                 return m;
             }
@@ -77,9 +74,9 @@ public final class ReflectionUtil {
         }
     }
 
-    public static Field getFieldByType(Class<?> searchIn, Class<?> type) {
+    public static Field getFieldByType(Class<?> searchIn, Class<?> fieldType) {
         for(Field f : searchIn.getDeclaredFields()) {
-            if(f.getType() == type) {
+            if(f.getType().equals(fieldType)) {
                 f.setAccessible(true);
                 return f;
             }

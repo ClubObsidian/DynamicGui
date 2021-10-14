@@ -73,25 +73,13 @@ public final class BukkitPacketUtil {
 
             if(playerConnection == null) {
                 Class<?> conClazz = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
-                for(Field field : nmsPlayerClass.getDeclaredFields()) {
-                    if(field.getType().equals(conClazz)) {
-                        playerConnection = field;
-                        playerConnection.setAccessible(true);
-                        break;
-                    }
-                }
+                playerConnection = ReflectionUtil.getFieldByType(nmsPlayerClass, conClazz);
             }
 
             if(networkManager == null) {
                 Class<?> playerConnection = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
                 Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
-                for(Field field : playerConnection.getDeclaredFields()) {
-                    if(field.getType().equals(networkManagerClass)) {
-                        networkManager = field;
-                        networkManager.setAccessible(true);
-                        break;
-                    }
-                }
+                networkManager = ReflectionUtil.getFieldByType(playerConnection, networkManagerClass);
             }
 
             if(sendPacket == null) {
@@ -145,13 +133,7 @@ public final class BukkitPacketUtil {
 
             if(activeContainer == null) {
                 Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
-                for(Field field : nmsHumanClass.getDeclaredFields()) {
-                    if(field.getType().equals(containerClass)) {
-                        activeContainer = field;
-                        activeContainer.setAccessible(true);
-                        break;
-                    }
-                }
+                activeContainer = ReflectionUtil.getFieldByType(nmsHumanClass, containerClass);
             }
 
 
@@ -162,7 +144,7 @@ public final class BukkitPacketUtil {
             int windowId = windowIdField.getInt(container); //container
             //stateId is new in 1.17
             //int windowID, int stateID, int slot, ItemStack itemstack
-            Object packet = null;
+            Object packet;
             if(SET_SLOT_CONSTRUCTOR_LENGTH == 3) {
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, index, nmsItemStack);
             } else {
