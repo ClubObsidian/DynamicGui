@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.util.bukkit;
 
+import com.clubobsidian.dynamicgui.util.ReflectionUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,18 +29,29 @@ public final class BukkitPacketUtil {
     private BukkitPacketUtil() {
     }
 
+    private static final String ITEM_STACK_CLASS_NAME = getItemStackClass();
+    private static final String ENTITY_PLAYER_CLASS_NAME = getEntityPlayerClassName();
+    private static final String ENTITY_HUMAN_CLASS_NAME = getEntityHumanClassName();
+    private static final String PLAYER_CONNECTION_CLASS_NAME = getPlayerConnectionClassName();
+    private static final String NETWORK_MANAGER_CLASS_NAME = getNetworkManagerClassName();
+    private static final String CONTAINER_CLASS_NAME = getContainerClassName();
+    private static final String PACKET_CLASS_NAME = getPacketClassName();
+    private static final String PACKET_PLAY_OUT_SET_SLOT_CLASS_NAME = getPacketPlayOutSetClassName();
+
+    private static final Constructor<?> PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR = getPacketPlayOutSetSlotConstructor();
+    private static final int SET_SLOT_CONSTRUCTOR_LENGTH = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.getParameterCount();
+
     private static Class<?> craftItemClass;
     private static Class<?> craftPlayerClass;
     private static Class<?> nmsPlayerClass;
     private static Class<?> nmsHumanClass;
-
-    private static Constructor<?> packetPlayOutSetSlotConstructor;
 
     private static Field itemStackHandle;
     private static Field playerConnection;
     private static Field networkManager;
     private static Field windowIdField;
     private static Field activeContainer;
+    private static Field stateIdField;
 
     private static Method playerHandle;
     private static Method sendPacket;
@@ -56,33 +68,44 @@ public final class BukkitPacketUtil {
             }
 
             if(nmsPlayerClass == null) {
-                nmsPlayerClass = Class.forName("net.minecraft.server." + version + ".EntityPlayer");
+                nmsPlayerClass = Class.forName(ENTITY_PLAYER_CLASS_NAME);
             }
 
             if(playerConnection == null) {
-                playerConnection = nmsPlayerClass.getDeclaredField("playerConnection");
-                playerConnection.setAccessible(true);
+                Class<?> conClazz = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
+                for(Field field : nmsPlayerClass.getDeclaredFields()) {
+                    if(field.getType().equals(conClazz)) {
+                        playerConnection = field;
+                        playerConnection.setAccessible(true);
+                        break;
+                    }
+                }
             }
 
             if(networkManager == null) {
-                Class<?> playerConnection = Class.forName("net.minecraft.server." + version + ".PlayerConnection");
-                networkManager = playerConnection.getDeclaredField("networkManager");
-                networkManager.setAccessible(true);
+                Class<?> playerConnection = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
+                Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
+                for(Field field : playerConnection.getDeclaredFields()) {
+                    if(field.getType().equals(networkManagerClass)) {
+                        networkManager = field;
+                        networkManager.setAccessible(true);
+                        break;
+                    }
+                }
             }
 
             if(sendPacket == null) {
-                Class<?> networkManagerlass = Class.forName("net.minecraft.server." + version + ".NetworkManager");
-                Class<?> packetClass = Class.forName("net.minecraft.server." + version + ".Packet");
-                sendPacket = networkManagerlass.getDeclaredMethod("sendPacket", packetClass);
+                Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
+                Class<?> packetClass = Class.forName(PACKET_CLASS_NAME);
+                sendPacket = networkManagerClass.getDeclaredMethod("sendPacket", packetClass);
             }
-
 
             Object nmsPlayer = playerHandle.invoke(player);
             Object con = playerConnection.get(nmsPlayer);
             Object manager = networkManager.get(con);
 
             sendPacket.invoke(manager, packet);
-        } catch(ClassNotFoundException | NoSuchMethodException | SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+        } catch(ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -108,38 +131,201 @@ public final class BukkitPacketUtil {
             }
 
             if(nmsPlayerClass == null) {
-                nmsPlayerClass = Class.forName("net.minecraft.server." + version + ".EntityPlayer");
+                nmsPlayerClass = Class.forName(ENTITY_PLAYER_CLASS_NAME);
             }
 
             if(nmsHumanClass == null) {
-                nmsHumanClass = Class.forName("net.minecraft.server." + version + ".EntityHuman");
-            }
-
-            if(packetPlayOutSetSlotConstructor == null) {
-                Class<?> packetClass = Class.forName("net.minecraft.server." + version + ".PacketPlayOutSetSlot");
-                Class<?> nmsItemClass = Class.forName("net.minecraft.server." + version + ".ItemStack");
-                packetPlayOutSetSlotConstructor = packetClass.getDeclaredConstructor(int.class, int.class, nmsItemClass);
+                nmsHumanClass = Class.forName(ENTITY_HUMAN_CLASS_NAME);
             }
 
             if(windowIdField == null) {
-                Class<?> containerClass = Class.forName("net.minecraft.server." + version + ".Container");
-                windowIdField = containerClass.getDeclaredField("windowId");
-                windowIdField.setAccessible(true);
+                Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
+                windowIdField = ReflectionUtil.getDeclaredField(containerClass, "windowId", "j");
             }
 
             if(activeContainer == null) {
-                activeContainer = nmsHumanClass.getDeclaredField("activeContainer");
+                Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
+                for(Field field : nmsHumanClass.getDeclaredFields()) {
+                    if(field.getType().equals(containerClass)) {
+                        activeContainer = field;
+                        activeContainer.setAccessible(true);
+                        break;
+                    }
+                }
             }
+
 
             Object nmsPlayer = playerHandle.invoke(player);
             Object container = activeContainer.get(nmsPlayer);
 
             Object nmsItemStack = itemStackHandle.get(itemStack);
             int windowId = windowIdField.getInt(container); //container
-            Object packet = packetPlayOutSetSlotConstructor.newInstance(windowId, index, nmsItemStack);
+            //stateId is new in 1.17
+            //int windowID, int stateID, int slot, ItemStack itemstack
+            Object packet = null;
+            if(SET_SLOT_CONSTRUCTOR_LENGTH == 3) {
+                packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, index, nmsItemStack);
+            } else {
+                if(stateIdField == null) {
+                    Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
+                    stateIdField = ReflectionUtil.getDeclaredField(containerClass, "q");
+                }
+                int stateId = stateIdField.getInt(container);
+                packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, stateId, index, nmsItemStack);
+            }
             sendPacket(player, packet);
         } catch(ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static Constructor<?> getPacketPlayOutSetSlotConstructor() {
+        try {
+            Class<?> packetClass = Class.forName(PACKET_PLAY_OUT_SET_SLOT_CLASS_NAME);
+            for(Constructor<?> con : packetClass.getDeclaredConstructors()) {
+                if(con.getParameterTypes().length > 0 && con.getParameterTypes()[0].equals(int.class)) {
+                    return con;
+                }
+            }
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String getItemStackClass() {
+        try {
+            String className = "net.minecraft.world.item.ItemStack";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".ItemStack";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getEntityPlayerClassName() {
+        try {
+            String className = "net.minecraft.server.level.EntityPlayer";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".EntityPlayer";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getEntityHumanClassName() {
+        try {
+            String className = "net.minecraft.world.entity.player.EntityHuman";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".EntityHuman";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getPlayerConnectionClassName() {
+        try {
+            String className = "net.minecraft.server.network.PlayerConnection";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".PlayerConnection";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getNetworkManagerClassName() {
+        try {
+            String className = "net.minecraft.network.NetworkManager";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".NetworkManager";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getContainerClassName() {
+        try {
+            String className = "net.minecraft.world.inventory.Container";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".Container";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getPacketClassName() {
+        try {
+            String className = "net.minecraft.network.protocol.Packet";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".Packet";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
+        }
+    }
+
+    private static String getPacketPlayOutSetClassName() {
+        try {
+            String className = "net.minecraft.network.protocol.game.PacketPlayOutSetSlot";
+            Class.forName(className);
+            return className;
+        } catch(ClassNotFoundException ex) {
+            String version = VersionUtil.getVersion();
+            String className = "net.minecraft.server." + version + ".PacketPlayOutSetSlot";
+            try {
+                Class.forName(className);
+                return className;
+            } catch(ClassNotFoundException e) {
+                return null;
+            }
         }
     }
 }

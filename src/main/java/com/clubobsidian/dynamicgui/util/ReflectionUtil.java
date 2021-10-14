@@ -17,6 +17,9 @@ package com.clubobsidian.dynamicgui.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class ReflectionUtil {
 
@@ -79,6 +82,18 @@ public final class ReflectionUtil {
             if(f.getType() == type) {
                 f.setAccessible(true);
                 return f;
+            }
+        }
+        return null;
+    }
+
+    public static Field getDeclaredField(Class<?> clazz, String... fields) {
+        for(String fieldName : fields) {
+            try {
+                Field field = clazz.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                return field;
+            } catch(NoSuchFieldException e) {
             }
         }
         return null;
