@@ -43,10 +43,13 @@ public class CheckItemTypeInHandFunction extends Function {
             types = Arrays.asList(this.getData().split(","));
         }
 
+        //Uppercase
+        for(int i = 0; i < types.size(); i++) {
+            types.set(i, types.get(i).toUpperCase());
+        }
+
         ItemStackWrapper<?> wrapper = playerWrapper.getItemInHand();
-
-        String type = wrapper.getType();
-
+        String type = wrapper.getType().toUpperCase();
         return types.contains(type);
     }
 }
