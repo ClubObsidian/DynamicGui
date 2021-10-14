@@ -80,7 +80,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public boolean addPermission(String permission) {
-        return DynamicGui.get().getPlugin().getPermission().addPemission(this, permission);
+        return DynamicGui.get().getPlugin().getPermission().addPermission(this, permission);
     }
 
     @Override

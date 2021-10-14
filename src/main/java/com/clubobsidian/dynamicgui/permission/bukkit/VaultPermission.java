@@ -75,7 +75,7 @@ public class VaultPermission implements Permission {
     }
 
     @Override
-    public boolean addPemission(PlayerWrapper<?> playerWrapper, String permission) {
+    public boolean addPermission(PlayerWrapper<?> playerWrapper, String permission) {
         if(this.playerAdd == null) {
             try {
                 this.playerAdd = this.permissionClass.getDeclaredMethod("playerAdd", String.class, OfflinePlayer.class, String.class);

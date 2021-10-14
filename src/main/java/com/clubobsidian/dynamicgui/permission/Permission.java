@@ -23,7 +23,7 @@ public interface Permission {
 
     boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
 
-    boolean addPemission(PlayerWrapper<?> playerWrapper, String permission);
+    boolean addPermission(PlayerWrapper<?> playerWrapper, String permission);
 
     boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
 
