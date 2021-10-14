@@ -54,16 +54,12 @@ public class SlotManager {
                 Gui gui = next.getValue();
 
                 for(Slot slot : gui.getSlots()) {
-                    System.out.println(slot.getItemStack().getType() + " "
-                            + slot.getUpdateInterval() + " "
-                            + slot.getCurrentTick());
                     if(slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
                         continue;
                     }
 
                     slot.tick();
                     if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
-                        System.out.println("Should be updated");
                         ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
                         int slotIndex = slot.getIndex();
 
