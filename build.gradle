@@ -82,5 +82,5 @@ dependencies {
 	implementation 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 	implementation 'com.google.inject:guice:5.0.1'
 	implementation 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
-	implementation 'net.kyori:adventure-text-serializer-gson:4.3.0'
+	implementation 'net.kyori:adventure-text-serializer-gson:4.9.3'
 }
