@@ -70,7 +70,7 @@ dependencies {
 	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
 
 	//Plugins
-	compileOnly 'com.github.clubobsidian:foundry:2.0.0'
+	compileOnly 'com.github.clubobsidian:foundry:2.0.1'
 
 	//Dependencies
 	implementation 'org.apache.commons:commons-lang3:3.9'
