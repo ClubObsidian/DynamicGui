@@ -70,7 +70,7 @@ dependencies {
 	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
 
 	//Plugins
-	compileOnly 'com.github.clubobsidian:foundry:2.0.0'
+	compileOnly 'com.github.clubobsidian:foundry:2.0.1'
 
 	//Dependencies
 	implementation 'org.apache.commons:commons-lang3:3.9'
@@ -81,6 +81,6 @@ dependencies {
 	implementation 'com.udojava:EvalEx:2.1'
 	implementation 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 	implementation 'com.google.inject:guice:5.0.1'
-	implementation 'net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT'
+	implementation 'net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT'
 	implementation 'net.kyori:adventure-text-serializer-gson:4.9.3'
 }
