@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.registry.model.vanilla;
 
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.registry.model.ModelProvider;
+import org.apache.commons.lang3.math.NumberUtils;
 
 public class VanillaModelProvider implements ModelProvider {
 
@@ -28,6 +29,10 @@ public class VanillaModelProvider implements ModelProvider {
 
     @Override
     public boolean applyModel(ItemStackWrapper<?> itemStack, String data) {
-        return itemStack.applyModel(data);
+        if(!NumberUtils.isParsable(data)) {
+            return false;
+        }
+        int modelData = NumberUtils.toInt(data);
+        return itemStack.setModel(modelData);
     }
 }

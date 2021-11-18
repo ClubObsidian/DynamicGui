@@ -80,5 +80,9 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 
     public abstract boolean isSimilar(ItemStackWrapper<?> compareTo);
 
-    public abstract boolean applyModel(String data);
+    public abstract boolean setModel(int data);
+
+    public abstract boolean hasCustomModel();
+
+    public abstract int getModelData();
 }

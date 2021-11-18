@@ -19,7 +19,6 @@ import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -40,13 +39,35 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
      */
     private static final long serialVersionUID = 3542885060265738780L;
 
-    private static final Method SET_CUSTOM_MODEL_DATA = getSetCustomModelData();
+    private static final Method SET_CUSTOM_MODEL_DATA = setCustomModelData();
+    private static final Method HAS_CUSTOM_MODEL_DATA = hasCustomModelData();
+    private static final Method GET_CUSTOM_MODEL_DATA = getCustomModelData();
 
-    private static Method getSetCustomModelData() {
+    private static Method setCustomModelData() {
         try {
             Method set = ItemMeta.class.getDeclaredMethod("setCustomModelData", Integer.class);
             set.setAccessible(true);
             return set;
+        } catch(NoSuchMethodException e) {
+            return null;
+        }
+    }
+
+    private static Method hasCustomModelData() {
+        try {
+            Method has = ItemMeta.class.getDeclaredMethod("hasCustomModelData");
+            has.setAccessible(true);
+            return has;
+        } catch(NoSuchMethodException e) {
+            return null;
+        }
+    }
+
+    private static Method getCustomModelData() {
+        try {
+            Method get = ItemMeta.class.getDeclaredMethod("getCustomModelData");
+            get.setAccessible(true);
+            return get;
         } catch(NoSuchMethodException e) {
             return null;
         }
@@ -239,21 +260,46 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public boolean applyModel(String data) {
+    public boolean setModel(int data) {
         if(SET_CUSTOM_MODEL_DATA == null) {
             return false;
-        } else if(!NumberUtils.isParsable(data)) {
-            return false;
         }
-        int modelData = NumberUtils.toInt(data);
         ItemMeta meta = getItemStack().getItemMeta();
         try {
-            SET_CUSTOM_MODEL_DATA.invoke(meta, modelData);
+            SET_CUSTOM_MODEL_DATA.invoke(meta, data);
             this.getItemStack().setItemMeta(meta);
             return true;
         } catch(IllegalAccessException | InvocationTargetException ex) {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean hasCustomModel() {
+        if(HAS_CUSTOM_MODEL_DATA == null) {
+            return false;
+        }
+        ItemMeta meta = getItemStack().getItemMeta();
+        try {
+            return (boolean) HAS_CUSTOM_MODEL_DATA.invoke(meta);
+        } catch(IllegalAccessException | InvocationTargetException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public int getModelData() {
+        if(GET_CUSTOM_MODEL_DATA == null) {
+            return -1;
+        }
+        ItemMeta meta = getItemStack().getItemMeta();
+        try {
+            return (int) GET_CUSTOM_MODEL_DATA.invoke(meta);
+        } catch(IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
