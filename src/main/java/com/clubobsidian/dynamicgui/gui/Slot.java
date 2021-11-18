@@ -21,9 +21,11 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.AnimationReplacerManager;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.ModelManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.registry.model.ModelProvider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,6 +52,8 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private final List<String> lore;
     private final List<EnchantmentWrapper> enchants;
     private final List<String> itemFlags;
+    private final String modelProvider;
+    private final String modelData;
     private Boolean close;
     private final int amount;
     private transient ItemStackWrapper<?> itemStack;
@@ -61,7 +65,11 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private final Map<String, String> metadata;
     private boolean update;
 
-    public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow, boolean moveable, Boolean close, List<String> lore, List<EnchantmentWrapper> enchants, List<String> itemFlags, FunctionTree functions, int updateInterval, Map<String, String> metadata) {
+    public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
+                boolean moveable, Boolean close, List<String> lore,
+                List<EnchantmentWrapper> enchants, List<String> itemFlags,
+                String modelProvider, String modelData,
+                FunctionTree functions, int updateInterval, Map<String, String> metadata) {
         this.icon = icon;
         this.data = data;
         this.name = name;
@@ -71,6 +79,8 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         this.lore = lore;
         this.enchants = enchants;
         this.itemFlags = itemFlags;
+        this.modelProvider = modelProvider;
+        this.modelData = modelData;
         this.close = close;
         this.index = index;
         this.amount = amount;
@@ -160,6 +170,13 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         if(!this.icon.toUpperCase().equals(IGNORE_MATERIAL)) {
             if(this.data != 0) {
                 builderItem.setDurability(this.data);
+            }
+
+            if(this.modelProvider != null && this.modelData != null) {
+                ModelProvider provider = ModelManager.get().getProvider(this.modelProvider);
+                if(provider != null) {
+                    provider.applyModel(builderItem, this.modelData);
+                }
             }
 
             if(this.name != null) {

@@ -41,6 +41,8 @@ public class SlotBuilder {
     private List<String> lore;
     private final List<EnchantmentWrapper> enchants;
     private final List<String> itemFlags;
+    private String modelProvider;
+    private String modelData;
     private int index;
     private int amount;
     private int updateInterval;
@@ -83,6 +85,16 @@ public class SlotBuilder {
 
     public SlotBuilder setGlow(boolean glow) {
         this.glow = glow;
+        return this;
+    }
+
+    public SlotBuilder setModelProvider(String modelProvider) {
+        this.modelProvider = modelProvider;
+        return this;
+    }
+
+    public SlotBuilder setModelData(String modelData) {
+        this.modelData = modelData;
         return this;
     }
 
@@ -206,6 +218,10 @@ public class SlotBuilder {
     }
 
     public Slot build() {
-        return new Slot(this.index, this.amount, this.icon, this.name, this.nbt, this.data, this.glow, this.moveable, this.close, this.lore, this.enchants, this.itemFlags, this.functionTree, this.updateInterval, this.metadata);
+        return new Slot(this.index, this.amount, this.icon, this.name,
+                this.nbt, this.data, this.glow, this.moveable,
+                this.close, this.lore, this.enchants, this.itemFlags,
+                this.modelProvider, this.modelData, this.functionTree,
+                this.updateInterval, this.metadata);
     }
 }

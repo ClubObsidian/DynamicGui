@@ -19,12 +19,15 @@ import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.util.bukkit.BukkitNBTUtil;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +39,18 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
      *
      */
     private static final long serialVersionUID = 3542885060265738780L;
+
+    private static final Method SET_CUSTOM_MODEL_DATA = getSetCustomModelData();
+
+    private static Method getSetCustomModelData() {
+        try {
+            Method set = ItemMeta.class.getDeclaredMethod("setCustomModelData", Integer.class);
+            set.setAccessible(true);
+            return set;
+        } catch(NoSuchMethodException e) {
+            return null;
+        }
+    }
 
     public BukkitItemStackWrapper(T itemStack) {
         super(itemStack);
@@ -221,5 +236,24 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public boolean isSimilar(ItemStackWrapper<?> compareTo) {
         return this.getItemStack().isSimilar((ItemStack) compareTo.getItemStack());
+    }
+
+    @Override
+    public boolean applyModel(String data) {
+        if(SET_CUSTOM_MODEL_DATA == null) {
+            return false;
+        } else if(!NumberUtils.isParsable(data)) {
+            return false;
+        }
+        int modelData = NumberUtils.toInt(data);
+        ItemMeta meta = getItemStack().getItemMeta();
+        try {
+            SET_CUSTOM_MODEL_DATA.invoke(meta, modelData);
+            this.getItemStack().setItemMeta(meta);
+            return true;
+        } catch(IllegalAccessException | InvocationTargetException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }
