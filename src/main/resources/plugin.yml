@@ -3,7 +3,7 @@ main: com.clubobsidian.dynamicgui.plugin.bukkit.BukkitPlugin
 version: ${pluginVersion}
 author: VirusTotal
 api-version: 1.13
-softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup, Foundry, Oraxen]
+softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup, Foundry, Oraxen, ItemsAdder]
 commands:
   gui:
     description: "DynamicGUI gui command!"

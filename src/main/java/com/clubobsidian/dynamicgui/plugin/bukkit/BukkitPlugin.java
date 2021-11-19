@@ -40,6 +40,7 @@ import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.permission.bukkit.FoundryPermission;
 import com.clubobsidian.dynamicgui.permission.bukkit.VaultPermission;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.registry.model.plugin.ItemsAdderModelProvider;
 import com.clubobsidian.dynamicgui.registry.model.plugin.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.citizens.CitizensRegistry;
@@ -137,9 +138,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
             }
         }, 1);
 
-        if(pm.getPlugin("Oraxen") != null) {
-            ModelManager.get().register(new OraxenModelProvider());
-        }
+        this.registerModelProviders(pm);
 
         if(this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
@@ -152,6 +151,15 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+    }
+
+    private void registerModelProviders(PluginManager pm) {
+        if(pm.getPlugin("Oraxen") != null) {
+            ModelManager.get().register(new OraxenModelProvider());
+        }
+        if(pm.getPlugin("ItemsAdder") != null) {
+            ModelManager.get().register(new ItemsAdderModelProvider());
+        }
     }
 
     @Override
