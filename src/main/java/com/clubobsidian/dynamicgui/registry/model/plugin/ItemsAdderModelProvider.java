@@ -56,7 +56,7 @@ public class ItemsAdderModelProvider implements ModelProvider {
         if(ITEMS_ADDER_EXISTS) {
             try {
                 Class<?> customStack= Class.forName("dev.lone.itemsadder.api.CustomStack");
-                Method getItemStack = customStack.getDeclaredMethod("getItemStack", String.class);
+                Method getItemStack = customStack.getDeclaredMethod("getItemStack");
                 getItemStack.setAccessible(true);
                 return getItemStack;
             } catch(ClassNotFoundException | NoSuchMethodException e) {
