@@ -78,7 +78,7 @@ dependencies {
 	implementation 'com.github.clubobsidian:wrappy:2.2.1'
 	implementation 'com.github.clubobsidian:trident:3.0.0'
 	implementation 'com.github.clubobsidian:dynamicguiparser:2.12.0'
-	implementation 'com.udojava:EvalEx:2.1'
+	implementation 'com.udojava:EvalEx:2.6'
 	implementation 'com.github.ClubObsidian:FuzzUtil:1.1.0'
 	implementation 'com.google.inject:guice:5.0.1'
 	implementation 'net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT'
