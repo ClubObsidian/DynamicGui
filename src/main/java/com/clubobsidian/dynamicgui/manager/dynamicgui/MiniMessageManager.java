@@ -45,7 +45,6 @@ public class MiniMessageManager {
         this.json = new HashMap<>();
         this.miniMessage = MiniMessage
                 .builder()
-                .markdown()
                 .build();
         this.serializer = GsonComponentSerializer.builder().build();
         DynamicGui.get().getEventBus().registerEvents(this);
