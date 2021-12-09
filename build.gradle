@@ -75,7 +75,7 @@ dependencies {
 	//Dependencies
 	implementation 'org.apache.commons:commons-lang3:3.9'
 	implementation 'commons-io:commons-io:2.8.0'
-	implementation 'com.github.clubobsidian:wrappy:2.2.1'
+	implementation 'com.github.clubobsidian:wrappy:2.3.2'
 	implementation 'com.github.clubobsidian:trident:3.0.0'
 	implementation 'com.github.clubobsidian:dynamicguiparser:2.12.0'
 	implementation 'com.udojava:EvalEx:2.1'
