@@ -1,86 +1,26 @@
 plugins {
-	id 'java'
-	id 'com.github.johnrengelman.shadow' version '5.0.0'
+	id 'java-library'
+	id 'com.github.johnrengelman.shadow' version '7.1.1'
 	id 'eclipse'
 	id 'idea'
 }
 
-version = '4.1.0'
+subprojects {
+	apply plugin: 'java-library'
+	apply plugin: 'com.github.johnrengelman.shadow'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+	group 'com.clubobsidian'
+	version '4.1.0'
 
-def buildNumber = System.getenv("BUILD_NUMBER")
-
-if(buildNumber != null) {
-	version += "-b" + buildNumber
-}
-
-repositories {
-	maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
-	maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
-	mavenCentral()
-	maven { url 'https://jitpack.io' }
-}
-
-processResources {
-	from(sourceSets.main.resources) {
-		include 'plugin.yml'
-		expand 'pluginVersion': project.version
+	tasks.withType(JavaCompile) {
+		sourceCompatibility = JavaVersion.VERSION_11
+		targetCompatibility = JavaVersion.VERSION_11
 	}
-}
 
-shadowJar {
-	minimize()
-	relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
-	relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
-	relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
-	relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
-	relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
-	relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
-	relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
-	relocate 'com.clubobsidian.fuzzutil', 'com.clubobsidian.dynamicgui.shaded.fuzzutil'
-	relocate 'io.leangen', 'com.clubobsidian.dynamicgui.shaded.leangen'
-	relocate 'org.codehaus.mojo', 'com.clubobsidian.dynamicgui.shaded.mojo'
-	relocate 'org.checkerframework.framework', 'com.clubobsidian.dynamicgui.shaded.checkerframework.framework'
-	relocate 'org.checkerframework.common', 'com.clubobsidian.dynamicgui.shaded.checkerframework.common'
-	relocate 'org.checkerframework.checker', 'com.clubobsidian.dynamicgui.shaded.checkerframework.checker'
-	relocate 'org.apache.commons', 'com.clubobsidian.dynamicgui.shaded.apachecommons'
-	relocate 'org.aopalliance.intercept', 'com.clubobsidian.dynamicgui.shaded.aopalliance.intercept'
-	relocate 'org.aopalliance.aop', 'com.clubobsidian.dynamicgui.shaded.aopalliance.aop'
-	relocate 'javax.inject', 'com.clubobsidian.dynamicgui.shaded.javax.inject'
-	relocate 'com.udojava.evalex', 'com.clubobsidian.dynamicgui.shaded.evalex'
-	relocate 'com.typesafe.config', 'com.clubobsidian.dynamicgui.shaded.typesafeconfig'
-	relocate 'com.google.j2objc', 'com.clubobsidian.dynamicgui.shaded.j2objc'
-	relocate 'com.google.inject', 'com.clubobsidian.dynamicgui.shaded.guice'
-	relocate 'javax.annotation', 'com.clubobsidian.dynamicgui.shaded.javaxannotation'
-	relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
-	relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
-
-	archiveBaseName.set('DynamicGui')
-	archiveClassifier.set('')
-}
-
-dependencies {
-	testImplementation 'junit:junit:4.13.2'
-
-	//Server implementations
-
-	compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-	compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
-
-	//Plugins
-	compileOnly 'com.github.clubobsidian:foundry:2.0.1'
-
-	//Dependencies
-	implementation 'org.apache.commons:commons-lang3:3.12.0'
-	implementation 'commons-io:commons-io:2.11.0'
-	implementation 'com.github.clubobsidian:wrappy:2.3.2'
-	implementation 'com.github.clubobsidian:trident:3.0.0'
-	implementation 'com.github.clubobsidian:dynamicguiparser:2.12.0'
-	implementation 'com.udojava:EvalEx:2.1'
-	implementation 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-	implementation 'com.google.inject:guice:5.0.1'
-	implementation 'net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT'
-	implementation 'net.kyori:adventure-text-serializer-gson:4.9.3'
+	repositories {
+		maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
+		maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
+	}
 }

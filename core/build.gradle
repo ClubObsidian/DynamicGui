@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+
+    //Dependencies
+    api 'org.apache.commons:commons-lang3:3.12.0'
+    api 'commons-io:commons-io:2.11.0'
+    api 'com.github.clubobsidian:wrappy:2.3.2'
+    api 'com.github.clubobsidian:trident:3.0.0'
+    api 'com.github.clubobsidian:dynamicguiparser:2.12.0'
+    api 'com.udojava:EvalEx:2.1'
+    api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
+    api 'com.google.inject:guice:5.0.1'
+    api 'net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT'
+    api 'net.kyori:adventure-text-serializer-gson:4.9.3'
+}
