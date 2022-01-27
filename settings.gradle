@@ -10,4 +10,5 @@
 rootProject.name = 'DynamicGui'
 include 'core'
 include 'bukkit'
+include 'parser'
 

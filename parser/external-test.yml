@@ -1,0 +1,11 @@
+title: "%gui-test%"
+rows: 1
+mode: "set"
+close: true
+npcs:
+  citizens:
+  - 5
+  - 77
+
+macros:
+  '%gui-test2%': "test gui title"

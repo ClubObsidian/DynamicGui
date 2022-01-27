@@ -1,0 +1,4 @@
+'0':
+  macros:
+    '%invalid-data%': "obviously not data"
+  data: "%invalid-data%"

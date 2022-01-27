@@ -1,0 +1,130 @@
+title: "test gui title"
+rows: 1
+mode: "set"
+close: true
+npcs:
+  citizens:
+  - 5
+  - 77
+
+macros:
+  '%gui-test2%': "test gui title"
+  '%chain-macro%':
+  - "not-a-macro"
+  - "%multiline-test%"
+  - "still-not-a-macro"
+
+functions:
+  function:
+    type: "load"
+    functions:
+    - "function-2"
+
+'0':
+  name: "Some name"
+  functions:
+    load:
+      type: 
+      - "load"
+      functions:
+      - "function: with data"
+      - "function-to-normalize"
+      depth-1-load:
+        type:
+        - "load"
+        functions:
+        - "function: with other data"
+    leftclick:
+      type:
+      - "left"
+      functions:
+      - "function"
+      depth-1-left:
+        type:
+        - "left"
+        functions:
+        - "function"
+        depth-2-left:
+          type: 
+          - "left"
+          functions:
+          - "function: some other data"
+      depth-1-other-left:
+        type:
+        - "left"
+        functions:
+        - "function"
+    allclick:
+      type:
+      - "left"
+      - "right"
+      - "middle" 
+      functions:
+      - "function"
+      - "function: with:a colon"
+      - "functions:  test trimming   "
+'1': #First SlotToken test
+  name: "test"
+  icon: "DIRT"
+  nbt: "{SomeKey:\"some value\"}"
+  close: true
+  glow: false
+  data: 1
+  functions:
+    left:
+      type:
+      - "left"
+      functions:
+      - "function"
+'2': #Macro test
+  name: "%name-macro%"
+  macros:
+    '%name-macro%': "A name"
+    '%test%': "This is some text"
+    '%multiline-test%':
+    - "Replace some text"
+    - "and some other text"
+    - "with some other text"
+  lore:
+  - "%test%"
+  - "%multiline-test% test"
+  - "%multiline-test%"
+  - "not-a-macro"  
+'3': #Small multiline test  
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+  lore:
+  - "%multiline-test%test"
+'4': #Check for index out of bound multiline test
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+  lore:
+  - "%multiline-test%"
+  functions: #Fail functions parsing test
+    function:
+      type:
+      - "left"
+      functions:
+      - "function"
+    function-fail:
+      type:
+      - "fail"
+      functions:
+      - "function"
+      fail-on:
+        - "on-fail-function"
+    function-fail-string:
+      type: "fail"
+      functions:
+      - "function"
+      fail-on: "on-fail-function-string"
+'5':
+  lore:
+  - "%chain-macro% test"
+  macros:
+    '%multiline-test%':
+    - "Replace some text"
+    - "and some other text"
+    - "with some other text"

@@ -1,0 +1,10 @@
+'0':
+  macros:
+    '%valid-type%': "right"
+  functions:
+    some-func:
+      type: 
+      - "%valid-type%"
+      - "left"
+      functions:
+      - "no-func"

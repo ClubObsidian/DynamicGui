@@ -23,4 +23,10 @@ subprojects {
 		mavenCentral()
 		maven { url 'https://jitpack.io' }
 	}
+
+	dependencies {
+		testImplementation 'junit:junit:4.13.2'
+		api 'org.apache.commons:commons-lang3:3.12.0'
+		api 'com.github.clubobsidian:wrappy:2.3.2'
+	}
 }
