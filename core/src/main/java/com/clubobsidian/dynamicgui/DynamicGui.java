@@ -124,6 +124,7 @@ public class DynamicGui {
 
     private String noGui;
     private Proxy proxy;
+    private String dateTimeFormat;
     private final Map<String, Integer> serverPlayerCount;
     private final EventBus eventManager;
     private final DynamicGuiPlugin plugin;
@@ -207,6 +208,8 @@ public class DynamicGui {
         }
 
         this.proxy = this.findProxyByString(proxyStr);
+
+        this.dateTimeFormat = config.getString("date-time-format");
 
         for(final String server : config.getStringList("servers")) {
             this.serverPlayerCount.put(server, 0);
@@ -374,6 +377,10 @@ public class DynamicGui {
 
     public Proxy getProxy() {
         return this.proxy;
+    }
+
+    public String getDateTimeFormat() {
+        return this.dateTimeFormat;
     }
 
     public DynamicGuiPlugin getPlugin() {
