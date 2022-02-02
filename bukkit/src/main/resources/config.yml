@@ -5,6 +5,7 @@ no-gui: "&4That gui does not exist!"
 # redis - If you use redis bungee on a bungeecord proxy
 # none - If you do not use a proxy
 proxy: "none"
+date-time-format: "MM dd, yyyy HH:mm:ss"
 servers:
   - "prison"
 

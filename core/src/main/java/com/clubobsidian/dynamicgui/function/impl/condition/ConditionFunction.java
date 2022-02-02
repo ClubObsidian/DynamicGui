@@ -37,11 +37,14 @@ public class ConditionFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {
             Expression expr = new Expression(this.getData());
+
             expr.addLazyFunction(new EqualLazyFunction());
             expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
             expr.addLazyFunction(new ContainsLazyFunction());
             expr.addLazyFunction(new EndsWithLazyFunction());
             expr.addLazyFunction(new StartsWithLazyFunction());
+            expr.addLazyFunction(new AfterDateLazyFunction());
+            expr.addLazyFunction(new BeforeDateLazyFunction());
 
             if(!expr.isBoolean())
                 return false;
