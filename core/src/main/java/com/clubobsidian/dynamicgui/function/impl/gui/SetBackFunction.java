@@ -54,9 +54,7 @@ public class SetBackFunction extends Function {
         if(backGui == null) {
             return false;
         }
-
         gui.setBack(backGui);
-
         return true;
     }
 }

@@ -36,7 +36,8 @@ public class CustomCommandExecutor implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
-            return GuiManager.get().openGui(playerWrapper, this.gui);
+            GuiManager.get().openGui(playerWrapper, this.gui);
+            return true;
         }
         return false;
     }

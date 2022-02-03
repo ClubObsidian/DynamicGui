@@ -22,6 +22,8 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 
+import java.util.concurrent.ExecutionException;
+
 public class BackFunction extends Function {
 
     /**
@@ -45,7 +47,6 @@ public class BackFunction extends Function {
             gui = (Gui) owner;
         }
 
-
         Gui back = gui.getBack();
         if(back != null) {
             if(this.getData() != null) {
@@ -61,11 +62,17 @@ public class BackFunction extends Function {
                     return false;
                 }
             }
-
-            GuiManager.get().openGui(playerWrapper, back);
-            return true;
+            try {
+                return GuiManager.get().openGui(playerWrapper, back).get();
+            } catch(InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
-
         return false;
+    }
+
+    @Override
+    public boolean isAsync() {
+        return true;
     }
 }
