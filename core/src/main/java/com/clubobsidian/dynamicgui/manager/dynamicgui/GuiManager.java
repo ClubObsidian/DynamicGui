@@ -36,8 +36,9 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
-import com.clubobsidian.dynamicgui.util.FunctionUtil;
+import com.clubobsidian.dynamicgui.function.FunctionUtil;
 import com.clubobsidian.dynamicgui.util.HashUtil;
+import com.clubobsidian.dynamicgui.util.ThreadUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
@@ -57,6 +58,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class GuiManager {
 
@@ -152,75 +154,87 @@ public class GuiManager {
         return this.playerGuis.get(playerWrapper.getUniqueId());
     }
 
-    public boolean openGui(Object player, String guiName) {
+    public CompletableFuture<Boolean> openGui(Object player, String guiName) {
         return this.openGui(EntityManager.get().createPlayerWrapper(player), guiName);
     }
 
-    public boolean openGui(Object player, Gui gui) {
+    public CompletableFuture<Boolean> openGui(Object player, Gui gui) {
         return this.openGui(EntityManager.get().createPlayerWrapper(player), gui);
     }
 
-    public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName) {
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName) {
         return this.openGui(playerWrapper, guiName, null);
     }
 
-    public boolean openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
         return this.openGui(playerWrapper, this.getGuiByName(guiName), back);
     }
 
-    public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
         return this.openGui(playerWrapper, gui, null);
     }
 
-    public boolean openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
-        if(gui == null) {
-            playerWrapper.sendMessage(DynamicGui.get().getNoGui());
-            return false;
-        }
-
-        Gui clonedGui = gui.clone();
-        if(back != null) {
-            clonedGui.setBack(back.clone());
-        }
-
-        GuiPreloadEvent preloadEvent = new GuiPreloadEvent(clonedGui, playerWrapper);
-        DynamicGui.get().getEventBus().callEvent(preloadEvent);
-
-        //Run gui load functions
-        boolean ran = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
-        GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
-        if(!ran) {
-            event.setCancelled(true);
-        }
-        DynamicGui.get().getEventBus().callEvent(event);
-
-        if(ran) {
-            InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
-
-            //Run slot load functions
-            for(Slot slot : clonedGui.getSlots()) {
-                FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        future.exceptionally((ex) -> {
+            ex.printStackTrace();
+            return null;
+        });
+        ThreadUtil.run(() -> {
+            if(gui == null) {
+                playerWrapper.sendMessage(DynamicGui.get().getNoGui());
+                future.complete(false);
+                return;
             }
 
-            if(inventoryWrapper == null) {
-                return false;
+            Gui clonedGui = gui.clone();
+            if(back != null) {
+                clonedGui.setBack(back.clone());
             }
 
-            FakeServer server = DynamicGui.get().getServer();
-            if(server.getType() == ServerType.SPONGE) {
-                server.getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
-                    playerWrapper.openInventory(inventoryWrapper);
-                }, 1L);
-            } else {
-                playerWrapper.openInventory(inventoryWrapper);
-            }
+            GuiPreloadEvent preloadEvent = new GuiPreloadEvent(clonedGui, playerWrapper);
+            DynamicGui.get().getEventBus().callEvent(preloadEvent);
 
-            this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-            DynamicGui.get().getServer().getScheduler().scheduleSyncDelayedTask(DynamicGui.get().getPlugin(), () -> {
-                playerWrapper.updateInventory();
-            }, 2L);
-        }
-        return ran;
+            //Run gui load functions
+            CompletableFuture<Boolean> result = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
+            result.thenAccept((ran) -> ThreadUtil.run(() -> {
+                GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
+                if(!ran) {
+                    event.setCancelled(true);
+                }
+                DynamicGui.get().getEventBus().callEvent(event);
+
+                if(ran) {
+                    InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
+
+                    //Run slot load functions
+                    for(Slot slot : clonedGui.getSlots()) {
+                        FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+                    }
+
+                    if(inventoryWrapper == null) {
+                        future.complete(false);
+                        return;
+                    }
+
+                    FakeServer server = DynamicGui.get().getServer();
+                    if(server.getType() == ServerType.SPONGE) {
+                        server.getScheduler().runSyncDelayedTask(() -> {
+                            playerWrapper.openInventory(inventoryWrapper);
+                        }, 1L);
+                    } else {
+                        playerWrapper.openInventory(inventoryWrapper);
+                    }
+
+                    this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
+                    DynamicGui.get().getServer().getScheduler().runSyncDelayedTask(() -> {
+                        playerWrapper.updateInventory();
+                    }, 2L);
+                }
+                future.complete(ran);
+            }, false));
+        }, false);
+        return future;
     }
 
     private void loadGlobalMacroFromFile(File file) {

@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.util.FunctionUtil;
+import com.clubobsidian.dynamicgui.function.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.HashSet;

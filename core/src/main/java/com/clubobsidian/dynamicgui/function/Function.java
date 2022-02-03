@@ -21,6 +21,7 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.util.concurrent.CompletableFuture;
 
 public abstract class Function implements Cloneable, Serializable {
 
@@ -47,6 +48,10 @@ public abstract class Function implements Cloneable, Serializable {
     }
 
     public abstract boolean function(PlayerWrapper<?> playerWrapper);
+
+    public boolean isAsync() {
+        return false;
+    }
 
     public String getName() {
         return this.name;

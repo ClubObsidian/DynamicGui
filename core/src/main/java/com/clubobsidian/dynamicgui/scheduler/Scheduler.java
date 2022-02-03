@@ -19,9 +19,11 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 
 public abstract class Scheduler {
 
-    public abstract void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay);
+    public abstract void runSyncDelayedTask(Runnable runnable, long delay);
 
-    public abstract void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating);
+    public abstract void runAsynchronousDelayedTask(Runnable runnable, long delay);
 
-    public abstract void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating);
+    public abstract void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
+
+    public abstract void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
 }

@@ -36,6 +36,8 @@ public abstract class FakeServer {
         return this.scheduler;
     }
 
+    public abstract boolean isMainThread();
+
     public abstract void broadcastMessage(String message);
 
     public abstract void broadcastJsonMessage(String json);

@@ -15,6 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.scheduler.bukkit;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 import org.bukkit.Bukkit;
@@ -23,17 +24,27 @@ import org.bukkit.plugin.Plugin;
 public class BukkitScheduler extends Scheduler {
 
     @Override
-    public void scheduleSyncDelayedTask(DynamicGuiPlugin plugin, Runnable runnable, Long delay) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin) plugin, runnable, delay);
+    public void runSyncDelayedTask(Runnable runnable, long delay) {
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
     }
 
     @Override
-    public void scheduleSyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) plugin, runnable, delayInitial, delayRepeating);
+    public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
+        Bukkit.getScheduler()
+                .runTaskLaterAsynchronously((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
     }
 
     @Override
-    public void scheduleAsyncRepeatingTask(DynamicGuiPlugin plugin, Runnable runnable, Long delayInitial, Long delayRepeating) {
-        Bukkit.getServer().getScheduler().runTaskTimerAsynchronously((Plugin) plugin, runnable, delayInitial, delayRepeating);
+    public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+        Bukkit.getScheduler()
+                .scheduleSyncRepeatingTask((Plugin) DynamicGui.get().getPlugin(), runnable, delayInitial, delayRepeating);
+    }
+
+    @Override
+    public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+        Bukkit.getServer().getScheduler()
+                .runTaskTimerAsynchronously((Plugin) DynamicGui.get().getPlugin(),
+                        runnable, delayInitial, delayRepeating);
     }
 }

@@ -46,6 +46,11 @@ public class FakeBukkitServer extends FakeServer {
     }
 
     @Override
+    public boolean isMainThread() {
+        return Bukkit.getServer().isPrimaryThread();
+    }
+
+    @Override
     public void broadcastMessage(String message) {
         Bukkit.getServer().broadcastMessage(message);
     }

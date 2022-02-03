@@ -13,11 +13,10 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.util;
+package com.clubobsidian.dynamicgui.function;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
@@ -26,19 +25,23 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.util.ThreadUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public final class FunctionUtil {
 
     private FunctionUtil() {
     }
 
-    public static boolean tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
+    public static CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
         return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
     }
 
-    private static boolean recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper) {
+    private static CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper) {
         for(FunctionNode node : functionNodes) {
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
@@ -66,37 +69,57 @@ public final class FunctionUtil {
                 }
             }
         }
-
         return true;
     }
 
-    private static FunctionResponse runFunctionData(FunctionOwner owner, List<FunctionData> datas, PlayerWrapper<?> playerWrapper) {
-        for(FunctionData data : datas) {
-            String functionName = data.getName();
-            String functionData = data.getData();
-            Function function = FunctionManager.get().getFunctionByName(functionName);
-            if(function == null) {
-                DynamicGui.get().getLogger().error("Invalid function " + data.getName());
-                return new FunctionResponse(false);
-            }
+    private static CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
+        CompletableFuture<FunctionResponse> response = new CompletableFuture<>();
+        ThreadUtil.run(() -> {
+            for(int i = 0; i < functionDataList.size(); i++) {
+                FunctionData data = functionDataList.get(i);
+                String functionName = data.getName();
+                String functionData = data.getData();
+                Function function = FunctionManager.get().getFunctionByName(functionName);
+                if(function == null) {
+                    DynamicGui.get().getLogger().error("Invalid function " + data.getName());
+                    response.complete(new FunctionResponse(false));
+                }
+                function.setOwner(owner);
 
-            function.setOwner(owner);
+                if(data.getData() != null) {
+                    String newData = ReplacerManager.get().replace(functionData, playerWrapper);
+                    function.setData(newData);
+                }
 
-            if(data.getData() != null) {
-                String newData = ReplacerManager.get().replace(functionData, playerWrapper);
-                function.setData(newData);
+                boolean async = function.isAsync();
+                List<FunctionData> futureData = async ? new ArrayList<>(functionDataList.size()) : functionDataList;
+                if(async) {
+                    for(int j = i + 1; j < functionDataList.size(); i++) {
+                        futureData.add(functionDataList.get(i));
+                    }
+                }
+                ThreadUtil.run(() -> {
+                    boolean ran = function.function(playerWrapper);
+                    if(data.getModifier() == FunctionModifier.NOT) {
+                        ran = !ran;
+                    }
+                    if(!ran) {
+                        response.complete(new FunctionResponse(false, functionName, functionData));
+                    } else if (async) {
+                        try {
+                            response.complete(runFunctionData(owner, futureData, playerWrapper).get());
+                        } catch(InterruptedException | ExecutionException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }, async);
+                if(async) {
+                    break;
+                }
             }
-
-            boolean ran = function.function(playerWrapper);
-            if(data.getModifier() == FunctionModifier.NOT) {
-                ran = !ran;
-            }
-
-            if(!ran) {
-                return new FunctionResponse(false, functionName, functionData);
-            }
-        }
-        return new FunctionResponse(true);
+            response.complete(new FunctionResponse(true));
+        }, false);
+        return response;
     }
 
     private static boolean isFail(FunctionResponse response, FunctionToken token) {
