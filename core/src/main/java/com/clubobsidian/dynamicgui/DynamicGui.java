@@ -352,7 +352,7 @@ public class DynamicGui {
     }
 
     private void startPlayerCountTimer() {
-        this.getServer().getScheduler().scheduleSyncRepeatingTask(this.getPlugin(), () -> {
+        this.getServer().getScheduler().scheduleSyncRepeatingTask(() -> {
             for(String server : serverPlayerCount.keySet()) {
                 PlayerWrapper<?> player = Iterables.getFirst(this.getServer().getOnlinePlayers(), null);
                 if(player != null) {
@@ -363,7 +363,6 @@ public class DynamicGui {
                     if(this.proxy == Proxy.REDIS_BUNGEE) {
                         sendTo = "RedisBungee";
                     }
-
                     player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
                 }
             }

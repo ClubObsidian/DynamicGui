@@ -233,18 +233,16 @@ public class CooldownManager {
 
     private void scheduleCooldownUpdate() {
         DynamicGui dynamicGui = DynamicGui.get();
-        DynamicGuiPlugin plugin = dynamicGui.getPlugin();
         FakeServer server = dynamicGui.getServer();
-        server.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+        server.getScheduler().scheduleSyncRepeatingTask(() -> {
             this.updateCache();
         }, 1L, 1L);
     }
 
     private void scheduleConfigUpdate() {
         DynamicGui dynamicGui = DynamicGui.get();
-        DynamicGuiPlugin plugin = dynamicGui.getPlugin();
         FakeServer server = dynamicGui.getServer();
-        server.getScheduler().scheduleAsyncRepeatingTask(plugin, () -> {
+        server.getScheduler().scheduleAsyncRepeatingTask(() -> {
             if(this.updateConfig.get()) {
                 this.updateConfig.set(false);
                 this.updateAndSaveConfig();

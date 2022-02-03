@@ -45,7 +45,7 @@ public class SlotManager {
     }
 
     private void updateSlots() {
-        DynamicGui.get().getServer().getScheduler().scheduleSyncRepeatingTask(DynamicGui.get().getPlugin(), () -> {
+        DynamicGui.get().getServer().getScheduler().scheduleSyncRepeatingTask(() -> {
             Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
             while(it.hasNext()) {
                 Entry<UUID, Gui> next = it.next();
