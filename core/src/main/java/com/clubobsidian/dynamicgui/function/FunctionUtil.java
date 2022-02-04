@@ -95,6 +95,7 @@ public final class FunctionUtil {
                 if(function == null) {
                     DynamicGui.get().getLogger().error("Invalid function " + data.getName());
                     response.complete(new FunctionResponse(false));
+                    return;
                 }
                 function.setOwner(owner);
 
