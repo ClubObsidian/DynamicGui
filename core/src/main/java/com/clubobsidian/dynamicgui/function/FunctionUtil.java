@@ -27,8 +27,11 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.util.ThreadUtil;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -41,35 +44,44 @@ public final class FunctionUtil {
         return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
     }
 
-    private static CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse fail, FunctionOwner owner, List<FunctionNode> functionNodes, FunctionType type, PlayerWrapper<?> playerWrapper) {
-        for(FunctionNode node : functionNodes) {
+    private static CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse fail,
+                                                                 FunctionOwner owner,
+                                                                 Collection<FunctionNode> functionNodes,
+                                                                 FunctionType type,
+                                                                 PlayerWrapper<?> playerWrapper) {
+        Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        FunctionNode node = nodeQueue.poll();
+        if(node != null) {
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
             if(types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
                 if(type != FunctionType.FAIL) {
-                    FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
-
-                    if(!response.result) {
-                        if(response.failedFunction == null) {
-                            return false;
+                    runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(response -> {
+                        if(!response.result) {
+                            if(response.failedFunction == null) {
+                                future.complete(false);
+                            } else {
+                                recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper)
+                                        .thenAccept((value) -> future.complete(false));
+                            }
+                        } else {
+                            recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
                         }
-
-                        recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-                        return false;
-                    } else {
-                        recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
-                    }
+                    });
                 } else if(type == FunctionType.FAIL) {
                     if(isFail(fail, functionToken)) {
-                        FunctionResponse response = runFunctionData(owner, functionToken.getFunctions(), playerWrapper);
-                        if(!response.result) {
-                            recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-                        }
+                        runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(response -> {
+                            if(!response.result) {
+                                recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
+                            }
+                        });
                     }
                 }
             }
         }
-        return true;
+        future.complete(true);
+        return future;
     }
 
     private static CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
@@ -93,7 +105,7 @@ public final class FunctionUtil {
 
                 boolean async = function.isAsync();
                 List<FunctionData> futureData = async ? new ArrayList<>(functionDataList.size()) : functionDataList;
-                if(async) {
+                if(async) { //Load functions into new arraylist if the function is async
                     for(int j = i + 1; j < functionDataList.size(); i++) {
                         futureData.add(functionDataList.get(i));
                     }
@@ -113,6 +125,9 @@ public final class FunctionUtil {
                         }
                     }
                 }, async);
+                //Return if function is async since the async caller will hand
+                //control back to this method after completion or the function will
+                //fail and then complete
                 if(async) {
                     return;
                 }
