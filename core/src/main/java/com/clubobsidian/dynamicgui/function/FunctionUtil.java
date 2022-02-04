@@ -106,8 +106,8 @@ public final class FunctionUtil {
                 boolean async = function.isAsync();
                 List<FunctionData> futureData = async ? new ArrayList<>(functionDataList.size()) : functionDataList;
                 if(async) { //Load functions into new arraylist if the function is async
-                    for(int j = i + 1; j < functionDataList.size(); i++) {
-                        futureData.add(functionDataList.get(i));
+                    for(int j = i + 1; j < functionDataList.size(); j++) {
+                        futureData.add(functionDataList.get(j));
                     }
                 }
                 ThreadUtil.run(() -> {

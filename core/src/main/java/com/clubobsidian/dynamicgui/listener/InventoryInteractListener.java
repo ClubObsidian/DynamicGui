@@ -52,8 +52,7 @@ public class InventoryInteractListener {
         }
 
         ItemStackWrapper<?> item = e.getItemStackWrapper();
-        if(e.getClick() == null) //For other types of clicks besides left, right, middle
-        {
+        if(e.getClick() == null) { //For other types of clicks besides left, right, middle
             e.setCancelled(true);
             return;
         } else if(item.getItemStack() == null) {
@@ -79,7 +78,7 @@ public class InventoryInteractListener {
             e.setCancelled(true);
         }
 
-        Boolean close = null;
+        Boolean close;
         if(slot.getClose() != null) {
             close = slot.getClose();
         } else if(gui.getClose() != null) {
