@@ -114,7 +114,7 @@ public final class FunctionUtil {
                     }
                 }, async);
                 if(async) {
-                    break;
+                    return;
                 }
             }
             response.complete(new FunctionResponse(true));
