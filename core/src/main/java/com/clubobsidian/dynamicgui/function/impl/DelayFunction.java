@@ -4,10 +4,10 @@ import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
 import org.apache.commons.lang3.math.NumberUtils;
 
-public class BlockingFunction extends Function {
+public class DelayFunction extends Function {
 
-    public BlockingFunction(String name) {
-        super(name);
+    public DelayFunction() {
+        super("delay");
     }
 
     @Override

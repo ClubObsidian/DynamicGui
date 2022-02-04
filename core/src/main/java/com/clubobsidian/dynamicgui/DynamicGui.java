@@ -17,7 +17,7 @@ package com.clubobsidian.dynamicgui;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.impl.AddPermissionFunction;
-import com.clubobsidian.dynamicgui.function.impl.BlockingFunction;
+import com.clubobsidian.dynamicgui.function.impl.DelayFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.function.impl.CheckMoveableFunction;
@@ -351,7 +351,7 @@ public class DynamicGui {
 
         FunctionManager.get().addFunction(new IsBedrockPlayerFunction("isbedrockplayer"));
 
-        FunctionManager.get().addFunction(new BlockingFunction("block"));
+        FunctionManager.get().addFunction(new DelayFunction());
     }
 
     private void startPlayerCountTimer() {
