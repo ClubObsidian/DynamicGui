@@ -31,6 +31,9 @@ public class AddPermissionFunction extends Function {
 
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         return playerWrapper.addPermission(this.getData());
     }
 }
