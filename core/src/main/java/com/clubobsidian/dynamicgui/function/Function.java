@@ -31,12 +31,22 @@ public abstract class Function implements Cloneable, Serializable {
     private static final long serialVersionUID = 1492427006104061443L;
     private final String name;
     private String data;
+    private final boolean async;
     private FunctionOwner owner;
     private int index = -1;
 
-    public Function(String name, String data) {
+    public Function(String name, String data, boolean async) {
         this.name = StringFuzz.normalize(name);
         this.data = data;
+        this.async = async;
+    }
+
+    public Function(String name, String data) {
+        this(name, data, false);
+    }
+
+    public Function(String name, boolean async) {
+        this(name, null, async);
     }
 
     public Function(String name) {
@@ -50,7 +60,7 @@ public abstract class Function implements Cloneable, Serializable {
     public abstract boolean function(PlayerWrapper<?> playerWrapper);
 
     public boolean isAsync() {
-        return false;
+        return this.async;
     }
 
     public String getName() {

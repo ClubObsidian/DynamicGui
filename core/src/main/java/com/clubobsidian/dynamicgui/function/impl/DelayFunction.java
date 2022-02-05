@@ -7,7 +7,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class DelayFunction extends Function {
 
     public DelayFunction() {
-        super("delay");
+        super("delay", true);
     }
 
     @Override
@@ -22,10 +22,5 @@ public class DelayFunction extends Function {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public boolean isAsync() {
-        return true;
     }
 }
