@@ -2,6 +2,7 @@ package com.clubobsidian.dynamicgui.test.mock;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ public class MockPlayer {
     private final UUID uuid;
     private final List<String> incomingChat = new ArrayList<>();
     private final List<String> outgoingChat = new ArrayList<>();
+    private final Collection<String> permissions = new HashSet<>();
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -44,4 +46,13 @@ public class MockPlayer {
     public List<String> getOutgoingChat() {
         return this.outgoingChat;
     }
+
+    public boolean hasPermission(String permission) {
+        return this.permissions.contains(permission);
+    }
+
+    public boolean addPermission(String permission) {
+        return this.permissions.add(permission);
+    }
+
 }

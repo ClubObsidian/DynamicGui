@@ -30,5 +30,11 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
         this.getPlayer().sendMessage(message);
     }
 
+    public boolean hasPermission(String permission) {
+        return this.getPlayer().hasPermission(permission);
+    }
 
+    public boolean addPermission(String permission) {
+        return this.getPlayer().addPermission(permission);
+    }
 }
