@@ -36,7 +36,7 @@ import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.FakeServer;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
-import com.clubobsidian.dynamicgui.function.FunctionUtil;
+
 import com.clubobsidian.dynamicgui.util.HashUtil;
 import com.clubobsidian.dynamicgui.util.ThreadUtil;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -196,7 +196,7 @@ public class GuiManager {
             DynamicGui.get().getEventBus().callEvent(preloadEvent);
 
             //Run gui load functions
-            CompletableFuture<Boolean> result = FunctionUtil.tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
+            CompletableFuture<Boolean> result = FunctionManager.get().tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
             result.thenAccept((ran) -> ThreadUtil.run(() -> {
                 GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
                 if(!ran) {
@@ -209,7 +209,7 @@ public class GuiManager {
 
                     //Run slot load functions
                     for(Slot slot : clonedGui.getSlots()) {
-                        FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+                        FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                     }
 
                     if(inventoryWrapper == null) {

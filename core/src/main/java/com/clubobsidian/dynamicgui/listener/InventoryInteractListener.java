@@ -24,10 +24,10 @@ import com.clubobsidian.dynamicgui.gui.InventoryView;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.function.FunctionUtil;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;
@@ -71,7 +71,7 @@ public class InventoryInteractListener {
         List<FunctionNode> functions = slot.getFunctions().getRootNodes();
         if(functions.size() > 0) {
             String clickString = e.getClick().toString();
-            FunctionUtil.tryFunctions(slot, FunctionType.valueOf(clickString), player);
+            FunctionManager.get().tryFunctions(slot, FunctionType.valueOf(clickString), player);
         }
 
         if(!slot.isMoveable()) {

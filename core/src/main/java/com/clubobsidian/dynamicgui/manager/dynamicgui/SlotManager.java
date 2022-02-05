@@ -22,7 +22,6 @@ import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.function.FunctionUtil;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -66,7 +65,7 @@ public class SlotManager {
                         InventoryWrapper<?> inventoryWrapper = slot.getOwner().getInventoryWrapper();
                         inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 
-                        FunctionUtil.tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+                        FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                         if(!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
                             inventoryWrapper.updateItem(slotIndex, playerWrapper);
                         }
