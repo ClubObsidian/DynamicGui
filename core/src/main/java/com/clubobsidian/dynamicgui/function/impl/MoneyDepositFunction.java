@@ -29,8 +29,8 @@ public class MoneyDepositFunction extends Function {
      */
     private static final long serialVersionUID = -2637510737725573158L;
 
-    public MoneyDepositFunction(String name) {
-        super(name);
+    public MoneyDepositFunction() {
+        super("moneydeposit");
     }
 
     @Override

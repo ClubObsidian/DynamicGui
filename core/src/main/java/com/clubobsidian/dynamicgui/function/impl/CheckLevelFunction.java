@@ -25,20 +25,20 @@ public class CheckLevelFunction extends Function {
      */
     private static final long serialVersionUID = 4927665292013293816L;
 
-    public CheckLevelFunction(String name) {
-        super(name);
+    public CheckLevelFunction() {
+        super("checklevel");
     }
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        int level = -1;
         try {
-            level = Integer.parseInt(this.getData());
+            int level = Integer.parseInt(this.getData());
+            return playerWrapper.getLevel() >= level;
         } catch(NumberFormatException ex) {
             ex.printStackTrace();
             return false;
         }
 
-        return playerWrapper.getLevel() >= level;
+
     }
 }

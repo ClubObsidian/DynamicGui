@@ -28,8 +28,8 @@ public class SetCloseFunction extends Function {
      */
     private static final long serialVersionUID = -5671625221707551692L;
 
-    public SetCloseFunction(String name) {
-        super(name);
+    public SetCloseFunction() {
+        super("setclose");
     }
 
     @Override

@@ -26,8 +26,8 @@ public class LogFunction extends Function {
      */
     private static final long serialVersionUID = 848178368629667482L;
 
-    public LogFunction(String name) {
-        super(name);
+    public LogFunction() {
+        super("log", "logger");
     }
 
     @Override

@@ -25,8 +25,8 @@ public class PermissionFunction extends Function {
      */
     private static final long serialVersionUID = 6578996849784218130L;
 
-    public PermissionFunction(String name) {
-        super(name);
+    public PermissionFunction() {
+        super("permission", "haspermission");
     }
 
     @Override

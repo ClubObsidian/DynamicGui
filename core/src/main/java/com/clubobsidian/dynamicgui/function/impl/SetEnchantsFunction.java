@@ -35,8 +35,8 @@ public class SetEnchantsFunction extends Function {
      */
     private static final long serialVersionUID = 8291956007296368761L;
 
-    public SetEnchantsFunction(String name) {
-        super(name);
+    public SetEnchantsFunction() {
+        super("setenchants");
     }
 
     @Override

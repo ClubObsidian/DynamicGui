@@ -37,8 +37,8 @@ public class SetLoreFunction extends Function {
      */
     private static final long serialVersionUID = -6723628078978301156L;
 
-    public SetLoreFunction(String name) {
-        super(name);
+    public SetLoreFunction() {
+        super("setlore");
     }
 
     @Override
@@ -52,7 +52,6 @@ public class SetLoreFunction extends Function {
                     InventoryWrapper<?> inv = gui.getInventoryWrapper();
                     if(inv != null) {
                         ItemStackWrapper<?> item = slot.getItemStack();
-
                         List<String> lore = new ArrayList<>();
                         if(this.getData() == null) {
                             lore = null;

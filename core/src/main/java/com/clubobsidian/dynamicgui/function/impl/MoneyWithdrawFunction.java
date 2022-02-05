@@ -28,8 +28,8 @@ public class MoneyWithdrawFunction extends Function {
      */
     private static final long serialVersionUID = -8941864727381394744L;
 
-    public MoneyWithdrawFunction(String name) {
-        super(name);
+    public MoneyWithdrawFunction() {
+        super("moneywithdraw");
     }
 
     @Override

@@ -28,8 +28,8 @@ public class CheckMoveableFunction extends Function {
      */
     private static final long serialVersionUID = 1037806025228025407L;
 
-    public CheckMoveableFunction(String name) {
-        super(name);
+    public CheckMoveableFunction() {
+        super("checkmoveable");
     }
 
     @Override

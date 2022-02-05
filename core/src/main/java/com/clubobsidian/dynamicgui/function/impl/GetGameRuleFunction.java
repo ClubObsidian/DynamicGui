@@ -28,8 +28,8 @@ public class GetGameRuleFunction extends Function {
      */
     private static final long serialVersionUID = -5840073572003297982L;
 
-    public GetGameRuleFunction(String name) {
-        super(name);
+    public GetGameRuleFunction() {
+        super("getgamerule");
     }
 
     @Override

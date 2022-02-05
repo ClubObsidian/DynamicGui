@@ -26,8 +26,8 @@ public class ResetTickFunction extends Function {
      */
     private static final long serialVersionUID = 6376946053337191934L;
 
-    public ResetTickFunction(String name) {
-        super(name);
+    public ResetTickFunction() {
+        super("resettick");
     }
 
     @Override

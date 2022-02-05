@@ -71,7 +71,13 @@ public class FunctionManager {
     }
 
     public boolean addFunction(Function function) {
-        return this.functions.put(function.getName(), function) != null;
+        boolean wasNotNull = this.functions.put(function.getName(), function) != null;
+        for(String alias : function.getAliases()) {
+            if(this.functions.put(alias, function) != null) {
+                wasNotNull = true;
+            }
+        }
+        return wasNotNull;
     }
 
     public boolean removeFunctionByName(String functionName) {

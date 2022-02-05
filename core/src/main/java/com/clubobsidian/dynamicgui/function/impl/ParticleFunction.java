@@ -26,8 +26,8 @@ public class ParticleFunction extends Function {
      */
     private static final long serialVersionUID = 6719256169872302172L;
 
-    public ParticleFunction(String name) {
-        super(name);
+    public ParticleFunction() {
+        super("particles", "particle");
     }
 
     @Override

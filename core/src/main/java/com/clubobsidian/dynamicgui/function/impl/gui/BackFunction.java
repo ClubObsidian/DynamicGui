@@ -31,8 +31,8 @@ public class BackFunction extends Function {
      */
     private static final long serialVersionUID = 7851730396417693718L;
 
-    public BackFunction(String name) {
-        super(name);
+    public BackFunction() {
+        super("back");
     }
 
     @Override

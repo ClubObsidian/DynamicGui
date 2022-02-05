@@ -29,8 +29,8 @@ public class SetBackFunction extends Function {
      */
     private static final long serialVersionUID = 4999698612673673935L;
 
-    public SetBackFunction(String name) {
-        super(name);
+    public SetBackFunction() {
+        super("setback");
     }
 
     @Override

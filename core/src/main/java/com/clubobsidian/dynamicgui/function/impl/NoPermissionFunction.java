@@ -25,8 +25,8 @@ public class NoPermissionFunction extends Function {
      */
     private static final long serialVersionUID = 6907686728880861860L;
 
-    public NoPermissionFunction(String name) {
-        super(name);
+    public NoPermissionFunction() {
+        super("nopermission");
     }
 
     @Override

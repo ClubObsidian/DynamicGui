@@ -31,8 +31,8 @@ public class SetGlowFunction extends Function {
      */
     private static final long serialVersionUID = -3727112026677117024L;
 
-    public SetGlowFunction(String name) {
-        super(name);
+    public SetGlowFunction() {
+        super("setglow");
     }
 
     @Override

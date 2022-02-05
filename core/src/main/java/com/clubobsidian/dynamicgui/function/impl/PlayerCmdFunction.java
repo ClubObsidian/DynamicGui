@@ -26,8 +26,8 @@ public class PlayerCmdFunction extends Function {
      */
     private static final long serialVersionUID = 220426382325192292L;
 
-    public PlayerCmdFunction(String name) {
-        super(name);
+    public PlayerCmdFunction() {
+        super("executep");
     }
 
     @Override

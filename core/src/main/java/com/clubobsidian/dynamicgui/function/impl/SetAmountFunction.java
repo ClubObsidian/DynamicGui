@@ -31,8 +31,8 @@ public class SetAmountFunction extends Function {
      */
     private static final long serialVersionUID = 6943230273788425141L;
 
-    public SetAmountFunction(String name) {
-        super(name);
+    public SetAmountFunction() {
+        super("setamount");
     }
 
     @Override

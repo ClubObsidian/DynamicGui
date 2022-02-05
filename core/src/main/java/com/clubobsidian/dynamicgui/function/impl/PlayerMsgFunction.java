@@ -27,8 +27,8 @@ public class PlayerMsgFunction extends Function {
      */
     private static final long serialVersionUID = 6244543904061733902L;
 
-    public PlayerMsgFunction(String name) {
-        super(name);
+    public PlayerMsgFunction() {
+        super("msg", "pmsg");
     }
 
     @Override

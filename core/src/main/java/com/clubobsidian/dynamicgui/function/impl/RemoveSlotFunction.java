@@ -30,8 +30,8 @@ public class RemoveSlotFunction extends Function {
      */
     private static final long serialVersionUID = -88925446185236878L;
 
-    public RemoveSlotFunction(String name) {
-        super(name);
+    public RemoveSlotFunction() {
+        super("removeslot");
     }
 
     @Override

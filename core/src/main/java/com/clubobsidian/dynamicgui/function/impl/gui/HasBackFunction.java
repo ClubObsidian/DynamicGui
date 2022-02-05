@@ -29,8 +29,8 @@ public class HasBackFunction extends Function {
      */
     private static final long serialVersionUID = -6693867193877376679L;
 
-    public HasBackFunction(String name) {
-        super(name);
+    public HasBackFunction() {
+        super("hasback");
     }
 
     @Override

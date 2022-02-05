@@ -31,8 +31,8 @@ public class GuiFunction extends Function {
      */
     private static final long serialVersionUID = 848178368629667482L;
 
-    public GuiFunction(String name) {
-        super(name);
+    public GuiFunction() {
+        super("gui");
     }
 
     @Override

@@ -29,8 +29,8 @@ public class MoneyBalanceFunction extends Function {
      */
     private static final long serialVersionUID = -2637510737725573158L;
 
-    public MoneyBalanceFunction(String name) {
-        super(name);
+    public MoneyBalanceFunction() {
+        super("moneybalance");
     }
 
     @Override

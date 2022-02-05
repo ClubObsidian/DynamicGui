@@ -31,8 +31,8 @@ public class HasMetadataFunction extends Function {
      */
     private static final long serialVersionUID = -1651909249573158848L;
 
-    public HasMetadataFunction(String name) {
-        super(name);
+    public HasMetadataFunction() {
+        super("hasmetadata", "getmetadata");
     }
 
     @Override

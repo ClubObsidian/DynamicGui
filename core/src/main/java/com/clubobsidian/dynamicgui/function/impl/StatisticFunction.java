@@ -27,8 +27,8 @@ public class StatisticFunction extends Function {
      */
     private static final long serialVersionUID = -8624786841614185001L;
 
-    public StatisticFunction(String name) {
-        super(name);
+    public StatisticFunction() {
+        super("statistic");
     }
 
     @Override

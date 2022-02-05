@@ -28,8 +28,8 @@ public class ServerMiniBroadcastFunction extends Function {
      */
     private static final long serialVersionUID = 9216295481570082778L;
 
-    public ServerMiniBroadcastFunction(String name) {
-        super(name);
+    public ServerMiniBroadcastFunction() {
+        super("minibroadcast");
     }
 
     @Override

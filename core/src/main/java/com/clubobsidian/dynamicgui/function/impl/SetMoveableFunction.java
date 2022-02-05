@@ -29,8 +29,8 @@ public class SetMoveableFunction extends Function {
      */
     private static final long serialVersionUID = 453447798953153174L;
 
-    public SetMoveableFunction(String name) {
-        super(name);
+    public SetMoveableFunction() {
+        super("setmoveable");
     }
 
     @Override

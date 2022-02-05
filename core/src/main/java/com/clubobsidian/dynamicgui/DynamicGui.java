@@ -281,75 +281,73 @@ public class DynamicGui {
     }
 
     private void loadFunctions() {
-        FunctionManager.get().addFunction(new CheckTickFunction("checktick"));
-        FunctionManager.get().addFunction(new ConditionFunction("condition"));
-        FunctionManager.get().addFunction(new ResetFrameFunction("resetframe"));
-        FunctionManager.get().addFunction(new ResetTickFunction("resettick"));
+        FunctionManager.get().addFunction(new CheckTickFunction());
+        FunctionManager.get().addFunction(new ConditionFunction());
+        FunctionManager.get().addFunction(new ResetFrameFunction());
+        FunctionManager.get().addFunction(new ResetTickFunction());
 
-        FunctionManager.get().addFunction(new ConsoleCmdFunction("executec"));
-        FunctionManager.get().addFunction(new PlayerCmdFunction("executep"));
+        FunctionManager.get().addFunction(new ConsoleCmdFunction());
+        FunctionManager.get().addFunction(new PlayerCmdFunction());
         //FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 
-        FunctionManager.get().addFunction(new SetCooldownFunction("setcooldown"));
-        FunctionManager.get().addFunction(new IsOnCooldownFunction("isoncooldown"));
-        FunctionManager.get().addFunction(new IsNotOnCooldownFunction("isnotoncooldown"));
+        FunctionManager.get().addFunction(new SetCooldownFunction());
+        FunctionManager.get().addFunction(new IsOnCooldownFunction());
+        FunctionManager.get().addFunction(new IsNotOnCooldownFunction());
 
-        FunctionManager.get().addFunction(new GuiFunction("gui"));
-        FunctionManager.get().addFunction(new BackFunction("back"));
-        FunctionManager.get().addFunction(new HasBackFunction("hasback"));
-        FunctionManager.get().addFunction(new SetBackFunction("setback"));
+        FunctionManager.get().addFunction(new GuiFunction());
+        FunctionManager.get().addFunction(new BackFunction());
+        FunctionManager.get().addFunction(new HasBackFunction());
+        FunctionManager.get().addFunction(new SetBackFunction());
 
-        FunctionManager.get().addFunction(new RefreshGuiFunction("refreshgui"));
-        FunctionManager.get().addFunction(new RefreshSlotFunction("refreshslot"));
+        FunctionManager.get().addFunction(new RefreshGuiFunction());
+        FunctionManager.get().addFunction(new RefreshSlotFunction());
 
-        FunctionManager.get().addFunction(new MoneyWithdrawFunction("moneywithdraw"));
-        FunctionManager.get().addFunction(new MoneyDepositFunction("moneydeposit"));
-        FunctionManager.get().addFunction(new MoneyBalanceFunction("moneybalance"));
+        FunctionManager.get().addFunction(new MoneyWithdrawFunction());
+        FunctionManager.get().addFunction(new MoneyDepositFunction());
+        FunctionManager.get().addFunction(new MoneyBalanceFunction());
 
-        FunctionManager.get().addFunction(new NoPermissionFunction("nopermission"));
-        FunctionManager.get().addFunction(new PermissionFunction("permission"));
-        FunctionManager.get().addFunction(new PermissionFunction("haspermission"));
-        FunctionManager.get().addFunction(new AddPermissionFunction("addpermission"));
-        FunctionManager.get().addFunction(new RemovePermissionFunction("removepermission"));
-        FunctionManager.get().addFunction(new PlayerMsgFunction("pmsg"));
-        FunctionManager.get().addFunction(new RandomFunction("random"));
-        FunctionManager.get().addFunction(new SendFunction("send"));
-        FunctionManager.get().addFunction(new ServerBroadcastFunction("broadcast"));
-        FunctionManager.get().addFunction(new ParticleFunction("particles"));
-        FunctionManager.get().addFunction(new SoundFunction("sound"));
-        FunctionManager.get().addFunction(new SetNameFunction("setname"));
-        FunctionManager.get().addFunction(new SetLoreFunction("setlore"));
-        FunctionManager.get().addFunction(new SetTypeFunction("settype"));
-        FunctionManager.get().addFunction(new SetDataFunction("setdata"));
-        FunctionManager.get().addFunction(new SetAmountFunction("setamount"));
-        FunctionManager.get().addFunction(new SetNBTFunction("setnbt"));
-        FunctionManager.get().addFunction(new SetGlowFunction("setglow"));
-        FunctionManager.get().addFunction(new CheckMoveableFunction("checkmoveable"));
-        FunctionManager.get().addFunction(new SetMoveableFunction("setmoveable"));
-        FunctionManager.get().addFunction(new SetEnchantsFunction("setenchants"));
-        FunctionManager.get().addFunction(new SetCloseFunction("setclose"));
-        FunctionManager.get().addFunction(new RemoveSlotFunction("removeslot"));
-        FunctionManager.get().addFunction(new StatisticFunction("statistic"));
-        FunctionManager.get().addFunction(new CheckLevelFunction("checklevel"));
-        FunctionManager.get().addFunction(new LogFunction("log"));
+        FunctionManager.get().addFunction(new NoPermissionFunction());
+        FunctionManager.get().addFunction(new PermissionFunction());
+        FunctionManager.get().addFunction(new AddPermissionFunction());
+        FunctionManager.get().addFunction(new RemovePermissionFunction());
+        FunctionManager.get().addFunction(new PlayerMsgFunction());
+        FunctionManager.get().addFunction(new RandomFunction());
+        FunctionManager.get().addFunction(new SendFunction());
+        FunctionManager.get().addFunction(new ServerBroadcastFunction());
+        FunctionManager.get().addFunction(new ParticleFunction());
+        FunctionManager.get().addFunction(new SoundFunction());
+        FunctionManager.get().addFunction(new SetNameFunction());
+        FunctionManager.get().addFunction(new SetLoreFunction());
+        FunctionManager.get().addFunction(new SetTypeFunction());
+        FunctionManager.get().addFunction(new SetDataFunction());
+        FunctionManager.get().addFunction(new SetAmountFunction());
+        FunctionManager.get().addFunction(new SetNBTFunction());
+        FunctionManager.get().addFunction(new SetGlowFunction());
+        FunctionManager.get().addFunction(new CheckMoveableFunction());
+        FunctionManager.get().addFunction(new SetMoveableFunction());
+        FunctionManager.get().addFunction(new SetEnchantsFunction());
+        FunctionManager.get().addFunction(new SetCloseFunction());
+        FunctionManager.get().addFunction(new RemoveSlotFunction());
+        FunctionManager.get().addFunction(new StatisticFunction());
+        FunctionManager.get().addFunction(new CheckLevelFunction());
+        FunctionManager.get().addFunction(new LogFunction());
 
-        FunctionManager.get().addFunction(new CheckItemTypeInHandFunction("checkitemtypeinhand"));
+        FunctionManager.get().addFunction(new CheckItemTypeInHandFunction());
 
-        FunctionManager.get().addFunction(new SetGameRuleFunction("setgamerule"));
-        FunctionManager.get().addFunction(new GetGameRuleFunction("getgamerule"));
+        FunctionManager.get().addFunction(new SetGameRuleFunction());
+        FunctionManager.get().addFunction(new GetGameRuleFunction());
 
-        FunctionManager.get().addFunction(new CheckPlayerWorldFunction("checkplayerworld"));
+        FunctionManager.get().addFunction(new CheckPlayerWorldFunction());
 
-        FunctionManager.get().addFunction(new PlayerMiniMsgFunction("minimsg"));
-        FunctionManager.get().addFunction(new ServerMiniBroadcastFunction("minibroadcast"));
+        FunctionManager.get().addFunction(new PlayerMiniMsgFunction());
+        FunctionManager.get().addFunction(new ServerMiniBroadcastFunction());
 
-        FunctionManager.get().addFunction(new HasMetadataFunction("hasmetadata"));
-        FunctionManager.get().addFunction(new HasMetadataFunction("getmetadata"));
-        FunctionManager.get().addFunction(new SetMetadataFunction("setmetadata"));
+        FunctionManager.get().addFunction(new HasMetadataFunction());
+        FunctionManager.get().addFunction(new SetMetadataFunction());
         FunctionManager.get().addFunction(new IsGuiMetadataSet());
-        FunctionManager.get().addFunction(new CopyBackMetadataFunction("copybackmetadata"));
+        FunctionManager.get().addFunction(new CopyBackMetadataFunction());
 
-        FunctionManager.get().addFunction(new IsBedrockPlayerFunction("isbedrockplayer"));
+        FunctionManager.get().addFunction(new IsBedrockPlayerFunction());
 
         FunctionManager.get().addFunction(new DelayFunction());
     }

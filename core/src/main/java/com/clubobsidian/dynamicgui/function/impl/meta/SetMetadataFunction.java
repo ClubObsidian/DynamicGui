@@ -31,8 +31,8 @@ public class SetMetadataFunction extends Function {
      */
     private static final long serialVersionUID = -2376716466726111306L;
 
-    public SetMetadataFunction(String name) {
-        super(name);
+    public SetMetadataFunction() {
+        super("setmetadata");
     }
 
     //SetMetadata (index/gui),key,value

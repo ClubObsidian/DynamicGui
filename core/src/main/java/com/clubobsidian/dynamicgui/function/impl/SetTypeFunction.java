@@ -30,8 +30,8 @@ public class SetTypeFunction extends Function {
      */
     private static final long serialVersionUID = 6943230273788425141L;
 
-    public SetTypeFunction(String name) {
-        super(name);
+    public SetTypeFunction() {
+        super("settype");
     }
 
     @Override

@@ -23,8 +23,8 @@ public class IsBedrockPlayerFunction extends Function {
 
     private static final long serialVersionUID = -2186429958998223776L;
 
-    public IsBedrockPlayerFunction(String name) {
-        super(name);
+    public IsBedrockPlayerFunction() {
+        super("isbedrockplayer");
     }
 
     @Override

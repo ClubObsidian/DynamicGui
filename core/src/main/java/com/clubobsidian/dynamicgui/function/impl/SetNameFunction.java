@@ -33,8 +33,8 @@ public class SetNameFunction extends Function {
      */
     private static final long serialVersionUID = -5599516930903780834L;
 
-    public SetNameFunction(String name) {
-        super(name);
+    public SetNameFunction() {
+        super("setname");
     }
 
     @Override

@@ -28,8 +28,8 @@ public class RefreshGuiFunction extends Function {
      */
     private static final long serialVersionUID = -8608158103976585358L;
 
-    public RefreshGuiFunction(String name) {
-        super(name);
+    public RefreshGuiFunction() {
+        super("refreshgui");
     }
 
     @Override

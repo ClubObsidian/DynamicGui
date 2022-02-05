@@ -31,8 +31,8 @@ public class RefreshSlotFunction extends Function {
      */
     private static final long serialVersionUID = 1079816229207205846L;
 
-    public RefreshSlotFunction(String name) {
-        super(name);
+    public RefreshSlotFunction() {
+        super("refreshslot");
     }
 
     @Override

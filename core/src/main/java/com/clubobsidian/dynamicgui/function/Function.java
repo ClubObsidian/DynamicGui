@@ -29,24 +29,33 @@ public abstract class Function implements Cloneable, Serializable {
      *
      */
     private static final long serialVersionUID = 1492427006104061443L;
+
+    private static String[] normalizeAliases(String[] aliases) {
+        for(int i = 0; i < aliases.length; i++) {
+            aliases[i] = StringFuzz.normalize(aliases[i]);
+        }
+        return aliases;
+    }
+
     private final String name;
     private String data;
     private final boolean async;
     private FunctionOwner owner;
+    private final String[] aliases;
     private int index = -1;
 
-    public Function(String name, String data, boolean async) {
+    public Function(String name, String[] aliases, boolean async) {
         this.name = StringFuzz.normalize(name);
-        this.data = data;
+        this.aliases = normalizeAliases(aliases);
         this.async = async;
     }
 
-    public Function(String name, String data) {
-        this(name, data, false);
+    public Function(String name, boolean async) {
+        this(name, new String[0], async);
     }
 
-    public Function(String name, boolean async) {
-        this(name, null, async);
+    public Function(String... aliases) {
+        this(aliases[0], aliases, false);
     }
 
     public Function(String name) {
@@ -65,6 +74,10 @@ public abstract class Function implements Cloneable, Serializable {
 
     public String getName() {
         return this.name;
+    }
+
+    public String[] getAliases() {
+        return this.aliases;
     }
 
     public String getData() {

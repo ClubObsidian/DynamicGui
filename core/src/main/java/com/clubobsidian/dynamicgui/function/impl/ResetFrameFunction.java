@@ -26,8 +26,8 @@ public class ResetFrameFunction extends Function {
      */
     private static final long serialVersionUID = -2386244760460728686L;
 
-    public ResetFrameFunction(String name) {
-        super(name);
+    public ResetFrameFunction() {
+        super("resetframe");
     }
 
     @Override

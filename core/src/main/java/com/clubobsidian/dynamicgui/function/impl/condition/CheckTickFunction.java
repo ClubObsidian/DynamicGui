@@ -28,8 +28,8 @@ public class CheckTickFunction extends Function {
      */
     private static final long serialVersionUID = 9209750645416892269L;
 
-    public CheckTickFunction(String name) {
-        super(name);
+    public CheckTickFunction() {
+        super("checktick");
     }
 
     @Override

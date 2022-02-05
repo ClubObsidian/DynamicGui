@@ -27,8 +27,8 @@ public class ConsoleCmdFunction extends Function {
      */
     private static final long serialVersionUID = -4802600274176592465L;
 
-    public ConsoleCmdFunction(String name) {
-        super(name);
+    public ConsoleCmdFunction() {
+        super("executec");
     }
 
     @Override

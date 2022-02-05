@@ -30,8 +30,8 @@ public class SetNBTFunction extends Function {
      */
     private static final long serialVersionUID = 6943230273788425141L;
 
-    public SetNBTFunction(String name) {
-        super(name);
+    public SetNBTFunction() {
+        super("setnbt");
     }
 
     @Override

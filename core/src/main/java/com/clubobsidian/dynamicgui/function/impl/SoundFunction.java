@@ -26,8 +26,8 @@ public class SoundFunction extends Function {
      */
     private static final long serialVersionUID = -8363807525418126179L;
 
-    public SoundFunction(String name) {
-        super(name);
+    public SoundFunction() {
+        super("sound");
     }
 
     @Override

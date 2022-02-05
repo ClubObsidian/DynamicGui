@@ -26,8 +26,8 @@ public class CheckPlayerWorldFunction extends Function {
      */
     private static final long serialVersionUID = -7760274986999938696L;
 
-    public CheckPlayerWorldFunction(String name) {
-        super(name);
+    public CheckPlayerWorldFunction() {
+        super("checkplayerworld");
     }
 
     @Override

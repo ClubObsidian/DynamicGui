@@ -25,8 +25,8 @@ public class CopyBackMetadataFunction extends Function {
 
     private static final long serialVersionUID = -4524513696416744522L;
 
-    public CopyBackMetadataFunction(String name) {
-        super(name);
+    public CopyBackMetadataFunction() {
+        super("copybackmetadata");
     }
 
     @Override

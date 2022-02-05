@@ -29,8 +29,8 @@ public class ConditionFunction extends Function {
      */
     private static final long serialVersionUID = -3905599553938205838L;
 
-    public ConditionFunction(String name) {
-        super(name);
+    public ConditionFunction() {
+        super("condition");
     }
 
     @Override

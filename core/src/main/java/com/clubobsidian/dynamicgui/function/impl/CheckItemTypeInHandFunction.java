@@ -30,8 +30,8 @@ public class CheckItemTypeInHandFunction extends Function {
      */
     private static final long serialVersionUID = -2308186311331769892L;
 
-    public CheckItemTypeInHandFunction(String name) {
-        super(name);
+    public CheckItemTypeInHandFunction() {
+        super("checkitemtypeinhand");
     }
 
     @Override

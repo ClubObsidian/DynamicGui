@@ -27,8 +27,8 @@ public class RandomFunction extends Function {
      */
     private static final long serialVersionUID = -8056953555096911217L;
 
-    public RandomFunction(String name) {
-        super(name);
+    public RandomFunction() {
+        super("random", "rand");
     }
 
     @Override

@@ -25,8 +25,8 @@ public class RemovePermissionFunction extends Function {
      */
     private static final long serialVersionUID = 6578996849784218130L;
 
-    public RemovePermissionFunction(String name) {
-        super(name);
+    public RemovePermissionFunction() {
+        super("removepermission");
     }
 
     @Override

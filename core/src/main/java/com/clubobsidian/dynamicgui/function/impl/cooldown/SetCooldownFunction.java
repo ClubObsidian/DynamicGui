@@ -26,8 +26,8 @@ public class SetCooldownFunction extends Function {
      */
     private static final long serialVersionUID = -3204581055961888388L;
 
-    public SetCooldownFunction(String name) {
-        super(name);
+    public SetCooldownFunction() {
+        super("setcooldown");
     }
 
     @Override

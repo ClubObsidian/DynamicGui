@@ -26,8 +26,8 @@ public class SendFunction extends Function {
      */
     private static final long serialVersionUID = 2329250573729355253L;
 
-    public SendFunction(String name) {
-        super(name);
+    public SendFunction() {
+        super("send");
     }
 
     @Override

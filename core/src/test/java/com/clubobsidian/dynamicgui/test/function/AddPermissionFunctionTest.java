@@ -13,7 +13,7 @@ public class AddPermissionFunctionTest {
 
     @Test
     public void testNullPermission() {
-        Function function = new AddPermissionFunction("addpermission");
+        Function function = new AddPermissionFunction();
         assertFalse(function.function(this.factory.createPlayer()));
     }
 

@@ -27,8 +27,8 @@ public class SetGameRuleFunction extends Function {
      */
     private static final long serialVersionUID = 664632502310692150L;
 
-    public SetGameRuleFunction(String name) {
-        super(name);
+    public SetGameRuleFunction() {
+        super("setgamerule");
     }
 
     @Override

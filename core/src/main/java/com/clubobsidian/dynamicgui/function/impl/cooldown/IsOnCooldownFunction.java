@@ -27,8 +27,8 @@ public class IsOnCooldownFunction extends Function {
      */
     private static final long serialVersionUID = 2369277150280303056L;
 
-    public IsOnCooldownFunction(String name) {
-        super(name);
+    public IsOnCooldownFunction() {
+        super("isoncooldown");
     }
 
     @Override
