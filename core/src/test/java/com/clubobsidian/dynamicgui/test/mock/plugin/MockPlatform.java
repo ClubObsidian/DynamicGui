@@ -24,14 +24,17 @@ import com.clubobsidian.dynamicgui.server.Platform;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class MockPlatform extends Platform {
 
     private final Map<String, WorldWrapper<?>> worlds = new HashMap<>();
+    private final List<String> dispatchedServerCommands = new ArrayList<>();
 
     public MockPlatform(Scheduler scheduler) {
         super(scheduler);
@@ -54,7 +57,11 @@ public class MockPlatform extends Platform {
 
     @Override
     public void dispatchServerCommand(String command) {
+        this.dispatchedServerCommands.add(command);
+    }
 
+    public List<String> getDispatchedServerCommands() {
+        return this.dispatchedServerCommands;
     }
 
     @Override
