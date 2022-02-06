@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.test.mock.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

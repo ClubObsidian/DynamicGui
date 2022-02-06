@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock;
+package com.clubobsidian.dynamicgui.test.mock.entity;
 
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;

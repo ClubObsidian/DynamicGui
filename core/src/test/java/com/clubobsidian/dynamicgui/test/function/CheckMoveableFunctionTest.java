@@ -18,10 +18,8 @@ package com.clubobsidian.dynamicgui.test.function;
 
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.function.impl.CheckMoveableFunction;
-import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.test.mock.MockPlayer;
-import com.clubobsidian.dynamicgui.test.mock.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

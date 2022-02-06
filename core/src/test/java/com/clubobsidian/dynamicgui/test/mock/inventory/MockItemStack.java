@@ -14,18 +14,17 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock;
+package com.clubobsidian.dynamicgui.test.mock.inventory;
 
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+public class MockItemStack {
 
-public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStack> {
+    private final String type;
 
-    public MockItemStackWrapper(MockItemStack itemStack) {
-        super(itemStack);
+    public MockItemStack(String type) {
+        this.type = type;
     }
 
-    @Override
     public String getType() {
-        return this.getItemStack().getType();
+        return this.type;
     }
 }
