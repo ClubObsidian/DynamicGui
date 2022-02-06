@@ -42,12 +42,10 @@ public class MoneyDepositFunction extends Function {
             ex.printStackTrace();
             return false;
         }
-
-        if(DynamicGui.get().getPlugin().getEconomy() == null)
+        if(DynamicGui.get().getPlugin().getEconomy() == null) {
             return false;
-
+        }
         BigDecimal decimalAmt = new BigDecimal(amt);
-
         return DynamicGui.get().getPlugin().getEconomy().deposit(playerWrapper, decimalAmt);
     }
 }
