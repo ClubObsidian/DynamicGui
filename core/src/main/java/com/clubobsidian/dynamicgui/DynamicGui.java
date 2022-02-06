@@ -288,7 +288,6 @@ public class DynamicGui {
 
         FunctionManager.get().addFunction(new ConsoleCmdFunction());
         FunctionManager.get().addFunction(new PlayerCmdFunction());
-        //FunctionApi.get().addFunction(new ExpPayFunction("payexp"));
 
         FunctionManager.get().addFunction(new SetCooldownFunction());
         FunctionManager.get().addFunction(new IsOnCooldownFunction());
