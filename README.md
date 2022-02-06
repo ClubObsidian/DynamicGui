@@ -2,14 +2,12 @@
 <h1>DynamicGui</h1>
 
 [![build](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml/badge.svg)](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml)
-[![CLA assistant](https://cla-assistant.io/readme/badge/ClubObsidian/DynamicGui)](https://cla-assistant.io/ClubObsidian/DynamicGui) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
 </div>
 
-A rewrite of the plugin originally created at Club Obsidian.
 
-Designed to make writing menus easy.
 
 
 ## Features
