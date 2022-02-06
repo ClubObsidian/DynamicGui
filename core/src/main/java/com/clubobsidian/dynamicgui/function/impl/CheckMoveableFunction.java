@@ -45,10 +45,6 @@ public class CheckMoveableFunction extends Function {
 
         Slot slot = (Slot) owner;
         Boolean value = Boolean.valueOf(this.getData());
-        if(value == null) {
-            return false;
-        }
-
         return value.equals(slot.isMoveable());
     }
 }
