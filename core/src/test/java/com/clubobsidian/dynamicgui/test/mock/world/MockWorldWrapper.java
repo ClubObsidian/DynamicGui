@@ -13,30 +13,32 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
+package com.clubobsidian.dynamicgui.test.mock.world;
+
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 
-public class CheckPlayerWorldFunction extends Function {
+public class MockWorldWrapper extends WorldWrapper<MockWorld> {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7760274986999938696L;
+    private final MockWorld world;
 
-    public CheckPlayerWorldFunction() {
-        super("checkplayerworld");
+    public MockWorldWrapper(MockWorld world) {
+        super(world.getName());
+        this.world = world;
     }
 
     @Override
-    public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        }
-        String worldName = this.getData();
-        WorldWrapper<?> worldWrapper = playerWrapper.getLocation().getWorld();
-        return worldName.equals(worldWrapper.getName());
+    public MockWorld getWorld() {
+        return this.world;
+    }
+
+    @Override
+    public void setGameRule(String rule, String value) {
+        this.world.setGameRule(rule, value);
+    }
+
+    @Override
+    public String getGameRule(String rule) {
+        return this.world.getGameRule(rule);
     }
 }

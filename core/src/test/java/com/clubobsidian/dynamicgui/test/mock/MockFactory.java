@@ -21,6 +21,10 @@ import com.clubobsidian.dynamicgui.gui.InventoryType;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.test.mock.world.MockLocation;
+import com.clubobsidian.dynamicgui.test.mock.world.MockLocationWrapper;
+import com.clubobsidian.dynamicgui.test.mock.world.MockWorld;
+import com.clubobsidian.dynamicgui.test.mock.world.MockWorldWrapper;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -84,5 +88,12 @@ public class MockFactory {
                 new FunctionTree(),
                 0,
                 new HashMap<>());
+    }
+
+    public MockLocationWrapper createLocation(int x, int y, int z, String worldName) {
+        MockWorld mockWorld = new MockWorld(worldName);
+        MockWorldWrapper worldWrapper = new MockWorldWrapper(mockWorld);
+        MockLocation mockLocation = new MockLocation(x, y, z, worldWrapper);
+        return new MockLocationWrapper(mockLocation);
     }
 }

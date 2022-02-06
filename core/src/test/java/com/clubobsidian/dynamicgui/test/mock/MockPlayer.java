@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.test.mock;
 
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +34,7 @@ public class MockPlayer {
     private final Collection<String> permissions = new HashSet<>();
     private ItemStackWrapper<?> hand;
     private int level = 0;
+    private LocationWrapper<?> location;
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -89,5 +91,13 @@ public class MockPlayer {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public LocationWrapper<?> getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(LocationWrapper<?> location) {
+        this.location = location;
     }
 }

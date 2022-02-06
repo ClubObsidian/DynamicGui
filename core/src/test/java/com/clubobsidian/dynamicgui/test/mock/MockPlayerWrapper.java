@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.test.mock;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 import java.util.UUID;
 
@@ -79,5 +80,14 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     public void setLevel(int level) {
         this.getPlayer().setLevel(level);
+    }
+
+    @Override
+    public LocationWrapper<?> getLocation() {
+        return this.getPlayer().getLocation();
+    }
+
+    public void setLocation(LocationWrapper<?> location) {
+        this.getPlayer().setLocation(location);
     }
 }
