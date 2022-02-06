@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.Platform;
+import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayer;
 import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStack;
@@ -42,6 +43,7 @@ import org.mockito.Mockito;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class MockFactory {
@@ -59,6 +61,11 @@ public class MockFactory {
 
     public MockPlayerWrapper createPlayer() {
         return this.mock(MockPlayerWrapper.class);
+    }
+
+    public MockPlayerWrapper createPlayer(String name, UUID uuid) {
+        MockPlayer player = this.mock(MockPlayer.class, name, uuid);
+        return this.mock(MockPlayerWrapper.class, player);
     }
 
     public MockItemStackWrapper createItemStack(String type) {
