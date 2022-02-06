@@ -7,14 +7,8 @@
 A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
 </div>
 
-
-
-
 ## Features
 
-* Multi server support in one jar
-  * Bukkit - Fully supported
-  * Sponge - Support dropped for now
 * A number of functions to use to customize menus
   * Functions use latebinding
   * Addons can be written for more functions
@@ -42,6 +36,9 @@ A plugin designed to make writing menus for Minecraft easy. Menus can be written
   * Hopper
   * Workbench
 
+## Future features
+
+* Support for sponge
 
 ## Use cases
 
@@ -57,17 +54,12 @@ Just a few uses for DynamicGui.
 * Quests
 * Shop
 * Staff tools
-  * Punishments
 
 ## Downloads
 
 You can get [development builds from our jenkins.](https://ci.ravenlab.dev/job/DynamicGui/)
 
 ## Getting Started
-
-### Gui Examples
-
-You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamples).
 
 ### Gui Documentation
 
