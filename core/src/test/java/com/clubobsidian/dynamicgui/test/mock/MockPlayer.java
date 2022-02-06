@@ -1,5 +1,7 @@
 package com.clubobsidian.dynamicgui.test.mock;
 
+import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ public class MockPlayer {
     private final List<String> incomingChat = new ArrayList<>();
     private final List<String> outgoingChat = new ArrayList<>();
     private final Collection<String> permissions = new HashSet<>();
+    private ItemStackWrapper<?> hand;
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -55,4 +58,11 @@ public class MockPlayer {
         return this.permissions.add(permission);
     }
 
+    public ItemStackWrapper<?> getItemInHand() {
+        return this.hand;
+    }
+
+    public void setItemInHand(ItemStackWrapper<?> hand) {
+        this.hand = hand;
+    }
 }

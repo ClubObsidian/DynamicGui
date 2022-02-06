@@ -18,4 +18,9 @@ public class MockFactory {
     public MockPlayerWrapper createPlayer() {
         return this.mock(MockPlayerWrapper.class);
     }
+
+    public MockItemStackWrapper createItemStack(String type) {
+        MockItemStack itemStack = this.mock(MockItemStack.class, type);
+        return this.mock(MockItemStackWrapper.class, itemStack);
+    }
 }

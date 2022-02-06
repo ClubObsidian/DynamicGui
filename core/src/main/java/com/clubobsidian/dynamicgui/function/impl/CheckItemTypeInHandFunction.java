@@ -36,6 +36,9 @@ public class CheckItemTypeInHandFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         List<String> types = new ArrayList<>();
         types.add(this.getData());
 
