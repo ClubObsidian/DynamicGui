@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.test.mock.logger.MockLoggerWrapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LogFunctionTest {
@@ -32,7 +33,14 @@ public class LogFunctionTest {
     private final MockFactory factory = new MockFactory();
 
     @Test
-    public void functionTest() {
+    public void nullTest() {
+        Function function = new LogFunction();
+        PlayerWrapper<?> player = this.factory.createPlayer();
+        assertFalse(function.function(player));
+    }
+
+    @Test
+    public void withDataTest() {
         String data = "test";
         Function function = new LogFunction();
         function.setData(data);
