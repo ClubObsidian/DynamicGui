@@ -24,11 +24,11 @@ import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import java.util.Collection;
 import java.util.UUID;
 
-public abstract class FakeServer {
+public abstract class Platform {
 
     private final Scheduler scheduler;
 
-    public FakeServer(Scheduler scheduler) {
+    public Platform(Scheduler scheduler) {
         this.scheduler = scheduler;
     }
 

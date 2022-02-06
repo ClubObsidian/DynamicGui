@@ -36,7 +36,7 @@ public class ServerBroadcastJsonFunction extends Function {
             return false;
         }
 
-        DynamicGui.get().getServer().broadcastJsonMessage(this.getData());
+        DynamicGui.get().getPlatform().broadcastJsonMessage(this.getData());
         return true;
     }
 }

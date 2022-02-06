@@ -43,7 +43,7 @@ public class GetGameRuleFunction extends Function {
         String[] split = this.getData().split(",");
         if(split.length == 3) {
             String worldName = split[0];
-            WorldWrapper<?> world = DynamicGui.get().getServer().getWorld(worldName);
+            WorldWrapper<?> world = DynamicGui.get().getPlatform().getWorld(worldName);
             if(world == null) {
                 return false;
             }

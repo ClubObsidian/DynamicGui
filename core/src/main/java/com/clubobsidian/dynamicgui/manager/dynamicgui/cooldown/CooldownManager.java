@@ -17,8 +17,7 @@ package com.clubobsidian.dynamicgui.manager.dynamicgui.cooldown;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.dynamicgui.server.Platform;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -233,7 +232,7 @@ public class CooldownManager {
 
     private void scheduleCooldownUpdate() {
         DynamicGui dynamicGui = DynamicGui.get();
-        FakeServer server = dynamicGui.getServer();
+        Platform server = dynamicGui.getPlatform();
         server.getScheduler().scheduleSyncRepeatingTask(() -> {
             this.updateCache();
         }, 1L, 1L);
@@ -241,7 +240,7 @@ public class CooldownManager {
 
     private void scheduleConfigUpdate() {
         DynamicGui dynamicGui = DynamicGui.get();
-        FakeServer server = dynamicGui.getServer();
+        Platform server = dynamicGui.getPlatform();
         server.getScheduler().scheduleAsyncRepeatingTask(() -> {
             if(this.updateConfig.get()) {
                 this.updateConfig.set(false);

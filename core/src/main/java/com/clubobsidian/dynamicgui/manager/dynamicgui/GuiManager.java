@@ -33,7 +33,7 @@ import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.dynamicgui.server.Platform;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.util.ChatColor;
 
@@ -217,7 +217,7 @@ public class GuiManager {
                         return;
                     }
 
-                    FakeServer server = DynamicGui.get().getServer();
+                    Platform server = DynamicGui.get().getPlatform();
                     if(server.getType() == ServerType.SPONGE) {
                         server.getScheduler().runSyncDelayedTask(() -> {
                             playerWrapper.openInventory(inventoryWrapper);
@@ -227,7 +227,7 @@ public class GuiManager {
                     }
 
                     this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-                    DynamicGui.get().getServer().getScheduler().runSyncDelayedTask(() -> {
+                    DynamicGui.get().getPlatform().getScheduler().runSyncDelayedTask(() -> {
                         playerWrapper.updateInventory();
                     }, 2L);
                 }

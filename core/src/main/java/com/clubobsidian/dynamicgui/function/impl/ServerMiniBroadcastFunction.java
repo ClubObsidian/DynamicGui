@@ -39,7 +39,7 @@ public class ServerMiniBroadcastFunction extends Function {
         }
 
         String json = MiniMessageManager.get().toJson(this.getData());
-        DynamicGui.get().getServer().broadcastJsonMessage(json);
+        DynamicGui.get().getPlatform().broadcastJsonMessage(json);
         return true;
     }
 }

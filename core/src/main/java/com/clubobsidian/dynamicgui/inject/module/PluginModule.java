@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.dynamicgui.server.Platform;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;
@@ -37,7 +37,7 @@ public class PluginModule implements Module {
     private Class<? extends MaterialManager> materialClass;
     private Class<? extends LocationManager> locationClass;
     private DynamicGuiPlugin plugin;
-    private FakeServer fakeServer;
+    private Platform platform;
     private LoggerWrapper<?> loggerWrapper;
 
     public PluginModule setEntity(Class<? extends EntityManager> clazz) {
@@ -70,8 +70,8 @@ public class PluginModule implements Module {
         return this;
     }
 
-    public PluginModule setServer(FakeServer server) {
-        this.fakeServer = server;
+    public PluginModule setPlatform(Platform platform) {
+        this.platform = platform;
         return this;
     }
 
@@ -88,7 +88,7 @@ public class PluginModule implements Module {
         binder.bind(MaterialManager.class).to(this.materialClass);
         binder.bind(LocationManager.class).to(this.locationClass);
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
-        binder.bind(FakeServer.class).toInstance(this.fakeServer);
+        binder.bind(Platform.class).toInstance(this.platform);
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
         }).toInstance(this.loggerWrapper);
 

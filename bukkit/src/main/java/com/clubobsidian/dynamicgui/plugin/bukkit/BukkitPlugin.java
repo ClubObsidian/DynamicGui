@@ -45,7 +45,7 @@ import com.clubobsidian.dynamicgui.registry.model.bukkit.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.bukkit.CitizensRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.bukkit.PlaceholderApiReplacerRegistry;
-import com.clubobsidian.dynamicgui.server.bukkit.FakeBukkitServer;
+import com.clubobsidian.dynamicgui.platform.bukkit.BukkitPlatform;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
@@ -90,7 +90,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
                 .setMaterial(BukkitMaterialManager.class)
                 .setLogger(new JavaLoggerWrapper<>(this.getLogger()))
                 .setPlugin(this)
-                .setServer(new FakeBukkitServer())
+                .setPlatform(new BukkitPlatform())
                 .bootstrap();
 
 

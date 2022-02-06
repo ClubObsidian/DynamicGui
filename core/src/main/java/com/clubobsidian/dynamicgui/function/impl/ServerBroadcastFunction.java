@@ -35,7 +35,7 @@ public class ServerBroadcastFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        DynamicGui.get().getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', ReplacerManager.get().replace(this.getData(), playerWrapper)));
+        DynamicGui.get().getPlatform().broadcastMessage(ChatColor.translateAlternateColorCodes('&', ReplacerManager.get().replace(this.getData(), playerWrapper)));
         return true;
     }
 }

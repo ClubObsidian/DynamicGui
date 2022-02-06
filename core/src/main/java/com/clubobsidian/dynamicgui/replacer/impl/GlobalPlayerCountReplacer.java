@@ -27,6 +27,6 @@ public class GlobalPlayerCountReplacer extends Replacer {
 
     @Override
     public String replacement(String text, PlayerWrapper<?> playerWrapper) {
-        return String.valueOf(DynamicGui.get().getServer().getGlobalPlayerCount());
+        return String.valueOf(DynamicGui.get().getPlatform().getGlobalPlayerCount());
     }
 }

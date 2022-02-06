@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.server.bukkit;
+package com.clubobsidian.dynamicgui.platform.bukkit;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.proxy.Proxy;
 import com.clubobsidian.dynamicgui.scheduler.bukkit.BukkitScheduler;
-import com.clubobsidian.dynamicgui.server.FakeServer;
+import com.clubobsidian.dynamicgui.server.Platform;
 import com.clubobsidian.dynamicgui.server.ServerType;
 import com.clubobsidian.dynamicgui.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.world.bukkit.BukkitWorldWrapper;
@@ -39,9 +39,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class FakeBukkitServer extends FakeServer {
+public class BukkitPlatform extends Platform {
 
-    public FakeBukkitServer() {
+    public BukkitPlatform() {
         super(new BukkitScheduler());
     }
 
