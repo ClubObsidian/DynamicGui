@@ -31,6 +31,9 @@ public class CheckLevelFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         try {
             int level = Integer.parseInt(this.getData());
             return playerWrapper.getLevel() >= level;
@@ -38,7 +41,5 @@ public class CheckLevelFunction extends Function {
             ex.printStackTrace();
             return false;
         }
-
-
     }
 }

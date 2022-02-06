@@ -55,4 +55,13 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     public void setItemInHand(ItemStackWrapper<?> hand) {
         this.getPlayer().setItemInHand(hand);
     }
+
+    @Override
+    public int getLevel() {
+        return this.getPlayer().getLevel();
+    }
+
+    public void setLevel(int level) {
+        this.getPlayer().setLevel(level);
+    }
 }

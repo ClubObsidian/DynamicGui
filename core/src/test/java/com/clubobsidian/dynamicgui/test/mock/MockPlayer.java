@@ -16,6 +16,7 @@ public class MockPlayer {
     private final List<String> outgoingChat = new ArrayList<>();
     private final Collection<String> permissions = new HashSet<>();
     private ItemStackWrapper<?> hand;
+    private int level = 0;
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -64,5 +65,13 @@ public class MockPlayer {
 
     public void setItemInHand(ItemStackWrapper<?> hand) {
         this.hand = hand;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
