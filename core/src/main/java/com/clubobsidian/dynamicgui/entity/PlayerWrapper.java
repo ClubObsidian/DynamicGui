@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.entity;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
 import java.util.UUID;
@@ -70,10 +69,6 @@ public abstract class PlayerWrapper<T> {
     public abstract void playSound(String sound, Float volume, Float pitch);
 
     public abstract void playEffect(String effect, int data);
-
-    public abstract int getStatistic(Statistic statistic);
-
-    public abstract int getStatistic(Statistic statistic, String data);
 
     public abstract void updateInventory();
 

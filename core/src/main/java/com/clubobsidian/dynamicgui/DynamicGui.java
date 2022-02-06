@@ -55,7 +55,6 @@ import com.clubobsidian.dynamicgui.function.impl.SetNBTFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.function.impl.SoundFunction;
-import com.clubobsidian.dynamicgui.function.impl.StatisticFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.CheckTickFunction;
 import com.clubobsidian.dynamicgui.function.impl.condition.ConditionFunction;
 import com.clubobsidian.dynamicgui.function.impl.cooldown.IsNotOnCooldownFunction;
@@ -327,7 +326,6 @@ public class DynamicGui {
         FunctionManager.get().addFunction(new SetEnchantsFunction());
         FunctionManager.get().addFunction(new SetCloseFunction());
         FunctionManager.get().addFunction(new RemoveSlotFunction());
-        FunctionManager.get().addFunction(new StatisticFunction());
         FunctionManager.get().addFunction(new CheckLevelFunction());
         FunctionManager.get().addFunction(new LogFunction());
 

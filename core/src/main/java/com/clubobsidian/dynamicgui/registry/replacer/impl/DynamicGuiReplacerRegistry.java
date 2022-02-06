@@ -18,8 +18,6 @@ package com.clubobsidian.dynamicgui.registry.replacer.impl;
 import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.event.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.replacer.Replacer;
 import com.clubobsidian.dynamicgui.replacer.impl.GlobalPlayerCountReplacer;
@@ -27,9 +25,7 @@ import com.clubobsidian.dynamicgui.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PlayerReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.PreviousGuiReplacer;
-import com.clubobsidian.dynamicgui.replacer.impl.StatisticReplacer;
 import com.clubobsidian.dynamicgui.replacer.impl.UUIDReplacer;
-import com.clubobsidian.dynamicgui.util.Statistic;
 import com.clubobsidian.trident.EventHandler;
 import org.apache.commons.lang3.StringUtils;
 
@@ -54,7 +50,6 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         this.addReplacer(new UUIDReplacer("%uuid%"));
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
         this.addReplacer(new PreviousGuiReplacer("%previous-gui-name%"));
-        this.generateStatisticReplacers();
         DynamicGui.get().getEventBus().registerEvents(this);
     }
 
@@ -98,26 +93,5 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     @EventHandler
     public void onReload(DynamicGuiReloadEvent event) {
         this.cachedReplacers.clear();
-    }
-
-    private void generateStatisticReplacers() {
-        for(Statistic statistic : Statistic.values()) {
-            if(statistic.getStatisticType() == Statistic.StatisticType.MATERIAL) {
-                for(String material : MaterialManager.get().getMaterials()) {
-                    String lowerMaterial = material.toLowerCase();
-                    String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerMaterial + "%";
-                    this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerMaterial));
-                }
-            } else if(statistic.getStatisticType() == Statistic.StatisticType.ENTITY) {
-                for(String entityType : EntityManager.get().getEntityTypes()) {
-                    String lowerEntityType = entityType.toLowerCase();
-                    String replacerName = "%statistic-" + statistic.name().toLowerCase() + "-" + lowerEntityType + "%";
-                    this.addReplacer(new StatisticReplacer(replacerName, statistic, lowerEntityType));
-                }
-            } else {
-                String replacerName = "%statistic-" + statistic.name().toLowerCase() + "%";
-                this.addReplacer(new StatisticReplacer(replacerName, statistic));
-            }
-        }
     }
 }

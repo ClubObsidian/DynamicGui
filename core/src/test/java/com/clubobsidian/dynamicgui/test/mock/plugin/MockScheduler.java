@@ -14,31 +14,29 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock.world;
+package com.clubobsidian.dynamicgui.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.scheduler.Scheduler;
 
-public class MockWorldWrapper extends WorldWrapper<MockWorld> {
+public class MockScheduler extends Scheduler {
 
-    private final MockWorld world;
+    @Override
+    public void runSyncDelayedTask(Runnable runnable, long delay) {
 
-    public MockWorldWrapper(MockWorld world) {
-        super(world.getName());
-        this.world = world;
     }
 
     @Override
-    public MockWorld getWorld() {
-        return this.world;
+    public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
+
     }
 
     @Override
-    public void setGameRule(String key, String value) {
-        this.world.setGameRule(key, value);
+    public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+
     }
 
     @Override
-    public String getGameRule(String rule) {
-        return this.world.getGameRule(rule);
+    public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+
     }
 }

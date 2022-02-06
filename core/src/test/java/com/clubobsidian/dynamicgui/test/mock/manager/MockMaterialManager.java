@@ -14,31 +14,20 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock.world;
+package com.clubobsidian.dynamicgui.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
 
-public class MockWorldWrapper extends WorldWrapper<MockWorld> {
+import java.util.List;
 
-    private final MockWorld world;
-
-    public MockWorldWrapper(MockWorld world) {
-        super(world.getName());
-        this.world = world;
+public class MockMaterialManager extends MaterialManager {
+    @Override
+    public List<String> getMaterials() {
+        return null;
     }
 
     @Override
-    public MockWorld getWorld() {
-        return this.world;
-    }
-
-    @Override
-    public void setGameRule(String key, String value) {
-        this.world.setGameRule(key, value);
-    }
-
-    @Override
-    public String getGameRule(String rule) {
-        return this.world.getGameRule(rule);
+    public String normalizeMaterial(String material) {
+        return null;
     }
 }

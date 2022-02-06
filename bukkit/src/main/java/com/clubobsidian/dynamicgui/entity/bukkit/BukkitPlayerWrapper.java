@@ -23,8 +23,6 @@ import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.bukkit.BukkitItemStackWrapper;
 import com.clubobsidian.dynamicgui.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.util.Statistic;
-import com.clubobsidian.dynamicgui.util.Statistic.StatisticType;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -151,35 +149,6 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         Player player = this.getPlayer();
         Location playerLocation = player.getLocation();
         playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
-    }
-
-    @Override
-    public int getStatistic(Statistic statistic) {
-        try {
-            return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()));
-        } catch(Exception ex) {
-            return -1;
-        }
-    }
-
-    @Override
-    public int getStatistic(Statistic statistic, String data) {
-        if(data == null) {
-            return -1;
-        }
-        String upperData = data.toUpperCase();
-
-        try {
-            if(StatisticType.MATERIAL == statistic.getStatisticType()) {
-                return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), Material.valueOf(upperData));
-            } else if(StatisticType.ENTITY == statistic.getStatisticType()) {
-                return this.getPlayer().getStatistic(org.bukkit.Statistic.valueOf(statistic.getBukkitID()), EntityType.valueOf(upperData));
-            }
-        } catch(Exception ex) {
-            //Ignore and return -1
-            return -1;
-        }
-        return 0;
     }
 
     @Override

@@ -16,22 +16,33 @@
 
 package com.clubobsidian.dynamicgui.test.mock;
 
+import com.clubobsidian.dynamicgui.DynamicGui;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryType;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
+import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
+import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.server.Platform;
 import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStack;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStackWrapper;
+import com.clubobsidian.dynamicgui.test.mock.plugin.MockDynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.test.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.test.mock.plugin.MockScheduler;
 import com.clubobsidian.dynamicgui.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorldWrapper;
 import org.mockito.Mockito;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class MockFactory {
 
@@ -93,10 +104,35 @@ public class MockFactory {
                 new HashMap<>());
     }
 
-    public MockLocationWrapper createLocation(int x, int y, int z, String worldName) {
+    public MockWorldWrapper createWorld(String worldName) {
         MockWorld mockWorld = new MockWorld(worldName);
-        MockWorldWrapper worldWrapper = new MockWorldWrapper(mockWorld);
+        return new MockWorldWrapper(mockWorld);
+    }
+
+    public MockLocationWrapper createLocation(int x, int y, int z, String worldName) {
+        MockWorldWrapper worldWrapper = this.createWorld(worldName);
         MockLocation mockLocation = new MockLocation(x, y, z, worldWrapper);
         return new MockLocationWrapper(mockLocation);
     }
+
+    public MockFactory inject() {
+        DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
+        Platform platform = new MockPlatform(new MockScheduler());
+        System.out.println(new File(".").getAbsolutePath());
+        LoggerWrapper<?> logger = new JavaLoggerWrapper<>(Logger.getLogger("test"));
+        MockPluginModule module = new MockPluginModule(plugin, platform, logger);
+        module.bootstrap();
+        DynamicGui.get(); //Initializes dynamic gui
+        return this;
+    }
+
+    public MockPlatform getPlatform() {
+        Platform platform = DynamicGui.get().getPlatform();
+        if(!(platform instanceof MockPlatform)) {
+            return null;
+        }
+        return (MockPlatform) platform;
+    }
+
+
 }

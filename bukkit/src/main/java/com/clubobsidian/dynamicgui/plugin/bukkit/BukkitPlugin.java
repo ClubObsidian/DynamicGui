@@ -22,20 +22,16 @@ import com.clubobsidian.dynamicgui.command.bukkit.CustomCommand;
 import com.clubobsidian.dynamicgui.command.bukkit.CustomCommandExecutor;
 import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.economy.bukkit.VaultEconomy;
-import com.clubobsidian.dynamicgui.inject.module.PluginModule;
+import com.clubobsidian.dynamicgui.inject.bukkit.BukkitPluginModule;
 import com.clubobsidian.dynamicgui.listener.bukkit.EntityClickListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.listener.bukkit.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
+import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ModelManager;
 import com.clubobsidian.dynamicgui.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.manager.entity.bukkit.BukkitEntityManager;
-import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitInventoryManager;
-import com.clubobsidian.dynamicgui.manager.inventory.bukkit.BukkitItemStackManager;
-import com.clubobsidian.dynamicgui.manager.material.bukkit.BukkitMaterialManager;
-import com.clubobsidian.dynamicgui.manager.world.bukkit.BukkitLocationManager;
 import com.clubobsidian.dynamicgui.permission.Permission;
 import com.clubobsidian.dynamicgui.permission.bukkit.FoundryPermission;
 import com.clubobsidian.dynamicgui.permission.bukkit.VaultPermission;
@@ -46,6 +42,7 @@ import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.registry.npc.bukkit.CitizensRegistry;
 import com.clubobsidian.dynamicgui.registry.replacer.bukkit.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.platform.bukkit.BukkitPlatform;
+import com.clubobsidian.dynamicgui.server.Platform;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
@@ -82,18 +79,10 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         this.guiFolder = new File(this.getDataFolder(), "guis");
         this.macroFolder = new File(this.getDataFolder(), "macros");
 
-        new PluginModule()
-                .setEntity(BukkitEntityManager.class)
-                .setInventory(BukkitInventoryManager.class)
-                .setItemStack(BukkitItemStackManager.class)
-                .setLocation(BukkitLocationManager.class)
-                .setMaterial(BukkitMaterialManager.class)
-                .setLogger(new JavaLoggerWrapper<>(this.getLogger()))
-                .setPlugin(this)
-                .setPlatform(new BukkitPlatform())
-                .bootstrap();
+        Platform platform = new BukkitPlatform();
+        LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
 
-
+        new BukkitPluginModule(this, platform, logger).bootstrap();
         PluginManager pm = this.getServer().getPluginManager();
 
         boolean vault = false;

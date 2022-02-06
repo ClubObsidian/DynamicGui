@@ -36,8 +36,8 @@ public class BukkitWorldWrapper extends WorldWrapper<World> {
     }
 
     @Override
-    public void setGameRule(String rule, String value) {
-        this.getWorld().setGameRuleValue(rule, value);
+    public void setGameRule(String key, String value) {
+        this.getWorld().setGameRuleValue(key, value);
     }
 
     @Override

@@ -36,7 +36,7 @@ public abstract class WorldWrapper<T> implements Serializable {
 
     public abstract T getWorld();
 
-    public abstract void setGameRule(String rule, String value);
+    public abstract void setGameRule(String key, String value);
 
     public abstract String getGameRule(String rule);
 

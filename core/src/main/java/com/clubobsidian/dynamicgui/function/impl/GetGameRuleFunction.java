@@ -34,12 +34,9 @@ public class GetGameRuleFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        } else if(!this.getData().contains(",")) {
+        if(this.getData() == null || !this.getData().contains(",")) {
             return false;
         }
-
         String[] split = this.getData().split(",");
         if(split.length == 3) {
             String worldName = split[0];
@@ -47,13 +44,11 @@ public class GetGameRuleFunction extends Function {
             if(world == null) {
                 return false;
             }
-
             String rule = split[1];
             String value = split[2];
             String worldRule = world.getGameRule(rule);
             return value.equals(worldRule);
         }
-
         return false;
     }
 }

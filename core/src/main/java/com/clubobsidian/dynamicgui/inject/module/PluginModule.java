@@ -29,56 +29,28 @@ import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
 
-public class PluginModule implements Module {
+public abstract class PluginModule implements Module {
 
-    private Class<? extends EntityManager> entityClass;
-    private Class<? extends InventoryManager> inventoryClass;
-    private Class<? extends ItemStackManager> itemStackClass;
-    private Class<? extends MaterialManager> materialClass;
-    private Class<? extends LocationManager> locationClass;
-    private DynamicGuiPlugin plugin;
-    private Platform platform;
-    private LoggerWrapper<?> loggerWrapper;
+    private final Class<? extends EntityManager> entityClass = this.getEntityManager();
+    private final Class<? extends InventoryManager> inventoryClass = this.getInventoryManager();
+    private final Class<? extends ItemStackManager> itemStackClass = this.getItemStackManager();
+    private final Class<? extends MaterialManager> materialClass = this.getMaterialManager();
+    private final Class<? extends LocationManager> locationClass = this.getLocationManger();
+    private final DynamicGuiPlugin plugin;
+    private final Platform platform;
+    private final LoggerWrapper<?> logger;
 
-    public PluginModule setEntity(Class<? extends EntityManager> clazz) {
-        this.entityClass = clazz;
-        return this;
-    }
-
-    public PluginModule setInventory(Class<? extends InventoryManager> clazz) {
-        this.inventoryClass = clazz;
-        return this;
-    }
-
-    public PluginModule setItemStack(Class<? extends ItemStackManager> clazz) {
-        this.itemStackClass = clazz;
-        return this;
-    }
-
-    public PluginModule setMaterial(Class<? extends MaterialManager> clazz) {
-        this.materialClass = clazz;
-        return this;
-    }
-
-    public PluginModule setLocation(Class<? extends LocationManager> clazz) {
-        this.locationClass = clazz;
-        return this;
-    }
-
-    public PluginModule setPlugin(DynamicGuiPlugin plugin) {
+    public PluginModule(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> logger) {
         this.plugin = plugin;
-        return this;
-    }
-
-    public PluginModule setPlatform(Platform platform) {
         this.platform = platform;
-        return this;
+        this.logger = logger;
     }
 
-    public PluginModule setLogger(LoggerWrapper<?> logger) {
-        this.loggerWrapper = logger;
-        return this;
-    }
+    public abstract Class<? extends EntityManager> getEntityManager();
+    public abstract Class<? extends InventoryManager> getInventoryManager();
+    public abstract Class<? extends ItemStackManager> getItemStackManager();
+    public abstract Class<? extends MaterialManager> getMaterialManager();
+    public abstract Class<? extends LocationManager> getLocationManger();
 
     @Override
     public void configure(Binder binder) {
@@ -90,7 +62,7 @@ public class PluginModule implements Module {
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
         binder.bind(Platform.class).toInstance(this.platform);
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
-        }).toInstance(this.loggerWrapper);
+        }).toInstance(this.logger);
 
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);
