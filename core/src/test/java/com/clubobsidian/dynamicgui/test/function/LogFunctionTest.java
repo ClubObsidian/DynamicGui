@@ -46,7 +46,6 @@ public class LogFunctionTest {
         function.setData(data);
         MockLoggerWrapper wrapper = this.factory.inject().getLogger();
         MockLogger logger = wrapper.getLogger();
-        logger.clear(); //Clear queue due to potential startup messages from DynamicGui
         PlayerWrapper<?> player = this.factory.createPlayer();
         assertTrue(function.function(player));
         assertTrue(logger.getInfoMessages().size() == 1);

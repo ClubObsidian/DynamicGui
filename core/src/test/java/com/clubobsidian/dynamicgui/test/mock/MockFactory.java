@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.test.mock;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.economy.Economy;
 import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryType;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
@@ -34,12 +35,14 @@ import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStackWrapper;
 import com.clubobsidian.dynamicgui.test.mock.logger.MockLogger;
 import com.clubobsidian.dynamicgui.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockDynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.test.mock.plugin.MockEconomy;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockScheduler;
 import com.clubobsidian.dynamicgui.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorldWrapper;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -127,11 +130,11 @@ public class MockFactory {
     public MockFactory inject() {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
         Platform platform = new MockPlatform(new MockScheduler());
-        System.out.println(new File(".").getAbsolutePath());
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         MockPluginModule module = new MockPluginModule(plugin, platform, logger);
         module.bootstrap();
         DynamicGui.get(); //Initializes dynamic gui
+        this.getLogger().getLogger().clear(); //Clear logs for initialization
         return this;
     }
 
@@ -151,5 +154,19 @@ public class MockFactory {
         return (MockLoggerWrapper) logger;
     }
 
+    public MockEconomy getEconomy() {
+        Economy economy = DynamicGui.get().getPlugin().getEconomy();;
+        if(!(economy instanceof MockEconomy)) {
+            return null;
+        }
+        return (MockEconomy) economy;
+    }
 
+    public MockDynamicGuiPlugin getPlugin() {
+        DynamicGuiPlugin plugin = DynamicGui.get().getPlugin();
+        if(!(plugin instanceof MockDynamicGuiPlugin)) {
+            return null;
+        }
+        return (MockDynamicGuiPlugin) plugin;
+    }
 }
