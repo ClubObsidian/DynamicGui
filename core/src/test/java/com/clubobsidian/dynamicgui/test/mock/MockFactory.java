@@ -31,6 +31,8 @@ import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStack;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStackWrapper;
+import com.clubobsidian.dynamicgui.test.mock.logger.MockLogger;
+import com.clubobsidian.dynamicgui.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockDynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockScheduler;
@@ -126,7 +128,7 @@ public class MockFactory {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
         Platform platform = new MockPlatform(new MockScheduler());
         System.out.println(new File(".").getAbsolutePath());
-        LoggerWrapper<?> logger = new JavaLoggerWrapper<>(Logger.getLogger("test"));
+        LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         MockPluginModule module = new MockPluginModule(plugin, platform, logger);
         module.bootstrap();
         DynamicGui.get(); //Initializes dynamic gui
@@ -139,6 +141,14 @@ public class MockFactory {
             return null;
         }
         return (MockPlatform) platform;
+    }
+
+    public MockLoggerWrapper getLogger() {
+        LoggerWrapper<?> logger = DynamicGui.get().getLogger();
+        if(!(logger instanceof MockLoggerWrapper)) {
+            return null;
+        }
+        return (MockLoggerWrapper) logger;
     }
 
 

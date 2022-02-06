@@ -16,26 +16,32 @@
 
 package com.clubobsidian.dynamicgui.test.function;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.function.impl.IsBedrockPlayerFunction;
+import com.clubobsidian.dynamicgui.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.logger.MockLogger;
+import com.clubobsidian.dynamicgui.test.mock.logger.MockLoggerWrapper;
 import org.junit.Test;
 
-import java.util.UUID;
-
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class IsBedrockPlayerFunctionTest {
+public class LogFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void functionTest() {
-        String name = "test";
-        UUID uuid = new UUID(0, 1);
-        MockPlayerWrapper player = this.factory.createPlayer(name, uuid);
-        Function function = new IsBedrockPlayerFunction();
+        String data = "test";
+        Function function = new LogFunction();
+        function.setData(data);
+        MockLoggerWrapper wrapper = this.factory.inject().getLogger();
+        MockLogger logger = wrapper.getLogger();
+        logger.clear(); //Clear queue due to potential startup messages from DynamicGui
+        PlayerWrapper<?> player = this.factory.createPlayer();
         assertTrue(function.function(player));
+        assertTrue(logger.getInfoMessages().size() == 1);
+        assertEquals(data, logger.getInfoMessages().get(0));
     }
 }
