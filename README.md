@@ -57,7 +57,7 @@ Just a few uses for DynamicGui.
 
 ## Downloads
 
-You can get [development builds from our jenkins.](https://ci.ravenlab.dev/job/DynamicGui/)
+You can get [development builds from Github actions](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml) but you will need a Github account.
 
 ## Getting Started
 
