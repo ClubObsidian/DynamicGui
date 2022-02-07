@@ -15,15 +15,15 @@
  */
 package com.clubobsidian.dynamicgui.parser.test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
@@ -39,7 +39,7 @@ public class GuiTokenTest {
 
     private static GuiToken token;
 
-    @BeforeClass
+    @BeforeAll
     public static void loadToken() {
         File file = new File("test.yml");
         Configuration config = Configuration.load(file);
@@ -49,41 +49,41 @@ public class GuiTokenTest {
     @Test
     public void testTitle() {
         String title = token.getTitle();
-        assertTrue("Gui title is not 'test gui title'", title.equals("test gui title"));
+        assertTrue(title.equals("test gui title"));
     }
 
     @Test
     public void testRows() {
         int rows = token.getRows();
-        assertTrue("Gui rows is not 1", rows == 1);
+        assertTrue(rows == 1);
     }
 
     @Test
     public void testMode() {
         GuiMode mode = token.getMode();
-        assertTrue("Gui mode is not 'set'", mode == GuiMode.SET);
+        assertTrue(mode == GuiMode.SET);
     }
 
     @Test
     public void testClose() {
         boolean closed = token.isClosed();
-        assertTrue("Gui close it not true", closed);
+        assertTrue(closed);
     }
 
     @Test
     public void testNpcs() {
         Map<String, List<Integer>> npcs = token.getNpcs();
         List<Integer> npcIds = npcs.get("citizens");
-        assertTrue("No npc ids were found for citizens", npcIds != null);
-        assertTrue("Npcs size is not 2", npcIds.size() == 2);
-        assertTrue("Npc at index 0 is not 5", npcIds.get(0) == 5);
-        assertTrue("Npc at index 1 is not 88", npcIds.get(1) == 77);
+        assertTrue(npcIds != null);
+        assertTrue(npcIds.size() == 2);
+        assertTrue(npcIds.get(0) == 5);
+        assertTrue(npcIds.get(1) == 77);
     }
 
     @Test
     public void testSlots() {
         Map<Integer, SlotToken> slots = token.getSlots();
-        assertTrue("Slots size is not 6", slots.size() == 6);
+        assertTrue(slots.size() == 6);
     }
 
     @Test
@@ -92,13 +92,13 @@ public class GuiTokenTest {
         FunctionNode node = tree.getRootNodes().get(0);
         FunctionData data = node.getToken().getFunctions().get(0);
         String functionName = data.getName();
-        assertTrue("Function name is not function2", functionName.equals("function2"));
+        assertTrue(functionName.equals("function2"));
     }
 
     @Test
     public void testMacroToken() {
         MacroToken macroToken = token.getMacroParser().getTokens().get(0);
-        assertTrue("Macro token was not initialized", macroToken != null);
+        assertTrue(macroToken != null);
     }
 
     @Test
@@ -117,6 +117,6 @@ public class GuiTokenTest {
 
         String title = token.getTitle();
 
-        assertTrue("External gui test's title is not 'test gui title'", title.equals("test gui title"));
+        assertTrue(title.equals("test gui title"));
     }
 }

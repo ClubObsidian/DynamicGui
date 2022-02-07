@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -34,7 +34,7 @@ public class LocationTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         String location = token.getLocations().get(0);
-        assertTrue("Location is not '0,0,0,world'", location.equals("0,0,0,world"));
+        assertTrue(location.equals("0,0,0,world"));
     }
 
 }

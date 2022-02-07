@@ -16,12 +16,12 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -37,6 +37,6 @@ public class LoreTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         List<String> lore = token.getLore();
-        assertTrue("Slot lore size is not 2", lore.size() == 2);
+        assertTrue(lore.size() == 2);
     }
 }

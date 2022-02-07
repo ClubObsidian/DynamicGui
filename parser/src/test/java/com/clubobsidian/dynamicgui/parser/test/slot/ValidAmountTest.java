@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -36,6 +36,6 @@ public class ValidAmountTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         int amount = token.getAmount();
-        assertTrue("Amount is not 32", amount == 32);
+        assertTrue(amount == 32);
     }
 }

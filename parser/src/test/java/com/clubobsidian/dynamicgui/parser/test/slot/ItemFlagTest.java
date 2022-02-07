@@ -19,12 +19,12 @@ package com.clubobsidian.dynamicgui.parser.test.slot;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ItemFlagTest {
 
@@ -36,6 +36,6 @@ public class ItemFlagTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         List<String> enchants = token.getItemFlags();
-        assertTrue("Slot item-flags size is not 2", enchants.size() == 2);
+        assertTrue(enchants.size() == 2);
     }
 }

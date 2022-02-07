@@ -21,10 +21,10 @@ import com.clubobsidian.dynamicgui.core.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GetGameRuleFunctionTest {
 

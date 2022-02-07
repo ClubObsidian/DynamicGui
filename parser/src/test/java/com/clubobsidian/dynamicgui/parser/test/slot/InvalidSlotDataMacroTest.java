@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -37,6 +37,6 @@ public class InvalidSlotDataMacroTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         byte data = token.getData();
-        assertTrue("Slot data was not parsed correctly, data is not 0", data == 0);
+        assertTrue( data == 0);
     }
 }

@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -35,6 +35,6 @@ public class SlotIndexTest {
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("13");
         SlotToken token = new SlotToken(13, section);
-        assertTrue("Slot index is not 13", token.getIndex() == 13);
+        assertTrue(token.getIndex() == 13);
     }
 }

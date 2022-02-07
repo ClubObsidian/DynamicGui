@@ -17,9 +17,9 @@
 package com.clubobsidian.dynamicgui.parser.test;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FunctionModifierTest {
 

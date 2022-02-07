@@ -16,13 +16,13 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
@@ -52,15 +52,15 @@ public class MacroParserTest {
 
         System.out.println("newLore:" + newLore.toString());
 
-        assertTrue("New lore size is not 8", newLore.size() == 8);
-        assertTrue("First line is not 'This is some gui text'", newLore.get(0).equals("This is some text"));
-        assertTrue("Second line is not 'Replace some text'", newLore.get(1).equals("Replace some text"));
-        assertTrue("Third line is not 'and some other text test'", newLore.get(2).equals("and some other text test"));
-        assertTrue("Forth line is not 'with some other text'", newLore.get(3).equals("with some other text"));
-        assertTrue("Fifth line is not 'Replace some text'", newLore.get(4).equals("Replace some text"));
-        assertTrue("Sixth line is not 'and some other text'", newLore.get(5).equals("and some other text"));
-        assertTrue("Seventh line is not 'with some other text'", newLore.get(6).equals("with some other text"));
-        assertTrue("Eigth line is not 'not-a-macro'", newLore.get(7).equals("not-a-macro"));
+        assertTrue(newLore.size() == 8);
+        assertTrue(newLore.get(0).equals("This is some text"));
+        assertTrue(newLore.get(1).equals("Replace some text"));
+        assertTrue(newLore.get(2).equals("and some other text test"));
+        assertTrue(newLore.get(3).equals("with some other text"));
+        assertTrue(newLore.get(4).equals("Replace some text"));
+        assertTrue(newLore.get(5).equals("and some other text"));
+        assertTrue(newLore.get(6).equals("with some other text"));
+        assertTrue(newLore.get(7).equals("not-a-macro"));
     }
 
     @Test
@@ -84,9 +84,9 @@ public class MacroParserTest {
 
         System.out.println(newLore.toString());
 
-        assertTrue("Size of new lore is not 2", newLore.size() == 2);
-        assertTrue("First line is not 'Replace some text", newLore.get(0).equals("Replace some text"));
-        assertTrue("Second line is not 'test'", newLore.get(1).equals("test"));
+        assertTrue(newLore.size() == 2);
+        assertTrue(newLore.get(0).equals("Replace some text"));
+        assertTrue(newLore.get(1).equals("test"));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class MacroParserTest {
 
         System.out.println("New lore: " + newLore + " Size: " + newLore.size());
 
-        assertTrue("First line is not 'Replace some text", newLore.get(0).equals("Replace some text"));
+        assertTrue(newLore.get(0).equals("Replace some text"));
 
     }
 
@@ -133,7 +133,7 @@ public class MacroParserTest {
 
         String newName = parser.parseStringMacros(name);
 
-        assertTrue("New name is not 'A name'", newName.equals("A name"));
+        assertTrue(newName.equals("A name"));
     }
 
     @Test
@@ -160,11 +160,11 @@ public class MacroParserTest {
 
         System.out.println("parsedLore: " + parsedLore.size());
 
-        assertTrue("Lore length is not 5'", parsedLore.size() == 5);
-        assertTrue("First line of lore is not 'not-a-macro'", parsedLore.get(0).equals("not-a-macro"));
-        assertTrue("Second line of lore is not 'Replace some text'", parsedLore.get(1).equals("Replace some text"));
-        assertTrue("Third line of lore is not 'and some other text test'", parsedLore.get(2).equals("and some other text test"));
-        assertTrue("Forth line of lore is not 'with some other text'", parsedLore.get(3).equals("with some other text"));
-        assertTrue("Fifth line of lore is not 'still-not-a-macro'", parsedLore.get(4).equals("still-not-a-macro"));
+        assertTrue(parsedLore.size() == 5);
+        assertTrue(parsedLore.get(0).equals("not-a-macro"));
+        assertTrue(parsedLore.get(1).equals("Replace some text"));
+        assertTrue(parsedLore.get(2).equals("and some other text test"));
+        assertTrue(parsedLore.get(3).equals("with some other text"));
+        assertTrue(parsedLore.get(4).equals("still-not-a-macro"));
     }
 }

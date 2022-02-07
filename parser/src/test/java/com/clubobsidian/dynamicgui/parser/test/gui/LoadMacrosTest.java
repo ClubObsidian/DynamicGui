@@ -16,12 +16,12 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.wrappy.Configuration;

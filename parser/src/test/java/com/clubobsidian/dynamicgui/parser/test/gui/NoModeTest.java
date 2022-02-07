@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
@@ -35,7 +35,7 @@ public class NoModeTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         GuiMode alias = token.getMode();
-        assertTrue("Gui mode was null but is set by default", alias == GuiMode.SET);
+        assertTrue(alias == GuiMode.SET);
     }
 
 }
