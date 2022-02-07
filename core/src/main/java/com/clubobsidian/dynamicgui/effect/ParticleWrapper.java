@@ -16,8 +16,10 @@
 package com.clubobsidian.dynamicgui.effect;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ParticleWrapper implements Serializable {
 
@@ -25,25 +27,54 @@ public class ParticleWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = -5003322741003989392L;
-    private String effect;
-    private int data;
+    private final ParticleData data;
 
     public ParticleWrapper(String str) {
-        this.loadFromString(str);
+        this.data = this.loadFromString(str);
     }
 
-    private void loadFromString(String str) {
+    private ParticleData loadFromString(String str) {
         if(str.contains(",")) {
             String[] args = str.split(",");
-            this.effect = args[0].toUpperCase();
-            this.data = Integer.parseInt(args[1]);
+            return new ParticleData(args[0].toUpperCase(), NumberUtils.toInt(args[1]));
         } else {
-            this.effect = str;
-            this.data = 0;
+            return new ParticleData(str, 0);
         }
     }
 
     public void spawnEffect(PlayerWrapper<?> player) {
-        player.playEffect(this.effect.toUpperCase(), this.data);
+        player.playEffect(this.data);
+    }
+
+    public class ParticleData {
+
+        private final String effect;
+        private final int extraData;
+
+        private ParticleData(String effect, int data) {
+            this.effect = effect;
+            this.extraData = data;
+        }
+
+        public String getEffect() {
+            return this.effect;
+        }
+
+        public int getExtraData() {
+            return this.extraData;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(this == o) return true;
+            if(!(o instanceof ParticleData)) return false;
+            ParticleData that = (ParticleData) o;
+            return extraData == that.extraData && Objects.equals(effect, that.effect);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(effect, extraData);
+        }
     }
 }

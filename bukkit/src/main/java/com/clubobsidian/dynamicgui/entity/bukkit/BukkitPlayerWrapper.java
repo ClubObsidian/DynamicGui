@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.entity.bukkit;
 
 import com.clubobsidian.dynamicgui.DynamicGui;
+import com.clubobsidian.dynamicgui.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
@@ -145,10 +146,12 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void playEffect(String effect, int data) {
+    public void playEffect(ParticleWrapper.ParticleData particleData) {
+        String effect = particleData.getEffect();
+        int extraData = particleData.getExtraData();
         Player player = this.getPlayer();
         Location playerLocation = player.getLocation();
-        playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), data);
+        playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), extraData);
     }
 
     @Override

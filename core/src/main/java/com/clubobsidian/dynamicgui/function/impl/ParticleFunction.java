@@ -32,6 +32,9 @@ public class ParticleFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         ParticleWrapper wrapper = new ParticleWrapper(this.getData());
         wrapper.spawnEffect(playerWrapper);
         return true;

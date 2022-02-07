@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.test.mock.entity.player;
 
+import com.clubobsidian.dynamicgui.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
@@ -35,6 +36,7 @@ public class MockPlayer {
     private ItemStackWrapper<?> hand;
     private int level = 0;
     private LocationWrapper<?> location;
+    private List<ParticleWrapper.ParticleData> particles = new ArrayList<>();
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -103,5 +105,13 @@ public class MockPlayer {
 
     public void setLocation(LocationWrapper<?> location) {
         this.location = location;
+    }
+
+    public void playEffect(ParticleWrapper.ParticleData particleData) {
+        this.particles.add(particleData);
+    }
+
+    public List<ParticleWrapper.ParticleData> getParticles() {
+        return this.particles;
     }
 }

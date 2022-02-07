@@ -16,10 +16,13 @@
 
 package com.clubobsidian.dynamicgui.test.mock.entity.player;
 
+import com.clubobsidian.dynamicgui.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
@@ -94,5 +97,14 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     public void setLocation(LocationWrapper<?> location) {
         this.getPlayer().setLocation(location);
+    }
+
+    @Override
+    public void playEffect(ParticleWrapper.ParticleData particleData) {
+        this.getPlayer().playEffect(particleData);
+    }
+
+    public List<ParticleWrapper.ParticleData> getParticles() {
+        return this.getPlayer().getParticles();
     }
 }
