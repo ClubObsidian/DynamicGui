@@ -20,14 +20,14 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 
-public class ConsoleCmdFunction extends Function {
+public class ConsoleCommandFunction extends Function {
 
     /**
      *
      */
     private static final long serialVersionUID = -4802600274176592465L;
 
-    public ConsoleCmdFunction() {
+    public ConsoleCommandFunction() {
         super("executec");
     }
 

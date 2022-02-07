@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunctio
 import com.clubobsidian.dynamicgui.core.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckMoveableFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckPlayerWorldFunction;
-import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCmdFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCommandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.LogFunction;
@@ -285,7 +285,7 @@ public class DynamicGui {
         FunctionManager.get().addFunction(new ResetFrameFunction());
         FunctionManager.get().addFunction(new ResetTickFunction());
 
-        FunctionManager.get().addFunction(new ConsoleCmdFunction());
+        FunctionManager.get().addFunction(new ConsoleCommandFunction());
         FunctionManager.get().addFunction(new PlayerCommandFunction());
 
         FunctionManager.get().addFunction(new SetCooldownFunction());

@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCmdFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCommandFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import org.junit.Test;
@@ -26,13 +26,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class ConsoleCmdFunctionTest {
+public class ConsoleCommandFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void nullTest() {
-        Function function = new ConsoleCmdFunction();
+        Function function = new ConsoleCommandFunction();
         assertFalse(function.function(this.factory.createPlayer()));
     }
 
@@ -40,7 +40,7 @@ public class ConsoleCmdFunctionTest {
     public void withDataTest() {
         String data = "test";
         MockPlatform platform = this.factory.inject().getPlatform();
-        Function function = new ConsoleCmdFunction();
+        Function function = new ConsoleCommandFunction();
         function.setData(data);
         assertTrue(function.function(this.factory.createPlayer()));
         assertEquals(data, platform.getDispatchedServerCommands().get(0));
