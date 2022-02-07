@@ -33,6 +33,9 @@ public class RandomFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         try {
             if(this.getData().contains("-")) {
                 String[] split = this.getData().split("-");

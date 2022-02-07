@@ -32,6 +32,9 @@ public class SoundFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         SoundWrapper wrapper = new SoundWrapper(this.getData());
         wrapper.playSoundToPlayer(playerWrapper);
         return true;

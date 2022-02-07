@@ -34,7 +34,6 @@ public class PlayerMsgJsonFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-
         playerWrapper.sendJsonMessage(this.getData());
         return true;
     }

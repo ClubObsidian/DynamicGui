@@ -37,7 +37,6 @@ public class ServerMiniBroadcastFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-
         String json = MiniMessageManager.get().toJson(this.getData());
         DynamicGui.get().getPlatform().broadcastJsonMessage(json);
         return true;

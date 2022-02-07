@@ -38,7 +38,9 @@ public class GuiFunction extends Function {
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
         final String gui = this.getData();
-
+        if(gui == null) {
+            return false;
+        }
         if(!GuiManager.get().hasGuiName(gui)) {
             return false;
         }

@@ -32,6 +32,9 @@ public class SendFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         return DynamicGui.get().sendToServer(playerWrapper, this.getData());
     }
 }

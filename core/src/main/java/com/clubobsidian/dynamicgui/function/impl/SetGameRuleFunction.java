@@ -33,9 +33,7 @@ public class SetGameRuleFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        } else if(!this.getData().contains(",")) {
+        if(this.getData() == null || !this.getData().contains(",")) {
             return false;
         }
 

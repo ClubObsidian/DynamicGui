@@ -36,7 +36,6 @@ public class IsNotOnCooldownFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-
         return !CooldownManager.get().isOnCooldown(playerWrapper, this.getData());
     }
 }

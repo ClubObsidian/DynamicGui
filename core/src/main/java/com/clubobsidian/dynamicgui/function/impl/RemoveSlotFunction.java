@@ -37,7 +37,6 @@ public class RemoveSlotFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();
-
         if(this.getData() == null || this.getData().equals("this")) {
             if(owner != null) {
                 if(owner instanceof Slot) {

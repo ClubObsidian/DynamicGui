@@ -37,6 +37,9 @@ public class SetGlowFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         try {
             Boolean value = Boolean.valueOf(this.getData());
             if(value != null) {

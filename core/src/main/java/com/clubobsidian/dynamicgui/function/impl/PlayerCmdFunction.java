@@ -32,6 +32,9 @@ public class PlayerCmdFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         playerWrapper.chat("/" + ReplacerManager.get().replace(this.getData(), playerWrapper));
         return true;
     }

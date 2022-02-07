@@ -36,7 +36,6 @@ public class PlayerMiniMsgFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-
         String json = MiniMessageManager.get().toJson(this.getData());
         playerWrapper.sendJsonMessage(json);
         return true;

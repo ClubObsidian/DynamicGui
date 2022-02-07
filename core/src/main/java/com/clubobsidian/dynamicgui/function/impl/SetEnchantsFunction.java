@@ -41,6 +41,9 @@ public class SetEnchantsFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
+        if(this.getData() == null) {
+            return false;
+        }
         FunctionOwner owner = this.getOwner();
         if(owner != null) {
             if(owner instanceof Slot) {
