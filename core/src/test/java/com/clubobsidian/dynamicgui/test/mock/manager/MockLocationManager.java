@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 
 public class MockLocationManager extends LocationManager {
     @Override

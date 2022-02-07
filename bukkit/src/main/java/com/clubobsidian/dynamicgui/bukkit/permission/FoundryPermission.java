@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.permission;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.foundry.FoundryPlugin;
 import org.bukkit.entity.Player;
 

@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 
 public class MockItemStackManager extends ItemStackManager {
     @Override

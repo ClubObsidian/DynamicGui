@@ -15,8 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.economy;
 
-import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;

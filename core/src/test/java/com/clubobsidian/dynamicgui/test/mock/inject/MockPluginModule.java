@@ -16,15 +16,15 @@
 
 package com.clubobsidian.dynamicgui.test.mock.inject;
 
-import com.clubobsidian.dynamicgui.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
-import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.Platform;
+import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.server.Platform;
 import com.clubobsidian.dynamicgui.test.mock.manager.MockEntityManager;
 import com.clubobsidian.dynamicgui.test.mock.manager.MockInventoryManager;
 import com.clubobsidian.dynamicgui.test.mock.manager.MockItemStackManager;

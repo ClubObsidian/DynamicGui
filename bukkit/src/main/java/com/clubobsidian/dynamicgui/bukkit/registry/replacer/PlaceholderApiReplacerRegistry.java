@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.registry.replacer;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.registry.replacer.ReplacerRegistry;
-import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.OfflinePlayer;
 
 import java.lang.reflect.InvocationTargetException;

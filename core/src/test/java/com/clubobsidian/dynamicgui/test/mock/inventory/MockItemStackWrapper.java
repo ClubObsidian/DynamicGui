@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.test.mock.inventory;
 
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 
 public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStack> {
 

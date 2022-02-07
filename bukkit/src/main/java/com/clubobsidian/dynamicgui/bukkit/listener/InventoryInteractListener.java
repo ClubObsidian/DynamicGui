@@ -15,13 +15,13 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.listener;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
-import com.clubobsidian.dynamicgui.event.inventory.Click;
-import com.clubobsidian.dynamicgui.gui.InventoryView;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.event.inventory.Click;
+import com.clubobsidian.dynamicgui.core.gui.InventoryView;
+import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
 import org.bukkit.entity.Player;
@@ -77,7 +77,7 @@ public class InventoryInteractListener implements Listener {
                 itemStackWrapper = new BukkitItemStackWrapper<ItemStack>(itemStack);
             }
 
-            com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
+            com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
             DynamicGui.get().getEventBus().callEvent(clickEvent);
             if(clickEvent.isCanceled()) {
                 e.setCancelled(true);
@@ -97,7 +97,7 @@ public class InventoryInteractListener implements Listener {
             PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
             InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(inventory);
             Map<Integer, ItemStackWrapper<?>> slotItems = this.wrapItemStacks(e.getNewItems());
-            com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent dragEvent = new com.clubobsidian.dynamicgui.event.inventory.InventoryDragEvent(playerWrapper, inventoryWrapper, slotItems);
+            com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent dragEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent(playerWrapper, inventoryWrapper, slotItems);
             DynamicGui.get().getEventBus().callEvent(dragEvent);
             if(dragEvent.isCanceled()) {
                 e.setCancelled(true);

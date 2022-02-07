@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.test.function;
 
-import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.function.impl.ConsoleCmdFunction;
+import com.clubobsidian.dynamicgui.core.function.Function;
+import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCmdFunction;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockPlatform;
 import org.junit.Test;

@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.test.function;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.function.impl.MoneyWithdrawFunction;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.function.Function;
+import com.clubobsidian.dynamicgui.core.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.test.mock.plugin.MockEconomy;
 import org.junit.Test;

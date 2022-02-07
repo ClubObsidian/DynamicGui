@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
 
 public class MockInventoryManager extends InventoryManager {
     @Override

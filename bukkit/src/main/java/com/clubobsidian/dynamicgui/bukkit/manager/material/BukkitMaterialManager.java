@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.manager.material;
 
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import org.bukkit.Material;
 
 import java.util.ArrayList;

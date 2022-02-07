@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.permission.Permission;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.permission.Permission;
 
 public class MockPermission implements Permission {
 

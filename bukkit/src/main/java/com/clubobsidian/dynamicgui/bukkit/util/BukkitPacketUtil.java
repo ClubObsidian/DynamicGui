@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.util;
 
-import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

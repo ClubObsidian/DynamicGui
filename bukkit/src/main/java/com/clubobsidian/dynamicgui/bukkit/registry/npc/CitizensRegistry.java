@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.registry.npc;
 
-import com.clubobsidian.dynamicgui.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.registry.npc.NPC;
-import com.clubobsidian.dynamicgui.registry.npc.NPCMeta;
-import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.util.ReflectionUtil;
+import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.core.registry.npc.NPCMeta;
+import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.entity.Entity;
 
 import java.lang.reflect.InvocationTargetException;

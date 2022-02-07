@@ -15,16 +15,16 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.entity;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Effect;

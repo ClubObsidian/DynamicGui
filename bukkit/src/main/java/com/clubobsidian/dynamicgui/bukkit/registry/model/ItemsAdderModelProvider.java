@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.model;
 
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

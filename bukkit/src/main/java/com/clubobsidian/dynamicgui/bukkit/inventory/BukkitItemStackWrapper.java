@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.inventory;
 
-import com.clubobsidian.dynamicgui.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

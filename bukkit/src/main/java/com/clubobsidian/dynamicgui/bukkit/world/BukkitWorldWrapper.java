@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.world;
 
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 

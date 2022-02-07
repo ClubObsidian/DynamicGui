@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.test.mock.logger;
 
-import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 
 public class MockLoggerWrapper extends LoggerWrapper<MockLogger> {
 

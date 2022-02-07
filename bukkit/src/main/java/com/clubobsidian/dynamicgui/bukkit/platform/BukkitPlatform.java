@@ -15,16 +15,16 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.platform;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
-import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.proxy.Proxy;
+import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.bukkit.scheduler.BukkitScheduler;
-import com.clubobsidian.dynamicgui.server.Platform;
-import com.clubobsidian.dynamicgui.server.ServerType;
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.core.server.Platform;
+import com.clubobsidian.dynamicgui.core.server.ServerType;
+import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;

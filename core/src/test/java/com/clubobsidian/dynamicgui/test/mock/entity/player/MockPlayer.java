@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.test.mock.entity.player;
 
-import com.clubobsidian.dynamicgui.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;

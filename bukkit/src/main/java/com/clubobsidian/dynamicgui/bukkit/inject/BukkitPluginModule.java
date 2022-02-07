@@ -16,20 +16,20 @@
 
 package com.clubobsidian.dynamicgui.bukkit.inject;
 
-import com.clubobsidian.dynamicgui.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.entity.BukkitEntityManager;
-import com.clubobsidian.dynamicgui.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
-import com.clubobsidian.dynamicgui.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
-import com.clubobsidian.dynamicgui.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.Platform;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.server.Platform;
 
 public class BukkitPluginModule extends PluginModule {
 

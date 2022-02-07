@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 
 public class MockScheduler extends Scheduler {
 

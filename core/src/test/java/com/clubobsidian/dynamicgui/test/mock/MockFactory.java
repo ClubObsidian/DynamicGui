@@ -16,16 +16,16 @@
 
 package com.clubobsidian.dynamicgui.test.mock;
 
-import com.clubobsidian.dynamicgui.DynamicGui;
-import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.gui.Gui;
-import com.clubobsidian.dynamicgui.gui.InventoryType;
-import com.clubobsidian.dynamicgui.gui.ModeEnum;
-import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.core.gui.Gui;
+import com.clubobsidian.dynamicgui.core.gui.InventoryType;
+import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.core.gui.Slot;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.server.Platform;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.server.Platform;
 import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.inject.MockPluginModule;

@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.economy.Economy;
-import com.clubobsidian.dynamicgui.permission.Permission;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.core.permission.Permission;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -16,13 +16,13 @@
 
 package com.clubobsidian.dynamicgui.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.scheduler.Scheduler;
-import com.clubobsidian.dynamicgui.server.Platform;
-import com.clubobsidian.dynamicgui.server.ServerType;
-import com.clubobsidian.dynamicgui.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.core.server.Platform;
+import com.clubobsidian.dynamicgui.core.server.ServerType;
+import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
