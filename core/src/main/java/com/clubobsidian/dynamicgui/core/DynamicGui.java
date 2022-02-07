@@ -32,7 +32,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.NoPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.ParticleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PermissionFunction;
-import com.clubobsidian.dynamicgui.core.function.impl.PlayerCmdFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.PlayerCommandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMiniMsgFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMsgFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RandomFunction;
@@ -286,7 +286,7 @@ public class DynamicGui {
         FunctionManager.get().addFunction(new ResetTickFunction());
 
         FunctionManager.get().addFunction(new ConsoleCmdFunction());
-        FunctionManager.get().addFunction(new PlayerCmdFunction());
+        FunctionManager.get().addFunction(new PlayerCommandFunction());
 
         FunctionManager.get().addFunction(new SetCooldownFunction());
         FunctionManager.get().addFunction(new IsOnCooldownFunction());

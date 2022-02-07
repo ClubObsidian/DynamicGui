@@ -19,14 +19,14 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 
-public class PlayerCmdFunction extends Function {
+public class PlayerCommandFunction extends Function {
 
     /**
      *
      */
     private static final long serialVersionUID = 220426382325192292L;
 
-    public PlayerCmdFunction() {
+    public PlayerCommandFunction() {
         super("executep");
     }
 
