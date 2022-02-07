@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock.entity;
+package com.clubobsidian.dynamicgui.test.mock.entity.player;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
@@ -62,6 +62,11 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     @Override
     public boolean addPermission(String permission) {
         return this.getPlayer().addPermission(permission);
+    }
+
+    @Override
+    public boolean removePermission(String permission) {
+        return this.getPlayer().removePermission(permission);
     }
 
     @Override

@@ -13,27 +13,5 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.function.impl;
 
-import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
-
-public class NoPermissionFunction extends Function {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6907686728880861860L;
-
-    public NoPermissionFunction() {
-        super("nopermission");
-    }
-
-    @Override
-    public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        }
-        return !playerWrapper.hasPermission(this.getData());
-    }
-}
+package com.clubobsidian.dynamicgui.test.mock.entity;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.test.mock.entity;
+package com.clubobsidian.dynamicgui.test.mock.entity.player;
 
 import com.clubobsidian.dynamicgui.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.world.LocationWrapper;
@@ -75,6 +75,10 @@ public class MockPlayer {
 
     public boolean addPermission(String permission) {
         return this.permissions.add(permission);
+    }
+
+    public boolean removePermission(String permission) {
+        return this.permissions.remove(permission);
     }
 
     public ItemStackWrapper<?> getItemInHand() {

@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.test.function;
 import com.clubobsidian.dynamicgui.function.Function;
 import com.clubobsidian.dynamicgui.function.impl.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.Test;
 
 import java.util.UUID;

@@ -13,27 +13,31 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.function.impl;
+
+package com.clubobsidian.dynamicgui.test.mock.plugin;
 
 import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.function.Function;
+import com.clubobsidian.dynamicgui.permission.Permission;
 
-public class NoPermissionFunction extends Function {
+public class MockPermission implements Permission {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6907686728880861860L;
-
-    public NoPermissionFunction() {
-        super("nopermission");
+    @Override
+    public boolean setup() {
+        return true;
     }
 
     @Override
-    public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        }
-        return !playerWrapper.hasPermission(this.getData());
+    public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
+        return playerWrapper.hasPermission(permission);
+    }
+
+    @Override
+    public boolean addPermission(PlayerWrapper<?> playerWrapper, String permission) {
+        return playerWrapper.addPermission(permission);
+    }
+
+    @Override
+    public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission) {
+        return playerWrapper.removePermission(permission);
     }
 }

@@ -16,41 +16,41 @@
 
 package com.clubobsidian.dynamicgui.test.function;
 
+import com.clubobsidian.dynamicgui.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.function.Function;
-import com.clubobsidian.dynamicgui.function.impl.CheckMoveableFunction;
+import com.clubobsidian.dynamicgui.function.impl.NoPermissionFunction;
 import com.clubobsidian.dynamicgui.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class CheckMoveableFunctionTest {
+public class NoPermissionFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
-    public void nullTest() {
-        Function function = new CheckMoveableFunction();
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
-        assertFalse(function.function(wrapper));
+    public void testNullData() {
+        Function function = new NoPermissionFunction();
+        assertFalse(function.function(this.factory.createPlayer()));
     }
 
     @Test
-    public void ownerNotSlotTest() {
-        Function function = new CheckMoveableFunction();
-        function.setData("true");
-        function.setOwner(this.factory.createGui("test"));
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
-        assertFalse(function.function(wrapper));
+    public void testHasNoPermission() {
+        this.factory.inject();
+        Function function = new NoPermissionFunction();
+        function.setData("test");
+        assertTrue(function.function(this.factory.createPlayer()));
     }
 
     @Test
-    public void isMovableTest() {
-        Function function = new CheckMoveableFunction();
-        function.setData("true");
-        function.setOwner(this.factory.createSlot("STONE", true));
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
-        assertTrue(function.function(wrapper));
+    public void testHasPermission() {
+        String permission = "test";
+        this.factory.inject();
+        Function function = new NoPermissionFunction();
+        function.setData(permission);
+        PlayerWrapper<?> player = this.factory.createPlayer();
+        player.addPermission(permission);
+        assertFalse(function.function(player));
     }
 }

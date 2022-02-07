@@ -22,13 +22,12 @@ import com.clubobsidian.dynamicgui.gui.Gui;
 import com.clubobsidian.dynamicgui.gui.InventoryType;
 import com.clubobsidian.dynamicgui.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.gui.Slot;
-import com.clubobsidian.dynamicgui.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.server.Platform;
-import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayer;
-import com.clubobsidian.dynamicgui.test.mock.entity.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayer;
+import com.clubobsidian.dynamicgui.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStack;
 import com.clubobsidian.dynamicgui.test.mock.inventory.MockItemStackWrapper;
@@ -42,14 +41,11 @@ import com.clubobsidian.dynamicgui.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.test.mock.world.MockWorldWrapper;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class MockFactory {
 

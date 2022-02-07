@@ -34,6 +34,7 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     private final File resourcesFolder = new File(this.mainFolder,"resources");
     private final File configFile = new File(this.resourcesFolder, "config.yml");
     public Economy economy = new MockEconomy(); //Visible for testing
+    public Permission permission = new MockPermission(); //Visible for testing
 
     @Override
     public void start() {
@@ -52,7 +53,7 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
 
     @Override
     public Permission getPermission() {
-        return null;
+        return this.permission;
     }
 
     @Override
