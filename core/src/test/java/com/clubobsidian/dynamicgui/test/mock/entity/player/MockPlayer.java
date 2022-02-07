@@ -36,7 +36,7 @@ public class MockPlayer {
     private ItemStackWrapper<?> hand;
     private int level = 0;
     private LocationWrapper<?> location;
-    private List<ParticleWrapper.ParticleData> particles = new ArrayList<>();
+    private final List<ParticleWrapper.ParticleData> particles = new ArrayList<>();
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
