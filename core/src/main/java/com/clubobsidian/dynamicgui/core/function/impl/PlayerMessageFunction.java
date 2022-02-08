@@ -20,15 +20,15 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
-public class PlayerMsgFunction extends Function {
+public class PlayerMessageFunction extends Function {
 
     /**
      *
      */
     private static final long serialVersionUID = 6244543904061733902L;
 
-    public PlayerMsgFunction() {
-        super("msg", "pmsg");
+    public PlayerMessageFunction() {
+        super("msg", "pmsg", "message", "playermessage");
     }
 
     @Override
