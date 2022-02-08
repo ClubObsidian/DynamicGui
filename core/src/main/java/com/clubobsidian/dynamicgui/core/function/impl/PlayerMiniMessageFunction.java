@@ -20,15 +20,15 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.MiniMessageManager;
 
-public class PlayerMiniMsgFunction extends Function {
+public class PlayerMiniMessageFunction extends Function {
 
     /**
      *
      */
     private static final long serialVersionUID = 9216295481570082778L;
 
-    public PlayerMiniMsgFunction() {
-        super("minimsg");
+    public PlayerMiniMessageFunction() {
+        super("minimsg", "minimessage");
     }
 
     @Override
