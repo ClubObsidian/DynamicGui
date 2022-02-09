@@ -55,6 +55,10 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
         return this.getPlayer().getOutgoingChat();
     }
 
+    public List<String> getIncomingChat() {
+        return this.getPlayer().getIncomingChat();
+    }
+
     @Override
     public void sendMessage(String message) {
         this.getPlayer().sendMessage(message);
