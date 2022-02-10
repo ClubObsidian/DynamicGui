@@ -19,17 +19,18 @@ package com.clubobsidian.dynamicgui.core.function.impl;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 
-public class CheckMoveableFunction extends Function {
+public class SetMovableFunction extends Function {
 
     /**
      *
      */
-    private static final long serialVersionUID = 1037806025228025407L;
+    private static final long serialVersionUID = 453447798953153174L;
 
-    public CheckMoveableFunction() {
-        super("checkmoveable");
+    public SetMovableFunction() {
+        super("setmovable");
     }
 
     @Override
@@ -37,14 +38,23 @@ public class CheckMoveableFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-
-        FunctionOwner owner = this.getOwner();
-        if(!(owner instanceof Slot)) {
-            return false;
+        if(this.getOwner() instanceof Slot) {
+            Boolean value = Boolean.valueOf(this.getData());
+            if(value != null) {
+                FunctionOwner owner = this.getOwner();
+                if(owner != null) {
+                    if(owner instanceof Slot) {
+                        Slot slot = (Slot) owner;
+                        Gui gui = slot.getOwner();
+                        if(gui != null) {
+                            slot.setMovable(value);
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
-        Slot slot = (Slot) owner;
-        Boolean value = Boolean.valueOf(this.getData());
-        return value.equals(slot.isMoveable());
+        return false;
     }
 }

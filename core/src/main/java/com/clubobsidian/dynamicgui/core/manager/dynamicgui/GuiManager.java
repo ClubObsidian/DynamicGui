@@ -449,7 +449,7 @@ public class GuiManager {
             short data = slotToken.getData();
 
             boolean glow = slotToken.getGlow();
-            boolean moveable = slotToken.isMoveable();
+            boolean movable = slotToken.isMovable();
 
             String modelProvider = slotToken.getModelProvider();
             String modelData = slotToken.getModelData();
@@ -458,7 +458,7 @@ public class GuiManager {
 
             Map<String, String> metadata = slotToken.getMetadata();
 
-            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, moveable,
+            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, movable,
                     close, lore, enchants, itemFlags, modelProvider, modelData,
                     slotToken.getFunctionTree(), updateInterval, metadata));
         }

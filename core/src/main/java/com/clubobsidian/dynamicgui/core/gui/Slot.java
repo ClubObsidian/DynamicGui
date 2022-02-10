@@ -47,7 +47,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private final String nbt;
     private final short data;
     private final boolean glow;
-    private boolean moveable;
+    private boolean movable;
 
     private final List<String> lore;
     private final List<EnchantmentWrapper> enchants;
@@ -66,7 +66,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private boolean update;
 
     public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
-                boolean moveable, Boolean close, List<String> lore,
+                boolean movable, Boolean close, List<String> lore,
                 List<EnchantmentWrapper> enchants, List<String> itemFlags,
                 String modelProvider, String modelData,
                 FunctionTree functions, int updateInterval, Map<String, String> metadata) {
@@ -75,7 +75,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         this.name = name;
         this.nbt = nbt;
         this.glow = glow;
-        this.moveable = moveable;
+        this.movable = movable;
         this.lore = lore;
         this.enchants = enchants;
         this.itemFlags = itemFlags;
@@ -120,12 +120,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         return this.glow;
     }
 
-    public boolean isMoveable() {
-        return this.moveable;
+    public boolean isMovable() {
+        return this.movable;
     }
 
-    public void setMoveable(boolean moveable) {
-        this.moveable = moveable;
+    public void setMovable(boolean movable) {
+        this.movable = movable;
     }
 
     public short getData() {

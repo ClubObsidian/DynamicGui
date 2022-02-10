@@ -74,7 +74,7 @@ public class InventoryInteractListener {
             FunctionManager.get().tryFunctions(slot, FunctionType.valueOf(clickString), player);
         }
 
-        if(!slot.isMoveable()) {
+        if(!slot.isMovable()) {
             e.setCancelled(true);
         }
 
@@ -110,7 +110,7 @@ public class InventoryInteractListener {
             }
 
             Slot slot = this.getSlotFromIndex(gui, rawSlot);
-            if(slot == null || (slot != null && !slot.isMoveable())) {
+            if(slot == null || (slot != null && !slot.isMovable())) {
                 e.setCancelled(true);
                 return;
             }
@@ -135,9 +135,9 @@ public class InventoryInteractListener {
             if(stackTo.getItemStack() == null || (stackTo.isSimilar(clickedItem) && validSize(clickedItem, stackTo))) {
                 Slot slot = this.getSlotFromIndex(gui, i);
                 if(slot != null) {
-                    if(slot.isMoveable()) {
+                    if(slot.isMovable()) {
                         canStack = true;
-                    } else if(canStack && !slot.isMoveable()) {
+                    } else if(canStack && !slot.isMovable()) {
                         canStack = false;
                     }
                 }

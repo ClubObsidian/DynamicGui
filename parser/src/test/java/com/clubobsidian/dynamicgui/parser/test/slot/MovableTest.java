@@ -27,25 +27,25 @@ import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-public class MoveableTest {
+public class MovableTest {
 
     @Test
-    public void testSlotMoveable() {
+    public void testSlotMovable() {
         File slotFolder = new File("test", "slot");
-        File metadataFile = new File(slotFolder, "moveable.yml");
+        File metadataFile = new File(slotFolder, "movable.yml");
         Configuration config = Configuration.load(metadataFile);
         ConfigurationSection slot = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, slot);
-        assertTrue(token.isMoveable());
+        assertTrue(token.isMovable());
     }
 
     @Test
-    public void testSlotNotMoveable() {
+    public void testSlotNotMovable() {
         File slotFolder = new File("test", "slot");
-        File metadataFile = new File(slotFolder, "moveable.yml");
+        File metadataFile = new File(slotFolder, "movable.yml");
         Configuration config = Configuration.load(metadataFile);
         ConfigurationSection slot = config.getConfigurationSection("1");
         SlotToken token = new SlotToken(1, slot);
-        assertFalse(token.isMoveable());
+        assertFalse(token.isMovable());
     }
 }

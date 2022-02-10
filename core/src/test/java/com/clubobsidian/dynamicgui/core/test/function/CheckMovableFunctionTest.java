@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.CheckMoveableFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.CheckMovableFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.jupiter.api.Test;
@@ -25,20 +25,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckMoveableFunctionTest {
+public class CheckMovableFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void nullTest() {
-        Function function = new CheckMoveableFunction();
+        Function function = new CheckMovableFunction();
         MockPlayerWrapper wrapper = this.factory.createPlayer();
         assertFalse(function.function(wrapper));
     }
 
     @Test
     public void ownerNotSlotTest() {
-        Function function = new CheckMoveableFunction();
+        Function function = new CheckMovableFunction();
         function.setData("true");
         function.setOwner(this.factory.createGui("test"));
         MockPlayerWrapper wrapper = this.factory.createPlayer();
@@ -47,7 +47,7 @@ public class CheckMoveableFunctionTest {
 
     @Test
     public void isMovableTest() {
-        Function function = new CheckMoveableFunction();
+        Function function = new CheckMovableFunction();
         function.setData("true");
         function.setOwner(this.factory.createSlot("STONE", true));
         MockPlayerWrapper wrapper = this.factory.createPlayer();

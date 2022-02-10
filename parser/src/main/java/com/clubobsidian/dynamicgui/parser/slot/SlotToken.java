@@ -39,7 +39,7 @@ public class SlotToken implements Serializable {
     private final String name;
     private final String nbt;
     private final boolean glow;
-    private final boolean moveable;
+    private final boolean movable;
     private final boolean closed;
     private final byte data;
     private final List<String> lore;
@@ -69,7 +69,7 @@ public class SlotToken implements Serializable {
         this.name = this.macroParser.parseStringMacros(section.getString("name"));
         this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
         this.glow = this.parseBoolean(section.getString("glow"));
-        this.moveable = this.parseBoolean(section.getString("moveable"));
+        this.movable = this.parseBoolean(section.getString("movable"));
         this.closed = this.parseBoolean(section.getString("close"));
         this.data = this.parseByte(section.getString("data"));
         this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
@@ -171,8 +171,8 @@ public class SlotToken implements Serializable {
         return this.glow;
     }
 
-    public boolean isMoveable() {
-        return this.moveable;
+    public boolean isMovable() {
+        return this.movable;
     }
 
     public boolean isClosed() {
