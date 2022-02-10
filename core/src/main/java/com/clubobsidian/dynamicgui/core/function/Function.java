@@ -87,8 +87,12 @@ public abstract class Function implements Cloneable, Serializable {
         this.data = data;
     }
 
-    public void setOwner(FunctionOwner slot) {
-        this.owner = slot;
+    public boolean setOwner(FunctionOwner owner) {
+        if(this.owner != null) {
+            return false;
+        }
+        this.owner = owner;
+        return true;
     }
 
     public FunctionOwner getOwner() {
