@@ -25,8 +25,8 @@ public class PlayerMsgJsonFunction extends Function {
      */
     private static final long serialVersionUID = -1691264533250689175L;
 
-    public PlayerMsgJsonFunction(String name) {
-        super(name);
+    public PlayerMsgJsonFunction() {
+        super("msgjson", "pmsgjson", "messagejson", "playermessagejson");
     }
 
     @Override

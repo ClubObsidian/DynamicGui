@@ -35,6 +35,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerCommandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMiniMessageFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMessageFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.PlayerMsgJsonFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RandomFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RemovePermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RemoveSlotFunction;
@@ -338,6 +339,8 @@ public class DynamicGui {
 
         FunctionManager.get().addFunction(new PlayerMiniMessageFunction());
         FunctionManager.get().addFunction(new ServerMiniBroadcastFunction());
+
+        FunctionManager.get().addFunction(new PlayerMsgJsonFunction());
 
         FunctionManager.get().addFunction(new HasMetadataFunction());
         FunctionManager.get().addFunction(new SetMetadataFunction());
