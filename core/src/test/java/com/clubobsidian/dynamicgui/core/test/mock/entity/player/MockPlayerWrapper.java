@@ -65,6 +65,11 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
+    public void sendJsonMessage(String message) {
+        this.sendMessage(message);
+    }
+
+    @Override
     public boolean hasPermission(String permission) {
         return this.getPlayer().hasPermission(permission);
     }

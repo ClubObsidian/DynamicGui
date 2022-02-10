@@ -15,8 +15,9 @@
  */
 
 package com.clubobsidian.dynamicgui.core.test.function;
+
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.PlayerMessageFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.PlayerMiniMessageFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.jupiter.api.Test;
@@ -25,24 +26,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PlayerMessageFunctionTest {
+public class PlayerMiniMessageFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void nullTest() {
-        Function function = new PlayerMessageFunction();
+        Function function = new PlayerMiniMessageFunction();
         assertFalse(function.function(this.factory.createPlayer()));
     }
 
     @Test
-    public void withDataTest() {
+    public void dataTest() {
+        this.factory.inject();
         String data = "test";
-        MockPlayerWrapper playerWrapper = this.factory.createPlayer();
-        Function function = new PlayerMessageFunction();
+        Function function = new PlayerMiniMessageFunction();
         function.setData(data);
-        assertTrue(function.function(playerWrapper));
-        assertEquals(1, playerWrapper.getIncomingChat().size());
-        assertEquals(data, playerWrapper.getIncomingChat().get(0));
+        MockPlayerWrapper player = this.factory.createPlayer();
+        assertTrue(function.function(player));
+        assertEquals(1, player.getIncomingChat().size());
+        assertEquals("{\"text\":\"test\"}", player.getIncomingChat().get(0));
     }
 }
