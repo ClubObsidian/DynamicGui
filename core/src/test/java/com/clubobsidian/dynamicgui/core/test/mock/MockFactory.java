@@ -45,6 +45,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class MockFactory {
@@ -75,6 +76,10 @@ public class MockFactory {
     }
 
     public Gui createGui(String title) {
+        return this.createGui(title, new ArrayList<>());
+    }
+
+    public Gui createGui(String title, List<Slot> slots) {
         return new Gui(title,
                 InventoryType.CHEST.toString(),
                 title,
@@ -82,18 +87,23 @@ public class MockFactory {
                 true,
                 ModeEnum.SET,
                 new HashMap<>(),
-                new ArrayList<>(),
+                slots,
                 new ArrayList<>(),
                 new FunctionTree(),
                 new HashMap<>());
     }
+
 
     public Slot createSlot(String type) {
         return this.createSlot(type, false);
     }
 
     public Slot createSlot(String type, boolean movable) {
-        return new Slot(0,
+        return this.createSlot(0, type, movable);
+    }
+
+    public Slot createSlot(int index, String type, boolean movable) {
+        return new Slot(index,
                 1,
                 type,
                 "test",
