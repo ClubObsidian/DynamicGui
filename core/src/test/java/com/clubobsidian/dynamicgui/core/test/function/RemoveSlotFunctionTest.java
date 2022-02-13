@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RemoveSlotFunctionTest {
 
@@ -42,16 +44,32 @@ public class RemoveSlotFunctionTest {
 
     @Test
     public void noDataTest() {
-        Slot slot = this.factory.createSlot(0, "STONE", false);
+        this.factory.inject();
+        MockPlayerWrapper player = this.factory.createPlayer();
+        Slot slot = this.factory.createSlot(0, Slot.TEST_MATERIAL, false);
+        slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         Gui gui = this.factory.createGui("test", slots);
+        gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new RemoveSlotFunction();
         function.setOwner(slot);
+        assertTrue(function.function(player));
     }
 
     @Test
     public void thisDataTest() {
-        Slot slot = this.factory.createSlot(0, "STONE", false);
+        this.factory.inject();
+        MockPlayerWrapper player = this.factory.createPlayer();
+        Slot slot = this.factory.createSlot(0, Slot.TEST_MATERIAL, false);
+        slot.buildItemStack(player);
+        List<Slot> slots = new ArrayList<>();
+        Gui gui = this.factory.createGui("test", slots);
+        gui.buildInventory(player);
+        slot.setOwner(gui);
+        Function function = new RemoveSlotFunction();
+        function.setData("this");
+        function.setOwner(slot);
+        assertTrue(function.function(player));
     }
 }

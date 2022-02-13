@@ -19,12 +19,22 @@ package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 public class MockItemStack {
 
     private final String type;
+    private final int quantity;
 
     public MockItemStack(String type) {
+        this(type, 1);
+    }
+
+    public MockItemStack(String type, int quantity) {
         this.type = type;
+        this.quantity = quantity;
     }
 
     public String getType() {
         return this.type;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
     }
 }

@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
+import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
@@ -72,6 +73,10 @@ public class MockFactory {
 
     public MockItemStackWrapper createItemStack(String type) {
         MockItemStack itemStack = this.mock(MockItemStack.class, type);
+        return this.createItemStack(itemStack);
+    }
+
+    public MockItemStackWrapper createItemStack(MockItemStack itemStack) {
         return this.mock(MockItemStackWrapper.class, itemStack);
     }
 

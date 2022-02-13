@@ -18,20 +18,22 @@ package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockInventory;
+import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockInventoryWrapper;
 
 public class MockInventoryManager extends InventoryManager {
     @Override
     public Object createInventory(int size, String title) {
-        return null;
+        return new MockInventory(size);
     }
 
     @Override
     public Object createInventory(String title, String type) {
-        return null;
+        return new MockInventory(9); //TODO - Do inventory size based on type
     }
 
     @Override
     public InventoryWrapper<?> createInventoryWrapper(Object inventory) {
-        return null;
+        return new MockInventoryWrapper((MockInventory) inventory);
     }
 }

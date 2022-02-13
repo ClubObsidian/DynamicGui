@@ -40,6 +40,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     private static final long serialVersionUID = 2366997214615469494L;
 
     public final static String IGNORE_MATERIAL = "AIR";
+    public static final String TEST_MATERIAL = "STONE";
 
     private int index;
     private final String icon;

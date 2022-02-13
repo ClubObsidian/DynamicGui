@@ -18,15 +18,21 @@ package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStack;
+import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStackWrapper;
 
 public class MockItemStackManager extends ItemStackManager {
+
+    private final MockFactory factory = new MockFactory();
+
     @Override
     public Object createItemStack(String type, int quantity) {
-        return null;
+        return new MockItemStack(type, quantity);
     }
 
     @Override
     public ItemStackWrapper<?> createItemStackWrapper(Object itemStack) {
-        return null;
+        return this.factory.createItemStack((MockItemStack) itemStack);
     }
 }
