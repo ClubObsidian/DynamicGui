@@ -52,6 +52,23 @@ public class SetAmountFunctionTest {
     }
 
     @Test
+    public void invalidDataTest() {
+        this.factory.inject();
+        MockPlayerWrapper player = this.factory.createPlayer();
+        Slot slot = this.factory.createSlot();
+        slot.buildItemStack(player);
+        List<Slot> slots = new ArrayList<>();
+        slots.add(slot);
+        Gui gui = this.factory.createGui("test", slots);
+        gui.buildInventory(player);
+        slot.setOwner(gui);
+        Function function = new SetAmountFunction();
+        function.setOwner(slot);
+        function.setData("a");
+        assertFalse(function.function(player));
+    }
+
+    @Test
     public void dataTest() {
         this.factory.inject();
         MockPlayerWrapper player = this.factory.createPlayer();
