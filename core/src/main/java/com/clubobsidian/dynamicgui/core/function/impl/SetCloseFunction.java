@@ -15,11 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.core.function.impl;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 
 public class SetCloseFunction extends Function {
