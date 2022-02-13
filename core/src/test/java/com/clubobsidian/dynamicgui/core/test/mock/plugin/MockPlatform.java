@@ -36,6 +36,7 @@ public class MockPlatform implements Platform {
     private final Map<String, WorldWrapper<?>> worlds = new HashMap<>();
     private final List<String> dispatchedServerCommands = new ArrayList<>();
     private final Scheduler scheduler = new MockScheduler();
+    private final List<String> broadcastMessages = new ArrayList<>();
 
     @Override
     public Scheduler getScheduler() {
@@ -49,7 +50,11 @@ public class MockPlatform implements Platform {
 
     @Override
     public void broadcastMessage(String message) {
+        this.broadcastMessages.add(message);
+    }
 
+    public List<String> getBroadcastMessages() {
+        return this.broadcastMessages;
     }
 
     @Override
