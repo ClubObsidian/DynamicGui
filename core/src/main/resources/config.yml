@@ -1,4 +1,6 @@
-no-gui: "&4That gui does not exist!"
+message:
+  no-gui: "&4That gui does not exist!"
+
 #Configure proxy types
 # Proxy types:
 # bungee - If you use Bungeecord as your proxy

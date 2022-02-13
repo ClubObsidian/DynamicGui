@@ -15,6 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.core;
 
+import com.clubobsidian.dynamicgui.core.config.Message;
+import com.clubobsidian.dynamicgui.core.config.ChatColorColorizer;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
@@ -93,10 +95,11 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiReplace
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.MetadataReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.server.Platform;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+import com.clubobsidian.wrappy.transformer.NodeTransformer;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
@@ -106,6 +109,8 @@ import com.google.inject.Injector;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -123,7 +128,7 @@ public class DynamicGui {
         return instance;
     }
 
-    private String noGui;
+    private Message message;
     private Proxy proxy;
     private String dateTimeFormat;
     private final Map<String, Integer> serverPlayerCount;
@@ -192,8 +197,12 @@ public class DynamicGui {
     }
 
     private void loadConfig() {
+        this.message = new Message();
         Configuration config = Configuration.load(this.plugin.getConfigFile());
-        this.noGui = ChatColor.translateAlternateColorCodes('&', config.getString("no-gui"));
+        ConfigurationSection messageSection = config.getConfigurationSection("message");
+        Collection<NodeTransformer> transformers = new ArrayList<>();
+        transformers.add(new ChatColorColorizer());
+        messageSection.inject(this.message, transformers);
         String version = config.getString("version");
         if(version != null) {
             version = version.trim();
@@ -369,8 +378,8 @@ public class DynamicGui {
         }, 1L, 20L);
     }
 
-    public String getNoGui() {
-        return this.noGui;
+    public Message getMessage() {
+        return this.message;
     }
 
     @Deprecated

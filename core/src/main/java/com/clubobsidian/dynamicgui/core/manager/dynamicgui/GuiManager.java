@@ -182,7 +182,7 @@ public class GuiManager {
         });
         ThreadUtil.run(() -> {
             if(gui == null) {
-                playerWrapper.sendMessage(DynamicGui.get().getNoGui());
+                playerWrapper.sendMessage(DynamicGui.get().getMessage().getNoGui());
                 future.complete(false);
                 return;
             }
