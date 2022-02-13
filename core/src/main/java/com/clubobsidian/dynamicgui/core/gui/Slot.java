@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.core.gui;
 
-import com.clubobsidian.dynamicgui.core.animation.AnimationHolder;
+import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;

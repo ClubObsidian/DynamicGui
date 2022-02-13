@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.core.replacer;
 
-import com.clubobsidian.dynamicgui.core.animation.AnimationHolder;
+import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 
 public abstract class AnimationReplacer {
