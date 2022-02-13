@@ -98,6 +98,9 @@ public class MockFactory {
                 new HashMap<>());
     }
 
+    public Slot createSlot() {
+        return this.createSlot(Slot.TEST_MATERIAL);
+    }
 
     public Slot createSlot(String type) {
         return this.createSlot(type, false);
