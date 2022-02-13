@@ -13,22 +13,30 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.core.proxy;
 
-import java.util.Locale;
+package com.clubobsidian.dynamicgui.core.test.proxy;
 
-public enum Proxy {
+import com.clubobsidian.dynamicgui.core.proxy.Proxy;
+import org.junit.jupiter.api.Test;
 
-    BUNGEECORD,
-    REDIS_BUNGEE,
-    NONE;
+import java.util.UUID;
 
-    public static Proxy fromString(String proxyStr) {
-        if(proxyStr.toLowerCase(Locale.ROOT).startsWith("bungee")) {
-            return Proxy.BUNGEECORD;
-        } else if(proxyStr.toLowerCase(Locale.ROOT).startsWith("redis")) {
-            return Proxy.REDIS_BUNGEE;
-        }
-        return Proxy.NONE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class ProxyTest {
+
+    @Test
+    public void noProxyTest() {
+        assertEquals(Proxy.NONE, Proxy.fromString(UUID.randomUUID().toString()));
+    }
+
+    @Test
+    public void bungeeTest() {;
+        assertEquals(Proxy.BUNGEECORD, Proxy.fromString("BUNGEE"));
+    }
+
+    @Test
+    public void redisBungeeTest() {
+        assertEquals(Proxy.REDIS_BUNGEE, Proxy.fromString("REDIS"));
     }
 }

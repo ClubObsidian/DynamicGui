@@ -217,7 +217,7 @@ public class DynamicGui {
             proxyStr = proxyStr.trim();
         }
 
-        this.proxy = this.findProxyByString(proxyStr);
+        this.proxy = Proxy.fromString(proxyStr);
 
         String dateTimeFormat = config.getString("date-time-format");
         if(dateTimeFormat == null) {
@@ -362,7 +362,7 @@ public class DynamicGui {
 
     private void startPlayerCountTimer() {
         this.getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
-            for(String server : serverPlayerCount.keySet()) {
+            for(String server : this.serverPlayerCount.keySet()) {
                 PlayerWrapper<?> player = Iterables.getFirst(this.getPlatform().getOnlinePlayers(), null);
                 if(player != null) {
                     ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -431,15 +431,6 @@ public class DynamicGui {
 
     public Injector getInjector() {
         return this.injector;
-    }
-
-    private Proxy findProxyByString(String proxyStr) {
-        if(proxyStr.equalsIgnoreCase("bungee") || proxyStr.equalsIgnoreCase("bungeecord")) {
-            return Proxy.BUNGEECORD;
-        } else if(proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee")) {
-            return Proxy.REDIS_BUNGEE;
-        }
-        return Proxy.NONE;
     }
 
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
