@@ -74,7 +74,7 @@ public class PreviousGuiReplacer extends Replacer {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
         UUID uuid = wrapper.getUniqueId();
         Gui gui = this.cachedGuis.get(uuid);
-        if(gui != null && gui.equals(GuiManager.get().getCurrentGui(wrapper))) {
+        if(gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
             this.cachedGuis.remove(uuid);
         }
     }

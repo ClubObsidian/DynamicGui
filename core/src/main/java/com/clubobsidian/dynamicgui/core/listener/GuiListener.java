@@ -39,7 +39,7 @@ public class GuiListener {
     @EventHandler
     public void onGuiOpen(GuiLoadEvent event) {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
-        Gui gui = GuiManager.get().getCurrentGui(wrapper);
+        Gui gui = GuiManager.get().getPlayerGui(wrapper);
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         boolean open = (gui != null);
         if(open) {
@@ -54,7 +54,7 @@ public class GuiListener {
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         UUID uuid = playerWrapper.getUniqueId();
         if(!this.users.remove(uuid)) {
-            Gui gui = GuiManager.get().getCurrentGui(playerWrapper);
+            Gui gui = GuiManager.get().getPlayerGui(playerWrapper);
             if(gui != null) {
                 FunctionManager.get().tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
             }

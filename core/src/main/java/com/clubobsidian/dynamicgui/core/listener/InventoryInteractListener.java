@@ -43,7 +43,7 @@ public class InventoryInteractListener {
             return;
         }
 
-        Gui gui = GuiManager.get().getCurrentGui(player);
+        Gui gui = GuiManager.get().getPlayerGui(player);
 
         Slot slot = this.getSlotFromIndex(gui, e.getSlot());
         if(slot == null && e.getView() != InventoryView.BOTTOM) {
@@ -99,7 +99,7 @@ public class InventoryInteractListener {
             return;
         }
 
-        Gui gui = GuiManager.get().getCurrentGui(player);
+        Gui gui = GuiManager.get().getPlayerGui(player);
 
         Iterator<Entry<Integer, ItemStackWrapper<?>>> it = e.getSlotItems().entrySet().iterator();
         while(it.hasNext()) {

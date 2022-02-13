@@ -42,7 +42,7 @@ public class InventoryCloseListener {
 
     private void handleInventoryClose(PlayerWrapper<?> playerWrapper) {
         if(GuiManager.get().hasGuiCurrently(playerWrapper)) {
-            GuiManager.get().cleanupGui(playerWrapper);
+            GuiManager.get().cleanupPlayerGui(playerWrapper);
         }
     }
 }
