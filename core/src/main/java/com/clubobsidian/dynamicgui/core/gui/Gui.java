@@ -69,8 +69,8 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
 
     public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
         String inventoryTitle = this.formatTitle(playerWrapper);
-        Object serverInventory = this.createInventory(inventoryTitle);
-        InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(serverInventory);
+        Object nativeInventory = this.createInventory(inventoryTitle);
+        InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(nativeInventory);
         this.populateInventory(playerWrapper, inventoryWrapper);
         this.inventoryWrapper = inventoryWrapper;
         return inventoryWrapper;
