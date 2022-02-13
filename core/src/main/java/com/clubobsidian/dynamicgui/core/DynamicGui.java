@@ -439,7 +439,6 @@ public class DynamicGui {
         } else if(proxyStr.equalsIgnoreCase("redis") || proxyStr.equalsIgnoreCase("redisbungee")) {
             return Proxy.REDIS_BUNGEE;
         }
-
         return Proxy.NONE;
     }
 
