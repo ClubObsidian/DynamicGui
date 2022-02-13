@@ -21,6 +21,8 @@ import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,6 +41,26 @@ public class DelayFunctionTest {
         Function function = new DelayFunction();
         function.setData("a");
         assertFalse(function.function(this.factory.createPlayer()));
+    }
+
+    @Test
+    public void testInterrupt() {
+        AtomicBoolean value = new AtomicBoolean(true);
+        Thread thread = new Thread(() -> {
+            Function function = new DelayFunction();
+            function.setData("5000");
+            value.set(function.function(this.factory.createPlayer()));
+        });
+        thread.start();
+        thread.interrupt();
+        while(thread.isAlive()) {
+            try {
+                Thread.sleep(1);
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        assertFalse(value.get());
     }
 
     @Test
