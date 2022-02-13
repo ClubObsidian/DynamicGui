@@ -65,25 +65,23 @@ public class GuiManager {
     private static GuiManager instance;
 
     private Map<String, Gui> guis;
-    private final Map<UUID, Gui> playerGuis;
+    private final Map<UUID, Gui> playerGuis = new HashMap<>();
     private Map<String, Gui> cachedGuis;
     private Map<String, GuiToken> cachedTokens;
     private Map<String, List<MacroToken>> globalMacros;
     private Map<String, List<MacroToken>> cachedGlobalMacros;
     private Map<String, byte[]> guiHashes;
     private Map<String, byte[]> globalMacrosTimestamps;
-    private final Set<String> modifiedMacros;
+    private final Set<String> modifiedMacros = new HashSet<>();
 
     private GuiManager() {
         this.guis = new HashMap<>();
-        this.playerGuis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
         this.globalMacros = new LinkedHashMap<>();
         this.cachedGlobalMacros = new HashMap<>();
         this.guiHashes = new HashMap<>();
         this.globalMacrosTimestamps = new HashMap<>();
-        this.modifiedMacros = new HashSet<>();
     }
 
     public static GuiManager get() {
