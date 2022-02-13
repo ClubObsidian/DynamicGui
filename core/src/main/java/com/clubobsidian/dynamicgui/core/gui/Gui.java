@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Gui implements Serializable, FunctionOwner, MetadataHolder {
+public class Gui implements Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
 
     /**
      *
@@ -130,10 +131,12 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder {
         return this.slots;
     }
 
+    @Override
     public Boolean getClose() {
         return this.close;
     }
 
+    @Override
     public void setClose(Boolean close) {
         this.close = close;
     }

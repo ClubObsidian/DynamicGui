@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
+import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 
 public class SetCloseFunction extends Function {
 
@@ -37,22 +38,11 @@ public class SetCloseFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-        try {
-            Boolean value = Boolean.valueOf(this.getData());
-            if(value != null) {
-                if(this.getOwner() instanceof Slot) {
-                    Slot slot = (Slot) this.getOwner();
-                    slot.setClose(value);
-                    return true;
-                } else if(this.getOwner() instanceof Gui) {
-                    Gui gui = (Gui) this.getOwner();
-                    gui.setClose(value);
-                    return true;
-                }
-            }
-        } catch(Exception ex) {
-            DynamicGui.get().getLogger().info("Error parsing value " + this.getData() + " for setclose function");
-            ex.printStackTrace();
+        boolean value = Boolean.valueOf(this.getData());
+        if(this.getOwner() instanceof CloseableComponent) {
+            CloseableComponent component = (CloseableComponent) this.getOwner();
+            component.setClose(value);
+            return true;
         }
         return false;
     }

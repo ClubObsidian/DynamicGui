@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.gui;
 import com.clubobsidian.dynamicgui.core.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Slot implements Serializable, FunctionOwner, AnimationHolder, MetadataHolder {
+public class Slot implements Serializable, FunctionOwner, AnimationHolder, MetadataHolder, CloseableComponent {
 
     /**
      *
@@ -145,10 +146,12 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
         return this.itemFlags;
     }
 
+    @Override
     public Boolean getClose() {
         return this.close;
     }
 
+    @Override
     public void setClose(Boolean close) {
         this.close = close;
     }
