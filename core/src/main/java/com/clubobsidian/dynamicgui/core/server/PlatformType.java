@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.core.server;
 
-public enum ServerType {
+public enum PlatformType {
 
     SPONGE,
     SPIGOT

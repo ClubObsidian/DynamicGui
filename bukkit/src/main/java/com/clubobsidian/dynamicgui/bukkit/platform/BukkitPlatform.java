@@ -25,7 +25,7 @@ import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.server.Platform;
-import com.clubobsidian.dynamicgui.core.server.ServerType;
+import com.clubobsidian.dynamicgui.core.server.PlatformType;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -97,8 +97,8 @@ public class BukkitPlatform implements Platform {
     }
 
     @Override
-    public ServerType getType() {
-        return ServerType.SPIGOT;
+    public PlatformType getType() {
+        return PlatformType.SPIGOT;
     }
 
     @Override

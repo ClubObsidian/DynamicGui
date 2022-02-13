@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.server.Platform;
-import com.clubobsidian.dynamicgui.core.server.ServerType;
+import com.clubobsidian.dynamicgui.core.server.PlatformType;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class MockPlatform implements Platform {
     }
 
     @Override
-    public ServerType getType() {
+    public PlatformType getType() {
         return null;
     }
 

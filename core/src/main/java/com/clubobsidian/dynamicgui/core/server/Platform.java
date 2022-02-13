@@ -44,7 +44,7 @@ public interface Platform {
 
     int getGlobalPlayerCount();
 
-    ServerType getType();
+    PlatformType getType();
 
     void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
 

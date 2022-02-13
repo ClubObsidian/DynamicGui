@@ -30,7 +30,7 @@ import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.server.Platform;
-import com.clubobsidian.dynamicgui.core.server.ServerType;
+import com.clubobsidian.dynamicgui.core.server.PlatformType;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.HashUtil;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
@@ -217,7 +217,7 @@ public class GuiManager {
                     }
 
                     Platform server = DynamicGui.get().getPlatform();
-                    if(server.getType() == ServerType.SPONGE) {
+                    if(server.getType() == PlatformType.SPONGE) {
                         server.getScheduler().runSyncDelayedTask(() -> {
                             playerWrapper.openInventory(inventoryWrapper);
                         }, 1L);
