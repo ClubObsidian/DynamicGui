@@ -59,7 +59,7 @@ public class MockPlatform implements Platform {
 
     @Override
     public void broadcastJsonMessage(String json) {
-
+        this.broadcastMessages.add(json);
     }
 
     @Override
