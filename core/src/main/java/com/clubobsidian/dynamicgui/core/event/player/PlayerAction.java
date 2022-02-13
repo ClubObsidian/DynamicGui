@@ -21,6 +21,9 @@ public enum PlayerAction {
     LEFT_CLICK_BLOCK,
     RIGHT_CLICK_AIR,
     RIGHT_CLICK_BLOCK,
-    PHYSICAL
+    PHYSICAL;
 
+    public boolean isBlockClick(PlayerAction action) {
+        return action == PlayerAction.RIGHT_CLICK_BLOCK || action == PlayerAction.LEFT_CLICK_BLOCK
+    }
 }

@@ -26,7 +26,7 @@ public class PlayerInteractListener {
 
     @EventHandler
     public void playerInteract(final PlayerInteractEvent e) {
-        if(e.getAction() == PlayerAction.RIGHT_CLICK_BLOCK || e.getAction() == PlayerAction.LEFT_CLICK_BLOCK) {
+        if(e.getAction().isBlockClick(e.getAction())) {
             if(GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
                 return;
             }
