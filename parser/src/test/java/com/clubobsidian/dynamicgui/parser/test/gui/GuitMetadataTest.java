@@ -16,17 +16,14 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.wrappy.Configuration;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GuitMetadataTest {
 

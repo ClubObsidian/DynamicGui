@@ -15,16 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.parser.test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
@@ -34,6 +24,15 @@ import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GuiTokenTest {
 

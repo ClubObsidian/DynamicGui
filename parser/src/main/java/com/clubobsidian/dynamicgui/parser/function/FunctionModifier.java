@@ -31,9 +31,9 @@ public enum FunctionModifier {
     }
 
     public static FunctionModifier findModifier(String functionData) {
-        for (FunctionModifier modifier : FunctionModifier.values()) {
-            if (modifier != FunctionModifier.NONE) {
-                if (functionData.startsWith(modifier.getModifier())) {
+        for(FunctionModifier modifier : FunctionModifier.values()) {
+            if(modifier != FunctionModifier.NONE) {
+                if(functionData.startsWith(modifier.getModifier())) {
                     return modifier;
                 }
             }

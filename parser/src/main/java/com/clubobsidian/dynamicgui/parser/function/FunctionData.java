@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
-import java.io.Serializable;
-
 import com.clubobsidian.fuzzutil.StringFuzz;
+
+import java.io.Serializable;
 
 public class FunctionData implements Serializable {
 

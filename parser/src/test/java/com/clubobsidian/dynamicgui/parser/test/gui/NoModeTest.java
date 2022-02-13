@@ -16,15 +16,14 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-
-import org.junit.jupiter.api.Test;
-
 import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
 import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
 import com.clubobsidian.wrappy.Configuration;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NoModeTest {
 

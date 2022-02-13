@@ -15,18 +15,17 @@
  */
 package com.clubobsidian.dynamicgui.parser.test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FunctionTypeParserTest {
 

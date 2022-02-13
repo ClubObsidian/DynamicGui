@@ -16,11 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test.functiontree;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import org.junit.jupiter.api.Test;
 
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EmptyFunctionTreeTest {
 

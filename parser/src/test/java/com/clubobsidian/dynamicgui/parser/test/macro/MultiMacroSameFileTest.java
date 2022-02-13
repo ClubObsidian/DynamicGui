@@ -16,17 +16,16 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.wrappy.Configuration;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.wrappy.Configuration;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MultiMacroSameFileTest {
 
@@ -39,7 +38,7 @@ public class MultiMacroSameFileTest {
         Configuration config = Configuration.load(sameFileMacroFile);
 
         List<MacroToken> tokens = new ArrayList<>();
-        for (String key : config.getKeys()) {
+        for(String key : config.getKeys()) {
             MacroToken token = new MacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }
@@ -60,7 +59,7 @@ public class MultiMacroSameFileTest {
         Configuration config = Configuration.load(sameFileMacroFile);
 
         List<MacroToken> tokens = new ArrayList<>();
-        for (String key : config.getKeys()) {
+        for(String key : config.getKeys()) {
             MacroToken token = new MacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }

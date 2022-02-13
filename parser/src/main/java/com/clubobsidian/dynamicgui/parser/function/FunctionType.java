@@ -15,10 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
+import com.clubobsidian.fuzzutil.StringFuzz;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.clubobsidian.fuzzutil.StringFuzz;
 
 public enum FunctionType {
 
@@ -47,7 +47,7 @@ public enum FunctionType {
     private final static Map<String, FunctionType> normalizedFunctions = new HashMap<>();
 
     static {
-        for (FunctionType type : FunctionType.values()) {
+        for(FunctionType type : FunctionType.values()) {
             String normalized = StringFuzz.normalize(type.toString());
             normalizedFunctions.put(normalized, type);
         }

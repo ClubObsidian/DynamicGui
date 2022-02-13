@@ -15,14 +15,18 @@
  */
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.clubobsidian.dynamicgui.parser.function.*;
+import com.clubobsidian.dynamicgui.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.ConfigurationSection;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FunctionTree implements Serializable {
 
@@ -69,7 +73,7 @@ public class FunctionTree implements Serializable {
 
     private String[] parseFunctionData(String functionData) {
         String[] args = new String[3];
-        if (!functionData.contains(":")) {
+        if(!functionData.contains(":")) {
             args[0] = StringFuzz.normalize(functionData);
             FunctionModifier modifier = FunctionModifier.findModifier(args[0]);
             args[0] = functionData.replaceFirst(modifier.getModifier(), "");
@@ -82,8 +86,8 @@ public class FunctionTree implements Serializable {
         StringBuilder dat = new StringBuilder();
         dat.append(split[1].trim());
 
-        if (split.length > 2) {
-            for (int i = 2; i < split.length; i++) {
+        if(split.length > 2) {
+            for(int i = 2; i < split.length; i++) {
                 dat.append(":");
                 dat.append(split[i]);
             }
@@ -101,7 +105,7 @@ public class FunctionTree implements Serializable {
         List<String> parsedTokens = this.macroParser.parseListMacros(tokens);
 
         List<FunctionData> functionTokens = new ArrayList<>();
-        for (String token : parsedTokens) {
+        for(String token : parsedTokens) {
             String[] parsedFunctionData = this.parseFunctionData(token);
 
             String functionName = parsedFunctionData[0];
@@ -115,9 +119,9 @@ public class FunctionTree implements Serializable {
     }
 
     private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode) {
-        for (String name : section.getKeys()) {
+        for(String name : section.getKeys()) {
             ConfigurationSection rootSection = section.getConfigurationSection(name);
-            if (rootSection.get("functions") == null) {
+            if(rootSection.get("functions") == null) {
                 continue;
             }
 
@@ -128,7 +132,7 @@ public class FunctionTree implements Serializable {
             FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
             FunctionNode childNode = new FunctionNode(depth, data);
 
-            if (depth == 0) {
+            if(depth == 0) {
                 this.rootNodes.add(childNode);
             } else {
                 parentNode.addChild(childNode);

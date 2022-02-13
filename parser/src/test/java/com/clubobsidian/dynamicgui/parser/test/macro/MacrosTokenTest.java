@@ -16,17 +16,16 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MacrosTokenTest {
 

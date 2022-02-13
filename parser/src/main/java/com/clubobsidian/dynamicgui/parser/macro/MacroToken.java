@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.parser.macro;
 
+import com.clubobsidian.wrappy.ConfigurationSection;
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class MacroToken implements Serializable {
 

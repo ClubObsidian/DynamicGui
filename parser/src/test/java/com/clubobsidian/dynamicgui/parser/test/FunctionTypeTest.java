@@ -16,12 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import org.junit.jupiter.api.Test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FunctionTypeTest {
 

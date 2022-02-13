@@ -16,15 +16,14 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-
-import org.junit.jupiter.api.Test;
-
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidAmountTest {
 

@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.parser.function;
 
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
 
 public class FunctionTypeParser implements Serializable {
 
@@ -37,9 +37,9 @@ public class FunctionTypeParser implements Serializable {
     public List<FunctionType> parseTypes(List<String> types) {
         types = this.macroParser.parseListMacros(types);
         List<FunctionType> typesList = new ArrayList<>();
-        for (String type : types) {
+        for(String type : types) {
             FunctionType parsedType = this.parseType(type);
-            if (parsedType == null)
+            if(parsedType == null)
                 continue; //TODO - warn
 
             typesList.add(parsedType);

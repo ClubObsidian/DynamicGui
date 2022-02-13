@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 
 public class FunctionNode implements Serializable {
 
