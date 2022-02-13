@@ -65,9 +65,7 @@ public class FunctionManager {
     }
 
     public List<Function> getFunctions() {
-        List<Function> funcs = new ArrayList<>();
-        funcs.addAll(this.functions.values());
-        return funcs;
+        return new ArrayList<>(this.functions.values());
     }
 
     public boolean addFunction(Function function) {
