@@ -95,7 +95,7 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiAnimati
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.MetadataReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.Replacer;
-import com.clubobsidian.dynamicgui.core.server.Platform;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;

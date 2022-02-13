@@ -24,7 +24,7 @@ import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.server.Platform;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.inject.MockPluginModule;

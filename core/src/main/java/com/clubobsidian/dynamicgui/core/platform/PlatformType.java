@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.clubobsidian.dynamicgui.core.server;
+package com.clubobsidian.dynamicgui.core.platform;
 
 public enum PlatformType {
 

@@ -42,7 +42,7 @@ import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.core.server.Platform;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
