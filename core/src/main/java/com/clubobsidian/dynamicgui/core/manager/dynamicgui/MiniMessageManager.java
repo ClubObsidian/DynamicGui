@@ -37,16 +37,11 @@ public class MiniMessageManager {
         return instance;
     }
 
-    private final Map<String, String> json;
-    private final MiniMessage miniMessage;
-    private final GsonComponentSerializer serializer;
+    private final Map<String, String> json = new HashMap<>();
+    private final MiniMessage miniMessage = MiniMessage.builder().build();
+    private final GsonComponentSerializer serializer = GsonComponentSerializer.builder().build();
 
     private MiniMessageManager() {
-        this.json = new HashMap<>();
-        this.miniMessage = MiniMessage
-                .builder()
-                .build();
-        this.serializer = GsonComponentSerializer.builder().build();
         DynamicGui.get().getEventBus().registerEvents(this);
     }
 
