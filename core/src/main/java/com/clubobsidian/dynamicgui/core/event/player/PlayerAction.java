@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.core.event.player;
 
-public enum Action {
+public enum PlayerAction {
 
     LEFT_CLICK_AIR,
     LEFT_CLICK_BLOCK,

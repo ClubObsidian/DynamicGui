@@ -18,22 +18,22 @@ package com.clubobsidian.dynamicgui.core.event.block;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.LocationEvent;
-import com.clubobsidian.dynamicgui.core.event.player.Action;
+import com.clubobsidian.dynamicgui.core.event.player.PlayerAction;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 import com.clubobsidian.trident.Cancellable;
 
 public class PlayerInteractEvent extends LocationEvent implements Cancellable {
 
-    private final Action action;
+    private final PlayerAction action;
     private boolean canceled;
 
-    public PlayerInteractEvent(PlayerWrapper<?> playerWrapper, LocationWrapper<?> locationWrapper, Action action) {
+    public PlayerInteractEvent(PlayerWrapper<?> playerWrapper, LocationWrapper<?> locationWrapper, PlayerAction action) {
         super(playerWrapper, locationWrapper);
         this.action = action;
         this.canceled = false;
     }
 
-    public Action getAction() {
+    public PlayerAction getAction() {
         return this.action;
     }
 
