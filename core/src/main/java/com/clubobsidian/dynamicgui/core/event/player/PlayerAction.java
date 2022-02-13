@@ -23,7 +23,7 @@ public enum PlayerAction {
     RIGHT_CLICK_BLOCK,
     PHYSICAL;
 
-    public boolean isBlockClick(PlayerAction action) {
-        return action == PlayerAction.RIGHT_CLICK_BLOCK || action == PlayerAction.LEFT_CLICK_BLOCK;
+    public boolean isBlockClick() {
+        return this == PlayerAction.RIGHT_CLICK_BLOCK || this == PlayerAction.LEFT_CLICK_BLOCK;
     }
 }
