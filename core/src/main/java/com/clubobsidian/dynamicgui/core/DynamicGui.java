@@ -444,16 +444,13 @@ public class DynamicGui {
     }
 
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
-        if(this.platform == null) {
-            return false;
-        } else if(this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE) {
+        if(this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(server);
             playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
             return true;
         }
-
         return false;
     }
 }
