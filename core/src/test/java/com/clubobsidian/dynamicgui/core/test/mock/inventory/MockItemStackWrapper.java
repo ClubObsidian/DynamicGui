@@ -28,4 +28,12 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public String getType() {
         return this.getItemStack().getType();
     }
+
+    public int getAmount() {
+        return this.getItemStack().getAmount();
+    }
+
+    public void setAmount(int amount) {
+        this.getItemStack().setAmount(amount);
+    }
 }

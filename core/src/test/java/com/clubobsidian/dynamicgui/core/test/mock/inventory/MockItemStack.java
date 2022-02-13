@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 public class MockItemStack {
 
     private final String type;
-    private final int quantity;
+    private int amount;
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -27,14 +27,18 @@ public class MockItemStack {
 
     public MockItemStack(String type, int quantity) {
         this.type = type;
-        this.quantity = quantity;
+        this.amount = quantity;
     }
 
     public String getType() {
         return this.type;
     }
 
-    public int getQuantity() {
-        return this.quantity;
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
