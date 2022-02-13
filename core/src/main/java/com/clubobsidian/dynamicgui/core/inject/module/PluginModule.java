@@ -47,9 +47,13 @@ public abstract class PluginModule implements Module {
     }
 
     public abstract Class<? extends EntityManager> getEntityManager();
+
     public abstract Class<? extends InventoryManager> getInventoryManager();
+
     public abstract Class<? extends ItemStackManager> getItemStackManager();
+
     public abstract Class<? extends MaterialManager> getMaterialManager();
+
     public abstract Class<? extends LocationManager> getLocationManger();
 
     @Override

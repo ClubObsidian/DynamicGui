@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 public interface ModelProvider {
 
     String name();
+
     boolean applyModel(ItemStackWrapper<?> itemStack, String data);
 
 }

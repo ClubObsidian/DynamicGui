@@ -19,12 +19,12 @@ import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayDeque;
@@ -90,10 +90,10 @@ public class FunctionManager {
     }
 
     private CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse fail,
-                                                                 FunctionOwner owner,
-                                                                 Collection<FunctionNode> functionNodes,
-                                                                 FunctionType type,
-                                                                 PlayerWrapper<?> playerWrapper) {
+                                                          FunctionOwner owner,
+                                                          Collection<FunctionNode> functionNodes,
+                                                          FunctionType type,
+                                                          PlayerWrapper<?> playerWrapper) {
         Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         FunctionNode node = nodeQueue.poll();
@@ -163,7 +163,7 @@ public class FunctionManager {
                     }
                     if(!ran) {
                         response.complete(new FunctionResponse(false, functionName, functionData));
-                    } else if (async) {
+                    } else if(async) {
                         try {
                             response.complete(runFunctionData(owner, futureData, playerWrapper).get());
                         } catch(InterruptedException | ExecutionException ex) {

@@ -22,9 +22,7 @@ import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.server.Platform;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
@@ -37,11 +35,11 @@ import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockDynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
-import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockScheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -169,7 +167,8 @@ public class MockFactory {
     }
 
     public MockEconomy getEconomy() {
-        Economy economy = DynamicGui.get().getPlugin().getEconomy();;
+        Economy economy = DynamicGui.get().getPlugin().getEconomy();
+        ;
         if(!(economy instanceof MockEconomy)) {
             return null;
         }

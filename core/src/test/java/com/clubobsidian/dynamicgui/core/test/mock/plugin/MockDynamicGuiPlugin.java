@@ -31,7 +31,7 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     private final File guiFolder = new File(this.dataFolder, "guis");
     private final File macroFolder = new File(this.dataFolder, "macros");
     private final File mainFolder = new File("src", "main");
-    private final File resourcesFolder = new File(this.mainFolder,"resources");
+    private final File resourcesFolder = new File(this.mainFolder, "resources");
     private final File configFile = new File(this.resourcesFolder, "config.yml");
     public Economy economy = new MockEconomy(); //Visible for testing
     public Permission permission = new MockPermission(); //Visible for testing

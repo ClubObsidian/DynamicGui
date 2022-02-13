@@ -55,7 +55,7 @@ public class ItemsAdderModelProvider implements ModelProvider {
     private static Method itemStack() {
         if(ITEMS_ADDER_EXISTS) {
             try {
-                Class<?> customStack= Class.forName("dev.lone.itemsadder.api.CustomStack");
+                Class<?> customStack = Class.forName("dev.lone.itemsadder.api.CustomStack");
                 Method getItemStack = customStack.getDeclaredMethod("getItemStack");
                 getItemStack.setAccessible(true);
                 return getItemStack;

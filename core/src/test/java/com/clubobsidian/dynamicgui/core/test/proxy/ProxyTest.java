@@ -31,7 +31,8 @@ public class ProxyTest {
     }
 
     @Test
-    public void bungeeTest() {;
+    public void bungeeTest() {
+        ;
         assertEquals(Proxy.BUNGEECORD, Proxy.fromString("BUNGEE"));
     }
 

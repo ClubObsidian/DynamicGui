@@ -15,8 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.command;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

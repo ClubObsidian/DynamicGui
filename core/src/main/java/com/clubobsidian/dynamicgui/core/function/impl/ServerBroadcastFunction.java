@@ -40,8 +40,8 @@ public class ServerBroadcastFunction extends Function {
         }
         String colorized = ChatColor.translateAlternateColorCodes('&',
                 ReplacerManager
-                .get()
-                .replace(this.getData(), playerWrapper));
+                        .get()
+                        .replace(this.getData(), playerWrapper));
         DynamicGui.get().getPlatform().broadcastMessage(colorized);
         return true;
     }

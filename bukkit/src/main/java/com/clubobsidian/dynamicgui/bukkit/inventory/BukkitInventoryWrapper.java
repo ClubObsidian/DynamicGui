@@ -15,10 +15,10 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.inventory;
 
+import com.clubobsidian.dynamicgui.bukkit.util.BukkitPacketUtil;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.bukkit.util.BukkitPacketUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

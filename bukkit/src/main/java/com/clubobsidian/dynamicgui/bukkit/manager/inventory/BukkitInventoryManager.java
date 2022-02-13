@@ -15,8 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
+import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;

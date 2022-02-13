@@ -36,7 +36,7 @@ public class ModelManager {
     private Map<String, ModelProvider> registries = new HashMap<>();
 
     private ModelManager() {
-       this.register(new VanillaModelProvider());
+        this.register(new VanillaModelProvider());
     }
 
     public ModelProvider getProvider(final String registryName) {

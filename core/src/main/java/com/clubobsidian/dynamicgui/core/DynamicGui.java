@@ -15,16 +15,16 @@
  */
 package com.clubobsidian.dynamicgui.core;
 
-import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.config.ChatColorColorizer;
+import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
-import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckLevelFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckMovableFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckPlayerWorldFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCommandFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.IsBedrockPlayerFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.LogFunction;
@@ -35,8 +35,8 @@ import com.clubobsidian.dynamicgui.core.function.impl.NoPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.ParticleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerCommandFunction;
-import com.clubobsidian.dynamicgui.core.function.impl.PlayerMiniMessageFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMessageFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.PlayerMiniMessageFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMsgJsonFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RandomFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.RemovePermissionFunction;
@@ -73,13 +73,13 @@ import com.clubobsidian.dynamicgui.core.function.impl.meta.CopyBackMetadataFunct
 import com.clubobsidian.dynamicgui.core.function.impl.meta.HasMetadataFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.meta.IsGuiMetadataSet;
 import com.clubobsidian.dynamicgui.core.function.impl.meta.SetMetadataFunction;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
 import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
@@ -131,8 +131,8 @@ public class DynamicGui {
     private Message message;
     private Proxy proxy;
     private String dateTimeFormat;
-    private final Map<String, Integer> serverPlayerCount;
-    private final EventBus eventBus;
+    private final Map<String, Integer> serverPlayerCount = new ConcurrentHashMap<>();
+    private final EventBus eventBus = new MethodHandleEventBus();
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
@@ -145,11 +145,9 @@ public class DynamicGui {
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
         this.injector = injector;
-        this.serverPlayerCount = new ConcurrentHashMap<>();
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
-        this.eventBus = new MethodHandleEventBus();
     }
 
     private void init() {

@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.bukkit.listener;
 
+import com.clubobsidian.dynamicgui.bukkit.entity.BukkitEntityWrapper;
+import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.bukkit.entity.BukkitEntityWrapper;
-import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

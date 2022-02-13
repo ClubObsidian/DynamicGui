@@ -42,6 +42,7 @@ public class GetGameRuleFunctionTest {
         function.setData("");
         assertFalse(function.function(this.factory.createPlayer()));
     }
+
     @Test
     public void lengthNotThreeTest() {
         Function function = new GetGameRuleFunction();

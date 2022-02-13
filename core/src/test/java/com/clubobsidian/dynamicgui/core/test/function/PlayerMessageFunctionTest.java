@@ -15,6 +15,7 @@
  */
 
 package com.clubobsidian.dynamicgui.core.test.function;
+
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMessageFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;

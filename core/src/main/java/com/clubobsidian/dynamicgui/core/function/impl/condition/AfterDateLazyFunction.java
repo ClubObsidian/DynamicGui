@@ -41,7 +41,7 @@ public class AfterDateLazyFunction extends AbstractLazyFunction {
             if(now.after(expected)) {
                 return ConditionFunction.ONE;
             }
-        } catch (ParseException ignore) {
+        } catch(ParseException ignore) {
             DynamicGui.get().getLogger().error(String.format("Invalid Date: %s",
                     lazyParams.get(0).getString()));
         }
