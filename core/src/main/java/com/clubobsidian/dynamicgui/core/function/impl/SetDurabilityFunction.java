@@ -41,24 +41,21 @@ public class SetDurabilityFunction extends Function {
             return false;
         }
         FunctionOwner owner = this.getOwner();
-        if(owner != null) {
-            if(owner instanceof Slot) {
-                Slot slot = (Slot) owner;
-                Gui gui = slot.getOwner();
-                if(gui != null) {
-                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if(inv != null) {
-                        ItemStackWrapper<?> item = slot.getItemStack();
-
-                        try {
-                            short durability = Short.parseShort(this.getData());
-                            item.setDurability(durability);
-                            inv.setItem(slot.getIndex(), item);
-                            return true;
-                        } catch(Exception ex) {
-                            DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
-                            return false;
-                        }
+        if(owner != null && owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            Gui gui = slot.getOwner();
+            if(gui != null) {
+                InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                if(inv != null) {
+                    ItemStackWrapper<?> item = slot.getItemStack();
+                    try {
+                        short durability = Short.parseShort(this.getData());
+                        item.setDurability(durability);
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    } catch(Exception ex) {
+                        DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
+                        return false;
                     }
                 }
             }

@@ -29,11 +29,23 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
         return this.getItemStack().getType();
     }
 
+    @Override
     public int getAmount() {
         return this.getItemStack().getAmount();
     }
 
+    @Override
     public void setAmount(int amount) {
         this.getItemStack().setAmount(amount);
+    }
+
+    @Override
+    public short getDurability() {
+        return this.getItemStack().getDurability();
+    }
+
+    @Override
+    public void setDurability(short durability) {
+        this.getItemStack().setDurability(durability);
     }
 }

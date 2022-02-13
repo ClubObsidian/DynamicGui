@@ -20,6 +20,7 @@ public class MockItemStack {
 
     private final String type;
     private int amount;
+    private short durability = 0;
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -40,5 +41,13 @@ public class MockItemStack {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public short getDurability() {
+        return this.durability;
+    }
+
+    public void setDurability(short durability) {
+        this.durability = durability;
     }
 }
