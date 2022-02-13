@@ -1,0 +1,10 @@
+'0':
+  macros:
+    '%invalid-type%': "invalid type"
+  functions:
+    some-func:
+      type: 
+      - "%invalid-type%"
+      - "left"
+      functions:
+      - "no-func"

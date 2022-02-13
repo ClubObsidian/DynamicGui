@@ -1,0 +1,14 @@
+test-macro:
+  '%test-macro%': "test"
+  
+use-test-macro:
+  '%uses-test%': "%test-macro%"
+  
+test-multiline-macro:
+  '%multiline-test-macro%':
+  - "test1"
+  - "test2"
+  
+uses-multiline-macro:
+  '%uses-multiline-macro%':
+  - "%multiline-test-macro%"

@@ -1,0 +1,15 @@
+no-gui: "&4That gui does not exist!"
+#Configure proxy types
+# Proxy types:
+# bungee - If you use Bungeecord as your proxy
+# redis - If you use redis bungee on a bungeecord proxy
+# none - If you do not use a proxy
+proxy: "none"
+date-time-format: "MM dd, yyyy HH:mm:ss"
+servers:
+  - "prison"
+
+#remote-guis:
+#  remote:
+#    file-name: "remote.yml"
+#    url: "https://raw.githubusercontent.com/ClubObsidian/DynamicGUIExamples/master/examples/remote.yml"
