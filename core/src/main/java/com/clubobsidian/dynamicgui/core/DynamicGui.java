@@ -127,7 +127,7 @@ public class DynamicGui {
     private Proxy proxy;
     private String dateTimeFormat;
     private final Map<String, Integer> serverPlayerCount;
-    private final EventBus eventManager;
+    private final EventBus eventBus;
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
@@ -144,7 +144,7 @@ public class DynamicGui {
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
-        this.eventManager = new MethodHandleEventBus();
+        this.eventBus = new MethodHandleEventBus();
     }
 
     private void init() {
@@ -238,8 +238,7 @@ public class DynamicGui {
     }
 
     public void checkForProxy() {
-        MessagingRunnable runnable = (playerWrapper, message) ->
-        {
+        MessagingRunnable runnable = (playerWrapper, message) -> {
             if(message.length > 13) {
                 ByteArrayDataInput in = ByteStreams.newDataInput(message);
                 String packet = in.readUTF();
@@ -272,12 +271,12 @@ public class DynamicGui {
     }
 
     private void registerListeners() {
-        this.eventManager.registerEvents(new EntityClickListener());
-        this.eventManager.registerEvents(new InventoryInteractListener());
-        this.eventManager.registerEvents(new InventoryCloseListener());
-        this.eventManager.registerEvents(new InventoryOpenListener());
-        this.eventManager.registerEvents(new PlayerInteractListener());
-        this.eventManager.registerEvents(new GuiListener());
+        this.eventBus.registerEvents(new EntityClickListener());
+        this.eventBus.registerEvents(new InventoryInteractListener());
+        this.eventBus.registerEvents(new InventoryCloseListener());
+        this.eventBus.registerEvents(new InventoryOpenListener());
+        this.eventBus.registerEvents(new PlayerInteractListener());
+        this.eventBus.registerEvents(new GuiListener());
     }
 
     private void loadFunctions() {
@@ -397,7 +396,7 @@ public class DynamicGui {
     }
 
     public EventBus getEventBus() {
-        return this.eventManager;
+        return this.eventBus;
     }
 
     public Platform getPlatform() {
