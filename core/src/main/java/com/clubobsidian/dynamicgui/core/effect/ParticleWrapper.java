@@ -27,26 +27,34 @@ public class ParticleWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = -5003322741003989392L;
+
     private final ParticleData data;
 
     public ParticleWrapper(String str) {
-        this.data = this.loadFromString(str);
+        this(ParticleData.fromString(str));
     }
 
-    private ParticleData loadFromString(String str) {
-        if(str.contains(",")) {
-            String[] args = str.split(",");
-            return new ParticleData(args[0].toUpperCase(), NumberUtils.toInt(args[1]));
-        } else {
-            return new ParticleData(str, 0);
-        }
+    public ParticleWrapper(ParticleData data) {
+        this.data = data;
+    }
+
+    public ParticleData getData() {
+        return this.data;
     }
 
     public void spawnEffect(PlayerWrapper<?> player) {
         player.playEffect(this.data);
     }
 
-    public class ParticleData {
+    public static class ParticleData {
+
+        public static ParticleData fromString(String str) {
+            if(str.contains(",")) {
+                String[] args = str.split(",");
+                return new ParticleData(args[0].toUpperCase(), NumberUtils.toInt(args[1]));
+            }
+            return new ParticleData(str, 0);
+        }
 
         private final String effect;
         private final int extraData;
