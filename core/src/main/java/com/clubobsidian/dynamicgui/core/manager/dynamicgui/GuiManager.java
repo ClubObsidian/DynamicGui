@@ -48,6 +48,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -132,7 +133,7 @@ public class GuiManager {
     }
 
     public Map<UUID, Gui> getPlayerGuis() {
-        return this.playerGuis;
+        return Collections.unmodifiableMap(this.playerGuis);
     }
 
     public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper) {
