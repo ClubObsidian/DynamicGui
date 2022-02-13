@@ -50,10 +50,14 @@ public class SoundWrapper implements Serializable {
             if(str.contains(",")) {
                 String[] args = str.split(",");
                 if(args.length == 3) {
-                    String sound = args[0];
-                    float volume = Float.parseFloat(args[1]);
-                    float pitch = Float.parseFloat(args[2]);
-                    return new SoundData(sound, volume, pitch);
+                    try {
+                        String sound = args[0];
+                        float volume = Float.parseFloat(args[1]);
+                        float pitch = Float.parseFloat(args[2]);
+                        return new SoundData(sound, volume, pitch);
+                    } catch(NumberFormatException ex) {
+                        //Don't do anything if invalid format
+                    }
                 }
             }
             return new SoundData(null, 0f, 0f);
