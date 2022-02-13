@@ -19,6 +19,7 @@ import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
@@ -137,7 +138,10 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void playSound(String sound, Float volume, Float pitch) {
+    public void playSound(SoundWrapper.SoundData soundData) {
+        String sound = soundData.getSound();
+        float volume = soundData.getVolume();
+        float pitch = soundData.getPitch();
         Player player = this.getPlayer();
         Location playerLocation = player.getLocation();
         player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);

@@ -25,24 +25,55 @@ public class SoundWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = -8096584636206059158L;
-    private final String sound;
-    private final Float volume;
-    private final Float pitch;
+
+    private final SoundData data;
 
     public SoundWrapper(String str) {
-        String[] args = str.split(",");
-        this.sound = args[0];
-        this.volume = Float.parseFloat(args[1]);
-        this.pitch = Float.parseFloat(args[2]);
+        this(SoundData.fromString(str));
     }
 
-    public SoundWrapper(String sound, Float volume, Float pitch) {
-        this.sound = sound;
-        this.volume = volume;
-        this.pitch = pitch;
+    public SoundWrapper(SoundData data) {
+        this.data = data;
+    }
+
+    public SoundData getData() {
+        return this.data;
     }
 
     public void playSoundToPlayer(PlayerWrapper<?> player) {
-        player.playSound(this.sound, this.volume, this.pitch);
+        player.playSound(this.data);
+    }
+
+    public static class SoundData {
+
+        public static SoundData fromString(String str) {
+            String[] args = str.split(",");
+            String sound = args[0];
+            float volume = Float.parseFloat(args[1]);
+            float pitch = Float.parseFloat(args[2]);
+            return new SoundData(sound, volume, pitch);
+        }
+
+        private final String sound;
+        private final float volume;
+        private final float pitch;
+
+        private SoundData(String sound, float volume, float pitch) {
+            this.sound = sound;
+            this.volume = volume;
+            this.pitch = pitch;
+        }
+
+        public String getSound() {
+            return this.sound;
+        }
+
+        public float getVolume() {
+            return this.volume;
+        }
+
+        public float getPitch() {
+            return this.pitch;
+        }
     }
 }

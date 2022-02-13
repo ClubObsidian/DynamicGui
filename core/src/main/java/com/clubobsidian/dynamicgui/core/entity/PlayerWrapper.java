@@ -16,6 +16,7 @@
 package com.clubobsidian.dynamicgui.core.entity;
 
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
@@ -67,7 +68,7 @@ public abstract class PlayerWrapper<T> {
 
     public abstract void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message);
 
-    public abstract void playSound(String sound, Float volume, Float pitch);
+    public abstract void playSound(SoundWrapper.SoundData soundData);
 
     public abstract void playEffect(ParticleWrapper.ParticleData particleData);
 
