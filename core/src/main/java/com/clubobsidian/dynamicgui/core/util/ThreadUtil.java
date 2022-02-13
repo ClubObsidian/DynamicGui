@@ -6,10 +6,10 @@ import com.clubobsidian.dynamicgui.core.server.Platform;
 
 public final class ThreadUtil {
 
-    public static void run(Runnable runnable, boolean isAsync) {
+    public static void run(Runnable runnable, boolean async) {
         Platform server = DynamicGui.get().getPlatform();
         Scheduler scheduler = server.getScheduler();
-        if(isAsync) {
+        if(async) {
             scheduler.runAsynchronousDelayedTask(runnable, 0);
         } else {
             if(!server.isMainThread()) {
