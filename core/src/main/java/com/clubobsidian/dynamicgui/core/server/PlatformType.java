@@ -17,7 +17,7 @@ package com.clubobsidian.dynamicgui.core.server;
 
 public enum PlatformType {
 
+    BUKKIT,
     SPONGE,
-    SPIGOT
 
 }

@@ -98,7 +98,7 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public PlatformType getType() {
-        return PlatformType.SPIGOT;
+        return PlatformType.BUKKIT;
     }
 
     @Override
