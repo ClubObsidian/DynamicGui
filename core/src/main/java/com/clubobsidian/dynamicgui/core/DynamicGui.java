@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core;
 import com.clubobsidian.dynamicgui.core.config.ChatColorColorizer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckLevelFunction;
@@ -50,7 +49,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.ServerBroadcastJsonFunctio
 import com.clubobsidian.dynamicgui.core.function.impl.ServerMiniBroadcastFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.SetAmountFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.SetCloseFunction;
-import com.clubobsidian.dynamicgui.core.function.impl.SetDataFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.SetDurabilityFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.SetEnchantsFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.SetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.SetGlowFunction;
@@ -327,7 +326,7 @@ public class DynamicGui {
         FunctionManager.get().addFunction(new SetNameFunction());
         FunctionManager.get().addFunction(new SetLoreFunction());
         FunctionManager.get().addFunction(new SetTypeFunction());
-        FunctionManager.get().addFunction(new SetDataFunction());
+        FunctionManager.get().addFunction(new SetDurabilityFunction());
         FunctionManager.get().addFunction(new SetAmountFunction());
         FunctionManager.get().addFunction(new SetNBTFunction());
         FunctionManager.get().addFunction(new SetGlowFunction());

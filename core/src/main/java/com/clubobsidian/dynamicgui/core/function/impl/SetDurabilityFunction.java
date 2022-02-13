@@ -24,15 +24,15 @@ import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 
-public class SetDataFunction extends Function {
+public class SetDurabilityFunction extends Function {
 
     /**
      *
      */
     private static final long serialVersionUID = 6943230273788425141L;
 
-    public SetDataFunction() {
-        super("setdata");
+    public SetDurabilityFunction() {
+        super("setdata", "setdura", "setdurability");
     }
 
     @Override
@@ -51,8 +51,8 @@ public class SetDataFunction extends Function {
                         ItemStackWrapper<?> item = slot.getItemStack();
 
                         try {
-                            short dura = Short.parseShort(this.getData());
-                            item.setDurability(dura);
+                            short durability = Short.parseShort(this.getData());
+                            item.setDurability(durability);
                             inv.setItem(slot.getIndex(), item);
                             return true;
                         } catch(Exception ex) {
