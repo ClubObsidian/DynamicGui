@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.server.Platform;
 import com.clubobsidian.dynamicgui.core.server.ServerType;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,13 +32,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class MockPlatform extends Platform {
+public class MockPlatform implements Platform {
 
     private final Map<String, WorldWrapper<?>> worlds = new HashMap<>();
     private final List<String> dispatchedServerCommands = new ArrayList<>();
+    private final Scheduler scheduler = new MockScheduler();
 
-    public MockPlatform(Scheduler scheduler) {
-        super(scheduler);
+    @Override
+    public Scheduler getScheduler() {
+        return this.scheduler;
     }
 
     @Override

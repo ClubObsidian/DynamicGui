@@ -24,40 +24,32 @@ import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import java.util.Collection;
 import java.util.UUID;
 
-public abstract class Platform {
+public interface Platform {
 
-    private final Scheduler scheduler;
+    Scheduler getScheduler();
 
-    public Platform(Scheduler scheduler) {
-        this.scheduler = scheduler;
-    }
+    boolean isMainThread();
 
-    public Scheduler getScheduler() {
-        return this.scheduler;
-    }
+    void broadcastMessage(String message);
 
-    public abstract boolean isMainThread();
+    void broadcastJsonMessage(String json);
 
-    public abstract void broadcastMessage(String message);
+    void dispatchServerCommand(String command);
 
-    public abstract void broadcastJsonMessage(String json);
+    PlayerWrapper<?> getPlayer(UUID uuid);
 
-    public abstract void dispatchServerCommand(String command);
+    PlayerWrapper<?> getPlayer(String name);
 
-    public abstract PlayerWrapper<?> getPlayer(UUID uuid);
+    Collection<PlayerWrapper<?>> getOnlinePlayers();
 
-    public abstract PlayerWrapper<?> getPlayer(String name);
+    int getGlobalPlayerCount();
 
-    public abstract Collection<PlayerWrapper<?>> getOnlinePlayers();
+    ServerType getType();
 
-    public abstract int getGlobalPlayerCount();
+    void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
 
-    public abstract ServerType getType();
+    void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable);
 
-    public abstract void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel);
-
-    public abstract void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable);
-
-    public abstract WorldWrapper<?> getWorld(String worldName);
+    WorldWrapper<?> getWorld(String worldName);
 
 }

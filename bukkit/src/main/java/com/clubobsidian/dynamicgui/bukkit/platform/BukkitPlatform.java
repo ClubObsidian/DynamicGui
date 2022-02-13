@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.bukkit.scheduler.BukkitScheduler;
+import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.server.Platform;
 import com.clubobsidian.dynamicgui.core.server.ServerType;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
@@ -39,10 +40,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class BukkitPlatform extends Platform {
+public class BukkitPlatform implements Platform {
 
-    public BukkitPlatform() {
-        super(new BukkitScheduler());
+    private final Scheduler scheduler = new BukkitScheduler();
+
+    @Override
+    public Scheduler getScheduler() {
+        return this.scheduler;
     }
 
     @Override

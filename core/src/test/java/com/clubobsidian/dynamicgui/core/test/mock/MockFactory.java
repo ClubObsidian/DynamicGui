@@ -143,7 +143,7 @@ public class MockFactory {
 
     public MockFactory inject() {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
-        Platform platform = new MockPlatform(new MockScheduler());
+        Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         MockPluginModule module = new MockPluginModule(plugin, platform, logger);
         module.bootstrap();
