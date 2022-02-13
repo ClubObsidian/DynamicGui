@@ -47,11 +47,16 @@ public class SoundWrapper implements Serializable {
     public static class SoundData {
 
         public static SoundData fromString(String str) {
-            String[] args = str.split(",");
-            String sound = args[0];
-            float volume = Float.parseFloat(args[1]);
-            float pitch = Float.parseFloat(args[2]);
-            return new SoundData(sound, volume, pitch);
+            if(str.contains(",")) {
+                String[] args = str.split(",");
+                if(args.length == 3) {
+                    String sound = args[0];
+                    float volume = Float.parseFloat(args[1]);
+                    float pitch = Float.parseFloat(args[2]);
+                    return new SoundData(sound, volume, pitch);
+                }
+            }
+            return new SoundData(null, 0f, 0f);
         }
 
         private final String sound;
