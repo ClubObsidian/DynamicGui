@@ -33,6 +33,16 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
+    public List<String> getLore() {
+        return this.getItemStack().getLore();
+    }
+
+    @Override
+    public void setLore(List<String> lore) {
+        this.getItemStack().setLore(lore);
+    }
+
+    @Override
     public int getAmount() {
         return this.getItemStack().getAmount();
     }

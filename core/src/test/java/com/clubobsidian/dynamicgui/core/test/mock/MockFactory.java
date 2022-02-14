@@ -99,7 +99,15 @@ public class MockFactory {
     }
 
     public Slot createSlot(PlayerWrapper<?> player) {
-        Slot slot = this.inject().createSlot();
+        return this.createSlot(player, new ArrayList<>());
+    }
+
+    public Slot createSlot(PlayerWrapper<?> player, List<String> lore) {
+        Slot slot = this.inject().createSlot(0,
+                Slot.TEST_MATERIAL,
+                lore,
+                new ArrayList<>(),
+                false);
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         slots.add(slot);
@@ -126,6 +134,10 @@ public class MockFactory {
     }
 
     public Slot createSlot(int index, String type, List<EnchantmentWrapper> enchants, boolean movable) {
+        return this.createSlot(index, type, new ArrayList<>(), enchants, movable);
+    }
+
+    public Slot createSlot(int index, String type, List<String> lore, List<EnchantmentWrapper> enchants, boolean movable) {
         return new Slot(index,
                 1,
                 type,
@@ -135,7 +147,7 @@ public class MockFactory {
                 false,
                 movable,
                 false,
-                new ArrayList<>(),
+                lore,
                 enchants,
                 new ArrayList<>(),
                 null,

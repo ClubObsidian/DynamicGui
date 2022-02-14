@@ -30,6 +30,7 @@ public class MockItemStack {
     private short durability = 0;
     private final Map<String, EnchantmentWrapper> enchants = new LinkedHashMap<>();
     private boolean glowing = false;
+    private List<String> lore = new ArrayList<>();
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -74,5 +75,14 @@ public class MockItemStack {
 
     public void setGlowing(boolean glowing) {
         this.glowing = glowing;
+    }
+
+    public List<String> getLore() {
+        return this.lore;
+    }
+
+    public void setLore(List<String> lore) {
+        List<String> l = lore == null ? new ArrayList<>() : lore;
+        this.lore = l;
     }
 }

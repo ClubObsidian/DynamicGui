@@ -43,40 +43,32 @@ public class SetLoreFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            return false;
-        }
         FunctionOwner owner = this.getOwner();
-        if(owner != null) {
-            if(owner instanceof Slot) {
-                Slot slot = (Slot) owner;
-                Gui gui = slot.getOwner();
-                if(gui != null) {
-                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if(inv != null) {
-                        ItemStackWrapper<?> item = slot.getItemStack();
-                        List<String> lore = new ArrayList<>();
-                        if(this.getData() == null) {
-                            lore = null;
-                        } else {
-
-                            String newData = this.getData();
-                            newData = ReplacerManager.get().replace(ChatColor.translateAlternateColorCodes('&', this.getData()), playerWrapper);
-                            newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
-
-                            if(newData.contains("\n")) {
-                                for(String str : this.getData().split("\n")) {
-                                    lore.add(str);
-                                }
-                            } else {
-                                lore.add(newData);
+        if(owner != null && owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            Gui gui = slot.getOwner();
+            if(gui != null) {
+                InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                if(inv != null) {
+                    ItemStackWrapper<?> item = slot.getItemStack();
+                    List<String> lore = new ArrayList<>();
+                    if(this.getData() == null) {
+                        lore = null;
+                    } else {
+                        String newData = ReplacerManager.get().replace(this.getData(), playerWrapper);
+                        newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
+                        newData = ChatColor.translateAlternateColorCodes('&', newData);
+                        if(newData.contains("\n")) {
+                            for(String str : this.getData().split("\n")) {
+                                lore.add(str);
                             }
+                        } else {
+                            lore.add(newData);
                         }
-
-                        item.setLore(lore);
-                        inv.setItem(slot.getIndex(), item);
-                        return true;
                     }
+                    item.setLore(lore);
+                    inv.setItem(slot.getIndex(), item);
+                    return true;
                 }
             }
         }
