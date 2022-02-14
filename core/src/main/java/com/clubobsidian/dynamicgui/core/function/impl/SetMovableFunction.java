@@ -38,23 +38,20 @@ public class SetMovableFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-        if(this.getOwner() instanceof Slot) {
-            Boolean value = Boolean.valueOf(this.getData());
-            if(value != null) {
-                FunctionOwner owner = this.getOwner();
-                if(owner != null) {
-                    if(owner instanceof Slot) {
-                        Slot slot = (Slot) owner;
-                        Gui gui = slot.getOwner();
-                        if(gui != null) {
-                            slot.setMovable(value);
-                            return true;
-                        }
+        if(this.getOwner() != null && this.getOwner() instanceof Slot) {
+            boolean value = Boolean.parseBoolean(this.getData());
+            FunctionOwner owner = this.getOwner();
+            if(owner != null) {
+                if(owner instanceof Slot) {
+                    Slot slot = (Slot) owner;
+                    Gui gui = slot.getOwner();
+                    if(gui != null) {
+                        slot.setMovable(value);
+                        return true;
                     }
                 }
             }
         }
-
         return false;
     }
 }
