@@ -75,8 +75,4 @@ public class MockItemStack {
     public void setGlowing(boolean glowing) {
         this.glowing = glowing;
     }
-
-    public boolean isGlowing() {
-        return this.glowing;
-    }
 }

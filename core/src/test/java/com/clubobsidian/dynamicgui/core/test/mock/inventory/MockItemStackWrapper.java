@@ -71,9 +71,4 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public void setGlowing(boolean glowing) {
         this.getItemStack().setGlowing(glowing);
     }
-
-    @Override
-    public boolean isGlowing() {
-        return this.getItemStack().isGlowing();
-    }
 }

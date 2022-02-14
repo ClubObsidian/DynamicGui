@@ -237,7 +237,6 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         }
-
         item.setItemMeta(meta);
     }
 

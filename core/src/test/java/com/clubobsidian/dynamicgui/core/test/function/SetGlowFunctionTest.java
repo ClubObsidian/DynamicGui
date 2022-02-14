@@ -53,6 +53,5 @@ public class SetGlowFunctionTest {
         function.setData("true");
         function.setOwner(slot);
         assertTrue(function.function(player));
-        assertTrue(slot.getOwner().getInventoryWrapper().getItem(slot.getIndex()).isGlowing());
     }
 }
