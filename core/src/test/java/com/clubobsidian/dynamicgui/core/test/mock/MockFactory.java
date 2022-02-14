@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.mock;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
@@ -95,6 +96,17 @@ public class MockFactory {
                 new ArrayList<>(),
                 new FunctionTree(),
                 new HashMap<>());
+    }
+
+    public Slot createSlot(PlayerWrapper<?> player) {
+        Slot slot = this.inject().createSlot();
+        slot.buildItemStack(player);
+        List<Slot> slots = new ArrayList<>();
+        slots.add(slot);
+        Gui gui = this.createGui("test", slots);
+        gui.buildInventory(player);
+        slot.setOwner(gui);
+        return slot;
     }
 
     public Slot createSlot() {

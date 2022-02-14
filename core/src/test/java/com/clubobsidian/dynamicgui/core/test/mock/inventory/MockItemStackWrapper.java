@@ -66,4 +66,14 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public void removeEnchant(EnchantmentWrapper enchant) {
         this.getItemStack().removeEnchant(enchant);
     }
+
+    @Override
+    public void setGlowing(boolean glowing) {
+        this.getItemStack().setGlowing(glowing);
+    }
+
+    @Override
+    public boolean isGlowing() {
+        return this.getItemStack().isGlowing();
+    }
 }

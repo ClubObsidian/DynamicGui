@@ -15,7 +15,6 @@
  */
 package com.clubobsidian.dynamicgui.core.function.impl;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
@@ -32,7 +31,7 @@ public class SetGlowFunction extends Function {
     private static final long serialVersionUID = -3727112026677117024L;
 
     public SetGlowFunction() {
-        super("setglow");
+        super("setglow", "setglowing");
     }
 
     @Override
@@ -40,32 +39,21 @@ public class SetGlowFunction extends Function {
         if(this.getData() == null) {
             return false;
         }
-        try {
-            Boolean value = Boolean.valueOf(this.getData());
-            if(value != null) {
-                FunctionOwner owner = this.getOwner();
-                if(owner != null) {
-                    if(owner instanceof Slot) {
-                        Slot slot = (Slot) owner;
-                        Gui gui = slot.getOwner();
-                        if(gui != null) {
-                            InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                            if(inv != null) {
-                                ItemStackWrapper<?> item = slot.getItemStack();
-
-                                item.setGlowing(value);
-                                inv.setItem(slot.getIndex(), item);
-                                return true;
-                            }
-                        }
-                    }
+        FunctionOwner owner = this.getOwner();
+        if(owner != null && owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            Gui gui = slot.getOwner();
+            if(gui != null) {
+                InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                if(inv != null) {
+                    boolean value = Boolean.parseBoolean(this.getData());
+                    ItemStackWrapper<?> item = slot.getItemStack();
+                    item.setGlowing(value);
+                    inv.setItem(slot.getIndex(), item);
+                    return true;
                 }
             }
-        } catch(Exception ex) {
-            DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as a glow");
-            ex.printStackTrace();
         }
-
         return false;
     }
 }

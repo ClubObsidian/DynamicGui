@@ -29,6 +29,7 @@ public class MockItemStack {
     private int amount;
     private short durability = 0;
     private final Map<String, EnchantmentWrapper> enchants = new LinkedHashMap<>();
+    private boolean glowing = false;
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -69,5 +70,13 @@ public class MockItemStack {
 
     public void removeEnchant(EnchantmentWrapper enchant) {
         this.enchants.remove(enchant.getEnchant());
+    }
+
+    public void setGlowing(boolean glowing) {
+        this.glowing = glowing;
+    }
+
+    public boolean isGlowing() {
+        return this.glowing;
     }
 }
