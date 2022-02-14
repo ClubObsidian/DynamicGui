@@ -40,18 +40,16 @@ public class SetNBTFunction extends Function {
             return false;
         }
         FunctionOwner owner = this.getOwner();
-        if(owner != null) {
-            if(owner instanceof Slot) {
-                Slot slot = (Slot) owner;
-                Gui gui = slot.getOwner();
-                if(gui != null) {
-                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if(inv != null) {
-                        ItemStackWrapper<?> item = slot.getItemStack();
-                        item.setNBT(this.getData());
-                        inv.setItem(slot.getIndex(), item);
-                        return true;
-                    }
+        if(owner != null && owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            Gui gui = slot.getOwner();
+            if(gui != null) {
+                InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                if(inv != null) {
+                    ItemStackWrapper<?> item = slot.getItemStack();
+                    item.setNBT(this.getData());
+                    inv.setItem(slot.getIndex(), item);
+                    return true;
                 }
             }
         }
