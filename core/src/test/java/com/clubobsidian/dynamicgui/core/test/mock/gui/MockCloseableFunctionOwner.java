@@ -17,12 +17,25 @@
 package com.clubobsidian.dynamicgui.core.test.mock.gui;
 
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
+import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
-public class NonCloseableFunctionOwner implements FunctionOwner {
+public class MockCloseableFunctionOwner implements FunctionOwner, CloseableComponent {
+
+    private Boolean close;
 
     @Override
     public FunctionTree getFunctions() {
         return null;
+    }
+
+    @Override
+    public Boolean getClose() {
+        return this.close;
+    }
+
+    @Override
+    public void setClose(Boolean close) {
+        this.close = close;
     }
 }

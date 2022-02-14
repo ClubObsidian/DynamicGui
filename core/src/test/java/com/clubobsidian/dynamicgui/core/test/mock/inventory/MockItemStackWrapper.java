@@ -16,7 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
+import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+
+import java.util.List;
 
 public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStack> {
 
@@ -47,5 +50,20 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     @Override
     public void setDurability(short durability) {
         this.getItemStack().setDurability(durability);
+    }
+
+    @Override
+    public List<EnchantmentWrapper> getEnchants() {
+        return this.getItemStack().getEnchants();
+    }
+
+    @Override
+    public void addEnchant(EnchantmentWrapper enchant) {
+        this.getItemStack().addEnchant(enchant);
+    }
+
+    @Override
+    public void removeEnchant(EnchantmentWrapper enchant) {
+        this.getItemStack().removeEnchant(enchant);
     }
 }

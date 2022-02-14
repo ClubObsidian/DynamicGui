@@ -23,6 +23,11 @@ public class EnchantmentWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = 1056076873542226033L;
+
+    public static final String TEST_ENCHANT_1 = "enchant_1";
+    public static final String TEST_ENCHANT_2 = "enchant_2";
+    public static final String TEST_ENCHANT_3 = "enchant_3";
+
     private final String enchant;
     private final int level;
 

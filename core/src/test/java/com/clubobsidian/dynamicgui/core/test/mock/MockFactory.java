@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.mock;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
@@ -109,6 +110,10 @@ public class MockFactory {
     }
 
     public Slot createSlot(int index, String type, boolean movable) {
+        return this.createSlot(index, type, new ArrayList<>(), movable);
+    }
+
+    public Slot createSlot(int index, String type, List<EnchantmentWrapper> enchants, boolean movable) {
         return new Slot(index,
                 1,
                 type,
@@ -119,7 +124,7 @@ public class MockFactory {
                 movable,
                 false,
                 new ArrayList<>(),
-                new ArrayList<>(),
+                enchants,
                 new ArrayList<>(),
                 null,
                 null,

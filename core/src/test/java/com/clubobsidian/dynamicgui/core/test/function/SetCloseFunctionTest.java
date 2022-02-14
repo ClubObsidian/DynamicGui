@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.core.function.impl.SetCloseFunction;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.core.test.mock.gui.CloseableFunctionOwner;
-import com.clubobsidian.dynamicgui.core.test.mock.gui.NonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.gui.MockCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +42,7 @@ public class SetCloseFunctionTest {
     @Test
     public void nonCloseableComponentTest() {
         Function function = new SetCloseFunction();
-        function.setOwner(new NonCloseableFunctionOwner());
+        function.setOwner(new MockNonCloseableFunctionOwner());
         function.setData("true");
         assertFalse(function.function(this.factory.createPlayer()));
     }
@@ -50,7 +50,7 @@ public class SetCloseFunctionTest {
     @Test
     public void invalidDataTest() {
         Function function = new SetCloseFunction();
-        CloseableComponent component = new CloseableFunctionOwner();
+        CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
         function.setData("a");
         assertTrue(function.function(this.factory.createPlayer()));
@@ -60,7 +60,7 @@ public class SetCloseFunctionTest {
     @Test
     public void validDataTest() {
         Function function = new SetCloseFunction();
-        CloseableComponent component = new CloseableFunctionOwner();
+        CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
         function.setData("true");
         assertTrue(function.function(this.factory.createPlayer()));

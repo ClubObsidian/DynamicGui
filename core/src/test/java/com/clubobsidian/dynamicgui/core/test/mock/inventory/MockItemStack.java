@@ -16,11 +16,19 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
+import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MockItemStack {
 
     private final String type;
     private int amount;
     private short durability = 0;
+    private final Map<String, EnchantmentWrapper> enchants = new LinkedHashMap<>();
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -49,5 +57,17 @@ public class MockItemStack {
 
     public void setDurability(short durability) {
         this.durability = durability;
+    }
+
+    public List<EnchantmentWrapper> getEnchants() {
+        return new ArrayList<>(this.enchants.values());
+    }
+
+    public void addEnchant(EnchantmentWrapper enchant) {
+        this.enchants.put(enchant.getEnchant(), enchant);
+    }
+
+    public void removeEnchant(EnchantmentWrapper enchant) {
+        this.enchants.remove(enchant.getEnchant());
     }
 }
