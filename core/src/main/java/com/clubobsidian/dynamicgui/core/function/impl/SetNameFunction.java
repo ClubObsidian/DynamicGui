@@ -43,21 +43,19 @@ public class SetNameFunction extends Function {
             return false;
         }
         FunctionOwner owner = this.getOwner();
-        if(owner != null) {
-            if(owner instanceof Slot) {
-                Slot slot = (Slot) owner;
-                Gui gui = slot.getOwner();
-                if(gui != null) {
-                    InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                    if(inv != null) {
-                        ItemStackWrapper<?> item = slot.getItemStack();
-                        String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
-                        newName = ReplacerManager.get().replace(newName, playerWrapper);
-                        newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
-                        item.setName(newName);
-                        inv.setItem(slot.getIndex(), item);
-                        return true;
-                    }
+        if(owner != null && owner instanceof Slot) {
+            Slot slot = (Slot) owner;
+            Gui gui = slot.getOwner();
+            if(gui != null) {
+                InventoryWrapper<?> inv = gui.getInventoryWrapper();
+                if(inv != null) {
+                    ItemStackWrapper<?> item = slot.getItemStack();
+                    String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
+                    newName = ReplacerManager.get().replace(newName, playerWrapper);
+                    newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
+                    item.setName(newName);
+                    inv.setItem(slot.getIndex(), item);
+                    return true;
                 }
             }
         }
