@@ -46,7 +46,18 @@ public class SetMovableFunctionTest {
     }
 
     @Test
-    public void setMovableTest() {
+    public void setMovableFalseTest() {
+        PlayerWrapper<?> player = this.factory.createPlayer();
+        Function function = new SetMovableFunction();
+        function.setData("false");
+        Slot slot = this.factory.createSlot(player);
+        function.setOwner(slot);
+        assertTrue(function.function(this.factory.createPlayer()));
+        assertFalse(slot.isMovable());
+    }
+
+    @Test
+    public void setMovableTrueTest() {
         PlayerWrapper<?> player = this.factory.createPlayer();
         Function function = new SetMovableFunction();
         function.setData("true");
