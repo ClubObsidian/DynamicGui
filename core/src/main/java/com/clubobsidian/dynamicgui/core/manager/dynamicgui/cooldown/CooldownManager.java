@@ -22,8 +22,11 @@ import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -42,14 +45,12 @@ public class CooldownManager {
         return instance;
     }
 
-    private final Map<UUID, Map<String, Cooldown>> cooldowns;
+    private final Map<UUID, Map<String, Cooldown>> cooldowns = new ConcurrentHashMap<>();
+    private final AtomicBoolean updateConfig = new AtomicBoolean(false);
     private final Configuration cooldownConfig;
-    private final AtomicBoolean updateConfig;
 
     private CooldownManager() {
-        this.cooldowns = new ConcurrentHashMap<>();
         this.cooldownConfig = this.loadConfig();
-        this.updateConfig = new AtomicBoolean(false);
         this.scheduleCooldownUpdate();
         this.scheduleConfigUpdate();
     }
@@ -60,11 +61,10 @@ public class CooldownManager {
         Configuration config = Configuration.load(cooldownsFile);
         for(String uuidStr : config.getKeys()) {
             ConfigurationSection section = config.getConfigurationSection(uuidStr);
-
             Map<String, Cooldown> cooldownMap = new ConcurrentHashMap<>();
             for(String cooldownName : section.getKeys()) {
-                Long time = section.getLong(cooldownName + ".time");
-                Long cooldown = section.getLong(cooldownName + ".cooldown");
+                long time = section.getLong(cooldownName + ".time");
+                long cooldown = section.getLong(cooldownName + ".cooldown");
                 Cooldown cooldownObj = new Cooldown(cooldownName, time, cooldown);
                 if(this.getRemainingCooldown(cooldownObj) != -1L) {
                     cooldownMap.put(cooldownName, cooldownObj);
@@ -72,26 +72,23 @@ public class CooldownManager {
                     section.set(cooldownName, null);
                 }
             }
-
             if(section.isEmpty()) {
                 config.set(uuidStr, null);
             }
-
             if(cooldownMap.size() > 0) {
                 UUID uuid = UUID.fromString(uuidStr);
                 this.cooldowns.put(uuid, cooldownMap);
             }
         }
-
         config.save();
         return config;
     }
 
-    public Long getRemainingCooldown(PlayerWrapper<?> playerWrapper, String name) {
+    public long getRemainingCooldown(PlayerWrapper<?> playerWrapper, String name) {
         return this.getRemainingCooldown(playerWrapper.getUniqueId(), name);
     }
 
-    public Long getRemainingCooldown(UUID uuid, String name) {
+    public long getRemainingCooldown(UUID uuid, String name) {
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
         if(cooldownMap == null) {
             return -1L;
@@ -105,10 +102,10 @@ public class CooldownManager {
         return this.getRemainingCooldown(cooldown);
     }
 
-    public Long getRemainingCooldown(Cooldown cooldown) {
+    public long getRemainingCooldown(Cooldown cooldown) {
         long currentTime = System.currentTimeMillis();
-        Long cooldownTime = cooldown.getTime();
-        Long cooldownAmount = cooldown.getCooldown();
+        long cooldownTime = cooldown.getTime();
+        long cooldownAmount = cooldown.getCooldown();
 
         if((currentTime - cooldownTime) >= cooldownAmount) {
             return -1L;
@@ -125,41 +122,38 @@ public class CooldownManager {
         return this.getRemainingCooldown(uuid, name) != -1L;
     }
 
-    public Collection<Cooldown> getCooldown(PlayerWrapper<?> playerWrapper) {
+    public List<Cooldown> getCooldowns(PlayerWrapper<?> playerWrapper) {
         UUID uuid = playerWrapper.getUniqueId();
         return this.getCooldowns(uuid);
     }
 
-    public Collection<Cooldown> getCooldowns(UUID uuid) {
+    public List<Cooldown> getCooldowns(UUID uuid) {
         Map<String, Cooldown> cooldowns = this.cooldowns.get(uuid);
         if(cooldowns == null) {
-            return null;
+            return Collections.emptyList();
         }
-
-        return cooldowns.values();
+        return new ArrayList<>(cooldowns.values());
     }
 
-    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, Long cooldownTime) {
+    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, long cooldownTime) {
         UUID uuid = playerWrapper.getUniqueId();
         return this.createCooldown(uuid, name, cooldownTime);
     }
 
-    public Cooldown createCooldown(UUID uuid, String name, Long cooldownTime) {
-        Long cooldownRemaining = this.getRemainingCooldown(uuid, name);
+    public Cooldown createCooldown(UUID uuid, String name, long cooldownTime) {
+        long cooldownRemaining = this.getRemainingCooldown(uuid, name);
         if(cooldownRemaining == -1L) {
-            Long currentTime = System.currentTimeMillis();
+            long currentTime = System.currentTimeMillis();
             Cooldown cooldown = new Cooldown(name, currentTime, cooldownTime);
             Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
             if(cooldownMap == null) {
                 cooldownMap = new ConcurrentHashMap<>();
                 this.cooldowns.put(uuid, cooldownMap);
             }
-
             this.updateConfig.set(true);
             cooldownMap.put(name, cooldown);
             return cooldown;
         }
-
         return null;
     }
 
@@ -192,8 +186,8 @@ public class CooldownManager {
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
             cooldownMap.forEach((cooldownName, cooldownObj) -> {
-                Long time = cooldownObj.getTime();
-                Long cooldown = cooldownObj.getCooldown();
+                long time = cooldownObj.getTime();
+                long cooldown = cooldownObj.getCooldown();
                 ConfigurationSection cooldownSection = this.cooldownConfig.getConfigurationSection(uuidStr + "." + cooldownName);
                 cooldownSection.set("time", time);
                 cooldownSection.set("cooldown", cooldown);
@@ -216,7 +210,7 @@ public class CooldownManager {
                 Entry<String, Cooldown> cooldownNext = cooldownIt.next();
                 String cooldownName = cooldownNext.getKey();
                 Cooldown cooldown = cooldownNext.getValue();
-                Long cooldownRemaining = this.getRemainingCooldown(cooldown);
+                long cooldownRemaining = this.getRemainingCooldown(cooldown);
                 if(cooldownRemaining == -1L) {
                     cooldownIt.remove();
                     this.cooldownConfig.set(uuidStr + "." + cooldownName, null);
@@ -224,7 +218,6 @@ public class CooldownManager {
                 }
             }
         }
-
         if(modified) {
             this.updateConfig.set(true);
         }
