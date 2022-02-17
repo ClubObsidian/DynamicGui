@@ -31,6 +31,7 @@ public class MockItemStack {
     private final Map<String, EnchantmentWrapper> enchants = new LinkedHashMap<>();
     private boolean glowing = false;
     private List<String> lore = new ArrayList<>();
+    private String name;
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -84,5 +85,13 @@ public class MockItemStack {
     public void setLore(List<String> lore) {
         List<String> l = lore == null ? new ArrayList<>() : lore;
         this.lore = l;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

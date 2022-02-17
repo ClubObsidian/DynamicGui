@@ -81,4 +81,14 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public void setGlowing(boolean glowing) {
         this.getItemStack().setGlowing(glowing);
     }
+
+    @Override
+    public void setName(String name) {
+        this.getItemStack().setName(name);
+    }
+
+    @Override
+    public String getName() {
+        return this.getItemStack().getName();
+    }
 }
