@@ -49,7 +49,7 @@ public class SetNBTFunctionTest {
     }
 
     @Test
-    public void nameTest() {
+    public void nbtTest() {
         String nbt = "asdf";
         MockPlayerWrapper player = this.factory.createPlayer();
         Slot slot = this.factory.createSlot(player);

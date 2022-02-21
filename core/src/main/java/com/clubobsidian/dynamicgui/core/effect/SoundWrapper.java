@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.effect;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class SoundWrapper implements Serializable {
 
@@ -25,6 +26,8 @@ public class SoundWrapper implements Serializable {
      *
      */
     private static final long serialVersionUID = -8096584636206059158L;
+
+    public static final String TEST_SOUND_STRING = "ambient_cave,1.0,1.0";
 
     private final SoundData data;
 
@@ -83,6 +86,25 @@ public class SoundWrapper implements Serializable {
 
         public float getPitch() {
             return this.pitch;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(this == o) {
+                return true;
+            }
+            if(!(o instanceof SoundData)) {
+                return false;
+            }
+            SoundData soundData = (SoundData) o;
+            return Float.compare(soundData.volume, this.volume) == 0
+                    && Float.compare(soundData.pitch, this.pitch) == 0
+                    && Objects.equals(this.sound, soundData.sound);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.sound, this.volume, this.pitch);
         }
     }
 }

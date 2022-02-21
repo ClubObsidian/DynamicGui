@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.mock.entity.player;
 
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
@@ -118,5 +119,14 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     public List<ParticleWrapper.ParticleData> getParticles() {
         return this.getPlayer().getParticles();
+    }
+
+    @Override
+    public void playSound(SoundWrapper.SoundData soundData) {
+        this.getPlayer().playSound(soundData);
+    }
+
+    public List<SoundWrapper.SoundData> getSounds() {
+        return this.getPlayer().getSounds();
     }
 }

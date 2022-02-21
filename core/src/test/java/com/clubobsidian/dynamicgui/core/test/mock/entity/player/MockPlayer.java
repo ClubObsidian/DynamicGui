@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.mock.entity.player;
 
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 
@@ -37,6 +38,7 @@ public class MockPlayer {
     private int level = 0;
     private LocationWrapper<?> location;
     private final List<ParticleWrapper.ParticleData> particles = new ArrayList<>();
+    private final List<SoundWrapper.SoundData> sounds = new ArrayList<>();
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -113,5 +115,13 @@ public class MockPlayer {
 
     public List<ParticleWrapper.ParticleData> getParticles() {
         return this.particles;
+    }
+
+    public void playSound(SoundWrapper.SoundData soundData) {
+        this.sounds.add(soundData);
+    }
+
+    public List<SoundWrapper.SoundData> getSounds() {
+        return this.sounds;
     }
 }

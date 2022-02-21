@@ -16,8 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SetTypeFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
@@ -26,39 +27,33 @@ import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrappe
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetTypeFunctionTest {
+public class SoundFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void nullTest() {
-        Function function = new SetTypeFunction();
+        Function function = new SoundFunction();
         assertFalse(function.function(this.factory.createPlayer()));
     }
 
     @Test
-    public void notSlotTest() {
-        Function function = new SetTypeFunction();
-        function.setData(Slot.TEST_MATERIAL);
-        function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
-    }
-
-    @Test
-    public void typeTest() {
-        String type = Slot.TEST_MATERIAL;
+    public void soundTest() {
+        String type = SoundWrapper.TEST_SOUND_STRING;
         MockPlayerWrapper player = this.factory.createPlayer();
         Slot slot = this.factory.createSlot(player);
-        Gui gui = slot.getOwner();
-        InventoryWrapper<?> inventory = gui.getInventoryWrapper();
-        Function function = new SetTypeFunction();
+        Function function = new SoundFunction();
         function.setOwner(slot);
         function.setData(type);
         assertTrue(function.function(player));
-        assertEquals(type, inventory.getItem(slot.getIndex()).getType());
+        List<SoundWrapper.SoundData> sounds = player.getSounds();
+        assertTrue(sounds.size() == 1);
+        assertEquals(new SoundWrapper(SoundWrapper.TEST_SOUND_STRING).getData(), sounds.get(0));
     }
 }
