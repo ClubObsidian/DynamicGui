@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SetNBTFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.SetTypeFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
@@ -30,35 +30,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetNBTFunctionTest {
+public class SetTypeFunctionTest {
 
     private final MockFactory factory = new MockFactory();
 
     @Test
     public void nullTest() {
-        Function function = new SetNBTFunction();
+        Function function = new SetTypeFunction();
         assertFalse(function.function(this.factory.createPlayer()));
     }
 
     @Test
     public void notSlotTest() {
-        Function function = new SetNBTFunction();
-        function.setData("asdf");
+        Function function = new SetTypeFunction();
+        function.setData(Slot.TEST_MATERIAL);
         function.setOwner(new MockNonCloseableFunctionOwner());
         assertFalse(function.function(this.factory.createPlayer()));
     }
 
     @Test
     public void nameTest() {
-        String nbt = "asdf";
+        String type = Slot.TEST_MATERIAL;
         MockPlayerWrapper player = this.factory.createPlayer();
         Slot slot = this.factory.createSlot(player);
         Gui gui = slot.getOwner();
         InventoryWrapper<?> inventory = gui.getInventoryWrapper();
-        Function function = new SetNBTFunction();
+        Function function = new SetTypeFunction();
         function.setOwner(slot);
-        function.setData(nbt);
+        function.setData(type);
         assertTrue(function.function(player));
-        assertEquals(nbt, inventory.getItem(slot.getIndex()).getNBT());
+        assertEquals(type, inventory.getItem(slot.getIndex()).getType());
     }
 }
