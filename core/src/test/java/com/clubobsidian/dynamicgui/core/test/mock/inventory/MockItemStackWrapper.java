@@ -91,4 +91,14 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public String getName() {
         return this.getItemStack().getName();
     }
+
+    @Override
+    public String getNBT() {
+        return this.getItemStack().getNBT();
+    }
+
+    @Override
+    public void setNBT(String nbt) {
+        this.getItemStack().setNBT(nbt);
+    }
 }

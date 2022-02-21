@@ -32,6 +32,7 @@ public class MockItemStack {
     private boolean glowing = false;
     private List<String> lore = new ArrayList<>();
     private String name;
+    private String nbt;
 
     public MockItemStack(String type) {
         this(type, 1);
@@ -93,5 +94,13 @@ public class MockItemStack {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getNBT() {
+        return this.nbt;
+    }
+
+    public void setNBT(String nbt) {
+        this.nbt = nbt;
     }
 }
