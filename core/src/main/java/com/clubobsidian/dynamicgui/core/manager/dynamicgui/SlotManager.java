@@ -52,7 +52,6 @@ public class SlotManager {
                 UUID key = next.getKey();
                 PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
                 Gui gui = next.getValue();
-                System.out.println(gui.hashCode());
                 Collection<Slot> cachedSlots = updatedStaticGui.get(gui);
                 if(gui.isStatic() && cachedSlots != null) {
                     InventoryWrapper<?> inventoryWrapper = gui.getInventoryWrapper();
