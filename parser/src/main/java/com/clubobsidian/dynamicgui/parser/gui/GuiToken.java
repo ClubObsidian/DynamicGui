@@ -48,6 +48,7 @@ public class GuiToken implements Serializable {
     private final FunctionTree functions;
     private final List<String> loadMacros;
     private final Map<String, String> metadata;
+    private final boolean isStatic;
 
     public GuiToken(ConfigurationSection section) {
         this(section, new ArrayList<>());
@@ -79,6 +80,7 @@ public class GuiToken implements Serializable {
 
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
+        this.isStatic = section.getBoolean("static");
     }
 
     public String parseType(String type) {
@@ -181,5 +183,9 @@ public class GuiToken implements Serializable {
 
     public Map<String, String> getMetadata() {
         return this.metadata;
+    }
+
+    public boolean isStatic() {
+        return this.isStatic;
     }
 }
