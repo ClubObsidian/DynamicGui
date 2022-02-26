@@ -39,24 +39,16 @@ public class SlotBuilder {
     private boolean movable;
     private Boolean close;
     private List<String> lore;
-    private final List<EnchantmentWrapper> enchants;
-    private final List<String> itemFlags;
+    private final List<EnchantmentWrapper> enchants = new ArrayList<>();
+    private final List<String> itemFlags = new ArrayList<>();
     private String modelProvider;
     private String modelData;
     private int index;
-    private int amount;
-    private int updateInterval;
-    private FunctionTree functionTree;
-    private final Map<String, String> metadata;
+    private int amount = 1;
+    private int updateInterval = 0;
+    private FunctionTree functionTree = new FunctionTree();
+    private final Map<String, String> metadata = new HashMap<>();
 
-    public SlotBuilder() {
-        this.enchants = new ArrayList<>();
-        this.itemFlags = new ArrayList<>();
-        this.amount = 1;
-        this.updateInterval = 0;
-        this.functionTree = new FunctionTree();
-        this.metadata = new HashMap<>();
-    }
 
     public SlotBuilder setIcon(String icon) {
         this.icon = icon;

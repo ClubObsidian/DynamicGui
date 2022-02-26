@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 public class EnchantmentBuilder {
 
     private String enchantment;
-    private int level;
+    private int level = 0;
 
     public EnchantmentBuilder setEnchantment(String enchantment) {
         this.enchantment = enchantment;

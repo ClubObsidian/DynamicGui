@@ -37,20 +37,12 @@ public class GuiBuilder {
     private int rows;
     private Boolean close;
     private ModeEnum modeEnum;
-    private final Map<String, List<Integer>> npcIds;
-    private final List<Slot> slots;
-    private final List<LocationWrapper<?>> locs;
-    private FunctionTree functionTree;
-    private final Map<String, String> metadata;
+    private final Map<String, List<Integer>> npcIds = new HashMap<>();
+    private final List<Slot> slots = new ArrayList<>();
+    private final List<LocationWrapper<?>> locations = new ArrayList<>();
+    private FunctionTree functionTree = new FunctionTree();
+    private final Map<String, String> metadata = new HashMap<>();
     private Gui backGui;
-
-    public GuiBuilder() {
-        this.npcIds = new HashMap<>();
-        this.slots = new ArrayList<>();
-        this.locs = new ArrayList<>();
-        this.functionTree = new FunctionTree();
-        this.metadata = new HashMap<>();
-    }
 
     public GuiBuilder setType(String type) {
         this.type = type.toUpperCase();
@@ -118,7 +110,7 @@ public class GuiBuilder {
     }
 
     public GuiBuilder addLocation(LocationWrapper<?> loc) {
-        this.locs.add(loc);
+        this.locations.add(loc);
         return this;
     }
 
@@ -155,7 +147,7 @@ public class GuiBuilder {
     }
 
     public Gui build() {
-        Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locs, this.functionTree, this.metadata);
+        Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locations, this.functionTree, this.metadata);
         if(this.backGui != null) {
             gui.setBack(this.backGui);
         }
