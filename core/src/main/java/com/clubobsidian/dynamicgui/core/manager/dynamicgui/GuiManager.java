@@ -100,10 +100,13 @@ public class GuiManager {
     public Gui getGuiByName(String name) {
         Gui gui = this.guis.get(name);
         if(gui != null) {
-            return gui.clone();
+            return getOrCloneGui(gui);
         }
-
         return null;
+    }
+
+    private static Gui getOrCloneGui(Gui gui) {
+        return gui.isStatic() ? gui : gui.clone();
     }
 
     public void reloadGuis(boolean force) {
@@ -186,7 +189,7 @@ public class GuiManager {
                 return;
             }
 
-            Gui clonedGui = gui.isStatic() ? gui : gui.clone();
+            Gui clonedGui = getOrCloneGui(gui);
             if(back != null) {
                 clonedGui.setBack(back.clone());
             }
