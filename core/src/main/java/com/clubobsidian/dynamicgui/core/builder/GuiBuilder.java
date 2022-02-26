@@ -43,6 +43,7 @@ public class GuiBuilder {
     private FunctionTree functionTree = new FunctionTree();
     private final Map<String, String> metadata = new HashMap<>();
     private Gui backGui;
+    private boolean isStatic = false;
 
     public GuiBuilder setType(String type) {
         this.type = type.toUpperCase();
@@ -146,8 +147,15 @@ public class GuiBuilder {
         return this;
     }
 
+    public GuiBuilder setStatic(boolean isStatic) {
+        this.isStatic = isStatic;
+        return this;
+    }
+
     public Gui build() {
-        Gui gui = new Gui(this.name, this.type, this.title, this.rows, this.close, this.modeEnum, this.npcIds, this.slots, this.locations, this.functionTree, this.metadata);
+        Gui gui = new Gui(this.name, this.type, this.title, this.rows,
+                this.close, this.modeEnum, this.npcIds, this.slots, this.locations,
+                this.functionTree, this.metadata, this.isStatic);
         if(this.backGui != null) {
             gui.setBack(this.backGui);
         }
