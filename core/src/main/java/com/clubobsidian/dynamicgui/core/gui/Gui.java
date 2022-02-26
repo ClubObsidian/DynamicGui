@@ -51,8 +51,12 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
     private final FunctionTree functions;
     private Gui back;
     private final Map<String, String> metadata;
+    private final boolean isStatic;
 
-    public Gui(String name, String type, String title, int rows, Boolean close, ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata) {
+    public Gui(String name, String type, String title, int rows, Boolean close,
+               ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
+               List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
+               boolean isStatic) {
         this.name = name;
         this.type = type;
         this.title = ChatColor.translateAlternateColorCodes(title);
@@ -66,9 +70,13 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
         this.functions = functions;
         this.back = null;
         this.metadata = metadata;
+        this.isStatic = isStatic;
     }
 
     public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
+        if(this.isStatic && this.inventoryWrapper != null) { //Don't rebuild if gui is static
+            return this.inventoryWrapper;
+        }
         String inventoryTitle = this.formatTitle(playerWrapper);
         Object nativeInventory = this.createInventory(inventoryTitle);
         InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(nativeInventory);
@@ -173,6 +181,10 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
 
     public void setBack(Gui back) {
         this.back = back;
+    }
+
+    public boolean isStatic() {
+        return this.isStatic;
     }
 
     public Gui clone() {
