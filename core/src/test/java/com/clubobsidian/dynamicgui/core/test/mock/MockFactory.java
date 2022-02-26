@@ -95,7 +95,8 @@ public class MockFactory {
                 slots,
                 new ArrayList<>(),
                 new FunctionTree(),
-                new HashMap<>());
+                new HashMap<>(),
+                false);
     }
 
     public Slot createSlot(PlayerWrapper<?> player) {
