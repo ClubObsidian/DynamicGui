@@ -36,6 +36,6 @@ public class BukkitInventoryManager extends InventoryManager {
 
     @Override
     public InventoryWrapper<?> createInventoryWrapper(Object inventory) {
-        return new BukkitInventoryWrapper<Inventory>((Inventory) inventory);
+        return new BukkitInventoryWrapper<>((Inventory) inventory);
     }
 }

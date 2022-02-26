@@ -23,7 +23,10 @@ import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -38,20 +41,27 @@ public class SlotManager {
         return instance;
     }
 
-
     private SlotManager() {
         this.updateSlots();
     }
 
     private void updateSlots() {
         DynamicGui.get().getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
-            Iterator<Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
-            while(it.hasNext()) {
-                Entry<UUID, Gui> next = it.next();
+            Map<Gui, Collection<Slot>> updatedStaticGui = new HashMap<>();
+            for(Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
                 UUID key = next.getKey();
                 PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
                 Gui gui = next.getValue();
-
+                System.out.println(gui.hashCode());
+                Collection<Slot> cachedSlots = updatedStaticGui.get(gui);
+                if(gui.isStatic() && cachedSlots != null) {
+                    InventoryWrapper<?> inventoryWrapper = gui.getInventoryWrapper();
+                    for(Slot slot : cachedSlots) {
+                        inventoryWrapper.updateItem(slot.getIndex(), playerWrapper);
+                    }
+                    continue;
+                }
+                Collection<Slot> updatedSlots = new ArrayList<>();
                 for(Slot slot : gui.getSlots()) {
                     if(slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
                         continue;
@@ -68,9 +78,13 @@ public class SlotManager {
                         FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                         if(!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
                             inventoryWrapper.updateItem(slotIndex, playerWrapper);
+                            updatedSlots.add(slot);
                         }
                         slot.setUpdate(false);
                     }
+                }
+                if(gui.isStatic()) { //Cache if gui is static an attempt to update was made
+                    updatedStaticGui.put(gui, updatedSlots);
                 }
             }
         }, 1L, 1L);
