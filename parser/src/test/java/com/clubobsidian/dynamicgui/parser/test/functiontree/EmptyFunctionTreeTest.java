@@ -19,13 +19,13 @@ package com.clubobsidian.dynamicgui.parser.test.functiontree;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmptyFunctionTreeTest {
 
     @Test
     public void testEmptyFunctionTree() {
         FunctionTree tree = new FunctionTree();
-        assertTrue(tree.getRootNodes().size() == 0);
+        assertEquals(0, tree.getRootNodes().size());
     }
 }

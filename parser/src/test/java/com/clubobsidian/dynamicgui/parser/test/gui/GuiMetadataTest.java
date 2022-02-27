@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GuiMetadataTest {
 
@@ -34,7 +34,7 @@ public class GuiMetadataTest {
         Configuration config = Configuration.load(metadataFile);
         GuiToken token = new GuiToken(config);
         Map<String, String> metadata = token.getMetadata();
-        assertTrue(metadata.size() == 1);
-        assertTrue(metadata.get("some").equals("metadata"));
+        assertEquals(1, metadata.size());
+        assertEquals("metadata", metadata.get("some"));
     }
 }

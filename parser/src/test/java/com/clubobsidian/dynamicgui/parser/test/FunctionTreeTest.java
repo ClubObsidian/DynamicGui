@@ -29,7 +29,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class FunctionTreeTest {
 
@@ -48,7 +50,7 @@ public class FunctionTreeTest {
     @Test
     public void testRootNodeSize() {
         int rootNodeSize = tree.getRootNodes().size();
-        assertTrue(rootNodeSize == 3);
+        assertEquals(3, rootNodeSize);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class FunctionTreeTest {
         FunctionNode node = tree.getRootNodes().get(0);
         FunctionToken token = node.getToken();
         FunctionType type = token.getTypes().get(0);
-        assertTrue(type == FunctionType.LOAD);
+        assertSame(type, FunctionType.LOAD);
     }
 
     @Test
@@ -65,16 +67,16 @@ public class FunctionTreeTest {
         int childrenNodeSize = childrenNodes.size();
         FunctionToken token = childrenNodes.get(0).getToken();
         FunctionData data = token.getFunctions().get(0);
-        assertTrue(childrenNodeSize == 1);
-        assertTrue(data.getName().equals("function"));
-        assertTrue(data.getData().equals("with other data"));
+        assertEquals(1, childrenNodeSize);
+        assertEquals("function", data.getName());
+        assertEquals("with other data", data.getData());
     }
 
     @Test
     public void testDescendTwoFunctions() {
         List<FunctionNode> childrenNodes = tree.getRootNodes().get(1).getChildren();
         int childrenNodeSize = childrenNodes.size();
-        assertTrue(childrenNodeSize == 2);
+        assertEquals(2, childrenNodeSize);
     }
 
     @Test
@@ -86,10 +88,10 @@ public class FunctionTreeTest {
         String name = node.getToken().getName();
         int depth = node.getDepth();
         FunctionData data = token.getFunctions().get(0);
-        assertTrue(depth == 2);
-        assertTrue(childrenNodeSize == 1);
-        assertTrue(data.getData().equals("some other data"));
-        assertTrue(name.equals("depth-2-left"));
+        assertEquals(2, depth);
+        assertEquals(1, childrenNodeSize);
+        assertEquals("some other data", data.getData());
+        assertEquals("depth-2-left", name);
     }
 
     @Test
@@ -98,7 +100,7 @@ public class FunctionTreeTest {
         FunctionToken token = node.getToken();
         FunctionData data = token.getFunctions().get(1);
         String functionData = data.getData();
-        assertTrue(functionData.equals("with:a colon"));
+        assertEquals("with:a colon", functionData);
     }
 
     @Test
@@ -107,7 +109,7 @@ public class FunctionTreeTest {
         FunctionToken token = node.getToken();
         FunctionData data = token.getFunctions().get(2);
         String functionDataStr = data.getData();
-        assertTrue(functionDataStr.equals("test trimming"));
+        assertEquals("test trimming", functionDataStr);
     }
 
     @Test
@@ -116,7 +118,7 @@ public class FunctionTreeTest {
         FunctionToken token = node.getToken();
         FunctionData data = token.getFunctions().get(1);
         String functionName = data.getName();
-        assertTrue(functionName.equals("functiontonormalize"));
+        assertEquals("functiontonormalize", functionName);
     }
 
     @Test
@@ -132,7 +134,7 @@ public class FunctionTreeTest {
         FunctionData data = token.getFailOnFunctions().get(0);
         String functionName = data.getName();
 
-        assertTrue(functionName.equals("onfailfunction"));
+        assertEquals("onfailfunction", functionName);
     }
 
     @Test
@@ -148,12 +150,12 @@ public class FunctionTreeTest {
         FunctionData data = token.getFailOnFunctions().get(0);
         String functionName = data.getName();
 
-        assertTrue(functionName.equals("onfailfunctionstring"));
+        assertEquals("onfailfunctionstring", functionName);
     }
 
     @Test
     public void testMacroTokens() {
         List<MacroToken> tokens = tree.getMacroParser().getTokens();
-        assertTrue(tokens != null);
+        assertNotNull(tokens);
     }
 }

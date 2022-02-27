@@ -25,7 +25,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SlotTokenTest {
@@ -43,19 +45,19 @@ public class SlotTokenTest {
     @Test
     public void testSlotName() {
         String name = token.getName();
-        assertTrue(name.equals("test"));
+        assertEquals("test", name);
     }
 
     @Test
     public void testSlotIcon() {
         String icon = token.getIcon();
-        assertTrue(icon.equals("DIRT"));
+        assertEquals("DIRT", icon);
     }
 
     @Test
     public void testSlotNbt() {
         String nbt = token.getNbt();
-        assertTrue(nbt.equals("{SomeKey:\"some value\"}"));
+        assertEquals("{SomeKey:\"some value\"}", nbt);
     }
 
     @Test
@@ -73,7 +75,7 @@ public class SlotTokenTest {
     @Test
     public void testSlotData() {
         byte data = token.getData();
-        assertTrue(data == 1);
+        assertEquals(1, data);
     }
 
 
@@ -81,12 +83,12 @@ public class SlotTokenTest {
     public void testSlotFunctionTree() {
         FunctionTree tree = token.getFunctionTree();
         int nodeSize = tree.getRootNodes().size();
-        assertTrue(nodeSize == 1);
+        assertEquals(1, nodeSize);
     }
 
     @Test
     public void testMacroToken() {
         MacroToken macroToken = token.getMacroParser().getTokens().get(0);
-        assertTrue(macroToken != null);
+        assertNotNull(macroToken);
     }
 }

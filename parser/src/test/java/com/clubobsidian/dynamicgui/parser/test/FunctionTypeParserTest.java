@@ -18,88 +18,88 @@ package com.clubobsidian.dynamicgui.parser.test;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.FunctionTypeParser;
 import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FunctionTypeParserTest {
 
     @Test
     public void testLeft() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("LEFT").equals(FunctionType.LEFT));
+        assertEquals(typeParser.parseType("LEFT"), FunctionType.LEFT);
     }
 
     @Test
     public void testRight() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("RIGHT").equals(FunctionType.RIGHT));
+        assertEquals(typeParser.parseType("RIGHT"), FunctionType.RIGHT);
     }
 
     @Test
     public void testLowercase() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("left").equals(FunctionType.LEFT));
+        assertEquals(typeParser.parseType("left"), FunctionType.LEFT);
     }
 
     @Test
     public void testParseShiftLeftWithUnderscore() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("SHIFT_LEFT").equals(FunctionType.SHIFT_LEFT));
+        assertEquals(typeParser.parseType("SHIFT_LEFT"), FunctionType.SHIFT_LEFT);
     }
 
     @Test
     public void testParseShiftLeftNoUnderscore() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("SHIFTLEFT").equals(FunctionType.SHIFT_LEFT));
+        assertEquals(typeParser.parseType("SHIFTLEFT"), FunctionType.SHIFT_LEFT);
     }
 
     @Test
     public void testParseShiftRighWithUnderscore() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("SHIFT_RIGHT").equals(FunctionType.SHIFT_RIGHT));
+        assertEquals(typeParser.parseType("SHIFT_RIGHT"), FunctionType.SHIFT_RIGHT);
     }
 
     @Test
     public void testParseShiftRightNoUnderscore() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("SHIFTRIGHT").equals(FunctionType.SHIFT_RIGHT));
+        assertEquals(typeParser.parseType("SHIFTRIGHT"), FunctionType.SHIFT_RIGHT);
     }
 
     @Test
     public void testInvalidFunctionType() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
-        assertTrue(typeParser.parseType("DOESNOTEXIST") == null);
+        assertNull(typeParser.parseType("DOESNOTEXIST"));
     }
 
     @Test
     public void testFunctionTypeList() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
         List<String> types = new ArrayList<>(Arrays.asList("LEFT", "RIGHT"));
         List<FunctionType> parsedTypes = typeParser.parseTypes(types);
-        assertTrue(parsedTypes.size() == 2);
+        assertEquals(2, parsedTypes.size());
     }
 
     @Test
     public void testFunctionTypeListWithInvalidFunction() {
-        MacroParser macroParser = new MacroParser(new ArrayList<MacroToken>());
+        MacroParser macroParser = new MacroParser(new ArrayList<>());
         FunctionTypeParser typeParser = new FunctionTypeParser(macroParser);
         List<String> types = new ArrayList<>(Arrays.asList("LEFT", "DOESNOTEXIST"));
         List<FunctionType> parsedTypes = typeParser.parseTypes(types);
-        assertTrue(parsedTypes.size() == 1);
+        assertEquals(1, parsedTypes.size());
     }
 }

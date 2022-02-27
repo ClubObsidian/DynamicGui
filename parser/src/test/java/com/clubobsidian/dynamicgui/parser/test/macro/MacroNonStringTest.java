@@ -26,7 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MacroNonStringTest {
 
@@ -42,7 +42,7 @@ public class MacroNonStringTest {
         tokens.add(token);
         MacroParser parser = new MacroParser(tokens);
         String parsed = parser.parseStringMacros("%test-non-string%");
-        assertTrue(parsed.equals("1"));
+        assertEquals("1", parsed);
     }
 
     @Test
@@ -61,8 +61,8 @@ public class MacroNonStringTest {
         nonString.add("%test-non-string%");
         nonString.add("%test-non-string%");
         List<String> parsed = parser.parseListMacros(nonString);
-        assertTrue(parsed.size() == 2);
-        assertTrue(parsed.get(0).equals("1"));
-        assertTrue(parsed.get(1).equals("1"));
+        assertEquals(2, parsed.size());
+        assertEquals("1", parsed.get(0));
+        assertEquals("1", parsed.get(1));
     }
 }

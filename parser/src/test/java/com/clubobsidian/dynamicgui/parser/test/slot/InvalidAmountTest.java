@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvalidAmountTest {
 
@@ -35,6 +35,6 @@ public class InvalidAmountTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         int amount = token.getAmount();
-        assertTrue(amount == 1);
+        assertEquals(1, amount);
     }
 }

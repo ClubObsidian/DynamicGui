@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvalidFunctionTypeMacroTest {
 
@@ -39,6 +39,6 @@ public class InvalidFunctionTypeMacroTest {
         SlotToken token = new SlotToken(0, section);
         FunctionTree tree = token.getFunctionTree();
         FunctionToken functionToken = tree.getRootNodes().get(0).getToken();
-        assertTrue(functionToken.getTypes().size() == 1);
+        assertEquals(1, functionToken.getTypes().size());
     }
 }

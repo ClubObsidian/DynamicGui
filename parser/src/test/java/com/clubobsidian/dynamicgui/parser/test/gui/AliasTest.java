@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AliasTest {
 
@@ -33,6 +33,6 @@ public class AliasTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         String alias = token.getAlias().get(0);
-        assertTrue(alias.equals("test"));
+        assertEquals("test", alias);
     }
 }

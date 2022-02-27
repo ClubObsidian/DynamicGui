@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoadMacrosTest {
 
@@ -34,7 +34,7 @@ public class LoadMacrosTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         List<String> loadMacros = token.getLoadMacros();
-        assertTrue(loadMacros.size() == 1);
-        assertTrue(loadMacros.get(0).equals("test"));
+        assertEquals(1, loadMacros.size());
+        assertEquals("test", loadMacros.get(0));
     }
 }

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LocationTest {
 
@@ -33,7 +33,7 @@ public class LocationTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         String location = token.getLocations().get(0);
-        assertTrue(location.equals("0,0,0,world"));
+        assertEquals("0,0,0,world", location);
     }
 
 }

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidTypeTest {
 
@@ -33,6 +33,6 @@ public class ValidTypeTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         String type = token.getType();
-        assertTrue(type.equals("DISPENSER"));
+        assertEquals("DISPENSER", type);
     }
 }

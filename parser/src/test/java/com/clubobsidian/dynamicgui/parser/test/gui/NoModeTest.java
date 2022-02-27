@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class NoModeTest {
 
@@ -34,7 +34,7 @@ public class NoModeTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         GuiMode alias = token.getMode();
-        assertTrue(alias == GuiMode.SET);
+        assertSame(alias, GuiMode.SET);
     }
 
 }

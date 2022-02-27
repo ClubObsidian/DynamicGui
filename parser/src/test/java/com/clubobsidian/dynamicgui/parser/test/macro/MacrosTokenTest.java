@@ -25,6 +25,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MacrosTokenTest {
@@ -38,7 +40,7 @@ public class MacrosTokenTest {
         MacroToken token = new MacroToken(section);
         Map<String, Object> macros = token.getMacros();
 
-        assertTrue(macros.size() == 2);
+        assertEquals(2, macros.size());
     }
 
     @Test
@@ -57,7 +59,7 @@ public class MacrosTokenTest {
 
         Object firstMacro = macros.get("%test%");
         assertTrue(firstMacro instanceof String);
-        assertTrue(firstMacro.equals("This is some text"));
+        assertEquals("This is some text", firstMacro);
 
         Object secondMacro = macros.get("%multiline-test%");
         assertTrue(secondMacro instanceof List);
@@ -65,7 +67,7 @@ public class MacrosTokenTest {
         List listMacro = ((List) secondMacro);
 
         assertTrue(listMacro.get(0) instanceof String);
-        assertTrue(listMacro.size() == 3);
+        assertEquals(3, listMacro.size());
 
     }
 
@@ -80,7 +82,7 @@ public class MacrosTokenTest {
         MacroToken token = new MacroToken(section);
         Map<String, Object> macros = token.getMacros();
 
-        assertTrue(macros != null);
-        assertTrue(macros.size() == 0);
+        assertNotNull(macros);
+        assertEquals(0, macros.size());
     }
 }

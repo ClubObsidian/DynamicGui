@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EnchantTest {
 
@@ -36,6 +36,6 @@ public class EnchantTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         List<String> enchants = token.getEnchants();
-        assertTrue(enchants.size() == 3);
+        assertEquals(3, enchants.size());
     }
 }

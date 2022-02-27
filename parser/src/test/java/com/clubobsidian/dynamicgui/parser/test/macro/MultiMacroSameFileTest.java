@@ -25,7 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MultiMacroSameFileTest {
 
@@ -47,7 +47,7 @@ public class MultiMacroSameFileTest {
         String toParse = "%uses-test%";
         String parsed = parser.parseStringMacros(toParse);
         System.out.println(parsed);
-        assertTrue(parsed.equals("test"));
+        assertEquals("test", parsed);
     }
 
     @Test
@@ -70,9 +70,9 @@ public class MultiMacroSameFileTest {
         replaceIn.add(toParse);
         List<String> parsed = parser.parseListMacros(replaceIn);
         System.out.println(parsed);
-        assertTrue(parsed.size() == 2);
-        assertTrue(parsed.get(0).equals("test1"));
-        assertTrue(parsed.get(1).equals("test2"));
+        assertEquals(2, parsed.size());
+        assertEquals("test1", parsed.get(0));
+        assertEquals("test2", parsed.get(1));
     }
 
 }

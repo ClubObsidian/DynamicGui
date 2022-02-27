@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvalidUpdateIntervalTest {
 
@@ -35,7 +35,7 @@ public class InvalidUpdateIntervalTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         int interval = token.getUpdateInterval();
-        assertTrue(interval == 0);
+        assertEquals(0, interval);
     }
 
     @Test
@@ -46,6 +46,6 @@ public class InvalidUpdateIntervalTest {
         ConfigurationSection section = config.getConfigurationSection("1");
         SlotToken token = new SlotToken(1, section);
         int interval = token.getUpdateInterval();
-        assertTrue(interval == 0);
+        assertEquals(0, interval);
     }
 }

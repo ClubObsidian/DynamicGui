@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SlotIndexTest {
 
@@ -34,6 +34,6 @@ public class SlotIndexTest {
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("13");
         SlotToken token = new SlotToken(13, section);
-        assertTrue(token.getIndex() == 13);
+        assertEquals(13, token.getIndex());
     }
 }

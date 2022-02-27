@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidSlotDataMacroTest {
 
@@ -36,6 +36,6 @@ public class ValidSlotDataMacroTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         byte data = token.getData();
-        assertTrue(data == 1);
+        assertEquals(1, data);
     }
 }

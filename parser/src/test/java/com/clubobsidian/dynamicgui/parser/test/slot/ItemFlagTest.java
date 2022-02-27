@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ItemFlagTest {
 
@@ -36,6 +36,6 @@ public class ItemFlagTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         List<String> enchants = token.getItemFlags();
-        assertTrue(enchants.size() == 2);
+        assertEquals(2, enchants.size());
     }
 }

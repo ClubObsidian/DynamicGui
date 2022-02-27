@@ -26,7 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MacroParserTest {
 
@@ -51,15 +51,15 @@ public class MacroParserTest {
 
         System.out.println("newLore:" + newLore.toString());
 
-        assertTrue(newLore.size() == 8);
-        assertTrue(newLore.get(0).equals("This is some text"));
-        assertTrue(newLore.get(1).equals("Replace some text"));
-        assertTrue(newLore.get(2).equals("and some other text test"));
-        assertTrue(newLore.get(3).equals("with some other text"));
-        assertTrue(newLore.get(4).equals("Replace some text"));
-        assertTrue(newLore.get(5).equals("and some other text"));
-        assertTrue(newLore.get(6).equals("with some other text"));
-        assertTrue(newLore.get(7).equals("not-a-macro"));
+        assertEquals(8, newLore.size());
+        assertEquals("This is some text", newLore.get(0));
+        assertEquals("Replace some text", newLore.get(1));
+        assertEquals("and some other text test", newLore.get(2));
+        assertEquals("with some other text", newLore.get(3));
+        assertEquals("Replace some text", newLore.get(4));
+        assertEquals("and some other text", newLore.get(5));
+        assertEquals("with some other text", newLore.get(6));
+        assertEquals("not-a-macro", newLore.get(7));
     }
 
     @Test
@@ -83,9 +83,9 @@ public class MacroParserTest {
 
         System.out.println(newLore.toString());
 
-        assertTrue(newLore.size() == 2);
-        assertTrue(newLore.get(0).equals("Replace some text"));
-        assertTrue(newLore.get(1).equals("test"));
+        assertEquals(2, newLore.size());
+        assertEquals("Replace some text", newLore.get(0));
+        assertEquals("test", newLore.get(1));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class MacroParserTest {
 
         System.out.println("New lore: " + newLore + " Size: " + newLore.size());
 
-        assertTrue(newLore.get(0).equals("Replace some text"));
+        assertEquals("Replace some text", newLore.get(0));
 
     }
 
@@ -132,7 +132,7 @@ public class MacroParserTest {
 
         String newName = parser.parseStringMacros(name);
 
-        assertTrue(newName.equals("A name"));
+        assertEquals("A name", newName);
     }
 
     @Test
@@ -159,11 +159,11 @@ public class MacroParserTest {
 
         System.out.println("parsedLore: " + parsedLore.size());
 
-        assertTrue(parsedLore.size() == 5);
-        assertTrue(parsedLore.get(0).equals("not-a-macro"));
-        assertTrue(parsedLore.get(1).equals("Replace some text"));
-        assertTrue(parsedLore.get(2).equals("and some other text test"));
-        assertTrue(parsedLore.get(3).equals("with some other text"));
-        assertTrue(parsedLore.get(4).equals("still-not-a-macro"));
+        assertEquals(5, parsedLore.size());
+        assertEquals("not-a-macro", parsedLore.get(0));
+        assertEquals("Replace some text", parsedLore.get(1));
+        assertEquals("and some other text test", parsedLore.get(2));
+        assertEquals("with some other text", parsedLore.get(3));
+        assertEquals("still-not-a-macro", parsedLore.get(4));
     }
 }

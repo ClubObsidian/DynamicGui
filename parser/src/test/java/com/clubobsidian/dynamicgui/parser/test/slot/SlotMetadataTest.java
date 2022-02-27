@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SlotMetadataTest {
 
@@ -36,8 +36,8 @@ public class SlotMetadataTest {
         ConfigurationSection slot = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, slot);
         Map<String, String> metadata = token.getMetadata();
-        assertTrue(metadata.size() == 1);
-        assertTrue(metadata.get("some").equals("metadata"));
+        assertEquals(1, metadata.size());
+        assertEquals("metadata", metadata.get("some"));
     }
 
     @Test
@@ -48,6 +48,6 @@ public class SlotMetadataTest {
         ConfigurationSection slot = config.getConfigurationSection("1");
         SlotToken token = new SlotToken(1, slot);
         Map<String, String> metadata = token.getMetadata();
-        assertTrue(metadata.size() == 0);
+        assertEquals(0, metadata.size());
     }
 }

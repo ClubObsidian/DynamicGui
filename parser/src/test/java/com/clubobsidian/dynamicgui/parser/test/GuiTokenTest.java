@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GuiTokenTest {
@@ -48,19 +51,19 @@ public class GuiTokenTest {
     @Test
     public void testTitle() {
         String title = token.getTitle();
-        assertTrue(title.equals("test gui title"));
+        assertEquals("test gui title", title);
     }
 
     @Test
     public void testRows() {
         int rows = token.getRows();
-        assertTrue(rows == 1);
+        assertEquals(1, rows);
     }
 
     @Test
     public void testMode() {
         GuiMode mode = token.getMode();
-        assertTrue(mode == GuiMode.SET);
+        assertSame(mode, GuiMode.SET);
     }
 
     @Test
@@ -73,16 +76,16 @@ public class GuiTokenTest {
     public void testNpcs() {
         Map<String, List<Integer>> npcs = token.getNpcs();
         List<Integer> npcIds = npcs.get("citizens");
-        assertTrue(npcIds != null);
-        assertTrue(npcIds.size() == 2);
-        assertTrue(npcIds.get(0) == 5);
-        assertTrue(npcIds.get(1) == 77);
+        assertNotNull(npcIds);
+        assertEquals(2, npcIds.size());
+        assertEquals(5, (int) npcIds.get(0));
+        assertEquals(77, (int) npcIds.get(1));
     }
 
     @Test
     public void testSlots() {
         Map<Integer, SlotToken> slots = token.getSlots();
-        assertTrue(slots.size() == 6);
+        assertEquals(6, slots.size());
     }
 
     @Test
@@ -91,13 +94,13 @@ public class GuiTokenTest {
         FunctionNode node = tree.getRootNodes().get(0);
         FunctionData data = node.getToken().getFunctions().get(0);
         String functionName = data.getName();
-        assertTrue(functionName.equals("function2"));
+        assertEquals("function2", functionName);
     }
 
     @Test
     public void testMacroToken() {
         MacroToken macroToken = token.getMacroParser().getTokens().get(0);
-        assertTrue(macroToken != null);
+        assertNotNull(macroToken);
     }
 
     @Test
@@ -116,6 +119,6 @@ public class GuiTokenTest {
 
         String title = token.getTitle();
 
-        assertTrue(title.equals("test gui title"));
+        assertEquals("test gui title", title);
     }
 }
