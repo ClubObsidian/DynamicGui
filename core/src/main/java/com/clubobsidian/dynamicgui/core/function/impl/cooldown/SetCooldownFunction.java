@@ -42,7 +42,7 @@ public class SetCooldownFunction extends Function {
         }
 
         String name = split[0];
-        long cooldownTime = 0L;
+        long cooldownTime;
         try {
             cooldownTime = Long.parseLong(split[1]);
         } catch(NumberFormatException ex) {
