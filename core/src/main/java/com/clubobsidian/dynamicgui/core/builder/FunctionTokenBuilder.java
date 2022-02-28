@@ -26,17 +26,10 @@ import java.util.UUID;
 
 public class FunctionTokenBuilder {
 
-    private final String name;
-    private final List<FunctionType> types;
-    private final List<FunctionData> functions;
-    private final List<FunctionData> failOnFunctions;
-
-    public FunctionTokenBuilder() {
-        this.name = UUID.randomUUID().toString();
-        this.types = new ArrayList<>();
-        this.functions = new ArrayList<>();
-        this.failOnFunctions = new ArrayList<>();
-    }
+    private final String name = UUID.randomUUID().toString();
+    private final List<FunctionType> types = new ArrayList<>();
+    private final List<FunctionData> functions = new ArrayList<>();
+    private final List<FunctionData> failOnFunctions = new ArrayList<>();
 
     public FunctionTokenBuilder addType(String type) {
         FunctionType functionType = FunctionType.valueOf(type.toUpperCase());
