@@ -94,6 +94,10 @@ public class FunctionManager {
                                                           PlayerWrapper<?> playerWrapper) {
         Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
         CompletableFuture<Boolean> future = new CompletableFuture<>();
+        future.exceptionally((ex) -> {
+            ex.printStackTrace();
+            return null;
+        });
         FunctionNode node = nodeQueue.poll();
         if(node != null) {
             FunctionToken functionToken = node.getToken();
@@ -129,6 +133,10 @@ public class FunctionManager {
 
     private CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
         CompletableFuture<FunctionResponse> response = new CompletableFuture<>();
+        response.exceptionally((ex) -> {
+            ex.printStackTrace();
+            return null;
+        });
         ThreadUtil.run(() -> {
             for(int i = 0; i < functionDataList.size(); i++) {
                 FunctionData data = functionDataList.get(i);
