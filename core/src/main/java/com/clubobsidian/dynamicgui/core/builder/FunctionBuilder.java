@@ -39,18 +39,6 @@ public class FunctionBuilder {
         return this;
     }
 
-    public FunctionData create(String name, String data) {
-        return this.create(name, data, FunctionModifier.NONE);
-    }
-
-
-    public FunctionData create(String name, String data, FunctionModifier modifier) {
-        this.setName(name);
-        this.setData(data);
-        this.setModifier(modifier);
-        return this.build();
-    }
-
     public FunctionData build() {
         return new FunctionData(this.name, this.data, this.modifier);
     }
