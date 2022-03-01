@@ -9,6 +9,6 @@ dependencies {
     api 'com.udojava:EvalEx:2.1'
     api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     api 'com.google.inject:guice:5.1.0'
-    api 'net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT'
+    api 'net.kyori:adventure-text-minimessage:4.11.0-SNAPSHOT'
     api 'net.kyori:adventure-text-serializer-gson:4.9.3'
 }
