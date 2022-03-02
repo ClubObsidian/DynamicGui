@@ -20,7 +20,6 @@ import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -41,5 +40,4 @@ public class MessageTest {
         assertNotNull(noGuiMessage);
         assertTrue(noGuiMessage.length() > 0);
     }
-
 }
