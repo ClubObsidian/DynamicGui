@@ -180,7 +180,10 @@ public class FunctionManager {
                 //Return if function is async since the async caller will hand
                 //control back to this method after completion or the function will
                 //fail and then complete
-                if(async) {
+                //Also return if the future is completed, this is done because if a function is completed
+                //with a sync function that failed the future will complete, but we don't want to continue
+                //the loop
+                if(async || response.isDone()) {
                     return;
                 }
             }
