@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FunctionManager {
 
@@ -84,16 +85,19 @@ public class FunctionManager {
     }
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
-        return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type, playerWrapper);
+        return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type,
+                playerWrapper, null, new AtomicBoolean(true));
     }
 
-    private CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse fail,
+    private CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse response,
                                                           FunctionOwner owner,
                                                           Collection<FunctionNode> functionNodes,
                                                           FunctionType type,
-                                                          PlayerWrapper<?> playerWrapper) {
+                                                          PlayerWrapper<?> playerWrapper,
+                                                          CompletableFuture<Boolean> incomingFuture,
+                                                          AtomicBoolean returnValue) {
         Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        CompletableFuture<Boolean> future = incomingFuture == null ? new CompletableFuture<>() : incomingFuture;
         future.exceptionally((ex) -> {
             ex.printStackTrace();
             return null;
@@ -104,30 +108,36 @@ public class FunctionManager {
             List<FunctionType> types = functionToken.getTypes();
             if(types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
                 if(type != FunctionType.FAIL) {
-                    runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(response -> {
-                        if(!response.result) {
-                            if(response.failedFunction == null) {
+                    runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(dataResponse -> {
+                        if(!dataResponse.result) {
+                            if(dataResponse.failedFunction == null) {
                                 future.complete(false);
                             } else {
-                                recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper)
-                                        .thenAccept((value) -> future.complete(false));
+                                returnValue.set(false);
+                                recurFunctionNodes(dataResponse, owner,
+                                        node.getChildren(), FunctionType.FAIL,
+                                        playerWrapper, future, returnValue);
                             }
                         } else {
-                            recurFunctionNodes(response, owner, node.getChildren(), type, playerWrapper);
+                            recurFunctionNodes(dataResponse, owner,
+                                    node.getChildren(), type,
+                                    playerWrapper, future, returnValue);
                         }
                     });
                 } else if(type == FunctionType.FAIL) {
-                    if(isFail(fail, functionToken)) {
-                        runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(response -> {
-                            if(!response.result) {
-                                recurFunctionNodes(response, owner, node.getChildren(), FunctionType.FAIL, playerWrapper);
-                            }
+                    if(isFail(response, functionToken)) {
+                        runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(dataResponse -> {
+                            recurFunctionNodes(dataResponse, owner,
+                                    node.getChildren(), FunctionType.FAIL,
+                                    playerWrapper, future, returnValue);
                         });
                     }
                 }
             }
         }
-        future.complete(true);
+        if(node == null) {
+            future.complete(returnValue.get());
+        }
         return future;
     }
 

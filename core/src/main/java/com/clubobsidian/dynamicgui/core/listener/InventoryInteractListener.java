@@ -67,7 +67,6 @@ public class InventoryInteractListener {
             return;
         }
 
-
         List<FunctionNode> functions = slot.getFunctions().getRootNodes();
         if(functions.size() > 0) {
             String clickString = e.getClick().toString();
