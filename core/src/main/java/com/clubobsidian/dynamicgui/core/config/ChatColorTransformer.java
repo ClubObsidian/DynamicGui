@@ -19,9 +19,9 @@ package com.clubobsidian.dynamicgui.core.config;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.wrappy.transformer.NodeTransformer;
 
-public class ChatColorColorizer extends NodeTransformer<String> {
+public class ChatColorTransformer extends NodeTransformer<String> {
 
-    public ChatColorColorizer() {
+    public ChatColorTransformer() {
         super(String.class);
     }
 

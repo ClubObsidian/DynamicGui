@@ -15,7 +15,7 @@
  */
 package com.clubobsidian.dynamicgui.core;
 
-import com.clubobsidian.dynamicgui.core.config.ChatColorColorizer;
+import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
@@ -200,7 +200,7 @@ public class DynamicGui {
         Configuration config = Configuration.load(this.plugin.getConfigFile());
         ConfigurationSection messageSection = config.getConfigurationSection("message");
         Collection<NodeTransformer> transformers = new ArrayList<>();
-        transformers.add(new ChatColorColorizer());
+        transformers.add(new ChatColorTransformer());
         messageSection.inject(this.message, transformers);
         String version = config.getString("version");
         if(version != null) {
