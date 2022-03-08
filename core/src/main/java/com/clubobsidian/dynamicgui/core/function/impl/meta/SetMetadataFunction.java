@@ -39,9 +39,9 @@ public class SetMetadataFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
-        } else if(!this.getData().contains(",")) {
+        } else if (!this.getData().contains(",")) {
             return false;
         }
 
@@ -51,51 +51,51 @@ public class SetMetadataFunction extends Function {
         String first = split[0];
         Gui gui = null;
 
-        if(owner instanceof Gui && split.length >= 2) {
-            if(split.length == 2) {
+        if (owner instanceof Gui && split.length >= 2) {
+            if (split.length == 2) {
                 holder = (MetadataHolder) owner;
             } else {
                 gui = (Gui) owner;
             }
-        } else if(owner instanceof Slot && split.length >= 2) {
-            if(first.equals("gui")) {
+        } else if (owner instanceof Slot && split.length >= 2) {
+            if (first.equals("gui")) {
                 holder = ((Slot) this.getOwner()).getOwner();
-            } else if(split.length == 2) {
+            } else if (split.length == 2) {
                 holder = (MetadataHolder) this.getOwner();
-            } else if(split.length == 3) {
+            } else if (split.length == 3) {
                 gui = ((Slot) owner).getOwner();
             }
         }
 
         //Check for slots
-        if(holder == null) {
+        if (holder == null) {
             int index = -1;
             try {
                 index = Integer.valueOf(first);
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 DynamicGui.get().getLogger().error("Invalid index " + first + " in HasMetadata function");
                 return false;
             }
-            for(Slot s : gui.getSlots()) {
-                if(s.getIndex() == index) {
+            for (Slot s : gui.getSlots()) {
+                if (s.getIndex() == index) {
                     holder = s;
                     break;
                 }
             }
         }
 
-        if(holder != null && split.length >= 2) {
+        if (holder != null && split.length >= 2) {
             String key = null;
             String value = null;
-            if(split.length == 2) {
+            if (split.length == 2) {
                 key = split[0];
                 value = split[1];
-            } else if(split.length == 3) {
+            } else if (split.length == 3) {
                 key = split[1];
                 value = split[2];
             }
 
-            if(key != null) {
+            if (key != null) {
                 holder.getMetadata().put(key, value);
                 return true;
             }

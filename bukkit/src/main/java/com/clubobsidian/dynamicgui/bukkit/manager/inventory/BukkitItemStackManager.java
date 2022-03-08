@@ -30,7 +30,7 @@ public class BukkitItemStackManager extends ItemStackManager {
 
     @Override
     public ItemStackWrapper<?> createItemStackWrapper(Object itemStack) {
-        if(itemStack == null) {
+        if (itemStack == null) {
             return new BukkitItemStackWrapper<>(null);
         }
         return new BukkitItemStackWrapper<>((ItemStack) itemStack);

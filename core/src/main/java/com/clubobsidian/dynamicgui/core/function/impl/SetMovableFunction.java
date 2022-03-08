@@ -35,17 +35,17 @@ public class SetMovableFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
-        if(this.getOwner() != null && this.getOwner() instanceof Slot) {
+        if (this.getOwner() != null && this.getOwner() instanceof Slot) {
             boolean value = Boolean.parseBoolean(this.getData());
             FunctionOwner owner = this.getOwner();
-            if(owner != null) {
-                if(owner instanceof Slot) {
+            if (owner != null) {
+                if (owner instanceof Slot) {
                     Slot slot = (Slot) owner;
                     Gui gui = slot.getOwner();
-                    if(gui != null) {
+                    if (gui != null) {
                         slot.setMovable(value);
                         return true;
                     }

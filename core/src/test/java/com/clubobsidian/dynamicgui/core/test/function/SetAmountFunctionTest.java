@@ -22,7 +22,6 @@ import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import org.junit.jupiter.api.Test;
 

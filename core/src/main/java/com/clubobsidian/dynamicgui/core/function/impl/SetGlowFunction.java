@@ -36,16 +36,16 @@ public class SetGlowFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         FunctionOwner owner = this.getOwner();
-        if(owner != null && owner instanceof Slot) {
+        if (owner != null && owner instanceof Slot) {
             Slot slot = (Slot) owner;
             Gui gui = slot.getOwner();
-            if(gui != null) {
+            if (gui != null) {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                if(inv != null) {
+                if (inv != null) {
                     boolean value = Boolean.parseBoolean(this.getData());
                     ItemStackWrapper<?> item = slot.getItemStack();
                     item.setGlowing(value);

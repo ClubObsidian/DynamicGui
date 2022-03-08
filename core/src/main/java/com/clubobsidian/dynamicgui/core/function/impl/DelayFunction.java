@@ -12,13 +12,13 @@ public class DelayFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null || !NumberUtils.isParsable(this.getData())) {
+        if (this.getData() == null || !NumberUtils.isParsable(this.getData())) {
             return false;
         }
         try {
             Thread.sleep(Integer.parseInt(this.getData()));
             return true;
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return false;
         }

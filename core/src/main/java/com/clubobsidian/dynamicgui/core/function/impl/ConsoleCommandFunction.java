@@ -33,7 +33,7 @@ public class ConsoleCommandFunction extends Function {
 
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         DynamicGui.get().getPlatform().dispatchServerCommand(ReplacerManager.get().replace(this.getData(), playerWrapper));

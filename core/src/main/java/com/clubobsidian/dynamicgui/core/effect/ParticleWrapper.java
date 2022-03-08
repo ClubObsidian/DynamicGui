@@ -49,7 +49,7 @@ public class ParticleWrapper implements Serializable {
     public static class ParticleData {
 
         public static ParticleData fromString(String str) {
-            if(str.contains(",")) {
+            if (str.contains(",")) {
                 String[] args = str.split(",");
                 return new ParticleData(args[0].toUpperCase(), NumberUtils.toInt(args[1]));
             }
@@ -74,8 +74,8 @@ public class ParticleWrapper implements Serializable {
 
         @Override
         public boolean equals(Object o) {
-            if(this == o) return true;
-            if(!(o instanceof ParticleData)) return false;
+            if (this == o) return true;
+            if (!(o instanceof ParticleData)) return false;
             ParticleData that = (ParticleData) o;
             return extraData == that.extraData && Objects.equals(effect, that.effect);
         }

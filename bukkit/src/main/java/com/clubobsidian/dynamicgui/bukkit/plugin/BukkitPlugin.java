@@ -40,9 +40,9 @@ import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
@@ -87,33 +87,33 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
         boolean vault = false;
         boolean foundry = false;
-        if(pm.getPlugin("Vault") != null) {
+        if (pm.getPlugin("Vault") != null) {
             vault = true;
         }
-        if(pm.getPlugin("Foundry") != null) {
+        if (pm.getPlugin("Foundry") != null) {
             foundry = true;
         }
 
-        if(vault && foundry) {
+        if (vault && foundry) {
             this.permission = new FoundryPermission();
-        } else if(vault) {
+        } else if (vault) {
             this.permission = new VaultPermission();
         }
 
-        if(this.permission != null && !this.permission.setup()) {
+        if (this.permission != null && !this.permission.setup()) {
             this.permission = null;
         }
 
-        if(permission == null) {
+        if (permission == null) {
             this.getLogger().log(Level.SEVERE, "Vault is not installed, permissions will not work");
         }
 
         this.economy = new VaultEconomy();
-        if(!this.economy.setup()) {
+        if (!this.economy.setup()) {
             this.economy = null;
         }
 
-        if(this.economy == null) {
+        if (this.economy == null) {
             this.getLogger().log(Level.SEVERE, "Vault is not installed, economy functions will not work");
         }
 
@@ -122,14 +122,14 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         //Hack for adding citizens late
         //For some reason citizens sometimes will load after DynamicGui
         this.getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
-            if(this.getServer().getPluginManager().getPlugin("Citizens") != null) {
+            if (this.getServer().getPluginManager().getPlugin("Citizens") != null) {
                 this.getNPCRegistries().add(new CitizensRegistry());
             }
         }, 1);
 
         this.registerModelProviders(pm);
 
-        if(this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if (this.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
@@ -143,10 +143,10 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     }
 
     private void registerModelProviders(PluginManager pm) {
-        if(pm.getPlugin("Oraxen") != null) {
+        if (pm.getPlugin("Oraxen") != null) {
             ModelManager.get().register(new OraxenModelProvider());
         }
-        if(pm.getPlugin("ItemsAdder") != null) {
+        if (pm.getPlugin("ItemsAdder") != null) {
             ModelManager.get().register(new ItemsAdderModelProvider());
         }
     }
@@ -192,16 +192,16 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     }
 
     private final CommandMap getCommandMap() {
-        if(this.commandMap == null) {
+        if (this.commandMap == null) {
             try {
                 final Field f = this.getServer().getClass().getDeclaredField("commandMap");
                 f.setAccessible(true);
                 this.commandMap = (CommandMap) f.get(this.getServer());
                 return this.commandMap;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(this.commandMap != null) {
+        } else if (this.commandMap != null) {
             return this.commandMap;
         }
         return null;
@@ -218,7 +218,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
             @SuppressWarnings("unchecked")
             Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
             commands.keySet().remove(alias);
-        } catch(IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
     }
@@ -239,7 +239,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     @Override
     public void unloadCommands() {
-        for(String cmd : this.getRegisteredCommands()) {
+        for (String cmd : this.getRegisteredCommands()) {
             this.unregisterCommand(cmd);
         }
     }

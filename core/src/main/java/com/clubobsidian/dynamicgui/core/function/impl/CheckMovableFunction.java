@@ -34,12 +34,12 @@ public class CheckMovableFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
 
         FunctionOwner owner = this.getOwner();
-        if(!(owner instanceof Slot)) {
+        if (!(owner instanceof Slot)) {
             return false;
         }
 

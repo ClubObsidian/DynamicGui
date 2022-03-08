@@ -32,12 +32,12 @@ public class SetCooldownFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null || !this.getData().contains(",")) {
+        if (this.getData() == null || !this.getData().contains(",")) {
             return false;
         }
 
         String[] split = this.getData().split(",");
-        if(split.length != 2) {
+        if (split.length != 2) {
             return false;
         }
 
@@ -45,7 +45,7 @@ public class SetCooldownFunction extends Function {
         long cooldownTime;
         try {
             cooldownTime = Long.parseLong(split[1]);
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
 

@@ -74,7 +74,7 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
     }
 
     public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
-        if(this.isStatic && this.inventoryWrapper != null) { //Don't rebuild if gui is static
+        if (this.isStatic && this.inventoryWrapper != null) { //Don't rebuild if gui is static
             return this.inventoryWrapper;
         }
         String inventoryTitle = this.formatTitle(playerWrapper);
@@ -87,14 +87,14 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
 
     private String formatTitle(PlayerWrapper<?> playerWrapper) {
         String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-        if(inventoryTitle.length() > 32) {
+        if (inventoryTitle.length() > 32) {
             inventoryTitle = inventoryTitle.substring(0, 31);
         }
         return inventoryTitle;
     }
 
     private Object createInventory(String inventoryTitle) {
-        if(this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
+        if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
             return InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
         } else {
             return InventoryManager.get().createInventory(inventoryTitle, this.type);
@@ -102,14 +102,14 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
     }
 
     private void populateInventory(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
-        for(int i = 0; i < this.slots.size(); i++) {
+        for (int i = 0; i < this.slots.size(); i++) {
             Slot slot = this.slots.get(i);
-            if(slot != null) {
+            if (slot != null) {
                 slot.setOwner(this);
                 ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
-                if(this.modeEnum == ModeEnum.ADD) {
+                if (this.modeEnum == ModeEnum.ADD) {
                     int itemIndex = inventoryWrapper.addItem(item);
-                    if(itemIndex != -1) {
+                    if (itemIndex != -1) {
                         slot.setIndex(itemIndex);
                     }
                 } else {

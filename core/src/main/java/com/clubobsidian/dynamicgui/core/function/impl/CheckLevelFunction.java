@@ -31,13 +31,13 @@ public class CheckLevelFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         try {
             int level = Integer.parseInt(this.getData());
             return playerWrapper.getLevel() >= level;
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             ex.printStackTrace();
             return false;
         }

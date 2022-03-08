@@ -27,8 +27,8 @@ public class BukkitGuiCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player) {
-            if(args.length == 1) {
+        if (sender instanceof Player) {
+            if (args.length == 1) {
                 Player player = (Player) sender;
                 PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
                 GuiManager.get().openGui(playerWrapper, args[0]);

@@ -30,7 +30,7 @@ public abstract class Function implements Cloneable, Serializable {
     private static final long serialVersionUID = 1492427006104061443L;
 
     private static String[] normalizeAliases(String[] aliases) {
-        for(int i = 0; i < aliases.length; i++) {
+        for (int i = 0; i < aliases.length; i++) {
             aliases[i] = StringFuzz.normalize(aliases[i]);
         }
         return aliases;
@@ -88,7 +88,7 @@ public abstract class Function implements Cloneable, Serializable {
     }
 
     public boolean setOwner(FunctionOwner owner) {
-        if(this.owner != null) {
+        if (this.owner != null) {
             return false;
         }
         this.owner = owner;

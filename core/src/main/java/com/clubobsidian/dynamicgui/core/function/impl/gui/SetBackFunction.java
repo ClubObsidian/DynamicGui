@@ -37,21 +37,21 @@ public class SetBackFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui = null;
         FunctionOwner owner = this.getOwner();
-        if(owner instanceof Slot) {
+        if (owner instanceof Slot) {
             Slot slot = (Slot) owner;
             gui = slot.getOwner();
-        } else if(owner instanceof Gui) {
+        } else if (owner instanceof Gui) {
             gui = (Gui) owner;
         }
 
-        if(gui == null) {
+        if (gui == null) {
             return false;
-        } else if(this.getData() == null) {
+        } else if (this.getData() == null) {
             return false;
         }
 
         Gui backGui = GuiManager.get().getGuiByName(this.getData());
-        if(backGui == null) {
+        if (backGui == null) {
             return false;
         }
         gui.setBack(backGui);

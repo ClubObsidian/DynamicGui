@@ -32,7 +32,7 @@ public class ResetTickFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getOwner() instanceof Slot) {
+        if (this.getOwner() instanceof Slot) {
             Slot slot = (Slot) this.getOwner();
             slot.resetTick();
             return true;

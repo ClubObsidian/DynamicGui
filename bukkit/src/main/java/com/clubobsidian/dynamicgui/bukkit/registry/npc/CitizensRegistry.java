@@ -47,7 +47,7 @@ public class CitizensRegistry implements NPCRegistry {
 
         try {
             return this.getNPCRegistryMethod.invoke(null);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
@@ -68,14 +68,14 @@ public class CitizensRegistry implements NPCRegistry {
     public NPC getNPC(EntityWrapper<?> entityWrapper) {
         try {
             Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
-            if(npc == null) {
+            if (npc == null) {
                 return null;
             }
 
             int id = (int) this.getIdMethod.invoke(npc);
             NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
             return new NPC(entityWrapper, meta);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

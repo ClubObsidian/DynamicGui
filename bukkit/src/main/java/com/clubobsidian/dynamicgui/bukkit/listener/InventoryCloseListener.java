@@ -32,7 +32,7 @@ public class InventoryCloseListener implements Listener {
 
     @EventHandler
     public void inventoryClose(InventoryCloseEvent e) {
-        if(e.getPlayer() instanceof Player) {
+        if (e.getPlayer() instanceof Player) {
             PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
             InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
             DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));

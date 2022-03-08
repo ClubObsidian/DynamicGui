@@ -33,19 +33,19 @@ public class OraxenModelProvider implements ModelProvider {
         try {
             Class.forName("io.th0rgal.oraxen.items.OraxenItems");
             return true;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             return false;
         }
     }
 
     private static Method getItemById() {
-        if(ORAXEN_EXISTS) {
+        if (ORAXEN_EXISTS) {
             try {
                 Class<?> items = Class.forName("io.th0rgal.oraxen.items.OraxenItems");
                 Method getItem = items.getDeclaredMethod("getItemById", String.class);
                 getItem.setAccessible(true);
                 return getItem;
-            } catch(ClassNotFoundException | NoSuchMethodException e) {
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -53,13 +53,13 @@ public class OraxenModelProvider implements ModelProvider {
     }
 
     private static Method getBuild() {
-        if(ORAXEN_EXISTS) {
+        if (ORAXEN_EXISTS) {
             try {
                 Class<?> itemBuilder = Class.forName("io.th0rgal.oraxen.items.ItemBuilder");
                 Method build = itemBuilder.getDeclaredMethod("build");
                 build.setAccessible(true);
                 return build;
-            } catch(ClassNotFoundException | NoSuchMethodException ex) {
+            } catch (ClassNotFoundException | NoSuchMethodException ex) {
                 ex.printStackTrace();
             }
         }
@@ -75,15 +75,15 @@ public class OraxenModelProvider implements ModelProvider {
     public boolean applyModel(ItemStackWrapper<?> itemStack, String data) {
         try {
             Object itemBuilder = GET_ITEM_BY_ID.invoke(null, data);
-            if(itemBuilder == null) {
+            if (itemBuilder == null) {
                 return false;
             }
             ItemStackWrapper<?> built = ItemStackManager.get().createItemStackWrapper(BUILD.invoke(itemBuilder));
-            if(built.hasCustomModel()) {
+            if (built.hasCustomModel()) {
                 return itemStack.setModel(built.getModelData());
             }
             return false;
-        } catch(IllegalAccessException | InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
         }

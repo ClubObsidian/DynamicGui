@@ -15,9 +15,9 @@
  */
 package com.clubobsidian.dynamicgui.core.function.impl;
 
+import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 
 public class SoundFunction extends Function {
 
@@ -32,7 +32,7 @@ public class SoundFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         SoundWrapper wrapper = new SoundWrapper(this.getData());

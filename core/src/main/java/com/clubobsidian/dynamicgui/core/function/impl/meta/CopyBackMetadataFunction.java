@@ -33,15 +33,15 @@ public class CopyBackMetadataFunction extends Function {
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui = null;
         FunctionOwner owner = this.getOwner();
-        if(owner instanceof Slot) {
+        if (owner instanceof Slot) {
             Slot slot = (Slot) owner;
             gui = slot.getOwner();
-        } else if(owner instanceof Gui) {
+        } else if (owner instanceof Gui) {
             gui = (Gui) owner;
         }
 
         Gui back = gui.getBack();
-        if(back == null) {
+        if (back == null) {
             return false;
         }
         gui.getMetadata().putAll(back.getMetadata());

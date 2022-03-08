@@ -31,7 +31,7 @@ public class BukkitMaterialManager extends MaterialManager {
 
     private void loadMaterials() {
         this.materials = new ArrayList<>();
-        for(Material material : Material.values()) {
+        for (Material material : Material.values()) {
             this.materials.add(material.name());
         }
     }
@@ -43,7 +43,7 @@ public class BukkitMaterialManager extends MaterialManager {
 
     @Override
     public String normalizeMaterial(String material) {
-        if(material == null)
+        if (material == null)
             return null;
 
         return material.toUpperCase();

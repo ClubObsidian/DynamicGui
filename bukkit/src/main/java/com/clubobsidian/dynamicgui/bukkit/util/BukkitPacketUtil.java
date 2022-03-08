@@ -59,30 +59,30 @@ public final class BukkitPacketUtil {
     public static void sendPacket(Player player, Object packet) {
         String version = VersionUtil.getVersion();
         try {
-            if(craftPlayerClass == null) {
+            if (craftPlayerClass == null) {
                 craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
             }
 
-            if(playerHandle == null) {
+            if (playerHandle == null) {
                 playerHandle = craftPlayerClass.getDeclaredMethod("getHandle");
             }
 
-            if(nmsPlayerClass == null) {
+            if (nmsPlayerClass == null) {
                 nmsPlayerClass = Class.forName(ENTITY_PLAYER_CLASS_NAME);
             }
 
-            if(playerConnection == null) {
+            if (playerConnection == null) {
                 Class<?> conClazz = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
                 playerConnection = ReflectionUtil.getFieldByType(nmsPlayerClass, conClazz);
             }
 
-            if(networkManager == null) {
+            if (networkManager == null) {
                 Class<?> playerConnection = Class.forName(PLAYER_CONNECTION_CLASS_NAME);
                 Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
                 networkManager = ReflectionUtil.getFieldByType(playerConnection, networkManagerClass);
             }
 
-            if(sendPacket == null) {
+            if (sendPacket == null) {
                 Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
                 Class<?> packetClass = Class.forName(PACKET_CLASS_NAME);
                 sendPacket = networkManagerClass.getDeclaredMethod("sendPacket", packetClass);
@@ -93,7 +93,7 @@ public final class BukkitPacketUtil {
             Object manager = networkManager.get(con);
 
             sendPacket.invoke(manager, packet);
-        } catch(ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -101,37 +101,37 @@ public final class BukkitPacketUtil {
     public static void sendSlotPacket(int index, Player player, ItemStack itemStack) {
         String version = VersionUtil.getVersion();
         try {
-            if(craftPlayerClass == null) {
+            if (craftPlayerClass == null) {
                 craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
             }
 
-            if(craftItemClass == null) {
+            if (craftItemClass == null) {
                 craftItemClass = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
             }
 
-            if(itemStackHandle == null) {
+            if (itemStackHandle == null) {
                 itemStackHandle = craftItemClass.getDeclaredField("handle");
                 itemStackHandle.setAccessible(true);
             }
 
-            if(playerHandle == null) {
+            if (playerHandle == null) {
                 playerHandle = craftPlayerClass.getDeclaredMethod("getHandle");
             }
 
-            if(nmsPlayerClass == null) {
+            if (nmsPlayerClass == null) {
                 nmsPlayerClass = Class.forName(ENTITY_PLAYER_CLASS_NAME);
             }
 
-            if(nmsHumanClass == null) {
+            if (nmsHumanClass == null) {
                 nmsHumanClass = Class.forName(ENTITY_HUMAN_CLASS_NAME);
             }
 
-            if(windowIdField == null) {
+            if (windowIdField == null) {
                 Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
                 windowIdField = ReflectionUtil.getDeclaredField(containerClass, "windowId", "j");
             }
 
-            if(activeContainer == null) {
+            if (activeContainer == null) {
                 Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
                 activeContainer = ReflectionUtil.getFieldByType(nmsHumanClass, containerClass);
             }
@@ -145,10 +145,10 @@ public final class BukkitPacketUtil {
             //stateId is new in 1.17
             //int windowID, int stateID, int slot, ItemStack itemstack
             Object packet;
-            if(SET_SLOT_CONSTRUCTOR_LENGTH == 3) {
+            if (SET_SLOT_CONSTRUCTOR_LENGTH == 3) {
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, index, nmsItemStack);
             } else {
-                if(stateIdField == null) {
+                if (stateIdField == null) {
                     Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
                     stateIdField = ReflectionUtil.getDeclaredField(containerClass, "q");
                 }
@@ -156,7 +156,7 @@ public final class BukkitPacketUtil {
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, stateId, index, nmsItemStack);
             }
             sendPacket(player, packet);
-        } catch(ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -164,12 +164,12 @@ public final class BukkitPacketUtil {
     private static Constructor<?> getPacketPlayOutSetSlotConstructor() {
         try {
             Class<?> packetClass = Class.forName(PACKET_PLAY_OUT_SET_SLOT_CLASS_NAME);
-            for(Constructor<?> con : packetClass.getDeclaredConstructors()) {
-                if(con.getParameterTypes().length > 0 && con.getParameterTypes()[0].equals(int.class)) {
+            for (Constructor<?> con : packetClass.getDeclaredConstructors()) {
+                if (con.getParameterTypes().length > 0 && con.getParameterTypes()[0].equals(int.class)) {
                     return con;
                 }
             }
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -180,13 +180,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.world.item.ItemStack";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".ItemStack";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -197,13 +197,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.server.level.EntityPlayer";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".EntityPlayer";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -214,13 +214,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.world.entity.player.EntityHuman";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".EntityHuman";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -231,13 +231,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.server.network.PlayerConnection";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".PlayerConnection";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -248,13 +248,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.network.NetworkManager";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".NetworkManager";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -265,13 +265,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.world.inventory.Container";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".Container";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -282,13 +282,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.network.protocol.Packet";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".Packet";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -299,13 +299,13 @@ public final class BukkitPacketUtil {
             String className = "net.minecraft.network.protocol.game.PacketPlayOutSetSlot";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".PacketPlayOutSetSlot";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }

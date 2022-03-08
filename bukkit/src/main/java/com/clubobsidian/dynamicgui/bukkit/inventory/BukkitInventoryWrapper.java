@@ -41,7 +41,7 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
     public ItemStackWrapper<?>[] getContents() {
         ItemStack[] bukkitContents = this.getInventory().getContents();
         ItemStackWrapper<?>[] wrapperContents = new ItemStackWrapper<?>[bukkitContents.length];
-        for(int i = 0; i < bukkitContents.length; i++) {
+        for (int i = 0; i < bukkitContents.length; i++) {
             ItemStack itemStack = bukkitContents[i];
             ItemStackWrapper<?> wrapped = new BukkitItemStackWrapper<>(itemStack);
             wrapperContents[i] = wrapped;
@@ -76,8 +76,8 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
     @Override
     public int getCurrentContentSize() {
         int contentSize = 0;
-        for(ItemStack item : this.getInventory().getContents()) {
-            if(item != null && item.getType() != Material.AIR) {
+        for (ItemStack item : this.getInventory().getContents()) {
+            if (item != null && item.getType() != Material.AIR) {
                 contentSize += 1;
             }
         }

@@ -33,19 +33,19 @@ public class ItemsAdderModelProvider implements ModelProvider {
         try {
             Class.forName("dev.lone.itemsadder.api.CustomStack");
             return true;
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             return false;
         }
     }
 
     private static Method instance() {
-        if(ITEMS_ADDER_EXISTS) {
+        if (ITEMS_ADDER_EXISTS) {
             try {
                 Class<?> customStack = Class.forName("dev.lone.itemsadder.api.CustomStack");
                 Method getInstance = customStack.getDeclaredMethod("getInstance", String.class);
                 getInstance.setAccessible(true);
                 return getInstance;
-            } catch(ClassNotFoundException | NoSuchMethodException e) {
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -53,13 +53,13 @@ public class ItemsAdderModelProvider implements ModelProvider {
     }
 
     private static Method itemStack() {
-        if(ITEMS_ADDER_EXISTS) {
+        if (ITEMS_ADDER_EXISTS) {
             try {
                 Class<?> customStack = Class.forName("dev.lone.itemsadder.api.CustomStack");
                 Method getItemStack = customStack.getDeclaredMethod("getItemStack");
                 getItemStack.setAccessible(true);
                 return getItemStack;
-            } catch(ClassNotFoundException | NoSuchMethodException e) {
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         }
@@ -73,18 +73,18 @@ public class ItemsAdderModelProvider implements ModelProvider {
 
     @Override
     public boolean applyModel(ItemStackWrapper<?> itemStack, String data) {
-        if(ITEMS_ADDER_EXISTS) {
+        if (ITEMS_ADDER_EXISTS) {
             try {
                 Object customStack = GET_INSTANCE.invoke(null, data);
-                if(customStack != null) {
+                if (customStack != null) {
                     ItemStackWrapper<?> wrappedCustom = ItemStackManager
                             .get()
                             .createItemStackWrapper(GET_ITEM_STACK.invoke(customStack));
-                    if(wrappedCustom.hasCustomModel()) {
+                    if (wrappedCustom.hasCustomModel()) {
                         return itemStack.setModel(wrappedCustom.getModelData());
                     }
                 }
-            } catch(IllegalAccessException | InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

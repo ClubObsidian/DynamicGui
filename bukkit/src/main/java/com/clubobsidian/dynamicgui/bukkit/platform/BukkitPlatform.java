@@ -21,11 +21,11 @@ import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -89,7 +89,7 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public int getGlobalPlayerCount() {
-        if(DynamicGui.get().getProxy() != Proxy.NONE) {
+        if (DynamicGui.get().getProxy() != Proxy.NONE) {
             return DynamicGui.get().getGlobalServerPlayerCount();
         }
 
@@ -111,7 +111,7 @@ public class BukkitPlatform implements Platform {
         PluginMessageListener listener = new PluginMessageListener() {
             @Override
             public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-                if(channel.equals(incomingChannel)) {
+                if (channel.equals(incomingChannel)) {
                     PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
                     runnable.run(playerWrapper, message);
                 }
@@ -123,7 +123,7 @@ public class BukkitPlatform implements Platform {
     @Override
     public WorldWrapper<?> getWorld(String worldName) {
         World world = Bukkit.getServer().getWorld(worldName);
-        if(world == null) {
+        if (world == null) {
             return null;
         }
 

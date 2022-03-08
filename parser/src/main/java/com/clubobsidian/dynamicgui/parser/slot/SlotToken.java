@@ -89,7 +89,7 @@ public class SlotToken implements Serializable {
     }
 
     private int parseAmount(int amount) {
-        if(amount == 0) {
+        if (amount == 0) {
             return 1;
         }
         return amount;
@@ -99,18 +99,18 @@ public class SlotToken implements Serializable {
         String stringData = this.macroParser.parseStringMacros(data);
         try {
             return Byte.parseByte(stringData);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
 
     private boolean parseBoolean(String data) {
-        if(data == null) {
+        if (data == null) {
             return false;
         }
 
         String parsed = this.macroParser.parseStringMacros(data);
-        if(data.equals("true")) {
+        if (data.equals("true")) {
             return Boolean.parseBoolean(parsed);
         }
 
@@ -118,14 +118,14 @@ public class SlotToken implements Serializable {
     }
 
     private int parseInteger(String data) {
-        if(data == null) {
+        if (data == null) {
             return 0;
         }
 
         try {
             String parsed = this.macroParser.parseStringMacros(data);
             return Integer.parseInt(parsed);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return 0;
         }
     }
@@ -137,7 +137,7 @@ public class SlotToken implements Serializable {
 
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
-        for(String key : section.getKeys()) {
+        for (String key : section.getKeys()) {
             String parsedKey = this.macroParser.parseStringMacros(key);
             String value = section.getString(parsedKey);
             value = this.macroParser.parseStringMacros(value);

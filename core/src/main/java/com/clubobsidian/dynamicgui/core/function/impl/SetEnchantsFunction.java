@@ -41,20 +41,20 @@ public class SetEnchantsFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         FunctionOwner owner = this.getOwner();
-        if(owner != null && owner instanceof Slot) {
+        if (owner != null && owner instanceof Slot) {
             Slot slot = (Slot) owner;
             Gui gui = slot.getOwner();
-            if(gui != null) {
+            if (gui != null) {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
-                if(inv != null) {
+                if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
                     Map<String, Integer> enchants = new HashMap<>();
-                    if(this.getData().contains(";")) {
-                        for(String str : this.getData().split(";")) {
+                    if (this.getData().contains(";")) {
+                        for (String str : this.getData().split(";")) {
                             String[] split = str.split(",");
                             enchants.put(split[0], Integer.valueOf(split[1]));
                         }
@@ -63,11 +63,11 @@ public class SetEnchantsFunction extends Function {
                         enchants.put(split[0], Integer.valueOf(split[1]));
                     }
 
-                    for(EnchantmentWrapper wrapper : item.getEnchants()) {
+                    for (EnchantmentWrapper wrapper : item.getEnchants()) {
                         item.removeEnchant(wrapper);
                     }
 
-                    for(String str : enchants.keySet()) {
+                    for (String str : enchants.keySet()) {
                         item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
                     }
 

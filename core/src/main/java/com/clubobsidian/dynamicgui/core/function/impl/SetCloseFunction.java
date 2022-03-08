@@ -32,11 +32,11 @@ public class SetCloseFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         boolean value = Boolean.valueOf(this.getData());
-        if(this.getOwner() instanceof CloseableComponent) {
+        if (this.getOwner() instanceof CloseableComponent) {
             CloseableComponent component = (CloseableComponent) this.getOwner();
             component.setClose(value);
             return true;

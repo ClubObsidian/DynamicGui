@@ -71,7 +71,7 @@ public class SendFunctionTest {
             proxyField.setAccessible(true);
             proxyField.set(DynamicGui.get(), proxy);
             return true;
-        } catch(NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
             return false;
         }

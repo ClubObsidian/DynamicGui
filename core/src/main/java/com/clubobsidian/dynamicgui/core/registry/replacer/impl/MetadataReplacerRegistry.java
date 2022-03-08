@@ -36,7 +36,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
     private static MetadataReplacerRegistry instance;
 
     public static MetadataReplacerRegistry get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new MetadataReplacerRegistry();
         }
 
@@ -55,15 +55,15 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         Gui gui = this.cachedGuis.get(playerWrapper.getUniqueId());
-        if(gui == null) {
+        if (gui == null) {
             return text;
         }
 
-        for(Map.Entry<String, String> entry : gui.getMetadata().entrySet()) {
+        for (Map.Entry<String, String> entry : gui.getMetadata().entrySet()) {
             String metadataKey = entry.getKey();
             String metadataValue = entry.getValue();
             String metadataReplacer = METADATA_PREFIX + metadataKey + "%";
-            if(text.contains(metadataReplacer)) {
+            if (text.contains(metadataReplacer)) {
                 text = StringUtils.replace(text, metadataReplacer, metadataValue);
             }
         }
@@ -80,7 +80,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onGuiLoad(GuiLoadEvent event) {
-        if(event.isCancelled()) {
+        if (event.isCancelled()) {
             UUID uuid = event.getPlayerWrapper().getUniqueId();
             this.cachedGuis.remove(uuid);
         }
@@ -91,7 +91,7 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
         UUID uuid = wrapper.getUniqueId();
         Gui gui = this.cachedGuis.get(uuid);
-        if(gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
+        if (gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
             this.cachedGuis.remove(uuid);
         }
     }

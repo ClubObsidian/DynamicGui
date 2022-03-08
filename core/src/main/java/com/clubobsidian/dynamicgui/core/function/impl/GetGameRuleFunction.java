@@ -34,14 +34,14 @@ public class GetGameRuleFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null || !this.getData().contains(",")) {
+        if (this.getData() == null || !this.getData().contains(",")) {
             return false;
         }
         String[] split = this.getData().split(",");
-        if(split.length == 3) {
+        if (split.length == 3) {
             String worldName = split[0];
             WorldWrapper<?> world = DynamicGui.get().getPlatform().getWorld(worldName);
-            if(world == null) {
+            if (world == null) {
                 return false;
             }
             String rule = split[1];

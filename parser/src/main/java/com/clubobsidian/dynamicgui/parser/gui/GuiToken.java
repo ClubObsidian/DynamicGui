@@ -84,14 +84,14 @@ public class GuiToken implements Serializable {
     }
 
     public String parseType(String type) {
-        if(type == null) {
+        if (type == null) {
             return "CHEST";
         }
         return type.toUpperCase();
     }
 
     private GuiMode parseMode(String mode) {
-        if(mode == null) {
+        if (mode == null) {
             return GuiMode.SET;
         }
 
@@ -101,7 +101,7 @@ public class GuiToken implements Serializable {
     private Map<String, List<Integer>> loadNpcs(ConfigurationSection section) {
         Map<String, List<Integer>> npcs = new HashMap<>();
         ConfigurationSection npcSection = section.getConfigurationSection("npcs");
-        for(String key : npcSection.getKeys()) {
+        for (String key : npcSection.getKeys()) {
             List<Integer> npcIds = npcSection.getIntegerList(key);
             npcs.put(key, npcIds);
         }
@@ -110,7 +110,7 @@ public class GuiToken implements Serializable {
 
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
-        for(String key : section.getKeys()) {
+        for (String key : section.getKeys()) {
             String parsedKey = this.macroParser.parseStringMacros(key);
             String value = section.getString(parsedKey);
             value = this.macroParser.parseStringMacros(value);
@@ -123,9 +123,9 @@ public class GuiToken implements Serializable {
     private Map<Integer, SlotToken> loadSlots(ConfigurationSection section) {
         Map<Integer, SlotToken> slots = new LinkedHashMap<>();
         int slotAmt = this.rows * 9;
-        for(int i = 0; i < slotAmt; i++) {
+        for (int i = 0; i < slotAmt; i++) {
             ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
-            if(!slotSection.isEmpty()) {
+            if (!slotSection.isEmpty()) {
                 SlotToken token = new SlotToken(i, slotSection, this.macroParser.getTokens());
                 slots.put(i, token);
             }

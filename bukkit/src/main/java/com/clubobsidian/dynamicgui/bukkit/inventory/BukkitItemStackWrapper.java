@@ -48,7 +48,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             Method set = ItemMeta.class.getDeclaredMethod("setCustomModelData", Integer.class);
             set.setAccessible(true);
             return set;
-        } catch(NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             return null;
         }
     }
@@ -58,7 +58,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             Method has = ItemMeta.class.getDeclaredMethod("hasCustomModelData");
             has.setAccessible(true);
             return has;
-        } catch(NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             return null;
         }
     }
@@ -68,7 +68,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             Method get = ItemMeta.class.getDeclaredMethod("getCustomModelData");
             get.setAccessible(true);
             return get;
-        } catch(NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
             return null;
         }
     }
@@ -99,7 +99,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public boolean setType(final String type) {
-        if(type == null) {
+        if (type == null) {
             return false;
         }
 
@@ -108,7 +108,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
         try {
             mat = Material.valueOf(normalizedType);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return false;
         }
 
@@ -119,7 +119,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public String getName() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if(itemMeta.hasDisplayName()) {
+        if (itemMeta.hasDisplayName()) {
             return itemMeta.getDisplayName();
         }
         return null;
@@ -135,7 +135,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public List<String> getLore() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if(!itemMeta.hasLore()) {
+        if (!itemMeta.hasLore()) {
             return new ArrayList<>();
         }
 
@@ -177,9 +177,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public List<EnchantmentWrapper> getEnchants() {
         List<EnchantmentWrapper> enchants = new ArrayList<>();
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if(itemMeta.hasEnchants()) {
+        if (itemMeta.hasEnchants()) {
             Iterator<Entry<Enchantment, Integer>> it = itemMeta.getEnchants().entrySet().iterator();
-            while(it.hasNext()) {
+            while (it.hasNext()) {
                 Entry<Enchantment, Integer> next = it.next();
                 enchants.add(new EnchantmentWrapper(next.getKey().getName(), next.getValue()));
             }
@@ -197,25 +197,25 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         ItemStack oldItemStack = this.getItemStack();
         ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
 
-        if(oldItemStack.hasItemMeta()) {
+        if (oldItemStack.hasItemMeta()) {
             ItemMeta meta = oldItemStack.getItemMeta();
             ItemMeta newMeta = newItemStack.getItemMeta();
-            if(meta.hasDisplayName()) {
+            if (meta.hasDisplayName()) {
                 newMeta.setDisplayName(meta.getDisplayName());
             }
 
-            if(meta.hasEnchants()) {
+            if (meta.hasEnchants()) {
                 Iterator<Entry<Enchantment, Integer>> it = meta.getEnchants().entrySet().iterator();
-                while(it.hasNext()) {
+                while (it.hasNext()) {
                     Entry<Enchantment, Integer> next = it.next();
                     newMeta.addEnchant(next.getKey(), next.getValue(), true);
                 }
             }
-            if(meta.hasLore()) {
+            if (meta.hasLore()) {
                 newMeta.setLore(meta.getLore());
             }
 
-            for(ItemFlag flag : meta.getItemFlags()) {
+            for (ItemFlag flag : meta.getItemFlags()) {
                 newMeta.addItemFlags(flag);
             }
 
@@ -229,7 +229,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public void setGlowing(boolean glowing) {
         ItemStack item = this.getItemStack();
         ItemMeta meta = item.getItemMeta();
-        if(glowing) {
+        if (glowing) {
             meta.addEnchant(Enchantment.DIG_SPEED, -1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
@@ -244,9 +244,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     public void addItemFlags(List<String> itemFlags) {
         ItemStack item = this.getItemStack();
         ItemMeta meta = item.getItemMeta();
-        for(String itemFlag : itemFlags) {
+        for (String itemFlag : itemFlags) {
             ItemFlag flag = ItemFlag.valueOf(itemFlag);
-            if(flag != null) {
+            if (flag != null) {
                 meta.addItemFlags(flag);
             }
         }
@@ -260,7 +260,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public boolean setModel(int data) {
-        if(SET_CUSTOM_MODEL_DATA == null) {
+        if (SET_CUSTOM_MODEL_DATA == null) {
             return false;
         }
         ItemMeta meta = getItemStack().getItemMeta();
@@ -268,7 +268,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             SET_CUSTOM_MODEL_DATA.invoke(meta, data);
             this.getItemStack().setItemMeta(meta);
             return true;
-        } catch(IllegalAccessException | InvocationTargetException ex) {
+        } catch (IllegalAccessException | InvocationTargetException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -276,13 +276,13 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public boolean hasCustomModel() {
-        if(HAS_CUSTOM_MODEL_DATA == null) {
+        if (HAS_CUSTOM_MODEL_DATA == null) {
             return false;
         }
         ItemMeta meta = getItemStack().getItemMeta();
         try {
             return (boolean) HAS_CUSTOM_MODEL_DATA.invoke(meta);
-        } catch(IllegalAccessException | InvocationTargetException ex) {
+        } catch (IllegalAccessException | InvocationTargetException ex) {
             ex.printStackTrace();
         }
         return false;
@@ -290,13 +290,13 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public int getModelData() {
-        if(GET_CUSTOM_MODEL_DATA == null) {
+        if (GET_CUSTOM_MODEL_DATA == null) {
             return -1;
         }
         ItemMeta meta = getItemStack().getItemMeta();
         try {
             return (int) GET_CUSTOM_MODEL_DATA.invoke(meta);
-        } catch(IllegalAccessException | InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return -1;

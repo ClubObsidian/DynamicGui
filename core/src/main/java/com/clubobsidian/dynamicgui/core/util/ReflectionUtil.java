@@ -26,7 +26,7 @@ public final class ReflectionUtil {
     public static Class<?> classForName(String name) {
         try {
             return Class.forName(name);
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
@@ -37,7 +37,7 @@ public final class ReflectionUtil {
             Method method = cl.getDeclaredMethod(methodName);
             method.setAccessible(true);
             return method;
-        } catch(NoSuchMethodException | SecurityException e) {
+        } catch (NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
         return null;
@@ -48,15 +48,15 @@ public final class ReflectionUtil {
             Method method = cl.getDeclaredMethod(methodName, params);
             method.setAccessible(true);
             return method;
-        } catch(NoSuchMethodException | SecurityException e) {
+        } catch (NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     public static Method getMethodByReturnType(Class<?> searchIn, Class<?> returnType) {
-        for(Method m : searchIn.getDeclaredMethods()) {
-            if(m.getReturnType().equals(returnType)) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (m.getReturnType().equals(returnType)) {
                 m.setAccessible(true);
                 return m;
             }
@@ -69,14 +69,14 @@ public final class ReflectionUtil {
             Field f = searchIn.getDeclaredField(name);
             f.setAccessible(true);
             return f;
-        } catch(NoSuchFieldException | SecurityException e) {
+        } catch (NoSuchFieldException | SecurityException e) {
             return null;
         }
     }
 
     public static Field getFieldByType(Class<?> searchIn, Class<?> fieldType) {
-        for(Field f : searchIn.getDeclaredFields()) {
-            if(f.getType().equals(fieldType)) {
+        for (Field f : searchIn.getDeclaredFields()) {
+            if (f.getType().equals(fieldType)) {
                 f.setAccessible(true);
                 return f;
             }
@@ -85,12 +85,12 @@ public final class ReflectionUtil {
     }
 
     public static Field getDeclaredField(Class<?> clazz, String... fields) {
-        for(String fieldName : fields) {
+        for (String fieldName : fields) {
             try {
                 Field field = clazz.getDeclaredField(fieldName);
                 field.setAccessible(true);
                 return field;
-            } catch(NoSuchFieldException e) {
+            } catch (NoSuchFieldException e) {
             }
         }
         return null;
@@ -106,7 +106,7 @@ public final class ReflectionUtil {
         public T get(Field field, Object getFromClass) {
             try {
                 return (T) field.get(getFromClass);
-            } catch(IllegalArgumentException | IllegalAccessException e) {
+            } catch (IllegalArgumentException | IllegalAccessException e) {
                 return null;
             }
         }

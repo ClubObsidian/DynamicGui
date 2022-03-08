@@ -15,8 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.core.registry.replacer.impl;
 
-import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.registry.replacer.AnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.AnimationReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.animation.impl.MultiLineTestAnimationReplacer;
@@ -39,7 +39,7 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
     }
 
     public static DynamicGuiAnimationReplacerRegistry get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new DynamicGuiAnimationReplacerRegistry();
         }
         return instance;
@@ -51,8 +51,8 @@ public class DynamicGuiAnimationReplacerRegistry implements AnimationReplacerReg
 
     @Override
     public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text) {
-        for(AnimationReplacer replacer : this.replacers.values()) {
-            if(text.contains(replacer.getToReplace())) {
+        for (AnimationReplacer replacer : this.replacers.values()) {
+            if (text.contains(replacer.getToReplace())) {
                 text = StringUtils.replace(text, replacer.getToReplace(), replacer.replacement(playerWrapper, holder, text));
             }
         }

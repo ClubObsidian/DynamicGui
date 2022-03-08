@@ -33,7 +33,7 @@ public class PlayerMiniMessageFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         String json = MiniMessageManager.get().toJson(this.getData());

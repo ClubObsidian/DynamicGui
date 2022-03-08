@@ -36,18 +36,18 @@ public class VaultPermission implements Permission {
     @Override
     public boolean setup() {
         Plugin vault = Bukkit.getServer().getPluginManager().getPlugin("Vault");
-        if(vault == null) {
+        if (vault == null) {
             return false;
         }
 
         try {
             this.permissionClass = Class.forName("net.milkbowl.vault.permission.Permission");
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return false;
         }
 
-        if(this.permissionClass == null) {
+        if (this.permissionClass == null) {
             return false;
         }
 
@@ -57,10 +57,10 @@ public class VaultPermission implements Permission {
 
     @Override
     public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
-        if(this.playerHas == null) {
+        if (this.playerHas == null) {
             try {
                 this.playerHas = this.permissionClass.getDeclaredMethod("playerHas", String.class, OfflinePlayer.class, String.class);
-            } catch(NoSuchMethodException | SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -68,7 +68,7 @@ public class VaultPermission implements Permission {
 
         try {
             return (boolean) this.playerHas.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
         }
@@ -76,17 +76,17 @@ public class VaultPermission implements Permission {
 
     @Override
     public boolean addPermission(PlayerWrapper<?> playerWrapper, String permission) {
-        if(this.playerAdd == null) {
+        if (this.playerAdd == null) {
             try {
                 this.playerAdd = this.permissionClass.getDeclaredMethod("playerAdd", String.class, OfflinePlayer.class, String.class);
-            } catch(NoSuchMethodException | SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
                 return false;
             }
         }
         try {
             return (boolean) this.playerAdd.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
         }
@@ -94,10 +94,10 @@ public class VaultPermission implements Permission {
 
     @Override
     public boolean removePermission(PlayerWrapper<?> playerWrapper, String permission) {
-        if(this.playerRemove == null) {
+        if (this.playerRemove == null) {
             try {
                 this.playerRemove = this.permissionClass.getDeclaredMethod("playerRemove", String.class, OfflinePlayer.class, String.class);
-            } catch(NoSuchMethodException | SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -105,7 +105,7 @@ public class VaultPermission implements Permission {
 
         try {
             return (boolean) this.playerRemove.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
         }

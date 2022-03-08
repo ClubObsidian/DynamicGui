@@ -32,7 +32,7 @@ public class ReplacerManager {
     }
 
     public static ReplacerManager get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ReplacerManager();
         }
         return instance;
@@ -40,7 +40,7 @@ public class ReplacerManager {
 
     public String replace(String text, PlayerWrapper<?> playerWrapper) {
         String newText = text;
-        for(ReplacerRegistry registry : this.registries) {
+        for (ReplacerRegistry registry : this.registries) {
             newText = registry.replace(playerWrapper, newText);
         }
 

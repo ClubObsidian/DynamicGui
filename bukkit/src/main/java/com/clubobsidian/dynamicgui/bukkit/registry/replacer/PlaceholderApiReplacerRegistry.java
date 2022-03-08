@@ -35,7 +35,7 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         try {
             return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
-        } catch(IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

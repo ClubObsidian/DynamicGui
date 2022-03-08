@@ -29,7 +29,7 @@ public class VanillaModelProvider implements ModelProvider {
 
     @Override
     public boolean applyModel(ItemStackWrapper<?> itemStack, String data) {
-        if(!NumberUtils.isParsable(data)) {
+        if (!NumberUtils.isParsable(data)) {
             return false;
         }
         int modelData = NumberUtils.toInt(data);

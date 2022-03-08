@@ -31,7 +31,7 @@ public class BukkitLocationManager extends LocationManager {
 
     @Override
     public LocationWrapper<?> toLocationWrapper(Object obj) {
-        if(!(obj instanceof Location)) {
+        if (!(obj instanceof Location)) {
             return null;
         }
 

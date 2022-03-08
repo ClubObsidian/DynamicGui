@@ -54,14 +54,14 @@ public class DelayFunctionTest {
         thread.start();
         thread.interrupt();
         int count = 0;
-        while(thread.isAlive()) {
+        while (thread.isAlive()) {
             try {
                 Thread.sleep(1);
                 count += 1;
-                if(count > 1000) {
+                if (count > 1000) {
                     break; //Just so the test doesn't get stuck in an infinite loop
                 }
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

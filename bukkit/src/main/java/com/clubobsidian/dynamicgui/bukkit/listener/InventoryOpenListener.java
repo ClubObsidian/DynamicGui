@@ -31,7 +31,7 @@ public class InventoryOpenListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void inventoryOpen(InventoryOpenEvent e) {
-        if(e.getPlayer() instanceof Player) {
+        if (e.getPlayer() instanceof Player) {
             Player player = (Player) e.getPlayer();
             PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
             InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());

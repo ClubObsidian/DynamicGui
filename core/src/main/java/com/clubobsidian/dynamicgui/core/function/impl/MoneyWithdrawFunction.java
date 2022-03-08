@@ -37,15 +37,15 @@ public class MoneyWithdrawFunction extends Function {
         double amt;
         try {
             amt = Double.parseDouble(this.getData());
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
-        if(DynamicGui.get().getPlugin().getEconomy() == null) {
+        if (DynamicGui.get().getPlugin().getEconomy() == null) {
             return false;
         }
         BigDecimal decimalAmt = new BigDecimal(amt);
-        if(DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
+        if (DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
             return false;
         }
         return DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);

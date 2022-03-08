@@ -57,14 +57,14 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     public String replace(final PlayerWrapper<?> playerWrapper, final String text) {
         String newText = text;
         List<Replacer> cachedReplacerList = this.cachedReplacers.get(text);
-        if(cachedReplacerList != null) {
-            for(Replacer replacer : cachedReplacerList) {
+        if (cachedReplacerList != null) {
+            for (Replacer replacer : cachedReplacerList) {
                 newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
             }
         } else {
             cachedReplacerList = new ArrayList<>();
-            for(Replacer replacer : this.replacers.values()) {
-                if(newText.contains(replacer.getToReplace())) {
+            for (Replacer replacer : this.replacers.values()) {
+                if (newText.contains(replacer.getToReplace())) {
                     newText = StringUtils.replace(newText, replacer.getToReplace(), replacer.replacement(newText, playerWrapper));
                     cachedReplacerList.add(replacer);
                 }
@@ -78,7 +78,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
     }
 
     public static DynamicGuiReplacerRegistry get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new DynamicGuiReplacerRegistry();
         }
         return instance;

@@ -36,7 +36,7 @@ public class MockInventory {
 
     public ItemStackWrapper<?>[] getContents() {
         ItemStackWrapper<?>[] ar = new ItemStackWrapper[this.size];
-        for(int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.size; i++) {
             ar[i] = this.getItem(i);
         }
         return ar;

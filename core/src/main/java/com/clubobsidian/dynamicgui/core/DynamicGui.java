@@ -89,6 +89,7 @@ import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SlotManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.CooldownReplacerRegistry;
@@ -96,7 +97,6 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiAnimati
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.MetadataReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.Replacer;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
@@ -122,7 +122,7 @@ public class DynamicGui {
     private static DynamicGui instance;
 
     public static DynamicGui get() {
-        if(!instance.initialized) {
+        if (!instance.initialized) {
             instance.initialized = true;
             instance.init();
         }
@@ -171,26 +171,26 @@ public class DynamicGui {
     }
 
     private void setupFileStructure() {
-        if(!this.plugin.getDataFolder().exists()) {
+        if (!this.plugin.getDataFolder().exists()) {
             this.plugin.getDataFolder().mkdirs();
         }
 
-        if(!this.plugin.getGuiFolder().exists()) {
+        if (!this.plugin.getGuiFolder().exists()) {
             this.plugin.getGuiFolder().mkdirs();
         }
 
-        if(!this.plugin.getMacroFolder().exists()) {
+        if (!this.plugin.getMacroFolder().exists()) {
             this.plugin.getMacroFolder().mkdirs();
         }
     }
 
     private void saveDefaultConfig() {
-        if(!this.plugin.getConfigFile().exists()) {
+        if (!this.plugin.getConfigFile().exists()) {
             try {
                 FileUtils
                         .copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"),
                                 this.plugin.getConfigFile());
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -204,12 +204,12 @@ public class DynamicGui {
         transformers.add(new ChatColorTransformer());
         messageSection.inject(this.message, transformers);
         String version = config.getString("version");
-        if(version != null) {
+        if (version != null) {
             version = version.trim();
         }
 
         String proxyStr = config.getString("proxy");
-        if(proxyStr == null) {
+        if (proxyStr == null) {
             proxyStr = version;
             config.set("proxy", proxyStr);
             config.save();
@@ -220,7 +220,7 @@ public class DynamicGui {
         this.proxy = Proxy.fromString(proxyStr);
 
         String dateTimeFormat = config.getString("date-time-format");
-        if(dateTimeFormat == null) {
+        if (dateTimeFormat == null) {
             dateTimeFormat = "MM dd, yyyy HH:mm:ss";
             config.set("date-time-format", dateTimeFormat);
             config.save();
@@ -230,7 +230,7 @@ public class DynamicGui {
 
         this.dateTimeFormat = dateTimeFormat;
 
-        for(final String server : config.getStringList("servers")) {
+        for (final String server : config.getStringList("servers")) {
             this.serverPlayerCount.put(server, 0);
 
             DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server + "-playercount%") {
@@ -248,11 +248,11 @@ public class DynamicGui {
 
     public void checkForProxy() {
         MessagingRunnable runnable = (playerWrapper, message) -> {
-            if(message.length > 13) {
+            if (message.length > 13) {
                 ByteArrayDataInput in = ByteStreams.newDataInput(message);
                 String packet = in.readUTF();
-                if(packet != null) {
-                    if("PlayerCount".equals(packet)) {
+                if (packet != null) {
+                    if ("PlayerCount".equals(packet)) {
                         String server = in.readUTF();
                         int playerCount = in.readInt();
                         this.serverPlayerCount.put(server, playerCount);
@@ -261,11 +261,11 @@ public class DynamicGui {
             }
         };
 
-        if(this.proxy == Proxy.BUNGEECORD) {
+        if (this.proxy == Proxy.BUNGEECORD) {
             this.getLogger().info("BungeeCord is enabled!");
             this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
             this.getPlatform().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
-        } else if(this.proxy == Proxy.REDIS_BUNGEE) {
+        } else if (this.proxy == Proxy.REDIS_BUNGEE) {
             this.getLogger().info("RedisBungee is enabled");
             this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
             this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
@@ -274,7 +274,7 @@ public class DynamicGui {
             this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
         }
 
-        if(this.proxy != Proxy.NONE) {
+        if (this.proxy != Proxy.NONE) {
             this.startPlayerCountTimer();
         }
     }
@@ -364,14 +364,14 @@ public class DynamicGui {
 
     private void startPlayerCountTimer() {
         this.getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
-            for(String server : this.serverPlayerCount.keySet()) {
+            for (String server : this.serverPlayerCount.keySet()) {
                 PlayerWrapper<?> player = Iterables.getFirst(this.getPlatform().getOnlinePlayers(), null);
-                if(player != null) {
+                if (player != null) {
                     ByteArrayDataOutput out = ByteStreams.newDataOutput();
                     out.writeUTF("PlayerCount");
                     out.writeUTF(server);
                     String sendTo = "BungeeCord";
-                    if(this.proxy == Proxy.REDIS_BUNGEE) {
+                    if (this.proxy == Proxy.REDIS_BUNGEE) {
                         sendTo = "RedisBungee";
                     }
                     player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
@@ -420,7 +420,7 @@ public class DynamicGui {
 
     public Integer getGlobalServerPlayerCount() {
         int globalPlayerCount = 0;
-        for(int playerCount : this.serverPlayerCount.values()) {
+        for (int playerCount : this.serverPlayerCount.values()) {
             globalPlayerCount += playerCount;
         }
 
@@ -436,7 +436,7 @@ public class DynamicGui {
     }
 
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
-        if(this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
+        if (this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(server);

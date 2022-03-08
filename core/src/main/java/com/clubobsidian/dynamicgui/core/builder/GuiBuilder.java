@@ -82,7 +82,7 @@ public class GuiBuilder {
 
     public GuiBuilder addNpcId(String plugin, Integer id) {
         List<Integer> npcs = this.npcIds.get(plugin);
-        if(npcs == null) {
+        if (npcs == null) {
             npcs = new ArrayList<>();
             this.npcIds.put(plugin, npcs);
         }
@@ -92,14 +92,14 @@ public class GuiBuilder {
     }
 
     public GuiBuilder addNpcId(String plugin, Integer[] npcIds) {
-        for(Integer id : npcIds) {
+        for (Integer id : npcIds) {
             this.addNpcId(plugin, id);
         }
         return this;
     }
 
     public GuiBuilder addNpcId(String plugin, List<Integer> npcIds) {
-        for(Integer id : npcIds) {
+        for (Integer id : npcIds) {
             this.addNpcId(plugin, id);
         }
         return this;
@@ -137,7 +137,7 @@ public class GuiBuilder {
 
     public GuiBuilder addMetadata(Map<String, String> metadata) {
         Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Entry<String, String> next = it.next();
             String key = next.getKey();
             String value = next.getValue();
@@ -156,7 +156,7 @@ public class GuiBuilder {
         Gui gui = new Gui(this.name, this.type, this.title, this.rows,
                 this.close, this.modeEnum, this.npcIds, this.slots, this.locations,
                 this.functionTree, this.metadata, this.isStatic);
-        if(this.backGui != null) {
+        if (this.backGui != null) {
             gui.setBack(this.backGui);
         }
 

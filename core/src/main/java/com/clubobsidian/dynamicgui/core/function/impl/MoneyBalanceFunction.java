@@ -38,12 +38,12 @@ public class MoneyBalanceFunction extends Function {
         double amt;
         try {
             amt = Double.parseDouble(this.getData());
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
 
-        if(DynamicGui.get().getPlugin().getEconomy() == null) {
+        if (DynamicGui.get().getPlugin().getEconomy() == null) {
             return false;
         }
 

@@ -35,7 +35,7 @@ public class SlotManager {
     private static SlotManager instance;
 
     public static SlotManager get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new SlotManager();
         }
         return instance;
@@ -48,26 +48,26 @@ public class SlotManager {
     private void updateSlots() {
         DynamicGui.get().getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
             Map<Gui, Collection<Slot>> updatedStaticGui = new HashMap<>();
-            for(Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
+            for (Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
                 UUID key = next.getKey();
                 PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
                 Gui gui = next.getValue();
                 Collection<Slot> cachedSlots = updatedStaticGui.get(gui);
-                if(gui.isStatic() && cachedSlots != null) {
+                if (gui.isStatic() && cachedSlots != null) {
                     InventoryWrapper<?> inventoryWrapper = gui.getInventoryWrapper();
-                    for(Slot slot : cachedSlots) {
+                    for (Slot slot : cachedSlots) {
                         inventoryWrapper.updateItem(slot.getIndex(), playerWrapper);
                     }
                     continue;
                 }
                 Collection<Slot> updatedSlots = new ArrayList<>();
-                for(Slot slot : gui.getSlots()) {
-                    if(slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
+                for (Slot slot : gui.getSlots()) {
+                    if (slot.getUpdateInterval() == 0 && !slot.getUpdate()) {
                         continue;
                     }
 
                     slot.tick();
-                    if(slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
+                    if (slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
                         ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
                         int slotIndex = slot.getIndex();
 
@@ -75,14 +75,14 @@ public class SlotManager {
                         inventoryWrapper.setItem(slotIndex, itemStackWrapper);
 
                         FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-                        if(!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
+                        if (!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
                             inventoryWrapper.updateItem(slotIndex, playerWrapper);
                             updatedSlots.add(slot);
                         }
                         slot.setUpdate(false);
                     }
                 }
-                if(gui.isStatic()) { //Cache if gui is static an attempt to update was made
+                if (gui.isStatic()) { //Cache if gui is static an attempt to update was made
                     updatedStaticGui.put(gui, updatedSlots);
                 }
             }

@@ -24,9 +24,9 @@ public enum Proxy {
     NONE;
 
     public static Proxy fromString(String proxyStr) {
-        if(proxyStr.toLowerCase(Locale.ROOT).startsWith("bungee")) {
+        if (proxyStr.toLowerCase(Locale.ROOT).startsWith("bungee")) {
             return Proxy.BUNGEECORD;
-        } else if(proxyStr.toLowerCase(Locale.ROOT).startsWith("redis")) {
+        } else if (proxyStr.toLowerCase(Locale.ROOT).startsWith("redis")) {
             return Proxy.REDIS_BUNGEE;
         }
         return Proxy.NONE;

@@ -34,7 +34,7 @@ public class BukkitEntityManager extends EntityManager {
 
     private void loadEntityTypes() {
         this.entityTypes = new ArrayList<>();
-        for(EntityType type : EntityType.values()) {
+        for (EntityType type : EntityType.values()) {
             this.entityTypes.add(type.name());
         }
     }

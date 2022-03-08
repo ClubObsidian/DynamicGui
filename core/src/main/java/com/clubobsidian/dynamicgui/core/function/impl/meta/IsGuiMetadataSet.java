@@ -33,9 +33,9 @@ public class IsGuiMetadataSet extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui;
-        if(this.getOwner() instanceof Gui) {
+        if (this.getOwner() instanceof Gui) {
             gui = (Gui) this.getOwner();
-        } else if(this.getOwner() instanceof Slot) {
+        } else if (this.getOwner() instanceof Slot) {
             gui = ((Slot) this.getOwner()).getOwner();
         } else {
             String clazzName = this.getOwner().getClass().getName();

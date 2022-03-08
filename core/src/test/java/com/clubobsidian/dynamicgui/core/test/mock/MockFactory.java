@@ -25,8 +25,8 @@ import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.inject.MockPluginModule;
@@ -182,7 +182,7 @@ public class MockFactory {
 
     public MockPlatform getPlatform() {
         Platform platform = DynamicGui.get().getPlatform();
-        if(!(platform instanceof MockPlatform)) {
+        if (!(platform instanceof MockPlatform)) {
             return null;
         }
         return (MockPlatform) platform;
@@ -190,7 +190,7 @@ public class MockFactory {
 
     public MockLoggerWrapper getLogger() {
         LoggerWrapper<?> logger = DynamicGui.get().getLogger();
-        if(!(logger instanceof MockLoggerWrapper)) {
+        if (!(logger instanceof MockLoggerWrapper)) {
             return null;
         }
         return (MockLoggerWrapper) logger;
@@ -199,7 +199,7 @@ public class MockFactory {
     public MockEconomy getEconomy() {
         Economy economy = DynamicGui.get().getPlugin().getEconomy();
         ;
-        if(!(economy instanceof MockEconomy)) {
+        if (!(economy instanceof MockEconomy)) {
             return null;
         }
         return (MockEconomy) economy;
@@ -207,7 +207,7 @@ public class MockFactory {
 
     public MockDynamicGuiPlugin getPlugin() {
         DynamicGuiPlugin plugin = DynamicGui.get().getPlugin();
-        if(!(plugin instanceof MockDynamicGuiPlugin)) {
+        if (!(plugin instanceof MockDynamicGuiPlugin)) {
             return null;
         }
         return (MockDynamicGuiPlugin) plugin;

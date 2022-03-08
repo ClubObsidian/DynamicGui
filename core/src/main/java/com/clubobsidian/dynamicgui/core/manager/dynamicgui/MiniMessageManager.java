@@ -31,7 +31,7 @@ public class MiniMessageManager {
     public static MiniMessageManager instance;
 
     public static MiniMessageManager get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new MiniMessageManager();
         }
         return instance;
@@ -47,7 +47,7 @@ public class MiniMessageManager {
 
     public String toJson(String data) {
         String cached = this.json.get(data);
-        if(cached == null) {
+        if (cached == null) {
             Component component = this.miniMessage.deserialize(data);
             cached = this.serializer.serialize(component);
             this.json.put(data, cached);

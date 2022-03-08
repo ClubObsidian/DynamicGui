@@ -46,11 +46,11 @@ public class ConditionFunction extends Function {
             expr.addLazyFunction(new AfterDateLazyFunction());
             expr.addLazyFunction(new BeforeDateLazyFunction());
 
-            if(!expr.isBoolean())
+            if (!expr.isBoolean())
                 return false;
 
             return expr.eval().intValue() == 1;
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }

@@ -38,32 +38,32 @@ public class GuiFunction extends Function {
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
         final String gui = this.getData();
-        if(gui == null) {
+        if (gui == null) {
             return false;
         }
-        if(!GuiManager.get().hasGuiName(gui)) {
+        if (!GuiManager.get().hasGuiName(gui)) {
             return false;
         }
 
         Gui back = null;
         FunctionOwner owner = this.getOwner();
         //Find root gui
-        if(owner instanceof Slot) {
+        if (owner instanceof Slot) {
             Slot slot = (Slot) owner;
             back = slot.getOwner();
-        } else if(owner instanceof Gui) {
+        } else if (owner instanceof Gui) {
             back = (Gui) owner;
         }
 
         //Make it so the gui doesn't close
-        if(owner instanceof Slot) {
+        if (owner instanceof Slot) {
             Slot slot = (Slot) owner;
             slot.setClose(false);
         }
         back.setClose(false);
         try {
             return GuiManager.get().openGui(playerWrapper, gui, back).get();
-        } catch(InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return false;
         }

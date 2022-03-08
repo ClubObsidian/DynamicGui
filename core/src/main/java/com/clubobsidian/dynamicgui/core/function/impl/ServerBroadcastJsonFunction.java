@@ -32,7 +32,7 @@ public class ServerBroadcastJsonFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         DynamicGui.get().getPlatform().broadcastJsonMessage(this.getData());

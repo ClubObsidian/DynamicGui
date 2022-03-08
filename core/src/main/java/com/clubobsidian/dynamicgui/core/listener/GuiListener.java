@@ -42,7 +42,7 @@ public class GuiListener {
         Gui gui = GuiManager.get().getPlayerGui(wrapper);
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         boolean open = (gui != null);
-        if(open) {
+        if (open) {
             UUID uuid = wrapper.getUniqueId();
             this.users.add(uuid);
             FunctionManager.get().tryFunctions(gui, FunctionType.SWITCH_MENU, playerWrapper);
@@ -53,9 +53,9 @@ public class GuiListener {
     public void onClose(InventoryCloseEvent event) {
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         UUID uuid = playerWrapper.getUniqueId();
-        if(!this.users.remove(uuid)) {
+        if (!this.users.remove(uuid)) {
             Gui gui = GuiManager.get().getPlayerGui(playerWrapper);
-            if(gui != null) {
+            if (gui != null) {
                 FunctionManager.get().tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
             }
         }

@@ -36,18 +36,18 @@ public final class BukkitNBTUtil {
     }
 
     public static Object parse(String nbtStr) {
-        if(parse == null) {
+        if (parse == null) {
             try {
                 Class<?> mojangParser = Class.forName(PARSER_CLASS_NAME);
                 parse = mojangParser.getDeclaredMethod("parse", String.class);
                 parse.setAccessible(true);
-            } catch(ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
             }
         }
         try {
             return parse.invoke(null, nbtStr);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -56,7 +56,7 @@ public final class BukkitNBTUtil {
     public static String getTag(ItemStack itemStack) {
         String version = VersionUtil.getVersion();
         try {
-            if(asNMSCopy == null) {
+            if (asNMSCopy == null) {
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass;
                 craftItemStackClass = Class.forName(craftItemStackClassName);
@@ -64,13 +64,13 @@ public final class BukkitNBTUtil {
                 asNMSCopy.setAccessible(true);
             }
 
-            if(getTag == null) {
+            if (getTag == null) {
                 Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 getTag = nmsItemStackClass.getDeclaredMethod("getTag");
                 getTag.setAccessible(true);
             }
 
-            if(asBukkitCopy == null) {
+            if (asBukkitCopy == null) {
                 Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
@@ -80,12 +80,12 @@ public final class BukkitNBTUtil {
 
             Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
             Object tag = getTag.invoke(nmsItemStack);
-            if(tag == null) {
+            if (tag == null) {
                 return null;
             }
 
             return tag.toString();
-        } catch(ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
@@ -94,21 +94,21 @@ public final class BukkitNBTUtil {
     public static ItemStack setTag(ItemStack itemStack, String nbt) {
         String version = VersionUtil.getVersion();
         try {
-            if(asNMSCopy == null) {
+            if (asNMSCopy == null) {
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
                 asNMSCopy = craftItemStackClass.getDeclaredMethod("asNMSCopy", ItemStack.class);
                 asNMSCopy.setAccessible(true);
             }
 
-            if(setTag == null) {
+            if (setTag == null) {
                 Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 Class<?> nbtTagCompoundClass = Class.forName(COMPOUND_CLASS_NAME);
                 setTag = nmsItemStackClass.getDeclaredMethod("setTag", nbtTagCompoundClass);
                 setTag.setAccessible(true);
             }
 
-            if(asBukkitCopy == null) {
+            if (asBukkitCopy == null) {
                 Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
@@ -121,7 +121,7 @@ public final class BukkitNBTUtil {
             setTag.invoke(nmsItemStack, nbtCompound);
             ItemStack bukkitItemStack = (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
             return bukkitItemStack;
-        } catch(ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
@@ -132,13 +132,13 @@ public final class BukkitNBTUtil {
             String className = "net.minecraft.world.item.ItemStack";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".ItemStack";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -149,13 +149,13 @@ public final class BukkitNBTUtil {
             String className = "net.minecraft.nbt.MojangsonParser";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".MojangsonParser";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }
@@ -166,13 +166,13 @@ public final class BukkitNBTUtil {
             String className = "net.minecraft.nbt.NBTTagCompound";
             Class.forName(className);
             return className;
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".NBTTagCompound";
             try {
                 Class.forName(className);
                 return className;
-            } catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 return null;
             }
         }

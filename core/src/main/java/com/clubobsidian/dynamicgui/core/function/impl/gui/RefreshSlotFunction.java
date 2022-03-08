@@ -37,8 +37,8 @@ public class RefreshSlotFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
-            if(this.getOwner() instanceof Gui) {
+        if (this.getData() == null) {
+            if (this.getOwner() instanceof Gui) {
                 return false;
             }
 
@@ -50,12 +50,12 @@ public class RefreshSlotFunction extends Function {
         try {
             String data = this.getData();
             List<Integer> slotIndexs = new ArrayList<>();
-            if(!data.contains(",")) {
+            if (!data.contains(",")) {
                 int parsed = Integer.parseInt(data);
                 slotIndexs.add(parsed);
             } else {
                 String[] split = data.split(",");
-                for(String str : split) {
+                for (String str : split) {
                     Integer parsed = Integer.parseInt(str);
                     slotIndexs.add(parsed);
                 }
@@ -63,22 +63,22 @@ public class RefreshSlotFunction extends Function {
 
             Gui gui = null;
             FunctionOwner owner = this.getOwner();
-            if(owner instanceof Slot) {
+            if (owner instanceof Slot) {
                 Slot slot = (Slot) owner;
                 gui = slot.getOwner();
-            } else if(owner instanceof Gui) {
+            } else if (owner instanceof Gui) {
                 gui = (Gui) owner;
             }
 
             List<Slot> slots = gui.getSlots();
-            for(Slot slot : slots) {
-                if(slotIndexs.contains(slot.getIndex())) {
+            for (Slot slot : slots) {
+                if (slotIndexs.contains(slot.getIndex())) {
                     slot.setUpdate(true);
                 }
             }
 
             return true;
-        } catch(NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }

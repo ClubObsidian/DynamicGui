@@ -36,7 +36,7 @@ public class MacroToken implements Serializable {
 
     private void parse(ConfigurationSection section) {
         this.macros = new LinkedHashMap<>();
-        for(String key : section.getKeys()) {
+        for (String key : section.getKeys()) {
             this.macros.put(key, section.get(key));
         }
     }

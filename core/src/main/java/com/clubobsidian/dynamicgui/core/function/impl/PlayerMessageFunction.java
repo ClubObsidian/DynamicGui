@@ -33,7 +33,7 @@ public class PlayerMessageFunction extends Function {
 
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         playerWrapper.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerManager.get().replace(this.getData(), playerWrapper)));

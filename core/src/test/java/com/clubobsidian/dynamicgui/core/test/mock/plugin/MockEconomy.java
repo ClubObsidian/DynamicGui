@@ -40,7 +40,7 @@ public class MockEconomy implements Economy {
     @Override
     public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
         BigDecimal balance = this.getBalance(playerWrapper);
-        if(balance.intValue() >= amt.intValue()) {
+        if (balance.intValue() >= amt.intValue()) {
             balance = balance.subtract(amt);
             this.balances.put(playerWrapper, balance);
             return true;

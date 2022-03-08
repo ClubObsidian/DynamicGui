@@ -38,7 +38,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addType(String... types) {
-        for(String t : types) {
+        for (String t : types) {
             this.addType(t);
         }
         return this;
@@ -58,7 +58,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addFunction(FunctionData... datas) {
-        for(FunctionData data : datas) {
+        for (FunctionData data : datas) {
             this.addFunction(data);
         }
 
@@ -79,7 +79,7 @@ public class FunctionTokenBuilder {
     }
 
     public FunctionTokenBuilder addFailOnFunction(FunctionData... datas) {
-        for(FunctionData data : datas) {
+        for (FunctionData data : datas) {
             this.addFunction(data);
         }
 

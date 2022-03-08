@@ -43,7 +43,7 @@ public class ServerBroadcastFunctionTest {
         this.factory.inject();
         String data = "&4test";
         String colorized = ChatColor.translateAlternateColorCodes(data);
-        Function function= new ServerBroadcastFunction();
+        Function function = new ServerBroadcastFunction();
         function.setData(data);
         assertTrue(function.function(this.factory.createPlayer()));
         List<String> messages = this.factory.getPlatform().getBroadcastMessages();

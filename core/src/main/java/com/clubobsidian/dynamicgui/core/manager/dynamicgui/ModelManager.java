@@ -27,7 +27,7 @@ public class ModelManager {
     private static ModelManager instance;
 
     public static ModelManager get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ModelManager();
         }
         return instance;
@@ -40,7 +40,7 @@ public class ModelManager {
     }
 
     public ModelProvider getProvider(final String registryName) {
-        if(registryName == null) {
+        if (registryName == null) {
             return null;
         }
         String lowerName = registryName.toLowerCase();

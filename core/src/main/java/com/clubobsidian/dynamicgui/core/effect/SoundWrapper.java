@@ -50,15 +50,15 @@ public class SoundWrapper implements Serializable {
     public static class SoundData {
 
         public static SoundData fromString(String str) {
-            if(str.contains(",")) {
+            if (str.contains(",")) {
                 String[] args = str.split(",");
-                if(args.length == 3) {
+                if (args.length == 3) {
                     try {
                         String sound = args[0];
                         float volume = Float.parseFloat(args[1]);
                         float pitch = Float.parseFloat(args[2]);
                         return new SoundData(sound, volume, pitch);
-                    } catch(NumberFormatException ex) {
+                    } catch (NumberFormatException ex) {
                         //Don't do anything if invalid format
                     }
                 }
@@ -90,10 +90,10 @@ public class SoundWrapper implements Serializable {
 
         @Override
         public boolean equals(Object o) {
-            if(this == o) {
+            if (this == o) {
                 return true;
             }
-            if(!(o instanceof SoundData)) {
+            if (!(o instanceof SoundData)) {
                 return false;
             }
             SoundData soundData = (SoundData) o;

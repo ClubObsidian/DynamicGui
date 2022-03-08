@@ -51,17 +51,17 @@ public abstract class WorldWrapper<T> implements Serializable {
     @Override
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
-        if(this == obj) {
+        if (this == obj) {
             return true;
-        } else if(obj == null) {
+        } else if (obj == null) {
             return false;
-        } else if(getClass() != obj.getClass()) {
+        } else if (getClass() != obj.getClass()) {
             return false;
         }
 
         WorldWrapper<T> otherWrapper = (WorldWrapper<T>) obj;
         T world = this.getWorld();
-        if(world == null) {
+        if (world == null) {
             return false;
         }
 

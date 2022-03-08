@@ -36,18 +36,18 @@ public class CheckItemTypeInHandFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         List<String> types = new ArrayList<>();
         types.add(this.getData());
 
-        if(this.getData().contains(",")) {
+        if (this.getData().contains(",")) {
             types = Arrays.asList(this.getData().split(","));
         }
 
         //Uppercase
-        for(int i = 0; i < types.size(); i++) {
+        for (int i = 0; i < types.size(); i++) {
             types.set(i, types.get(i).toUpperCase());
         }
 

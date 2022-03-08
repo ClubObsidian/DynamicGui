@@ -20,7 +20,7 @@ import org.bukkit.Bukkit;
 public class VersionUtil {
 
     public synchronized static String getVersion() {
-        if(Bukkit.getServer() == null) {
+        if (Bukkit.getServer() == null) {
             return null;
         }
         String packageName = Bukkit.getServer().getClass().getPackage().getName();

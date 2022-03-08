@@ -95,11 +95,11 @@ public enum ChatColor {
 
     public static String translateAlternateColorCodes(char translate, String message) {
         char[] chars = message.toCharArray();
-        for(int i = 0; i < chars.length; i++) {
-            if(chars[i] == translate) {
-                if(i + 1 < chars.length) {
-                    for(ChatColor color : ChatColor.values()) {
-                        if(chars[i + 1] == color.getColorCode()) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == translate) {
+                if (i + 1 < chars.length) {
+                    for (ChatColor color : ChatColor.values()) {
+                        if (chars[i + 1] == color.getColorCode()) {
                             chars[i] = ChatColor.FORMATTING_CODE;
                         }
                     }

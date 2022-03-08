@@ -116,7 +116,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(String lore) {
-        if(this.lore == null) {
+        if (this.lore == null) {
             this.lore = new ArrayList<String>();
             this.lore.add(lore);
         } else {
@@ -126,7 +126,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(String... lore) {
-        for(String l : lore) {
+        for (String l : lore) {
             this.addLore(l);
         }
 
@@ -134,7 +134,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addLore(List<String> lore) {
-        for(String l : lore) {
+        for (String l : lore) {
             this.addLore(l);
         }
 
@@ -147,7 +147,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addEnchant(EnchantmentWrapper... enchant) {
-        for(EnchantmentWrapper ench : enchant) {
+        for (EnchantmentWrapper ench : enchant) {
             this.addEnchant(ench);
         }
 
@@ -155,7 +155,7 @@ public class SlotBuilder {
     }
 
     public SlotBuilder addEnchant(List<EnchantmentWrapper> enchant) {
-        for(EnchantmentWrapper ench : enchant) {
+        for (EnchantmentWrapper ench : enchant) {
             this.addEnchant(ench);
         }
 
@@ -184,7 +184,7 @@ public class SlotBuilder {
 
     public SlotBuilder addMetadata(Map<String, String> metadata) {
         Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Entry<String, String> next = it.next();
             String key = next.getKey();
             String value = next.getValue();
@@ -202,7 +202,7 @@ public class SlotBuilder {
         this.setAmount(itemStackWrapper.getAmount());
         this.addLore(itemStackWrapper.getLore());
 
-        for(EnchantmentWrapper enchant : itemStackWrapper.getEnchants()) {
+        for (EnchantmentWrapper enchant : itemStackWrapper.getEnchants()) {
             this.addEnchant(enchant);
         }
 

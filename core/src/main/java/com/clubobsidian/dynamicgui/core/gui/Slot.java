@@ -15,11 +15,11 @@
  */
 package com.clubobsidian.dynamicgui.core.gui;
 
-import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.gui.property.MetadataHolder;
+import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
@@ -164,41 +164,41 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper) {
         ItemStackWrapper<?> builderItem = this.itemStack;
 
-        if(builderItem == null) {
+        if (builderItem == null) {
             builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
         } else {
             builderItem.setType(this.icon);
             builderItem.setAmount(this.amount);
         }
 
-        if(!this.icon.toUpperCase().equals(IGNORE_MATERIAL)) {
-            if(this.data != 0) {
+        if (!this.icon.toUpperCase().equals(IGNORE_MATERIAL)) {
+            if (this.data != 0) {
                 builderItem.setDurability(this.data);
             }
 
-            if(this.modelProvider != null && this.modelData != null) {
+            if (this.modelProvider != null && this.modelData != null) {
                 ModelProvider provider = ModelManager.get().getProvider(this.modelProvider);
-                if(provider != null) {
+                if (provider != null) {
                     provider.applyModel(builderItem, this.modelData);
                 }
             }
 
-            if(this.name != null) {
+            if (this.name != null) {
                 String newName = this.name;
                 newName = ReplacerManager.get().replace(newName, playerWrapper);
                 newName = AnimationReplacerManager.get().replace(this, playerWrapper, newName);
                 builderItem.setName(newName);
             }
 
-            if(this.lore != null) {
+            if (this.lore != null) {
                 List<String> newLore = new ArrayList<>();
 
-                for(String newString : this.lore) {
+                for (String newString : this.lore) {
                     String lore = ReplacerManager.get().replace(newString, playerWrapper);
                     lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
-                    if(lore.contains("\n")) {
+                    if (lore.contains("\n")) {
                         String[] split = lore.split("\n");
-                        for(String sp : split) {
+                        for (String sp : split) {
                             newLore.add(sp);
                         }
                     } else {
@@ -209,19 +209,19 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
                 builderItem.setLore(newLore);
             }
 
-            if(this.enchants != null) {
-                for(EnchantmentWrapper ench : this.enchants) {
+            if (this.enchants != null) {
+                for (EnchantmentWrapper ench : this.enchants) {
                     builderItem.addEnchant(ench);
                 }
             }
 
             builderItem.addItemFlags(this.itemFlags);
 
-            if(this.glow) {
+            if (this.glow) {
                 builderItem.setGlowing(true);
             }
 
-            if(this.nbt != null && !this.nbt.equals("")) {
+            if (this.nbt != null && !this.nbt.equals("")) {
                 builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
             }
         }
@@ -261,14 +261,14 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
     public int tick() {
         this.tick += 1;
 
-        if((this.tick) % 20 == 0) {
+        if ((this.tick) % 20 == 0) {
             this.frame += 1;
 
             //Reset frame
-            if(this.tick == Integer.MAX_VALUE) {
+            if (this.tick == Integer.MAX_VALUE) {
                 this.tick = 0;
             }
-            if(this.frame == Integer.MAX_VALUE) {
+            if (this.frame == Integer.MAX_VALUE) {
                 this.frame = 0;
             }
         }

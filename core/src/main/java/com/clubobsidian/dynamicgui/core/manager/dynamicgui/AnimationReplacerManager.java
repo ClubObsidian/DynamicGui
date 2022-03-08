@@ -15,8 +15,8 @@
  */
 package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
 
-import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.registry.replacer.AnimationReplacerRegistry;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class AnimationReplacerManager {
     }
 
     public static AnimationReplacerManager get() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new AnimationReplacerManager();
         }
         return instance;
@@ -41,7 +41,7 @@ public class AnimationReplacerManager {
 
     public String replace(AnimationHolder holder, PlayerWrapper<?> playerWrapper, String text) {
         String newText = text;
-        for(AnimationReplacerRegistry registry : this.registries) {
+        for (AnimationReplacerRegistry registry : this.registries) {
             newText = registry.replace(holder, playerWrapper, newText);
         }
         return newText;

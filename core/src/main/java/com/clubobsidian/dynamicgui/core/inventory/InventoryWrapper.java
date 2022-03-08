@@ -50,7 +50,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
 
     public int addItem(ItemStackWrapper<?> itemStackWrapper) {
         int index = this.getCurrentContentSize();
-        if(index >= this.getSize())
+        if (index >= this.getSize())
             return -1;
 
         this.setItem(index, itemStackWrapper);
@@ -59,9 +59,9 @@ public abstract class InventoryWrapper<T> implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
+        if (obj == null)
             return false;
-        if(!(obj instanceof InventoryWrapper))
+        if (!(obj instanceof InventoryWrapper))
             return false;
         InventoryWrapper<?> wrapper = (InventoryWrapper<?>) obj;
 

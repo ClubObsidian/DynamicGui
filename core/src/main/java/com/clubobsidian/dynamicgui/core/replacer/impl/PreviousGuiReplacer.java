@@ -43,12 +43,12 @@ public class PreviousGuiReplacer extends Replacer {
     public String replacement(String text, PlayerWrapper<?> playerWrapper) {
         Gui gui = this.cachedGuis.get(playerWrapper.getUniqueId());
         System.out.println("gui: " + gui);
-        if(gui == null) {
+        if (gui == null) {
             return null;
         }
         Gui prev = gui.getBack();
         System.out.println("prev: " + prev);
-        if(prev == null) {
+        if (prev == null) {
             return null;
         }
         return prev.getName();
@@ -63,7 +63,7 @@ public class PreviousGuiReplacer extends Replacer {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onGuiLoad(GuiLoadEvent event) {
-        if(event.isCancelled()) {
+        if (event.isCancelled()) {
             UUID uuid = event.getPlayerWrapper().getUniqueId();
             this.cachedGuis.remove(uuid);
         }
@@ -74,7 +74,7 @@ public class PreviousGuiReplacer extends Replacer {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
         UUID uuid = wrapper.getUniqueId();
         Gui gui = this.cachedGuis.get(uuid);
-        if(gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
+        if (gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
             this.cachedGuis.remove(uuid);
         }
     }

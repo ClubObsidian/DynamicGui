@@ -32,7 +32,7 @@ public class LogFunction extends Function {
 
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         DynamicGui.get().getLogger().info(this.getData());

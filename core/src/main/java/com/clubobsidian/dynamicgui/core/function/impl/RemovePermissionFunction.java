@@ -31,7 +31,7 @@ public class RemovePermissionFunction extends Function {
 
     @Override
     public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if(this.getData() == null) {
+        if (this.getData() == null) {
             return false;
         }
         return playerWrapper.removePermission(this.getData());
