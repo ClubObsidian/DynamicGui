@@ -84,7 +84,7 @@ public class BukkitDynamicGuiCommand implements CommandExecutor {
             String third = args[2];
             if (first.equalsIgnoreCase("close")) {
                 if (second.equalsIgnoreCase("all")) {
-                    Gui gui = GuiManager.get().getGuiByName(third);
+                    Gui gui = GuiManager.get().getGui(third);
                     if (gui == null) {
                         sender.sendMessage("No gui can be found by that name");
                         return true;

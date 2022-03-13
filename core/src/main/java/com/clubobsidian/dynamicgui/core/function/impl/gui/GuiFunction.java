@@ -41,7 +41,7 @@ public class GuiFunction extends Function {
         if (gui == null) {
             return false;
         }
-        if (!GuiManager.get().hasGuiName(gui)) {
+        if (!GuiManager.get().isGuiLoaded(gui)) {
             return false;
         }
 

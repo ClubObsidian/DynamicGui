@@ -1,5 +1,5 @@
 #DynamicGui
-mock_data/
+core/mock_data/cooldowns.yml
 
 # Compiled class file
 *.class

@@ -50,7 +50,7 @@ public class SetBackFunction extends Function {
             return false;
         }
 
-        Gui backGui = GuiManager.get().getGuiByName(this.getData());
+        Gui backGui = GuiManager.get().getGui(this.getData());
         if (backGui == null) {
             return false;
         }

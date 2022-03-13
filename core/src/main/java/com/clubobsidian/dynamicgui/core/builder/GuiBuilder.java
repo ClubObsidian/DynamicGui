@@ -126,7 +126,7 @@ public class GuiBuilder {
     }
 
     public GuiBuilder setBack(String backGuiName) {
-        this.backGui = GuiManager.get().getGuiByName(backGuiName);
+        this.backGui = GuiManager.get().getGui(backGuiName);
         return this;
     }
 

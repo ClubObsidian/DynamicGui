@@ -64,6 +64,19 @@ public class GuiManager {
 
     private static GuiManager instance;
 
+    public static GuiManager get() {
+        if (instance == null) {
+            instance = new GuiManager();
+            instance.loadGlobalMacros();
+            instance.loadGuis();
+        }
+        return instance;
+    }
+
+    private static Gui getOrCloneGui(Gui gui) {
+        return gui.isStatic() ? gui : gui.clone();
+    }
+
     private Map<String, Gui> guis;
     private final Map<UUID, Gui> playerGuis = new HashMap<>();
     private Map<String, Gui> cachedGuis;
@@ -84,29 +97,16 @@ public class GuiManager {
         this.globalMacrosTimestamps = new HashMap<>();
     }
 
-    public static GuiManager get() {
-        if (instance == null) {
-            instance = new GuiManager();
-            instance.loadGlobalMacros();
-            instance.loadGuis();
-        }
-        return instance;
-    }
-
-    public boolean hasGuiName(String name) {
+    public boolean isGuiLoaded(String name) {
         return this.guis.containsKey(name);
     }
 
-    public Gui getGuiByName(String name) {
+    public Gui getGui(String name) {
         Gui gui = this.guis.get(name);
         if (gui != null) {
             return getOrCloneGui(gui);
         }
         return null;
-    }
-
-    private static Gui getOrCloneGui(Gui gui) {
-        return gui.isStatic() ? gui : gui.clone();
     }
 
     public void reloadGuis(boolean force) {
@@ -169,7 +169,7 @@ public class GuiManager {
     }
 
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
-        return this.openGui(playerWrapper, this.getGuiByName(guiName), back);
+        return this.openGui(playerWrapper, this.getGui(guiName), back);
     }
 
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
