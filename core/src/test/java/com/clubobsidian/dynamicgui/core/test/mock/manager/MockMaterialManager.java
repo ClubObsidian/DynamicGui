@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.manager;
 import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MockMaterialManager extends MaterialManager {
     @Override
@@ -28,6 +29,9 @@ public class MockMaterialManager extends MaterialManager {
 
     @Override
     public String normalizeMaterial(String material) {
-        return null;
+        if(material == null) {
+            return null;
+        }
+        return material.toUpperCase();
     }
 }

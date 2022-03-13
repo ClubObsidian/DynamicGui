@@ -1,5 +1,10 @@
 title: "test"
 rows: 5
 
-0:
-  type: "STONE"
+'0':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+      - "pmsg: test"

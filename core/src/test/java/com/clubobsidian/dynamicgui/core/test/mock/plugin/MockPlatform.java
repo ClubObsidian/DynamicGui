@@ -45,7 +45,7 @@ public class MockPlatform implements Platform {
 
     @Override
     public boolean isMainThread() {
-        return false;
+        return true; //TODO - add multi threading
     }
 
     @Override

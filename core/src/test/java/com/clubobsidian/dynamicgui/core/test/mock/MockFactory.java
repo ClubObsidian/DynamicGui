@@ -198,7 +198,6 @@ public class MockFactory {
 
     public MockEconomy getEconomy() {
         Economy economy = DynamicGui.get().getPlugin().getEconomy();
-        ;
         if (!(economy instanceof MockEconomy)) {
             return null;
         }
