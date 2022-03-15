@@ -44,6 +44,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import org.mockito.Mockito;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -171,6 +172,10 @@ public class MockFactory {
 
     public MockFactory inject() {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
+        File cooldownsFile = new File(plugin.getDataFolder(), "cooldowns.yml");
+        if(cooldownsFile.exists()) { //Have to do manual cleanup of this or tests fail
+            cooldownsFile.delete();
+        }
         Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         MockPluginModule module = new MockPluginModule(plugin, platform, logger);
