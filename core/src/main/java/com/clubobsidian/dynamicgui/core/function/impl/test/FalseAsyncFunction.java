@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.core.function.impl;
+package com.clubobsidian.dynamicgui.core.function.impl.test;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;

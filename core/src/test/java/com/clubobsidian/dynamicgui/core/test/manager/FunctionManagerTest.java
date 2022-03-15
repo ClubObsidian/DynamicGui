@@ -49,4 +49,12 @@ public class FunctionManagerTest implements ScheduledTest {
         long delta = System.currentTimeMillis() - time;
         assertTrue(delta >= 500);
     }
+
+    @Test
+    public void testMainThread() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(3);
+        assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
+    }
 }

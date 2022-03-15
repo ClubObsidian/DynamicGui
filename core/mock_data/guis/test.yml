@@ -28,3 +28,11 @@ rows: 5
       functions:
         - "delay: 1000"
         - "pmsg: async"
+'3':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "delay: 1000"
+        - "IsMainThread"
