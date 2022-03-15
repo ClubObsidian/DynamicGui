@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.core.function.impl.CheckMovableFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckPlayerWorldFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCommandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
+import com.clubobsidian.dynamicgui.core.function.impl.test.AsyncThreadFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.test.FalseAsyncFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.IsBedrockPlayerFunction;
@@ -364,6 +365,7 @@ public class DynamicGui {
         //Test functions
         FunctionManager.get().addFunction(new FalseAsyncFunction());
         FunctionManager.get().addFunction(new MainThreadFunction());
+        FunctionManager.get().addFunction(new AsyncThreadFunction());
     }
 
     private void startPlayerCountTimer() {

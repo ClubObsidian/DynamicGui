@@ -57,4 +57,12 @@ public class FunctionManagerTest implements ScheduledTest {
         Slot slot = gui.getSlots().get(3);
         assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
     }
+
+    @Test
+    public void testAsyncThread() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(4);
+        assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
+    }
 }
