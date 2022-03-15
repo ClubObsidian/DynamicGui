@@ -16,15 +16,15 @@ public class MockThreadRunnable implements Runnable {
 
     @Override
     public void run() {
-        while(this.running.get()) {
+        while (this.running.get()) {
             try {
                 Thread.sleep(50);
                 Iterator<MockTask> it = this.tasks.iterator();
-                while(it.hasNext()) {
+                while (it.hasNext()) {
                     MockTask task = it.next();
-                    if(task.decrementDelay() <= 0) {
+                    if (task.decrementDelay() <= 0) {
                         task.run();
-                        if(task.isRepeating()) {
+                        if (task.isRepeating()) {
                             task.resetDelay();
                         } else {
                             it.remove();
