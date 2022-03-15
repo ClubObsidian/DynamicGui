@@ -180,11 +180,9 @@ public class FunctionManager {
                     if (!ran) {
                         response.complete(new FunctionResponse(false, functionName, functionData));
                     } else if (async) {
-                        try {
-                            response.complete(runFunctionData(owner, futureData, playerWrapper).get());
-                        } catch (InterruptedException | ExecutionException ex) {
-                            ex.printStackTrace();
-                        }
+                        runFunctionData(owner, futureData, playerWrapper).thenAccept((value) -> {
+                            response.complete(value);
+                        });
                     }
                 }, async);
                 //Return if function is async since the async caller will hand
