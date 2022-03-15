@@ -173,7 +173,7 @@ public class MockFactory {
     public MockFactory inject() {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
         File cooldownsFile = new File(plugin.getDataFolder(), "cooldowns.yml");
-        if(cooldownsFile.exists()) { //Have to do manual cleanup of this or tests fail
+        if (cooldownsFile.exists()) { //Have to do manual cleanup of this or tests fail
             cooldownsFile.delete();
         }
         Platform platform = new MockPlatform();
