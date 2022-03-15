@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class MockPlatform implements Platform {
 
     private final Map<String, WorldWrapper<?>> worlds = new HashMap<>();
     private final List<String> dispatchedServerCommands = new ArrayList<>();
-    private final Scheduler scheduler = new MockScheduler();
+    private final MockScheduler scheduler = new MockScheduler();
     private final List<String> broadcastMessages = new ArrayList<>();
 
     @Override
@@ -45,7 +46,7 @@ public class MockPlatform implements Platform {
 
     @Override
     public boolean isMainThread() {
-        return true; //TODO - add multi threading
+        return this.scheduler.isOnMainThread();
     }
 
     @Override
