@@ -5,10 +5,10 @@ import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
 import org.junit.jupiter.api.AfterEach;
 
-public interface ScheduledTest extends FactoryTest {
+public abstract class ScheduledTest extends FactoryTest {
 
     @AfterEach
-    default void stop() {
+    public void stop() {
         Scheduler scheduler = DynamicGui.get().getPlatform().getScheduler();
         if (scheduler != null) {
             ((MockScheduler) scheduler).stop();

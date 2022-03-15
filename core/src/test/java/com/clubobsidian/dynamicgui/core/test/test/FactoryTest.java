@@ -3,12 +3,16 @@ package com.clubobsidian.dynamicgui.core.test.test;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import org.junit.jupiter.api.BeforeEach;
 
-public interface FactoryTest {
+public abstract class FactoryTest {
 
-    MockFactory factory = new MockFactory();
+    private final MockFactory factory = new MockFactory();
+
+    public MockFactory getFactory() {
+        return this.factory;
+    }
 
     @BeforeEach
-    default void setup() {
-        factory.inject();
+    public void setup() {
+        this.factory.inject();
     }
 }

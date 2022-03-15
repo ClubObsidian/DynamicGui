@@ -20,19 +20,18 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AddPermissionFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class AddPermissionFunctionTest extends FactoryTest {
 
     @Test
     public void testNullPermission() {
         Function function = new AddPermissionFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -40,7 +39,7 @@ public class AddPermissionFunctionTest {
         String permission = "test";
         Function function = new AddPermissionFunction();
         function.setData(permission);
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         assertTrue(function.function(player));
     }
 
@@ -49,7 +48,7 @@ public class AddPermissionFunctionTest {
         String permission = "test";
         Function function = new AddPermissionFunction();
         function.setData(permission);
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         player.addPermission(permission);
         assertFalse(function.function(player));
     }
