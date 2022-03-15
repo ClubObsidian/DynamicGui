@@ -57,5 +57,6 @@ public class MockScheduler extends Scheduler {
 
     public void stop() {
         this.synchronous.stop();
+        this.async.stop();
     }
 }
