@@ -7,10 +7,6 @@ public interface FactoryTest {
 
     MockFactory factory = new MockFactory();
 
-    default MockFactory getFactory() {
-        return factory;
-    }
-
     @BeforeEach
     default void setup() {
         factory.inject();

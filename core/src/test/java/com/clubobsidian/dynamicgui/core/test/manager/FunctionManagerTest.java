@@ -19,7 +19,7 @@ public class FunctionManagerTest implements ScheduledTest {
 
     @Test
     public void testPassing() throws ExecutionException, InterruptedException {
-        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        MockPlayerWrapper playerWrapper = factory.createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(0);
         assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
@@ -29,7 +29,7 @@ public class FunctionManagerTest implements ScheduledTest {
 
     @Test
     public void testFailing() throws ExecutionException, InterruptedException {
-        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        MockPlayerWrapper playerWrapper = factory.createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(1);
         assertFalse(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
@@ -39,7 +39,7 @@ public class FunctionManagerTest implements ScheduledTest {
 
     @Test
     public void testAsync() throws ExecutionException, InterruptedException {
-        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        MockPlayerWrapper playerWrapper = factory.createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(2);
         long time = System.currentTimeMillis();
@@ -52,7 +52,7 @@ public class FunctionManagerTest implements ScheduledTest {
 
     @Test
     public void testMainThread() throws ExecutionException, InterruptedException {
-        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        MockPlayerWrapper playerWrapper = factory.createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(3);
         assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
@@ -60,7 +60,7 @@ public class FunctionManagerTest implements ScheduledTest {
 
     @Test
     public void testAsyncThread() throws ExecutionException, InterruptedException {
-        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        MockPlayerWrapper playerWrapper = factory.createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(4);
         assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
