@@ -35,7 +35,7 @@ public class GuiManagerTest {
 
     @Test
     public void testGetGuis() {
-        List<Gui> guis = GuiManager.get().getGuis();;
+        List<Gui> guis = GuiManager.get().getGuis();
         assertNotNull(guis);
         assertTrue(guis.size() == 1);
     }
