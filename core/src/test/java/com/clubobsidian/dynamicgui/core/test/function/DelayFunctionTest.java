@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.DelayFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,21 +26,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DelayFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class DelayFunctionTest extends FactoryTest {
 
     @Test
     public void testNull() {
         Function function = new DelayFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void testNonNumber() {
         Function function = new DelayFunction();
         function.setData("a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -49,7 +47,7 @@ public class DelayFunctionTest {
         Thread thread = new Thread(() -> {
             Function function = new DelayFunction();
             function.setData("5000");
-            value.set(function.function(this.factory.createPlayer()));
+            value.set(function.function(this.getFactory().createPlayer()));
         });
         thread.start();
         thread.interrupt();
@@ -72,6 +70,6 @@ public class DelayFunctionTest {
     public void testValidData() {
         Function function = new DelayFunction();
         function.setData("1");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 }

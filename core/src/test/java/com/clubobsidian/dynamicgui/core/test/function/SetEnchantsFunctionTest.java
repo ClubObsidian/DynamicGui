@@ -22,9 +22,9 @@ import com.clubobsidian.dynamicgui.core.function.impl.SetEnchantsFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -34,21 +34,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetEnchantsFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetEnchantsFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetEnchantsFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void noOwnerTest() {
         Function function = new SetEnchantsFunction();
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -56,27 +54,27 @@ public class SetEnchantsFunctionTest {
         Function function = new SetEnchantsFunction();
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1");
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void testOneEnchant() {
         int index = 0;
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         List<EnchantmentWrapper> enchants = new ArrayList<>();
         enchants.add(new EnchantmentWrapper(EnchantmentWrapper.TEST_ENCHANT_1, 1));
-        Slot slot = this.factory.createSlot(index, Slot.TEST_MATERIAL, enchants, false);
+        Slot slot = this.getFactory().createSlot(index, Slot.TEST_MATERIAL, enchants, false);
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         slots.add(slot);
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         InventoryWrapper<?> inventory = gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new SetEnchantsFunction();
         function.setOwner(slot);
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertTrue(inventory.getItem(index).getEnchants().size() == 1);
         assertEquals(EnchantmentWrapper.TEST_ENCHANT_2, inventory.getItem(index).getEnchants().get(0).getEnchant());
     }
@@ -84,21 +82,21 @@ public class SetEnchantsFunctionTest {
     @Test
     public void testMultipleEnchants() {
         int index = 0;
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         List<EnchantmentWrapper> enchants = new ArrayList<>();
         enchants.add(new EnchantmentWrapper(EnchantmentWrapper.TEST_ENCHANT_1, 1));
-        Slot slot = this.factory.createSlot(index, Slot.TEST_MATERIAL, enchants, false);
+        Slot slot = this.getFactory().createSlot(index, Slot.TEST_MATERIAL, enchants, false);
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         slots.add(slot);
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         InventoryWrapper<?> inventory = gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new SetEnchantsFunction();
         function.setOwner(slot);
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1;" + EnchantmentWrapper.TEST_ENCHANT_3 + ",1");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertTrue(inventory.getItem(index).getEnchants().size() == 2);
         assertEquals(EnchantmentWrapper.TEST_ENCHANT_2, inventory.getItem(index).getEnchants().get(0).getEnchant());
         assertEquals(EnchantmentWrapper.TEST_ENCHANT_3, inventory.getItem(index).getEnchants().get(1).getEnchant());

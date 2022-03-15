@@ -20,8 +20,8 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.RemoveSlotFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,25 +31,23 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RemoveSlotFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class RemoveSlotFunctionTest extends FactoryTest {
 
     @Test
     public void randomDataTest() {
         Function function = new RemoveSlotFunction();
         function.setData(UUID.randomUUID().toString());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void noDataTest() {
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(0, Slot.TEST_MATERIAL, false);
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(0, Slot.TEST_MATERIAL, false);
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new RemoveSlotFunction();
@@ -59,12 +57,12 @@ public class RemoveSlotFunctionTest {
 
     @Test
     public void thisDataTest() {
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(0, Slot.TEST_MATERIAL, false);
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(0, Slot.TEST_MATERIAL, false);
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new RemoveSlotFunction();

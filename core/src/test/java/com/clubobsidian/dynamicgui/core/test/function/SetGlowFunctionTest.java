@@ -20,21 +20,19 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetGlowFunction;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetGlowFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetGlowFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetGlowFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -42,13 +40,13 @@ public class SetGlowFunctionTest {
         Function function = new SetGlowFunction();
         function.setData("true");
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void slotTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Function function = new SetGlowFunction();
         function.setData("true");
         function.setOwner(slot);

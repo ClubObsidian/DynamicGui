@@ -20,23 +20,21 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetCloseFunction;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockCloseableFunctionOwner;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetCloseFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetCloseFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetCloseFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -44,7 +42,7 @@ public class SetCloseFunctionTest {
         Function function = new SetCloseFunction();
         function.setOwner(new MockNonCloseableFunctionOwner());
         function.setData("true");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -53,7 +51,7 @@ public class SetCloseFunctionTest {
         CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
         function.setData("a");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertEquals(false, component.getClose());
     }
 
@@ -63,7 +61,7 @@ public class SetCloseFunctionTest {
         CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
         function.setData("true");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertEquals(true, component.getClose());
     }
 }

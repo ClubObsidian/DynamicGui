@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.cooldown.SetCooldownFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -27,41 +27,39 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetCooldownFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetCooldownFunctionTest extends FactoryTest {
 
     @Test
     public void nullDataTest() {
         Function function = new SetCooldownFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void noCommaTest() {
         Function function = new SetCooldownFunction();
         function.setData("a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void invalidNumberTest() {
         Function function = new SetCooldownFunction();
         function.setData("a,a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void lengthNotTwoTest() {
         Function function = new SetCooldownFunction();
         function.setData("a,a,a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void onCooldownTest() {
-        this.factory.inject();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         String cooldownName = UUID.randomUUID().toString();
         String data = cooldownName + ",1000";
         Function function = new SetCooldownFunction();

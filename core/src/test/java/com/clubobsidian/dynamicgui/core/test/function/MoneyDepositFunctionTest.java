@@ -19,20 +19,18 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.MoneyDepositFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MoneyDepositFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class MoneyDepositFunctionTest extends FactoryTest {
 
     @Test
     public void testInvalidData() {
-        this.factory.inject();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyDepositFunction();
         function.setData("a");
         assertFalse(function.function(player));
@@ -40,8 +38,8 @@ public class MoneyDepositFunctionTest {
 
     @Test
     public void testNullEconomy() {
-        this.factory.inject().getPlugin().economy = null;
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject().getPlugin().economy = null;
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyDepositFunction();
         function.setData("10");
         assertFalse(function.function(player));
@@ -49,8 +47,8 @@ public class MoneyDepositFunctionTest {
 
     @Test
     public void testValidDeposit() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        this.factory.inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        this.getFactory().inject();
         Function function = new MoneyDepositFunction();
         function.setData("10");
         assertTrue(function.function(player));

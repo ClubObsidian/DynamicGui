@@ -20,8 +20,8 @@ import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SoundFunction;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -30,21 +30,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SoundFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SoundFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SoundFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void soundTest() {
         String type = SoundWrapper.TEST_SOUND_STRING;
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Function function = new SoundFunction();
         function.setOwner(slot);
         function.setData(type);

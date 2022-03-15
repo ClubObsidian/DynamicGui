@@ -18,27 +18,25 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckLevelFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckLevelFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class CheckLevelFunctionTest extends FactoryTest {
 
     @Test
     public void testNull() {
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
+        MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         Function function = new CheckLevelFunction();
         assertFalse(function.function(wrapper));
     }
 
     @Test
     public void testLevelGreater() {
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
+        MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(10);
         Function function = new CheckLevelFunction();
         function.setData("1");
@@ -47,7 +45,7 @@ public class CheckLevelFunctionTest {
 
     @Test
     public void testLevelEqual() {
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
+        MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(10);
         Function function = new CheckLevelFunction();
         function.setData("10");
@@ -56,7 +54,7 @@ public class CheckLevelFunctionTest {
 
     @Test
     public void testLevelLessThan() {
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
+        MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(1);
         Function function = new CheckLevelFunction();
         function.setData("10");
@@ -65,7 +63,7 @@ public class CheckLevelFunctionTest {
 
     @Test
     public void testInvalidFormat() {
-        MockPlayerWrapper wrapper = this.factory.createPlayer();
+        MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(1);
         Function function = new CheckLevelFunction();
         function.setData("a");

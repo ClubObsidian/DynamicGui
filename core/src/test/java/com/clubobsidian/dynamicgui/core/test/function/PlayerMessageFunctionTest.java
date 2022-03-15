@@ -18,28 +18,26 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerMessageFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PlayerMessageFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class PlayerMessageFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new PlayerMessageFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void withDataTest() {
         String data = "test";
-        MockPlayerWrapper playerWrapper = this.factory.createPlayer();
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Function function = new PlayerMessageFunction();
         function.setData(data);
         assertTrue(function.function(playerWrapper));

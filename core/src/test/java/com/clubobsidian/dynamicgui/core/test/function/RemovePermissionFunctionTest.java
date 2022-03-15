@@ -18,21 +18,19 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.RemovePermissionFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RemovePermissionFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class RemovePermissionFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new RemovePermissionFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -40,7 +38,7 @@ public class RemovePermissionFunctionTest {
         String permission = "data";
         Function function = new RemovePermissionFunction();
         function.setData(permission);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
 
@@ -49,7 +47,7 @@ public class RemovePermissionFunctionTest {
         String permission = "data";
         Function function = new RemovePermissionFunction();
         function.setData(permission);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         player.addPermission(permission);
         assertTrue(function.function(player));
     }

@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetLoreFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,17 +32,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetLoreFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetLoreFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         String line = "test";
         List<String> lore = new ArrayList<>();
         lore.add(line);
-        Slot slot = this.factory.createSlot(player, lore);
+        Slot slot = this.getFactory().createSlot(player, lore);
         Function function = new SetLoreFunction();
         function.setOwner(slot);
         Gui gui = slot.getOwner();
@@ -54,13 +52,13 @@ public class SetLoreFunctionTest {
     public void nonSlotTest() {
         Function function = new SetLoreFunction();
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void oneLineTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Function function = new SetLoreFunction();
         function.setData("test");
         function.setOwner(slot);
@@ -73,8 +71,8 @@ public class SetLoreFunctionTest {
 
     @Test
     public void multiLineTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Function function = new SetLoreFunction();
         function.setData("test1\ntest2");
         function.setOwner(slot);

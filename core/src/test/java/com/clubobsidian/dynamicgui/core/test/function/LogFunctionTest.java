@@ -19,23 +19,21 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.LogFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
 import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LogFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class LogFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new LogFunction();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
 
@@ -44,9 +42,9 @@ public class LogFunctionTest {
         String data = "test";
         Function function = new LogFunction();
         function.setData(data);
-        MockLoggerWrapper wrapper = this.factory.inject().getLogger();
+        MockLoggerWrapper wrapper = this.getFactory().inject().getLogger();
         MockLogger logger = wrapper.getLogger();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         assertTrue(function.function(player));
         assertTrue(logger.getInfoMessages().size() == 1);
         assertEquals(data, logger.getInfoMessages().get(0));

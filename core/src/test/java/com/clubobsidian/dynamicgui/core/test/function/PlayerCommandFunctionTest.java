@@ -18,22 +18,20 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.PlayerCommandFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PlayerCommandFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class PlayerCommandFunctionTest extends FactoryTest {
 
     @Test
     public void nullDataTest() {
         Function function = new PlayerCommandFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -42,7 +40,7 @@ public class PlayerCommandFunctionTest {
         String slashCmd = "/" + cmd;
         Function function = new PlayerCommandFunction();
         function.setData(cmd);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         assertTrue(function.function(player));
         assertTrue(player.getOutgoingChat().size() == 1);
         assertEquals(slashCmd, player.getOutgoingChat().get(0));

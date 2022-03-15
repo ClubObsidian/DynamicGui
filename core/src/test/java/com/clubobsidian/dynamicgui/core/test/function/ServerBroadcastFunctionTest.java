@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ServerBroadcastFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.junit.jupiter.api.Test;
 
@@ -28,25 +28,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ServerBroadcastFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class ServerBroadcastFunctionTest extends FactoryTest {
 
     @Test
     public void noDataTest() {
         Function function = new ServerBroadcastFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void dataTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         String data = "&4test";
         String colorized = ChatColor.translateAlternateColorCodes(data);
         Function function = new ServerBroadcastFunction();
         function.setData(data);
-        assertTrue(function.function(this.factory.createPlayer()));
-        List<String> messages = this.factory.getPlatform().getBroadcastMessages();
+        assertTrue(function.function(this.getFactory().createPlayer()));
+        List<String> messages = this.getFactory().getPlatform().getBroadcastMessages();
         assertTrue(messages.size() == 1);
         assertEquals(colorized, messages.get(0));
     }

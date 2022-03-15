@@ -21,23 +21,21 @@ import com.clubobsidian.dynamicgui.core.function.impl.SetNameFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetNameFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetNameFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetNameFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -45,14 +43,14 @@ public class SetNameFunctionTest {
         Function function = new SetNameFunction();
         function.setData("asdf");
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void nameTest() {
         String name = "asdf";
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Gui gui = slot.getOwner();
         InventoryWrapper<?> inventory = gui.getInventoryWrapper();
         Function function = new SetNameFunction();

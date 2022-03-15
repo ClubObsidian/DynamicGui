@@ -20,29 +20,27 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ResetFrameFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ResetFrameFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class ResetFrameFunctionTest extends FactoryTest {
 
     @Test
     public void ownerNotSlotTest() {
-        Gui gui = this.factory.createGui("test");
+        Gui gui = this.getFactory().createGui("test");
         Function function = new ResetFrameFunction();
         function.setOwner(gui);
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void slotOwnerTest() {
-        Slot slot = this.factory.createSlot();
+        Slot slot = this.getFactory().createSlot();
         Function function = new ResetFrameFunction();
         function.setOwner(slot);
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 }

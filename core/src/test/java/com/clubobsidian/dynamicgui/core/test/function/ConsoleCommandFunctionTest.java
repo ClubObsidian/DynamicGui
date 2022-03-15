@@ -18,31 +18,29 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ConsoleCommandFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ConsoleCommandFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class ConsoleCommandFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new ConsoleCommandFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void withDataTest() {
         String data = "test";
-        MockPlatform platform = this.factory.inject().getPlatform();
+        MockPlatform platform = this.getFactory().inject().getPlatform();
         Function function = new ConsoleCommandFunction();
         function.setData(data);
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertEquals(data, platform.getDispatchedServerCommands().get(0));
     }
 

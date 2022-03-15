@@ -18,21 +18,19 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckPlayerWorldFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckPlayerWorldFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class CheckPlayerWorldFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new CheckPlayerWorldFunction();
-        MockPlayerWrapper player = this.factory.createPlayer();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
 
@@ -41,8 +39,8 @@ public class CheckPlayerWorldFunctionTest {
         String worldName = "test";
         Function function = new CheckPlayerWorldFunction();
         function.setData(worldName);
-        MockPlayerWrapper player = this.factory.createPlayer();
-        player.setLocation(this.factory.createLocation(0, 0, 0, worldName));
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        player.setLocation(this.getFactory().createLocation(0, 0, 0, worldName));
         assertTrue(function.function(player));
     }
 }

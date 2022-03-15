@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SendFunction;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -28,41 +28,39 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SendFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SendFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SendFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void noProxyTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
         assertTrue(this.setProxy(Proxy.NONE));
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void bungeeCordTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
         assertTrue(this.setProxy(Proxy.BUNGEECORD));
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void redisBungeeTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
         assertTrue(this.setProxy(Proxy.REDIS_BUNGEE));
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 
     private boolean setProxy(Proxy proxy) {

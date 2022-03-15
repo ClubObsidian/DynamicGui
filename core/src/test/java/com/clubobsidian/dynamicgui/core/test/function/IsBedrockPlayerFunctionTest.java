@@ -18,23 +18,21 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.IsBedrockPlayerFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IsBedrockPlayerFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class IsBedrockPlayerFunctionTest extends FactoryTest {
 
     @Test
     public void functionTest() {
         String name = "test";
         UUID uuid = new UUID(0, 1);
-        MockPlayerWrapper player = this.factory.createPlayer(name, uuid);
+        MockPlayerWrapper player = this.getFactory().createPlayer(name, uuid);
         Function function = new IsBedrockPlayerFunction();
         assertTrue(function.function(player));
     }

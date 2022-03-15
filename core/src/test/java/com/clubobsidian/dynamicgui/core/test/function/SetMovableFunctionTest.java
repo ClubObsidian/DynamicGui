@@ -20,21 +20,19 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetMovableFunction;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetMovableFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetMovableFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetMovableFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -42,28 +40,28 @@ public class SetMovableFunctionTest {
         Function function = new SetMovableFunction();
         function.setData("a");
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void setMovableFalseTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new SetMovableFunction();
         function.setData("false");
-        Slot slot = this.factory.createSlot(player);
+        Slot slot = this.getFactory().createSlot(player);
         function.setOwner(slot);
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertFalse(slot.isMovable());
     }
 
     @Test
     public void setMovableTrueTest() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new SetMovableFunction();
         function.setData("true");
-        Slot slot = this.factory.createSlot(player);
+        Slot slot = this.getFactory().createSlot(player);
         function.setOwner(slot);
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertTrue(slot.isMovable());
     }
 }

@@ -18,28 +18,26 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ParticleFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParticleFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class ParticleFunctionTest extends FactoryTest {
 
     @Test
     public void testNullData() {
         Function function = new ParticleFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void testValid() {
         Function function = new ParticleFunction();
         function.setData("test,0");
-        MockPlayerWrapper player = this.factory.createPlayer();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         assertTrue(function.function(player));
         assertTrue(player.getParticles().size() == 1);
     }

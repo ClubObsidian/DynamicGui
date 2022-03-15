@@ -13,6 +13,6 @@ public abstract class FactoryTest {
 
     @BeforeEach
     public void setup() {
-        this.factory.inject();
+        this.getFactory().inject();
     }
 }

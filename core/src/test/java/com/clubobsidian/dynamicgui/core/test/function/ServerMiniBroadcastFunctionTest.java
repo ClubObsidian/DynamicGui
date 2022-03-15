@@ -19,8 +19,8 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ServerMiniBroadcastFunction;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.MiniMessageManager;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,24 +29,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ServerMiniBroadcastFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class ServerMiniBroadcastFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new ServerMiniBroadcastFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void dataTest() {
-        MockPlatform platform = this.factory.inject().getPlatform();
+        MockPlatform platform = this.getFactory().inject().getPlatform();
         String data = "test";
         String json = MiniMessageManager.get().toJson(data);
         Function function = new ServerMiniBroadcastFunction();
         function.setData(data);
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         List<String> messages = platform.getBroadcastMessages();
         assertTrue(messages.size() == 1);
         assertEquals(json, messages.get(0));

@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.cooldown.IsOnCooldownFunction;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown.CooldownManager;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -28,20 +28,18 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IsOnCooldownFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class IsOnCooldownFunctionTest extends FactoryTest {
 
     @Test
     public void nullDataTest() {
         Function function = new IsOnCooldownFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void onCooldownTest() {
-        this.factory.inject();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         String cooldownName = UUID.randomUUID().toString();
         CooldownManager.get().createCooldown(player, cooldownName, 1000);
         Function function = new IsOnCooldownFunction();

@@ -19,37 +19,35 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.NoPermissionFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class NoPermissionFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class NoPermissionFunctionTest extends FactoryTest {
 
     @Test
     public void testNullData() {
         Function function = new NoPermissionFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void testHasNoPermission() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new NoPermissionFunction();
         function.setData("test");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void testHasPermission() {
         String permission = "test";
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new NoPermissionFunction();
         function.setData(permission);
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         player.addPermission(permission);
         assertFalse(function.function(player));
     }

@@ -19,8 +19,8 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.MoneyWithdrawFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -28,14 +28,12 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MoneyWithdrawFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class MoneyWithdrawFunctionTest extends FactoryTest {
 
     @Test
     public void testBelowBalance() {
-        this.factory.inject();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
         function.setData("10");
         assertFalse(function.function(player));
@@ -43,8 +41,8 @@ public class MoneyWithdrawFunctionTest {
 
     @Test
     public void testInvalidData() {
-        this.factory.inject();
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
         function.setData("a");
         assertFalse(function.function(player));
@@ -52,8 +50,8 @@ public class MoneyWithdrawFunctionTest {
 
     @Test
     public void testNullEconomy() {
-        this.factory.inject().getPlugin().economy = null;
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        this.getFactory().inject().getPlugin().economy = null;
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
         function.setData("10");
         assertFalse(function.function(player));
@@ -61,8 +59,8 @@ public class MoneyWithdrawFunctionTest {
 
     @Test
     public void testEqualBalance() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        MockEconomy economy = this.factory.inject().getEconomy();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        MockEconomy economy = this.getFactory().inject().getEconomy();
         BigDecimal amount = new BigDecimal(1);
         economy.deposit(player, amount);
         Function function = new MoneyWithdrawFunction();
@@ -72,8 +70,8 @@ public class MoneyWithdrawFunctionTest {
 
     @Test
     public void testAboveBalance() {
-        PlayerWrapper<?> player = this.factory.createPlayer();
-        MockEconomy economy = this.factory.inject().getEconomy();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
+        MockEconomy economy = this.getFactory().inject().getEconomy();
         int withdrawAmount = 9;
         BigDecimal depositAmount = new BigDecimal(withdrawAmount + 1);
         economy.deposit(player, depositAmount);

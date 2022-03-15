@@ -19,20 +19,18 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.PermissionFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PermissionFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class PermissionFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new PermissionFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
 
@@ -40,7 +38,7 @@ public class PermissionFunctionTest {
     public void doesNotHavePermissionTest() {
         Function function = new PermissionFunction();
         function.setData("test");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -48,7 +46,7 @@ public class PermissionFunctionTest {
         String permission = "test";
         Function function = new PermissionFunction();
         function.setData(permission);
-        PlayerWrapper<?> player = this.factory.createPlayer();
+        PlayerWrapper<?> player = this.getFactory().createPlayer();
         player.addPermission(permission);
         assertTrue(function.function(player));
     }

@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.core.function.impl.SetDurabilityFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,33 +32,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetDurabilityFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetDurabilityFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetDurabilityFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void nonSlotOwnerTest() {
         Function function = new SetDurabilityFunction();
-        function.setOwner(this.factory.createGui("test"));
+        function.setOwner(this.getFactory().createGui("test"));
         function.setData("1");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void invalidDataTest() {
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot();
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot();
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         slots.add(slot);
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new SetDurabilityFunction();
@@ -69,14 +67,14 @@ public class SetDurabilityFunctionTest {
 
     @Test
     public void dataTest() {
-        this.factory.inject();
-        MockPlayerWrapper player = this.factory.createPlayer();
+        this.getFactory().inject();
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         int newDurability = 2;
-        Slot slot = this.factory.createSlot();
+        Slot slot = this.getFactory().createSlot();
         slot.buildItemStack(player);
         List<Slot> slots = new ArrayList<>();
         slots.add(slot);
-        Gui gui = this.factory.createGui("test", slots);
+        Gui gui = this.getFactory().createGui("test", slots);
         InventoryWrapper<?> inventory = gui.buildInventory(player);
         slot.setOwner(gui);
         Function function = new SetDurabilityFunction();

@@ -21,23 +21,21 @@ import com.clubobsidian.dynamicgui.core.function.impl.SetNBTFunction;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetNBTFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetNBTFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetNBTFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
@@ -45,14 +43,14 @@ public class SetNBTFunctionTest {
         Function function = new SetNBTFunction();
         function.setData("asdf");
         function.setOwner(new MockNonCloseableFunctionOwner());
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void nbtTest() {
         String nbt = "asdf";
-        MockPlayerWrapper player = this.factory.createPlayer();
-        Slot slot = this.factory.createSlot(player);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        Slot slot = this.getFactory().createSlot(player);
         Gui gui = slot.getOwner();
         InventoryWrapper<?> inventory = gui.getInventoryWrapper();
         Function function = new SetNBTFunction();

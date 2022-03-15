@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetGameRuleFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
 import org.junit.jupiter.api.Test;
 
@@ -27,45 +27,43 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SetGameRuleFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class SetGameRuleFunctionTest extends FactoryTest {
 
     @Test
     public void nullTest() {
         Function function = new SetGameRuleFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void dataDoesNotHaveCommaTest() {
         Function function = new SetGameRuleFunction();
         function.setData("a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void sizeNotThreeTest() {
         Function function = new SetGameRuleFunction();
         function.setData("a,a");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void worldNullTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new SetGameRuleFunction();
         function.setData("test,key,value");
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void validTest() {
-        MockWorldWrapper world = this.factory.inject().createWorld("test");
-        this.factory.getPlatform().addWorld(world);
+        MockWorldWrapper world = this.getFactory().inject().createWorld("test");
+        this.getFactory().getPlatform().addWorld(world);
         Function function = new SetGameRuleFunction();
         function.setData("test,key,value");
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
         assertEquals("value", DynamicGui.get().getPlatform().getWorld("test").getGameRule("key"));
     }
 }

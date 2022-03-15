@@ -19,23 +19,21 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckItemInTypeHandFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class CheckItemInTypeHandFunctionTest extends FactoryTest {
 
     @Test
     public void testNull() {
         String material = "stone";
         Function function = new CheckItemTypeInHandFunction();
-        ItemStackWrapper<?> hand = this.factory.createItemStack(material);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        ItemStackWrapper<?> hand = this.getFactory().createItemStack(material);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         player.setItemInHand(hand);
         assertFalse(function.function(player));
     }
@@ -45,8 +43,8 @@ public class CheckItemInTypeHandFunctionTest {
         String material = "stone";
         Function function = new CheckItemTypeInHandFunction();
         function.setData(material);
-        ItemStackWrapper<?> hand = this.factory.createItemStack(material);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        ItemStackWrapper<?> hand = this.getFactory().createItemStack(material);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         player.setItemInHand(hand);
         assertTrue(function.function(player));
     }
@@ -57,8 +55,8 @@ public class CheckItemInTypeHandFunctionTest {
         String functionMaterials = "dirt,stone";
         Function function = new CheckItemTypeInHandFunction();
         function.setData(functionMaterials);
-        ItemStackWrapper<?> hand = this.factory.createItemStack(handMaterial);
-        MockPlayerWrapper player = this.factory.createPlayer();
+        ItemStackWrapper<?> hand = this.getFactory().createItemStack(handMaterial);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
         player.setItemInHand(hand);
         assertTrue(function.function(player));
     }

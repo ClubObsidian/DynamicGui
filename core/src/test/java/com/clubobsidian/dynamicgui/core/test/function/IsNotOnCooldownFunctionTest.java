@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.cooldown.IsNotOnCooldownFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -26,21 +26,19 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IsNotOnCooldownFunctionTest {
-
-    private final MockFactory factory = new MockFactory();
+public class IsNotOnCooldownFunctionTest extends FactoryTest {
 
     @Test
     public void nullDataTest() {
         Function function = new IsNotOnCooldownFunction();
-        assertFalse(function.function(this.factory.createPlayer()));
+        assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
     public void notOnCooldownTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         Function function = new IsNotOnCooldownFunction();
         function.setData(UUID.randomUUID().toString());
-        assertTrue(function.function(this.factory.createPlayer()));
+        assertTrue(function.function(this.getFactory().createPlayer()));
     }
 }

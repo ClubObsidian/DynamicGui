@@ -17,25 +17,23 @@
 package com.clubobsidian.dynamicgui.core.test.config;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MessageTest {
-
-    private final MockFactory factory = new MockFactory();
+public class MessageTest extends FactoryTest {
 
     @Test
     public void notNullTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         assertNotNull(DynamicGui.get().getMessage());
     }
 
     @Test
     public void noGuiTest() {
-        this.factory.inject();
+        this.getFactory().inject();
         String noGuiMessage = DynamicGui.get().getMessage().getNoGui();
         assertNotNull(noGuiMessage);
         assertTrue(noGuiMessage.length() > 0);
