@@ -20,3 +20,11 @@ rows: 5
         type: "fail"
         functions:
         - "pmsg: fail"
+'2':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "delay: 1000"
+        - "pmsg: async"
