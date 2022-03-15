@@ -4,7 +4,7 @@ import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.core.test.test.ScheduledTest;
+import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import org.junit.jupiter.api.Test;

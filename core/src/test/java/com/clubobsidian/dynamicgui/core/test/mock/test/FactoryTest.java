@@ -1,4 +1,4 @@
-package com.clubobsidian.dynamicgui.core.test.test;
+package com.clubobsidian.dynamicgui.core.test.mock.test;
 
 import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import org.junit.jupiter.api.BeforeEach;

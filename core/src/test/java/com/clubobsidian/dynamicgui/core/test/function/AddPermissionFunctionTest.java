@@ -19,8 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
-import com.clubobsidian.dynamicgui.core.test.test.FactoryTest;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
