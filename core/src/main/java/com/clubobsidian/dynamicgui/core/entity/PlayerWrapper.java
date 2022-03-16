@@ -76,4 +76,5 @@ public abstract class PlayerWrapper<T> {
 
     public abstract LocationWrapper<?> getLocation();
 
+    public abstract boolean isOnline();
 }

@@ -38,6 +38,7 @@ public class MockPlatform implements Platform {
     private final List<String> dispatchedServerCommands = new ArrayList<>();
     private final MockScheduler scheduler = new MockScheduler();
     private final List<String> broadcastMessages = new ArrayList<>();
+    private final List<PlayerWrapper<?>> players = new ArrayList<>();
 
     @Override
     public Scheduler getScheduler() {
@@ -74,17 +75,27 @@ public class MockPlatform implements Platform {
 
     @Override
     public PlayerWrapper<?> getPlayer(UUID uuid) {
+        for (PlayerWrapper<?> player : this.players) {
+            if(player.getUniqueId().equals(uuid)) {
+                return player;
+            }
+        }
         return null;
     }
 
     @Override
     public PlayerWrapper<?> getPlayer(String name) {
+        for (PlayerWrapper<?> player : this.players) {
+            if(player.getName().equals(name)) {
+                return player;
+            }
+        }
         return null;
     }
 
     @Override
     public Collection<PlayerWrapper<?>> getOnlinePlayers() {
-        return null;
+        return this.players;
     }
 
     @Override

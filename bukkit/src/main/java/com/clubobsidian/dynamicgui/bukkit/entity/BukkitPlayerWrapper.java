@@ -166,4 +166,9 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         Location bukkitLoc = this.getPlayer().getLocation();
         return LocationManager.get().toLocationWrapper(bukkitLoc);
     }
+
+    @Override
+    public boolean isOnline() {
+        return this.getPlayer().isOnline();
+    }
 }

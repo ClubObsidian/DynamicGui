@@ -39,6 +39,7 @@ public class MockPlayer {
     private LocationWrapper<?> location;
     private final List<ParticleWrapper.ParticleData> particles = new ArrayList<>();
     private final List<SoundWrapper.SoundData> sounds = new ArrayList<>();
+    private boolean online = true;
 
     public MockPlayer(String name, UUID uuid) {
         this.name = name;
@@ -123,5 +124,13 @@ public class MockPlayer {
 
     public List<SoundWrapper.SoundData> getSounds() {
         return this.sounds;
+    }
+
+    public boolean isOnline() {
+        return this.online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 }

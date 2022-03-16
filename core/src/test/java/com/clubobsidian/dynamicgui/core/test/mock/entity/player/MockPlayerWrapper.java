@@ -129,4 +129,13 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     public List<SoundWrapper.SoundData> getSounds() {
         return this.getPlayer().getSounds();
     }
+
+    @Override
+    public boolean isOnline() {
+        return this.getPlayer().isOnline();
+    }
+
+    public void setOnline(boolean online) {
+        this.getPlayer().setOnline(online);
+    }
 }
