@@ -430,17 +430,16 @@ public class DynamicGui {
         return this.loggerWrapper;
     }
 
-    public Integer getGlobalServerPlayerCount() {
+    public int getGlobalServerPlayerCount() {
         int globalPlayerCount = 0;
         for (int playerCount : this.serverPlayerCount.values()) {
             globalPlayerCount += playerCount;
         }
-
         return globalPlayerCount;
     }
 
-    public Integer getServerPlayerCount(String server) {
-        return this.serverPlayerCount.get(server);
+    public int getServerPlayerCount(String server) {
+        return this.serverPlayerCount.getOrDefault(server, -1);
     }
 
     public Injector getInjector() {
