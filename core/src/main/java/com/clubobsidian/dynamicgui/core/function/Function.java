@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class Function implements Cloneable, Serializable {
@@ -112,5 +113,18 @@ public abstract class Function implements Cloneable, Serializable {
 
     public Function clone() {
         return SerializationUtils.clone(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Function)) return false;
+        Function function = (Function) o;
+        return async == function.async && name.equals(function.name) && aliases.equals(function.aliases);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, async, aliases);
     }
 }

@@ -52,7 +52,7 @@ public class FunctionManager {
     }
 
     private final Map<String, Function> functions = new HashMap<>();
-    private final Map<UUID, AtomicInteger> runningAsyncFunctions = new ConcurrentHashMap<>();
+    private final Map<UUID, Map<Function, AtomicInteger>> runningAsyncFunctions = new ConcurrentHashMap<>();
 
     private FunctionManager() {
     }
@@ -63,7 +63,6 @@ public class FunctionManager {
         if (function == null) {
             return null;
         }
-
         return function.clone();
     }
 
@@ -91,8 +90,8 @@ public class FunctionManager {
     }
 
     public boolean hasAsyncFunctionRunning(UUID uuid) {
-        AtomicInteger running = this.runningAsyncFunctions.get(uuid);
-        return running != null && running.get() > 0;
+        Map<Function, AtomicInteger> running = this.runningAsyncFunctions.get(uuid);
+        return running != null && running.size() > 0;
     }
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
@@ -187,6 +186,11 @@ public class FunctionManager {
                 ThreadUtil.run(() -> {
                     if(async) {
                         this.runningAsyncFunctions.compute(uuid, (key, value) -> {
+                            if(value == null) {
+                                return new ConcurrentHashMap<>();
+                            }
+                            return value;
+                        }).compute(function, (key, value) -> {
                             if(value != null) {
                                 value.incrementAndGet();
                             } else {
@@ -200,11 +204,11 @@ public class FunctionManager {
                         ran = !ran;
                     }
                     if (!ran) {
-                        cleanupAsync(uuid);
+                        cleanupAsync(uuid, function);
                         response.complete(new FunctionResponse(false, functionName, functionData));
                     } else if (async) {
                         runFunctionData(owner, futureData, playerWrapper).thenAccept((value) -> {
-                            cleanupAsync(uuid);
+                            cleanupAsync(uuid, function);
                             response.complete(value);
                         });
                     }
@@ -224,12 +228,18 @@ public class FunctionManager {
         return response;
     }
 
-    private void cleanupAsync(UUID uuid) {
-        AtomicInteger num = this.runningAsyncFunctions.get(uuid);
-        if(num != null) {
-            int ret = num.decrementAndGet();
-            if(ret == 0) {
-                this.runningAsyncFunctions.remove(uuid);
+    private void cleanupAsync(UUID uuid, Function function) {
+        Map<Function, AtomicInteger> map = this.runningAsyncFunctions.get(uuid);
+        if(map != null) {
+            AtomicInteger num = map.get(function);
+            if(num != null) {
+                int ret = num.decrementAndGet();
+                if (ret == 0) {
+                   map.remove(function);
+                }
+                if(map.size() == 0) { //If the map is empty remove
+                    this.runningAsyncFunctions.remove(uuid);
+                }
             }
         }
     }
