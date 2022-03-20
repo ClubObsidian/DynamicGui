@@ -44,17 +44,17 @@ public class FunctionManager {
 
     private static FunctionManager instance;
 
-    private final Map<String, Function> functions = new HashMap<>();
-    private final Map<UUID, AtomicInteger> runningAsyncFunctions = new ConcurrentHashMap<>();
-
-    private FunctionManager() {
-    }
-
     public static FunctionManager get() {
         if (instance == null) {
             instance = new FunctionManager();
         }
         return instance;
+    }
+
+    private final Map<String, Function> functions = new HashMap<>();
+    private final Map<UUID, AtomicInteger> runningAsyncFunctions = new ConcurrentHashMap<>();
+
+    private FunctionManager() {
     }
 
     public Function getFunctionByName(String functionName) {
