@@ -21,6 +21,11 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Function implements Cloneable, Serializable {
 
@@ -29,23 +34,29 @@ public abstract class Function implements Cloneable, Serializable {
      */
     private static final long serialVersionUID = 1492427006104061443L;
 
-    private static String[] normalizeAliases(String[] aliases) {
-        for (int i = 0; i < aliases.length; i++) {
-            aliases[i] = StringFuzz.normalize(aliases[i]);
+    private static Set<String> loadAliases(String name, Collection<String> aliases) {
+        Set<String> aliasSet = new HashSet<>();
+        aliasSet.add(name);
+        for (String alias : aliases) {
+            aliasSet.add(StringFuzz.normalize(alias));
         }
-        return aliases;
+        return Collections.unmodifiableSet(aliasSet);
     }
 
     private final String name;
     private String data;
     private final boolean async;
     private FunctionOwner owner;
-    private final String[] aliases;
+    private final Set<String> aliases;
     private int index = -1;
 
     public Function(String name, String[] aliases, boolean async) {
+        this(name, Arrays.asList(aliases), async);
+    }
+
+    public Function(String name, Collection<String> aliases, boolean async) {
         this.name = StringFuzz.normalize(name);
-        this.aliases = normalizeAliases(aliases);
+        this.aliases = loadAliases(this.name, aliases);
         this.async = async;
     }
 
@@ -67,7 +78,7 @@ public abstract class Function implements Cloneable, Serializable {
         return this.name;
     }
 
-    public String[] getAliases() {
+    public Set<String> getAliases() {
         return this.aliases;
     }
 
