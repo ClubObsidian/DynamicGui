@@ -191,8 +191,9 @@ public class DynamicGui {
     private void saveDefaultConfig() {
         if (!this.plugin.getConfigFile().exists()) {
             try {
-                FileUtils
-                        .copyInputStreamToFile(this.getClass().getClassLoader().getResourceAsStream("config.yml"),
+                FileUtils.copyInputStreamToFile(this.getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("config.yml"),
                                 this.plugin.getConfigFile());
             } catch (IOException e) {
                 e.printStackTrace();
