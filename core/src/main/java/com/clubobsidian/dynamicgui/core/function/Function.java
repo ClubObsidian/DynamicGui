@@ -57,10 +57,6 @@ public abstract class Function implements Cloneable, Serializable {
         this(aliases[0], aliases, false);
     }
 
-    public Function(Function function) {
-        this(function.getName(), function.getData());
-    }
-
     public abstract boolean function(PlayerWrapper<?> playerWrapper);
 
     public boolean isAsync() {
