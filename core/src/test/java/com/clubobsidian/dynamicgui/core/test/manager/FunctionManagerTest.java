@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class FunctionManagerTest extends ScheduledTest {
 
     @Test
-    public void testPassing() throws ExecutionException, InterruptedException {
+    public void testTryFunctionsPassing() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(0);
@@ -44,7 +44,7 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
-    public void testFailing() throws ExecutionException, InterruptedException {
+    public void testTryFunctionsFailing() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(1);
@@ -54,7 +54,7 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
-    public void testAsync() throws ExecutionException, InterruptedException {
+    public void testTryFunctionsAsync() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(2);
@@ -67,7 +67,7 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
-    public void testMainThread() throws ExecutionException, InterruptedException {
+    public void testTryFunctionsMainThread() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(3);
@@ -75,7 +75,7 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
-    public void testAsyncThread() throws ExecutionException, InterruptedException {
+    public void testTryFunctionsAsyncThread() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(4);
