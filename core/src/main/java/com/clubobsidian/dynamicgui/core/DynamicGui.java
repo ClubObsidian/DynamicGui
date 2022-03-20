@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.function.AsyncRunningFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckLevelFunction;
@@ -364,6 +365,7 @@ public class DynamicGui {
         //Async related
         FunctionManager.get().addFunction(new DelayFunction());
         FunctionManager.get().addFunction(new LoggedInFunction());
+        FunctionManager.get().addFunction(new AsyncRunningFunction());
 
         //Test functions
         FunctionManager.get().addFunction(new FalseAsyncFunction());

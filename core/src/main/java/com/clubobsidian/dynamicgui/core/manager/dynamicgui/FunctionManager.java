@@ -34,18 +34,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FunctionManager {
 
     private static FunctionManager instance;
 
-    private final Map<String, Function> functions;
+    private final Map<String, Function> functions = new HashMap<>();
+    private final Map<UUID, AtomicInteger> runningAsyncFunctions = new ConcurrentHashMap<>();
 
     private FunctionManager() {
-        this.functions = new HashMap<>();
     }
 
     public static FunctionManager get() {
@@ -82,6 +84,15 @@ public class FunctionManager {
     public boolean removeFunctionByName(String functionName) {
         String normalized = StringFuzz.normalize(functionName);
         return this.functions.keySet().remove(normalized);
+    }
+
+    public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper) {
+        return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId());
+    }
+
+    public boolean hasAsyncFunctionRunning(UUID uuid) {
+        AtomicInteger running = this.runningAsyncFunctions.get(uuid);
+        return running != null && running.get() > 0;
     }
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
@@ -142,6 +153,7 @@ public class FunctionManager {
     }
 
     private CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
+        UUID uuid = playerWrapper.getUniqueId();
         CompletableFuture<FunctionResponse> response = new CompletableFuture<>();
         response.exceptionally((ex) -> {
             ex.printStackTrace();
@@ -173,14 +185,26 @@ public class FunctionManager {
                     }
                 }
                 ThreadUtil.run(() -> {
+                    if(async) {
+                        this.runningAsyncFunctions.compute(uuid, (key, value) -> {
+                            if(value != null) {
+                                value.incrementAndGet();
+                            } else {
+                                value = new AtomicInteger(1);
+                            }
+                            return value;
+                        });
+                    }
                     boolean ran = function.function(playerWrapper);
                     if (data.getModifier() == FunctionModifier.NOT) {
                         ran = !ran;
                     }
                     if (!ran) {
+                        cleanupAsync(uuid);
                         response.complete(new FunctionResponse(false, functionName, functionData));
                     } else if (async) {
                         runFunctionData(owner, futureData, playerWrapper).thenAccept((value) -> {
+                            cleanupAsync(uuid);
                             response.complete(value);
                         });
                     }
@@ -198,6 +222,16 @@ public class FunctionManager {
             response.complete(new FunctionResponse(true));
         }, false);
         return response;
+    }
+
+    private void cleanupAsync(UUID uuid) {
+        AtomicInteger num = this.runningAsyncFunctions.get(uuid);
+        if(num != null) {
+            int ret = num.decrementAndGet();
+            if(ret == 0) {
+                this.runningAsyncFunctions.remove(uuid);
+            }
+        }
     }
 
     private boolean isFail(FunctionResponse response, FunctionToken token) {

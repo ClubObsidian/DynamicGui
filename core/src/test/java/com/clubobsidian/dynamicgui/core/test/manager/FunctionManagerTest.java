@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,6 +33,29 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FunctionManagerTest extends ScheduledTest {
+
+    @Test
+    public void testHasAsyncFunctionRunningPassing() throws InterruptedException, ExecutionException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(2);
+        CompletableFuture<Boolean> future = FunctionManager
+                .get()
+                .tryFunctions(slot, FunctionType.CLICK, playerWrapper);
+        Thread.sleep(500);
+        boolean has = FunctionManager.get().hasAsyncFunctionRunning(playerWrapper);
+        future.get();
+        assertTrue(has);
+    }
+
+    @Test
+    public void testHasAsyncFunctionRunningFailing() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(2);
+        FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get();
+        assertFalse(FunctionManager.get().hasAsyncFunctionRunning(playerWrapper));
+    }
 
     @Test
     public void testTryFunctionsPassing() throws ExecutionException, InterruptedException {
