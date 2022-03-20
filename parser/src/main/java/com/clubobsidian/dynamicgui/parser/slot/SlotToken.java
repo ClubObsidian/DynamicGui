@@ -108,13 +108,8 @@ public class SlotToken implements Serializable {
         if (data == null) {
             return false;
         }
-
         String parsed = this.macroParser.parseStringMacros(data);
-        if (data.equals("true")) {
-            return Boolean.parseBoolean(parsed);
-        }
-
-        return false;
+        return Boolean.parseBoolean(parsed);
     }
 
     private int parseInteger(String data) {
