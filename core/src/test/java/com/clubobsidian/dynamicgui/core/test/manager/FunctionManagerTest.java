@@ -58,6 +58,29 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
+    public void testHasAsyncFunctionRunningWithFunctionNamePassing() throws InterruptedException, ExecutionException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(2);
+        CompletableFuture<Boolean> future = FunctionManager
+                .get()
+                .tryFunctions(slot, FunctionType.CLICK, playerWrapper);
+        Thread.sleep(500);
+        boolean has = FunctionManager.get().hasAsyncFunctionRunning(playerWrapper, "delay");
+        future.get();
+        assertTrue(has);
+    }
+
+    @Test
+    public void testHasAsyncFunctionRunningWithFunctionNameFailing() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(2);
+        FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get();
+        assertFalse(FunctionManager.get().hasAsyncFunctionRunning(playerWrapper, "delay"));
+    }
+
+    @Test
     public void testTryFunctionsPassing() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("test");

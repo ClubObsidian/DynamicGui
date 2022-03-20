@@ -27,6 +27,9 @@ public class AsyncRunningFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        return FunctionManager.get().hasAsyncFunctionRunning(playerWrapper);
+        if(this.getData() == null) {
+            return FunctionManager.get().hasAsyncFunctionRunning(playerWrapper);
+        }
+        return FunctionManager.get().hasAsyncFunctionRunning(playerWrapper, this.getData());
     }
 }

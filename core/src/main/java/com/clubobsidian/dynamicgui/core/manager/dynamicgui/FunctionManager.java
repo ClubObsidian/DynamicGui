@@ -94,6 +94,21 @@ public class FunctionManager {
         return running != null && running.size() > 0;
     }
 
+    public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper, String functionName) {
+        return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId(), functionName);
+    }
+
+    public boolean hasAsyncFunctionRunning(UUID uuid, String functionName) {
+        Function function = this.functions.get(functionName);
+        Map<Function, AtomicInteger> functionMap = this.runningAsyncFunctions.get(uuid);
+        AtomicInteger num = functionMap == null ? null : functionMap.get(function);
+        return function == null
+                || !function.isAsync()
+                || functionMap == null
+                || num == null
+                || num.get() == 0 ? false : true;
+    }
+
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
         return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type,
                 playerWrapper, null, new AtomicBoolean(true));
@@ -234,7 +249,7 @@ public class FunctionManager {
             AtomicInteger num = map.get(function);
             if(num != null) {
                 int ret = num.decrementAndGet();
-                if (ret == 0) {
+                if (ret <= 0) { //Less than 0 shouldn't happen but just to ensure that the map gets cleaned up
                    map.remove(function);
                 }
                 if(map.size() == 0) { //If the map is empty remove

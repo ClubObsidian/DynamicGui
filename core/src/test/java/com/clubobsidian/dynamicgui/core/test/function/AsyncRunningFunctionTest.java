@@ -32,4 +32,11 @@ public class AsyncRunningFunctionTest extends FactoryTest {
         Function function = new AsyncRunningFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
+
+    @Test
+    public void failingWithoutDataTest() {
+        Function function = new AsyncRunningFunction();
+        function.setData("delay");
+        assertFalse(function.function(this.getFactory().createPlayer()));
+    }
 }
