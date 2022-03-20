@@ -241,7 +241,7 @@ public class DynamicGui {
             DynamicGuiReplacerRegistry.get().addReplacer(new Replacer("%" + server + "-playercount%") {
                 @Override
                 public String replacement(String text, PlayerWrapper<?> player) {
-                    return String.valueOf(serverPlayerCount.get(server));
+                    return String.valueOf(getServerPlayerCount(server));
                 }
             });
         }
