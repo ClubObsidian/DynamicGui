@@ -57,10 +57,6 @@ public abstract class Function implements Cloneable, Serializable {
         this(aliases[0], aliases, false);
     }
 
-    public Function(String name) {
-        this(name, null);
-    }
-
     public Function(Function function) {
         this(function.getName(), function.getData());
     }
