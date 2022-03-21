@@ -83,7 +83,6 @@ import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
 import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
-import com.clubobsidian.dynamicgui.core.listener.InventoryOpenListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
@@ -288,7 +287,6 @@ public class DynamicGui {
         this.eventBus.registerEvents(new EntityClickListener());
         this.eventBus.registerEvents(new InventoryInteractListener());
         this.eventBus.registerEvents(new InventoryCloseListener());
-        this.eventBus.registerEvents(new InventoryOpenListener());
         this.eventBus.registerEvents(new PlayerInteractListener());
         this.eventBus.registerEvents(new GuiListener());
     }
