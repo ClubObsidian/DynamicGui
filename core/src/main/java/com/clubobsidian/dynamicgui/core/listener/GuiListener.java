@@ -30,11 +30,7 @@ import java.util.UUID;
 
 public class GuiListener {
 
-    private final Set<UUID> users;
-
-    public GuiListener() {
-        this.users = new HashSet<>();
-    }
+    private final Set<UUID> users = new HashSet<>();
 
     @EventHandler
     public void onGuiLoad(GuiLoadEvent event) {
