@@ -32,12 +32,13 @@ public class EntityClickListener {
 
     @EventHandler
     public void onEntityClick(PlayerInteractEntityEvent e) {
-        if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper()))
+        if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
             return;
+        }
 
         EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-        List<NPCRegistry> registeries = DynamicGui.get().getPlugin().getNPCRegistries();
-        for (NPCRegistry registry : registeries) {
+        List<NPCRegistry> registries = DynamicGui.get().getPlugin().getNPCRegistries();
+        for (NPCRegistry registry : registries) {
             for (Gui gui : GuiManager.get().getGuis()) {
                 Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
                 while (it.hasNext()) {

@@ -37,7 +37,7 @@ public class GuiListener {
     }
 
     @EventHandler
-    public void onGuiOpen(GuiLoadEvent event) {
+    public void onGuiLoad(GuiLoadEvent event) {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
         Gui gui = GuiManager.get().getPlayerGui(wrapper);
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
