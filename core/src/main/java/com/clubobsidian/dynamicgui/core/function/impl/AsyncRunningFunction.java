@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.function;
+package com.clubobsidian.dynamicgui.core.function.impl;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
 
 public class AsyncRunningFunction extends Function {
