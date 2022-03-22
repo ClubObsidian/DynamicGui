@@ -51,7 +51,7 @@ public class BackFunction extends Function {
         if (back != null) {
             if (this.getData() != null) {
                 try {
-                    Integer backAmount = Integer.parseInt(this.getData());
+                    int backAmount = Integer.parseInt(this.getData());
                     for (int i = 1; i < backAmount; i++) {
                         Gui nextBack = back.getBack();
                         if (nextBack != null) {
