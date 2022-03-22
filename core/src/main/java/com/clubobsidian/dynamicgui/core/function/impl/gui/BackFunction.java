@@ -32,7 +32,7 @@ public class BackFunction extends Function {
     private static final long serialVersionUID = 7851730396417693718L;
 
     public BackFunction() {
-        super("back");
+        super("back", true);
     }
 
     @Override
@@ -69,10 +69,5 @@ public class BackFunction extends Function {
             }
         }
         return false;
-    }
-
-    @Override
-    public boolean isAsync() {
-        return true;
     }
 }

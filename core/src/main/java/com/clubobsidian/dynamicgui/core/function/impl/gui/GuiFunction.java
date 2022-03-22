@@ -32,7 +32,7 @@ public class GuiFunction extends Function {
     private static final long serialVersionUID = 848178368629667482L;
 
     public GuiFunction() {
-        super("gui");
+        super("gui", true);
     }
 
     @Override
@@ -67,10 +67,5 @@ public class GuiFunction extends Function {
             e.printStackTrace();
             return false;
         }
-    }
-
-    @Override
-    public boolean isAsync() {
-        return true;
     }
 }
