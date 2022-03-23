@@ -82,7 +82,7 @@ public class FunctionManager {
 
     public boolean removeFunctionByName(String functionName) {
         String normalized = StringFuzz.normalize(functionName);
-        return this.functions.keySet().remove(normalized);
+        return this.functions.remove(normalized) != null;
     }
 
     public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper) {
