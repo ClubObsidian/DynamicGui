@@ -133,8 +133,8 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message) {
-        this.getPlayer().sendPluginMessage((Plugin) plugin, channel, message);
+    public void sendPluginMessage(String channel, byte[] message) {
+        this.getPlayer().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
     }
 
     @Override

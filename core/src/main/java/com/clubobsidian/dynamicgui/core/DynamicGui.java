@@ -384,7 +384,7 @@ public class DynamicGui {
                     if (this.proxy == Proxy.REDIS_BUNGEE) {
                         sendTo = "RedisBungee";
                     }
-                    player.sendPluginMessage(this.getPlugin(), sendTo, out.toByteArray());
+                    player.sendPluginMessage(sendTo, out.toByteArray());
                 }
             }
         }, 1L, 20L);
@@ -449,7 +449,7 @@ public class DynamicGui {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(server);
-            playerWrapper.sendPluginMessage(DynamicGui.get().getPlugin(), "BungeeCord", out.toByteArray());
+            playerWrapper.sendPluginMessage("BungeeCord", out.toByteArray());
             return true;
         }
         return false;

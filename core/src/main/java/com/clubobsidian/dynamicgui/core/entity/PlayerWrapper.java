@@ -66,7 +66,7 @@ public abstract class PlayerWrapper<T> {
 
     public abstract void openInventory(InventoryWrapper<?> inventoryWrapper);
 
-    public abstract void sendPluginMessage(DynamicGuiPlugin plugin, String channel, byte[] message);
+    public abstract void sendPluginMessage(String channel, byte[] message);
 
     public abstract void playSound(SoundWrapper.SoundData soundData);
 
