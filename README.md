@@ -10,6 +10,7 @@ A plugin designed to make writing menus for Minecraft easy. Menus can be written
 ## Features
 
 * A number of functions to use to customize menus
+  * Asynchronous functions
   * Functions use latebinding
   * Addons can be written for more functions
   * Use conditions with replacers using [EvalEx](https://github.com/uklimaschewski/EvalEx)
