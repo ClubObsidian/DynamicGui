@@ -59,6 +59,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiManager {
 
@@ -208,32 +210,71 @@ public class GuiManager {
 
                 if (ran) {
                     InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
-
-                    //Run slot load functions
-                    for (Slot slot : clonedGui.getSlots()) {
-                        FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
-                    }
-
                     if (inventoryWrapper == null) {
                         future.complete(false);
                         return;
                     }
 
-                    Platform server = DynamicGui.get().getPlatform();
-                    if (server.getType() == PlatformType.SPONGE) {
-                        server.getScheduler().runSyncDelayedTask(() -> {
-                            playerWrapper.openInventory(inventoryWrapper);
-                        }, 1L);
-                    } else {
-                        playerWrapper.openInventory(inventoryWrapper);
-                    }
-
-                    this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-                    DynamicGui.get().getPlatform().getScheduler().runSyncDelayedTask(() -> {
-                        playerWrapper.updateInventory();
-                    }, 2L);
+                    //Run slot load functions
+                    CompletableFuture<Boolean> slotFuture = new CompletableFuture<>();
+                    ThreadUtil.run(() -> {
+                        List<Slot> slots = clonedGui.getSlots();
+                        int slotSize = slots.size();
+                        AtomicInteger slotCount = new AtomicInteger(0);
+                        for (int i = 0; i < slotSize; i++) {
+                            if(slotFuture.isDone()) {
+                                return;
+                            }
+                            Slot slot = slots.get(i);
+                            FunctionManager.get()
+                                    .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
+                                    .whenComplete((slotResult, ex) -> {
+                                        System.out.println("result: " + slotResult);
+                                        System.out.println("ex: " + ex);
+                                        if(slotFuture.isDone()) {
+                                            return;
+                                        }
+                                        if(ex != null) {
+                                            ex.printStackTrace();
+                                            slotFuture.complete(false);
+                                        } else {
+                                            int count = slotCount.incrementAndGet();
+                                            System.out.println("count: " + count);
+                                            if(slotSize == count) {
+                                                slotFuture.complete(true);
+                                            }
+                                        }
+                                    });
+                        }
+                    }, true);
+                    slotFuture.whenComplete((completed, ex) -> {
+                        System.out.println("Completed: " + completed);
+                        if(ex != null) {
+                            ex.printStackTrace();
+                            future.complete(false);
+                        } else if(!completed) {
+                            future.complete(false);
+                        } else {
+                            ThreadUtil.run(() -> {
+                                Platform platform = DynamicGui.get().getPlatform();
+                                if (platform.getType() == PlatformType.SPONGE) {
+                                    platform.getScheduler().runSyncDelayedTask(() -> {
+                                        playerWrapper.openInventory(inventoryWrapper);
+                                    }, 1L);
+                                } else {
+                                    playerWrapper.openInventory(inventoryWrapper);
+                                }
+                                this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
+                                platform.getScheduler().runSyncDelayedTask(() -> {
+                                    playerWrapper.updateInventory();
+                                }, 2L);
+                                future.complete(true);
+                            }, false);
+                        }
+                    });
+                } else {
+                    future.complete(false);
                 }
-                future.complete(ran);
             }, false));
         }, false);
         return future;
