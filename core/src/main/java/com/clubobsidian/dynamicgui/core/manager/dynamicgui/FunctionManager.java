@@ -29,6 +29,7 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -158,6 +159,10 @@ public class FunctionManager {
                         });
                     }
                 }
+            } else {
+                recurFunctionNodes(null, owner,
+                        nodeQueue, type,
+                        playerWrapper, future, returnValue);
             }
         }
         if (node == null) {
