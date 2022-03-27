@@ -171,7 +171,7 @@ public class Slot implements Serializable, FunctionOwner, AnimationHolder, Metad
             builderItem.setAmount(this.amount);
         }
 
-        if (!this.icon.toUpperCase().equals(IGNORE_MATERIAL)) {
+        if (!this.icon.equalsIgnoreCase(IGNORE_MATERIAL)) {
             if (this.data != 0) {
                 builderItem.setDurability(this.data);
             }
