@@ -31,6 +31,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,16 +104,37 @@ public class FunctionManager {
         Function function = this.functions.get(functionName);
         Map<Function, AtomicInteger> functionMap = this.runningAsyncFunctions.get(uuid);
         AtomicInteger num = functionMap == null ? null : functionMap.get(function);
-        return function == null
-                || !function.isAsync()
-                || functionMap == null
-                || num == null
-                || num.get() == 0 ? false : true;
+        return function != null
+                && function.isAsync()
+                && functionMap != null
+                && num != null
+                && num.get() != 0;
     }
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
-        return recurFunctionNodes(null, owner, owner.getFunctions().getRootNodes(), type,
-                playerWrapper, null, new AtomicBoolean(true));
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        List<FunctionNode> rootNodes = owner.getFunctions().getRootNodes();
+        int rootSize = rootNodes.size();
+        if (rootSize == 0) {
+            future.complete(true);
+        } else {
+            AtomicBoolean returnValue = new AtomicBoolean(true);
+            AtomicInteger currentCount = new AtomicInteger(0);
+            for (FunctionNode node : rootNodes) {
+                recurFunctionNodes(null, owner, Collections.singletonList(node), type,
+                        playerWrapper, null, new AtomicBoolean(true))
+                        .whenComplete((ret, ex) -> {
+                            if (ex != null || !ret) {
+                                returnValue.set(false);
+                            }
+                            int inc = currentCount.incrementAndGet();
+                            if (inc == rootSize) {
+                                future.complete(returnValue.get());
+                            }
+                        });
+            }
+        }
+        return future;
     }
 
     private CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse response,
@@ -204,14 +226,14 @@ public class FunctionManager {
                     }
                 }
                 ThreadUtil.run(() -> {
-                    if(async) {
+                    if (async) {
                         this.runningAsyncFunctions.compute(uuid, (key, value) -> {
-                            if(value == null) {
+                            if (value == null) {
                                 return new ConcurrentHashMap<>();
                             }
                             return value;
                         }).compute(function, (key, value) -> {
-                            if(value != null) {
+                            if (value != null) {
                                 value.incrementAndGet();
                             } else {
                                 value = new AtomicInteger(1);
@@ -255,9 +277,9 @@ public class FunctionManager {
             if(num != null) {
                 int ret = num.decrementAndGet();
                 if (ret <= 0) { //Less than 0 shouldn't happen but just to ensure that the map gets cleaned up
-                   map.remove(function);
+                    map.remove(function);
                 }
-                if(map.size() == 0) { //If the map is empty remove
+                if (map.size() == 0) { //If the map is empty remove
                     this.runningAsyncFunctions.remove(uuid);
                 }
             }

@@ -229,8 +229,6 @@ public class GuiManager {
                             FunctionManager.get()
                                     .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
                                     .whenComplete((slotResult, ex) -> {
-                                        System.out.println("result: " + slotResult);
-                                        System.out.println("ex: " + ex);
                                         if(slotFuture.isDone()) {
                                             return;
                                         }
@@ -239,7 +237,6 @@ public class GuiManager {
                                             slotFuture.complete(false);
                                         } else {
                                             int count = slotCount.incrementAndGet();
-                                            System.out.println("count: " + count);
                                             if(slotSize == count) {
                                                 slotFuture.complete(true);
                                             }
@@ -248,11 +245,10 @@ public class GuiManager {
                         }
                     }, true);
                     slotFuture.whenComplete((completed, ex) -> {
-                        System.out.println("Completed: " + completed);
-                        if(ex != null) {
+                        if (ex != null) {
                             ex.printStackTrace();
                             future.complete(false);
-                        } else if(!completed) {
+                        } else if (!completed) {
                             future.complete(false);
                         } else {
                             ThreadUtil.run(() -> {
