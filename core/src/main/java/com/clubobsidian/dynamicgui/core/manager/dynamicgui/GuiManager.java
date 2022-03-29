@@ -218,33 +218,31 @@ public class GuiManager {
 
                     //Run slot load functions
                     CompletableFuture<Boolean> slotFuture = new CompletableFuture<>();
-                    ThreadUtil.run(() -> {
-                        List<Slot> slots = clonedGui.getSlots();
-                        int slotSize = slots.size();
-                        AtomicInteger slotCount = new AtomicInteger(0);
-                        for (int i = 0; i < slotSize; i++) {
-                            if(slotFuture.isDone()) {
-                                return;
-                            }
-                            Slot slot = slots.get(i);
-                            FunctionManager.get()
-                                    .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
-                                    .whenComplete((slotResult, ex) -> {
-                                        if(slotFuture.isDone()) {
-                                            return;
-                                        }
-                                        if(ex != null) {
-                                            ex.printStackTrace();
-                                            slotFuture.complete(false);
-                                        } else {
-                                            int count = slotCount.incrementAndGet();
-                                            if(slotSize == count) {
-                                                slotFuture.complete(true);
-                                            }
-                                        }
-                                    });
+                    List<Slot> slots = clonedGui.getSlots();
+                    int slotSize = slots.size();
+                    AtomicInteger slotCount = new AtomicInteger(0);
+                    for (int i = 0; i < slotSize; i++) {
+                        if(slotFuture.isDone()) {
+                            return;
                         }
-                    }, true);
+                        Slot slot = slots.get(i);
+                        FunctionManager.get()
+                                .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
+                                .whenComplete((slotResult, ex) -> {
+                                    if(slotFuture.isDone()) {
+                                        return;
+                                    }
+                                    if(ex != null) {
+                                        ex.printStackTrace();
+                                        slotFuture.complete(false);
+                                    } else {
+                                        int count = slotCount.incrementAndGet();
+                                        if(slotSize == count) {
+                                            slotFuture.complete(true);
+                                        }
+                                    }
+                                });
+                    }
                     slotFuture.whenComplete((completed, ex) -> {
                         if (ex != null) {
                             ex.printStackTrace();
