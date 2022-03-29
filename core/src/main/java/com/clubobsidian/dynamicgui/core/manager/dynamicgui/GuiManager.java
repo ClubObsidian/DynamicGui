@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
+import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.Slot;
@@ -210,6 +211,10 @@ public class GuiManager {
                 DynamicGui.get().getEventBus().callEvent(event);
 
                 if (ran) {
+                    Gui currentGui = this.getPlayerGui(playerWrapper);
+                    if (back != null && back.equals(currentGui)) {
+                        DynamicGui.get().getEventBus().callEvent(new GuiSwitchEvent(back, clonedGui, playerWrapper));
+                    }
                     InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
                     if (inventoryWrapper == null) {
                         future.complete(false);
