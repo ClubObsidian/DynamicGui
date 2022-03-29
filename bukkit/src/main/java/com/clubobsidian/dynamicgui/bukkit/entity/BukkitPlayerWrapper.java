@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.google.common.collect.ForwardingMultimap;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Effect;
@@ -38,6 +39,9 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
@@ -171,5 +175,36 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public boolean isOnline() {
         return this.getPlayer().isOnline();
+    }
+
+    @Override
+    public String getSkinTexture() {
+        try {
+            Object profile = this.getPlayer().getClass().getDeclaredMethod("getProfile").invoke(this.getPlayer());
+            Object properties = profile.getClass()
+                    .getDeclaredMethod("getProperties")
+                    .invoke(profile);
+            Class<?> forwardingMap = Class.forName(
+                    new String(new byte[]{'c', 'o', 'm', '.'}) +
+                            "google." +
+                            "common." +
+                            "collect." +
+                            "ForwardingMultimap"); //We relocate guava so we have to do this
+            Object property = null;
+            for (Method m : forwardingMap.getDeclaredMethods()) {
+                if (m.getName().equals("get")) {
+                    property = ((Collection) (m.invoke(properties, "textures")))
+                    .stream().findFirst().orElse(null);
+                    break;
+                }
+            }
+            if (property == null) {
+                return null;
+            }
+            return (String) property.getClass().getDeclaredMethod("getValue").invoke(property);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

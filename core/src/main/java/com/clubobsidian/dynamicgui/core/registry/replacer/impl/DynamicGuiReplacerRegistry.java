@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.core.replacer.impl.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.impl.PlayerLevelReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.impl.PlayerReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.impl.PreviousGuiReplacer;
+import com.clubobsidian.dynamicgui.core.replacer.impl.SkinTextureReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.impl.UUIDReplacer;
 import com.clubobsidian.trident.EventHandler;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         this.addReplacer(new UUIDReplacer("%uuid%"));
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
         this.addReplacer(new PreviousGuiReplacer("%previous-gui-name%"));
+        this.addReplacer(new SkinTextureReplacer("%skin_texture%"));
         DynamicGui.get().getEventBus().registerEvents(this);
     }
 
