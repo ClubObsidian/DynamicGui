@@ -59,6 +59,7 @@ subprojects {
 		relocate 'org.checkerframework.framework', 'com.clubobsidian.dynamicgui.shaded.checkerframework.framework'
 		relocate 'org.checkerframework.common', 'com.clubobsidian.dynamicgui.shaded.checkerframework.common'
 		relocate 'org.checkerframework.checker', 'com.clubobsidian.dynamicgui.shaded.checkerframework.checker'
+		relocate 'org.checkerframework.dataflow', 'com.clubobsidian.dynamicgui.shaded.checkerframework.dataflow'
 		relocate 'org.apache.commons', 'com.clubobsidian.dynamicgui.shaded.apachecommons'
 		relocate 'org.aopalliance.intercept', 'com.clubobsidian.dynamicgui.shaded.aopalliance.intercept'
 		relocate 'org.aopalliance.aop', 'com.clubobsidian.dynamicgui.shaded.aopalliance.aop'
