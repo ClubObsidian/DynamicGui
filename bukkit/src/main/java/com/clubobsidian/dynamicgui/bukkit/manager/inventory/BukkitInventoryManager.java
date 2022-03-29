@@ -32,7 +32,12 @@ public class BukkitInventoryManager extends InventoryManager {
 
     @Override
     public Object createInventory(String title, String type) {
-        return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
+        try {
+            return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
+        } catch(IllegalArgumentException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
