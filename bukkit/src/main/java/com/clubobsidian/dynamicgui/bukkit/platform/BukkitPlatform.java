@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.bukkit.platform;
 
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;

@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.test;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;

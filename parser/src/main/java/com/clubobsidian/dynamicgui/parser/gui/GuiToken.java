@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.gui;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
