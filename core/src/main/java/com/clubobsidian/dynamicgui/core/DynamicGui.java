@@ -16,6 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core;
 
+import cloud.commandframework.CommandManager;
+import cloud.commandframework.annotations.AnnotationParser;
+import cloud.commandframework.meta.SimpleCommandMeta;
+import com.clubobsidian.dynamicgui.core.command.GuiCommand;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
@@ -142,14 +147,25 @@ public class DynamicGui {
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
+    private final CommandManager<GuiCommandSender> commandManager;
+    private final AnnotationParser<GuiCommandSender> commandParser;
     private final Injector injector;
     private boolean initialized;
 
     @Inject
-    private DynamicGui(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> loggerWrapper, Injector injector) {
+    private DynamicGui(DynamicGuiPlugin plugin,
+                       Platform platform,
+                       LoggerWrapper<?> loggerWrapper,
+                       CommandManager<GuiCommandSender> commandManager,
+                       Injector injector) {
         this.plugin = plugin;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
+        this.commandManager = commandManager;
+        this.commandParser = new AnnotationParser<>(this.commandManager,
+                GuiCommandSender.class,
+                parserParameters -> SimpleCommandMeta.empty());
+
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
@@ -162,6 +178,7 @@ public class DynamicGui {
         this.loadGuis();
         this.checkForProxy();
         this.registerListeners();
+        this.registerCommands();
         ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
         ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
         ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
@@ -290,6 +307,10 @@ public class DynamicGui {
         this.eventBus.registerEvents(new InventoryCloseListener());
         this.eventBus.registerEvents(new PlayerInteractListener());
         this.eventBus.registerEvents(new GuiListener());
+    }
+
+    private void registerCommands() {
+        this.commandParser.parse(this.injector.getInstance(GuiCommand.class));
     }
 
     private void loadFunctions() {

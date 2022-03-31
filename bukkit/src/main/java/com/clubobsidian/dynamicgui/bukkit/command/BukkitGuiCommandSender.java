@@ -14,4 +14,27 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command;
+package com.clubobsidian.dynamicgui.bukkit.command;
+
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class BukkitGuiCommandSender implements GuiCommandSender {
+
+    private final CommandSender sender;
+
+    public BukkitGuiCommandSender(CommandSender sender) {
+        this.sender = sender;
+    }
+
+    @Override
+    public Object getNativeSender() {
+        return this.sender;
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return this.sender instanceof Player;
+    }
+}

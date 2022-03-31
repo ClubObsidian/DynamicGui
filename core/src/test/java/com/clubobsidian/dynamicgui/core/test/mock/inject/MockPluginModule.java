@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inject;
 
+import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
@@ -33,8 +35,11 @@ import com.clubobsidian.dynamicgui.core.test.mock.manager.MockMaterialManager;
 
 public class MockPluginModule extends PluginModule {
 
-    public MockPluginModule(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> logger) {
-        super(plugin, platform, logger);
+    public MockPluginModule(DynamicGuiPlugin plugin,
+                            Platform platform,
+                            LoggerWrapper<?> logger,
+                            CommandManager<GuiCommandSender> commandManager) {
+        super(plugin, platform, logger, commandManager);
     }
 
     @Override

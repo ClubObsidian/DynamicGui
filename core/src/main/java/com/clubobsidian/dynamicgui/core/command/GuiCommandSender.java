@@ -14,20 +14,23 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.permission;
+package com.clubobsidian.dynamicgui.core.command;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 
-public interface Permission {
+import java.util.Optional;
 
-    String GUI_BASE = "dynamicgui.command.gui";
+public interface GuiCommandSender {
 
-    boolean setup();
+    Object getNativeSender();
 
-    boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
+    boolean isPlayer();
 
-    boolean addPermission(PlayerWrapper<?> playerWrapper, String permission);
-
-    boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
-
+    default Optional<PlayerWrapper<?>> getPlayer() {
+        return this.isPlayer() ?
+                Optional.of(EntityManager
+                        .get()
+                        .createPlayerWrapper(this.getNativeSender())) : Optional.empty();
+    }
 }

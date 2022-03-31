@@ -16,7 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock;
 
+import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
@@ -27,6 +29,7 @@ import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.test.command.MockCommandManager;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.inject.MockPluginModule;
@@ -178,7 +181,8 @@ public class MockFactory {
         }
         Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
-        MockPluginModule module = new MockPluginModule(plugin, platform, logger);
+        CommandManager<GuiCommandSender> commandManager = new MockCommandManager();
+        MockPluginModule module = new MockPluginModule(plugin, platform, logger, commandManager);
         module.bootstrap();
         DynamicGui.get(); //Initializes dynamic gui
         this.getLogger().getLogger().clear(); //Clear logs for initialization

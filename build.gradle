@@ -10,6 +10,10 @@ plugins {
 allprojects {
 	group 'com.clubobsidian'
 	version '5.0.0'
+	ext {
+		junitVersion = '5.8.2'
+		cloudVersion = '1.6.2'
+	}
 }
 
 subprojects {
@@ -81,7 +85,7 @@ subprojects {
 		maven { url 'https://jitpack.io' }
 	}
 
-	def junitVersion = '5.8.2'
+
 
 	dependencies {
 		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
@@ -90,5 +94,8 @@ subprojects {
 		api 'org.apache.commons:commons-lang3:3.12.0'
 		api 'com.github.clubobsidian:wrappy:2.3.2'
 		api 'com.github.ben-manes.caffeine:caffeine:3.0.4'
+		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
+		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
+		api "cloud.commandframework:cloud-annotations:$cloudVersion"
 	}
 }

@@ -16,8 +16,12 @@
 
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
+import cloud.commandframework.CommandManager;
+import cloud.commandframework.bukkit.CloudBukkitCapabilities;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitDynamicGuiCommand;
-import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommand;
+import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommandSender;
 import com.clubobsidian.dynamicgui.bukkit.command.CustomCommand;
 import com.clubobsidian.dynamicgui.bukkit.command.CustomCommandExecutor;
 import com.clubobsidian.dynamicgui.bukkit.economy.VaultEconomy;
@@ -35,6 +39,7 @@ import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
@@ -46,6 +51,7 @@ import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -83,7 +89,9 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         Platform platform = new BukkitPlatform();
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
 
-        new BukkitPluginModule(this, platform, logger).bootstrap();
+        CommandManager<GuiCommandSender> commandManager = this.createCommandSender();
+
+        new BukkitPluginModule(this, platform, logger, commandManager).bootstrap();
         PluginManager pm = this.getServer().getPluginManager();
 
         boolean vault = false;
@@ -134,13 +142,35 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
-        this.getCommand("gui").setExecutor(new BukkitGuiCommand());
+        //this.getCommand("gui").setExecutor(new BukkitGuiCommand());
         this.getCommand("dynamicgui").setExecutor(new BukkitDynamicGuiCommand());
         this.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+    }
+
+    private CommandManager<GuiCommandSender> createCommandSender() {
+        try {
+            PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<GuiCommandSender>(this,
+                    CommandExecutionCoordinator.simpleCoordinator(),
+                    BukkitGuiCommandSender::new,
+                    wrappedSender -> (CommandSender) wrappedSender.getNativeSender()
+
+            );
+            //Unfortunately is tied to bukkit so there is no way to do this in core
+            if (commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
+                commandManager.registerBrigadier();
+            }
+            if(commandManager.queryCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+                commandManager.registerAsynchronousCompletions();
+            }
+            return commandManager;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void registerModelProviders(PluginManager pm) {
