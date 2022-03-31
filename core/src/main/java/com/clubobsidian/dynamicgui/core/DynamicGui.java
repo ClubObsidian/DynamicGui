@@ -16,9 +16,12 @@
 
 package com.clubobsidian.dynamicgui.core;
 
+import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
+import cloud.commandframework.CommandTree;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.meta.SimpleCommandMeta;
+import com.clubobsidian.dynamicgui.core.command.CloudExtender;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
@@ -122,6 +125,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -146,6 +152,8 @@ public class DynamicGui {
     private final AnnotationParser<GuiCommandSender> commandParser;
     private final Injector injector;
     private boolean initialized;
+    private final List<String> registeredAliases = new ArrayList<>();
+    private final Map<String, Command> cloudCommands = new HashMap<>();
 
     @Inject
     private DynamicGui(DynamicGuiPlugin plugin,
@@ -160,7 +168,6 @@ public class DynamicGui {
         this.commandParser = new AnnotationParser<>(this.commandManager,
                 GuiCommandSender.class,
                 parserParameters -> SimpleCommandMeta.empty());
-
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
@@ -189,8 +196,50 @@ public class DynamicGui {
 
     public void stop() {
         CooldownManager.get().shutdown();
-        this.plugin.unregisterCommand("gui");
-        this.plugin.unregisterGuiAliases();
+        this.unregisterCommand("gui");
+        this.unregisterGuiAliases();
+    }
+
+    public List<String> getRegisteredAliases() {
+        return Collections.unmodifiableList(this.registeredAliases);
+    }
+
+    public void registerCommand(String guiName, String alias) {
+        this.unregisterCommand(alias);
+        Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
+                .handler(context -> {
+                    PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
+                    if(playerWrapper != null) {
+                        GuiManager.get().openGui(playerWrapper, guiName);
+                    }
+                }).build();
+        this.commandManager.command(command);
+        this.cloudCommands.put(alias, command);
+        this.registeredAliases.add(alias);
+        this.getLogger().info(String.format("Registered the command \"%s\" for the gui %s",
+                alias,
+                guiName
+        ));
+    }
+
+    public void unregisterCommand(String alias) {
+        this.plugin.unregisterNativeCommand(alias);
+        try {
+            CloudExtender.unregister(this.commandManager, this.cloudCommands.get(alias), alias);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.plugin.unregisterCloudCommand(this.commandManager, alias);
+        this.cloudCommands.remove(alias);
+        this.registeredAliases.remove(alias);
+    }
+
+    public void unregisterGuiAliases() {
+        for (int i = 0; i < this.getRegisteredAliases().size(); i++) {
+            String cmd = this.getRegisteredAliases().get(i);
+            this.unregisterCommand(cmd);
+            i--;
+        }
     }
 
     private void setupFileStructure() {
@@ -213,7 +262,7 @@ public class DynamicGui {
                 FileUtils.copyInputStreamToFile(this.getClass()
                                 .getClassLoader()
                                 .getResourceAsStream("config.yml"),
-                                this.plugin.getConfigFile());
+                        this.plugin.getConfigFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -312,6 +361,8 @@ public class DynamicGui {
     }
 
     private void registerCommands() {
+        this.commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
+        this.commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
         this.commandParser.parse(this.injector.getInstance(GuiCommand.class));
     }
 

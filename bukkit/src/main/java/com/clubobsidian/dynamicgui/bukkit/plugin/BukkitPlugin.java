@@ -17,8 +17,11 @@
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
 import cloud.commandframework.CommandManager;
+import cloud.commandframework.arguments.CommandArgument;
+import cloud.commandframework.bukkit.BukkitPluginRegistrationHandler;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.internal.CommandRegistrationHandler;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitDynamicGuiCommand;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommandSender;
@@ -49,6 +52,8 @@ import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
+import javassist.tools.reflect.Reflection;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -58,9 +63,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
@@ -69,7 +75,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     private Permission permission;
     private List<NPCRegistry> npcRegistries;
     private CommandMap commandMap;
-    private List<String> registeredAliases;
+
 
     @Override
     public void onEnable() {
@@ -78,7 +84,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     @Override
     public void start() {
-        this.registeredAliases = new ArrayList<>();
 
         Platform platform = new BukkitPlatform();
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
@@ -147,7 +152,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     private CommandManager<GuiCommandSender> createCommandSender() {
         try {
-            PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<GuiCommandSender>(this,
+            PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<>(this,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
                     wrappedSender -> (CommandSender) wrappedSender.getNativeSender()
@@ -218,38 +223,48 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     }
 
     @Override
-    public List<String> getRegisteredAliases() {
-        return Collections.unmodifiableList(this.registeredAliases);
-    }
-
-    @Override
-    public void unregisterCommand(String alias) {
+    public void unregisterNativeCommand(String alias) {
         try {
             //TODO - unregister brigadier
             Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
             commandField.setAccessible(true);
             @SuppressWarnings("unchecked")
             Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
-            commands.keySet().remove(alias);
+            commands.remove(alias);
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void createCommand(String gui, String alias) {
-        DynamicGui.get().getLogger().info("Registered the command \"" + alias + "\" for the gui " + gui);
-        CustomCommand cmd = new CustomCommand(alias);
-        this.unregisterCommand(alias);
-        this.getCommandMap().register("", cmd);
-        cmd.setExecutor(new CustomCommandExecutor(gui));
-        this.registeredAliases.add(alias);
+    public void unregisterCloudCommand(CommandManager commandManager, String alias) {
+        BukkitPluginRegistrationHandler handler = (BukkitPluginRegistrationHandler)
+                commandManager.getCommandRegistrationHandler();
+        this.unregisterHandler(handler, alias);
+        this.unregisterAliases(handler, alias);
+        this.unregisterBukkitCommand(handler, alias);
     }
 
-    @Override
-    public void unregisterGuiAliases() {
-        for (String cmd : this.getRegisteredAliases()) {
-            this.unregisterCommand(cmd);
+    private void unregisterBukkitCommand(BukkitPluginRegistrationHandler handler, String alias) {
+        Map<String, org.bukkit.command.Command> bukkitCommands =
+                ReflectionUtil.get(handler, handler.getClass(), "bukkitCommands");
+        bukkitCommands.remove(alias);
+    }
+
+    private void unregisterHandler(CommandRegistrationHandler handler, String alias) {
+        Map<CommandArgument<?, ?>, org.bukkit.command.Command> registeredCommands =
+                ReflectionUtil.get(handler, BukkitPluginRegistrationHandler.class, "registeredCommands");
+        Iterator<Map.Entry<CommandArgument<?, ?>, Command>> it = registeredCommands.entrySet().iterator();
+        while(it.hasNext()) {
+            Command command = it.next().getValue();
+            if(command.getName().equals(alias) || command.getAliases().contains(alias)) {
+                it.remove();
+            }
         }
+    }
+
+    private void unregisterAliases(BukkitPluginRegistrationHandler handler, String alias) {
+        Set<String> aliases = ReflectionUtil.get(handler, handler.getClass(), "recognizedAliases");
+        aliases.remove(alias);
     }
 }

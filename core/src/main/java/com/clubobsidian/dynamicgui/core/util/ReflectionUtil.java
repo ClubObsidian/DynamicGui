@@ -65,6 +65,15 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static <T> T get(Object getFrom, Class<?> searchIn, String name) {
+        try {
+            return (T) getFieldByName(searchIn, name).get(getFrom);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Field getFieldByName(Class<?> searchIn, String name) {
         try {
             Field f = searchIn.getDeclaredField(name);
