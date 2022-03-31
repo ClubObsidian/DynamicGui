@@ -61,7 +61,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiManager {
@@ -115,7 +114,7 @@ public class GuiManager {
 
     public void reloadGuis(boolean force) {
         DynamicGui.get().getLogger().info("Reloading guis!");
-        DynamicGui.get().getPlugin().unloadCommands();
+        DynamicGui.get().getPlugin().unregisterGuiAliases();
         this.cachedGuis = this.guis;
         this.guis = new HashMap<>();
         this.cachedGlobalMacros = this.globalMacros;

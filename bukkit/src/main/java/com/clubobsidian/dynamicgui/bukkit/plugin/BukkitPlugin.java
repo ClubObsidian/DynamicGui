@@ -56,9 +56,9 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -69,7 +69,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     private Permission permission;
     private List<NPCRegistry> npcRegistries;
     private CommandMap commandMap;
-    private List<String> registeredCommands;
+    private List<String> registeredAliases;
 
     @Override
     public void onEnable() {
@@ -78,7 +78,7 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     @Override
     public void start() {
-        this.registeredCommands = new ArrayList<>();
+        this.registeredAliases = new ArrayList<>();
 
         Platform platform = new BukkitPlatform();
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
@@ -217,12 +217,15 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
         return null;
     }
 
-    public List<String> getRegisteredCommands() {
-        return this.registeredCommands;
+    @Override
+    public List<String> getRegisteredAliases() {
+        return Collections.unmodifiableList(this.registeredAliases);
     }
 
-    private void unregisterCommand(String alias) {
+    @Override
+    public void unregisterCommand(String alias) {
         try {
+            //TODO - unregister brigadier
             Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
             commandField.setAccessible(true);
             @SuppressWarnings("unchecked")
@@ -236,20 +239,16 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     @Override
     public void createCommand(String gui, String alias) {
         DynamicGui.get().getLogger().info("Registered the command \"" + alias + "\" for the gui " + gui);
-
         CustomCommand cmd = new CustomCommand(alias);
         this.unregisterCommand(alias);
-
         this.getCommandMap().register("", cmd);
-
-
         cmd.setExecutor(new CustomCommandExecutor(gui));
-        this.getRegisteredCommands().add(alias);
+        this.registeredAliases.add(alias);
     }
 
     @Override
-    public void unloadCommands() {
-        for (String cmd : this.getRegisteredCommands()) {
+    public void unregisterGuiAliases() {
+        for (String cmd : this.getRegisteredAliases()) {
             this.unregisterCommand(cmd);
         }
     }

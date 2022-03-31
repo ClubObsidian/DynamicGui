@@ -189,6 +189,8 @@ public class DynamicGui {
 
     public void shutdown() {
         CooldownManager.get().shutdown();
+        this.plugin.unregisterCommand("gui");
+        this.plugin.unregisterGuiAliases();
     }
 
     private void setupFileStructure() {

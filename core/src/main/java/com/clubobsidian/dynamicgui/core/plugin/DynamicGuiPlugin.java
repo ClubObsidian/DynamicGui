@@ -49,10 +49,11 @@ public interface DynamicGuiPlugin {
         return new File(this.getDataFolder(), "macros");
     }
 
-    List<String> getRegisteredCommands();
+    List<String> getRegisteredAliases();
 
     void createCommand(String guiName, String alias);
 
-    void unloadCommands();
+    void unregisterGuiAliases();
 
+    void unregisterCommand(String commandName);
 }

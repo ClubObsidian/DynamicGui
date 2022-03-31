@@ -82,7 +82,7 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     }
 
     @Override
-    public List<String> getRegisteredCommands() {
+    public List<String> getRegisteredAliases() {
         return new ArrayList<>(); //TODO - implement
     }
 
@@ -92,7 +92,12 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     }
 
     @Override
-    public void unloadCommands() {
+    public void unregisterGuiAliases() {
+
+    }
+
+    @Override
+    public void unregisterCommand(String commandName) {
 
     }
 }
