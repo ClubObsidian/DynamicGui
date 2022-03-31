@@ -45,3 +45,14 @@ rows: 5
         - "delay: 1000"
         - "pmsg: test"
         - "isasyncthread"
+'5':
+  icon: "STONE"
+  functions:
+    click1:
+      type: "click"
+      functions:
+        - "pmsg: test1"
+    click2:
+      type: "click"
+      functions:
+        - "pmsg: test2"

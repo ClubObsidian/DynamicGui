@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -127,5 +128,17 @@ public class FunctionManagerTest extends ScheduledTest {
         Gui gui = GuiManager.get().getGui("test");
         Slot slot = gui.getSlots().get(4);
         assertTrue(FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get());
+    }
+
+    @Test
+    public void testMultipleClickSlots() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("test");
+        Slot slot = gui.getSlots().get(5);
+        FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get();
+        List<String> chat = playerWrapper.getIncomingChat();
+        assertEquals(2, chat.size());
+        assertEquals("test1", chat.get(0));
+        assertEquals("test2", chat.get(1));
     }
 }
