@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.test.command;
+package com.clubobsidian.dynamicgui.core.test.mock.command;
 
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.CommandTree;
