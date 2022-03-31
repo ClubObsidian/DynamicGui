@@ -1,5 +1,5 @@
 name: DynamicGui
-main: com.clubobsidian.dynamicgui.bukkit.plugin.BukkitPlugin
+main: com.clubobsidian.dynamicgui.bukkit.plugin.DynamicGuiBukkitPlugin
 version: ${pluginVersion}
 author: VirusTotal
 api-version: 1.13

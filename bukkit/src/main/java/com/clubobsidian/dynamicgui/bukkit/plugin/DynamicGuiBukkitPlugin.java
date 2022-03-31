@@ -65,7 +65,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
-public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
+public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     private Economy economy;
     private Permission permission;
