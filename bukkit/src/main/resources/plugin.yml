@@ -4,6 +4,3 @@ version: ${pluginVersion}
 author: VirusTotal
 api-version: 1.13
 softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup, Foundry, Oraxen, ItemsAdder]
-commands:
-  guilist:
-    description: "Lists out all the guis for DynamicGUI!"
