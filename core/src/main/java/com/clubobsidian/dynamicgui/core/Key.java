@@ -14,18 +14,18 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.permission;
+package com.clubobsidian.dynamicgui.core;
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 
-public interface Permission {
+public final class Key {
 
-    boolean setup();
+    public static final String GUI_BASE_PERMISSION = "dynamicgui.command.gui";
 
-    boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission);
+    public static boolean hasGuiPermission(PlayerWrapper<?> player, String guiName) {
+        return player.hasPermission(GUI_BASE_PERMISSION + "." + guiName);
+    }
 
-    boolean addPermission(PlayerWrapper<?> playerWrapper, String permission);
-
-    boolean removePermission(PlayerWrapper<?> playerWrapper, String permission);
-
+    private Key() {
+    }
 }
