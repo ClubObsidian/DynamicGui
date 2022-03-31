@@ -139,8 +139,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
-        //this.getCommand("gui").setExecutor(new BukkitGuiCommand());
-        this.getCommand("dynamicgui").setExecutor(new BukkitDynamicGuiCommand());
         this.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);

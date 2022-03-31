@@ -27,7 +27,7 @@ public class GuiCommand {
 
     @CommandMethod("gui <guiName>")
     @CommandPermission(Key.GUI_BASE_PERMISSION)
-    public void gui(GuiCommandSender sender, @Argument("guiName") String guiName) {
+    private void gui(GuiCommandSender sender, @Argument("guiName") String guiName) {
         PlayerWrapper<?> player = sender.getPlayer().orElse(null);
         if(player != null && Key.hasGuiPermission(player, guiName)) {
             GuiManager.get().openGui(player, guiName);

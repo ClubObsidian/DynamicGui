@@ -22,6 +22,7 @@ import cloud.commandframework.CommandTree;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.meta.SimpleCommandMeta;
 import com.clubobsidian.dynamicgui.core.command.CloudExtender;
+import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
@@ -197,6 +198,8 @@ public class DynamicGui {
     public void stop() {
         CooldownManager.get().shutdown();
         this.unregisterCommand("gui");
+        this.unregisterCommand("dynamicgui");
+        this.unregisterCommand("dyngui");
         this.unregisterGuiAliases();
     }
 
@@ -364,6 +367,7 @@ public class DynamicGui {
         this.commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
         this.commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
         this.commandParser.parse(this.injector.getInstance(GuiCommand.class));
+        this.commandParser.parse(this.injector.getInstance(DynamicGuiCommand.class));
     }
 
     private void loadFunctions() {

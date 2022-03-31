@@ -37,4 +37,9 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     public boolean isPlayer() {
         return this.sender instanceof Player;
     }
+
+    @Override
+    public void sendMessage(String message) {
+        this.sender.sendMessage(message);
+    }
 }

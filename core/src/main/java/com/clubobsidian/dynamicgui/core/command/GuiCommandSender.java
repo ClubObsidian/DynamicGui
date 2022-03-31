@@ -27,6 +27,8 @@ public interface GuiCommandSender {
 
     boolean isPlayer();
 
+    void sendMessage(String message);
+
     default Optional<PlayerWrapper<?>> getPlayer() {
         return this.isPlayer() ?
                 Optional.of(EntityManager
