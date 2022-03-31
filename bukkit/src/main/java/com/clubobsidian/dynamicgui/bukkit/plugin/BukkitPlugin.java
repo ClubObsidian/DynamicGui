@@ -53,7 +53,6 @@ import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
-import javassist.tools.reflect.Reflection;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -84,7 +83,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
     @Override
     public void start() {
-
         Platform platform = new BukkitPlatform();
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
 
