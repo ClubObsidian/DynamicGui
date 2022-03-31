@@ -14,28 +14,23 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.bukkit.command;
+package com.clubobsidian.dynamicgui.core.command;
 
-import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
+import cloud.commandframework.annotations.Argument;
+import cloud.commandframework.annotations.CommandMethod;
+import cloud.commandframework.annotations.CommandPermission;
+import com.clubobsidian.dynamicgui.core.Key;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-public class BukkitGuiCommand implements CommandExecutor {
+public class GuiCommand {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            if (args.length == 1) {
-                Player player = (Player) sender;
-                PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-                GuiManager.get().openGui(playerWrapper, args[0]);
-                return true;
-            }
+    @CommandMethod("gui <guiName>")
+    @CommandPermission(Key.GUI_BASE_PERMISSION)
+    private void gui(GuiCommandSender sender, @Argument("guiName") String guiName) {
+        PlayerWrapper<?> player = sender.getPlayer().orElse(null);
+        if(player != null && Key.hasGuiPermission(player, guiName)) {
+            GuiManager.get().openGui(player, guiName);
         }
-        return false;
     }
 }

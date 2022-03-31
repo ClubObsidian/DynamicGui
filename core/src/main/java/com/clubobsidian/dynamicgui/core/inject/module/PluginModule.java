@@ -16,7 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.inject.module;
 
+import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
+import com.clubobsidian.dynamicgui.core.command.GuiCommand;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
@@ -40,11 +44,16 @@ public abstract class PluginModule implements Module {
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> logger;
+    private final CommandManager<GuiCommandSender> commandManager;
 
-    public PluginModule(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> logger) {
+    public PluginModule(DynamicGuiPlugin plugin,
+                        Platform platform,
+                        LoggerWrapper<?> logger,
+                        CommandManager<GuiCommandSender> commandManager) {
         this.plugin = plugin;
         this.platform = platform;
         this.logger = logger;
+        this.commandManager = commandManager;
     }
 
     public abstract Class<? extends EntityManager> getEntityManager();
@@ -66,8 +75,11 @@ public abstract class PluginModule implements Module {
         binder.bind(LocationManager.class).to(this.locationClass);
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
         binder.bind(Platform.class).toInstance(this.platform);
-        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
-        }).toInstance(this.logger);
+        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
+        binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
+
+        binder.bind(GuiCommand.class).asEagerSingleton();
+        binder.bind(DynamicGuiCommand.class).asEagerSingleton();
 
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);
@@ -79,6 +91,6 @@ public abstract class PluginModule implements Module {
 
     public boolean bootstrap() {
         Guice.createInjector(this);
-        return DynamicGui.get() != null;
+        return DynamicGui.get().start();
     }
 }

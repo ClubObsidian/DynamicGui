@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
+import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
@@ -82,17 +84,12 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     }
 
     @Override
-    public List<String> getRegisteredCommands() {
-        return new ArrayList<>(); //TODO - implement
-    }
-
-    @Override
-    public void createCommand(String guiName, String alias) {
+    public void unregisterNativeCommand(String commandName) {
 
     }
 
     @Override
-    public void unloadCommands() {
+    public void unregisterCloudCommand(CommandManager<GuiCommandSender> commandManager, String alias) {
 
     }
 }

@@ -16,11 +16,13 @@
 
 package com.clubobsidian.dynamicgui.bukkit.inject;
 
+import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.entity.BukkitEntityManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
@@ -33,8 +35,11 @@ import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 
 public class BukkitPluginModule extends PluginModule {
 
-    public BukkitPluginModule(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> logger) {
-        super(plugin, platform, logger);
+    public BukkitPluginModule(DynamicGuiPlugin plugin,
+                              Platform platform,
+                              LoggerWrapper<?> logger,
+                              CommandManager<GuiCommandSender> commandManager) {
+        super(plugin, platform, logger, commandManager);
     }
 
     @Override

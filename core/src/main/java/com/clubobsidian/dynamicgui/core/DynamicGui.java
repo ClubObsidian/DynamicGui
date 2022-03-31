@@ -16,6 +16,15 @@
 
 package com.clubobsidian.dynamicgui.core;
 
+import cloud.commandframework.Command;
+import cloud.commandframework.CommandManager;
+import cloud.commandframework.CommandTree;
+import cloud.commandframework.annotations.AnnotationParser;
+import cloud.commandframework.meta.SimpleCommandMeta;
+import com.clubobsidian.dynamicgui.core.command.CloudExtender;
+import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
+import com.clubobsidian.dynamicgui.core.command.GuiCommand;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
@@ -117,6 +126,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -126,11 +138,6 @@ public class DynamicGui {
     private static DynamicGui instance;
 
     public static DynamicGui get() {
-        if (!instance.initialized) {
-            instance.initialized = true;
-            instance.init();
-        }
-
         return instance;
     }
 
@@ -142,36 +149,100 @@ public class DynamicGui {
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
+    private final CommandManager<GuiCommandSender> commandManager;
+    private final AnnotationParser<GuiCommandSender> commandParser;
     private final Injector injector;
     private boolean initialized;
+    private final List<String> registeredAliases = new ArrayList<>();
+    private final Map<String, Command> cloudCommands = new HashMap<>();
 
     @Inject
-    private DynamicGui(DynamicGuiPlugin plugin, Platform platform, LoggerWrapper<?> loggerWrapper, Injector injector) {
+    private DynamicGui(DynamicGuiPlugin plugin,
+                       Platform platform,
+                       LoggerWrapper<?> loggerWrapper,
+                       CommandManager<GuiCommandSender> commandManager,
+                       Injector injector) {
         this.plugin = plugin;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
+        this.commandManager = commandManager;
+        this.commandParser = new AnnotationParser<>(this.commandManager,
+                GuiCommandSender.class,
+                parserParameters -> SimpleCommandMeta.empty());
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
     }
 
-    private void init() {
-        this.loadConfig();
-        this.loadFunctions();
-        this.loadGuis();
-        this.checkForProxy();
-        this.registerListeners();
-        ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
-        ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
-        ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
-        AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
-        SlotManager.get();
-        CooldownManager.get();
+    public boolean start() {
+        if(!this.initialized) {
+            this.initialized = true;
+            this.loadConfig();
+            this.loadFunctions();
+            this.loadGuis();
+            this.checkForProxy();
+            this.registerListeners();
+            this.registerCommands();
+            ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+            ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
+            ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
+            AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+            SlotManager.get();
+            CooldownManager.get();
+            return true;
+        }
+        return false;
     }
 
-    public void shutdown() {
+    public void stop() {
         CooldownManager.get().shutdown();
+        this.unregisterCommand("gui");
+        this.unregisterCommand("dynamicgui");
+        this.unregisterCommand("dyngui");
+        this.unregisterGuiAliases();
+    }
+
+    public List<String> getRegisteredAliases() {
+        return Collections.unmodifiableList(this.registeredAliases);
+    }
+
+    public void registerCommand(String guiName, String alias) {
+        this.unregisterCommand(alias);
+        Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
+                .handler(context -> {
+                    PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
+                    if(playerWrapper != null) {
+                        GuiManager.get().openGui(playerWrapper, guiName);
+                    }
+                }).build();
+        this.commandManager.command(command);
+        this.cloudCommands.put(alias, command);
+        this.registeredAliases.add(alias);
+        this.getLogger().info(String.format("Registered the command \"%s\" for the gui %s",
+                alias,
+                guiName
+        ));
+    }
+
+    public void unregisterCommand(String alias) {
+        this.plugin.unregisterNativeCommand(alias);
+        try {
+            CloudExtender.unregister(this.commandManager, this.cloudCommands.get(alias), alias);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.plugin.unregisterCloudCommand(this.commandManager, alias);
+        this.cloudCommands.remove(alias);
+        this.registeredAliases.remove(alias);
+    }
+
+    public void unregisterGuiAliases() {
+        for (int i = 0; i < this.getRegisteredAliases().size(); i++) {
+            String cmd = this.getRegisteredAliases().get(i);
+            this.unregisterCommand(cmd);
+            i--;
+        }
     }
 
     private void setupFileStructure() {
@@ -194,7 +265,7 @@ public class DynamicGui {
                 FileUtils.copyInputStreamToFile(this.getClass()
                                 .getClassLoader()
                                 .getResourceAsStream("config.yml"),
-                                this.plugin.getConfigFile());
+                        this.plugin.getConfigFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -290,6 +361,13 @@ public class DynamicGui {
         this.eventBus.registerEvents(new InventoryCloseListener());
         this.eventBus.registerEvents(new PlayerInteractListener());
         this.eventBus.registerEvents(new GuiListener());
+    }
+
+    private void registerCommands() {
+        this.commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
+        this.commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
+        this.commandParser.parse(this.injector.getInstance(GuiCommand.class));
+        this.commandParser.parse(this.injector.getInstance(DynamicGuiCommand.class));
     }
 
     private void loadFunctions() {

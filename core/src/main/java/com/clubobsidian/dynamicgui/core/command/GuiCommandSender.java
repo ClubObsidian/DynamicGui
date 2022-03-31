@@ -15,3 +15,24 @@
  */
 
 package com.clubobsidian.dynamicgui.core.command;
+
+import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
+
+import java.util.Optional;
+
+public interface GuiCommandSender {
+
+    Object getNativeSender();
+
+    boolean isPlayer();
+
+    void sendMessage(String message);
+
+    default Optional<PlayerWrapper<?>> getPlayer() {
+        return this.isPlayer() ?
+                Optional.of(EntityManager
+                        .get()
+                        .createPlayerWrapper(this.getNativeSender())) : Optional.empty();
+    }
+}

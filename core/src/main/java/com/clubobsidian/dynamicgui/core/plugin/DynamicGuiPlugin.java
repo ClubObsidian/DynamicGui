@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.plugin;
 
+import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
@@ -37,16 +39,19 @@ public interface DynamicGuiPlugin {
 
     File getDataFolder();
 
-    File getConfigFile();
+    default File getConfigFile() {
+        return new File(this.getDataFolder(), "config.yml");
+    }
 
-    File getGuiFolder();
+    default File getGuiFolder() {
+        return new File(this.getDataFolder(), "guis");
+    }
 
-    File getMacroFolder();
+    default File getMacroFolder() {
+        return new File(this.getDataFolder(), "macros");
+    }
 
-    List<String> getRegisteredCommands();
+    void unregisterNativeCommand(String commandName);
 
-    void createCommand(String guiName, String alias);
-
-    void unloadCommands();
-
+    void unregisterCloudCommand(CommandManager<GuiCommandSender> commandManager, String alias);
 }

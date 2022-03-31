@@ -61,7 +61,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiManager {
@@ -115,7 +114,7 @@ public class GuiManager {
 
     public void reloadGuis(boolean force) {
         DynamicGui.get().getLogger().info("Reloading guis!");
-        DynamicGui.get().getPlugin().unloadCommands();
+        DynamicGui.get().unregisterGuiAliases();
         this.cachedGuis = this.guis;
         this.guis = new HashMap<>();
         this.cachedGlobalMacros = this.globalMacros;
@@ -341,7 +340,7 @@ public class GuiManager {
             if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
                 for (String alias : token.getAlias()) {
-                    plugin.createCommand(guiName, alias);
+                    DynamicGui.get().registerCommand(guiName, alias);
                 }
 
                 this.guis.put(guiName, cachedGui);
@@ -516,7 +515,7 @@ public class GuiManager {
         List<String> aliases = guiToken.getAlias();
 
         for (String alias : aliases) {
-            plugin.createCommand(guiName, alias);
+            DynamicGui.get().registerCommand(guiName, alias);
         }
 
         boolean close = guiToken.isClosed();
