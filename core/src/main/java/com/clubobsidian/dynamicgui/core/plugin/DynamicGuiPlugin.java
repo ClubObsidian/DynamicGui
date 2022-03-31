@@ -37,11 +37,17 @@ public interface DynamicGuiPlugin {
 
     File getDataFolder();
 
-    File getConfigFile();
+    default File getConfigFile() {
+        return new File(this.getDataFolder(), "config.yml");
+    }
 
-    File getGuiFolder();
+    default File getGuiFolder() {
+        return new File(this.getDataFolder(), "guis");
+    }
 
-    File getMacroFolder();
+    default File getMacroFolder() {
+        return new File(this.getDataFolder(), "macros");
+    }
 
     List<String> getRegisteredCommands();
 

@@ -65,9 +65,6 @@ import java.util.logging.Level;
 
 public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
-    private File configFile;
-    private File guiFolder;
-    private File macroFolder;
     private Economy economy;
     private Permission permission;
     private List<NPCRegistry> npcRegistries;
@@ -82,9 +79,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     @Override
     public void start() {
         this.registeredCommands = new ArrayList<>();
-        this.configFile = new File(this.getDataFolder(), "config.yml");
-        this.guiFolder = new File(this.getDataFolder(), "guis");
-        this.macroFolder = new File(this.getDataFolder(), "macros");
 
         Platform platform = new BukkitPlatform();
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
@@ -205,21 +199,6 @@ public class BukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
     @Override
     public List<NPCRegistry> getNPCRegistries() {
         return this.npcRegistries;
-    }
-
-    @Override
-    public File getConfigFile() {
-        return this.configFile;
-    }
-
-    @Override
-    public File getGuiFolder() {
-        return this.guiFolder;
-    }
-
-    @Override
-    public File getMacroFolder() {
-        return this.macroFolder;
     }
 
     private final CommandMap getCommandMap() {
