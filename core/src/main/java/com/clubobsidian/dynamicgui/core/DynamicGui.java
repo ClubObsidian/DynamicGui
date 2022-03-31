@@ -131,11 +131,6 @@ public class DynamicGui {
     private static DynamicGui instance;
 
     public static DynamicGui get() {
-        if (!instance.initialized) {
-            instance.initialized = true;
-            instance.init();
-        }
-
         return instance;
     }
 
@@ -172,22 +167,27 @@ public class DynamicGui {
         this.saveDefaultConfig();
     }
 
-    private void init() {
-        this.loadConfig();
-        this.loadFunctions();
-        this.loadGuis();
-        this.checkForProxy();
-        this.registerListeners();
-        this.registerCommands();
-        ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
-        ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
-        ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
-        AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
-        SlotManager.get();
-        CooldownManager.get();
+    public boolean start() {
+        if(!this.initialized) {
+            this.initialized = true;
+            this.loadConfig();
+            this.loadFunctions();
+            this.loadGuis();
+            this.checkForProxy();
+            this.registerListeners();
+            this.registerCommands();
+            ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+            ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
+            ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
+            AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+            SlotManager.get();
+            CooldownManager.get();
+            return true;
+        }
+        return false;
     }
 
-    public void shutdown() {
+    public void stop() {
         CooldownManager.get().shutdown();
         this.plugin.unregisterCommand("gui");
         this.plugin.unregisterGuiAliases();

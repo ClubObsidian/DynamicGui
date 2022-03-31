@@ -89,6 +89,6 @@ public abstract class PluginModule implements Module {
 
     public boolean bootstrap() {
         Guice.createInjector(this);
-        return DynamicGui.get() != null;
+        return DynamicGui.get().start();
     }
 }
