@@ -26,7 +26,7 @@ import cloud.commandframework.arguments.standard.LongArgument;
 import cloud.commandframework.arguments.standard.ShortArgument;
 import cloud.commandframework.arguments.standard.StringArgument;
 import cloud.commandframework.arguments.standard.UUIDArgument;
-import com.clubobsidian.dynamicgui.core.command.CloudArgument;
+import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

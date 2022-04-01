@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command;
+package com.clubobsidian.dynamicgui.core.command.cloud;
 
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
