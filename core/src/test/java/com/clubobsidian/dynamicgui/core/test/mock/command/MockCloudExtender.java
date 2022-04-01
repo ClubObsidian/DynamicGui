@@ -14,12 +14,15 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command.cloud;
+package com.clubobsidian.dynamicgui.core.test.mock.command;
 
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 
-public interface CloudExtender {
-
-    boolean unregister(CommandManager commandManager, Command command, String commandName);
+public class MockCloudExtender implements CloudExtender {
+    @Override
+    public boolean unregister(CommandManager commandManager, Command command, String commandName) {
+        return false; //TODO - implement
+    }
 }

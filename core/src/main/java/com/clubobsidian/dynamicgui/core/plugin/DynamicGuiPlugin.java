@@ -52,6 +52,4 @@ public interface DynamicGuiPlugin {
     }
 
     void unregisterNativeCommand(String commandName);
-
-    void unregisterCloudCommand(CommandManager<GuiCommandSender> commandManager, String alias);
 }

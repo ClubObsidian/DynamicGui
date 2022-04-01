@@ -151,6 +151,7 @@ public class DynamicGui {
     private final CommandManager<GuiCommandSender> commandManager;
     private final AnnotationParser<GuiCommandSender> commandParser;
     private final Injector injector;
+    private final CloudExtender extender;
     private boolean initialized;
     private final List<String> registeredAliases = new ArrayList<>();
     private final Map<String, Command> cloudCommands = new HashMap<>();
@@ -160,7 +161,8 @@ public class DynamicGui {
                        Platform platform,
                        LoggerWrapper<?> loggerWrapper,
                        CommandManager<GuiCommandSender> commandManager,
-                       Injector injector) {
+                       Injector injector,
+                       CloudExtender extender) {
         this.plugin = plugin;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
@@ -169,6 +171,7 @@ public class DynamicGui {
                 GuiCommandSender.class,
                 parserParameters -> SimpleCommandMeta.empty());
         this.injector = injector;
+        this.extender = extender;
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
@@ -227,11 +230,10 @@ public class DynamicGui {
     public void unregisterCommand(String alias) {
         this.plugin.unregisterNativeCommand(alias);
         try {
-            CloudExtender.unregister(this.commandManager, this.cloudCommands.get(alias), alias);
+            this.extender.unregister(this.commandManager, this.cloudCommands.get(alias), alias);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.plugin.unregisterCloudCommand(this.commandManager, alias);
         this.cloudCommands.remove(alias);
         this.registeredAliases.remove(alias);
     }

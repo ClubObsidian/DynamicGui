@@ -17,11 +17,8 @@
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
 import cloud.commandframework.CommandManager;
-import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.bukkit.BukkitPluginRegistrationHandler;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.internal.CommandRegistrationHandler;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommandSender;
 import com.clubobsidian.dynamicgui.bukkit.economy.VaultEconomy;
@@ -227,37 +224,5 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void unregisterCloudCommand(CommandManager commandManager, String alias) {
-        BukkitPluginRegistrationHandler handler = (BukkitPluginRegistrationHandler)
-                commandManager.getCommandRegistrationHandler();
-        this.unregisterHandler(handler, alias);
-        this.unregisterAliases(handler, alias);
-        this.unregisterBukkitCommand(handler, alias);
-    }
-
-    private void unregisterBukkitCommand(BukkitPluginRegistrationHandler handler, String alias) {
-        Map<String, org.bukkit.command.Command> bukkitCommands =
-                ReflectionUtil.get(handler, handler.getClass(), "bukkitCommands");
-        bukkitCommands.remove(alias);
-    }
-
-    private void unregisterHandler(CommandRegistrationHandler handler, String alias) {
-        Map<CommandArgument<?, ?>, org.bukkit.command.Command> registeredCommands =
-                ReflectionUtil.get(handler, BukkitPluginRegistrationHandler.class, "registeredCommands");
-        Iterator<Map.Entry<CommandArgument<?, ?>, Command>> it = registeredCommands.entrySet().iterator();
-        while(it.hasNext()) {
-            Command command = it.next().getValue();
-            if(command.getName().equals(alias) || command.getAliases().contains(alias)) {
-                it.remove();
-            }
-        }
-    }
-
-    private void unregisterAliases(BukkitPluginRegistrationHandler handler, String alias) {
-        Set<String> aliases = ReflectionUtil.get(handler, handler.getClass(), "recognizedAliases");
-        aliases.remove(alias);
     }
 }

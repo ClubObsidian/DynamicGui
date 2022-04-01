@@ -18,9 +18,13 @@ package com.clubobsidian.dynamicgui.core.inject.module;
 
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.Key;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
+import com.clubobsidian.dynamicgui.core.command.cloud.extender.CombinedCloudExtender;
+import com.clubobsidian.dynamicgui.core.command.cloud.extender.NativeCloudExtender;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
@@ -33,6 +37,7 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 
 public abstract class PluginModule implements Module {
 
@@ -66,6 +71,8 @@ public abstract class PluginModule implements Module {
 
     public abstract Class<? extends LocationManager> getLocationManger();
 
+    public abstract Class<? extends CloudExtender> getPlatformExtender();
+
     @Override
     public void configure(Binder binder) {
         binder.bind(EntityManager.class).to(this.entityClass);
@@ -77,6 +84,11 @@ public abstract class PluginModule implements Module {
         binder.bind(Platform.class).toInstance(this.platform);
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
         binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
+
+        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.NATIVE_ANNOTATION)).to(NativeCloudExtender.class);
+        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.PLATFORM_ANNOTATION)).to(this.getPlatformExtender());
+        binder.bind(CloudExtender.class).to(CombinedCloudExtender.class);
+
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();

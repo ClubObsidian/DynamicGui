@@ -87,9 +87,4 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     public void unregisterNativeCommand(String commandName) {
 
     }
-
-    @Override
-    public void unregisterCloudCommand(CommandManager<GuiCommandSender> commandManager, String alias) {
-
-    }
 }

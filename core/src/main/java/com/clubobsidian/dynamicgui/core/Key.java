@@ -25,6 +25,9 @@ public final class Key {
     public static final String DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".reload";
     public static final String DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".close";
 
+    public static final String NATIVE_ANNOTATION = "native";
+    public static final String PLATFORM_ANNOTATION = "platform";
+
     public static boolean hasGuiPermission(PlayerWrapper<?> player, String guiName) {
         return player.hasPermission(GUI_BASE_PERMISSION + "." + guiName);
     }
