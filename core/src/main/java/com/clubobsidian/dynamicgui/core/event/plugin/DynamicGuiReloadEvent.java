@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.event;
+package com.clubobsidian.dynamicgui.core.event.plugin;
 
 import com.clubobsidian.trident.Event;
 

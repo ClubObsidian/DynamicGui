@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.registry.replacer.impl;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.event.DynamicGuiReloadEvent;
+import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.replacer.impl.GlobalPlayerCountReplacer;

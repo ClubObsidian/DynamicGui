@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.bukkit.command;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.event.DynamicGuiReloadEvent;
+import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import org.bukkit.Bukkit;
