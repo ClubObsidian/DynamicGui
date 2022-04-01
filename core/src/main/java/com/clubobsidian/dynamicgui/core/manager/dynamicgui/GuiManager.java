@@ -330,8 +330,6 @@ public class GuiManager {
 
     private void loadGuiFromFile(Configuration yaml, File file) {
         DynamicGui dynamicGui = DynamicGui.get();
-        DynamicGuiPlugin plugin = dynamicGui.getPlugin();
-
         try {
             String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
             byte[] cachedHash = this.guiHashes.get(guiName);
@@ -340,7 +338,7 @@ public class GuiManager {
             if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
                 for (String alias : token.getAlias()) {
-                    DynamicGui.get().registerCommand(guiName, alias);
+                    dynamicGui.registerCommand(guiName, alias);
                 }
 
                 this.guis.put(guiName, cachedGui);
