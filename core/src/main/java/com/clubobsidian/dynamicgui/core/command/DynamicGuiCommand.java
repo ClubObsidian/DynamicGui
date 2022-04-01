@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-public class DynamicGuiCommand {
+public class DynamicGuiCommand implements RegisteredCommand {
 
     private final Platform platform;
 

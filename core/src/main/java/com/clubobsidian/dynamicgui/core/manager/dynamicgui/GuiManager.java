@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
@@ -45,6 +46,7 @@ import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.apache.commons.io.FileUtils;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -65,11 +67,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GuiManager {
 
+    @Inject
     private static GuiManager instance;
 
     public static GuiManager get() {
-        if (instance == null) {
-            instance = new GuiManager();
+        if (!instance.intialized) {
+            instance.intialized = true;
             instance.loadGlobalMacros();
             instance.loadGuis();
         }
@@ -89,8 +92,11 @@ public class GuiManager {
     private Map<String, byte[]> guiHashes;
     private Map<String, byte[]> globalMacrosTimestamps;
     private final Set<String> modifiedMacros = new HashSet<>();
+    private final CommandRegistrar commandRegistrar;
+    private boolean intialized = false;
 
-    private GuiManager() {
+    @Inject
+    private GuiManager(CommandRegistrar commandRegistrar) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
@@ -98,6 +104,7 @@ public class GuiManager {
         this.cachedGlobalMacros = new HashMap<>();
         this.guiHashes = new HashMap<>();
         this.globalMacrosTimestamps = new HashMap<>();
+        this.commandRegistrar = commandRegistrar;
     }
 
     public boolean isGuiLoaded(String name) {
@@ -114,7 +121,7 @@ public class GuiManager {
 
     public void reloadGuis(boolean force) {
         DynamicGui.get().getLogger().info("Reloading guis!");
-        DynamicGui.get().unregisterGuiAliases();
+        this.commandRegistrar.unregisterGuiAliases();
         this.cachedGuis = this.guis;
         this.guis = new HashMap<>();
         this.cachedGlobalMacros = this.globalMacros;
@@ -338,7 +345,7 @@ public class GuiManager {
             if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
                 for (String alias : token.getAlias()) {
-                    dynamicGui.registerCommand(guiName, alias);
+                    this.commandRegistrar.registerGuiCommand(guiName, alias);
                 }
 
                 this.guis.put(guiName, cachedGui);
@@ -513,7 +520,7 @@ public class GuiManager {
         List<String> aliases = guiToken.getAlias();
 
         for (String alias : aliases) {
-            DynamicGui.get().registerCommand(guiName, alias);
+            this.commandRegistrar.registerGuiCommand(guiName, alias);
         }
 
         boolean close = guiToken.isClosed();

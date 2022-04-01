@@ -82,9 +82,4 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     public File getMacroFolder() {
         return this.macroFolder;
     }
-
-    @Override
-    public void unregisterNativeCommand(String commandName) {
-
-    }
 }

@@ -51,5 +51,5 @@ public interface DynamicGuiPlugin {
         return new File(this.getDataFolder(), "macros");
     }
 
-    void unregisterNativeCommand(String commandName);
+    //void unregisterNativeCommand(String commandName);
 }

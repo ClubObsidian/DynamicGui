@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.core.Key;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 
-public class GuiCommand {
+public class GuiCommand implements RegisteredCommand {
 
     @CommandMethod("gui <guiName>")
     @CommandPermission(Key.GUI_BASE_PERMISSION)

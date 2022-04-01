@@ -19,6 +19,8 @@ package com.clubobsidian.dynamicgui.core.inject.module;
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.Key;
+import com.clubobsidian.dynamicgui.core.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
@@ -26,6 +28,7 @@ import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.command.cloud.extender.CombinedCloudExtender;
 import com.clubobsidian.dynamicgui.core.command.cloud.extender.NativeCloudExtender;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
@@ -75,6 +78,14 @@ public abstract class PluginModule implements Module {
 
     @Override
     public void configure(Binder binder) {
+        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
+
+        binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
+        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.NATIVE_ANNOTATION)).to(NativeCloudExtender.class);
+        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.PLATFORM_ANNOTATION)).to(this.getPlatformExtender());
+        binder.bind(CloudExtender.class).to(CombinedCloudExtender.class);
+        binder.bind(CommandRegistrar.class).to(CommandRegistrarImpl.class).asEagerSingleton();
+
         binder.bind(EntityManager.class).to(this.entityClass);
         binder.bind(InventoryManager.class).to(this.inventoryClass);
         binder.bind(ItemStackManager.class).to(this.itemStackClass);
@@ -82,13 +93,8 @@ public abstract class PluginModule implements Module {
         binder.bind(LocationManager.class).to(this.locationClass);
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
         binder.bind(Platform.class).toInstance(this.platform);
-        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
-        binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
 
-        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.NATIVE_ANNOTATION)).to(NativeCloudExtender.class);
-        binder.bind(CloudExtender.class).annotatedWith(Names.named(Key.PLATFORM_ANNOTATION)).to(this.getPlatformExtender());
-        binder.bind(CloudExtender.class).to(CombinedCloudExtender.class);
-
+        binder.bind(GuiManager.class);
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
@@ -98,6 +104,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(ItemStackManager.class);
         binder.requestStaticInjection(MaterialManager.class);
         binder.requestStaticInjection(LocationManager.class);
+        binder.requestStaticInjection(GuiManager.class);
         binder.requestStaticInjection(DynamicGui.class);
     }
 

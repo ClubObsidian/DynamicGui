@@ -46,20 +46,14 @@ import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
-import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 
 public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
@@ -68,7 +62,6 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
     private Permission permission;
     private List<NPCRegistry> npcRegistries;
     private CommandMap commandMap;
-
 
     @Override
     public void onEnable() {
@@ -212,7 +205,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         return null;
     }
 
-    @Override
+    /*@Override
     public void unregisterNativeCommand(String alias) {
         try {
             //TODO - unregister brigadier
@@ -224,5 +217,5 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
