@@ -76,6 +76,7 @@ subprojects {
 		relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
 		relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
 		relocate 'com.github.benmanes.caffeine', 'com.clubobsidian.dynamicgui.shaded.caffeine'
+		relocate 'cloud', 'com.clubobsidian.dynamicgui.shaded.cloud'
 	}
 
 	repositories {
