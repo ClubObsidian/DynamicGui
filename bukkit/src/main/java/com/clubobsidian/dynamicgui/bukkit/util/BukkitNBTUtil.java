@@ -33,9 +33,6 @@ public final class BukkitNBTUtil {
     private static Method asBukkitCopy;
     private static Method getTag;
 
-    private BukkitNBTUtil() {
-    }
-
     public static Object parse(String nbtStr) {
         if (parse == null) {
             try {
@@ -177,5 +174,8 @@ public final class BukkitNBTUtil {
                 return null;
             }
         }
+    }
+
+    private BukkitNBTUtil() {
     }
 }
