@@ -21,6 +21,8 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.bukkit.BukkitPluginRegistrationHandler;
 import cloud.commandframework.internal.CommandRegistrationHandler;
+import com.clubobsidian.dynamicgui.core.Constant;
+import com.clubobsidian.dynamicgui.core.Key;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.Bukkit;
@@ -41,18 +43,15 @@ public class BukkitCloudExtender implements CloudExtender {
         boolean handlerUnregistered = this.unregisterHandler(handler, alias);
         boolean aliasesUnregistered = this.unregisterAliases(handler, alias);
         boolean bukkitUnregistered = this.unregisterBukkitCommand(handler, alias);
-        System.out.println("alias: " + alias);
-        System.out.println("handler: " + handlerUnregistered);
-        System.out.println("aliases: " + aliasesUnregistered);
-        System.out.println("bukkit: " + bukkitUnregistered);
-        this.unregisterNativeCommand(alias);
         return handlerUnregistered || aliasesUnregistered || bukkitUnregistered;
     }
 
     private boolean unregisterBukkitCommand(BukkitPluginRegistrationHandler handler, String alias) {
         Map<String, org.bukkit.command.Command> bukkitCommands =
                 ReflectionUtil.get(handler, handler.getClass(), "bukkitCommands");
-        return bukkitCommands.remove(alias) != null;
+        boolean removed = bukkitCommands.remove(alias) != null;
+        boolean namespaceRemoved = bukkitCommands.remove(Key.create(alias).toString()) != null;
+        return removed || namespaceRemoved;
     }
 
     private boolean unregisterHandler(CommandRegistrationHandler handler, String alias) {
@@ -60,15 +59,17 @@ public class BukkitCloudExtender implements CloudExtender {
                 ReflectionUtil.get(handler, BukkitPluginRegistrationHandler.class, "registeredCommands");
         Iterator<Map.Entry<CommandArgument<?, ?>, org.bukkit.command.Command>> it = registeredCommands.entrySet().iterator();
         boolean removed = false;
+        String namespaceAlias = Key.create(alias).toString();
         while (it.hasNext()) {
             org.bukkit.command.Command command = it.next().getValue();
             if(command.getName().equals(alias)
+                    || command.getName().equals(namespaceAlias)
                     || command.getAliases().contains(alias)
+                    || command.getAliases().contains(namespaceAlias)
                     || command.getLabel().equals(alias)
-                    || command.getLabel().endsWith(":" + alias)) {
+                    || command.getLabel().equals(namespaceAlias)) {
                 it.remove();
                 removed = true;
-                System.out.println("removed: " + command.getName() + " " + command.getAliases());
             }
         }
         return removed;
@@ -76,31 +77,8 @@ public class BukkitCloudExtender implements CloudExtender {
 
     private boolean unregisterAliases(BukkitPluginRegistrationHandler handler, String alias) {
         Set<String> aliases = ReflectionUtil.get(handler, handler.getClass(), "recognizedAliases");
-        return aliases.remove(alias);
-    }
-
-    private final CommandMap getCommandMap() {
-        try {
-            final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            f.setAccessible(true);
-            return (CommandMap) f.get(Bukkit.getServer());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public void unregisterNativeCommand(String alias) {
-        try {
-            //TODO - unregister brigadier
-            Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-            commandField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
-            commands.remove(alias);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
-        }
+        boolean original = aliases.remove(alias);
+        boolean namespace = aliases.remove(Key.create(alias).toString());
+        return original || namespace;
     }
 }

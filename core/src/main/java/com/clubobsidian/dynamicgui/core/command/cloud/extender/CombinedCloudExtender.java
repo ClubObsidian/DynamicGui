@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.command.cloud.extender;
 
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.Key;
+import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 
 import javax.inject.Inject;
@@ -30,8 +30,8 @@ public class CombinedCloudExtender implements CloudExtender {
     private final CloudExtender platformExtender;
 
     @Inject
-    private CombinedCloudExtender(@Named(Key.NATIVE_ANNOTATION) CloudExtender nativeExtender,
-                                  @Named(Key.PLATFORM_ANNOTATION) CloudExtender platformExtender) {
+    private CombinedCloudExtender(@Named(Constant.NATIVE_ANNOTATION) CloudExtender nativeExtender,
+                                  @Named(Constant.PLATFORM_ANNOTATION) CloudExtender platformExtender) {
         this.nativeExtender = nativeExtender;
         this.platformExtender = platformExtender;
     }

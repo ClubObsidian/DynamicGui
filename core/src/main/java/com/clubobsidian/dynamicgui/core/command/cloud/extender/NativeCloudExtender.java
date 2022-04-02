@@ -39,7 +39,6 @@ public class NativeCloudExtender implements CloudExtender {
             e.printStackTrace();
             return false;
         }
-        System.out.println(commandName + ": " + commandsUnregistered + " " + treeUnregistered);
         return commandsUnregistered || treeUnregistered;
     }
 

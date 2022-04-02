@@ -20,7 +20,7 @@ import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.Key;
+import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
@@ -42,7 +42,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui reload")
-    @CommandPermission(Key.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
     private void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
         GuiManager.get().reloadGuis(false);
@@ -50,7 +50,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui forcereload")
-    @CommandPermission(Key.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
     private void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
         GuiManager.get().reloadGuis(true);
@@ -58,7 +58,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui close all [guiName]")
-    @CommandPermission(Key.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
     private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
         if(guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
@@ -88,7 +88,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui close <playerName>")
-    @CommandPermission(Key.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
     private void closePlayer(GuiCommandSender sender, @Argument("playerName") String playerName) {
         PlayerWrapper<?> player = this.platform.getPlayer(playerName);
         if (player == null) {
