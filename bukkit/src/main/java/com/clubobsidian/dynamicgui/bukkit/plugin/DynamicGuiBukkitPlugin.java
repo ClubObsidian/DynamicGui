@@ -189,33 +189,5 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         return this.npcRegistries;
     }
 
-    private final CommandMap getCommandMap() {
-        if (this.commandMap == null) {
-            try {
-                final Field f = this.getServer().getClass().getDeclaredField("commandMap");
-                f.setAccessible(true);
-                this.commandMap = (CommandMap) f.get(this.getServer());
-                return this.commandMap;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (this.commandMap != null) {
-            return this.commandMap;
-        }
-        return null;
-    }
 
-    /*@Override
-    public void unregisterNativeCommand(String alias) {
-        try {
-            //TODO - unregister brigadier
-            Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-            commandField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
-            commands.remove(alias);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

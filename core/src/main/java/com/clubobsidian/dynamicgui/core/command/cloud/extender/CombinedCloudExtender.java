@@ -30,15 +30,16 @@ public class CombinedCloudExtender implements CloudExtender {
     private final CloudExtender platformExtender;
 
     @Inject
-    private CombinedCloudExtender(@Named(Key.NATIVE_ANNOTATION)CloudExtender nativeExtender,
-                                  @Named(Key.PLATFORM_ANNOTATION)CloudExtender platformExtender) {
+    private CombinedCloudExtender(@Named(Key.NATIVE_ANNOTATION) CloudExtender nativeExtender,
+                                  @Named(Key.PLATFORM_ANNOTATION) CloudExtender platformExtender) {
         this.nativeExtender = nativeExtender;
         this.platformExtender = platformExtender;
     }
 
     @Override
     public boolean unregister(CommandManager commandManager, Command command, String commandName) {
-        return this.nativeExtender.unregister(commandManager, command, commandName)
-                || this.platformExtender.unregister(commandManager, command, commandName);
+        boolean nativeUnregistered = this.nativeExtender.unregister(commandManager, command, commandName);
+        boolean platformUnregistered = this.platformExtender.unregister(commandManager, command, commandName);
+        return nativeUnregistered || platformUnregistered;
     }
 }

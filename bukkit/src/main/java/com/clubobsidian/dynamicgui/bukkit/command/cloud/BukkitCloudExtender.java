@@ -23,7 +23,11 @@ import cloud.commandframework.bukkit.BukkitPluginRegistrationHandler;
 import cloud.commandframework.internal.CommandRegistrationHandler;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.SimpleCommandMap;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -34,9 +38,15 @@ public class BukkitCloudExtender implements CloudExtender {
     public boolean unregister(CommandManager commandManager, Command command, String alias) {
         BukkitPluginRegistrationHandler handler = (BukkitPluginRegistrationHandler)
                 commandManager.getCommandRegistrationHandler();
-        return this.unregisterHandler(handler, alias)
-                || this.unregisterAliases(handler, alias)
-                || this.unregisterBukkitCommand(handler, alias);
+        boolean handlerUnregistered = this.unregisterHandler(handler, alias);
+        boolean aliasesUnregistered = this.unregisterAliases(handler, alias);
+        boolean bukkitUnregistered = this.unregisterBukkitCommand(handler, alias);
+        System.out.println("alias: " + alias);
+        System.out.println("handler: " + handlerUnregistered);
+        System.out.println("aliases: " + aliasesUnregistered);
+        System.out.println("bukkit: " + bukkitUnregistered);
+        this.unregisterNativeCommand(alias);
+        return handlerUnregistered || aliasesUnregistered || bukkitUnregistered;
     }
 
     private boolean unregisterBukkitCommand(BukkitPluginRegistrationHandler handler, String alias) {
@@ -52,9 +62,13 @@ public class BukkitCloudExtender implements CloudExtender {
         boolean removed = false;
         while (it.hasNext()) {
             org.bukkit.command.Command command = it.next().getValue();
-            if(command.getName().equals(alias) || command.getAliases().contains(alias)) {
+            if(command.getName().equals(alias)
+                    || command.getAliases().contains(alias)
+                    || command.getLabel().equals(alias)
+                    || command.getLabel().endsWith(":" + alias)) {
                 it.remove();
                 removed = true;
+                System.out.println("removed: " + command.getName() + " " + command.getAliases());
             }
         }
         return removed;
@@ -63,5 +77,30 @@ public class BukkitCloudExtender implements CloudExtender {
     private boolean unregisterAliases(BukkitPluginRegistrationHandler handler, String alias) {
         Set<String> aliases = ReflectionUtil.get(handler, handler.getClass(), "recognizedAliases");
         return aliases.remove(alias);
+    }
+
+    private final CommandMap getCommandMap() {
+        try {
+            final Field f = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+            f.setAccessible(true);
+            return (CommandMap) f.get(Bukkit.getServer());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void unregisterNativeCommand(String alias) {
+        try {
+            //TODO - unregister brigadier
+            Field commandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
+            commandField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            Map<String, Command> commands = (Map<String, Command>) commandField.get(this.getCommandMap());
+            commands.remove(alias);
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 }
