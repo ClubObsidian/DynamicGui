@@ -29,7 +29,7 @@ public class GuiCommand implements RegisteredCommand {
     @CommandPermission(Constant.GUI_BASE_PERMISSION)
     private void gui(GuiCommandSender sender, @Argument("guiName") String guiName) {
         PlayerWrapper<?> player = sender.getPlayer().orElse(null);
-        if(player != null && Constant.hasGuiPermission(player, guiName)) {
+        if(player != null && player.hasPermission(Constant.GUI_PERMISSION.apply(guiName))) {
             GuiManager.get().openGui(player, guiName);
         }
     }

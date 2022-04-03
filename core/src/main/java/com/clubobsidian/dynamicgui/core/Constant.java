@@ -16,11 +16,12 @@
 
 package com.clubobsidian.dynamicgui.core;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import java.util.function.Function;
 
 public final class Constant {
 
     public static final String GUI_BASE_PERMISSION = "dynamicgui.command.gui";
+    public static final Function<String, String> GUI_PERMISSION = (gui) -> GUI_BASE_PERMISSION + "." + gui;
     public static final String DYNAMIC_GUI_COMMAND_BASE_PERMISSION = "dynamicgui.command.admin";
     public static final String DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".reload";
     public static final String DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".close";
@@ -28,10 +29,6 @@ public final class Constant {
     public static final String NATIVE_ANNOTATION = "native";
     public static final String PLATFORM_ANNOTATION = "platform";
     public static final String NAMESPACE = "dynamicgui";
-
-    public static boolean hasGuiPermission(PlayerWrapper<?> player, String guiName) {
-        return player.hasPermission(GUI_BASE_PERMISSION + "." + guiName);
-    }
 
     private Constant() {
     }
