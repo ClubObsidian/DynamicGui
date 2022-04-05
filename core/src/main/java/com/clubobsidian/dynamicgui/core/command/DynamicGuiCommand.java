@@ -26,11 +26,15 @@ import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class DynamicGuiCommand implements RegisteredCommand {
 
@@ -101,5 +105,18 @@ public class DynamicGuiCommand implements RegisteredCommand {
                 sender.sendMessage(String.format("%s did not have a DynamicGui gui open", playerName));
             }
         }
+    }
+
+    @CommandMethod("dynamicgui|dyngui list")
+    @CommandPermission(Constant.DYNAMIC_GUI_LIST_PERMISSION)
+    private void guiList(GuiCommandSender sender) {
+        List<String> guiNames = GuiManager
+                .get()
+                .getGuis()
+                .stream()
+                .map((gui) -> "&a" + gui.getName())
+                .collect(Collectors.toList());
+        String built = ChatColor.translateAlternateColorCodes(String.join(" &f," + guiNames));
+        sender.sendMessage(built);
     }
 }
