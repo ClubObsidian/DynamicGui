@@ -20,6 +20,7 @@ import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
 import com.clubobsidian.dynamicgui.core.Constant;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 
@@ -29,8 +30,13 @@ public class GuiCommand implements RegisteredCommand {
     @CommandPermission(Constant.GUI_BASE_PERMISSION)
     private void gui(GuiCommandSender sender, @Argument("guiName") String guiName) {
         PlayerWrapper<?> player = sender.getPlayer().orElse(null);
-        if(player != null && player.hasPermission(Constant.GUI_PERMISSION.apply(guiName))) {
-            GuiManager.get().openGui(player, guiName);
+        if(player != null) {
+            boolean hasPermission = player.hasPermission(Constant.GUI_PERMISSION.apply(guiName));
+            if (hasPermission){
+                GuiManager.get().openGui(player, guiName);
+            } else {
+                sender.sendMessage(DynamicGui.get().getMessage().getNoGuiPermission());
+            }
         }
     }
 }

@@ -22,8 +22,14 @@ public class Message {
 
     @Node("no-gui")
     private String noGui;
+    @Node("no-gui-permission")
+    private String noGuiPermission;
 
     public String getNoGui() {
         return this.noGui;
+    }
+
+    public String getNoGuiPermission() {
+        return this.noGuiPermission;
     }
 }

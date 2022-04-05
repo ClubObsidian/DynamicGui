@@ -1,5 +1,6 @@
 message:
-  no-gui: "&4That gui does not exist!"
+  no-gui: "&e[&fDynamicGui&e] &cThat gui does not exist!"
+  no-gui-permission: "&e[&fDynamicGui&e] &cYou do not have permission for that gui!"
 
 #Configure proxy types
 # Proxy types:
