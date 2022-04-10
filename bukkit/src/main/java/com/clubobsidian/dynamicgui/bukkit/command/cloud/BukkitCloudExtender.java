@@ -21,20 +21,17 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.bukkit.BukkitPluginRegistrationHandler;
 import cloud.commandframework.internal.CommandRegistrationHandler;
-import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.Key;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.SimpleCommandMap;
 
-import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 public class BukkitCloudExtender implements CloudExtender {
+
+    private final boolean brigadierEnabled = this.checkForBrigadier();
 
     @Override
     public boolean unregister(CommandManager commandManager, Command command, String alias) {
@@ -43,7 +40,17 @@ public class BukkitCloudExtender implements CloudExtender {
         boolean handlerUnregistered = this.unregisterHandler(handler, alias);
         boolean aliasesUnregistered = this.unregisterAliases(handler, alias);
         boolean bukkitUnregistered = this.unregisterBukkitCommand(handler, alias);
-        return handlerUnregistered || aliasesUnregistered || bukkitUnregistered;
+        boolean brigadierUnregistered =  this.unregisterBrigadier(alias);
+        return handlerUnregistered || aliasesUnregistered || bukkitUnregistered || brigadierUnregistered;
+    }
+
+    private boolean checkForBrigadier() {
+        try {
+            Class.forName("com.mojang.brigadier.CommandDispatcher");
+            return true;
+        } catch(ClassNotFoundException ex) {
+            return false;
+        }
     }
 
     private boolean unregisterBukkitCommand(BukkitPluginRegistrationHandler handler, String alias) {
@@ -80,5 +87,12 @@ public class BukkitCloudExtender implements CloudExtender {
         boolean original = aliases.remove(alias);
         boolean namespace = aliases.remove(Key.create(alias).toString());
         return original || namespace;
+    }
+
+    private boolean unregisterBrigadier(String alias) {
+        if (this.brigadierEnabled) {
+            //TODO - implement unregistering brigadier
+        }
+        return false;
     }
 }
