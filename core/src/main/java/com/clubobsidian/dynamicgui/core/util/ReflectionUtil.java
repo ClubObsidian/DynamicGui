@@ -44,6 +44,17 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static Method getMethod(Class<?> cl, String... methods) {
+        for (Method m : cl.getDeclaredMethods()) {
+            for (String methodName : methods) {
+                if(m.getName().equals(methodName)) {
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
     public static Method getMethod(Class<?> cl, String methodName, Class<?>... params) {
         try {
             Method method = cl.getDeclaredMethod(methodName, params);

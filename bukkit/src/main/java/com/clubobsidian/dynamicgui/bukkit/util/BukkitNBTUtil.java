@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.util;
 
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.InvocationTargetException;
@@ -100,10 +101,7 @@ public final class BukkitNBTUtil {
             }
 
             if (setTag == null) {
-                Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
-                Class<?> nbtTagCompoundClass = Class.forName(COMPOUND_CLASS_NAME);
-                setTag = nmsItemStackClass.getDeclaredMethod("setTag", nbtTagCompoundClass);
-                setTag.setAccessible(true);
+                getSetTagMethod();
             }
 
             if (asBukkitCopy == null) {
@@ -116,13 +114,24 @@ public final class BukkitNBTUtil {
 
             Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
             Object nbtCompound = BukkitNBTUtil.parse(nbt);
-            setTag.invoke(nmsItemStack, nbtCompound);
+            Object invokedSetTag = setTag.invoke(nmsItemStack, nbtCompound);
+            nmsItemStack = setTag.getReturnType().equals(void.class) ? nmsItemStack : invokedSetTag;
             ItemStack bukkitItemStack = (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
             return bukkitItemStack;
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static void getSetTagMethod() {
+        try {
+            Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
+            setTag = ReflectionUtil.getMethod(nmsItemStackClass, "setTag", "setTagClone");
+            setTag.setAccessible(true);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String getItemStackClass() {
