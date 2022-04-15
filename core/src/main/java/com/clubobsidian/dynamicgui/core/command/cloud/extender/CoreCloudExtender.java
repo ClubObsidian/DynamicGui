@@ -26,6 +26,7 @@ import java.util.List;
 
 public class CoreCloudExtender implements CloudExtender {
 
+    @Override
     public boolean unregister(CommandManager commandManager, Command command, String commandName) {
         if(command == null) {
             return false;
