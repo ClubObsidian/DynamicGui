@@ -24,7 +24,7 @@ import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class NativeCloudExtender implements CloudExtender {
+public class CoreCloudExtender implements CloudExtender {
 
     public boolean unregister(CommandManager commandManager, Command command, String commandName) {
         if(command == null) {

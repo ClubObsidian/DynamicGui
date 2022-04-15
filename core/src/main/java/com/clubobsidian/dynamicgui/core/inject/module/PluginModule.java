@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.command.cloud.extender.CombinedCloudExtender;
-import com.clubobsidian.dynamicgui.core.command.cloud.extender.NativeCloudExtender;
+import com.clubobsidian.dynamicgui.core.command.cloud.extender.CoreCloudExtender;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
@@ -81,7 +81,7 @@ public abstract class PluginModule implements Module {
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
 
         binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
-        binder.bind(CloudExtender.class).annotatedWith(Names.named(Constant.NATIVE_ANNOTATION)).to(NativeCloudExtender.class);
+        binder.bind(CloudExtender.class).annotatedWith(Names.named(Constant.NATIVE_ANNOTATION)).to(CoreCloudExtender.class);
         binder.bind(CloudExtender.class).annotatedWith(Names.named(Constant.PLATFORM_ANNOTATION)).to(this.getPlatformExtender());
         binder.bind(CloudExtender.class).to(CombinedCloudExtender.class);
         binder.bind(CommandRegistrar.class).to(CommandRegistrarImpl.class).asEagerSingleton();
