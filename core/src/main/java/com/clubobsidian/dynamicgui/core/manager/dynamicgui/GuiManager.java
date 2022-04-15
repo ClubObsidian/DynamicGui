@@ -209,6 +209,10 @@ public class GuiManager {
 
             //Run gui load functions
             CompletableFuture<Boolean> result = FunctionManager.get().tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
+            result.exceptionally((ex) -> {
+                ex.printStackTrace();
+                return null;
+            });
             result.thenAccept((ran) -> ThreadUtil.run(() -> {
                 GuiLoadEvent event = new GuiLoadEvent(clonedGui, playerWrapper);
                 if (!ran) {

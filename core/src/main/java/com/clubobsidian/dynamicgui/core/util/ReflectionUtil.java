@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public final class ReflectionUtil {
 
@@ -122,6 +123,15 @@ public final class ReflectionUtil {
                 field.setAccessible(true);
                 return field;
             } catch (NoSuchFieldException e) {
+            }
+        }
+        return null;
+    }
+
+    public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (Modifier.isStatic(m.getModifiers()) && m.getReturnType().equals(returnType)) {
+                return m;
             }
         }
         return null;

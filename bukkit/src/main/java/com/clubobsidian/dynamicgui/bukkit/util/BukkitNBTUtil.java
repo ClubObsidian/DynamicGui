@@ -24,11 +24,18 @@ import java.lang.reflect.Method;
 
 public final class BukkitNBTUtil {
 
-    private static final String ITEM_STACK_CLASS_NAME = getItemStackClass();
+    private static final String VERSION = VersionUtil.getVersion();
+    private static final Class<?> NMS_ITEM_STACK_CLASS = ReflectionUtil.getClassIfExists(
+            "net.minecraft.world.item.ItemStack",
+            "net.minecraft.server." + VERSION + ".ItemStack"
+    );
+    private static final Class<?> COMPOUND_CLASS = ReflectionUtil.getClassIfExists(
+            "net.minecraft.nbt.NBTTagCompound",
+            "net.minecraft.server." + VERSION + ".NBTTagCompound"
+    );
     private static final Class<?> PARSER_CLASS = ReflectionUtil.getClassIfExists(
-            "net.minecraft.nbt.TagParser",
             "net.minecraft.nbt.MojangsonParser",
-            "net.minecraft.server." + VersionUtil.getVersion() + ".MojangsonParser"
+            "net.minecraft.server." + VERSION + ".MojangsonParser"
     );
 
     private static Method parse;
@@ -40,9 +47,9 @@ public final class BukkitNBTUtil {
     public static Object parse(String nbtStr) {
         if (parse == null) {
             try {
-                parse = ReflectionUtil.getMethod(PARSER_CLASS, "parseTag", "parse");
+                parse = ReflectionUtil.getStaticMethod(PARSER_CLASS, COMPOUND_CLASS);
                 parse.setAccessible(true);
-            } catch (SecurityException e) {
+            } catch (NullPointerException | SecurityException e) {
                 e.printStackTrace();
             }
         }
@@ -66,16 +73,14 @@ public final class BukkitNBTUtil {
             }
 
             if (getTag == null) {
-                Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
-                getTag = nmsItemStackClass.getDeclaredMethod("getTag");
+                getTag = NMS_ITEM_STACK_CLASS.getDeclaredMethod("getTag");
                 getTag.setAccessible(true);
             }
 
             if (asBukkitCopy == null) {
-                Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
-                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", nmsItemStackClass);
+                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", NMS_ITEM_STACK_CLASS);
                 asBukkitCopy.setAccessible(true);
             }
 
@@ -86,7 +91,10 @@ public final class BukkitNBTUtil {
             }
 
             return tag.toString();
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException |
+                SecurityException | IllegalAccessException |
+                IllegalArgumentException | InvocationTargetException |
+                NullPointerException e) {
             e.printStackTrace();
         }
         return null;
@@ -107,10 +115,9 @@ public final class BukkitNBTUtil {
             }
 
             if (asBukkitCopy == null) {
-                Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
                 String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
                 Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
-                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", nmsItemStackClass);
+                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", NMS_ITEM_STACK_CLASS);
                 asBukkitCopy.setAccessible(true);
             }
 
@@ -128,28 +135,10 @@ public final class BukkitNBTUtil {
 
     private static void getSetTagMethod() {
         try {
-            Class<?> nmsItemStackClass = Class.forName(ITEM_STACK_CLASS_NAME);
-            setTag = ReflectionUtil.getMethod(nmsItemStackClass, "setTag", "setTagClone");
+            setTag = ReflectionUtil.getMethod(NMS_ITEM_STACK_CLASS, "setTag", "setTagClone");
             setTag.setAccessible(true);
-        } catch (ClassNotFoundException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
-        }
-    }
-
-    private static String getItemStackClass() {
-        try {
-            String className = "net.minecraft.world.item.ItemStack";
-            Class.forName(className);
-            return className;
-        } catch (ClassNotFoundException ex) {
-            String version = VersionUtil.getVersion();
-            String className = "net.minecraft.server." + version + ".ItemStack";
-            try {
-                Class.forName(className);
-                return className;
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
         }
     }
 
