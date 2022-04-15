@@ -48,23 +48,22 @@ public class InventoryInteractListener {
 
         Slot slot = this.getSlotFromIndex(gui, e.getSlot());
         if (slot == null && e.getView() != InventoryView.BOTTOM) {
-            e.setCancelled(true);
+            this.cancelClick(e);
             return;
         }
 
         ItemStackWrapper<?> item = e.getItemStackWrapper();
         if (e.getClick() == null) { //For other types of clicks besides left, right, middle
-            e.setCancelled(true);
+            this.cancelClick(e);
             return;
         } else if (item.getItemStack() == null) {
             return;
         } else if (e.getView() == InventoryView.BOTTOM) {
             if (e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT) {
                 if (!this.canStack(gui, e.getInventoryWrapper(), item)) {
-                    e.setCancelled(true);
+                    this.cancelClick(e);
                 }
             }
-
             return;
         }
 
@@ -75,7 +74,7 @@ public class InventoryInteractListener {
         }
 
         if (!slot.isMovable()) {
-            e.setCancelled(true);
+            this.cancelClick(e);
         }
 
         Boolean close;
@@ -90,6 +89,11 @@ public class InventoryInteractListener {
         if (close) {
             player.closeInventory();
         }
+    }
+
+    private void cancelClick(InventoryClickEvent e) {
+        e.setCancelled(true);
+        e.getPlayerWrapper().clearCursor();
     }
 
     @EventHandler
