@@ -25,8 +25,11 @@ import java.lang.reflect.Method;
 public final class BukkitNBTUtil {
 
     private static final String ITEM_STACK_CLASS_NAME = getItemStackClass();
-    private static final String PARSER_CLASS_NAME = getParserClass();
-    private static final String COMPOUND_CLASS_NAME = getCompoundClass();
+    private static final Class<?> PARSER_CLASS = ReflectionUtil.getClassIfExists(
+            "net.minecraft.nbt.TagParser",
+            "net.minecraft.nbt.MojangsonParser",
+            "net.minecraft.server." + VersionUtil.getVersion() + ".MojangsonParser"
+    );
 
     private static Method parse;
     private static Method asNMSCopy;
@@ -37,10 +40,9 @@ public final class BukkitNBTUtil {
     public static Object parse(String nbtStr) {
         if (parse == null) {
             try {
-                Class<?> mojangParser = Class.forName(PARSER_CLASS_NAME);
-                parse = mojangParser.getDeclaredMethod("parse", String.class);
+                parse = ReflectionUtil.getMethod(PARSER_CLASS, "parseTag", "parse");
                 parse.setAccessible(true);
-            } catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
+            } catch (SecurityException e) {
                 e.printStackTrace();
             }
         }
@@ -142,40 +144,6 @@ public final class BukkitNBTUtil {
         } catch (ClassNotFoundException ex) {
             String version = VersionUtil.getVersion();
             String className = "net.minecraft.server." + version + ".ItemStack";
-            try {
-                Class.forName(className);
-                return className;
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
-    }
-
-    private static String getParserClass() {
-        try {
-            String className = "net.minecraft.nbt.MojangsonParser";
-            Class.forName(className);
-            return className;
-        } catch (ClassNotFoundException ex) {
-            String version = VersionUtil.getVersion();
-            String className = "net.minecraft.server." + version + ".MojangsonParser";
-            try {
-                Class.forName(className);
-                return className;
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
-    }
-
-    private static String getCompoundClass() {
-        try {
-            String className = "net.minecraft.nbt.NBTTagCompound";
-            Class.forName(className);
-            return className;
-        } catch (ClassNotFoundException ex) {
-            String version = VersionUtil.getVersion();
-            String className = "net.minecraft.server." + version + ".NBTTagCompound";
             try {
                 Class.forName(className);
                 return className;
