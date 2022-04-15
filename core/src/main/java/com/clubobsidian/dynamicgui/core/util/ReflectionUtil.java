@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 public final class ReflectionUtil {
 
@@ -128,10 +129,40 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static Field getDeclaredField(Object fieldIn, Class<?> clazz, Class<?> returnType, String... fields) {
+        for (Field field : clazz.getDeclaredFields()) {
+            for (String fieldName : fields) {
+                try {
+                    if (fieldName.equals(field.getName())) {
+                        field.setAccessible(true);
+                        Object got = field.get(fieldIn);
+                        if (got.getClass().equals(returnType)) {
+                            return field;
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
     public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType) {
         for (Method m : searchIn.getDeclaredMethods()) {
             if (Modifier.isStatic(m.getModifiers()) && m.getReturnType().equals(returnType)) {
                 return m;
+            }
+        }
+        return null;
+    }
+
+    public static Method getMethod(Class<?> searchIn, Class<Void> returnType, Class<?>... params) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (m.getReturnType().equals(returnType)) {
+                if (Arrays.equals(m.getParameterTypes(), params)) {
+                    return m;
+                }
             }
         }
         return null;

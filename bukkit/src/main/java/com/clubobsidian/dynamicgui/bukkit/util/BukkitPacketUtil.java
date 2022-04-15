@@ -30,7 +30,6 @@ public final class BukkitPacketUtil {
     private BukkitPacketUtil() {
     }
 
-    private static final String ITEM_STACK_CLASS_NAME = getItemStackClass();
     private static final String ENTITY_PLAYER_CLASS_NAME = getEntityPlayerClassName();
     private static final String ENTITY_HUMAN_CLASS_NAME = getEntityHumanClassName();
     private static final String PLAYER_CONNECTION_CLASS_NAME = getPlayerConnectionClassName();
@@ -86,7 +85,8 @@ public final class BukkitPacketUtil {
             if (sendPacket == null) {
                 Class<?> networkManagerClass = Class.forName(NETWORK_MANAGER_CLASS_NAME);
                 Class<?> packetClass = Class.forName(PACKET_CLASS_NAME);
-                sendPacket = networkManagerClass.getDeclaredMethod("sendPacket", packetClass);
+                sendPacket = ReflectionUtil.getMethod(networkManagerClass, void.class, packetClass);
+
             }
 
             Object nmsPlayer = playerHandle.invoke(player);
@@ -94,7 +94,10 @@ public final class BukkitPacketUtil {
             Object manager = networkManager.get(con);
 
             sendPacket.invoke(manager, packet);
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NullPointerException | ClassNotFoundException |
+                NoSuchMethodException | SecurityException |
+                IllegalArgumentException | IllegalAccessException |
+                InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -151,7 +154,7 @@ public final class BukkitPacketUtil {
             } else {
                 if (stateIdField == null) {
                     Class<?> containerClass = Class.forName(CONTAINER_CLASS_NAME);
-                    stateIdField = ReflectionUtil.getDeclaredField(containerClass, "q");
+                    stateIdField = ReflectionUtil.getDeclaredField(container, containerClass, Integer.class, "r", "q");
                 }
                 int stateId = stateIdField.getInt(container);
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, stateId, index, nmsItemStack);
@@ -174,23 +177,6 @@ public final class BukkitPacketUtil {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private static String getItemStackClass() {
-        try {
-            String className = "net.minecraft.world.item.ItemStack";
-            Class.forName(className);
-            return className;
-        } catch (ClassNotFoundException ex) {
-            String version = VersionUtil.getVersion();
-            String className = "net.minecraft.server." + version + ".ItemStack";
-            try {
-                Class.forName(className);
-                return className;
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
     }
 
     private static String getEntityPlayerClassName() {
