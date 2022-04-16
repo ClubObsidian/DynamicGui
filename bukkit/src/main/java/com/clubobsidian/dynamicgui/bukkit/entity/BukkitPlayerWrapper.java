@@ -207,4 +207,9 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
             return null;
         }
     }
+
+    @Override
+    public void updateCursor() {
+        this.getPlayer().setItemOnCursor(this.getPlayer().getItemOnCursor());
+    }
 }
