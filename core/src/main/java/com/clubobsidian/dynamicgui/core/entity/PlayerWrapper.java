@@ -80,6 +80,4 @@ public abstract class PlayerWrapper<T> {
     public abstract boolean isOnline();
 
     public abstract String getSkinTexture();
-
-    public abstract void clearCursor();
 }

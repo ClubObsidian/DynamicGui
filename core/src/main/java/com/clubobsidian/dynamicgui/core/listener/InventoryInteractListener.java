@@ -76,7 +76,7 @@ public class InventoryInteractListener {
         if (!slot.isMovable()) {
             this.cancelClick(e);
         }
-    
+
         boolean close = slot.getClose() != null ? slot.getClose() : (gui.getClose() != null ? gui.getClose() : true);
         if (close) {
             player.closeInventory();
@@ -85,7 +85,6 @@ public class InventoryInteractListener {
 
     private void cancelClick(InventoryClickEvent e) {
         e.setCancelled(true);
-        e.getPlayerWrapper().clearCursor();
     }
 
     @EventHandler
