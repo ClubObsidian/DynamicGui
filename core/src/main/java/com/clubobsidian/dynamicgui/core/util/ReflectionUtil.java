@@ -177,20 +177,4 @@ public final class ReflectionUtil {
         }
         return null;
     }
-
-    public static class ReflectionHelper<T> {
-
-        public T get(Field field) {
-            return this.get(field, null);
-        }
-
-        @SuppressWarnings("unchecked")
-        public T get(Field field, Object getFromClass) {
-            try {
-                return (T) field.get(getFromClass);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                return null;
-            }
-        }
-    }
 }
