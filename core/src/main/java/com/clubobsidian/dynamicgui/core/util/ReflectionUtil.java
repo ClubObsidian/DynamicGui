@@ -26,6 +26,16 @@ public final class ReflectionUtil {
     private ReflectionUtil() {
     }
 
+    public static boolean classExists(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+
     public static Class<?> getClassIfExists(String... clazzes) {
         for (String className : clazzes) {
             try {

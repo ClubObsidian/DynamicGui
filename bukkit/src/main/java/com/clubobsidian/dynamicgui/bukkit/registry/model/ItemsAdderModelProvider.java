@@ -19,24 +19,16 @@ package com.clubobsidian.dynamicgui.bukkit.registry.model;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ItemsAdderModelProvider implements ModelProvider {
 
-    private static final boolean ITEMS_ADDER_EXISTS = exists();
+    private static final boolean ITEMS_ADDER_EXISTS = ReflectionUtil.classExists("dev.lone.itemsadder.api.CustomStack");
     private static final Method GET_INSTANCE = instance();
     private static final Method GET_ITEM_STACK = itemStack();
-
-    private static boolean exists() {
-        try {
-            Class.forName("dev.lone.itemsadder.api.CustomStack");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
 
     private static Method instance() {
         if (ITEMS_ADDER_EXISTS) {
