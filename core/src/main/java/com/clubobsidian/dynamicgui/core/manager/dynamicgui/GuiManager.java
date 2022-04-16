@@ -495,7 +495,7 @@ public class GuiManager {
 
             int amount = slotToken.getAmount();
 
-            boolean close = slotToken.isClosed();
+            Boolean close = slotToken.isClosed();
 
             short data = slotToken.getData();
 
@@ -527,7 +527,7 @@ public class GuiManager {
             this.commandRegistrar.registerGuiCommand(guiName, alias);
         }
 
-        boolean close = guiToken.isClosed();
+        Boolean close = guiToken.isClosed();
 
         List<LocationWrapper<?>> locations = new ArrayList<>();
         for (String location : guiToken.getLocations()) {

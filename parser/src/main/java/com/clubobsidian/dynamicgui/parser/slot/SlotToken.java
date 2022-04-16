@@ -41,7 +41,7 @@ public class SlotToken implements Serializable {
     private final String nbt;
     private final boolean glow;
     private final boolean movable;
-    private final boolean closed;
+    private final Boolean closed; //This should be boxed
     private final byte data;
     private final List<String> lore;
     private final List<String> enchants;
@@ -71,7 +71,7 @@ public class SlotToken implements Serializable {
         this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
         this.glow = this.parseBoolean(section.getString("glow"));
         this.movable = this.parseBoolean(section.getString("movable"));
-        this.closed = this.parseBoolean(section.getString("close"));
+        this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.data = this.parseByte(section.getString("data"));
         this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
         this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
@@ -108,6 +108,14 @@ public class SlotToken implements Serializable {
     private boolean parseBoolean(String data) {
         if (data == null) {
             return false;
+        }
+        String parsed = this.macroParser.parseStringMacros(data);
+        return Boolean.parseBoolean(parsed);
+    }
+
+    private Boolean parseBoxedBoolean(String data) {
+        if(data == null) {
+            return null;
         }
         String parsed = this.macroParser.parseStringMacros(data);
         return Boolean.parseBoolean(parsed);
@@ -171,7 +179,7 @@ public class SlotToken implements Serializable {
         return this.movable;
     }
 
-    public boolean isClosed() {
+    public Boolean isClosed() {
         return this.closed;
     }
 

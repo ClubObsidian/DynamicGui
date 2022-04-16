@@ -40,7 +40,7 @@ public class GuiToken implements Serializable {
     private final String type;
     private final int rows;
     private final GuiMode mode;
-    private final boolean closed;
+    private final Boolean closed; //This should be boxed
     private final List<String> alias;
     private final List<String> locations;
     private final Map<String, List<Integer>> npcs;
@@ -67,7 +67,7 @@ public class GuiToken implements Serializable {
         this.type = this.parseType(section.getString("type"));
         this.rows = section.getInteger("rows");
         this.mode = this.parseMode(section.getString("mode"));
-        this.closed = section.getBoolean("close");
+        this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
         this.locations = this.macroParser.parseListMacros(section.getStringList("locations"));
         this.npcs = this.loadNpcs(section);
@@ -82,6 +82,14 @@ public class GuiToken implements Serializable {
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
         this.isStatic = section.getBoolean("static");
+    }
+
+    private Boolean parseBoxedBoolean(String data) {
+        if(data == null) {
+            return null;
+        }
+        String parsed = this.macroParser.parseStringMacros(data);
+        return Boolean.parseBoolean(parsed);
     }
 
     public String parseType(String type) {
@@ -150,7 +158,7 @@ public class GuiToken implements Serializable {
         return this.mode;
     }
 
-    public boolean isClosed() {
+    public Boolean isClosed() {
         return this.closed;
     }
 

@@ -76,16 +76,8 @@ public class InventoryInteractListener {
         if (!slot.isMovable()) {
             this.cancelClick(e);
         }
-
-        Boolean close;
-        if (slot.getClose() != null) {
-            close = slot.getClose();
-        } else if (gui.getClose() != null) {
-            close = gui.getClose();
-        } else {
-            close = true;
-        }
-
+    
+        boolean close = slot.getClose() != null ? slot.getClose() : (gui.getClose() != null ? gui.getClose() : true);
         if (close) {
             player.closeInventory();
         }
