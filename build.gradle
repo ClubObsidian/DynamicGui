@@ -81,8 +81,7 @@ subprojects {
 		relocate 'cloud', 'com.clubobsidian.dynamicgui.shaded.cloud'
 		relocate 'com.google.thirdparty', 'com.clubobsidian.dynamicgui.shaded.google.thirdparty'
 		relocate 'io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.classgraph'
-		relocate 'noapi.io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.classgraph'
-		relocate 'noapi.io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.noapi.io.github.classgraph'
+		relocate 'nonapi.io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.nonapi.io.github.classgraph'
 		relocate 'javassist', 'com.clubobsidian.dynamicgui.shaded.javassist'
 	}
 
