@@ -49,7 +49,9 @@ subprojects {
 
 	shadowJar {
 		archiveClassifier.set('')
-		minimize()
+		minimize() {
+			exclude(project(":core"))
+		}
 		relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
 		relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 		relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
@@ -98,5 +100,6 @@ subprojects {
 		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
 		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
 		api "cloud.commandframework:cloud-annotations:$cloudVersion"
+		api "com.github.ravenlab:class-scanner:1.0.2"
 	}
 }

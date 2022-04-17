@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.AsyncRunningFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.AddPermissionFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.CheckItemTypeInHandFunction;
@@ -109,6 +110,8 @@ import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import com.clubobsidian.wrappy.transformer.NodeTransformer;
+import com.github.ravenlab.classscanner.ClassScanner;
+import com.github.ravenlab.classscanner.JarClassScanner;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
@@ -118,6 +121,7 @@ import org.apache.commons.io.FileUtils;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -312,84 +316,17 @@ public class DynamicGui {
     }
 
     private void loadFunctions() {
-        FunctionManager.get().addFunction(new CheckTickFunction());
-        FunctionManager.get().addFunction(new ConditionFunction());
-        FunctionManager.get().addFunction(new ResetFrameFunction());
-        FunctionManager.get().addFunction(new ResetTickFunction());
-
-        FunctionManager.get().addFunction(new ConsoleCommandFunction());
-        FunctionManager.get().addFunction(new PlayerCommandFunction());
-
-        FunctionManager.get().addFunction(new SetCooldownFunction());
-        FunctionManager.get().addFunction(new IsOnCooldownFunction());
-        FunctionManager.get().addFunction(new IsNotOnCooldownFunction());
-
-        FunctionManager.get().addFunction(new GuiFunction());
-        FunctionManager.get().addFunction(new BackFunction());
-        FunctionManager.get().addFunction(new HasBackFunction());
-        FunctionManager.get().addFunction(new SetBackFunction());
-
-        FunctionManager.get().addFunction(new RefreshGuiFunction());
-        FunctionManager.get().addFunction(new RefreshSlotFunction());
-
-        FunctionManager.get().addFunction(new MoneyWithdrawFunction());
-        FunctionManager.get().addFunction(new MoneyDepositFunction());
-        FunctionManager.get().addFunction(new MoneyBalanceFunction());
-
-        FunctionManager.get().addFunction(new NoPermissionFunction());
-        FunctionManager.get().addFunction(new PermissionFunction());
-        FunctionManager.get().addFunction(new AddPermissionFunction());
-        FunctionManager.get().addFunction(new RemovePermissionFunction());
-        FunctionManager.get().addFunction(new PlayerMessageFunction());
-        FunctionManager.get().addFunction(new RandomFunction());
-        FunctionManager.get().addFunction(new SendFunction());
-        FunctionManager.get().addFunction(new ServerBroadcastFunction());
-        FunctionManager.get().addFunction(new ServerBroadcastJsonFunction());
-        FunctionManager.get().addFunction(new ParticleFunction());
-        FunctionManager.get().addFunction(new SoundFunction());
-        FunctionManager.get().addFunction(new SetNameFunction());
-        FunctionManager.get().addFunction(new SetLoreFunction());
-        FunctionManager.get().addFunction(new SetTypeFunction());
-        FunctionManager.get().addFunction(new SetDurabilityFunction());
-        FunctionManager.get().addFunction(new SetAmountFunction());
-        FunctionManager.get().addFunction(new SetNBTFunction());
-        FunctionManager.get().addFunction(new SetGlowFunction());
-        FunctionManager.get().addFunction(new CheckMovableFunction());
-        FunctionManager.get().addFunction(new SetMovableFunction());
-        FunctionManager.get().addFunction(new SetEnchantsFunction());
-        FunctionManager.get().addFunction(new SetCloseFunction());
-        FunctionManager.get().addFunction(new RemoveSlotFunction());
-        FunctionManager.get().addFunction(new CheckLevelFunction());
-        FunctionManager.get().addFunction(new LogFunction());
-
-        FunctionManager.get().addFunction(new CheckItemTypeInHandFunction());
-
-        FunctionManager.get().addFunction(new SetGameRuleFunction());
-        FunctionManager.get().addFunction(new GetGameRuleFunction());
-
-        FunctionManager.get().addFunction(new CheckPlayerWorldFunction());
-
-        FunctionManager.get().addFunction(new PlayerMiniMessageFunction());
-        FunctionManager.get().addFunction(new ServerMiniBroadcastFunction());
-
-        FunctionManager.get().addFunction(new PlayerMsgJsonFunction());
-
-        FunctionManager.get().addFunction(new HasMetadataFunction());
-        FunctionManager.get().addFunction(new SetMetadataFunction());
-        FunctionManager.get().addFunction(new IsGuiMetadataSet());
-        FunctionManager.get().addFunction(new CopyBackMetadataFunction());
-
-        FunctionManager.get().addFunction(new IsBedrockPlayerFunction());
-
-        //Async related
-        FunctionManager.get().addFunction(new DelayFunction());
-        FunctionManager.get().addFunction(new LoggedInFunction());
-        FunctionManager.get().addFunction(new AsyncRunningFunction());
-
-        //Test functions
-        FunctionManager.get().addFunction(new FalseAsyncFunction());
-        FunctionManager.get().addFunction(new MainThreadFunction());
-        FunctionManager.get().addFunction(new AsyncThreadFunction());
+        ClassScanner<Class> scanner = new JarClassScanner();
+        scanner.collect(Function.class.getPackageName(), Function.class, Function.class).stream().forEach(
+                clazz -> {
+                    try {
+                        FunctionManager.get().addFunction(clazz.getDeclaredConstructor().newInstance());
+                    } catch (InstantiationException | IllegalAccessException |
+                            InvocationTargetException | NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
     }
 
     private void startPlayerCountTimer() {
