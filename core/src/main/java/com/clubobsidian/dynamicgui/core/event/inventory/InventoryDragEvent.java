@@ -39,16 +39,6 @@ public class InventoryDragEvent extends InventoryEvent implements Cancellable {
         return this.slotItems;
     }
 
-    @Deprecated
-    public boolean isCanceled() {
-        return this.cancelled;
-    }
-
-    @Deprecated
-    public void setCanceled(boolean cancel) {
-        this.cancelled = cancel;
-    }
-
     @Override
     public boolean isCancelled() {
         return this.cancelled;

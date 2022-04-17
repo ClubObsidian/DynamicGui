@@ -38,16 +38,6 @@ public class PlayerInteractEvent extends LocationEvent implements Cancellable {
         return this.action;
     }
 
-    @Deprecated
-    public boolean isCanceled() {
-        return this.canceled;
-    }
-
-    @Deprecated
-    public void setCanceled(boolean cancel) {
-        this.canceled = cancel;
-    }
-
     @Override
     public boolean isCancelled() {
         return this.canceled;

@@ -42,16 +42,6 @@ public class GuiLoadEvent extends Event implements Cancellable {
         return this.playerWrapper;
     }
 
-    @Deprecated
-    public boolean isCanceled() {
-        return this.cancelled;
-    }
-
-    @Deprecated
-    public void setCanceled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
-
     @Override
     public boolean isCancelled() {
         return this.cancelled;

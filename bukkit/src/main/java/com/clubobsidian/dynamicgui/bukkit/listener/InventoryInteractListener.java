@@ -80,7 +80,7 @@ public class InventoryInteractListener implements Listener {
 
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
             DynamicGui.get().getEventBus().callEvent(clickEvent);
-            if (clickEvent.isCanceled()) {
+            if (clickEvent.isCancelled()) {
                 e.setCancelled(true);
             }
         }
@@ -100,7 +100,7 @@ public class InventoryInteractListener implements Listener {
             Map<Integer, ItemStackWrapper<?>> slotItems = this.wrapItemStacks(e.getNewItems());
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent dragEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent(playerWrapper, inventoryWrapper, slotItems);
             DynamicGui.get().getEventBus().callEvent(dragEvent);
-            if (dragEvent.isCanceled()) {
+            if (dragEvent.isCancelled()) {
                 e.setCancelled(true);
             }
         }

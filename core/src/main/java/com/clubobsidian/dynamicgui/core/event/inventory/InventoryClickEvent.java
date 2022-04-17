@@ -56,16 +56,6 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
         return this.click;
     }
 
-    @Deprecated
-    public boolean isCanceled() {
-        return this.cancelled;
-    }
-
-    @Deprecated
-    public void setCanceled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
-
     @Override
     public boolean isCancelled() {
         return this.cancelled;

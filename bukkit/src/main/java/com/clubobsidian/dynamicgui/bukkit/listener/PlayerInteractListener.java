@@ -37,7 +37,7 @@ public class PlayerInteractListener implements Listener {
             LocationWrapper<?> locationWrapper = LocationManager.get().toLocationWrapper(e.getClickedBlock().getLocation());
             com.clubobsidian.dynamicgui.core.event.block.PlayerInteractEvent interactEvent = new com.clubobsidian.dynamicgui.core.event.block.PlayerInteractEvent(playerWrapper, locationWrapper, action);
             DynamicGui.get().getEventBus().callEvent(interactEvent);
-            if (interactEvent.isCanceled()) {
+            if (interactEvent.isCancelled()) {
                 e.setCancelled(true);
             }
         }
