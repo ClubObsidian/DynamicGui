@@ -100,6 +100,6 @@ subprojects {
 		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
 		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
 		api "cloud.commandframework:cloud-annotations:$cloudVersion"
-		api "com.github.ravenlab:class-scanner:1.0.2"
+		api "io.github.classgraph:classgraph:4.8.138"
 	}
 }

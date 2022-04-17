@@ -49,13 +49,14 @@ import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import com.clubobsidian.wrappy.transformer.NodeTransformer;
-import com.github.ravenlab.classscanner.ClassScanner;
-import com.github.ravenlab.classscanner.JarClassScanner;
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Injector;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ScanResult;
 import org.apache.commons.io.FileUtils;
 
 import javax.inject.Inject;
@@ -255,17 +256,22 @@ public class DynamicGui {
     }
 
     private void loadFunctions() {
-        ClassScanner<Class> scanner = new JarClassScanner();
-        scanner.collect(Function.class.getPackageName(), Function.class, Function.class).stream().forEach(
-                clazz -> {
-                    try {
-                        FunctionManager.get().addFunction(clazz.getDeclaredConstructor().newInstance());
-                    } catch (InstantiationException | IllegalAccessException |
-                            InvocationTargetException | NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
+        try (ScanResult scanResult = new ClassGraph()
+                .enableAllInfo()
+                .acceptPackages(Function.class.getPackageName())
+                .scan()) {
+            for (ClassInfo classInfo : scanResult.getSubclasses(Function.class)) {
+                try {
+                    FunctionManager.get().addFunction((Function) classInfo
+                            .loadClass()
+                            .getDeclaredConstructor()
+                            .newInstance());
+                } catch (InstantiationException | IllegalAccessException |
+                        InvocationTargetException | NoSuchMethodException e) {
+                    e.printStackTrace();
                 }
-        );
+            }
+        }
     }
 
     private void startPlayerCountTimer() {
