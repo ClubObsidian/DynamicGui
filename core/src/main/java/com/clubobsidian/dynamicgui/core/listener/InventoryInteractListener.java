@@ -90,7 +90,9 @@ public class InventoryInteractListener {
         Platform platform = DynamicGui.get().getPlatform();
         platform.getScheduler().runSyncDelayedTask(() -> {
             PlayerWrapper<?> futurePlayer = platform.getPlayer(e.getPlayerWrapper().getUniqueId());
-            futurePlayer.updateCursor();
+            if (futurePlayer != null) {
+                futurePlayer.updateCursor();
+            }
         }, 1);
     }
 
