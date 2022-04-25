@@ -30,7 +30,6 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -129,6 +128,7 @@ public class FunctionManager {
                                 returnValue.set(false);
                             }
                             int inc = currentCount.incrementAndGet();
+                            System.out.println("inc: " + inc + " " + rootSize);
                             if (inc == rootSize) {
                                 future.complete(returnValue.get());
                             }
@@ -156,30 +156,51 @@ public class FunctionManager {
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
             if (types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
+                System.out.println("type: " + type);
                 if (type != FunctionType.FAIL) {
-                    runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(dataResponse -> {
-                        if (!dataResponse.result) {
-                            if (dataResponse.failedFunction == null) {
-                                future.complete(false);
-                            } else {
-                                returnValue.set(false);
-                                recurFunctionNodes(dataResponse, owner,
-                                        node.getChildren(), FunctionType.FAIL,
-                                        playerWrapper, future, returnValue);
-                            }
-                        } else {
-                            recurFunctionNodes(dataResponse, owner,
-                                    node.getChildren(), type,
-                                    playerWrapper, future, returnValue);
-                        }
-                    });
+                    runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
+                            .whenComplete((dataResponse, ex) -> {
+                                System.out.println("data complete");
+                                if (ex != null) {
+                                    ex.printStackTrace();
+                                    future.complete(false);
+                                } else {
+                                    if (!dataResponse.result) {
+                                        if (dataResponse.failedFunction == null) {
+                                            future.complete(false);
+                                            recurFunctionNodes(null, owner,
+                                                    nodeQueue, type,
+                                                    playerWrapper, future, returnValue);
+                                        } else {
+                                            returnValue.set(false);
+                                            recurFunctionNodes(dataResponse, owner,
+                                                    node.getChildren(), FunctionType.FAIL,
+                                                    playerWrapper, future, returnValue);
+                                        }
+                                    } else {
+                                        recurFunctionNodes(dataResponse, owner,
+                                                node.getChildren(), type,
+                                                playerWrapper, future, returnValue);
+                                    }
+                                }
+                            });
                 } else if (type == FunctionType.FAIL) {
                     if (isFail(response, functionToken)) {
-                        runFunctionData(owner, functionToken.getFunctions(), playerWrapper).thenAccept(dataResponse -> {
-                            recurFunctionNodes(dataResponse, owner,
-                                    node.getChildren(), FunctionType.FAIL,
-                                    playerWrapper, future, returnValue);
-                        });
+                        runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
+                                .whenComplete((dataResponse, ex) -> {
+                                    if (ex != null) {
+                                        ex.printStackTrace();
+                                        future.complete(false);
+                                    } else {
+                                        recurFunctionNodes(dataResponse, owner,
+                                                node.getChildren(), FunctionType.FAIL,
+                                                playerWrapper, future, returnValue);
+                                    }
+                                });
+                    } else {
+                        recurFunctionNodes(null, owner,
+                                nodeQueue, type,
+                                playerWrapper, future, returnValue);
                     }
                 }
             } else {
@@ -256,10 +277,16 @@ public class FunctionManager {
                         cleanupAsync(uuid, function);
                         response.complete(new FunctionResponse(false, functionName, functionData));
                     } else if (async) {
-                        runFunctionData(owner, futureData, playerWrapper).thenAccept((value) -> {
-                            cleanupAsync(uuid, function);
-                            response.complete(value);
-                        });
+                        runFunctionData(owner, futureData, playerWrapper)
+                                .whenComplete((value, ex) -> {
+                                    if (ex != null) {
+                                        ex.printStackTrace();
+                                        response.complete(new FunctionResponse(false, value.failedFunction, value.data));
+                                    } else {
+                                        cleanupAsync(uuid, function);
+                                        response.complete(value);
+                                    }
+                                });
                     }
                 }, async);
                 //Return if function is async since the async caller will hand

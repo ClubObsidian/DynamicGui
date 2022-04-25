@@ -240,10 +240,12 @@ public class GuiManager {
                         if(slotFuture.isDone()) {
                             return;
                         }
+                        System.out.println("i: " + i + " slot size: " + slotSize);
                         Slot slot = slots.get(i);
                         FunctionManager.get()
                                 .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
                                 .whenComplete((slotResult, ex) -> {
+                                    System.out.println("Complete");
                                     if(slotFuture.isDone()) {
                                         return;
                                     }
@@ -252,6 +254,7 @@ public class GuiManager {
                                         slotFuture.complete(false);
                                     } else {
                                         int count = slotCount.incrementAndGet();
+                                        System.out.println("slot size: " + slotSize + " count: " + count);
                                         if(slotSize == count) {
                                             slotFuture.complete(true);
                                         }
@@ -259,10 +262,9 @@ public class GuiManager {
                                 });
                     }
                     slotFuture.whenComplete((completed, ex) -> {
+                        System.out.println("Slot future complete: " + (ex != null));
                         if (ex != null) {
                             ex.printStackTrace();
-                            future.complete(false);
-                        } else if (!completed) {
                             future.complete(false);
                         } else {
                             ThreadUtil.run(() -> {
