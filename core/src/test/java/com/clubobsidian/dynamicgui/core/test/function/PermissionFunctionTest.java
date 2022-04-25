@@ -28,21 +28,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PermissionFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new PermissionFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
 
     @Test
-    public void doesNotHavePermissionTest() {
+    public void doesNotHavePermissionTest() throws Exception {
         Function function = new PermissionFunction();
         function.setData("test");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void hasPermissionTest() {
+    public void hasPermissionTest() throws Exception {
         String permission = "test";
         Function function = new PermissionFunction();
         function.setData(permission);

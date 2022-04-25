@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CheckItemInTypeHandFunctionTest extends FactoryTest {
 
     @Test
-    public void testNull() {
+    public void testNull() throws Exception {
         String material = "stone";
         Function function = new CheckItemTypeInHandFunction();
         ItemStackWrapper<?> hand = this.getFactory().createItemStack(material);
@@ -39,7 +39,7 @@ public class CheckItemInTypeHandFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testOneType() {
+    public void testOneType() throws Exception {
         String material = "stone";
         Function function = new CheckItemTypeInHandFunction();
         function.setData(material);
@@ -50,7 +50,7 @@ public class CheckItemInTypeHandFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testTwoTypes() {
+    public void testTwoTypes() throws Exception {
         String handMaterial = "stone";
         String functionMaterials = "dirt,stone";
         Function function = new CheckItemTypeInHandFunction();

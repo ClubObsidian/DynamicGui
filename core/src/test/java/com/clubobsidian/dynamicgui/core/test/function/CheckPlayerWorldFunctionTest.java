@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CheckPlayerWorldFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new CheckPlayerWorldFunction();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
 
     @Test
-    public void worldEqualsTest() {
+    public void worldEqualsTest() throws Exception {
         String worldName = "test";
         Function function = new CheckPlayerWorldFunction();
         function.setData(worldName);

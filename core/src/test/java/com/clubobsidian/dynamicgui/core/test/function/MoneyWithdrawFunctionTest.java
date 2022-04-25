@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MoneyWithdrawFunctionTest extends FactoryTest {
 
     @Test
-    public void testBelowBalance() {
+    public void testBelowBalance() throws Exception {
         this.getFactory().inject();
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
@@ -40,7 +40,7 @@ public class MoneyWithdrawFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testInvalidData() {
+    public void testInvalidData() throws Exception {
         this.getFactory().inject();
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
@@ -49,7 +49,7 @@ public class MoneyWithdrawFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testNullEconomy() {
+    public void testNullEconomy() throws Exception {
         this.getFactory().inject().getPlugin().economy = null;
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
@@ -58,7 +58,7 @@ public class MoneyWithdrawFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testEqualBalance() {
+    public void testEqualBalance() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         MockEconomy economy = this.getFactory().inject().getEconomy();
         BigDecimal amount = new BigDecimal(1);
@@ -69,7 +69,7 @@ public class MoneyWithdrawFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testAboveBalance() {
+    public void testAboveBalance() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         MockEconomy economy = this.getFactory().inject().getEconomy();
         int withdrawAmount = 9;

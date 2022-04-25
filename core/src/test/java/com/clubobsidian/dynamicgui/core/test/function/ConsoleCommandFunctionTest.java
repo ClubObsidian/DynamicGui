@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ConsoleCommandFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new ConsoleCommandFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void withDataTest() {
+    public void withDataTest() throws Exception {
         String data = "test";
         MockPlatform platform = this.getFactory().inject().getPlatform();
         Function function = new ConsoleCommandFunction();

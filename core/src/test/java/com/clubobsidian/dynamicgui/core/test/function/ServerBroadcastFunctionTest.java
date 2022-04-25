@@ -31,13 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ServerBroadcastFunctionTest extends FactoryTest {
 
     @Test
-    public void noDataTest() {
+    public void noDataTest() throws Exception {
         Function function = new ServerBroadcastFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void dataTest() {
+    public void dataTest() throws Exception {
         this.getFactory().inject();
         String data = "&4test";
         String colorized = ChatColor.translateAlternateColorCodes(data);

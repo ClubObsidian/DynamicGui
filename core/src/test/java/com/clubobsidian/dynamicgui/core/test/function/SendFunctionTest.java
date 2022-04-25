@@ -31,13 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SendFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SendFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void noProxyTest() {
+    public void noProxyTest() throws Exception {
         this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
@@ -46,7 +46,7 @@ public class SendFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void bungeeCordTest() {
+    public void bungeeCordTest() throws Exception {
         this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
@@ -55,7 +55,7 @@ public class SendFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void redisBungeeTest() {
+    public void redisBungeeTest() throws Exception {
         this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");

@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CheckMovableFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new CheckMovableFunction();
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         assertFalse(function.function(wrapper));
     }
 
     @Test
-    public void ownerNotSlotTest() {
+    public void ownerNotSlotTest() throws Exception {
         Function function = new CheckMovableFunction();
         function.setData("true");
         function.setOwner(this.getFactory().createGui("test"));
@@ -44,7 +44,7 @@ public class CheckMovableFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void isMovableTest() {
+    public void isMovableTest() throws Exception {
         Function function = new CheckMovableFunction();
         function.setData("true");
         function.setOwner(this.getFactory().createSlot("STONE", true));

@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class IsBedrockPlayerFunctionTest extends FactoryTest {
 
     @Test
-    public void functionTest() {
+    public void functionTest() throws Exception {
         String name = "test";
         UUID uuid = new UUID(0, 1);
         MockPlayerWrapper player = this.getFactory().createPlayer(name, uuid);

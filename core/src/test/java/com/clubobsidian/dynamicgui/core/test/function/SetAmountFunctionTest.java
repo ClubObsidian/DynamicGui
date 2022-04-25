@@ -35,13 +35,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetAmountFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SetAmountFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void nonSlotOwnerTest() {
+    public void nonSlotOwnerTest() throws Exception {
         Function function = new SetAmountFunction();
         function.setOwner(this.getFactory().createGui("test"));
         function.setData("1");
@@ -49,7 +49,7 @@ public class SetAmountFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void invalidDataTest() {
+    public void invalidDataTest() throws Exception {
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot();
@@ -66,7 +66,7 @@ public class SetAmountFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void dataTest() {
+    public void dataTest() throws Exception {
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         int newAmount = 2;

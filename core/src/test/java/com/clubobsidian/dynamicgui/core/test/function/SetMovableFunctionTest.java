@@ -30,13 +30,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetMovableFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SetMovableFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void notSlotTest() {
+    public void notSlotTest() throws Exception {
         Function function = new SetMovableFunction();
         function.setData("a");
         function.setOwner(new MockNonCloseableFunctionOwner());
@@ -44,7 +44,7 @@ public class SetMovableFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void setMovableFalseTest() {
+    public void setMovableFalseTest() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new SetMovableFunction();
         function.setData("false");
@@ -55,7 +55,7 @@ public class SetMovableFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void setMovableTrueTest() {
+    public void setMovableTrueTest() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new SetMovableFunction();
         function.setData("true");

@@ -28,13 +28,13 @@ public class AsyncRunningFunctionTest extends FactoryTest {
     //TODO - implement the passing test
 
     @Test
-    public void failingTest() {
+    public void failingTest() throws Exception {
         Function function = new AsyncRunningFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void failingWithoutDataTest() {
+    public void failingWithoutDataTest() throws Exception {
         Function function = new AsyncRunningFunction();
         function.setData("delay");
         assertFalse(function.function(this.getFactory().createPlayer()));

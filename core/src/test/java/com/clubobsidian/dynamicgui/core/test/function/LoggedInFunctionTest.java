@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoggedInFunctionTest extends FactoryTest {
 
     @Test
-    public void testLoggedOff() {
+    public void testLoggedOff() throws Exception {
         Function function = new LoggedInFunction();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         this.getFactory().getPlatform().getOnlinePlayers().add(player);
@@ -37,20 +37,20 @@ public class LoggedInFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testLoggedOffNullRetrieval() {
+    public void testLoggedOffNullRetrieval() throws Exception {
         Function function = new LoggedInFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void testLoggedOffAndBackOn() {
+    public void testLoggedOffAndBackOn() throws Exception {
         Function function = new LoggedInFunction();
         this.getFactory().getPlatform().getOnlinePlayers().add(this.getFactory().createPlayer());
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void testOnline() {
+    public void testOnline() throws Exception {
         Function function = new LoggedInFunction();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         this.getFactory().getPlatform().getOnlinePlayers().add(player);

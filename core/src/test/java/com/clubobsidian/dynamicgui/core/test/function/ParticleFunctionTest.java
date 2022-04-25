@@ -28,13 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParticleFunctionTest extends FactoryTest {
 
     @Test
-    public void testNullData() {
+    public void testNullData() throws Exception {
         Function function = new ParticleFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void testValid() {
+    public void testValid() throws Exception {
         Function function = new ParticleFunction();
         function.setData("test,0");
         MockPlayerWrapper player = this.getFactory().createPlayer();

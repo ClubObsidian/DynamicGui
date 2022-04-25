@@ -34,14 +34,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RemoveSlotFunctionTest extends FactoryTest {
 
     @Test
-    public void randomDataTest() {
+    public void randomDataTest() throws Exception {
         Function function = new RemoveSlotFunction();
         function.setData(UUID.randomUUID().toString());
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void noDataTest() {
+    public void noDataTest() throws Exception {
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(0, Slot.TEST_MATERIAL, false);
@@ -56,7 +56,7 @@ public class RemoveSlotFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void thisDataTest() {
+    public void thisDataTest() throws Exception {
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(0, Slot.TEST_MATERIAL, false);

@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CheckLevelFunctionTest extends FactoryTest {
 
     @Test
-    public void testNull() {
+    public void testNull() throws Exception {
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         Function function = new CheckLevelFunction();
         assertFalse(function.function(wrapper));
     }
 
     @Test
-    public void testLevelGreater() {
+    public void testLevelGreater() throws Exception {
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(10);
         Function function = new CheckLevelFunction();
@@ -44,7 +44,7 @@ public class CheckLevelFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testLevelEqual() {
+    public void testLevelEqual() throws Exception {
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(10);
         Function function = new CheckLevelFunction();
@@ -53,7 +53,7 @@ public class CheckLevelFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testLevelLessThan() {
+    public void testLevelLessThan() throws Exception {
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(1);
         Function function = new CheckLevelFunction();
@@ -62,7 +62,7 @@ public class CheckLevelFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testInvalidFormat() {
+    public void testInvalidFormat() throws Exception {
         MockPlayerWrapper wrapper = this.getFactory().createPlayer();
         wrapper.setLevel(1);
         Function function = new CheckLevelFunction();

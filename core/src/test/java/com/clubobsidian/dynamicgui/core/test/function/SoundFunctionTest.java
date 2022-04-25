@@ -33,13 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SoundFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SoundFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void soundTest() {
+    public void soundTest() throws Exception {
         String type = SoundWrapper.TEST_SOUND_STRING;
         MockPlayerWrapper player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(player);

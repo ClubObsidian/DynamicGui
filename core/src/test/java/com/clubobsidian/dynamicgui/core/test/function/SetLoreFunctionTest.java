@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetLoreFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         String line = "test";
         List<String> lore = new ArrayList<>();
@@ -49,14 +49,14 @@ public class SetLoreFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void nonSlotTest() {
+    public void nonSlotTest() throws Exception {
         Function function = new SetLoreFunction();
         function.setOwner(new MockNonCloseableFunctionOwner());
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void oneLineTest() {
+    public void oneLineTest() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(player);
         Function function = new SetLoreFunction();
@@ -70,7 +70,7 @@ public class SetLoreFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void multiLineTest() {
+    public void multiLineTest() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(player);
         Function function = new SetLoreFunction();

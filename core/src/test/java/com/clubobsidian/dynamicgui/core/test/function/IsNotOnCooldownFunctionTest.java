@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class IsNotOnCooldownFunctionTest extends FactoryTest {
 
     @Test
-    public void nullDataTest() {
+    public void nullDataTest() throws Exception {
         Function function = new IsNotOnCooldownFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void notOnCooldownTest() {
+    public void notOnCooldownTest() throws Exception {
         this.getFactory().inject();
         Function function = new IsNotOnCooldownFunction();
         function.setData(UUID.randomUUID().toString());

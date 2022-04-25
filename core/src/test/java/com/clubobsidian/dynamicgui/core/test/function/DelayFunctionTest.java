@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DelayFunctionTest extends FactoryTest {
 
     @Test
-    public void testNull() {
+    public void testNull() throws Exception {
         Function function = new DelayFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void testNonNumber() {
+    public void testNonNumber() throws Exception {
         Function function = new DelayFunction();
         function.setData("a");
         assertFalse(function.function(this.getFactory().createPlayer()));
@@ -47,7 +47,11 @@ public class DelayFunctionTest extends FactoryTest {
         Thread thread = new Thread(() -> {
             Function function = new DelayFunction();
             function.setData("5000");
-            value.set(function.function(this.getFactory().createPlayer()));
+            try {
+                value.set(function.function(this.getFactory().createPlayer()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         thread.start();
         thread.interrupt();
@@ -67,7 +71,7 @@ public class DelayFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testValidData() {
+    public void testValidData() throws Exception {
         Function function = new DelayFunction();
         function.setData("1");
         assertTrue(function.function(this.getFactory().createPlayer()));

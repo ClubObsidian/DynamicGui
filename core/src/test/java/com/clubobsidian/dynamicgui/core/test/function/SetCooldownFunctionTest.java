@@ -30,34 +30,34 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetCooldownFunctionTest extends FactoryTest {
 
     @Test
-    public void nullDataTest() {
+    public void nullDataTest() throws Exception {
         Function function = new SetCooldownFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void noCommaTest() {
+    public void noCommaTest() throws Exception {
         Function function = new SetCooldownFunction();
         function.setData("a");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void invalidNumberTest() {
+    public void invalidNumberTest() throws Exception {
         Function function = new SetCooldownFunction();
         function.setData("a,a");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void lengthNotTwoTest() {
+    public void lengthNotTwoTest() throws Exception {
         Function function = new SetCooldownFunction();
         function.setData("a,a,a");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void onCooldownTest() {
+    public void onCooldownTest() throws Exception {
         this.getFactory().inject();
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         String cooldownName = UUID.randomUUID().toString();

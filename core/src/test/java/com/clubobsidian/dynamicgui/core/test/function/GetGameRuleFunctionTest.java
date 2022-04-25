@@ -29,27 +29,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GetGameRuleFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new GetGameRuleFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void noCommaTest() {
+    public void noCommaTest() throws Exception {
         Function function = new GetGameRuleFunction();
         function.setData("");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void lengthNotThreeTest() {
+    public void lengthNotThreeTest() throws Exception {
         Function function = new GetGameRuleFunction();
         function.setData("a,b");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void worldNullTest() {
+    public void worldNullTest() throws Exception {
         this.getFactory().inject().getPlatform();
         Function function = new GetGameRuleFunction();
         function.setData("test,key,value");
@@ -57,7 +57,7 @@ public class GetGameRuleFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void hasGameRuleTest() {
+    public void hasGameRuleTest() throws Exception {
         String worldName = "test";
         MockPlatform platform = this.getFactory().inject().getPlatform();
         WorldWrapper<?> world = this.getFactory().createWorld(worldName);

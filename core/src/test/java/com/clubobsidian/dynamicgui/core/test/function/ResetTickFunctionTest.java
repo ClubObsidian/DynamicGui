@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ResetTickFunctionTest extends FactoryTest {
 
     @Test
-    public void ownerNotSlotTest() {
+    public void ownerNotSlotTest() throws Exception {
         Gui gui = this.getFactory().createGui("test");
         Function function = new ResetTickFunction();
         function.setOwner(gui);
@@ -37,7 +37,7 @@ public class ResetTickFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void slotOwnerTest() {
+    public void slotOwnerTest() throws Exception {
         Slot slot = this.getFactory().createSlot();
         Function function = new ResetTickFunction();
         function.setOwner(slot);

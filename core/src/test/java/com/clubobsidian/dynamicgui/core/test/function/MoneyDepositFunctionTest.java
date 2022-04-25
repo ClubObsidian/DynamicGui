@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MoneyDepositFunctionTest extends FactoryTest {
 
     @Test
-    public void testInvalidData() {
+    public void testInvalidData() throws Exception {
         this.getFactory().inject();
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyDepositFunction();
@@ -37,7 +37,7 @@ public class MoneyDepositFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testNullEconomy() {
+    public void testNullEconomy() throws Exception {
         this.getFactory().inject().getPlugin().economy = null;
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyDepositFunction();
@@ -46,7 +46,7 @@ public class MoneyDepositFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testValidDeposit() {
+    public void testValidDeposit() throws Exception {
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         this.getFactory().inject();
         Function function = new MoneyDepositFunction();

@@ -33,13 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetTypeFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SetTypeFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void notSlotTest() {
+    public void notSlotTest() throws Exception {
         Function function = new SetTypeFunction();
         function.setData(Slot.TEST_MATERIAL);
         function.setOwner(new MockNonCloseableFunctionOwner());
@@ -47,7 +47,7 @@ public class SetTypeFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void typeTest() {
+    public void typeTest() throws Exception {
         String type = Slot.TEST_MATERIAL;
         MockPlayerWrapper player = this.getFactory().createPlayer();
         Slot slot = this.getFactory().createSlot(player);

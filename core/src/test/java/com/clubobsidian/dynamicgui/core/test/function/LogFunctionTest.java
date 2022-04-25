@@ -31,14 +31,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LogFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new LogFunction();
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
 
     @Test
-    public void withDataTest() {
+    public void withDataTest() throws Exception {
         String data = "test";
         Function function = new LogFunction();
         function.setData(data);

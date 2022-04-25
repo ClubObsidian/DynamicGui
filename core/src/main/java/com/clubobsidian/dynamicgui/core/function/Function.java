@@ -70,7 +70,7 @@ public abstract class Function implements Cloneable, Serializable {
         this(aliases[0], aliases, false);
     }
 
-    public abstract boolean function(PlayerWrapper<?> playerWrapper);
+    public abstract boolean function(PlayerWrapper<?> playerWrapper) throws Exception;
 
     public boolean isAsync() {
         return this.async;

@@ -37,20 +37,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetEnchantsFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SetEnchantsFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void noOwnerTest() {
+    public void noOwnerTest() throws Exception {
         Function function = new SetEnchantsFunction();
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void ownerNotSlotTest() {
+    public void ownerNotSlotTest() throws Exception {
         Function function = new SetEnchantsFunction();
         function.setData(EnchantmentWrapper.TEST_ENCHANT_2 + ",1");
         function.setOwner(new MockNonCloseableFunctionOwner());
@@ -58,7 +58,7 @@ public class SetEnchantsFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testOneEnchant() {
+    public void testOneEnchant() throws Exception {
         int index = 0;
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();
@@ -80,7 +80,7 @@ public class SetEnchantsFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testMultipleEnchants() {
+    public void testMultipleEnchants() throws Exception {
         int index = 0;
         this.getFactory().inject();
         MockPlayerWrapper player = this.getFactory().createPlayer();

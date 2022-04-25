@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PlayerCommandFunctionTest extends FactoryTest {
 
     @Test
-    public void nullDataTest() {
+    public void nullDataTest() throws Exception {
         Function function = new PlayerCommandFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void validTest() {
+    public void validTest() throws Exception {
         String cmd = "test";
         String slashCmd = "/" + cmd;
         Function function = new PlayerCommandFunction();

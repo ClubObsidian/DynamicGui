@@ -28,13 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class NoPermissionFunctionTest extends FactoryTest {
 
     @Test
-    public void testNullData() {
+    public void testNullData() throws Exception {
         Function function = new NoPermissionFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void testHasNoPermission() {
+    public void testHasNoPermission() throws Exception {
         this.getFactory().inject();
         Function function = new NoPermissionFunction();
         function.setData("test");
@@ -42,7 +42,7 @@ public class NoPermissionFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testHasPermission() {
+    public void testHasPermission() throws Exception {
         String permission = "test";
         this.getFactory().inject();
         Function function = new NoPermissionFunction();

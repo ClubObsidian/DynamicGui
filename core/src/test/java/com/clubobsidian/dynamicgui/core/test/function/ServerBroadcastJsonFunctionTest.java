@@ -32,13 +32,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ServerBroadcastJsonFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new ServerBroadcastJsonFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void dataTest() {
+    public void dataTest() throws Exception {
         MockPlatform platform = this.getFactory().inject().getPlatform();
         String json = MiniMessageManager.get().toJson("test");
         Function function = new ServerBroadcastJsonFunction();

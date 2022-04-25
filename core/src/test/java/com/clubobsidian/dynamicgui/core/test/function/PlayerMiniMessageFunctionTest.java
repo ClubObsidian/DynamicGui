@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PlayerMiniMessageFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new PlayerMiniMessageFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void dataTest() {
+    public void dataTest() throws Exception {
         this.getFactory().inject();
         String data = "test";
         Function function = new PlayerMiniMessageFunction();

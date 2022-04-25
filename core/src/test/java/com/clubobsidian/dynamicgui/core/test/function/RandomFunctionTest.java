@@ -27,20 +27,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RandomFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new RandomFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void incorrectLengthTest() {
+    public void incorrectLengthTest() throws Exception {
         Function function = new RandomFunction();
         function.setData("1-1-1");
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void correctLengthTest() {
+    public void correctLengthTest() throws Exception {
         Function function = new RandomFunction();
         function.setData("1-1");
         assertTrue(function.function(this.getFactory().createPlayer()));

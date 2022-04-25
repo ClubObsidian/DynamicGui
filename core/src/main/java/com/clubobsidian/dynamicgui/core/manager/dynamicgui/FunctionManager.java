@@ -242,7 +242,13 @@ public class FunctionManager {
                             return value;
                         });
                     }
-                    boolean ran = function.function(playerWrapper);
+                    boolean ran = false;
+                    try {
+                        ran = function.function(playerWrapper);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        response.complete(new FunctionResponse(false, functionName, functionData));
+                    }
                     if (data.getModifier() == FunctionModifier.NOT) {
                         ran = !ran;
                     }

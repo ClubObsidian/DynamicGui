@@ -32,13 +32,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SetCloseFunctionTest extends FactoryTest {
 
     @Test
-    public void nullTest() {
+    public void nullTest() throws Exception {
         Function function = new SetCloseFunction();
         assertFalse(function.function(this.getFactory().createPlayer()));
     }
 
     @Test
-    public void nonCloseableComponentTest() {
+    public void nonCloseableComponentTest() throws Exception {
         Function function = new SetCloseFunction();
         function.setOwner(new MockNonCloseableFunctionOwner());
         function.setData("true");
@@ -46,7 +46,7 @@ public class SetCloseFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void invalidDataTest() {
+    public void invalidDataTest() throws Exception {
         Function function = new SetCloseFunction();
         CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
@@ -56,7 +56,7 @@ public class SetCloseFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void validDataTest() {
+    public void validDataTest() throws Exception {
         Function function = new SetCloseFunction();
         CloseableComponent component = new MockCloseableFunctionOwner();
         function.setOwner((FunctionOwner) component);
