@@ -19,24 +19,18 @@ package com.clubobsidian.dynamicgui.bukkit.registry.model;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class OraxenModelProvider implements ModelProvider {
 
-    private static final boolean ORAXEN_EXISTS = exists();
+    private static final boolean ORAXEN_EXISTS = ReflectionUtil
+            .classExists("io.th0rgal.oraxen.items.OraxenItems");
     private static final Method GET_ITEM_BY_ID = getItemById();
     private static final Method BUILD = getBuild();
 
-    private static boolean exists() {
-        try {
-            Class.forName("io.th0rgal.oraxen.items.OraxenItems");
-            return true;
-        } catch (ClassNotFoundException ex) {
-            return false;
-        }
-    }
 
     private static Method getItemById() {
         if (ORAXEN_EXISTS) {
