@@ -20,8 +20,18 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class ChatColor {
 
-    private static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.legacyAmpersand();
-    private static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.legacySection();
+    public static final char SECTION_CODE = '\u00A7';
+
+    private static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
+            .hexColors()
+            .useUnusualXRepeatedCharacterHexFormat()
+            .character('&')
+            .build();
+    private static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
+            .hexColors()
+            .useUnusualXRepeatedCharacterHexFormat()
+            .character(SECTION_CODE)
+            .build();
 
     public static String translateAlternateColorCodes(String message) {
         return SECTION.serialize(AMPERSAND.deserialize(message));
