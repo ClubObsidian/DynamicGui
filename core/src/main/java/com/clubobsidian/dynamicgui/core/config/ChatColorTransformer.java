@@ -27,6 +27,6 @@ public class ChatColorTransformer extends NodeTransformer<String> {
 
     @Override
     public String transform(String transform) {
-        return ChatColor.translateAlternateColorCodes('&', transform);
+        return ChatColor.translateAlternateColorCodes(transform);
     }
 }

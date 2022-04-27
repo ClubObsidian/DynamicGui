@@ -446,14 +446,14 @@ public class GuiManager {
             String name = slotToken.getName();
 
             if (name != null) {
-                name = ChatColor.translateAlternateColorCodes('&', name);
+                name = ChatColor.translateAlternateColorCodes(name);
             }
 
             String nbt = slotToken.getNbt();
 
             List<String> lore = new ArrayList<>();
             for (String ls : slotToken.getLore()) {
-                lore.add(ChatColor.translateAlternateColorCodes('&', ls));
+                lore.add(ChatColor.translateAlternateColorCodes(ls));
             }
 
             List<EnchantmentWrapper> enchants = new ArrayList<>();

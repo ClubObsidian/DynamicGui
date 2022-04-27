@@ -28,7 +28,7 @@ public class ChatColorTransformerTest {
     @Test
     public void transformTest() {
         String str = "&ctest";
-        String colorized = ChatColor.FORMATTING_CODE + "ctest";
+        String colorized = '\u00A7' + "ctest";
         NodeTransformer<String> transformer = new ChatColorTransformer();
         String transformed = transformer.transform(str);
         assertEquals(colorized, transformed);

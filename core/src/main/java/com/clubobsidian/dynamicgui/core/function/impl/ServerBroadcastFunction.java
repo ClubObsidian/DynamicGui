@@ -39,7 +39,7 @@ public class ServerBroadcastFunction extends Function {
         if (this.getData() == null) {
             return false;
         }
-        String colorized = ChatColor.translateAlternateColorCodes('&',
+        String colorized = ChatColor.translateAlternateColorCodes(
                 ReplacerManager
                         .get()
                         .replace(this.getData(), playerWrapper));

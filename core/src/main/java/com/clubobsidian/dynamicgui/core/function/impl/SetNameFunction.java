@@ -51,7 +51,7 @@ public class SetNameFunction extends Function {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
                 if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
-                    String newName = ChatColor.translateAlternateColorCodes('&', this.getData());
+                    String newName = ChatColor.translateAlternateColorCodes(this.getData());
                     newName = ReplacerManager.get().replace(newName, playerWrapper);
                     newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
                     item.setName(newName);
