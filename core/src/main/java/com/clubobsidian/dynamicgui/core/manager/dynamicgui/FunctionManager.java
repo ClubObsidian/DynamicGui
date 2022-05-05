@@ -118,22 +118,9 @@ public class FunctionManager {
         if (rootSize == 0) {
             future.complete(true);
         } else {
-            AtomicBoolean returnValue = new AtomicBoolean(true);
-            AtomicInteger currentCount = new AtomicInteger(0);
-            for (FunctionNode node : rootNodes) {
-                recurFunctionNodes(null, owner, Collections.singletonList(node), type,
-                        playerWrapper, null, new AtomicBoolean(true))
-                        .whenComplete((ret, ex) -> {
-                            if (ex != null || !ret) {
-                                returnValue.set(false);
-                            }
-                            int inc = currentCount.incrementAndGet();
-                            System.out.println("inc: " + inc + " " + rootSize);
-                            if (inc == rootSize) {
-                                future.complete(returnValue.get());
-                            }
-                        });
-            }
+            recurFunctionNodes(null, owner, rootNodes, type,
+                    playerWrapper, future,
+                    new AtomicBoolean(true));
         }
         return future;
     }
@@ -143,10 +130,9 @@ public class FunctionManager {
                                                           Collection<FunctionNode> functionNodes,
                                                           FunctionType type,
                                                           PlayerWrapper<?> playerWrapper,
-                                                          CompletableFuture<Boolean> incomingFuture,
+                                                          CompletableFuture<Boolean> future,
                                                           AtomicBoolean returnValue) {
         Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
-        CompletableFuture<Boolean> future = incomingFuture == null ? new CompletableFuture<>() : incomingFuture;
         future.exceptionally((ex) -> {
             ex.printStackTrace();
             return null;
