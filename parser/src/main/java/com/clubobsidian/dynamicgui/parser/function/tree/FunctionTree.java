@@ -131,7 +131,7 @@ public class FunctionTree implements Serializable {
             List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
 
             FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
-            FunctionNode childNode = new FunctionNode(depth, data);
+            FunctionNode childNode = new FunctionNode(name, depth, data);
 
             if (depth == 0) {
                 this.rootNodes.add(childNode);
