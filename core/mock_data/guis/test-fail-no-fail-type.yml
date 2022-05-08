@@ -2,7 +2,7 @@ title: "&cTest"
 rows: 6
 mode: set
 
-'1':
+'0':
   icon: "DIRT"
   amount: 1
   functions:
