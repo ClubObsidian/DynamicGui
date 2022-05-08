@@ -232,26 +232,54 @@ public class GuiManager {
                     }
 
                     //Run slot load functions
+                    CompletableFuture<Boolean> slotFuture = new CompletableFuture<>();
                     List<Slot> slots = clonedGui.getSlots();
                     int slotSize = slots.size();
+                    AtomicInteger slotCount = new AtomicInteger(0);
                     for (int i = 0; i < slotSize; i++) {
+                        if(slotFuture.isDone()) {
+                            return;
+                        }
                         Slot slot = slots.get(i);
                         FunctionManager.get()
-                                .tryFunctions(slot, FunctionType.LOAD, playerWrapper);
+                                .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
+                                .whenComplete((slotResult, ex) -> {
+                                    if(slotFuture.isDone()) {
+                                        return;
+                                    }
+                                    if(ex != null) {
+                                        ex.printStackTrace();
+                                        slotFuture.complete(false);
+                                    } else {
+                                        int count = slotCount.incrementAndGet();
+                                        if(slotSize == count) {
+                                            slotFuture.complete(true);
+                                        }
+                                    }
+                                });
                     }
                     slotFuture.whenComplete((completed, ex) -> {
                         if (ex != null) {
                             ex.printStackTrace();
                             future.complete(false);
                         } else {
-                            playerWrapper.openInventory(inventoryWrapper);
+                            ThreadUtil.run(() -> {
+                                Platform platform = DynamicGui.get().getPlatform();
+                                if (platform.getType() == PlatformType.SPONGE) {
+                                    platform.getScheduler().runSyncDelayedTask(() -> {
+                                        playerWrapper.openInventory(inventoryWrapper);
+                                    }, 1L);
+                                } else {
+                                    playerWrapper.openInventory(inventoryWrapper);
+                                }
+                                this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
+                                platform.getScheduler().runSyncDelayedTask(() -> {
+                                    playerWrapper.updateInventory();
+                                }, 2L);
+                                future.complete(true);
+                            }, false);
                         }
-                        this.playerGuis.put(playerWrapper.getUniqueId(), clonedGui);
-                        platform.getScheduler().runSyncDelayedTask(() -> {
-                            playerWrapper.updateInventory();
-                        }, 2L);
-                        future.complete(true);
-                    }, false);
+                    });
                 } else {
                     future.complete(false);
                 }
