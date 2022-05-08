@@ -151,4 +151,14 @@ public class FunctionManagerTest extends ScheduledTest {
         boolean failed = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
         assertFalse(failed);
     }
+
+    @Test
+    public void testNoFunctionType() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        playerWrapper.addPermission("test");
+        Gui gui = GuiManager.get().getGui("test-no-function-type");
+        Slot slot = gui.getSlots().get(0);
+        boolean result = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertTrue(result);
+    }
 }

@@ -135,7 +135,7 @@ public class FunctionManager {
                                     PlayerWrapper<?> playerWrapper,
                                     CompletableFuture<Boolean> future,
                                     AtomicBoolean returnValue) {
-        if (functionNodes.size() == 0) {
+        if (functionNodes.size() == 0 || !hasFunctionType(functionNodes, type)) {
             future.complete(returnValue.get());
         }
         for (FunctionNode node : functionNodes) {
@@ -185,6 +185,15 @@ public class FunctionManager {
                 }
             }
         }
+    }
+
+    private boolean hasFunctionType(Collection<FunctionNode> nodes, FunctionType type) {
+        for (FunctionNode node : nodes) {
+            if (node.getToken().getTypes().contains(type)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
