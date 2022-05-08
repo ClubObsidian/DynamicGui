@@ -28,14 +28,11 @@ import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -142,12 +139,9 @@ public class FunctionManager {
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
             if (types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
-                System.out.println("type: " + type);
                 if (type != FunctionType.FAIL) {
-                    System.out.println("Not fail");
                     runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
                             .whenComplete((dataResponse, ex) -> {
-                                System.out.println("data complete");
                                 if (ex != null) {
                                     ex.printStackTrace();
                                     future.complete(false);
@@ -303,7 +297,6 @@ public class FunctionManager {
 
     private boolean isFail(FunctionResponse response, FunctionToken token) {
         for (FunctionData data : token.getFailOnFunctions()) {
-            System.out.println("looking for: \"" + response.failedFunction + "\" found: \"" + data.getName() + "\"");
             if (data.getName().equals(response.failedFunction)) {
                 if (data.getData() == null || data.getData().equals(response.data)) {
                     return true;
