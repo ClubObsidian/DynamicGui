@@ -113,37 +113,38 @@ public class FunctionManager {
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
-        List<FunctionNode> rootNodes = owner.getFunctions().getRootNodes();
-        int rootSize = rootNodes.size();
-        if (rootSize == 0) {
-            future.complete(true);
-        } else {
-            recurFunctionNodes(null, owner, rootNodes, type,
-                    playerWrapper, future,
-                    new AtomicBoolean(true));
-        }
-        return future;
-    }
-
-    private CompletableFuture<Boolean> recurFunctionNodes(FunctionResponse response,
-                                                          FunctionOwner owner,
-                                                          Collection<FunctionNode> functionNodes,
-                                                          FunctionType type,
-                                                          PlayerWrapper<?> playerWrapper,
-                                                          CompletableFuture<Boolean> future,
-                                                          AtomicBoolean returnValue) {
-        Queue<FunctionNode> nodeQueue = new ArrayDeque<>(functionNodes);
         future.exceptionally((ex) -> {
             ex.printStackTrace();
             return null;
         });
-        FunctionNode node = nodeQueue.poll();
-        if (node != null) {
+        List<FunctionNode> rootNodes = owner.getFunctions().getRootNodes();
+        recurFunctionNodes(null,
+                owner,
+                rootNodes,
+                type,
+                playerWrapper,
+                future,
+                new AtomicBoolean(true));
+        return future;
+    }
+
+    private void recurFunctionNodes(FunctionResponse response,
+                                    FunctionOwner owner,
+                                    Collection<FunctionNode> functionNodes,
+                                    FunctionType type,
+                                    PlayerWrapper<?> playerWrapper,
+                                    CompletableFuture<Boolean> future,
+                                    AtomicBoolean returnValue) {
+        if (functionNodes.size() == 0) {
+            future.complete(returnValue.get());
+        }
+        for (FunctionNode node : functionNodes) {
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
             if (types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
                 System.out.println("type: " + type);
                 if (type != FunctionType.FAIL) {
+                    System.out.println("Not fail");
                     runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
                             .whenComplete((dataResponse, ex) -> {
                                 System.out.println("data complete");
@@ -154,9 +155,6 @@ public class FunctionManager {
                                     if (!dataResponse.result) {
                                         if (dataResponse.failedFunction == null) {
                                             future.complete(false);
-                                            recurFunctionNodes(null, owner,
-                                                    nodeQueue, type,
-                                                    playerWrapper, future, returnValue);
                                         } else {
                                             returnValue.set(false);
                                             recurFunctionNodes(dataResponse, owner,
@@ -170,7 +168,7 @@ public class FunctionManager {
                                     }
                                 }
                             });
-                } else if (type == FunctionType.FAIL) {
+                } else {
                     if (isFail(response, functionToken)) {
                         runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
                                 .whenComplete((dataResponse, ex) -> {
@@ -183,22 +181,10 @@ public class FunctionManager {
                                                 playerWrapper, future, returnValue);
                                     }
                                 });
-                    } else {
-                        recurFunctionNodes(null, owner,
-                                nodeQueue, type,
-                                playerWrapper, future, returnValue);
                     }
                 }
-            } else {
-                recurFunctionNodes(null, owner,
-                        nodeQueue, type,
-                        playerWrapper, future, returnValue);
             }
         }
-        if (node == null) {
-            future.complete(returnValue.get());
-        }
-        return future;
     }
 
     private CompletableFuture<FunctionResponse> runFunctionData(FunctionOwner owner, List<FunctionData> functionDataList, PlayerWrapper<?> playerWrapper) {
@@ -308,10 +294,9 @@ public class FunctionManager {
 
     private boolean isFail(FunctionResponse response, FunctionToken token) {
         for (FunctionData data : token.getFailOnFunctions()) {
+            System.out.println("looking for: \"" + response.failedFunction + "\" found: \"" + data.getName() + "\"");
             if (data.getName().equals(response.failedFunction)) {
-                if (data.getData() == null) {
-                    return true;
-                } else if (data.getData().equals(response.data)) {
+                if (data.getData() == null || data.getData().equals(response.data)) {
                     return true;
                 }
             }
