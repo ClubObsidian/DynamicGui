@@ -1,0 +1,10 @@
+title: "test"
+rows: 5
+
+'0':
+  icon: "STONE"
+  functions:
+    load-1:
+      type: "load"
+      functions:
+        - "permission: test"

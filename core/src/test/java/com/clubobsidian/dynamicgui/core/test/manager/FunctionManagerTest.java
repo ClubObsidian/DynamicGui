@@ -142,4 +142,13 @@ public class FunctionManagerTest extends ScheduledTest {
         assertEquals(1, chat.size());
         assertEquals("condition failed", chat.get(0));
     }
+
+    @Test
+    public void testFailNoFailFunction() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("no-fail-function");
+        Slot slot = gui.getSlots().get(0);
+        boolean failed = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertFalse(failed);
+    }
 }
