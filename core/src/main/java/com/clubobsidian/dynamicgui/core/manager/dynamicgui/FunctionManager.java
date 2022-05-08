@@ -127,7 +127,7 @@ public class FunctionManager {
 
     private void recurFunctionNodes(FunctionResponse response,
                                     FunctionOwner owner,
-                                    Collection<FunctionNode> functionNodes,
+                                    List<FunctionNode> functionNodes,
                                     FunctionType type,
                                     PlayerWrapper<?> playerWrapper,
                                     CompletableFuture<Boolean> future,
@@ -135,7 +135,9 @@ public class FunctionManager {
         if (functionNodes.size() == 0 || !hasFunctionType(functionNodes, type)) {
             future.complete(returnValue.get());
         }
-        for (FunctionNode node : functionNodes) {
+        boolean foundFail = false;
+        for (int i = 0 ; i < functionNodes.size(); i++) {
+            FunctionNode node = functionNodes.get(i);
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
             if (types.contains(type) || (type.isClick() && types.contains(FunctionType.CLICK))) {
@@ -164,6 +166,7 @@ public class FunctionManager {
                             });
                 } else {
                     if (isFail(response, functionToken)) {
+                        foundFail = true;
                         runFunctionData(owner, functionToken.getFunctions(), playerWrapper)
                                 .whenComplete((dataResponse, ex) -> {
                                     if (ex != null) {
@@ -175,6 +178,8 @@ public class FunctionManager {
                                                 playerWrapper, future, returnValue);
                                     }
                                 });
+                    } else if(i == functionNodes.size() - 1 && !foundFail) {
+                        future.complete(returnValue.get());
                     }
                 }
             }

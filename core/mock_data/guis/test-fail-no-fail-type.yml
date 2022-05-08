@@ -1,0 +1,18 @@
+title: "&cTest"
+rows: 6
+mode: set
+
+'1':
+  icon: "DIRT"
+  amount: 1
+  functions:
+    load:
+      type: "load"
+      functions:
+        - 'permission: test'
+      check-type:
+        type: "fail"
+        fail-on:
+          - 'checktick'
+        functions:
+          - 'pmsg: test'
