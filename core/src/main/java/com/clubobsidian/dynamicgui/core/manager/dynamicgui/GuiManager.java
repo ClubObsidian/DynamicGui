@@ -239,12 +239,10 @@ public class GuiManager {
                         FunctionManager.get()
                                 .tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                     }
-                    ThreadUtil.run(() -> {
-                        Platform platform = DynamicGui.get().getPlatform();
-                        if (platform.getType() == PlatformType.SPONGE) {
-                            platform.getScheduler().runSyncDelayedTask(() -> {
-                                playerWrapper.openInventory(inventoryWrapper);
-                            }, 1L);
+                    slotFuture.whenComplete((completed, ex) -> {
+                        if (ex != null) {
+                            ex.printStackTrace();
+                            future.complete(false);
                         } else {
                             playerWrapper.openInventory(inventoryWrapper);
                         }

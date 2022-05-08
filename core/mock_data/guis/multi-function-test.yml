@@ -1,0 +1,25 @@
+title: "test"
+rows: 5
+
+'0':
+  icon: "STONE"
+  functions:
+    load-1:
+      type: "load"
+      functions:
+        - "permission: test"
+        - "condition: STREQUAL(\"test1\", \"test2\")"
+      permission-failfunction:
+        type: fail
+        functions:
+          - "pmsg: test-failed"
+        fail-on: "permission"
+      condtion-failfunction:
+        type: fail
+        functions:
+          - "pmsg: condition failed"
+        fail-on: "condition"
+    click:
+      type: "click"
+      functions:
+        - "pmsg: test"

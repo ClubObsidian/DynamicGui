@@ -1,0 +1,10 @@
+title: "test"
+rows: 5
+
+'0':
+  icon: "DIRT"
+  functions:
+    broadcast:
+      type: "left"
+      functions:
+        - 'broadcast: test'

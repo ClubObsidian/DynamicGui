@@ -131,14 +131,34 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
-    public void testMultipleClickSlots() throws ExecutionException, InterruptedException {
+    public void testLoadWithClick() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
-        Gui gui = GuiManager.get().getGui("test");
-        Slot slot = gui.getSlots().get(5);
-        FunctionManager.get().tryFunctions(slot, FunctionType.CLICK, playerWrapper).get();
+        playerWrapper.addPermission("test");
+        Gui gui = GuiManager.get().getGui("multi-function-test");
+        Slot slot = gui.getSlots().get(0);
+        boolean failed = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertFalse(failed);
         List<String> chat = playerWrapper.getIncomingChat();
-        assertEquals(2, chat.size());
-        assertEquals("test1", chat.get(0));
-        assertEquals("test2", chat.get(1));
+        assertEquals(1, chat.size());
+        assertEquals("condition failed", chat.get(0));
+    }
+
+    @Test
+    public void testFailNoFailFunction() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        Gui gui = GuiManager.get().getGui("no-fail-function");
+        Slot slot = gui.getSlots().get(0);
+        boolean failed = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertFalse(failed);
+    }
+
+    @Test
+    public void testNoFunctionType() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        playerWrapper.addPermission("test");
+        Gui gui = GuiManager.get().getGui("test-no-function-type");
+        Slot slot = gui.getSlots().get(0);
+        boolean result = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertTrue(result);
     }
 }

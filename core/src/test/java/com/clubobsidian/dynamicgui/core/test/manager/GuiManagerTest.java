@@ -45,6 +45,6 @@ public class GuiManagerTest extends FactoryTest {
     public void testGetGuis() {
         List<Gui> guis = GuiManager.get().getGuis();
         assertNotNull(guis);
-        assertTrue(guis.size() == 1);
+        assertTrue(guis.size() > 1);
     }
 }

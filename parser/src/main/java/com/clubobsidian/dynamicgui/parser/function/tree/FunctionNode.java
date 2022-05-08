@@ -29,14 +29,20 @@ public class FunctionNode implements Serializable {
      */
     private static final long serialVersionUID = -8331607544830166913L;
 
+    private final String name;
     private final int depth;
     private final FunctionToken token;
     private final List<FunctionNode> children;
 
-    public FunctionNode(int depth, FunctionToken token) {
+    public FunctionNode(String name, int depth, FunctionToken token) {
+        this.name = name;
         this.depth = depth;
         this.token = token;
         this.children = new ArrayList<>();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getDepth() {
