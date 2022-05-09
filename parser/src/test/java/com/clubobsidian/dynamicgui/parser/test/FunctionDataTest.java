@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.clubobsidian.dynamicgui.parser.test;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FunctionDataTest {
 
@@ -32,7 +32,7 @@ public class FunctionDataTest {
     private FunctionData data;
 
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.data = new FunctionData(NAME, DATA, MODIFIER);
     }

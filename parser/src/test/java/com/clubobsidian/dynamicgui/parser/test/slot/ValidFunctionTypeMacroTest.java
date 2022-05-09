@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,18 +16,17 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-
-import org.junit.Test;
-
 import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ValidFunctionTypeMacroTest {
 
@@ -41,6 +40,6 @@ public class ValidFunctionTypeMacroTest {
         SlotToken token = new SlotToken(0, section);
         FunctionTree tree = token.getFunctionTree();
         FunctionToken functionToken = tree.getRootNodes().get(0).getToken();
-        assertTrue("Function node parsed incorrect function type", functionToken.getTypes().get(0) == FunctionType.RIGHT);
+        assertSame(functionToken.getTypes().get(0), FunctionType.RIGHT);
     }
 }

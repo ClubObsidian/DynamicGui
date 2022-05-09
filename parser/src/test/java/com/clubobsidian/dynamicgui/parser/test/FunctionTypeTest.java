@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,12 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FunctionTypeTest {
 

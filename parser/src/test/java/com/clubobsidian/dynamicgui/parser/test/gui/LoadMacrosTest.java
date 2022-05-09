@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.Assert.assertTrue;
+import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.wrappy.Configuration;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
-import com.clubobsidian.wrappy.Configuration;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoadMacrosTest {
 
@@ -35,7 +34,7 @@ public class LoadMacrosTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         List<String> loadMacros = token.getLoadMacros();
-        assertTrue(loadMacros.size() == 1);
-        assertTrue(loadMacros.get(0).equals("test"));
+        assertEquals(1, loadMacros.size());
+        assertEquals("test", loadMacros.get(0));
     }
 }

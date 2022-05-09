@@ -1,0 +1,18 @@
+message:
+  no-gui: "&e[&fDynamicGui&e] &cThat gui does not exist!"
+  no-gui-permission: "&e[&fDynamicGui&e] &cYou do not have permission for that gui!"
+
+#Configure proxy types
+# Proxy types:
+# bungee - If you use Bungeecord as your proxy
+# redis - If you use redis bungee on a bungeecord proxy
+# none - If you do not use a proxy
+proxy: "none"
+date-time-format: "MM dd, yyyy HH:mm:ss"
+servers:
+  - "prison"
+
+#remote-guis:
+#  remote:
+#    file-name: "remote.yml"
+#    url: "https://raw.githubusercontent.com/ClubObsidian/DynamicGUIExamples/master/examples/remote.yml"

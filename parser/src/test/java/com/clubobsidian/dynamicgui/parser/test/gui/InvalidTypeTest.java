@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import static org.junit.Assert.assertTrue;
+import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.wrappy.Configuration;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import org.junit.Test;
-
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
-import com.clubobsidian.wrappy.Configuration;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvalidTypeTest {
 
@@ -34,6 +33,6 @@ public class InvalidTypeTest {
         Configuration config = Configuration.load(file);
         GuiToken token = new GuiToken(config);
         String type = token.getType();
-        assertTrue("Gui type is not 'CHEST'", type.equals("CHEST"));
+        assertEquals("CHEST", type);
     }
 }

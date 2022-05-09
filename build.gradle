@@ -1,20 +1,88 @@
 plugins {
 	id 'java-library'
 	id 'com.github.johnrengelman.shadow' version '7.1.1'
+	id 'org.cadixdev.licenser' version '0.6.1'
 	id 'eclipse'
 	id 'idea'
+	id 'maven-publish'
+}
+
+allprojects {
+	group 'com.clubobsidian'
+	version '5.0.0'
+	ext {
+		junitVersion = '5.8.2'
+		cloudVersion = '1.6.2'
+	}
 }
 
 subprojects {
 	apply plugin: 'java-library'
 	apply plugin: 'com.github.johnrengelman.shadow'
+	apply plugin: 'org.cadixdev.licenser'
+	apply plugin: 'maven-publish'
 
-	group 'com.clubobsidian'
-	version '4.1.0'
+	publishing {
+		publications {
+			shadow(MavenPublication) {
+				groupId 'com.clubobsidian'
+				artifactId project.name
+				version '5.0.0'
+				artifact shadowJar
+			}
+		}
+	}
 
 	tasks.withType(JavaCompile) {
 		sourceCompatibility = JavaVersion.VERSION_11
 		targetCompatibility = JavaVersion.VERSION_11
+	}
+
+	license {
+		header = project.rootProject.file('HEADER.txt')
+		include '**/*.java'
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
+	shadowJar {
+		archiveClassifier.set('')
+		minimize() {
+			exclude(project(":core"))
+		}
+		relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
+		relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
+		relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
+		relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
+		relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
+		relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
+		relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
+		relocate 'com.clubobsidian.fuzzutil', 'com.clubobsidian.dynamicgui.shaded.fuzzutil'
+		relocate 'io.leangen', 'com.clubobsidian.dynamicgui.shaded.leangen'
+		relocate 'org.codehaus.mojo', 'com.clubobsidian.dynamicgui.shaded.mojo'
+		relocate 'org.checkerframework.framework', 'com.clubobsidian.dynamicgui.shaded.checkerframework.framework'
+		relocate 'org.checkerframework.common', 'com.clubobsidian.dynamicgui.shaded.checkerframework.common'
+		relocate 'org.checkerframework.checker', 'com.clubobsidian.dynamicgui.shaded.checkerframework.checker'
+		relocate 'org.checkerframework.dataflow', 'com.clubobsidian.dynamicgui.shaded.checkerframework.dataflow'
+		relocate 'org.apache.commons', 'com.clubobsidian.dynamicgui.shaded.apachecommons'
+		relocate 'org.aopalliance.intercept', 'com.clubobsidian.dynamicgui.shaded.aopalliance.intercept'
+		relocate 'org.aopalliance.aop', 'com.clubobsidian.dynamicgui.shaded.aopalliance.aop'
+		relocate 'javax.inject', 'com.clubobsidian.dynamicgui.shaded.javax.inject'
+		relocate 'com.udojava.evalex', 'com.clubobsidian.dynamicgui.shaded.evalex'
+		relocate 'com.typesafe.config', 'com.clubobsidian.dynamicgui.shaded.typesafeconfig'
+		relocate 'com.google.j2objc', 'com.clubobsidian.dynamicgui.shaded.j2objc'
+		relocate 'com.google.inject', 'com.clubobsidian.dynamicgui.shaded.guice'
+		relocate 'javax.annotation', 'com.clubobsidian.dynamicgui.shaded.javaxannotation'
+		relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
+		relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
+		relocate 'com.github.benmanes.caffeine', 'com.clubobsidian.dynamicgui.shaded.caffeine'
+		relocate 'cloud', 'com.clubobsidian.dynamicgui.shaded.cloud'
+		relocate 'com.google.thirdparty', 'com.clubobsidian.dynamicgui.shaded.google.thirdparty'
+		relocate 'io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.classgraph'
+		relocate 'nonapi.io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.nonapi.io.github.classgraph'
+		relocate 'javassist', 'com.clubobsidian.dynamicgui.shaded.javassist'
 	}
 
 	repositories {
@@ -24,9 +92,18 @@ subprojects {
 		maven { url 'https://jitpack.io' }
 	}
 
+
+
 	dependencies {
-		testImplementation 'junit:junit:4.13.2'
+		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+		testImplementation 'org.mockito:mockito-core:4.3.1'
 		api 'org.apache.commons:commons-lang3:3.12.0'
 		api 'com.github.clubobsidian:wrappy:2.3.2'
+		api 'com.github.ben-manes.caffeine:caffeine:3.0.4'
+		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
+		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
+		api "cloud.commandframework:cloud-annotations:$cloudVersion"
+		api "io.github.classgraph:classgraph:4.8.138"
 	}
 }

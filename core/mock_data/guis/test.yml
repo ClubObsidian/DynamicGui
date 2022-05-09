@@ -1,0 +1,47 @@
+title: "test"
+rows: 5
+
+'0':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+      - "pmsg: test"
+'1':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "haspermission: does.not.exist"
+      fail-haspermission:
+        fail-on: "haspermission"
+        type: "fail"
+        functions:
+        - "pmsg: fail"
+'2':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "delay: 1000"
+        - "pmsg: async"
+'3':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "delay: 1000"
+        - "IsMainThread"
+'4':
+  icon: "STONE"
+  functions:
+    click:
+      type: "click"
+      functions:
+        - "delay: 1000"
+        - "pmsg: test"
+        - "isasyncthread"

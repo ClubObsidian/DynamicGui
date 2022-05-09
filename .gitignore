@@ -1,3 +1,6 @@
+#DynamicGui
+core/mock_data/cooldowns.yml
+
 # Compiled class file
 *.class
 
@@ -22,6 +25,7 @@ hs_err_pid*
 
 .gradle
 build/
+out/
 
 # Ignore Gradle GUI config
 gradle-app.setting

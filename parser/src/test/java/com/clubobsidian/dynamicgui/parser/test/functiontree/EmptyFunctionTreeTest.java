@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,17 +16,16 @@
 
 package com.clubobsidian.dynamicgui.parser.test.functiontree;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmptyFunctionTreeTest {
 
     @Test
     public void testEmptyFunctionTree() {
         FunctionTree tree = new FunctionTree();
-        assertTrue("Tree nodes are not empty", tree.getRootNodes().size() == 0);
+        assertEquals(0, tree.getRootNodes().size());
     }
 }

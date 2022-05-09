@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.function;
+
+import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.clubobsidian.fuzzutil.StringFuzz;
 
 public enum FunctionType {
 

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,16 +16,15 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EnchantTest {
 
@@ -37,6 +36,6 @@ public class EnchantTest {
         ConfigurationSection section = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, section);
         List<String> enchants = token.getEnchants();
-        assertTrue("Slot enchants size is not 3", enchants.size() == 3);
+        assertEquals(3, enchants.size());
     }
 }

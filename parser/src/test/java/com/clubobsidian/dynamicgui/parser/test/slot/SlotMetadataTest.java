@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,16 +16,15 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.wrappy.Configuration;
+import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Map;
 
-import org.junit.Test;
-
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SlotMetadataTest {
 
@@ -37,8 +36,8 @@ public class SlotMetadataTest {
         ConfigurationSection slot = config.getConfigurationSection("0");
         SlotToken token = new SlotToken(0, slot);
         Map<String, String> metadata = token.getMetadata();
-        assertTrue(metadata.size() == 1);
-        assertTrue(metadata.get("some").equals("metadata"));
+        assertEquals(1, metadata.size());
+        assertEquals("metadata", metadata.get("some"));
     }
 
     @Test
@@ -49,6 +48,6 @@ public class SlotMetadataTest {
         ConfigurationSection slot = config.getConfigurationSection("1");
         SlotToken token = new SlotToken(1, slot);
         Map<String, String> metadata = token.getMetadata();
-        assertTrue(metadata.size() == 0);
+        assertEquals(0, metadata.size());
     }
 }

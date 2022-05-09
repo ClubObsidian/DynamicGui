@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,18 +13,19 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.slot;
+
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.wrappy.ConfigurationSection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class SlotToken implements Serializable {
 
@@ -39,8 +40,8 @@ public class SlotToken implements Serializable {
     private final String name;
     private final String nbt;
     private final boolean glow;
-    private final boolean moveable;
-    private final boolean closed;
+    private final boolean movable;
+    private final Boolean closed; //This should be boxed
     private final byte data;
     private final List<String> lore;
     private final List<String> enchants;
@@ -69,8 +70,8 @@ public class SlotToken implements Serializable {
         this.name = this.macroParser.parseStringMacros(section.getString("name"));
         this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
         this.glow = this.parseBoolean(section.getString("glow"));
-        this.moveable = this.parseBoolean(section.getString("moveable"));
-        this.closed = this.parseBoolean(section.getString("close"));
+        this.movable = this.parseBoolean(section.getString("movable"));
+        this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.data = this.parseByte(section.getString("data"));
         this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
         this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
@@ -108,13 +109,16 @@ public class SlotToken implements Serializable {
         if (data == null) {
             return false;
         }
-
         String parsed = this.macroParser.parseStringMacros(data);
-        if (data.equals("true")) {
-            return Boolean.parseBoolean(parsed);
-        }
+        return Boolean.parseBoolean(parsed);
+    }
 
-        return false;
+    private Boolean parseBoxedBoolean(String data) {
+        if(data == null) {
+            return null;
+        }
+        String parsed = this.macroParser.parseStringMacros(data);
+        return Boolean.parseBoolean(parsed);
     }
 
     private int parseInteger(String data) {
@@ -171,11 +175,11 @@ public class SlotToken implements Serializable {
         return this.glow;
     }
 
-    public boolean isMoveable() {
-        return this.moveable;
+    public boolean isMovable() {
+        return this.movable;
     }
 
-    public boolean isClosed() {
+    public Boolean isClosed() {
         return this.closed;
     }
 
@@ -194,6 +198,7 @@ public class SlotToken implements Serializable {
     public List<String> getEnchants() {
         return this.enchants;
     }
+
     public List<String> getItemFlags() {
         return this.itemFlags;
     }

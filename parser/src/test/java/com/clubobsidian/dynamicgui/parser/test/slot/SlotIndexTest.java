@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-
-import org.junit.Test;
-
 import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SlotIndexTest {
 
@@ -35,6 +34,6 @@ public class SlotIndexTest {
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("13");
         SlotToken token = new SlotToken(13, section);
-        assertTrue("Slot index is not 13", token.getIndex() == 13);
+        assertEquals(13, token.getIndex());
     }
 }

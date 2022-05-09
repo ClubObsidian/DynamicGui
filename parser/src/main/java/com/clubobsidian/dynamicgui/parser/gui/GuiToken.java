@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,7 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.gui;
+
+import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.wrappy.ConfigurationSection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,12 +28,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
-import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class GuiToken implements Serializable {
 
@@ -39,7 +40,7 @@ public class GuiToken implements Serializable {
     private final String type;
     private final int rows;
     private final GuiMode mode;
-    private final boolean closed;
+    private final Boolean closed; //This should be boxed
     private final List<String> alias;
     private final List<String> locations;
     private final Map<String, List<Integer>> npcs;
@@ -48,6 +49,7 @@ public class GuiToken implements Serializable {
     private final FunctionTree functions;
     private final List<String> loadMacros;
     private final Map<String, String> metadata;
+    private final boolean isStatic;
 
     public GuiToken(ConfigurationSection section) {
         this(section, new ArrayList<>());
@@ -65,7 +67,7 @@ public class GuiToken implements Serializable {
         this.type = this.parseType(section.getString("type"));
         this.rows = section.getInteger("rows");
         this.mode = this.parseMode(section.getString("mode"));
-        this.closed = section.getBoolean("close");
+        this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
         this.locations = this.macroParser.parseListMacros(section.getStringList("locations"));
         this.npcs = this.loadNpcs(section);
@@ -79,6 +81,15 @@ public class GuiToken implements Serializable {
 
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
+        this.isStatic = section.getBoolean("static");
+    }
+
+    private Boolean parseBoxedBoolean(String data) {
+        if(data == null) {
+            return null;
+        }
+        String parsed = this.macroParser.parseStringMacros(data);
+        return Boolean.parseBoolean(parsed);
     }
 
     public String parseType(String type) {
@@ -147,7 +158,7 @@ public class GuiToken implements Serializable {
         return this.mode;
     }
 
-    public boolean isClosed() {
+    public Boolean isClosed() {
         return this.closed;
     }
 
@@ -181,5 +192,9 @@ public class GuiToken implements Serializable {
 
     public Map<String, String> getMetadata() {
         return this.metadata;
+    }
+
+    public boolean isStatic() {
+        return this.isStatic;
     }
 }

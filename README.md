@@ -2,22 +2,15 @@
 <h1>DynamicGui</h1>
 
 [![build](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml/badge.svg)](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml)
-[![CLA assistant](https://cla-assistant.io/readme/badge/ClubObsidian/DynamicGui)](https://cla-assistant.io/ClubObsidian/DynamicGui) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
 </div>
-
-A rewrite of the plugin originally created at Club Obsidian.
-
-Designed to make writing menus easy.
-
 
 ## Features
 
-* Multi server support in one jar
-  * Bukkit - Fully supported
-  * Sponge - Support dropped for now
 * A number of functions to use to customize menus
+  * Asynchronous functions
   * Functions use latebinding
   * Addons can be written for more functions
   * Use conditions with replacers using [EvalEx](https://github.com/uklimaschewski/EvalEx)
@@ -44,6 +37,9 @@ Designed to make writing menus easy.
   * Hopper
   * Workbench
 
+## Future features
+
+* Support for sponge
 
 ## Use cases
 
@@ -59,17 +55,12 @@ Just a few uses for DynamicGui.
 * Quests
 * Shop
 * Staff tools
-  * Punishments
 
 ## Downloads
 
-You can get [development builds from our jenkins.](https://ci.ravenlab.dev/job/DynamicGui/)
+You can get [development builds from Github actions](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml) but you will need a Github account.
 
 ## Getting Started
-
-### Gui Examples
-
-You can find [gui examples here](https://github.com/ClubObsidian/DynamicGuiExamples).
 
 ### Gui Documentation
 

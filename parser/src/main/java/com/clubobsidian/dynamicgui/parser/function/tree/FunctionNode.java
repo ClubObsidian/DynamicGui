@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.function.tree;
+
+import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
 
 public class FunctionNode implements Serializable {
 
@@ -28,14 +29,20 @@ public class FunctionNode implements Serializable {
      */
     private static final long serialVersionUID = -8331607544830166913L;
 
+    private final String name;
     private final int depth;
     private final FunctionToken token;
     private final List<FunctionNode> children;
 
-    public FunctionNode(int depth, FunctionToken token) {
+    public FunctionNode(String name, int depth, FunctionToken token) {
+        this.name = name;
         this.depth = depth;
         this.token = token;
         this.children = new ArrayList<>();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getDepth() {

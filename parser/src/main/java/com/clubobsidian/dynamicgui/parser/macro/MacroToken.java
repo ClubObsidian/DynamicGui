@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021 Club Obsidian and contributors.
+ *    Copyright 2022 virustotalop and contributors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.clubobsidian.dynamicgui.parser.macro;
+
+import com.clubobsidian.wrappy.ConfigurationSection;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.clubobsidian.wrappy.ConfigurationSection;
 
 public class MacroToken implements Serializable {
 

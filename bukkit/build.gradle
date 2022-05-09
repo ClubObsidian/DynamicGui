@@ -9,39 +9,13 @@ processResources {
 }
 
 shadowJar {
-    minimize()
-    relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
-    relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
-    relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
-    relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
-    relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
-    relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
-    relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
-    relocate 'com.clubobsidian.fuzzutil', 'com.clubobsidian.dynamicgui.shaded.fuzzutil'
-    relocate 'io.leangen', 'com.clubobsidian.dynamicgui.shaded.leangen'
-    relocate 'org.codehaus.mojo', 'com.clubobsidian.dynamicgui.shaded.mojo'
-    relocate 'org.checkerframework.framework', 'com.clubobsidian.dynamicgui.shaded.checkerframework.framework'
-    relocate 'org.checkerframework.common', 'com.clubobsidian.dynamicgui.shaded.checkerframework.common'
-    relocate 'org.checkerframework.checker', 'com.clubobsidian.dynamicgui.shaded.checkerframework.checker'
-    relocate 'org.apache.commons', 'com.clubobsidian.dynamicgui.shaded.apachecommons'
-    relocate 'org.aopalliance.intercept', 'com.clubobsidian.dynamicgui.shaded.aopalliance.intercept'
-    relocate 'org.aopalliance.aop', 'com.clubobsidian.dynamicgui.shaded.aopalliance.aop'
-    relocate 'javax.inject', 'com.clubobsidian.dynamicgui.shaded.javax.inject'
-    relocate 'com.udojava.evalex', 'com.clubobsidian.dynamicgui.shaded.evalex'
-    relocate 'com.typesafe.config', 'com.clubobsidian.dynamicgui.shaded.typesafeconfig'
-    relocate 'com.google.j2objc', 'com.clubobsidian.dynamicgui.shaded.j2objc'
-    relocate 'com.google.inject', 'com.clubobsidian.dynamicgui.shaded.guice'
-    relocate 'javax.annotation', 'com.clubobsidian.dynamicgui.shaded.javaxannotation'
-    relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
-    relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
-
-    archiveBaseName.set('DynamicGui')
-    archiveClassifier.set('')
+    archiveBaseName.set('DynamicGui-Bukkit')
 }
 
 dependencies {
     implementation project(path: ':core')
-    compileOnly 'com.github.clubobsidian:foundry:2.0.1'
+    compileOnly 'com.github.clubobsidian:foundry:2.0.2'
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
+    implementation "cloud.commandframework:cloud-paper:$cloudVersion"
 }
