@@ -2,6 +2,7 @@
 <h1>DynamicGui</h1>
 
 [![build](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml/badge.svg)](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml)
+[![](https://jitpack.io/v/ClubObsidian/DynamicGui.svg)](https://jitpack.io/#ClubObsidian/DynamicGui)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
@@ -70,6 +71,33 @@ You find find [gui documentation here](https://dynamicgui.github.io/documentatio
 
 Before contributing please read our [documentation on contributing.](CONTRIBUTING.md)
 
+
+## Dependency
+
+Gradle
+```groovy
+repositories {
+  maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+  compileOnly 'com.github.clubobsidian.dynamicgui:core:5.0.0'
+}
+```
+Maven
+```xml
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	<dependency>
+	    <groupId>com.github.ClubObsidian.DynamicGui</groupId>
+	    <artifactId>core</artifactId>
+	    <version>5.0.0</version>
+	</dependency>
+```
 
 ## Development
 
