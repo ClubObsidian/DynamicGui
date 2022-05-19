@@ -30,6 +30,7 @@ import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,20 +110,43 @@ public class FunctionManager {
     }
 
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-        future.exceptionally((ex) -> {
+        CompletableFuture<Boolean> returnFuture = new CompletableFuture<>();
+        returnFuture.exceptionally((ex) -> {
             ex.printStackTrace();
             return null;
         });
         List<FunctionNode> rootNodes = owner.getFunctions().getRootNodes();
-        recurFunctionNodes(null,
-                owner,
-                rootNodes,
-                type,
-                playerWrapper,
-                future,
-                new AtomicBoolean(true));
-        return future;
+        int rootSize = rootNodes.size();
+        if (rootSize == 0) {
+            returnFuture.complete(true);
+        } else {
+            AtomicBoolean returnValue = new AtomicBoolean(true);
+            AtomicInteger count = new AtomicInteger();
+            for (int i = 0; i < rootSize; i++) {
+                FunctionNode node = rootNodes.get(i);
+                CompletableFuture<Boolean> future = new CompletableFuture<>();
+                future.whenComplete((ret, ex) -> {
+                    if (ex != null) {
+                        ex.printStackTrace();
+                        returnValue.set(false);
+                    } else if (!ret) {
+                        returnValue.set(false);
+                    }
+                    int incremented = count.incrementAndGet();
+                    if (incremented == rootSize) {
+                        returnFuture.complete(returnValue.get());
+                    }
+                });
+                recurFunctionNodes(null,
+                        owner,
+                        Collections.singletonList(node),
+                        type,
+                        playerWrapper,
+                        future,
+                        new AtomicBoolean(true));
+            }
+        }
+        return returnFuture;
     }
 
     private void recurFunctionNodes(FunctionResponse response,
