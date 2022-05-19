@@ -7,9 +7,12 @@ plugins {
 	id 'maven-publish'
 }
 
+def projectGroup = 'com.clubobsidian'
+def projectVersion = '5.0.1'
+
 allprojects {
-	group 'com.clubobsidian'
-	version '5.0.0'
+	group projectGroup
+	version projectVersion
 	ext {
 		junitVersion = '5.8.2'
 		cloudVersion = '1.6.2'
@@ -25,9 +28,9 @@ subprojects {
 	publishing {
 		publications {
 			shadow(MavenPublication) {
-				groupId 'com.clubobsidian'
+				groupId projectGroup
 				artifactId project.name
-				version '5.0.0'
+				version projectVersion
 				artifact shadowJar
 			}
 		}
