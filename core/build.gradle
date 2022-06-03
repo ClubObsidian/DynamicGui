@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
 }
 
-def adventureVersion = "4.10.1"
+def adventureVersion = "4.11.0"
 
 dependencies {
     api 'commons-io:commons-io:2.11.0'
