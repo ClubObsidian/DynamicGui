@@ -20,7 +20,6 @@ import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.meta.SimpleCommandMeta;
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudExtender;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
@@ -28,28 +27,22 @@ import com.google.inject.Injector;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CommandRegistrarImpl implements CommandRegistrar {
 
     private final CommandManager<GuiCommandSender> commandManager;
-    private final CloudExtender extender;
     private final LoggerWrapper<?> logger;
     private final Injector injector;
     private final AnnotationParser<GuiCommandSender> commandParser;
 
     private final List<String> registeredAliases = new ArrayList<>();
-    private final Map<String, Command> cloudCommands = new HashMap<>();
 
     @Inject
     private CommandRegistrarImpl(CommandManager<GuiCommandSender> commandManager,
-                                 CloudExtender extender,
                                  LoggerWrapper<?> logger,
                                  Injector injector) {
         this.commandManager = commandManager;
-        this.extender = extender;
         this.logger = logger;
         this.injector = injector;
         this.commandParser = new AnnotationParser<>(this.commandManager,
@@ -75,7 +68,6 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                     }
                 }).build();
         this.commandManager.command(command);
-        this.cloudCommands.put(alias, command);
         this.registeredAliases.add(alias);
         this.logger.info(String.format("Registered the command \"%s\" for the gui %s",
                 alias,
@@ -86,11 +78,10 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     @Override
     public void unregisterCommand(String alias) {
         try {
-            this.extender.unregister(this.commandManager, this.cloudCommands.get(alias), alias);
+            this.commandManager.deleteRootCommand(alias);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.cloudCommands.remove(alias);
         this.registeredAliases.remove(alias);
     }
 
