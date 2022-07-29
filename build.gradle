@@ -14,7 +14,7 @@ allprojects {
 	group projectGroup
 	version projectVersion
 	ext {
-		junitVersion = '5.8.2'
+		junitVersion = '5.9.0'
 		cloudVersion = '1.7.0'
 	}
 }
