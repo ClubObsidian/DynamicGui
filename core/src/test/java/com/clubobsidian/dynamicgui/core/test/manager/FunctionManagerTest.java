@@ -183,9 +183,4 @@ public class FunctionManagerTest extends ScheduledTest {
         boolean result = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
         assertFalse(result);
     }
-
-    @Test
-    public void testMultipleLoad() {
-
-    }
 }

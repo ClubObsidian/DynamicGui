@@ -18,7 +18,9 @@ package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
-public interface FunctionOwner {
+import java.io.Serializable;
+
+public interface FunctionOwner extends Serializable {
 
     FunctionTree getFunctions();
 

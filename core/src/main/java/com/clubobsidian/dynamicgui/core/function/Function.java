@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.function;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.fuzzutil.StringFuzz;
+import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
@@ -113,7 +114,12 @@ public abstract class Function implements Cloneable, Serializable {
     }
 
     public Function clone() {
-        return SerializationUtils.clone(this);
+        try {
+            return SerializationUtils.clone(this);
+        } catch (SerializationException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
