@@ -14,7 +14,7 @@ rows: 5
         functions:
           - "pmsg: test-failed"
         fail-on: "permission"
-      condtion-failfunction:
+      condition-failfunction:
         type: fail
         functions:
           - "pmsg: condition failed"
@@ -23,3 +23,15 @@ rows: 5
       type: "click"
       functions:
         - "pmsg: test"
+'1':
+  icon: "STONE"
+  functions:
+    load-1:
+      type: "load"
+      functions:
+        - "pmsg: test"
+        - "condition: STREQUAL(\"test1\", \"test2\")"
+    load-2:
+      type: "load"
+      functions:
+        - "fail"

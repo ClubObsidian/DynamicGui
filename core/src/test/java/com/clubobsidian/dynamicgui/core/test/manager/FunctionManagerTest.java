@@ -144,6 +144,19 @@ public class FunctionManagerTest extends ScheduledTest {
     }
 
     @Test
+    public void testMultipleLoadFail() throws ExecutionException, InterruptedException {
+        MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
+        playerWrapper.addPermission("test");
+        Gui gui = GuiManager.get().getGui("multi-function-test");
+        Slot slot = gui.getSlots().get(1);
+        boolean failed = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
+        assertFalse(failed);
+        List<String> chat = playerWrapper.getIncomingChat();
+        assertEquals(1, chat.size());
+        assertEquals("test", chat.get(0));
+    }
+
+    @Test
     public void testFailNoFailFunction() throws ExecutionException, InterruptedException {
         MockPlayerWrapper playerWrapper = this.getFactory().createPlayer();
         Gui gui = GuiManager.get().getGui("no-fail-function");
@@ -169,5 +182,10 @@ public class FunctionManagerTest extends ScheduledTest {
         Slot slot = gui.getSlots().get(0);
         boolean result = FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper).get();
         assertFalse(result);
+    }
+
+    @Test
+    public void testMultipleLoad() {
+
     }
 }
