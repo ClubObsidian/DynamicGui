@@ -28,7 +28,7 @@ public class FalseAsyncFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(100);
             return false;
         } catch (InterruptedException e) {
             e.printStackTrace();

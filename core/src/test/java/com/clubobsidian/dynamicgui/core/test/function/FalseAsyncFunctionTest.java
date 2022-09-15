@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
+import com.clubobsidian.dynamicgui.core.function.impl.test.FalseAsyncFunction;
 import com.clubobsidian.dynamicgui.core.function.impl.test.FalseFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
@@ -24,11 +25,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class FalseFunctionTest extends FactoryTest {
+public class FalseAsyncFunctionTest extends FactoryTest {
 
     @Test
     public void testFalse() throws Exception {
-        Function function = new FalseFunction();
+        Function function = new FalseAsyncFunction();
         MockPlayerWrapper player = this.getFactory().createPlayer();
         assertFalse(function.function(player));
     }
