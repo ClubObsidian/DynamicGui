@@ -53,4 +53,7 @@ public interface Platform {
 
     WorldWrapper<?> getWorld(String worldName);
 
+    default boolean syncCommands() {
+        return false;
+    }
 }

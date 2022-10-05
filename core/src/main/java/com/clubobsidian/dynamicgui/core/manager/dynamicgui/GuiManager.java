@@ -93,10 +93,11 @@ public class GuiManager {
     private Map<String, byte[]> globalMacrosTimestamps;
     private final Set<String> modifiedMacros = new HashSet<>();
     private final CommandRegistrar commandRegistrar;
+    private final Platform platform;
     private boolean intialized = false;
 
     @Inject
-    private GuiManager(CommandRegistrar commandRegistrar) {
+    private GuiManager(CommandRegistrar commandRegistrar, Platform platform) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
@@ -105,6 +106,7 @@ public class GuiManager {
         this.guiHashes = new HashMap<>();
         this.globalMacrosTimestamps = new HashMap<>();
         this.commandRegistrar = commandRegistrar;
+        this.platform = platform;
     }
 
     public boolean isGuiLoaded(String name) {
@@ -137,6 +139,7 @@ public class GuiManager {
 
         this.loadGlobalMacros();
         this.loadGuis();
+        this.platform.syncCommands();
     }
 
     public List<Gui> getGuis() {

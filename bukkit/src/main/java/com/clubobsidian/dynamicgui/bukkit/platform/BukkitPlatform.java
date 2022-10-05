@@ -27,15 +27,19 @@ import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -127,7 +131,21 @@ public class BukkitPlatform implements Platform {
         if (world == null) {
             return null;
         }
-
         return new BukkitWorldWrapper(worldName);
+    }
+
+    @Override
+    public boolean syncCommands() {
+        Server server = Bukkit.getServer();
+        Method syncCommands = ReflectionUtil.getMethod(server.getClass(), "syncCommands");
+        if (syncCommands != null) {
+            try {
+                syncCommands.invoke(server);
+                return true;
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
     }
 }
