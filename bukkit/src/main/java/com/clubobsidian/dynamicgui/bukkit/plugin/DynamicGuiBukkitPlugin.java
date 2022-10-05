@@ -149,6 +149,8 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             if(commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
                 commandManager.registerAsynchronousCompletions();
             }
+            commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
+            commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
             return commandManager;
         } catch (Exception e) {
             e.printStackTrace();
