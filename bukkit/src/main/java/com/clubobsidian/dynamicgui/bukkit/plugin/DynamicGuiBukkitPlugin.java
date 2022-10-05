@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
+import cloud.commandframework.CloudCapability;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
@@ -142,10 +143,10 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
 
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core
-            if (commandManager.queryCapability(CloudBukkitCapabilities.BRIGADIER)) {
+            if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) {
                 commandManager.registerBrigadier();
             }
-            if(commandManager.queryCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+            if(commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
                 commandManager.registerAsynchronousCompletions();
             }
             return commandManager;
