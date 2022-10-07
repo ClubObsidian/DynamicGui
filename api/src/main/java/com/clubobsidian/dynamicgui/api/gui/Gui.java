@@ -16,14 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.gui;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
@@ -31,162 +24,43 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Gui implements Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
+public interface Gui extends Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6294818826223305057L;
-    private final List<Slot> slots;
-    private final String name;
-    private final String type;
-    private final String title;
-    private final int rows;
-    private Boolean close;
-    private final ModeEnum modeEnum;
-    private final List<LocationWrapper<?>> locations;
-    private final Map<String, List<Integer>> npcIds;
-    private transient InventoryWrapper<?> inventoryWrapper;
-    private final FunctionTree functions;
-    private Gui back;
-    private final Map<String, String> metadata;
-    private final boolean isStatic;
 
-    public Gui(String name, String type, String title, int rows, Boolean close,
-               ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
-               List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
-               boolean isStatic) {
-        this.name = name;
-        this.type = type;
-        this.title = ChatColor.translateAlternateColorCodes(title);
-        this.rows = rows;
-        this.slots = slots;
-        this.close = close;
-        this.modeEnum = modeEnum;
-        this.npcIds = npcIds;
-        this.locations = locations;
-        this.inventoryWrapper = null;
-        this.functions = functions;
-        this.back = null;
-        this.metadata = metadata;
-        this.isStatic = isStatic;
-    }
+    InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper);
 
-    public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
-        if (this.isStatic && this.inventoryWrapper != null) { //Don't rebuild if gui is static
-            return this.inventoryWrapper;
-        }
-        String inventoryTitle = this.formatTitle(playerWrapper);
-        Object nativeInventory = this.createInventory(inventoryTitle);
-        InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(nativeInventory);
-        this.populateInventory(playerWrapper, inventoryWrapper);
-        this.inventoryWrapper = inventoryWrapper;
-        return inventoryWrapper;
-    }
+    String getName();
 
-    private String formatTitle(PlayerWrapper<?> playerWrapper) {
-        String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-        if (inventoryTitle.length() > 32) {
-            inventoryTitle = inventoryTitle.substring(0, 31);
-        }
-        return inventoryTitle;
-    }
+    String getType();
 
-    private Object createInventory(String inventoryTitle) {
-        if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
-            return InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
-        } else {
-            return InventoryManager.get().createInventory(inventoryTitle, this.type);
-        }
-    }
+    String getTitle();
 
-    private void populateInventory(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
-        for (int i = 0; i < this.slots.size(); i++) {
-            Slot slot = this.slots.get(i);
-            if (slot != null) {
-                slot.setOwner(this);
-                ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
-                if (this.modeEnum == ModeEnum.ADD) {
-                    int itemIndex = inventoryWrapper.addItem(item);
-                    if (itemIndex != -1) {
-                        slot.setIndex(itemIndex);
-                    }
-                } else {
-                    inventoryWrapper.setItem(slot.getIndex(), item);
-                }
-            }
-        }
-    }
+    int getRows();
 
-    public String getName() {
-        return this.name;
-    }
+    List<Slot> getSlots();
 
-    public String getType() {
-        return this.type;
-    }
+    Boolean getClose();
 
-    public String getTitle() {
-        return this.title;
-    }
+    void setClose(Boolean close);
 
-    public int getRows() {
-        return this.rows;
-    }
+    Map<String, List<Integer>> getNpcIds();
 
-    public List<Slot> getSlots() {
-        return this.slots;
-    }
+    List<LocationWrapper<?>> getLocations();
 
-    @Override
-    public Boolean getClose() {
-        return this.close;
-    }
+    ModeEnum getModeEnum();
 
-    @Override
-    public void setClose(Boolean close) {
-        this.close = close;
-    }
+    InventoryWrapper<?> getInventoryWrapper();
 
-    public Map<String, List<Integer>> getNpcIds() {
-        return this.npcIds;
-    }
+    FunctionTree getFunctions();
 
-    public List<LocationWrapper<?>> getLocations() {
-        return this.locations;
-    }
+    Map<String, String> getMetadata();
 
-    public ModeEnum getModeEnum() {
-        return this.modeEnum;
-    }
 
-    public InventoryWrapper<?> getInventoryWrapper() {
-        return this.inventoryWrapper;
-    }
+    Gui getBack();
 
-    @Override
-    public FunctionTree getFunctions() {
-        return this.functions;
-    }
+    void setBack(Gui back);
 
-    @Override
-    public Map<String, String> getMetadata() {
-        return this.metadata;
-    }
+    boolean isStatic();
 
-    public Gui getBack() {
-        return this.back;
-    }
-
-    public void setBack(Gui back) {
-        this.back = back;
-    }
-
-    public boolean isStatic() {
-        return this.isStatic;
-    }
-
-    public Gui clone() {
-        return SerializationUtils.clone(this);
-    }
+    Gui clone();
 }

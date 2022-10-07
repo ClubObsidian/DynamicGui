@@ -21,7 +21,6 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.trident.EventHandler;

@@ -18,8 +18,6 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.ResetTickFunction;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 

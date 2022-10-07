@@ -16,24 +16,21 @@
 
 package com.clubobsidian.dynamicgui.core.gui;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
-import com.clubobsidian.dynamicgui.core.gui.property.MetadataHolder;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.apache.commons.lang3.SerializationUtils;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-
-public class Gui implements Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
+public class SimpleGui implements Gui {
 
     /**
      *
@@ -54,7 +51,7 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
     private final Map<String, String> metadata;
     private final boolean isStatic;
 
-    public Gui(String name, String type, String title, int rows, Boolean close,
+    public SimpleGui(String name, String type, String title, int rows, Boolean close,
                ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
                List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
                boolean isStatic) {
@@ -176,11 +173,11 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
         return this.metadata;
     }
 
-    public Gui getBack() {
+    public com.clubobsidian.dynamicgui.core.gui.Gui getBack() {
         return this.back;
     }
 
-    public void setBack(Gui back) {
+    public void setBack(com.clubobsidian.dynamicgui.core.gui.Gui back) {
         this.back = back;
     }
 
@@ -191,4 +188,3 @@ public class Gui implements Serializable, FunctionOwner, MetadataHolder, Closeab
     public Gui clone() {
         return SerializationUtils.clone(this);
     }
-}

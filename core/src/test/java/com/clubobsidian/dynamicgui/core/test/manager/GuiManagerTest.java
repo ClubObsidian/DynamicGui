@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.test.manager;
 
-import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;

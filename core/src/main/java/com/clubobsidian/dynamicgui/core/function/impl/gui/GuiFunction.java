@@ -19,8 +19,6 @@ package com.clubobsidian.dynamicgui.core.function.impl.gui;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 
 import java.util.concurrent.ExecutionException;

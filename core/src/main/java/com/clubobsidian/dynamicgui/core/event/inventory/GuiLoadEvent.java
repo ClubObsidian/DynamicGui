@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core.event.inventory;
 
 
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.trident.Cancellable;
 import com.clubobsidian.trident.Event;
 

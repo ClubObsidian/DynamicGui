@@ -17,6 +17,9 @@
 package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.gui.property.MetadataHolder;
@@ -27,22 +30,17 @@ import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Slot implements Serializable, FunctionOwner, AnimationHolder, MetadataHolder, CloseableComponent {
+public class SimpleSlot implements Slot {
 
     /**
      *
      */
     private static final long serialVersionUID = 2366997214615469494L;
-
-    public final static String IGNORE_MATERIAL = "AIR";
-    public static final String TEST_MATERIAL = "STONE";
 
     private int index;
     private final String icon;
