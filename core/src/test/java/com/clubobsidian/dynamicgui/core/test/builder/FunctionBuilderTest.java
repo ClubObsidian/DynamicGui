@@ -17,8 +17,8 @@
 package com.clubobsidian.dynamicgui.core.test.builder;
 
 import com.clubobsidian.dynamicgui.core.builder.FunctionBuilder;
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -44,7 +44,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.mockito.Mockito;
 
 import java.io.File;

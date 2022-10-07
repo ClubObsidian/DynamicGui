@@ -1,4 +1,0 @@
-gui-title: "A blank test gui"
-rows: 1
-mode: "set"
-close: false #Whether slots by default will close or not

@@ -1,7 +1,0 @@
-plugins {
-    id 'java-library'
-}
-
-dependencies {
-    api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-}

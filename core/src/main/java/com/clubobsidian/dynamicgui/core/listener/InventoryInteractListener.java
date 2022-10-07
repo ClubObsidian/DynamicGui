@@ -29,8 +29,8 @@ import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;

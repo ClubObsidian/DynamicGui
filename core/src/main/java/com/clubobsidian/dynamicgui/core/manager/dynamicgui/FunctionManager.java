@@ -21,11 +21,11 @@ import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayList;
