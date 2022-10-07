@@ -14,19 +14,19 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.parser.function;
+package com.clubobsidian.dynamicgui.parser.test.functiontree;
 
-import java.io.Serializable;
-import java.util.List;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
+import org.junit.jupiter.api.Test;
 
-public interface FunctionToken extends Serializable {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    String getName();
+public class EmptyFunctionTreeTest {
 
-    List<FunctionType> getTypes();
-
-    List<FunctionData> getFunctions();
-
-    List<FunctionData> getFailOnFunctions();
-
+    @Test
+    public void testEmptyFunctionTree() {
+        FunctionTree tree = new SimpleFunctionTree();
+        assertEquals(0, tree.getRootNodes().size());
+    }
 }

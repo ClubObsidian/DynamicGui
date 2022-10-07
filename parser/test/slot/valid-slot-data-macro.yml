@@ -1,0 +1,4 @@
+'0':
+  macros: 
+    '%valid-data%': "1"
+  data: "%valid-data%"

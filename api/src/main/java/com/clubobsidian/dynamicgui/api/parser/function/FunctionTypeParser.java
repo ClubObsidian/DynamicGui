@@ -16,39 +16,14 @@
 
 package com.clubobsidian.dynamicgui.api.parser.function;
 
-import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionTypeParser implements Serializable {
+public interface FunctionTypeParser extends Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -496196602929082383L;
+    List<FunctionType> parseTypes(List<String> types);
 
-    private final MacroParser macroParser;
-
-    public FunctionTypeParser(MacroParser macroParser) {
-        this.macroParser = macroParser;
-    }
-
-    public List<FunctionType> parseTypes(List<String> types) {
-        types = this.macroParser.parseListMacros(types);
-        List<FunctionType> typesList = new ArrayList<>();
-        for (String type : types) {
-            FunctionType parsedType = this.parseType(type);
-            if (parsedType == null)
-                continue; //TODO - warn
-
-            typesList.add(parsedType);
-        }
-        return typesList;
-    }
-
-    public FunctionType parseType(String type) {
+    default FunctionType parseType(String type) {
         return FunctionType.getFuzzyType(type);
     }
 }

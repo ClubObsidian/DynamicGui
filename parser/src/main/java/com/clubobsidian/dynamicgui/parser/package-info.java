@@ -14,19 +14,4 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.parser.function;
-
-import java.io.Serializable;
-import java.util.List;
-
-public interface FunctionToken extends Serializable {
-
-    String getName();
-
-    List<FunctionType> getTypes();
-
-    List<FunctionData> getFunctions();
-
-    List<FunctionData> getFailOnFunctions();
-
-}
+package com.clubobsidian.dynamicgui.parser;

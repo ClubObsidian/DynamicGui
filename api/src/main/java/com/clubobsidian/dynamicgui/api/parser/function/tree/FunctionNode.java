@@ -22,42 +22,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionNode implements Serializable {
+public interface FunctionNode extends Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -8331607544830166913L;
+    String getName();
 
-    private final String name;
-    private final int depth;
-    private final FunctionToken token;
-    private final List<FunctionNode> children;
+    int getDepth();
 
-    public FunctionNode(String name, int depth, FunctionToken token) {
-        this.name = name;
-        this.depth = depth;
-        this.token = token;
-        this.children = new ArrayList<>();
-    }
+    FunctionToken getToken();
 
-    public String getName() {
-        return this.name;
-    }
+    List<FunctionNode> getChildren();
 
-    public int getDepth() {
-        return this.depth;
-    }
+    boolean addChild(FunctionNode child);
 
-    public FunctionToken getToken() {
-        return this.token;
-    }
-
-    public List<FunctionNode> getChildren() {
-        return this.children;
-    }
-
-    public boolean addChild(FunctionNode child) {
-        return this.children.add(child);
-    }
 }

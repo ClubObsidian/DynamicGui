@@ -92,7 +92,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
     int getFrame();
 
     void resetFrame();
-    
+
     Map<String, String> getMetadata();
 
     boolean getUpdate();

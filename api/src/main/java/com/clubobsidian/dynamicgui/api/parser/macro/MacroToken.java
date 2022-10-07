@@ -16,33 +16,11 @@
 
 package com.clubobsidian.dynamicgui.api.parser.macro;
 
-import com.clubobsidian.wrappy.ConfigurationSection;
-
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MacroToken implements Serializable {
+public interface MacroToken extends Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -6384645527099128238L;
+    Map<String, Object> getMacros();
 
-    private Map<String, Object> macros;
-
-    public MacroToken(ConfigurationSection section) {
-        this.parse(section);
-    }
-
-    private void parse(ConfigurationSection section) {
-        this.macros = new LinkedHashMap<>();
-        for (String key : section.getKeys()) {
-            this.macros.put(key, section.get(key));
-        }
-    }
-
-    public Map<String, Object> getMacros() {
-        return this.macros;
-    }
 }

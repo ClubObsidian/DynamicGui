@@ -1,0 +1,4 @@
+'0':
+  update-interval: -1
+'1':
+  update-interval: notaninterval
