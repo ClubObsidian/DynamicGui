@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.gui;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.gui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
@@ -30,7 +31,6 @@ import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

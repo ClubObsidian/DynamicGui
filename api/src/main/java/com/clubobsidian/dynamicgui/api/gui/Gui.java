@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.api.gui;
 
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.util.List;
