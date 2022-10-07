@@ -14,26 +14,4 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.builder;
-
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
-
-public class EnchantmentBuilder {
-
-    private String enchantment;
-    private int level = 0;
-
-    public EnchantmentBuilder setEnchantment(String enchantment) {
-        this.enchantment = enchantment;
-        return this;
-    }
-
-    public EnchantmentBuilder setLevel(int level) {
-        this.level = level;
-        return this;
-    }
-
-    public EnchantmentWrapper build() {
-        return new EnchantmentWrapper(this.enchantment, level);
-    }
-}
+package com.clubobsidian.dynamicgui.api;

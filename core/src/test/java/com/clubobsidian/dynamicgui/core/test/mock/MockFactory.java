@@ -20,7 +20,7 @@ import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.Gui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;

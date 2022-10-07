@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.builder;
+package com.clubobsidian.dynamicgui.api.builder;
 
 import com.clubobsidian.dynamicgui.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;

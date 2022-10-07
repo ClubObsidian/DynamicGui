@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.enchantment;
+package com.clubobsidian.dynamicgui.api.enchantment;
 
 import java.io.Serializable;
 

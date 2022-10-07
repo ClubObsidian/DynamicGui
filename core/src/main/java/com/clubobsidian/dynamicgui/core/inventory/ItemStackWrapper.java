@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.inventory;
 
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 
 import java.io.Serializable;
 import java.util.List;

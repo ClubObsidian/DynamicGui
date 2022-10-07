@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrar;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;

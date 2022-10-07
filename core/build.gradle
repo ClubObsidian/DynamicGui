@@ -8,6 +8,7 @@ dependencies {
     api 'commons-io:commons-io:2.11.0'
     api 'com.github.clubobsidian:trident:3.0.0'
     api project(path: ':parser')
+    api project(path: ':api')
     api 'com.udojava:EvalEx:2.1'
     api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     api 'com.google.inject:guice:5.1.0'

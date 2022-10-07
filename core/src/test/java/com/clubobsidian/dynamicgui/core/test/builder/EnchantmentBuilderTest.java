@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.builder;
 
 import com.clubobsidian.dynamicgui.core.builder.EnchantmentBuilder;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
