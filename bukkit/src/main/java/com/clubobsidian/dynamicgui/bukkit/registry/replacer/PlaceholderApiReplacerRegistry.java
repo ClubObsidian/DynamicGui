@@ -44,6 +44,6 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
 
     private Method getPlaceholdersMethod() {
         Class<?> clazz = ReflectionUtil.classForName("me.clip.placeholderapi.PlaceholderAPI");
-        return ReflectionUtil.getMethod(clazz, "setPlaceholders", OfflinePlayer.class, String.class);
+        return ReflectionUtil.getMethodByParams(clazz, "setPlaceholders", OfflinePlayer.class, String.class);
     }
 }

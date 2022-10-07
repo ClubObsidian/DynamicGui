@@ -55,17 +55,6 @@ public final class ReflectionUtil {
         return null;
     }
 
-    public static Method getMethod(Class<?> cl, String methodName) {
-        try {
-            Method method = cl.getDeclaredMethod(methodName);
-            method.setAccessible(true);
-            return method;
-        } catch (NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static Method getMethod(Class<?> cl, String... methods) {
         for (Method m : cl.getDeclaredMethods()) {
             for (String methodName : methods) {
@@ -77,7 +66,7 @@ public final class ReflectionUtil {
         return null;
     }
 
-    public static Method getMethod(Class<?> cl, String methodName, Class<?>... params) {
+    public static Method getMethodByParams(Class<?> cl, String methodName, Class<?>... params) {
         try {
             Method method = cl.getDeclaredMethod(methodName, params);
             method.setAccessible(true);
