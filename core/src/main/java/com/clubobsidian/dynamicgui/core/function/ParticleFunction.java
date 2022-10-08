@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.function;
 
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 

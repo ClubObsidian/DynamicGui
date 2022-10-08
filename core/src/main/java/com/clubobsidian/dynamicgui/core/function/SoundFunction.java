@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.function;
 
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 

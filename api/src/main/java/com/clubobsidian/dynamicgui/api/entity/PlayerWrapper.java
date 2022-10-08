@@ -16,12 +16,11 @@
 
 package com.clubobsidian.dynamicgui.api.entity;
 
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
 import java.util.UUID;
 

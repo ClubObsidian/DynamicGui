@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.entity.player;
 
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
