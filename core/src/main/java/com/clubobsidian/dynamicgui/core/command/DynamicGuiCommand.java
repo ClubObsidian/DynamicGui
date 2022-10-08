@@ -27,7 +27,7 @@ import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
+import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 

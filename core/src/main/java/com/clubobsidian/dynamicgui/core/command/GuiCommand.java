@@ -25,7 +25,6 @@ import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 
 public class GuiCommand implements RegisteredCommand {
 

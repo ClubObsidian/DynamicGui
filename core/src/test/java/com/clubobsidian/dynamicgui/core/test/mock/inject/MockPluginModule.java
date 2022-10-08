@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
