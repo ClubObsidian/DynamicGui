@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.function;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
 
 public class GetGameRuleFunction extends Function {
 

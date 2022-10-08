@@ -31,4 +31,5 @@ public abstract class Replacer {
     }
 
     public abstract String replacement(String text, PlayerWrapper<?> playerWrapper);
+
 }

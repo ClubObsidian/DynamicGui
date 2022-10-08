@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.function;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
 
 import java.util.UUID;
 
@@ -34,6 +34,6 @@ public class LoggedInFunction extends Function {
         UUID uuid = playerWrapper.getUniqueId();
         PlayerWrapper<?> retrieved = DynamicGui.get().getPlatform().getPlayer(uuid);
         Object retrievedNative = retrieved != null ? retrieved.getPlayer() : null;
-        return retrieved == null || !playerWrapper.isOnline() || !wrapperNative.equals(retrievedNative) ? false : true;
+        return retrieved != null && playerWrapper.isOnline() && wrapperNative.equals(retrievedNative);
     }
 }

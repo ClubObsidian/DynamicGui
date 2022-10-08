@@ -17,13 +17,14 @@
 package com.clubobsidian.dynamicgui.core;
 
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.Message;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
 import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
@@ -43,7 +44,6 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.impl.CooldownReplacerR
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.MetadataReplacerRegistry;
-import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
@@ -105,7 +105,7 @@ public class DynamicGui {
     }
 
     public boolean start() {
-        if(!this.initialized) {
+        if (!this.initialized) {
             this.initialized = true;
             this.loadConfig();
             this.loadFunctions();
@@ -267,7 +267,7 @@ public class DynamicGui {
                             .getDeclaredConstructor()
                             .newInstance());
                 } catch (InstantiationException | IllegalAccessException |
-                        InvocationTargetException | NoSuchMethodException e) {
+                         InvocationTargetException | NoSuchMethodException e) {
                     e.printStackTrace();
                 }
             }

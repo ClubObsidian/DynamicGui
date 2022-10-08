@@ -17,14 +17,10 @@
 package com.clubobsidian.dynamicgui.api.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;

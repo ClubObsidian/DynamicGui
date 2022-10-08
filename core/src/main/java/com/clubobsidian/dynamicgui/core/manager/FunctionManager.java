@@ -16,16 +16,16 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
-import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
 import java.util.ArrayList;
@@ -160,7 +160,7 @@ public class FunctionManager {
             future.complete(returnValue.get());
         }
         boolean foundFail = false;
-        for (int i = 0 ; i < functionNodes.size(); i++) {
+        for (int i = 0; i < functionNodes.size(); i++) {
             FunctionNode node = functionNodes.get(i);
             FunctionToken functionToken = node.getToken();
             List<FunctionType> types = functionToken.getTypes();
@@ -202,7 +202,7 @@ public class FunctionManager {
                                                 playerWrapper, future, returnValue);
                                     }
                                 });
-                    } else if(i == functionNodes.size() - 1 && !foundFail) {
+                    } else if (i == functionNodes.size() - 1 && !foundFail) {
                         future.complete(returnValue.get());
                     }
                 }
@@ -310,9 +310,9 @@ public class FunctionManager {
 
     private void cleanupAsync(UUID uuid, Function function) {
         Map<Function, AtomicInteger> map = this.runningAsyncFunctions.get(uuid);
-        if(map != null) {
+        if (map != null) {
             AtomicInteger num = map.get(function);
-            if(num != null) {
+            if (num != null) {
                 int ret = num.decrementAndGet();
                 if (ret <= 0) { //Less than 0 shouldn't happen but just to ensure that the map gets cleaned up
                     map.remove(function);

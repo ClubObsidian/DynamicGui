@@ -17,33 +17,31 @@
 package com.clubobsidian.dynamicgui.core.inject.module;
 
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
-import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
-import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.factory.FunctionDataFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.FunctionTokenFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
-import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
-import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.google.inject.Binder;
@@ -85,7 +83,8 @@ public abstract class PluginModule implements Module {
 
     @Override
     public void configure(Binder binder) {
-        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {}).toInstance(this.logger);
+        binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
+        }).toInstance(this.logger);
 
         //Factories
         binder.bind(FunctionTreeFactory.class).to(FunctionTreeFactoryImpl.class);
@@ -93,7 +92,8 @@ public abstract class PluginModule implements Module {
         binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class);
         binder.bind(GuiFactory.class).to(GuiFactoryImpl.class);
 
-        binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>(){}).toInstance(this.commandManager);
+        binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>() {
+        }).toInstance(this.commandManager);
         binder.bind(CommandRegistrar.class).to(CommandRegistrarImpl.class).asEagerSingleton();
 
         binder.bind(EntityManager.class).to(this.entityClass);

@@ -25,6 +25,6 @@ public interface MacroParser extends Serializable {
 
     String parseStringMacros(final String replaceIn);
 
-    @SuppressWarnings("unchecked")
     List<String> parseListMacros(final List<String> replaceIn);
+
 }

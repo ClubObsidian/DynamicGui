@@ -17,15 +17,15 @@
 package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
-import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 
 import java.util.ArrayList;
@@ -64,10 +64,10 @@ public class SimpleSlot implements Slot {
     private boolean update;
 
     public SimpleSlot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
-                boolean movable, Boolean close, List<String> lore,
-                List<EnchantmentWrapper> enchants, List<String> itemFlags,
-                String modelProvider, String modelData,
-                FunctionTree functions, int updateInterval, Map<String, String> metadata) {
+                      boolean movable, Boolean close, List<String> lore,
+                      List<EnchantmentWrapper> enchants, List<String> itemFlags,
+                      String modelProvider, String modelData,
+                      FunctionTree functions, int updateInterval, Map<String, String> metadata) {
         this.icon = icon;
         this.data = data;
         this.name = name;

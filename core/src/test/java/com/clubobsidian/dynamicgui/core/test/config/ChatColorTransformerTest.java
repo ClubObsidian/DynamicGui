@@ -17,7 +17,6 @@
 package com.clubobsidian.dynamicgui.core.test.config;
 
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.wrappy.transformer.NodeTransformer;
 import org.junit.jupiter.api.Test;
 

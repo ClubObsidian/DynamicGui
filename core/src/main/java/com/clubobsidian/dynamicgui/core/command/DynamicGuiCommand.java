@@ -21,11 +21,11 @@ import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.Constant;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
@@ -66,7 +66,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     @CommandMethod("dynamicgui|dyngui close all [guiName]")
     @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
     private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
-        if(guiName == null) {
+        if (guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
             for (UUID uuid : GuiManager.get().getPlayerGuis().keySet()) {
                 PlayerWrapper<?> playerWrapper = this.platform.getPlayer(uuid);

@@ -18,13 +18,13 @@ package com.clubobsidian.dynamicgui.core.test.mock.inject;
 
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
+import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockEntityManager;

@@ -17,7 +17,6 @@
 package com.clubobsidian.dynamicgui.api.parser.function;
 
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
-import com.clubobsidian.dynamicgui.api.function.Function;
 
 import javax.inject.Inject;
 import java.io.Serializable;

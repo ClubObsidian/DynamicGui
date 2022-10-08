@@ -16,14 +16,14 @@
 
 package com.clubobsidian.dynamicgui.core.replacer;
 
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 
@@ -33,7 +33,7 @@ import java.util.UUID;
 
 public class PreviousGuiReplacer extends Replacer {
 
-    private Map<UUID, Gui> cachedGuis = new HashMap<>();
+    private final Map<UUID, Gui> cachedGuis = new HashMap<>();
 
     public PreviousGuiReplacer(String toReplace) {
         super(toReplace);

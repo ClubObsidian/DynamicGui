@@ -19,7 +19,6 @@ package com.clubobsidian.dynamicgui.api.parser.function.tree;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface FunctionNode extends Serializable {

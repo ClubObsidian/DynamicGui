@@ -33,7 +33,7 @@ public class ModelManager {
         return instance;
     }
 
-    private Map<String, ModelProvider> registries = new HashMap<>();
+    private final Map<String, ModelProvider> registries = new HashMap<>();
 
     private ModelManager() {
         this.register(new VanillaModelProvider());

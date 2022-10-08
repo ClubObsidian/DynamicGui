@@ -16,35 +16,34 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
-import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
-import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
-import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.HashUtil;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
-import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
-import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
-import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -88,7 +87,7 @@ public class SimpleGuiManager extends GuiManager {
     private final CommandRegistrar commandRegistrar;
     private final Platform platform;
     private final GuiFactory factory;
-    private boolean intialized = false;
+    private final boolean intialized = false;
 
     @Inject
     private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform,
@@ -216,22 +215,22 @@ public class SimpleGuiManager extends GuiManager {
                     int slotSize = slots.size();
                     AtomicInteger slotCount = new AtomicInteger(0);
                     for (int i = 0; i < slotSize; i++) {
-                        if(slotFuture.isDone()) {
+                        if (slotFuture.isDone()) {
                             return;
                         }
                         Slot slot = slots.get(i);
                         FunctionManager.get()
                                 .tryFunctions(slot, FunctionType.LOAD, playerWrapper)
                                 .whenComplete((slotResult, ex) -> {
-                                    if(slotFuture.isDone()) {
+                                    if (slotFuture.isDone()) {
                                         return;
                                     }
-                                    if(ex != null) {
+                                    if (ex != null) {
                                         ex.printStackTrace();
                                         slotFuture.complete(false);
                                     } else {
                                         int count = slotCount.incrementAndGet();
-                                        if(slotSize == count) {
+                                        if (slotSize == count) {
                                             slotFuture.complete(true);
                                         }
                                     }
