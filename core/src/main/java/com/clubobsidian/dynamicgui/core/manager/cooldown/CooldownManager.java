@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown;
+package com.clubobsidian.dynamicgui.core.manager.cooldown;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
@@ -41,7 +41,6 @@ public class CooldownManager {
         if (instance == null) {
             instance = new CooldownManager();
         }
-
         return instance;
     }
 

@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
+import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.trident.EventHandler;
 

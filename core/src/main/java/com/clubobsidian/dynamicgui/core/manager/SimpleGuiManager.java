@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
+package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
@@ -26,12 +27,11 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
-import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.platform.PlatformType;
@@ -408,7 +408,7 @@ public class SimpleGuiManager extends GuiManager {
     private void loadGuiFromConfiguration(String guiName, Configuration config) {
         LoggerWrapper<?> logger = DynamicGui.get().getLogger();
 
-        GuiToken guiToken = new GuiToken(config);
+        GuiToken guiToken = new SimpleGuiToken(config);
         List<MacroToken> guiTokens = new ArrayList<>();
         List<String> loadMacros = guiToken.getLoadMacros();
 

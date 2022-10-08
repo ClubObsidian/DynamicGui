@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
+package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 import com.clubobsidian.dynamicgui.core.registry.model.vanilla.VanillaModelProvider;

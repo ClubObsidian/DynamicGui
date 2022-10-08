@@ -14,29 +14,22 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown;
+package com.clubobsidian.dynamicgui.api.manager.material;
 
-public class Cooldown {
+import javax.inject.Inject;
+import java.util.List;
 
-    private final String name;
-    private final long time;
-    private final long cooldown;
+public abstract class MaterialManager {
 
-    public Cooldown(String name, long time, long cooldown) {
-        this.name = name;
-        this.time = time;
-        this.cooldown = cooldown;
+    @Inject
+    private static MaterialManager instance;
+
+    public static MaterialManager get() {
+        return instance;
     }
 
-    public String getName() {
-        return this.name;
-    }
+    public abstract List<String> getMaterials();
 
-    public long getTime() {
-        return this.time;
-    }
+    public abstract String normalizeMaterial(String material);
 
-    public long getCooldown() {
-        return this.cooldown;
-    }
 }

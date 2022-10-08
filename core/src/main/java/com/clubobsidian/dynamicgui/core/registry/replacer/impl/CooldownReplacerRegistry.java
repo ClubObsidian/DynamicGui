@@ -17,8 +17,8 @@
 package com.clubobsidian.dynamicgui.core.registry.replacer.impl;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown.Cooldown;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown.CooldownManager;
+import com.clubobsidian.dynamicgui.core.manager.cooldown.Cooldown;
+import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
 import org.apache.commons.lang3.StringUtils;
 

@@ -27,7 +27,7 @@ import com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent;
 import com.clubobsidian.dynamicgui.core.gui.InventoryView;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
+import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;

@@ -17,11 +17,13 @@
 package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
@@ -52,9 +54,9 @@ public class SimpleGui implements Gui {
     private final boolean isStatic;
 
     public SimpleGui(String name, String type, String title, int rows, Boolean close,
-               ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
-               List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
-               boolean isStatic) {
+                     ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
+                     List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
+                     boolean isStatic) {
         this.name = name;
         this.type = type;
         this.title = ChatColor.translateAlternateColorCodes(title);
@@ -173,11 +175,11 @@ public class SimpleGui implements Gui {
         return this.metadata;
     }
 
-    public com.clubobsidian.dynamicgui.core.gui.Gui getBack() {
+    public Gui getBack() {
         return this.back;
     }
 
-    public void setBack(com.clubobsidian.dynamicgui.core.gui.Gui back) {
+    public void setBack(Gui back) {
         this.back = back;
     }
 
@@ -188,3 +190,4 @@ public class SimpleGui implements Gui {
     public Gui clone() {
         return SerializationUtils.clone(this);
     }
+}

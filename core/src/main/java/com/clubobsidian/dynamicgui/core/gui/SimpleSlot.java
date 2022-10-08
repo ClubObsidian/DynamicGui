@@ -22,9 +22,9 @@ import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
+import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
+import com.clubobsidian.dynamicgui.core.manager.ModelManager;
+import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 

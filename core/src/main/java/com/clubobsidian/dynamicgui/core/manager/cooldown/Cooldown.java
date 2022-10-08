@@ -14,11 +14,29 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.gui;
+package com.clubobsidian.dynamicgui.core.manager.cooldown;
 
-public enum ModeEnum {
+public class Cooldown {
 
-    SET,
-    ADD
+    private final String name;
+    private final long time;
+    private final long cooldown;
 
+    public Cooldown(String name, long time, long cooldown) {
+        this.name = name;
+        this.time = time;
+        this.cooldown = cooldown;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public long getTime() {
+        return this.time;
+    }
+
+    public long getCooldown() {
+        return this.cooldown;
+    }
 }

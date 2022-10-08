@@ -21,7 +21,6 @@ import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 import com.clubobsidian.trident.EventHandler;
