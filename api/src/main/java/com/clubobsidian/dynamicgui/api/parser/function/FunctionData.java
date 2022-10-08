@@ -36,9 +36,9 @@ public interface FunctionData extends Serializable {
         @Inject
         private static FunctionDataFactory FACTORY;
 
-        private transient String name;
-        private transient String data;
-        private transient FunctionModifier modifier = FunctionModifier.NONE;
+        private String name;
+        private String data;
+        private FunctionModifier modifier = FunctionModifier.NONE;
 
         public Builder setName(String name) {
             this.name = name;
