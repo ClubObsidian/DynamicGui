@@ -17,8 +17,8 @@
 package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.inventory;
+package com.clubobsidian.dynamicgui.api.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 

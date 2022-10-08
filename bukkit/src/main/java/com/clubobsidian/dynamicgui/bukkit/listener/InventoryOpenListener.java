@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

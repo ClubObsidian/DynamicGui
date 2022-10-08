@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.registry.model;
 
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 
 public interface ModelProvider {
 

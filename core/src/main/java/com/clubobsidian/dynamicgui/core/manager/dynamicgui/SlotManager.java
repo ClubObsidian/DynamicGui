@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 
 import java.util.ArrayList;

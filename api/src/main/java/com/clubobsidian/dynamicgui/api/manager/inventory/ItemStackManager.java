@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.inventory;
+package com.clubobsidian.dynamicgui.api.manager.inventory;
 
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.google.inject.Inject;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+
+import javax.inject.Inject;
 
 public abstract class ItemStackManager {
 

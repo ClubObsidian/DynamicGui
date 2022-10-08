@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.command;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.EntityManager;
 
 import java.util.Optional;
 

@@ -18,8 +18,8 @@ package com.clubobsidian.dynamicgui.core.function.impl;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 
 public class SetTypeFunction extends Function {
 
