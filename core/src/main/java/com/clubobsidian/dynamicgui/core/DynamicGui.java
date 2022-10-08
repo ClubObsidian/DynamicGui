@@ -258,7 +258,7 @@ public class DynamicGui {
     private void loadFunctions() {
         try (ScanResult scanResult = new ClassGraph()
                 .enableAllInfo()
-                .acceptPackages(Function.class.getPackageName())
+                .acceptPackages("com.clubobsidian.dynamicgui.core.function")
                 .scan()) {
             for (ClassInfo classInfo : scanResult.getSubclasses(Function.class)) {
                 try {

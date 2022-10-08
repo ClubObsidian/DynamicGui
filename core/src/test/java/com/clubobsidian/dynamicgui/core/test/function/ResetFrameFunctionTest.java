@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.ResetFrameFunction;
+import com.clubobsidian.dynamicgui.core.function.ResetFrameFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 

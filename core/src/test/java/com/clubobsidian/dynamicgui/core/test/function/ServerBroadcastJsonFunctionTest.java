@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.ServerBroadcastJsonFunction;
+import com.clubobsidian.dynamicgui.core.function.ServerBroadcastJsonFunction;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.MiniMessageManager;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;

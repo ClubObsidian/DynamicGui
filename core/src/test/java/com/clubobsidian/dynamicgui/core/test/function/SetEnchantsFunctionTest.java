@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SetEnchantsFunction;
+import com.clubobsidian.dynamicgui.core.function.SetEnchantsFunction;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
