@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.function.impl;
 
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 
 public class ParticleFunction extends Function {

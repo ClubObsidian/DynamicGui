@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.event;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 
 public class InventoryEvent extends PlayerEvent {

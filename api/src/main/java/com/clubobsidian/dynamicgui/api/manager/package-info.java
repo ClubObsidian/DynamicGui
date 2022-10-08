@@ -14,17 +14,4 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.entity;
-
-public abstract class EntityWrapper<T> {
-
-    public T entity;
-
-    public EntityWrapper(T entity) {
-        this.entity = entity;
-    }
-
-    public T getEntity() {
-        return this.entity;
-    }
-}
+package com.clubobsidian.dynamicgui.api.manager;

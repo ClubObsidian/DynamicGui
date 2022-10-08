@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.permission;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

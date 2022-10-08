@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.effect;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.Serializable;

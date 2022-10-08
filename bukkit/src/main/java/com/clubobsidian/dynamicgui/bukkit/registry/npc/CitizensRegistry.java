@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.npc;
 
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCMeta;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;

@@ -14,20 +14,17 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer.impl;
+package com.clubobsidian.dynamicgui.api.entity;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.replacer.Replacer;
+public abstract class EntityWrapper<T> {
 
-public class GlobalPlayerCountReplacer extends Replacer {
+    public T entity;
 
-    public GlobalPlayerCountReplacer(String toReplace) {
-        super(toReplace);
+    public EntityWrapper(T entity) {
+        this.entity = entity;
     }
 
-    @Override
-    public String replacement(String text, PlayerWrapper<?> playerWrapper) {
-        return String.valueOf(DynamicGui.get().getPlatform().getGlobalPlayerCount());
+    public T getEntity() {
+        return this.entity;
     }
 }

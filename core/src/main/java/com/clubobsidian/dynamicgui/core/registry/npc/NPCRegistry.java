@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.registry.npc;
 
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 
 public interface NPCRegistry {
 

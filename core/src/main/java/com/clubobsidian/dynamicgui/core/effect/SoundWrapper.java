@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.effect;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
 import java.io.Serializable;
 import java.util.Objects;

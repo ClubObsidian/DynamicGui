@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager.entity;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.google.inject.Inject;
 
 import java.util.List;

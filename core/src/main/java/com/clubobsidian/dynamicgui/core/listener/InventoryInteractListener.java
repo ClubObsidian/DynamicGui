@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.listener;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent;

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.entity;
+package com.clubobsidian.dynamicgui.api.entity;
 
 import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;

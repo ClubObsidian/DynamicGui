@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.function;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationException;

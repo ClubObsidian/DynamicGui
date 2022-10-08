@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.replacer.impl;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.replacer.Replacer;
 
 public class PlayerLevelReplacer extends Replacer {
