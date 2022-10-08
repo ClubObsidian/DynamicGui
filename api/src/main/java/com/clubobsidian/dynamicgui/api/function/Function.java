@@ -137,33 +137,4 @@ public abstract class Function implements Cloneable, Serializable {
     public int hashCode() {
         return Objects.hash(name, async, aliases);
     }
-
-    public static class Builder {
-
-        @Inject
-        private static FunctionDataFactory FACTORY;
-        
-        private transient String name;
-        private transient String data;
-        private transient FunctionModifier modifier = FunctionModifier.NONE;
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder setData(String data) {
-            this.data = data;
-            return this;
-        }
-
-        public Builder setModifier(FunctionModifier modifier) {
-            this.modifier = modifier;
-            return this;
-        }
-
-        public FunctionData build() {
-            return FACTORY.create(this.name, this.data, this.modifier);
-        }
-    }
 }

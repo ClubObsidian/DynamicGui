@@ -63,7 +63,7 @@ public interface FunctionToken extends Serializable {
         }
 
         public Builder addFunction(String name, String data, FunctionModifier modifier) {
-            return this.addFunction(new Function.Builder()
+            return this.addFunction(new FunctionData.Builder()
                     .setName(name)
                     .setData(data)
                     .setModifier(modifier)
@@ -88,7 +88,7 @@ public interface FunctionToken extends Serializable {
         }
 
         public Builder addFailOnFunction(String name, String data, FunctionModifier modifier) {
-            return this.addFailOnFunction(new Function.Builder()
+            return this.addFailOnFunction(new FunctionData.Builder()
                     .setName(name)
                     .setData(data)
                     .setModifier(modifier)
