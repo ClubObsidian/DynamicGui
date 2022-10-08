@@ -44,12 +44,10 @@ public class PreviousGuiReplacer extends Replacer {
     @Override
     public String replacement(String text, PlayerWrapper<?> playerWrapper) {
         Gui gui = this.cachedGuis.get(playerWrapper.getUniqueId());
-        System.out.println("gui: " + gui);
         if (gui == null) {
             return null;
         }
         Gui prev = gui.getBack();
-        System.out.println("prev: " + prev);
         if (prev == null) {
             return null;
         }
