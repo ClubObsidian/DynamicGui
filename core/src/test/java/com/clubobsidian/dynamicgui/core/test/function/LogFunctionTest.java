@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.function.Function;
+import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.LogFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
 import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;

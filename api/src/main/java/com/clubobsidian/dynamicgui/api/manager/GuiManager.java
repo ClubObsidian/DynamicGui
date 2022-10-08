@@ -35,6 +35,7 @@ public abstract class GuiManager {
     }
 
     public abstract boolean isGuiLoaded(String name);
+
     public abstract Gui getGui(String name);
 
     public abstract void reloadGuis(boolean force);

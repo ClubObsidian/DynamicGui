@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.GuiManager;
-import com.clubobsidian.dynamicgui.core.function.Function;
+import com.clubobsidian.dynamicgui.api.function.Function;
 
 public class SetBackFunction extends Function {
 
