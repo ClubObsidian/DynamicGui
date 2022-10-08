@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.manager;
+package com.clubobsidian.dynamicgui.api.manager.entity;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
