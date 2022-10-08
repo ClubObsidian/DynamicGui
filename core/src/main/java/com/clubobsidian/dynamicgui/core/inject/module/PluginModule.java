@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
@@ -99,7 +100,7 @@ public abstract class PluginModule implements Module {
         binder.bind(FunctionTokenFactory.class).to(FunctionTokenFactoryImpl.class);
         binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class);
 
-        binder.requestStaticInjection(Function.Builder.class);
+        binder.requestStaticInjection(FunctionData.Builder.class);
         binder.requestStaticInjection(FunctionToken.Builder.class);
 
         binder.requestStaticInjection(EntityManager.class);
