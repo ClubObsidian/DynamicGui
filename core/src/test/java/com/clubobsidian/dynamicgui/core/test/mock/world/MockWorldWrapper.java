@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.world;
 
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 
 public class MockWorldWrapper extends WorldWrapper<MockWorld> {
 

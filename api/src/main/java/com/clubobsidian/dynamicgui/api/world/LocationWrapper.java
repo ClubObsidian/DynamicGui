@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.world;
+package com.clubobsidian.dynamicgui.api.world;
 
 import java.io.Serializable;
 

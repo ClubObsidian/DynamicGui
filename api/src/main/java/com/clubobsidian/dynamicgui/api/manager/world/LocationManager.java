@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.world;
+package com.clubobsidian.dynamicgui.api.manager.world;
 
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
-import com.google.inject.Inject;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+
+import javax.inject.Inject;
 
 public abstract class LocationManager {
 

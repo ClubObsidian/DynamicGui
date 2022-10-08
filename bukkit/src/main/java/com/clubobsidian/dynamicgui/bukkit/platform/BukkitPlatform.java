@@ -28,7 +28,7 @@ import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;

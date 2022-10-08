@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.GetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
