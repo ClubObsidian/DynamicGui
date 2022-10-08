@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.function.impl.SetCloseFunction;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockCloseableFunctionOwner;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;

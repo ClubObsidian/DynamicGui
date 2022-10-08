@@ -17,8 +17,11 @@
 package com.clubobsidian.dynamicgui.core.function.impl.gui;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 
 import java.util.concurrent.ExecutionException;
@@ -40,7 +43,7 @@ public class GuiFunction extends Function {
         if (gui == null) {
             return false;
         }
-        if (!SimpleGuiManager.get().isGuiLoaded(gui)) {
+        if (!GuiManager.get().isGuiLoaded(gui)) {
             return false;
         }
 
@@ -61,7 +64,7 @@ public class GuiFunction extends Function {
         }
         back.setClose(false);
         try {
-            return SimpleGuiManager.get().openGui(playerWrapper, gui, back).get();
+            return GuiManager.get().openGui(playerWrapper, gui, back).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return false;

@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
@@ -40,11 +43,11 @@ public class InventoryInteractListener {
     @EventHandler
     public void invClick(final InventoryClickEvent e) {
         PlayerWrapper<?> player = e.getPlayerWrapper();
-        if (!SimpleGuiManager.get().hasGuiOpen(player)) {
+        if (!GuiManager.get().hasGuiOpen(player)) {
             return;
         }
 
-        Gui gui = SimpleGuiManager.get().getPlayerGui(player);
+        Gui gui = GuiManager.get().getPlayerGui(player);
 
         Slot slot = this.getSlotFromIndex(gui, e.getSlot());
         if (slot == null && e.getView() != InventoryView.BOTTOM) {
@@ -97,11 +100,11 @@ public class InventoryInteractListener {
     @EventHandler
     public void onDrag(InventoryDragEvent e) {
         PlayerWrapper<?> player = e.getPlayerWrapper();
-        if (!SimpleGuiManager.get().hasGuiOpen(player)) {
+        if (!GuiManager.get().hasGuiOpen(player)) {
             return;
         }
 
-        Gui gui = SimpleGuiManager.get().getPlayerGui(player);
+        Gui gui = GuiManager.get().getPlayerGui(player);
 
         Iterator<Entry<Integer, ItemStackWrapper<?>>> it = e.getSlotItems().entrySet().iterator();
         while (it.hasNext()) {

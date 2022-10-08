@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core;
 
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
@@ -206,7 +207,7 @@ public class DynamicGui {
     }
 
     private void loadGuis() {
-        SimpleGuiManager.get(); //Initialize manager
+        GuiManager.get(); //Initialize manager
     }
 
     public void checkForProxy() {

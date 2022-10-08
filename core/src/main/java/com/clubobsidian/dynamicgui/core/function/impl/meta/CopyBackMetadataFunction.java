@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core.function.impl.meta;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 
 public class CopyBackMetadataFunction extends Function {
 

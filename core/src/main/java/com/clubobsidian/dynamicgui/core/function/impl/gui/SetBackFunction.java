@@ -17,9 +17,10 @@
 package com.clubobsidian.dynamicgui.core.function.impl.gui;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 
 public class SetBackFunction extends Function {
 
@@ -49,7 +50,7 @@ public class SetBackFunction extends Function {
             return false;
         }
 
-        Gui backGui = SimpleGuiManager.get().getGui(this.getData());
+        Gui backGui = GuiManager.get().getGui(this.getData());
         if (backGui == null) {
             return false;
         }

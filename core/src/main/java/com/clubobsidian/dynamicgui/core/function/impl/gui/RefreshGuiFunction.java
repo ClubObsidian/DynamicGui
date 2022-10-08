@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core.function.impl.gui;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 
 public class RefreshGuiFunction extends Function {
 

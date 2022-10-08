@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.replacer.impl;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
@@ -74,7 +76,7 @@ public class PreviousGuiReplacer extends Replacer {
         PlayerWrapper<?> wrapper = event.getPlayerWrapper();
         UUID uuid = wrapper.getUniqueId();
         Gui gui = this.cachedGuis.get(uuid);
-        if (gui != null && gui.equals(SimpleGuiManager.get().getPlayerGui(wrapper))) {
+        if (gui != null && gui.equals(GuiManager.get().getPlayerGui(wrapper))) {
             this.cachedGuis.remove(uuid);
         }
     }

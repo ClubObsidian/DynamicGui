@@ -21,6 +21,8 @@ import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
@@ -49,7 +51,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
     private void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
-        SimpleGuiManager.get().reloadGuis(false);
+        GuiManager.get().reloadGuis(false);
         DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
     }
 
@@ -57,7 +59,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
     private void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
-        SimpleGuiManager.get().reloadGuis(true);
+        GuiManager.get().reloadGuis(true);
         DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
     }
 
@@ -66,19 +68,19 @@ public class DynamicGuiCommand implements RegisteredCommand {
     private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
         if(guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
-            for (UUID uuid : SimpleGuiManager.get().getPlayerGuis().keySet()) {
+            for (UUID uuid : GuiManager.get().getPlayerGuis().keySet()) {
                 PlayerWrapper<?> playerWrapper = this.platform.getPlayer(uuid);
                 if (playerWrapper != null) {
                     playerWrapper.closeInventory();
                 }
             }
         } else {
-            Gui gui = SimpleGuiManager.get().getGui(guiName);
+            Gui gui = GuiManager.get().getGui(guiName);
             if (gui == null) {
                 sender.sendMessage("No gui can be found by that name");
             } else {
                 sender.sendMessage(String.format("Guis of type %s are now closed", guiName));
-                Iterator<Map.Entry<UUID, Gui>> it = SimpleGuiManager.get().getPlayerGuis().entrySet().iterator();
+                Iterator<Map.Entry<UUID, Gui>> it = GuiManager.get().getPlayerGuis().entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry<UUID, Gui> next = it.next();
                     UUID uuid = next.getKey();
@@ -98,7 +100,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
         if (player == null) {
             sender.sendMessage("That player is not online, so their gui cannot be closed");
         } else {
-            if (SimpleGuiManager.get().getPlayerGuis().get(player.getUniqueId()) != null) {
+            if (GuiManager.get().getPlayerGuis().get(player.getUniqueId()) != null) {
                 sender.sendMessage(String.format("%s's gui has been closed", playerName));
                 player.closeInventory();
             } else {

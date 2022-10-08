@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.event.block.PlayerInteractEvent;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
@@ -26,15 +28,15 @@ public class PlayerInteractListener {
     @EventHandler
     public void playerInteract(final PlayerInteractEvent e) {
         if (e.getAction().isBlockClick()) {
-            if (SimpleGuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
+            if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
                 return;
             }
 
-            for (Gui gui : SimpleGuiManager.get().getGuis()) {
+            for (Gui gui : GuiManager.get().getGuis()) {
                 if (gui.getLocations() != null) {
                     for (LocationWrapper<?> guiLocation : gui.getLocations()) {
                         if (e.getLocationWrapper().equals(guiLocation)) {
-                            SimpleGuiManager.get().openGui(e.getPlayerWrapper(), gui);
+                            GuiManager.get().openGui(e.getPlayerWrapper(), gui);
                             e.setCancelled(true);
                             break;
                         }

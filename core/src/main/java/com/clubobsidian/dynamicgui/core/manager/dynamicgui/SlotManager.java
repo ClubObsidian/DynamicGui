@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
@@ -47,7 +50,7 @@ public class SlotManager {
     private void updateSlots() {
         DynamicGui.get().getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
             Map<Gui, Collection<Slot>> updatedStaticGui = new HashMap<>();
-            for (Entry<UUID, Gui> next : SimpleGuiManager.get().getPlayerGuis().entrySet()) {
+            for (Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
                 UUID key = next.getKey();
                 PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
                 Gui gui = next.getValue();

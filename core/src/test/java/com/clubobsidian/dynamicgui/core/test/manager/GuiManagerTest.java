@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.manager;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
@@ -31,18 +33,18 @@ public class GuiManagerTest extends FactoryTest {
 
     @Test
     public void testGetGuiNotNull() {
-        Gui gui = SimpleGuiManager.get().getGui(TEST_GUI);
+        Gui gui = GuiManager.get().getGui(TEST_GUI);
         assertNotNull(gui);
     }
 
     @Test
     public void testHasGui() {
-        assertTrue(SimpleGuiManager.get().isGuiLoaded(TEST_GUI));
+        assertTrue(GuiManager.get().isGuiLoaded(TEST_GUI));
     }
 
     @Test
     public void testGetGuis() {
-        List<Gui> guis = SimpleGuiManager.get().getGuis();
+        List<Gui> guis = GuiManager.get().getGuis();
         assertNotNull(guis);
         assertTrue(guis.size() > 1);
     }

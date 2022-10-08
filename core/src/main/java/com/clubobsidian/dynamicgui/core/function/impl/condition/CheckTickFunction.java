@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.core.function.impl.condition;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
 import com.udojava.evalex.Expression;
 
 public class CheckTickFunction extends Function {
