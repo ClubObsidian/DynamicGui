@@ -14,16 +14,15 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer;
+package com.clubobsidian.dynamicgui.api.replacer;
 
-import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
-public abstract class AnimationReplacer {
+public abstract class Replacer {
 
     private final String toReplace;
 
-    public AnimationReplacer(String toReplace) {
+    public Replacer(String toReplace) {
         this.toReplace = toReplace;
     }
 
@@ -31,5 +30,5 @@ public abstract class AnimationReplacer {
         return this.toReplace;
     }
 
-    public abstract String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text);
+    public abstract String replacement(String text, PlayerWrapper<?> playerWrapper);
 }

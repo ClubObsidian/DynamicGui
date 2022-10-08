@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.replacer.animation.impl;
 
 import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.replacer.AnimationReplacer;
+import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
 
 public class MultiLineTestAnimationReplacer extends AnimationReplacer {
 

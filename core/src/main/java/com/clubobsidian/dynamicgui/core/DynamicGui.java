@@ -43,7 +43,7 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.impl.CooldownReplacerR
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.impl.MetadataReplacerRegistry;
-import com.clubobsidian.dynamicgui.core.replacer.Replacer;
+import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
