@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
 import java.math.BigDecimal;

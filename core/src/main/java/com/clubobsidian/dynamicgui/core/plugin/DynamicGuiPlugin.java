@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.plugin;
 
-import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 

@@ -37,7 +37,7 @@ import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;

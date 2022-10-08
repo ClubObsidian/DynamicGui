@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.economy;
+package com.clubobsidian.dynamicgui.api.economy;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
