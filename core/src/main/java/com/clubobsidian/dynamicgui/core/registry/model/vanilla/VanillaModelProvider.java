@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.registry.model.vanilla;
 
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 import org.apache.commons.lang3.math.NumberUtils;
 

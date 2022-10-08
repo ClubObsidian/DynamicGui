@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.model;
 
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 

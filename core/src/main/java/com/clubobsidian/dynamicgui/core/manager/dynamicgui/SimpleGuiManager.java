@@ -29,7 +29,7 @@ import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
