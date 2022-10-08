@@ -14,17 +14,12 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.factory;
+package com.clubobsidian.dynamicgui.api.factory;
 
-import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
-import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 
-public class FunctionDataFactoryImpl implements FunctionDataFactory {
+public interface FunctionTreeFactory {
 
-    @Override
-    public FunctionData create(String name, String data, FunctionModifier modifier) {
-        return new SimpleFunctionData(name, data, modifier);
-    }
+    FunctionTree create();
+
 }

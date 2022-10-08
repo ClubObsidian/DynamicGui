@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionToken;
 import java.util.List;
 
 public class FunctionTokenFactoryImpl implements FunctionTokenFactory {
+
     @Override
     public FunctionToken create(String name,
                                 List<FunctionType> types,

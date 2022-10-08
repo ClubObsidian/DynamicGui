@@ -16,15 +16,14 @@
 
 package com.clubobsidian.dynamicgui.core.factory;
 
-import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
-import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionData;
+import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 
-public class FunctionDataFactoryImpl implements FunctionDataFactory {
+public class FunctionTreeFactoryImpl implements FunctionTreeFactory {
 
     @Override
-    public FunctionData create(String name, String data, FunctionModifier modifier) {
-        return new SimpleFunctionData(name, data, modifier);
+    public FunctionTree create() {
+        return new SimpleFunctionTree();
     }
 }

@@ -14,28 +14,22 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.test.mock.gui;
+package com.clubobsidian.dynamicgui.api.factory;
 
-import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
-import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
-public class MockCloseableFunctionOwner implements FunctionOwner, CloseableComponent {
+import java.util.List;
+import java.util.Map;
 
-    private Boolean close;
+public interface GuiFactory {
 
-    @Override
-    public FunctionTree getFunctions() {
-        return null;
-    }
+    Gui create(String name, String type, String title, int rows, Boolean close,
+               ModeEnum modeEnum, Map<String, List<Integer>> npcIds, List<Slot> slots,
+               List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
+               boolean isStatic);
 
-    @Override
-    public Boolean getClose() {
-        return this.close;
-    }
-
-    @Override
-    public void setClose(Boolean close) {
-        this.close = close;
-    }
 }

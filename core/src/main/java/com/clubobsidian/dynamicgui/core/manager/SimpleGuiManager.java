@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
+import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
@@ -86,10 +87,12 @@ public class SimpleGuiManager extends GuiManager {
     private final Set<String> modifiedMacros = new HashSet<>();
     private final CommandRegistrar commandRegistrar;
     private final Platform platform;
+    private final GuiFactory factory;
     private boolean intialized = false;
 
     @Inject
-    private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform) {
+    private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform,
+                             GuiFactory factory) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
@@ -99,6 +102,7 @@ public class SimpleGuiManager extends GuiManager {
         this.globalMacrosTimestamps = new HashMap<>();
         this.commandRegistrar = commandRegistrar;
         this.platform = platform;
+        this.factory = factory;
     }
 
     public boolean isGuiLoaded(String name) {
@@ -514,7 +518,7 @@ public class SimpleGuiManager extends GuiManager {
 
         boolean isStatic = guiToken.isStatic();
 
-        return new SimpleGui(guiName, type, title, rows, close, modeEnum,
+        return this.factory.create(guiName, type, title, rows, close, modeEnum,
                 npcIds, slots, locations, guiToken.getFunctions(), metadata,
                 isStatic);
     }
