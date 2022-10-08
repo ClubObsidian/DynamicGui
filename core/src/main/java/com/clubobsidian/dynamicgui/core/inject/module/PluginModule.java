@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.inject.module;
 
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
@@ -84,7 +85,7 @@ public abstract class PluginModule implements Module {
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
         binder.bind(Platform.class).toInstance(this.platform);
 
-        binder.bind(SimpleGuiManager.class);
+        binder.bind(GuiManager.class).to(SimpleGuiManager.class);
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
@@ -94,7 +95,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(ItemStackManager.class);
         binder.requestStaticInjection(MaterialManager.class);
         binder.requestStaticInjection(LocationManager.class);
-        binder.requestStaticInjection(SimpleGuiManager.class);
+        binder.requestStaticInjection(GuiManager.class);
         binder.requestStaticInjection(DynamicGui.class);
     }
 
