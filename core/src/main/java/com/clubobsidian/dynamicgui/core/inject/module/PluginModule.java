@@ -17,13 +17,18 @@
 package com.clubobsidian.dynamicgui.core.inject.module;
 
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
+import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.core.factory.FunctionDataFactoryImpl;
+import com.clubobsidian.dynamicgui.core.factory.FunctionTokenFactoryImpl;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
@@ -89,6 +94,11 @@ public abstract class PluginModule implements Module {
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
+
+        binder.bind(FunctionTokenFactory.class).to(FunctionTokenFactoryImpl.class);
+        binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class);
+
+        binder.requestStaticInjection(FunctionToken.Builder.class);
 
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);

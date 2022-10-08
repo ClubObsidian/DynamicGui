@@ -16,8 +16,14 @@
 
 package com.clubobsidian.dynamicgui.api.parser.function;
 
+import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
+import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
+
+import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public interface FunctionToken extends Serializable {
 
@@ -29,4 +35,75 @@ public interface FunctionToken extends Serializable {
 
     List<FunctionData> getFailOnFunctions();
 
+    final class Builder {
+
+        @Inject
+        private static FunctionTokenFactory TOKEN_FACTORY;
+        @Inject
+        private static FunctionDataFactory DATA_FACTORY;
+
+        private final String name = UUID.randomUUID().toString();
+        private final List<FunctionType> types = new ArrayList<>();
+        private final List<FunctionData> functions = new ArrayList<>();
+        private final List<FunctionData> failOnFunctions = new ArrayList<>();
+
+        public Builder addType(String type) {
+            FunctionType functionType = FunctionType.valueOf(type.toUpperCase());
+            this.types.add(functionType);
+            return this;
+        }
+
+        public Builder addType(String... types) {
+            for (String t : types) {
+                this.addType(t);
+            }
+            return this;
+        }
+
+        public Builder addFunction(String name, String data) {
+            return this.addFunction(name, data, FunctionModifier.NONE);
+        }
+
+        public Builder addFunction(String name, String data, FunctionModifier modifier) {
+            return this.addFunction(DATA_FACTORY.create(name, data, modifier));
+        }
+
+        public Builder addFunction(FunctionData data) {
+            this.functions.add(data);
+            return this;
+        }
+
+        public Builder addFunction(FunctionData... datas) {
+            for (FunctionData data : datas) {
+                this.addFunction(data);
+            }
+
+            return this;
+        }
+
+        public Builder addFailOnFunction(String name, String data) {
+            return this.addFailOnFunction(name, data, FunctionModifier.NONE);
+        }
+
+        public Builder addFailOnFunction(String name, String data, FunctionModifier modifier) {
+            return this.addFailOnFunction(new FunctionData(name, data, modifier));
+        }
+
+        public Builder addFailOnFunction(FunctionData data) {
+            this.failOnFunctions.add(data);
+            return this;
+        }
+
+        public Builder addFailOnFunction(FunctionData... datas) {
+            for (FunctionData data : datas) {
+                this.addFunction(data);
+            }
+
+            return this;
+        }
+
+        public FunctionToken build() {
+            return TOKEN_FACTORY.create(this.name, this.types, this.functions, this.failOnFunctions);
+        }
+    }
 }
