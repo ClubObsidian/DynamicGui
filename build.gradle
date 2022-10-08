@@ -8,7 +8,7 @@ plugins {
 }
 
 def projectGroup = 'com.clubobsidian'
-def projectVersion = '5.0.1'
+def projectVersion = '6.0.0'
 
 allprojects {
 	group projectGroup
