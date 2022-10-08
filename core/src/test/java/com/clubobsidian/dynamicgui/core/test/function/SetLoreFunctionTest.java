@@ -18,6 +18,8 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.core.function.SetLoreFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;

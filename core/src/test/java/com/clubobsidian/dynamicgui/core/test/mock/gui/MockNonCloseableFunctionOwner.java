@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.gui;
 
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 
 public class MockNonCloseableFunctionOwner implements FunctionOwner {

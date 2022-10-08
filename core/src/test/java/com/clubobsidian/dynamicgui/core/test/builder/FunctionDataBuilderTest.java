@@ -16,19 +16,18 @@
 
 package com.clubobsidian.dynamicgui.core.test.builder;
 
-import com.clubobsidian.dynamicgui.core.builder.FunctionBuilder;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FunctionBuilderTest {
+public class FunctionDataBuilderTest {
 
     @Test
     public void nameTest() {
         String functionName = "test";
-        FunctionData function = new FunctionBuilder()
+        FunctionData function = new FunctionData.Builder()
                 .setName(functionName)
                 .build();
         assertEquals(functionName, function.getName());
@@ -37,7 +36,7 @@ public class FunctionBuilderTest {
     @Test
     public void dataTest() {
         String functionData = "data";
-        FunctionData function = new FunctionBuilder()
+        FunctionData function = new FunctionData.Builder()
                 .setData(functionData)
                 .build();
         assertEquals(functionData, function.getData());
@@ -46,7 +45,7 @@ public class FunctionBuilderTest {
     @Test
     public void modifierTest() {
         FunctionModifier functionModifier = FunctionModifier.NOT;
-        FunctionData function = new FunctionBuilder()
+        FunctionData function = new FunctionData.Builder()
                 .setModifier(functionModifier)
                 .build();
         assertEquals(functionModifier, function.getModifier());
