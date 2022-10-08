@@ -48,7 +48,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui reload")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
     private void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
         GuiManager.get().reloadGuis(false);
@@ -56,7 +56,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui forcereload")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
     private void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
         GuiManager.get().reloadGuis(true);
@@ -64,7 +64,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui close all [guiName]")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
     private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
         if(guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
@@ -94,7 +94,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui close <playerName>")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
     private void closePlayer(GuiCommandSender sender, @Argument("playerName") String playerName) {
         PlayerWrapper<?> player = this.platform.getPlayer(playerName);
         if (player == null) {
@@ -110,7 +110,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui list")
-    @CommandPermission(Constant.DYNAMIC_GUI_LIST_PERMISSION)
+    @CommandPermission(Constant.LIST_COMMAND_PERMISSION)
     private void guiList(GuiCommandSender sender) {
         List<String> guiNames = SimpleGuiManager
                 .get()
