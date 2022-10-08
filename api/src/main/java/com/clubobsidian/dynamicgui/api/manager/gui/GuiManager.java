@@ -14,10 +14,11 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.manager;
+package com.clubobsidian.dynamicgui.api.manager.gui;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.EntityManager;
 
 import javax.inject.Inject;
 import java.util.List;

@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.manager;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.clubobsidian.dynamicgui.api.manager.GuiManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;

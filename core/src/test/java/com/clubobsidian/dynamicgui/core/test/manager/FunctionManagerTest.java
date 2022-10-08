@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.manager;
 
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.clubobsidian.dynamicgui.api.manager.GuiManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
