@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.gui;
+package com.clubobsidian.dynamicgui.api.component;
 
 public interface CloseableComponent {
 

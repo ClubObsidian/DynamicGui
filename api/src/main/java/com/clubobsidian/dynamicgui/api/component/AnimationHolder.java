@@ -14,10 +14,18 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.gui.property.animation;
+package com.clubobsidian.dynamicgui.api.component;
 
-public interface Refreshable {
+public interface AnimationHolder extends Refreshable {
 
-    int getUpdateInterval();
+    int getCurrentTick();
+
+    void resetTick();
+
+    int tick();
+
+    int getFrame();
+
+    void resetFrame();
 
 }

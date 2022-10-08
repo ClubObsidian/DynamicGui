@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.gui;
 
+import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
