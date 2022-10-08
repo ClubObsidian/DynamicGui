@@ -14,20 +14,21 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer.animation.impl;
+package com.clubobsidian.dynamicgui.core.replacer.animation;
 
 import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
 
-public class TestAnimationReplacer extends AnimationReplacer {
+public class MultiLineTestAnimationReplacer extends AnimationReplacer {
 
-    public TestAnimationReplacer(String toReplace) {
+    public MultiLineTestAnimationReplacer(String toReplace) {
         super(toReplace);
     }
 
     @Override
     public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) {
-        return String.valueOf(holder.getCurrentTick());
+        int tick = holder.getCurrentTick();
+        return tick + "\n" + tick + "\n" + tick;
     }
 }

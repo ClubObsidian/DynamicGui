@@ -14,19 +14,19 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer.impl;
+package com.clubobsidian.dynamicgui.core.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 
-public class PlayerReplacer extends Replacer {
+public class PlayerLevelReplacer extends Replacer {
 
-    public PlayerReplacer(String toReplace) {
+    public PlayerLevelReplacer(String toReplace) {
         super(toReplace);
     }
 
     @Override
     public String replacement(String text, PlayerWrapper<?> player) {
-        return player.getName();
+        return String.valueOf(player.getLevel());
     }
 }

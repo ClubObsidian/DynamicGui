@@ -14,19 +14,20 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer.impl;
+package com.clubobsidian.dynamicgui.core.replacer.animation;
 
+import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.replacer.Replacer;
+import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
 
-public class UUIDReplacer extends Replacer {
+public class TestAnimationReplacer extends AnimationReplacer {
 
-    public UUIDReplacer(String toReplace) {
+    public TestAnimationReplacer(String toReplace) {
         super(toReplace);
     }
 
     @Override
-    public String replacement(String text, PlayerWrapper<?> player) {
-        return player.getUniqueId().toString();
+    public String replacement(PlayerWrapper<?> playerWrapper, AnimationHolder holder, String text) {
+        return String.valueOf(holder.getCurrentTick());
     }
 }

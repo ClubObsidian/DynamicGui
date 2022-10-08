@@ -20,8 +20,8 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.core.registry.replacer.AnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
-import com.clubobsidian.dynamicgui.core.replacer.animation.impl.MultiLineTestAnimationReplacer;
-import com.clubobsidian.dynamicgui.core.replacer.animation.impl.TestAnimationReplacer;
+import com.clubobsidian.dynamicgui.core.replacer.animation.MultiLineTestAnimationReplacer;
+import com.clubobsidian.dynamicgui.core.replacer.animation.TestAnimationReplacer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
