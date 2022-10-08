@@ -18,11 +18,11 @@ package com.clubobsidian.dynamicgui.core.inject.module;
 
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;

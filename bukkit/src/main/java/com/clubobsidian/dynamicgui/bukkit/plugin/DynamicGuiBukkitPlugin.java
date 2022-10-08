@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
-import cloud.commandframework.CloudCapability;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
@@ -37,7 +36,7 @@ import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
@@ -52,7 +51,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

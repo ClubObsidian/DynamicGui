@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManag
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;

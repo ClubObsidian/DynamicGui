@@ -16,8 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
-import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.core.permission.Permission;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;

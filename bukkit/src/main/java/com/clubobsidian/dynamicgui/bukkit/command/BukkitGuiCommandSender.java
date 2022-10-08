@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.command;
 
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

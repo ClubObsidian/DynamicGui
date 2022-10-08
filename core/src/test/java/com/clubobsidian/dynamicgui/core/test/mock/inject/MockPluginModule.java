@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.mock.inject;
 
 import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;

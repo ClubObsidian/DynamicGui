@@ -14,13 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command;
+package com.clubobsidian.dynamicgui.api.command;
 
-public interface CommandRegistrar {
-
-    void registerCommand(Class<? extends RegisteredCommand> command);
-    void registerGuiCommand(String guiName, String alias);
-    void unregisterCommand(String alias);
-    void unregisterGuiAliases();
-
+public interface RegisteredCommand {
 }

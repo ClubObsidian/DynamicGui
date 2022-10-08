@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core;
 
-import com.clubobsidian.dynamicgui.core.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;

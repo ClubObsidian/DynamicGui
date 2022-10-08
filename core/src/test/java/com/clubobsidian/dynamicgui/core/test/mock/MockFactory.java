@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.mock;
 
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.economy.Economy;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
