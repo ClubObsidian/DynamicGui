@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.function.impl.gui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.function.Function;
 import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 
 import java.util.concurrent.ExecutionException;
 
@@ -62,7 +62,7 @@ public class BackFunction extends Function {
                 }
             }
             try {
-                return GuiManager.get().openGui(playerWrapper, back).get();
+                return SimpleGuiManager.get().openGui(playerWrapper, back).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }

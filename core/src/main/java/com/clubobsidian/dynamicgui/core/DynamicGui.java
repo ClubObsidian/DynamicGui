@@ -31,7 +31,7 @@ import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SlotManager;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.cooldown.CooldownManager;
@@ -206,7 +206,7 @@ public class DynamicGui {
     }
 
     private void loadGuis() {
-        GuiManager.get(); //Initialize manager
+        SimpleGuiManager.get(); //Initialize manager
     }
 
     public void checkForProxy() {

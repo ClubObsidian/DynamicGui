@@ -17,18 +17,10 @@
 package com.clubobsidian.dynamicgui.api.gui;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.gui.animation.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.gui.property.animation.AnimationHolder;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.AnimationReplacerManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
 
 import java.io.Serializable;
 import java.util.List;

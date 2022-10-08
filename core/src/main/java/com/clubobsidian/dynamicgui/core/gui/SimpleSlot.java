@@ -63,7 +63,7 @@ public class SimpleSlot implements Slot {
     private final Map<String, String> metadata;
     private boolean update;
 
-    public Slot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
+    public SimpleSlot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
                 boolean movable, Boolean close, List<String> lore,
                 List<EnchantmentWrapper> enchants, List<String> itemFlags,
                 String modelProvider, String modelData,

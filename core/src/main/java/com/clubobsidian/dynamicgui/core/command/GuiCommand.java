@@ -24,7 +24,7 @@ import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
 import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 
 public class GuiCommand implements RegisteredCommand {
 
@@ -35,7 +35,7 @@ public class GuiCommand implements RegisteredCommand {
         if(player != null) {
             boolean hasPermission = player.hasPermission(Constant.GUI_PERMISSION.apply(guiName));
             if (hasPermission) {
-                GuiManager.get().openGui(player, guiName);
+                SimpleGuiManager.get().openGui(player, guiName);
             } else {
                 sender.sendMessage(DynamicGui.get().getMessage().getNoGuiPermission());
             }

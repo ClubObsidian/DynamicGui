@@ -25,7 +25,7 @@ import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.google.inject.Injector;
 
 import javax.inject.Inject;
@@ -67,7 +67,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                 .handler(context -> {
                     PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
                     if(playerWrapper != null) {
-                        GuiManager.get().openGui(playerWrapper, guiName);
+                        SimpleGuiManager.get().openGui(playerWrapper, guiName);
                     }
                 }).build();
         this.commandManager.command(command);

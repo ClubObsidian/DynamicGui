@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.trident.EventHandler;
 
@@ -45,7 +45,7 @@ public class GuiListener {
         PlayerWrapper<?> playerWrapper = event.getPlayerWrapper();
         UUID uuid = playerWrapper.getUniqueId();
         if (!this.users.remove(uuid)) {
-            Gui gui = GuiManager.get().getPlayerGui(playerWrapper);
+            Gui gui = SimpleGuiManager.get().getPlayerGui(playerWrapper);
             if (gui != null) {
                 FunctionManager.get().tryFunctions(gui, FunctionType.EXIT_MENU, playerWrapper);
             }

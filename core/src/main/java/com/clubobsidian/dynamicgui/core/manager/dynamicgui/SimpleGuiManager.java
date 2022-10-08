@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.manager.dynamicgui;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.GuiManager;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
@@ -24,9 +27,10 @@ import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
+import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
@@ -40,6 +44,8 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.apache.commons.io.FileUtils;
@@ -63,19 +69,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class GuiManager {
-
-    @Inject
-    private static GuiManager instance;
-
-    public static GuiManager get() {
-        if (!instance.intialized) {
-            instance.intialized = true;
-            instance.loadGlobalMacros();
-            instance.loadGuis();
-        }
-        return instance;
-    }
+public class SimpleGuiManager extends GuiManager {
 
     private static Gui getOrCloneGui(Gui gui) {
         return gui.isStatic() ? gui : gui.clone();
@@ -95,7 +89,7 @@ public class GuiManager {
     private boolean intialized = false;
 
     @Inject
-    private GuiManager(CommandRegistrar commandRegistrar, Platform platform) {
+    private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
@@ -165,26 +159,6 @@ public class GuiManager {
 
     public Gui getPlayerGui(PlayerWrapper<?> playerWrapper) {
         return this.playerGuis.get(playerWrapper.getUniqueId());
-    }
-
-    public CompletableFuture<Boolean> openGui(Object player, String guiName) {
-        return this.openGui(EntityManager.get().createPlayerWrapper(player), guiName);
-    }
-
-    public CompletableFuture<Boolean> openGui(Object player, Gui gui) {
-        return this.openGui(EntityManager.get().createPlayerWrapper(player), gui);
-    }
-
-    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName) {
-        return this.openGui(playerWrapper, guiName, null);
-    }
-
-    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
-        return this.openGui(playerWrapper, this.getGui(guiName), back);
-    }
-
-    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
-        return this.openGui(playerWrapper, gui, null);
     }
 
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
@@ -298,7 +272,7 @@ public class GuiManager {
             Configuration config = Configuration.load(file);
             for (String key : config.getKeys()) {
                 ConfigurationSection section = config.getConfigurationSection(key);
-                MacroToken token = new MacroToken(section);
+                MacroToken token = new SimpleMacroToken(section);
                 tokens.add(token);
             }
 
@@ -450,7 +424,7 @@ public class GuiManager {
                 }
             }
 
-            guiToken = new GuiToken(config, guiTokens);
+            guiToken = new SimpleGuiToken(config, guiTokens);
         }
 
         this.cachedTokens.put(guiName, guiToken);
@@ -508,7 +482,7 @@ public class GuiManager {
 
             Map<String, String> metadata = slotToken.getMetadata();
 
-            slots.add(new Slot(index, amount, icon, name, nbt, data, glow, movable,
+            slots.add(new SimpleSlot(index, amount, icon, name, nbt, data, glow, movable,
                     close, lore, enchants, itemFlags, modelProvider, modelData,
                     slotToken.getFunctionTree(), updateInterval, metadata));
         }
@@ -540,7 +514,7 @@ public class GuiManager {
 
         boolean isStatic = guiToken.isStatic();
 
-        return new Gui(guiName, type, title, rows, close, modeEnum,
+        return new SimpleGui(guiName, type, title, rows, close, modeEnum,
                 npcIds, slots, locations, guiToken.getFunctions(), metadata,
                 isStatic);
     }

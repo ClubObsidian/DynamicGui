@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.core.event.player.PlayerKickEvent;
 import com.clubobsidian.dynamicgui.core.event.player.PlayerQuitEvent;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.core.manager.dynamicgui.SimpleGuiManager;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 
@@ -42,8 +42,8 @@ public class InventoryCloseListener {
     }
 
     private void handleInventoryClose(PlayerWrapper<?> playerWrapper) {
-        if (GuiManager.get().hasGuiCurrently(playerWrapper)) {
-            GuiManager.get().cleanupPlayerGui(playerWrapper);
+        if (SimpleGuiManager.get().hasGuiCurrently(playerWrapper)) {
+            SimpleGuiManager.get().cleanupPlayerGui(playerWrapper);
         }
     }
 }

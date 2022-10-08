@@ -47,7 +47,7 @@ public class SlotManager {
     private void updateSlots() {
         DynamicGui.get().getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
             Map<Gui, Collection<Slot>> updatedStaticGui = new HashMap<>();
-            for (Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
+            for (Entry<UUID, Gui> next : SimpleGuiManager.get().getPlayerGuis().entrySet()) {
                 UUID key = next.getKey();
                 PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
                 Gui gui = next.getValue();
