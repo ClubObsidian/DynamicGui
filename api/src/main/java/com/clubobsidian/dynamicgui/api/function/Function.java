@@ -17,10 +17,14 @@
 package com.clubobsidian.dynamicgui.api.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -132,5 +136,34 @@ public abstract class Function implements Cloneable, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(name, async, aliases);
+    }
+
+    public static class Builder {
+
+        @Inject
+        private static FunctionDataFactory FACTORY;
+        
+        private transient String name;
+        private transient String data;
+        private transient FunctionModifier modifier = FunctionModifier.NONE;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setData(String data) {
+            this.data = data;
+            return this;
+        }
+
+        public Builder setModifier(FunctionModifier modifier) {
+            this.modifier = modifier;
+            return this;
+        }
+
+        public FunctionData build() {
+            return FACTORY.create(this.name, this.data, this.modifier);
+        }
     }
 }

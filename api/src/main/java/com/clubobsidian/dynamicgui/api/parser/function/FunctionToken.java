@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.api.parser.function;
 
-import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
+import com.clubobsidian.dynamicgui.api.function.Function;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -38,9 +38,7 @@ public interface FunctionToken extends Serializable {
     final class Builder {
 
         @Inject
-        private static FunctionTokenFactory TOKEN_FACTORY;
-        @Inject
-        private static FunctionDataFactory DATA_FACTORY;
+        private static FunctionTokenFactory FACTORY;
 
         private final String name = UUID.randomUUID().toString();
         private final List<FunctionType> types = new ArrayList<>();
@@ -65,7 +63,11 @@ public interface FunctionToken extends Serializable {
         }
 
         public Builder addFunction(String name, String data, FunctionModifier modifier) {
-            return this.addFunction(DATA_FACTORY.create(name, data, modifier));
+            return this.addFunction(new Function.Builder()
+                    .setName(name)
+                    .setData(data)
+                    .setModifier(modifier)
+                    .build());
         }
 
         public Builder addFunction(FunctionData data) {
@@ -86,7 +88,11 @@ public interface FunctionToken extends Serializable {
         }
 
         public Builder addFailOnFunction(String name, String data, FunctionModifier modifier) {
-            return this.addFailOnFunction(new FunctionData(name, data, modifier));
+            return this.addFailOnFunction(new Function.Builder()
+                    .setName(name)
+                    .setData(data)
+                    .setModifier(modifier)
+                    .build());
         }
 
         public Builder addFailOnFunction(FunctionData data) {
@@ -98,12 +104,11 @@ public interface FunctionToken extends Serializable {
             for (FunctionData data : datas) {
                 this.addFunction(data);
             }
-
             return this;
         }
 
         public FunctionToken build() {
-            return TOKEN_FACTORY.create(this.name, this.types, this.functions, this.failOnFunctions);
+            return FACTORY.create(this.name, this.types, this.functions, this.failOnFunctions);
         }
     }
 }
