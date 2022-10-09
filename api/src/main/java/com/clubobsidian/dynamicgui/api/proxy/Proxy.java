@@ -20,16 +20,24 @@ import java.util.Locale;
 
 public enum Proxy {
 
-    BUNGEE,
-    REDIS_BUNGEE,
+    BUNGEE("bungee", "velocity"),
+    REDIS_BUNGEE("redis"),
     NONE;
+
+    String[] aliases;
+
+    Proxy(String... aliases) {
+        this.aliases = aliases;
+    }
 
     public static Proxy fromString(final String proxyStr) {
         String localeStr = proxyStr.toLowerCase(Locale.ROOT);
-        if (localeStr.startsWith("bungee")) {
-            return Proxy.BUNGEE;
-        } else if (localeStr.startsWith("redis")) {
-            return Proxy.REDIS_BUNGEE;
+        for (Proxy proxy : Proxy.values()) {
+            for (String alias : proxy.aliases) {
+                if (localeStr.startsWith(alias)) {
+                    return proxy;
+                }
+            }
         }
         return Proxy.NONE;
     }
