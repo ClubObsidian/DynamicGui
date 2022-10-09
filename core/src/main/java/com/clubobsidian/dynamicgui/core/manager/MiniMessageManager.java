@@ -38,8 +38,8 @@ public class MiniMessageManager {
     }
 
     private final Map<String, String> json = new HashMap<>();
-    private final MiniMessage miniMessage = MiniMessage.builder().build();
-    private final GsonComponentSerializer serializer = GsonComponentSerializer.builder().build();
+    private final MiniMessage miniSerializer = MiniMessage.builder().build();
+    private final GsonComponentSerializer gsonSerializer = GsonComponentSerializer.builder().build();
 
     private MiniMessageManager() {
         DynamicGui.get().getEventBus().registerEvents(this);
@@ -48,8 +48,8 @@ public class MiniMessageManager {
     public String toJson(String data) {
         String cached = this.json.get(data);
         if (cached == null) {
-            Component component = this.miniMessage.deserialize(data);
-            cached = this.serializer.serialize(component);
+            Component component = this.miniSerializer.deserialize(data);
+            cached = this.gsonSerializer.serialize(component);
             this.json.put(data, cached);
         }
         return cached;
