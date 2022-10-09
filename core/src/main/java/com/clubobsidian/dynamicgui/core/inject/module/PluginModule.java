@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.factory.SlotFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
@@ -45,6 +46,7 @@ import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.ModelManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
@@ -104,13 +106,15 @@ public abstract class PluginModule implements Module {
         }).toInstance(this.commandManager);
         binder.bind(CommandRegistrar.class).to(CommandRegistrarImpl.class).asEagerSingleton();
 
+        binder.bind(Platform.class).toInstance(this.platform);
+        binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
         binder.bind(EntityManager.class).to(this.entityClass);
         binder.bind(InventoryManager.class).to(this.inventoryClass);
         binder.bind(ItemStackManager.class).to(this.itemStackClass);
         binder.bind(MaterialManager.class).to(this.materialClass);
         binder.bind(LocationManager.class).to(this.locationClass);
-        binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
-        binder.bind(Platform.class).toInstance(this.platform);
+        binder.bind(ModelManager.class).to(ModelManagerImpl.class);
+
 
         binder.bind(GuiManager.class).to(SimpleGuiManager.class);
 
@@ -131,6 +135,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(MaterialManager.class);
         binder.requestStaticInjection(LocationManager.class);
         binder.requestStaticInjection(GuiManager.class);
+        binder.requestStaticInjection(ModelManager.class);
         binder.requestStaticInjection(DynamicGui.class);
     }
 

@@ -14,40 +14,23 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager;
+package com.clubobsidian.dynamicgui.api.manager;
 
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
-import com.clubobsidian.dynamicgui.core.model.vanilla.VanillaModelProvider;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.inject.Inject;
 
-public class ModelManager {
+public abstract class ModelManager {
 
+    @Inject
     private static ModelManager instance;
 
     public static ModelManager get() {
-        if (instance == null) {
-            instance = new ModelManager();
-        }
         return instance;
     }
 
-    private final Map<String, ModelProvider> registries = new HashMap<>();
 
-    private ModelManager() {
-        this.register(new VanillaModelProvider());
-    }
+    public abstract ModelProvider getProvider(final String registryName);
 
-    public ModelProvider getProvider(final String registryName) {
-        if (registryName == null) {
-            return null;
-        }
-        String lowerName = registryName.toLowerCase();
-        return this.registries.get(lowerName);
-    }
-
-    public void register(ModelProvider provider) {
-        this.registries.put(provider.name().toLowerCase(), provider);
-    }
+    public abstract void register(ModelProvider provider);
 }

@@ -40,7 +40,7 @@ import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.ModelManager;
+import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
