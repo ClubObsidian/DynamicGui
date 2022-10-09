@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.scheduler;
 
-public abstract class Scheduler {
+public interface Scheduler {
 
     public abstract void runSyncDelayedTask(Runnable runnable, long delay);
 

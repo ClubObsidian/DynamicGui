@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.scheduler;
 
 import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 
-public class MockScheduler extends Scheduler {
+public class MockScheduler implements Scheduler {
 
     private final MockThreadRunnable synchronous = new MockThreadRunnable();
     private final MockThreadRunnable async = new MockThreadRunnable();

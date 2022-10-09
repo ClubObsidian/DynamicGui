@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-public class BukkitScheduler extends Scheduler {
+public class BukkitScheduler implements Scheduler {
 
     @Override
     public void runSyncDelayedTask(Runnable runnable, long delay) {
