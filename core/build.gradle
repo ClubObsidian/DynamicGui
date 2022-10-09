@@ -6,7 +6,7 @@ def adventureVersion = "4.11.0"
 
 dependencies {
     api 'commons-io:commons-io:2.11.0'
-    api 'com.github.clubobsidian:trident:3.0.0'
+    api 'com.github.clubobsidian:trident:d814584a88'
     api project(path: ':parser')
     api project(path: ':api')
     api 'com.udojava:EvalEx:2.1'
