@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.proxy;
+package com.clubobsidian.dynamicgui.api.proxy;
 
 import java.util.Locale;
 

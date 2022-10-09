@@ -25,7 +25,7 @@ import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.platform.PlatformType;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
