@@ -25,7 +25,7 @@ import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.google.inject.Injector;
 
 import javax.inject.Inject;

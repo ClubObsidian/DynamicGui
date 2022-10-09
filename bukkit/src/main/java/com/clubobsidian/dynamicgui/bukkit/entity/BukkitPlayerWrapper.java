@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.bukkit.entity;
 
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;

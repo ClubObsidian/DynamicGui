@@ -24,13 +24,13 @@ import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent;
 import com.clubobsidian.dynamicgui.core.gui.InventoryView;
 import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;

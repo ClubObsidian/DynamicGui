@@ -24,7 +24,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
 

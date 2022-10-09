@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.logger;
 
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

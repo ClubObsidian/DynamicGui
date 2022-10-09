@@ -34,7 +34,8 @@ import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.core.DynamicGuiImpl;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
@@ -43,10 +44,12 @@ import com.clubobsidian.dynamicgui.core.factory.FunctionTokenFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.trident.EventBus;
+import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;
@@ -88,6 +91,7 @@ public abstract class PluginModule implements Module {
     public void configure(Binder binder) {
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
         }).toInstance(this.logger);
+        binder.bind(EventBus.class).toInstance(new MethodHandleEventBus());
 
         //Factories
         binder.bind(FunctionTreeFactory.class).to(FunctionTreeFactoryImpl.class);
@@ -112,6 +116,8 @@ public abstract class PluginModule implements Module {
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
+
+        binder.bind(DynamicGui.class).to(DynamicGuiImpl.class);
 
         //Factories
         binder.requestStaticInjection(FunctionData.Builder.class);

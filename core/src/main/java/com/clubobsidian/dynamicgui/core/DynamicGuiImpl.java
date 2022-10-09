@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
@@ -24,20 +25,21 @@ import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
-import com.clubobsidian.dynamicgui.core.config.Message;
+import com.clubobsidian.dynamicgui.api.config.Message;
+import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
 import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
 import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.SlotManager;
 import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManager;
-import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.registry.replacer.CooldownReplacerRegistry;
@@ -67,20 +69,13 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DynamicGui {
-
-    @Inject
-    private static DynamicGui instance;
-
-    public static DynamicGui get() {
-        return instance;
-    }
+public class DynamicGuiImpl extends DynamicGui {
 
     private Message message;
     private Proxy proxy;
     private String dateTimeFormat;
     private final Map<String, Integer> serverPlayerCount = new ConcurrentHashMap<>();
-    private final EventBus eventBus = new MethodHandleEventBus();
+    private final EventBus eventBus;
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
@@ -89,21 +84,24 @@ public class DynamicGui {
     private boolean initialized;
 
     @Inject
-    private DynamicGui(DynamicGuiPlugin plugin,
-                       Platform platform,
-                       LoggerWrapper<?> loggerWrapper,
-                       Injector injector,
-                       CommandRegistrar commandRegistrar) {
+    private DynamicGuiImpl(DynamicGuiPlugin plugin,
+                           Platform platform,
+                           LoggerWrapper<?> loggerWrapper,
+                           Injector injector,
+                           CommandRegistrar commandRegistrar,
+                           EventBus eventBus) {
         this.plugin = plugin;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
         this.commandRegistrar = commandRegistrar;
+        this.eventBus = eventBus;
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
         this.saveDefaultConfig();
     }
 
+    @Override
     public boolean start() {
         if (!this.initialized) {
             this.initialized = true;
@@ -124,6 +122,7 @@ public class DynamicGui {
         return false;
     }
 
+    @Override
     public void stop() {
         CooldownManager.get().shutdown();
         this.commandRegistrar.unregisterCommand("gui");
@@ -160,7 +159,7 @@ public class DynamicGui {
     }
 
     private void loadConfig() {
-        this.message = new Message();
+        this.message = new ConfigMessage();
         Configuration config = Configuration.load(this.plugin.getConfigFile());
         ConfigurationSection messageSection = config.getConfigurationSection("message");
         Collection<NodeTransformer> transformers = new ArrayList<>();
@@ -292,44 +291,37 @@ public class DynamicGui {
         }, 1L, 20L);
     }
 
+    @Override
     public Message getMessage() {
         return this.message;
     }
 
-    @Deprecated
-    public boolean getBungeeCord() {
-        return this.proxy == Proxy.BUNGEECORD;
-    }
-
-    @Deprecated
-    public boolean getRedisBungee() {
-        return this.proxy == Proxy.REDIS_BUNGEE;
-    }
-
+    @Override
     public Proxy getProxy() {
         return this.proxy;
     }
 
+    @Override
     public String getDateTimeFormat() {
         return this.dateTimeFormat;
     }
 
+    @Override
     public DynamicGuiPlugin getPlugin() {
         return this.plugin;
     }
 
-    public EventBus getEventBus() {
-        return this.eventBus;
-    }
-
+    @Override
     public Platform getPlatform() {
         return this.platform;
     }
 
+    @Override
     public LoggerWrapper<?> getLogger() {
         return this.loggerWrapper;
     }
 
+    @Override
     public int getGlobalServerPlayerCount() {
         int globalPlayerCount = 0;
         for (int playerCount : this.serverPlayerCount.values()) {
@@ -338,10 +330,12 @@ public class DynamicGui {
         return globalPlayerCount;
     }
 
+    @Override
     public int getServerPlayerCount(String server) {
         return this.serverPlayerCount.getOrDefault(server, -1);
     }
 
+    @Override
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
         if (this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -351,5 +345,10 @@ public class DynamicGui {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public EventBus getEventBus() {
+        return this.eventBus;
     }
 }

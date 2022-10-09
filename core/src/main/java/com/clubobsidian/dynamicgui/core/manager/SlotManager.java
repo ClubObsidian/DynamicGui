@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 
 import java.util.ArrayList;
 import java.util.Collection;

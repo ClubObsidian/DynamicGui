@@ -14,11 +14,21 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.platform;
+package com.clubobsidian.dynamicgui.api.logger;
 
-public enum PlatformType {
+public abstract class LoggerWrapper<T> {
 
-    BUKKIT,
-    SPONGE,
+    private final T logger;
 
+    public LoggerWrapper(T logger) {
+        this.logger = logger;
+    }
+
+    public T getLogger() {
+        return this.logger;
+    }
+
+    public abstract void info(String message);
+
+    public abstract void error(String message);
 }

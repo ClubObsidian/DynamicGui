@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.bukkit.listener;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
 import com.clubobsidian.dynamicgui.core.gui.InventoryView;

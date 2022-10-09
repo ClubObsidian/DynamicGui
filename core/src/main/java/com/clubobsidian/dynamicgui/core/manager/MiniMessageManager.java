@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.trident.EventHandler;
 import net.kyori.adventure.text.Component;

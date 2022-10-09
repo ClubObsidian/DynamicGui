@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.MetadataHolder;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 
 public class HasMetadataFunction extends Function {
 

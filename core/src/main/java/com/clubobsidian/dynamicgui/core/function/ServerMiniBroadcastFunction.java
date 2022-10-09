@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.manager.MiniMessageManager;
 
 public class ServerMiniBroadcastFunction extends Function {

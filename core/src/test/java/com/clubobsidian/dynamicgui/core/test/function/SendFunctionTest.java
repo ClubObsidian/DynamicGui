@@ -17,7 +17,8 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.core.DynamicGuiImpl;
 import com.clubobsidian.dynamicgui.core.function.SendFunction;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
@@ -65,7 +66,7 @@ public class SendFunctionTest extends FactoryTest {
 
     private boolean setProxy(Proxy proxy) {
         try {
-            Field proxyField = DynamicGui.class.getDeclaredField("proxy");
+            Field proxyField = DynamicGuiImpl.class.getDeclaredField("proxy");
             proxyField.setAccessible(true);
             proxyField.set(DynamicGui.get(), proxy);
             return true;

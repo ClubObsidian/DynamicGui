@@ -14,20 +14,12 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.replacer;
+package com.clubobsidian.dynamicgui.api.messaging;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.replacer.Replacer;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 
-public class OnlinePlayersReplacer extends Replacer {
+public interface MessagingRunnable {
 
-    public OnlinePlayersReplacer(String toReplace) {
-        super(toReplace);
-    }
+    void run(PlayerWrapper<?> playerWrapper, byte[] message);
 
-    @Override
-    public String replacement(String text, PlayerWrapper<?> player) {
-        return String.valueOf(DynamicGui.get().getPlatform().getOnlinePlayers().size());
-    }
 }

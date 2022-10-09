@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.test;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
 import org.junit.jupiter.api.AfterEach;

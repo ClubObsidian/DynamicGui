@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.listener;
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;

@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 
 public class SetDurabilityFunction extends Function {
 

@@ -14,22 +14,11 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.config;
+package com.clubobsidian.dynamicgui.api.config;
 
-import com.clubobsidian.wrappy.inject.Node;
+public interface Message {
 
-public class Message {
+    String getNoGui();
 
-    @Node("no-gui")
-    private String noGui;
-    @Node("no-gui-permission")
-    private String noGuiPermission;
-
-    public String getNoGui() {
-        return this.noGui;
-    }
-
-    public String getNoGuiPermission() {
-        return this.noGuiPermission;
-    }
+    String getNoGuiPermission();
 }

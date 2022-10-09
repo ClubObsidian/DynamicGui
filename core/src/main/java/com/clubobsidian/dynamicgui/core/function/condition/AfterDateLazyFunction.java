@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.function.condition;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.udojava.evalex.AbstractLazyFunction;
 import com.udojava.evalex.Expression.LazyNumber;
 

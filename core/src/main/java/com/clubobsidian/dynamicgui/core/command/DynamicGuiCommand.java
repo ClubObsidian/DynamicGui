@@ -25,11 +25,12 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.Constant;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.trident.EventBus;
 
 import javax.inject.Inject;
 import java.util.Iterator;
@@ -41,10 +42,13 @@ import java.util.stream.Collectors;
 public class DynamicGuiCommand implements RegisteredCommand {
 
     private final Platform platform;
+    private final EventBus eventBus;
 
     @Inject
-    private DynamicGuiCommand(Platform platform) {
+    private DynamicGuiCommand(Platform platform, EventBus eventBus) {
         this.platform = platform;
+        this.eventBus = eventBus;
+
     }
 
     @CommandMethod("dynamicgui|dyngui reload")

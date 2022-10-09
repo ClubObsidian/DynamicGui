@@ -14,12 +14,25 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.messaging;
+package com.clubobsidian.dynamicgui.core.config;
 
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.config.Message;
+import com.clubobsidian.wrappy.inject.Node;
 
-public interface MessagingRunnable {
+public final class ConfigMessage implements Message {
 
-    void run(PlayerWrapper<?> playerWrapper, byte[] message);
+    @Node("no-gui")
+    private String noGui;
+    @Node("no-gui-permission")
+    private String noGuiPermission;
 
+    @Override
+    public String getNoGui() {
+        return this.noGui;
+    }
+
+    @Override
+    public String getNoGuiPermission() {
+        return this.noGuiPermission;
+    }
 }
