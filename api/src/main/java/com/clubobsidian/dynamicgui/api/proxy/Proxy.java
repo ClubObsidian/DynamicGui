@@ -20,14 +20,14 @@ import java.util.Locale;
 
 public enum Proxy {
 
-    BUNGEECORD,
+    BUNGEE,
     REDIS_BUNGEE,
     NONE;
 
     public static Proxy fromString(final String proxyStr) {
         String localeStr = proxyStr.toLowerCase(Locale.ROOT);
         if (localeStr.startsWith("bungee")) {
-            return Proxy.BUNGEECORD;
+            return Proxy.BUNGEE;
         } else if (localeStr.startsWith("redis")) {
             return Proxy.REDIS_BUNGEE;
         }

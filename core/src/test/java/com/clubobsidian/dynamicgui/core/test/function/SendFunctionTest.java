@@ -51,7 +51,7 @@ public class SendFunctionTest extends FactoryTest {
         this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
-        assertTrue(this.setProxy(Proxy.BUNGEECORD));
+        assertTrue(this.setProxy(Proxy.BUNGEE));
         assertTrue(function.function(this.getFactory().createPlayer()));
     }
 

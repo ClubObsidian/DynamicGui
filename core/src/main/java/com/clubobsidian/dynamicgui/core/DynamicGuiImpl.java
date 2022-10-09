@@ -47,7 +47,6 @@ import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiAnimationRep
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.MetadataReplacerRegistry;
 import com.clubobsidian.trident.EventBus;
-import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import com.clubobsidian.wrappy.transformer.NodeTransformer;
@@ -223,7 +222,7 @@ public class DynamicGuiImpl extends DynamicGui {
             }
         };
 
-        if (this.proxy == Proxy.BUNGEECORD) {
+        if (this.proxy == Proxy.BUNGEE) {
             this.getLogger().info("BungeeCord is enabled!");
             this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
             this.getPlatform().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
@@ -337,7 +336,7 @@ public class DynamicGuiImpl extends DynamicGui {
 
     @Override
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
-        if (this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
+        if (this.platform != null && (this.proxy == Proxy.BUNGEE || this.proxy == Proxy.REDIS_BUNGEE)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(server);
