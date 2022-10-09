@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
-import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.api.model.ModelProvider;
 import com.clubobsidian.dynamicgui.core.registry.model.vanilla.VanillaModelProvider;
 
 import java.util.HashMap;

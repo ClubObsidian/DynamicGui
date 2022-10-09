@@ -14,25 +14,14 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.model.vanilla;
+package com.clubobsidian.dynamicgui.api.model;
 
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.api.model.ModelProvider;
-import org.apache.commons.lang3.math.NumberUtils;
 
-public class VanillaModelProvider implements ModelProvider {
+public interface ModelProvider {
 
-    @Override
-    public String name() {
-        return "vanilla";
-    }
+    String name();
 
-    @Override
-    public boolean applyModel(ItemStackWrapper<?> itemStack, String data) {
-        if (!NumberUtils.isParsable(data)) {
-            return false;
-        }
-        int modelData = NumberUtils.toInt(data);
-        return itemStack.setModel(modelData);
-    }
+    boolean applyModel(ItemStackWrapper<?> itemStack, String data);
+
 }

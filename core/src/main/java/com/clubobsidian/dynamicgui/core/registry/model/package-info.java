@@ -15,13 +15,3 @@
  */
 
 package com.clubobsidian.dynamicgui.core.registry.model;
-
-import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-
-public interface ModelProvider {
-
-    String name();
-
-    boolean applyModel(ItemStackWrapper<?> itemStack, String data);
-
-}

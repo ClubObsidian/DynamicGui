@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.core.manager.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.api.model.ModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
