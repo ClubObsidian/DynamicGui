@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 
 import java.io.File;
 import java.util.ArrayList;

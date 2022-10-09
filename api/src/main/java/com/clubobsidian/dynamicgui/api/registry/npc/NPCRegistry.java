@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.npc;
+package com.clubobsidian.dynamicgui.api.registry.npc;
 
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 
