@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.util;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 
 public final class ThreadUtil {
 

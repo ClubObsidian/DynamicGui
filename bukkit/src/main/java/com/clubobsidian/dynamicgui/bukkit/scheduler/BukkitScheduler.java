@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.bukkit.scheduler;
 
 import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

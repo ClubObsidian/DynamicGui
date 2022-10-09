@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 
 import java.util.Collection;
 import java.util.UUID;
