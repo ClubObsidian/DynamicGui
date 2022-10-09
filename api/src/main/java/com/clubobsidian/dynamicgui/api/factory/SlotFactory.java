@@ -14,26 +14,21 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.builder;
+package com.clubobsidian.dynamicgui.api.factory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 
-public class EnchantmentBuilder {
+import java.util.List;
+import java.util.Map;
 
-    private String enchantment;
-    private int level = 0;
+public interface SlotFactory {
 
-    public EnchantmentBuilder setEnchantment(String enchantment) {
-        this.enchantment = enchantment;
-        return this;
-    }
+    Slot create(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
+                boolean movable, Boolean close, List<String> lore,
+                List<EnchantmentWrapper> enchants, List<String> itemFlags,
+                String modelProvider, String modelData,
+                FunctionTree functions, int updateInterval, Map<String, String> metadata);
 
-    public EnchantmentBuilder setLevel(int level) {
-        this.level = level;
-        return this;
-    }
-
-    public EnchantmentWrapper build() {
-        return new EnchantmentWrapper(this.enchantment, level);
-    }
 }
