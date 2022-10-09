@@ -61,7 +61,7 @@ public class InventoryInteractListener {
         } else if (item.getItemStack() == null) {
             return;
         } else if (e.getView() == InventoryView.BOTTOM) {
-            if (e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT) {
+            if (e.getClick().isShift()) {
                 if (!this.canStack(gui, e.getInventoryWrapper(), item)) {
                     this.cancelClick(e);
                 }
