@@ -342,10 +342,6 @@ public class DynamicGui {
         return this.serverPlayerCount.getOrDefault(server, -1);
     }
 
-    public Injector getInjector() {
-        return this.injector;
-    }
-
     public boolean sendToServer(PlayerWrapper<?> playerWrapper, String server) {
         if (this.platform != null && (this.proxy == Proxy.BUNGEECORD || this.proxy == Proxy.REDIS_BUNGEE)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
