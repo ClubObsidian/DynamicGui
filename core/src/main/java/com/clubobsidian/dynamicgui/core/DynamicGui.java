@@ -209,7 +209,7 @@ public class DynamicGui {
         GuiManager.get(); //Initialize manager
     }
 
-    public void checkForProxy() {
+    private void checkForProxy() {
         MessagingRunnable runnable = (playerWrapper, message) -> {
             if (message.length > 13) {
                 ByteArrayDataInput in = ByteStreams.newDataInput(message);
