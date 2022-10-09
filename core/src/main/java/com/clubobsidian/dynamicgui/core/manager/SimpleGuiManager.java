@@ -87,7 +87,7 @@ public class SimpleGuiManager extends GuiManager {
     private final CommandRegistrar commandRegistrar;
     private final Platform platform;
     private final GuiFactory factory;
-    private final boolean intialized = false;
+    private boolean initialized = false;
 
     @Inject
     private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform,
@@ -104,10 +104,23 @@ public class SimpleGuiManager extends GuiManager {
         this.factory = factory;
     }
 
+    @Override
+    public boolean initialize() {
+        if (!this.initialized) {
+            this.loadGlobalMacros();
+            this.loadGuis();
+            this.initialized = true;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean isGuiLoaded(String name) {
         return this.guis.containsKey(name);
     }
 
+    @Override
     public Gui getGui(String name) {
         Gui gui = this.guis.get(name);
         if (gui != null) {
@@ -116,6 +129,7 @@ public class SimpleGuiManager extends GuiManager {
         return null;
     }
 
+    @Override
     public void reloadGuis(boolean force) {
         DynamicGui.get().getLogger().info("Reloading guis!");
         this.commandRegistrar.unregisterGuiAliases();
@@ -137,18 +151,22 @@ public class SimpleGuiManager extends GuiManager {
         this.platform.syncCommands();
     }
 
+    @Override
     public List<Gui> getGuis() {
         return new ArrayList<>(this.guis.values());
     }
 
+    @Override
     public Map<UUID, Gui> getPlayerGuis() {
         return Collections.unmodifiableMap(this.playerGuis);
     }
 
+    @Override
     public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper) {
         return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
     }
 
+    @Override
     public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper) {
         if (playerWrapper.getOpenInventoryWrapper() == null) {
             return false;
@@ -156,14 +174,17 @@ public class SimpleGuiManager extends GuiManager {
         return this.hasGuiCurrently(playerWrapper);
     }
 
+    @Override
     public void cleanupPlayerGui(PlayerWrapper<?> playerWrapper) {
         this.playerGuis.remove(playerWrapper.getUniqueId());
     }
 
+    @Override
     public Gui getPlayerGui(PlayerWrapper<?> playerWrapper) {
         return this.playerGuis.get(playerWrapper.getUniqueId());
     }
 
+    @Override
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         future.exceptionally((ex) -> {

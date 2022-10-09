@@ -25,6 +25,9 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionData;
+import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionToken;
+import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionTypeParser;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -43,17 +46,17 @@ public class SimpleFunctionTree implements FunctionTree {
     private final FunctionTypeParser functionTypeParser;
 
     public SimpleFunctionTree() {
-        this(new ArrayList<>(), new MacroParser(new ArrayList<>()));
+        this(new ArrayList<>(), new SimpleMacroParser(new ArrayList<>()));
     }
 
     public SimpleFunctionTree(List<FunctionNode> rootNodes, MacroParser macroParser) {
         this.rootNodes = rootNodes;
         this.macroParser = macroParser;
-        this.functionTypeParser = new FunctionTypeParser(this.macroParser);
+        this.functionTypeParser = new SimpleFunctionTypeParser(this.macroParser);
     }
 
     public SimpleFunctionTree(ConfigurationSection section) {
-        this(section, new MacroParser(new ArrayList<>()));
+        this(section, new SimpleMacroParser(new ArrayList<>()));
     }
 
     public SimpleFunctionTree(ConfigurationSection section, MacroParser macroParser) {
@@ -134,7 +137,7 @@ public class SimpleFunctionTree implements FunctionTree {
             List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
             List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
 
-            FunctionToken data = new FunctionToken(name, types, functionTokens, failFunctions);
+            FunctionToken data = new SimpleFunctionToken(name, types, functionTokens, failFunctions);
             FunctionNode childNode = new SimpleFunctionNode(name, depth, data);
 
             if (depth == 0) {

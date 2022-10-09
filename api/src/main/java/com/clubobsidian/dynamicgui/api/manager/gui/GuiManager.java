@@ -32,8 +32,13 @@ public abstract class GuiManager {
     private static GuiManager instance;
 
     public static GuiManager get() {
+        if (instance != null) {
+            instance.initialize();
+        }
         return instance;
     }
+
+    public abstract boolean initialize();
 
     public abstract boolean isGuiLoaded(String name);
 

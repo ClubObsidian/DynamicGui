@@ -18,11 +18,19 @@ package com.clubobsidian.dynamicgui.core.test.builder;
 
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FunctionDataBuilderTest {
+
+    @BeforeEach
+    public void setup() {
+        MockFactory factory = new MockFactory();
+        factory.inject();
+    }
 
     @Test
     public void nameTest() {
