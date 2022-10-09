@@ -46,7 +46,7 @@ import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;

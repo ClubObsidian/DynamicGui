@@ -14,13 +14,13 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.replacer.impl;
+package com.clubobsidian.dynamicgui.core.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.GlobalPlayerCountReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.PlayerLevelReplacer;

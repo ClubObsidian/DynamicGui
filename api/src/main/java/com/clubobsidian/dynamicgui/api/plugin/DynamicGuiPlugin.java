@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.plugin;
+package com.clubobsidian.dynamicgui.api.plugin;
 
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.permission.Permission;

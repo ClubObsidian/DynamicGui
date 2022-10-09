@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.replacer;
+package com.clubobsidian.dynamicgui.api.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 

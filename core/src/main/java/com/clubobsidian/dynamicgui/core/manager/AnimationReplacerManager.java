@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.registry.replacer.AnimationReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.AnimationReplacerRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

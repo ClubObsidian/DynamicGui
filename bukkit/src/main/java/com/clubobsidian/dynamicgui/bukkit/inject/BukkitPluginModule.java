@@ -31,7 +31,7 @@ import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 
 public class BukkitPluginModule extends PluginModule {
 

@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockEntityManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockInventoryManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockItemStackManager;

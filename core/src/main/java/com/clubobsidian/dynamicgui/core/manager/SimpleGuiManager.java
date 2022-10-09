@@ -40,7 +40,7 @@ import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.platform.PlatformType;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.HashUtil;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;

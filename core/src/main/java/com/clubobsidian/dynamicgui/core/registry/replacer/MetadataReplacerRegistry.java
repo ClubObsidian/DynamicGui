@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.replacer.impl;
+package com.clubobsidian.dynamicgui.core.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.core.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 import org.apache.commons.lang3.StringUtils;

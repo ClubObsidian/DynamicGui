@@ -44,7 +44,7 @@ import com.clubobsidian.dynamicgui.core.manager.ModelManager;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
