@@ -14,4 +14,4 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.model;
+package com.clubobsidian.dynamicgui.core.model;

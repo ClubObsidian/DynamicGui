@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.registry.model.vanilla;
+package com.clubobsidian.dynamicgui.core.model.vanilla;
 
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
