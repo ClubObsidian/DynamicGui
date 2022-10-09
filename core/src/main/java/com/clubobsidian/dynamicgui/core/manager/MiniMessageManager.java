@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class MiniMessageManager {
 
-    public static MiniMessageManager instance;
+    private static MiniMessageManager instance;
 
     public static MiniMessageManager get() {
         if (instance == null) {
