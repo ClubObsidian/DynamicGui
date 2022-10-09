@@ -35,7 +35,6 @@ public abstract class DynamicGui {
         return instance;
     }
 
-
     public abstract boolean start();
 
     public abstract void stop();
