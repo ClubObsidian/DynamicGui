@@ -22,7 +22,9 @@ public interface NPCRegistry {
 
     String getName();
 
-    boolean isNPC(EntityWrapper<?> entityWrapper);
+    default boolean isNPC(EntityWrapper<?> entityWrapper) {
+        return this.getNPC(entityWrapper) != null;
+    }
 
     NPC getNPC(EntityWrapper<?> entityWrapper);
 
