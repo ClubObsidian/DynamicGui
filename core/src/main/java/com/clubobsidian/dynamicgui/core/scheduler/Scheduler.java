@@ -18,11 +18,11 @@ package com.clubobsidian.dynamicgui.core.scheduler;
 
 public interface Scheduler {
 
-    public abstract void runSyncDelayedTask(Runnable runnable, long delay);
+    void runSyncDelayedTask(Runnable runnable, long delay);
 
-    public abstract void runAsynchronousDelayedTask(Runnable runnable, long delay);
+    void runAsynchronousDelayedTask(Runnable runnable, long delay);
 
-    public abstract void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
+    void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
 
-    public abstract void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
+    void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
 }
