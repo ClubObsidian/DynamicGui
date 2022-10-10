@@ -122,7 +122,10 @@ public class DynamicGuiCommand implements RegisteredCommand {
                 .stream()
                 .map((gui) -> "&a" + gui.getName())
                 .collect(Collectors.toList());
-        String built = ChatColor.translateAlternateColorCodes(String.join(" &f," + guiNames));
+        String built = ChatColor.translateAlternateColorCodes(
+                String.format("&fGuis (%d): ", guiNames.size()) +
+                        String.join("&f, ", guiNames)
+        );
         sender.sendMessage(built);
     }
 }
