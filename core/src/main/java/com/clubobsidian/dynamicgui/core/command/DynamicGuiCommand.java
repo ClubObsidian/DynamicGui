@@ -56,7 +56,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     private void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
         GuiManager.get().reloadGuis(false);
-        DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+        this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
     @CommandMethod("dynamicgui|dyngui forcereload")
@@ -64,7 +64,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     private void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
         GuiManager.get().reloadGuis(true);
-        DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+        this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
     @CommandMethod("dynamicgui|dyngui close all [guiName]")
