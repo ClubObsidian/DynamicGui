@@ -70,7 +70,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
 
     @Override
     public void start() {
-        Platform platform = new BukkitPlatform();
+        Platform platform = new BukkitPlatform(this);
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
 
         CommandManager<GuiCommandSender> commandManager = this.createCommandSender();

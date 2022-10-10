@@ -16,35 +16,40 @@
 
 package com.clubobsidian.dynamicgui.bukkit.scheduler;
 
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public class BukkitScheduler implements Scheduler {
 
+    private final Plugin plugin;
+
+    public BukkitScheduler(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public void runSyncDelayedTask(Runnable runnable, long delay) {
         Bukkit.getScheduler()
-                .scheduleSyncDelayedTask((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
+                .scheduleSyncDelayedTask(this.plugin, runnable, delay);
     }
 
     @Override
     public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
         Bukkit.getScheduler()
-                .runTaskLaterAsynchronously((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
+                .runTaskLaterAsynchronously(this.plugin, runnable, delay);
     }
 
     @Override
     public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
         Bukkit.getScheduler()
-                .scheduleSyncRepeatingTask((Plugin) DynamicGui.get().getPlugin(), runnable, delayInitial, delayRepeating);
+                .scheduleSyncRepeatingTask(this.plugin, runnable, delayInitial, delayRepeating);
     }
 
     @Override
     public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
         Bukkit.getServer().getScheduler()
-                .runTaskTimerAsynchronously((Plugin) DynamicGui.get().getPlugin(),
+                .runTaskTimerAsynchronously(this.plugin,
                         runnable, delayInitial, delayRepeating);
     }
 }

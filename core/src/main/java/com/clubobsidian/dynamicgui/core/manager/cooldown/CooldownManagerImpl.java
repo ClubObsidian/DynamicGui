@@ -43,13 +43,9 @@ public class CooldownManagerImpl extends CooldownManager {
 
     @Inject
     private CooldownManagerImpl(DynamicGuiPlugin plugin, Platform platform) {
-        System.out.println("Trying to create cooldown manager");
         this.cooldownConfig = this.loadConfig(plugin);
-        System.out.println("Loaded config");
-        //this.scheduleCooldownUpdate(platform);
-        System.out.println("Cooldown update");
-        //this.scheduleConfigUpdate(platform);
-        System.out.println("Created cooldown manager");
+        this.scheduleCooldownUpdate(platform);
+        this.scheduleConfigUpdate(platform);
     }
 
     private Configuration loadConfig(DynamicGuiPlugin plugin) {
@@ -193,9 +189,7 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     private void scheduleCooldownUpdate(Platform platform) {
-        platform.getScheduler().scheduleSyncRepeatingTask(() -> {
-            this.updateCache();
-        }, 1L, 1L);
+        platform.getScheduler().scheduleSyncRepeatingTask(this::updateCache, 1L, 1L);
     }
 
     private void scheduleConfigUpdate(Platform platform) {

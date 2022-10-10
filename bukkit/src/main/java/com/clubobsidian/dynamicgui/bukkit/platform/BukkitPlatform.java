@@ -47,7 +47,11 @@ import java.util.UUID;
 
 public class BukkitPlatform implements Platform {
 
-    private final Scheduler scheduler = new BukkitScheduler();
+    private final Scheduler scheduler;
+
+    public BukkitPlatform(Plugin plugin) {
+        this.scheduler = new BukkitScheduler(plugin);
+    }
 
     @Override
     public Scheduler getScheduler() {
