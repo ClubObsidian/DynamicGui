@@ -12,6 +12,8 @@ shadowJar {
     archiveBaseName.set('DynamicGui-Bukkit')
 }
 
+tasks.shadowJar.dependsOn ':core:shadowJar'
+
 dependencies {
     implementation project(path: ':core')
     compileOnly 'com.github.clubobsidian:foundry:2.0.2'

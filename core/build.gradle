@@ -4,6 +4,8 @@ plugins {
 
 def adventureVersion = "4.11.0"
 
+tasks.shadowJar.dependsOn ':api:shadowJar'
+
 dependencies {
     api 'commons-io:commons-io:2.11.0'
     api 'com.github.clubobsidian:trident:d814584a88'
