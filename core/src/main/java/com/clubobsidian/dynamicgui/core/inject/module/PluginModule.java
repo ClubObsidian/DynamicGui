@@ -138,8 +138,8 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(LocationManager.class);
         binder.requestStaticInjection(GuiManager.class);
         binder.requestStaticInjection(ModelManager.class);
-        binder.requestStaticInjection(DynamicGui.class);
         binder.requestStaticInjection(CooldownManager.class);
+        binder.requestStaticInjection(DynamicGui.class);
     }
 
     public boolean bootstrap() {
