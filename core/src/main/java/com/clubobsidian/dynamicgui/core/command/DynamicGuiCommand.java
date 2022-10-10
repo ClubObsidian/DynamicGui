@@ -26,7 +26,6 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.core.manager.GuiManagerImpl;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
@@ -115,7 +114,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     @CommandMethod("dynamicgui|dyngui list")
     @CommandPermission(Constant.LIST_COMMAND_PERMISSION)
     private void guiList(GuiCommandSender sender) {
-        List<String> guiNames = GuiManagerImpl
+        List<String> guiNames = GuiManager
                 .get()
                 .getGuis()
                 .stream()
