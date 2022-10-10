@@ -46,6 +46,7 @@ import com.clubobsidian.dynamicgui.core.util.HashUtil;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
+import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.apache.commons.io.FileUtils;
@@ -87,11 +88,12 @@ public class SimpleGuiManager extends GuiManager {
     private final CommandRegistrar commandRegistrar;
     private final Platform platform;
     private final GuiFactory factory;
+    private final EventBus eventBus;
     private boolean initialized = false;
 
     @Inject
     private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform,
-                             GuiFactory factory) {
+                             GuiFactory factory, EventBus eventBus) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();
@@ -102,6 +104,7 @@ public class SimpleGuiManager extends GuiManager {
         this.commandRegistrar = commandRegistrar;
         this.platform = platform;
         this.factory = factory;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -204,7 +207,7 @@ public class SimpleGuiManager extends GuiManager {
             }
 
             GuiPreloadEvent preloadEvent = new GuiPreloadEvent(clonedGui, playerWrapper);
-            DynamicGui.get().getEventBus().callEvent(preloadEvent);
+            this.eventBus.callEvent(preloadEvent);
 
             //Run gui load functions
             CompletableFuture<Boolean> result = FunctionManager.get().tryFunctions(clonedGui, FunctionType.LOAD, playerWrapper);
@@ -217,12 +220,12 @@ public class SimpleGuiManager extends GuiManager {
                 if (!ran) {
                     event.setCancelled(true);
                 }
-                DynamicGui.get().getEventBus().callEvent(event);
+                this.eventBus.callEvent(event);
 
                 if (ran) {
                     Gui currentGui = this.getPlayerGui(playerWrapper);
                     if (back != null && back.equals(currentGui)) {
-                        DynamicGui.get().getEventBus().callEvent(new GuiSwitchEvent(back, clonedGui, playerWrapper));
+                       this.eventBus.callEvent(new GuiSwitchEvent(back, clonedGui, playerWrapper));
                     }
                     InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
                     if (inventoryWrapper == null) {
