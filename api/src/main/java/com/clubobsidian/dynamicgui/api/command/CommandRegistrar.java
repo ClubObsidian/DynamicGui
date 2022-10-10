@@ -20,7 +20,7 @@ public interface CommandRegistrar {
 
     void registerCommand(Class<? extends RegisteredCommand> command);
 
-    void registerGuiCommand(String guiName, String alias);
+    void registerGuiAliasCommand(String guiName, String alias);
 
     void unregisterCommand(String alias);
 

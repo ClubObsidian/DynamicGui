@@ -61,7 +61,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     }
 
     @Override
-    public void registerGuiCommand(String guiName, String alias) {
+    public void registerGuiAliasCommand(String guiName, String alias) {
         this.unregisterCommand(alias);
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {

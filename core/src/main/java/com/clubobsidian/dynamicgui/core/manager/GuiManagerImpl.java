@@ -349,7 +349,7 @@ public class GuiManagerImpl extends GuiManager {
             if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
                 for (String alias : token.getAlias()) {
-                    this.commandRegistrar.registerGuiCommand(guiName, alias);
+                    this.commandRegistrar.registerGuiAliasCommand(guiName, alias);
                 }
 
                 this.guis.put(guiName, cachedGui);
@@ -524,7 +524,7 @@ public class GuiManagerImpl extends GuiManager {
         List<String> aliases = guiToken.getAlias();
 
         for (String alias : aliases) {
-            this.commandRegistrar.registerGuiCommand(guiName, alias);
+            this.commandRegistrar.registerGuiAliasCommand(guiName, alias);
         }
 
         Boolean close = guiToken.isClosed();
