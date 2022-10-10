@@ -118,7 +118,7 @@ public abstract class PluginModule implements Module {
         binder.bind(ModelManager.class).to(ModelManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
 
-        binder.bind(GuiManager.class).to(SimpleGuiManager.class);
+        binder.bind(GuiManager.class).to(SimpleGuiManager.class).asEagerSingleton();
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
