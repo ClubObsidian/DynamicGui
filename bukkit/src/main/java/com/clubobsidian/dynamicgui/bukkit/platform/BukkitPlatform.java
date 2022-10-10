@@ -81,12 +81,12 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public PlayerWrapper<?> getPlayer(UUID uuid) {
-        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(uuid));
+        return new BukkitPlayerWrapper<>(Bukkit.getServer().getPlayer(uuid));
     }
 
     @Override
     public PlayerWrapper<?> getPlayer(String name) {
-        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(name));
+        return new BukkitPlayerWrapper<>(Bukkit.getServer().getPlayer(name));
     }
 
     @Override
@@ -117,13 +117,10 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public void registerIncomingPluginChannel(final DynamicGuiPlugin plugin, final String incomingChannel, final MessagingRunnable runnable) {
-        PluginMessageListener listener = new PluginMessageListener() {
-            @Override
-            public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-                if (channel.equals(incomingChannel)) {
-                    PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
-                    runnable.run(playerWrapper, message);
-                }
+        PluginMessageListener listener = (channel, player, message) -> {
+            if (channel.equals(incomingChannel)) {
+                PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+                runnable.run(playerWrapper, message);
             }
         };
         Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);
