@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.api.factory.SlotFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
+import com.clubobsidian.dynamicgui.api.manager.coldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
@@ -50,6 +51,7 @@ import com.clubobsidian.dynamicgui.core.manager.ModelManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManagerImpl;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.google.inject.Binder;
@@ -114,7 +116,7 @@ public abstract class PluginModule implements Module {
         binder.bind(MaterialManager.class).to(this.materialClass);
         binder.bind(LocationManager.class).to(this.locationClass);
         binder.bind(ModelManager.class).to(ModelManagerImpl.class);
-
+        binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
 
         binder.bind(GuiManager.class).to(SimpleGuiManager.class);
 
@@ -137,6 +139,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(GuiManager.class);
         binder.requestStaticInjection(ModelManager.class);
         binder.requestStaticInjection(DynamicGui.class);
+        binder.requestStaticInjection(CooldownManager.class);
     }
 
     public boolean bootstrap() {

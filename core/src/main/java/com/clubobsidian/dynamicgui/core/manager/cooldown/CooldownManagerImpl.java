@@ -17,45 +17,39 @@
 package com.clubobsidian.dynamicgui.core.manager.cooldown;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.manager.coldown.Cooldown;
+import com.clubobsidian.dynamicgui.api.manager.coldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CooldownManager {
-
-    private static CooldownManager instance;
-
-    public static CooldownManager get() {
-        if (instance == null) {
-            instance = new CooldownManager();
-        }
-        return instance;
-    }
+public class CooldownManagerImpl extends CooldownManager {
 
     private final Map<UUID, Map<String, Cooldown>> cooldowns = new ConcurrentHashMap<>();
     private final AtomicBoolean updateConfig = new AtomicBoolean(false);
     private final Configuration cooldownConfig;
 
-    private CooldownManager() {
-        this.cooldownConfig = this.loadConfig();
-        this.scheduleCooldownUpdate();
-        this.scheduleConfigUpdate();
+    @Inject
+    private CooldownManagerImpl(DynamicGuiPlugin plugin, Platform platform) {
+        this.cooldownConfig = this.loadConfig(plugin);
+        this.scheduleCooldownUpdate(platform);
+        this.scheduleConfigUpdate(platform);
     }
 
-    private Configuration loadConfig() {
-        File dataFolder = DynamicGui.get().getPlugin().getDataFolder();
+    private Configuration loadConfig(DynamicGuiPlugin plugin) {
+        File dataFolder = plugin.getDataFolder();
         File cooldownsFile = new File(dataFolder, "cooldowns.yml");
         Configuration config = Configuration.load(cooldownsFile);
         for (String uuidStr : config.getKeys()) {
@@ -83,10 +77,12 @@ public class CooldownManager {
         return config;
     }
 
+    @Override
     public long getRemainingCooldown(PlayerWrapper<?> playerWrapper, String name) {
         return this.getRemainingCooldown(playerWrapper.getUniqueId(), name);
     }
 
+    @Override
     public long getRemainingCooldown(UUID uuid, String name) {
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
         if (cooldownMap == null) {
@@ -101,31 +97,7 @@ public class CooldownManager {
         return this.getRemainingCooldown(cooldown);
     }
 
-    public long getRemainingCooldown(Cooldown cooldown) {
-        long currentTime = System.currentTimeMillis();
-        long cooldownTime = cooldown.getTime();
-        long cooldownAmount = cooldown.getCooldown();
-
-        if ((currentTime - cooldownTime) >= cooldownAmount) {
-            return -1L;
-        } else {
-            return cooldownAmount - (currentTime - cooldownTime);
-        }
-    }
-
-    public boolean isOnCooldown(PlayerWrapper<?> playerWrapper, String name) {
-        return this.isOnCooldown(playerWrapper.getUniqueId(), name);
-    }
-
-    public boolean isOnCooldown(UUID uuid, String name) {
-        return this.getRemainingCooldown(uuid, name) != -1L;
-    }
-
-    public List<Cooldown> getCooldowns(PlayerWrapper<?> playerWrapper) {
-        UUID uuid = playerWrapper.getUniqueId();
-        return this.getCooldowns(uuid);
-    }
-
+    @Override
     public List<Cooldown> getCooldowns(UUID uuid) {
         Map<String, Cooldown> cooldowns = this.cooldowns.get(uuid);
         if (cooldowns == null) {
@@ -134,11 +106,7 @@ public class CooldownManager {
         return new ArrayList<>(cooldowns.values());
     }
 
-    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, long cooldownTime) {
-        UUID uuid = playerWrapper.getUniqueId();
-        return this.createCooldown(uuid, name, cooldownTime);
-    }
-
+    @Override
     public Cooldown createCooldown(UUID uuid, String name, long cooldownTime) {
         long cooldownRemaining = this.getRemainingCooldown(uuid, name);
         if (cooldownRemaining == -1L) {
@@ -156,10 +124,7 @@ public class CooldownManager {
         return null;
     }
 
-    public boolean removeCooldown(PlayerWrapper<?> playerWrapper, String name) {
-        return this.removeCooldown(playerWrapper.getUniqueId(), name);
-    }
-
+    @Override
     public boolean removeCooldown(UUID uuid, String name) {
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
         if (cooldownMap == null) {
@@ -173,14 +138,15 @@ public class CooldownManager {
         return removed;
     }
 
+   @Override
     public void shutdown() {
         this.updateAndSaveConfig();
     }
 
     private void updateAndSaveConfig() {
-        Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
+        Iterator<Map.Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
         while (it.hasNext()) {
-            Entry<UUID, Map<String, Cooldown>> next = it.next();
+            Map.Entry<UUID, Map<String, Cooldown>> next = it.next();
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
@@ -197,16 +163,16 @@ public class CooldownManager {
     }
 
     private void updateCache() {
-        Iterator<Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
+        Iterator<Map.Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
         boolean modified = false;
         while (it.hasNext()) {
-            Entry<UUID, Map<String, Cooldown>> next = it.next();
+            Map.Entry<UUID, Map<String, Cooldown>> next = it.next();
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
-            Iterator<Entry<String, Cooldown>> cooldownIt = cooldownMap.entrySet().iterator();
+            Iterator<Map.Entry<String, Cooldown>> cooldownIt = cooldownMap.entrySet().iterator();
             while (cooldownIt.hasNext()) {
-                Entry<String, Cooldown> cooldownNext = cooldownIt.next();
+                Map.Entry<String, Cooldown> cooldownNext = cooldownIt.next();
                 String cooldownName = cooldownNext.getKey();
                 Cooldown cooldown = cooldownNext.getValue();
                 long cooldownRemaining = this.getRemainingCooldown(cooldown);
@@ -222,18 +188,14 @@ public class CooldownManager {
         }
     }
 
-    private void scheduleCooldownUpdate() {
-        DynamicGui dynamicGui = DynamicGui.get();
-        Platform server = dynamicGui.getPlatform();
-        server.getScheduler().scheduleSyncRepeatingTask(() -> {
+    private void scheduleCooldownUpdate(Platform platform) {
+        platform.getScheduler().scheduleSyncRepeatingTask(() -> {
             this.updateCache();
         }, 1L, 1L);
     }
 
-    private void scheduleConfigUpdate() {
-        DynamicGui dynamicGui = DynamicGui.get();
-        Platform server = dynamicGui.getPlatform();
-        server.getScheduler().scheduleAsyncRepeatingTask(() -> {
+    private void scheduleConfigUpdate(Platform platform) {
+        platform.getScheduler().scheduleAsyncRepeatingTask(() -> {
             if (this.updateConfig.get()) {
                 this.updateConfig.set(false);
                 this.updateAndSaveConfig();

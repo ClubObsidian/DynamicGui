@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager.cooldown;
+package com.clubobsidian.dynamicgui.api.manager.coldown;
 
 public class Cooldown {
 
