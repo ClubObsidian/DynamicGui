@@ -16,9 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ public class InvalidFunctionTypeMacroTest {
         File file = new File(slotFolder, "invalid-function-type-macro.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, section);
+        SlotToken token = new SimpleSlotToken(0, section);
         FunctionTree tree = token.getFunctionTree();
         FunctionToken functionToken = tree.getRootNodes().get(0).getToken();
         assertEquals(1, functionToken.getTypes().size());

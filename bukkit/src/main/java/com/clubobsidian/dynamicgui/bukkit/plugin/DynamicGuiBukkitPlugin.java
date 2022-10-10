@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
-import cloud.commandframework.CloudCapability;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
@@ -36,23 +35,23 @@ import com.clubobsidian.dynamicgui.bukkit.registry.model.ItemsAdderModelProvider
 import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.economy.Economy;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ModelManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.permission.Permission;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.ModelManager;
+import com.clubobsidian.dynamicgui.core.manager.ReplacerManager;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -71,7 +70,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
 
     @Override
     public void start() {
-        Platform platform = new BukkitPlatform();
+        Platform platform = new BukkitPlatform(this);
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
 
         CommandManager<GuiCommandSender> commandManager = this.createCommandSender();
@@ -127,11 +126,16 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
-        this.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        this.registerListener(new EntityClickListener());
+        this.registerListener(new InventoryInteractListener());
+        this.registerListener(new InventoryCloseListener());
+        this.registerListener(new InventoryOpenListener());
+        this.registerListener(new PlayerInteractListener());
+    }
+
+    private void registerListener(Listener listener) {
+        DynamicGui.get().inject(listener);
+        this.getServer().getPluginManager().registerEvents(listener, this);
     }
 
     private CommandManager<GuiCommandSender> createCommandSender() {

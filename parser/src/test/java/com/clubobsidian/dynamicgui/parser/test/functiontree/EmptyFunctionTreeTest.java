@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.functiontree;
 
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +26,7 @@ public class EmptyFunctionTreeTest {
 
     @Test
     public void testEmptyFunctionTree() {
-        FunctionTree tree = new FunctionTree();
+        FunctionTree tree = new SimpleFunctionTree();
         assertEquals(0, tree.getRootNodes().size());
     }
 }

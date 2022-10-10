@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
 import com.clubobsidian.dynamicgui.core.event.player.PlayerKickEvent;
 import com.clubobsidian.dynamicgui.core.event.player.PlayerQuitEvent;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 

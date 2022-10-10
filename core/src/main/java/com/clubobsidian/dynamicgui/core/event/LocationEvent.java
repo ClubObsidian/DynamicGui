@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.event;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
-public class LocationEvent extends PlayerEvent {
+public abstract class LocationEvent extends PlayerEvent {
 
     private final LocationWrapper<?> locationWrapper;
 

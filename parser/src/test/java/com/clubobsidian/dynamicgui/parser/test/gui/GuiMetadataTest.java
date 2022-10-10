@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.wrappy.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class GuiMetadataTest {
         File slotFolder = new File("test", "gui");
         File metadataFile = new File(slotFolder, "metadata.yml");
         Configuration config = Configuration.load(metadataFile);
-        GuiToken token = new GuiToken(config);
+        GuiToken token = new SimpleGuiToken(config);
         Map<String, String> metadata = token.getMetadata();
         assertEquals(1, metadata.size());
         assertEquals("metadata", metadata.get("some"));

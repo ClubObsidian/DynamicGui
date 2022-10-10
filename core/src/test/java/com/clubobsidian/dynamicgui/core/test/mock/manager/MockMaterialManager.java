@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 
 import java.util.List;
 

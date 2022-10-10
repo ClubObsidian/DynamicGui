@@ -17,18 +17,20 @@
 package com.clubobsidian.dynamicgui.core.test.mock;
 
 import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.economy.Economy;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
-import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
+import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.command.MockCommandManager;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
@@ -44,7 +46,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -89,7 +91,7 @@ public class MockFactory {
     }
 
     public Gui createGui(String title, List<Slot> slots) {
-        return new Gui(title,
+        return new SimpleGui(title,
                 InventoryType.CHEST.toString(),
                 title,
                 6,
@@ -98,7 +100,7 @@ public class MockFactory {
                 new HashMap<>(),
                 slots,
                 new ArrayList<>(),
-                new FunctionTree(),
+                new SimpleFunctionTree(),
                 new HashMap<>(),
                 false);
     }
@@ -143,7 +145,7 @@ public class MockFactory {
     }
 
     public Slot createSlot(int index, String type, List<String> lore, List<EnchantmentWrapper> enchants, boolean movable) {
-        return new Slot(index,
+        return new SimpleSlot(index,
                 1,
                 type,
                 "test",
@@ -157,7 +159,7 @@ public class MockFactory {
                 new ArrayList<>(),
                 null,
                 null,
-                new FunctionTree(),
+                new SimpleFunctionTree(),
                 0,
                 new HashMap<>());
     }

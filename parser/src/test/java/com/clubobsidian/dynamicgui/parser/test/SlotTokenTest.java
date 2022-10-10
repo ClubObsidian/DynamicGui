@@ -16,9 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.BeforeAll;
@@ -40,7 +41,7 @@ public class SlotTokenTest {
         File file = new File("test.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("1");
-        token = new SlotToken(1, section);
+        token = new SimpleSlotToken(1, section);
     }
 
     @Test

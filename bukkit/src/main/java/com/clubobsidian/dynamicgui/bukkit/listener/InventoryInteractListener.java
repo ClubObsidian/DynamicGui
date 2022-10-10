@@ -19,12 +19,12 @@ package com.clubobsidian.dynamicgui.bukkit.listener;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
 import com.clubobsidian.dynamicgui.core.gui.InventoryView;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,12 +34,16 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.inject.Inject;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class InventoryInteractListener implements Listener {
+
+    @Inject
+    private EventBus eventBus;
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
@@ -79,7 +83,7 @@ public class InventoryInteractListener implements Listener {
             }
 
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent clickEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent(playerWrapper, inventoryWrapper, itemStackWrapper, slot, clickType, view);
-            DynamicGui.get().getEventBus().callEvent(clickEvent);
+            this.eventBus.callEvent(clickEvent);
             if (clickEvent.isCancelled()) {
                 e.setCancelled(true);
             }
@@ -99,7 +103,7 @@ public class InventoryInteractListener implements Listener {
             InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(inventory);
             Map<Integer, ItemStackWrapper<?>> slotItems = this.wrapItemStacks(e.getNewItems());
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent dragEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent(playerWrapper, inventoryWrapper, slotItems);
-            DynamicGui.get().getEventBus().callEvent(dragEvent);
+            this.eventBus.callEvent(dragEvent);
             if (dragEvent.isCancelled()) {
                 e.setCancelled(true);
             }

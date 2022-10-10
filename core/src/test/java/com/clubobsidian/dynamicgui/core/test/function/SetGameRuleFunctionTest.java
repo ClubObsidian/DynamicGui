@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SetGameRuleFunction;
+import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.core.function.SetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
 import org.junit.jupiter.api.Test;

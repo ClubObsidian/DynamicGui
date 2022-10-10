@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class MovableTest {
         File metadataFile = new File(slotFolder, "movable.yml");
         Configuration config = Configuration.load(metadataFile);
         ConfigurationSection slot = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, slot);
+        SlotToken token = new SimpleSlotToken(0, slot);
         assertTrue(token.isMovable());
     }
 
@@ -44,7 +45,7 @@ public class MovableTest {
         File metadataFile = new File(slotFolder, "movable.yml");
         Configuration config = Configuration.load(metadataFile);
         ConfigurationSection slot = config.getConfigurationSection("1");
-        SlotToken token = new SlotToken(1, slot);
+        SlotToken token = new SimpleSlotToken(1, slot);
         assertFalse(token.isMovable());
     }
 }

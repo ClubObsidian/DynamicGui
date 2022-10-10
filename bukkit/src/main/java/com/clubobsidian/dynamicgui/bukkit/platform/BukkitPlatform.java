@@ -19,16 +19,16 @@ package com.clubobsidian.dynamicgui.bukkit.platform;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.scheduler.BukkitScheduler;
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.platform.PlatformType;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.proxy.Proxy;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.PlatformType;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
@@ -47,7 +47,11 @@ import java.util.UUID;
 
 public class BukkitPlatform implements Platform {
 
-    private final Scheduler scheduler = new BukkitScheduler();
+    private final Scheduler scheduler;
+
+    public BukkitPlatform(Plugin plugin) {
+        this.scheduler = new BukkitScheduler(plugin);
+    }
 
     @Override
     public Scheduler getScheduler() {
@@ -77,12 +81,12 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public PlayerWrapper<?> getPlayer(UUID uuid) {
-        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(uuid));
+        return new BukkitPlayerWrapper<>(Bukkit.getServer().getPlayer(uuid));
     }
 
     @Override
     public PlayerWrapper<?> getPlayer(String name) {
-        return new BukkitPlayerWrapper<Player>(Bukkit.getServer().getPlayer(name));
+        return new BukkitPlayerWrapper<>(Bukkit.getServer().getPlayer(name));
     }
 
     @Override
@@ -93,11 +97,7 @@ public class BukkitPlatform implements Platform {
     }
 
     @Override
-    public int getGlobalPlayerCount() {
-        if (DynamicGui.get().getProxy() != Proxy.NONE) {
-            return DynamicGui.get().getGlobalServerPlayerCount();
-        }
-
+    public int getLocalPlayerCount() {
         return Bukkit.getServer().getOnlinePlayers().size();
     }
 
@@ -113,13 +113,10 @@ public class BukkitPlatform implements Platform {
 
     @Override
     public void registerIncomingPluginChannel(final DynamicGuiPlugin plugin, final String incomingChannel, final MessagingRunnable runnable) {
-        PluginMessageListener listener = new PluginMessageListener() {
-            @Override
-            public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-                if (channel.equals(incomingChannel)) {
-                    PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
-                    runnable.run(playerWrapper, message);
-                }
+        PluginMessageListener listener = (channel, player, message) -> {
+            if (channel.equals(incomingChannel)) {
+                PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+                runnable.run(playerWrapper, message);
             }
         };
         Bukkit.getServer().getMessenger().registerIncomingPluginChannel((Plugin) plugin, incomingChannel, listener);

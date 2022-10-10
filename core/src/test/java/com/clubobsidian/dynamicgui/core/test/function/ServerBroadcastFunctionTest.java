@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.ServerBroadcastFunction;
+import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.core.function.ServerBroadcastFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.junit.jupiter.api.Test;

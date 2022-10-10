@@ -16,8 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +41,11 @@ public class MultiMacroSameFileTest {
 
         List<MacroToken> tokens = new ArrayList<>();
         for (String key : config.getKeys()) {
-            MacroToken token = new MacroToken(config.getConfigurationSection(key));
+            MacroToken token = new SimpleMacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
         String toParse = "%uses-test%";
         String parsed = parser.parseStringMacros(toParse);
         System.out.println(parsed);
@@ -60,11 +62,11 @@ public class MultiMacroSameFileTest {
 
         List<MacroToken> tokens = new ArrayList<>();
         for (String key : config.getKeys()) {
-            MacroToken token = new MacroToken(config.getConfigurationSection(key));
+            MacroToken token = new SimpleMacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
         List<String> replaceIn = new ArrayList<>();
         String toParse = "%uses-multiline-macro%";
         replaceIn.add(toParse);

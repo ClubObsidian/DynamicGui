@@ -17,8 +17,8 @@
 package com.clubobsidian.dynamicgui.bukkit.manager.world;
 
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
-import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import org.bukkit.Location;
 import org.bukkit.World;
 

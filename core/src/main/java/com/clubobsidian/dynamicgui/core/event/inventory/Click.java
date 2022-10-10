@@ -22,6 +22,9 @@ public enum Click {
     RIGHT,
     MIDDLE,
     SHIFT_LEFT,
-    SHIFT_RIGHT
+    SHIFT_RIGHT;
 
+    public boolean isShift() {
+        return this == Click.SHIFT_LEFT || this == Click.SHIFT_RIGHT;
+    }
 }

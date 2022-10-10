@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 
 import java.util.List;
 

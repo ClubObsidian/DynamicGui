@@ -16,14 +16,14 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.platform.PlatformType;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
+import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.PlatformType;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
-import com.clubobsidian.dynamicgui.core.world.WorldWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -76,7 +76,7 @@ public class MockPlatform implements Platform {
     @Override
     public PlayerWrapper<?> getPlayer(UUID uuid) {
         for (PlayerWrapper<?> player : this.players) {
-            if(player.getUniqueId().equals(uuid)) {
+            if (player.getUniqueId().equals(uuid)) {
                 return player;
             }
         }
@@ -86,7 +86,7 @@ public class MockPlatform implements Platform {
     @Override
     public PlayerWrapper<?> getPlayer(String name) {
         for (PlayerWrapper<?> player : this.players) {
-            if(player.getName().equals(name)) {
+            if (player.getName().equals(name)) {
                 return player;
             }
         }
@@ -99,7 +99,7 @@ public class MockPlatform implements Platform {
     }
 
     @Override
-    public int getGlobalPlayerCount() {
+    public int getLocalPlayerCount() {
         return 0;
     }
 

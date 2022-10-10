@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class ValidUpdateIntervalTest {
         File file = new File(slotFolder, "valid-update-interval.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, section);
+        SlotToken token = new SimpleSlotToken(0, section);
         int interval = token.getUpdateInterval();
         assertEquals(5, interval);
     }

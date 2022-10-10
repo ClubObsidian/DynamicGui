@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.event.player;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.PlayerEvent;
 
 public class PlayerKickEvent extends PlayerEvent {

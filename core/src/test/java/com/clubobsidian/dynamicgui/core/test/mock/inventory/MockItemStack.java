@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

@@ -16,10 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SendFunction;
-import com.clubobsidian.dynamicgui.core.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.core.DynamicGuiImpl;
+import com.clubobsidian.dynamicgui.core.function.SendFunction;
+import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +51,7 @@ public class SendFunctionTest extends FactoryTest {
         this.getFactory().inject();
         Function function = new SendFunction();
         function.setData("test");
-        assertTrue(this.setProxy(Proxy.BUNGEECORD));
+        assertTrue(this.setProxy(Proxy.BUNGEE));
         assertTrue(function.function(this.getFactory().createPlayer()));
     }
 
@@ -65,7 +66,7 @@ public class SendFunctionTest extends FactoryTest {
 
     private boolean setProxy(Proxy proxy) {
         try {
-            Field proxyField = DynamicGui.class.getDeclaredField("proxy");
+            Field proxyField = DynamicGuiImpl.class.getDeclaredField("proxy");
             proxyField.setAccessible(true);
             proxyField.set(DynamicGui.get(), proxy);
             return true;

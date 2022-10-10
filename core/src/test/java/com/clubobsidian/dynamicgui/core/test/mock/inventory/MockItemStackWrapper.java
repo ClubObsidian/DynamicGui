@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 
 import java.util.List;
 

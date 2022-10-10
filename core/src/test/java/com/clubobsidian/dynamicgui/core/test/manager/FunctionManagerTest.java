@@ -16,13 +16,15 @@
 
 package com.clubobsidian.dynamicgui.core.test.manager;
 
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
+import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

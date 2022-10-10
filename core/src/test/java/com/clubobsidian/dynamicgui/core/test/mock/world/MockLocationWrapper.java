@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.world;
 
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
 public class MockLocationWrapper extends LocationWrapper<MockLocation> {
 

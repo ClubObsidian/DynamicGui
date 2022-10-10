@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.wrappy.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +32,8 @@ public class LocationTest {
         File slotFolder = new File("test", "gui");
         File file = new File(slotFolder, "location.yml");
         Configuration config = Configuration.load(file);
-        GuiToken token = new GuiToken(config);
+        GuiToken token = new SimpleGuiToken(config);
         String location = token.getLocations().get(0);
         assertEquals("0,0,0,world", location);
     }
-
 }

@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.proxy;
 
-import com.clubobsidian.dynamicgui.core.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -32,8 +32,7 @@ public class ProxyTest {
 
     @Test
     public void bungeeTest() {
-        ;
-        assertEquals(Proxy.BUNGEECORD, Proxy.fromString("BUNGEE"));
+        assertEquals(Proxy.BUNGEE, Proxy.fromString("BUNGEE"));
     }
 
     @Test

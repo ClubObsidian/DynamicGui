@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.event;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.trident.Event;
 
-public class PlayerEvent extends Event {
+public abstract class PlayerEvent extends Event {
 
     private final PlayerWrapper<?> playerWrapper;
 

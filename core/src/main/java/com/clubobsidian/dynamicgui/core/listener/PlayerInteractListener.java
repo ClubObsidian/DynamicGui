@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.event.block.PlayerInteractEvent;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 import com.clubobsidian.trident.EventHandler;
 
 public class PlayerInteractListener {

@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockInventory;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockInventoryWrapper;
 

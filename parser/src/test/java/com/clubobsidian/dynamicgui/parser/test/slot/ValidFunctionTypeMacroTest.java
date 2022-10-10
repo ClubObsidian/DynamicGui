@@ -16,10 +16,11 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class ValidFunctionTypeMacroTest {
         File file = new File(slotFolder, "valid-function-type-macro.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, section);
+        SlotToken token = new SimpleSlotToken(0, section);
         FunctionTree tree = token.getFunctionTree();
         FunctionToken functionToken = tree.getRootNodes().get(0).getToken();
         assertSame(functionToken.getTypes().get(0), FunctionType.RIGHT);

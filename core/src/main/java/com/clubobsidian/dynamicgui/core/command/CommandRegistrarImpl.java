@@ -20,9 +20,12 @@ import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.meta.SimpleCommandMeta;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.google.inject.Injector;
 
 import javax.inject.Inject;
@@ -63,7 +66,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {
                     PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
-                    if(playerWrapper != null) {
+                    if (playerWrapper != null) {
                         GuiManager.get().openGui(playerWrapper, guiName);
                     }
                 }).build();

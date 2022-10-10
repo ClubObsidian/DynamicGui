@@ -51,7 +51,7 @@ public enum CloudArgument {
     private static final Map<String, CloudArgument> types = new HashMap<>();
 
     static {
-        for(CloudArgument arg : CloudArgument.values()) {
+        for (CloudArgument arg : CloudArgument.values()) {
             types.put(arg.name().toLowerCase(Locale.ROOT), arg);
         }
     }

@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.npc;
 
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCMeta;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCMeta;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.entity.Entity;
 
@@ -61,11 +61,6 @@ public class CitizensRegistry implements NPCRegistry {
     @Override
     public String getName() {
         return PLUGIN_NAME;
-    }
-
-    @Override
-    public boolean isNPC(EntityWrapper<?> entityWrapper) {
-        return this.getNPC(entityWrapper) != null;
     }
 
     @Override

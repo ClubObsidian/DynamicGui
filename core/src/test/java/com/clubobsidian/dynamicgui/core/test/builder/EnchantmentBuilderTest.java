@@ -16,8 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.builder;
 
-import com.clubobsidian.dynamicgui.core.builder.EnchantmentBuilder;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +26,7 @@ public class EnchantmentBuilderTest {
     @Test
     public void testName() {
         String enchantmentName = "test";
-        EnchantmentWrapper enchantment = new EnchantmentBuilder()
+        EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
                 .setEnchantment(enchantmentName)
                 .build();
         assertEquals(enchantmentName, enchantment.getEnchant());
@@ -36,7 +35,7 @@ public class EnchantmentBuilderTest {
     @Test
     public void testLevel() {
         int enchantmentLevel = 1;
-        EnchantmentWrapper enchantment = new EnchantmentBuilder()
+        EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
                 .setLevel(enchantmentLevel)
                 .build();
         assertEquals(enchantmentLevel, enchantment.getLevel());

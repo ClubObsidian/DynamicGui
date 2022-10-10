@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
-import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.SoundFunction;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.core.function.SoundFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;

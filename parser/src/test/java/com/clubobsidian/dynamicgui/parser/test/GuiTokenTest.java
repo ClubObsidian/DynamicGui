@@ -16,13 +16,15 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +48,7 @@ public class GuiTokenTest {
     public static void loadToken() {
         File file = new File("test.yml");
         Configuration config = Configuration.load(file);
-        token = new GuiToken(config);
+        token = new SimpleGuiToken(config);
     }
 
     @Test
@@ -109,14 +111,14 @@ public class GuiTokenTest {
         File externalFile = new File("external.yml");
         Configuration externalConfig = Configuration.load(externalFile);
         ConfigurationSection externalMacros = externalConfig.getConfigurationSection("macros");
-        MacroToken externalToken = new MacroToken(externalMacros);
+        MacroToken externalToken = new SimpleMacroToken(externalMacros);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(externalToken);
 
         File textFile = new File("external-test.yml");
         Configuration config = Configuration.load(textFile);
-        GuiToken token = new GuiToken(config, tokens);
+        GuiToken token = new SimpleGuiToken(config, tokens);
 
         String title = token.getTitle();
 
