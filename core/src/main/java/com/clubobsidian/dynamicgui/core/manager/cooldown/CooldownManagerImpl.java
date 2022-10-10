@@ -144,21 +144,20 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     private void updateAndSaveConfig() {
-        Iterator<Map.Entry<UUID, Map<String, Cooldown>>> it = this.cooldowns.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<UUID, Map<String, Cooldown>> next = it.next();
+        for (Map.Entry<UUID, Map<String, Cooldown>> next : this.cooldowns.entrySet()) {
             UUID uuid = next.getKey();
             String uuidStr = uuid.toString();
             Map<String, Cooldown> cooldownMap = next.getValue();
-            cooldownMap.forEach((cooldownName, cooldownObj) -> {
+            for (Map.Entry<String, Cooldown> entry : cooldownMap.entrySet()) {
+                String cooldownName = entry.getKey();
+                Cooldown cooldownObj = entry.getValue();
                 long time = cooldownObj.getTime();
                 long cooldown = cooldownObj.getCooldown();
                 ConfigurationSection cooldownSection = this.cooldownConfig.getConfigurationSection(uuidStr + "." + cooldownName);
                 cooldownSection.set("time", time);
                 cooldownSection.set("cooldown", cooldown);
-            });
+            }
         }
-
         this.cooldownConfig.save();
     }
 
