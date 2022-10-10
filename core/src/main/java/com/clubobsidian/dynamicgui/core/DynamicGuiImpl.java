@@ -110,10 +110,7 @@ public class DynamicGuiImpl extends DynamicGui {
             this.checkForProxy();
             this.registerListeners();
             this.registerCommands();
-            ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
-            ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
-            ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
-            AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
+            this.registerReplacerManagers();
             SlotManager.get();
             CooldownManager.get();
             return true;
@@ -251,6 +248,13 @@ public class DynamicGuiImpl extends DynamicGui {
     private void registerCommands() {
         this.commandRegistrar.registerCommand(GuiCommand.class);
         this.commandRegistrar.registerCommand(DynamicGuiCommand.class);
+    }
+
+    private void registerReplacerManagers() {
+        ReplacerManager.get().registerReplacerRegistry(DynamicGuiReplacerRegistry.get());
+        ReplacerManager.get().registerReplacerRegistry(CooldownReplacerRegistry.get());
+        ReplacerManager.get().registerReplacerRegistry(MetadataReplacerRegistry.get());
+        AnimationReplacerManager.get().registerReplacerRegistry(DynamicGuiAnimationReplacerRegistry.get());
     }
 
     private void loadFunctions() {

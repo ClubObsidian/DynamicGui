@@ -21,4 +21,5 @@ public interface Message {
     String getNoGui();
 
     String getNoGuiPermission();
+
 }
