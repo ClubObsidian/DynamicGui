@@ -99,7 +99,7 @@ public class MockPlatform implements Platform {
     }
 
     @Override
-    public int getGlobalPlayerCount() {
+    public int getLocalPlayerCount() {
         return 0;
     }
 
