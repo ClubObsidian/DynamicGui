@@ -43,7 +43,7 @@ public interface Platform {
 
     Collection<PlayerWrapper<?>> getOnlinePlayers();
 
-    int getGlobalPlayerCount();
+    int getLocalPlayerCount();
 
     PlatformType getType();
 

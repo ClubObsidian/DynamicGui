@@ -51,7 +51,7 @@ public abstract class DynamicGui {
 
     public abstract LoggerWrapper<?> getLogger();
 
-    public abstract int getGlobalServerPlayerCount();
+    public abstract int getGlobalPlayerCount();
 
     public abstract int getServerPlayerCount(String server);
 

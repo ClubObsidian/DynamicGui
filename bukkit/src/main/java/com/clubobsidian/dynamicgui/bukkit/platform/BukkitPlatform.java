@@ -97,11 +97,7 @@ public class BukkitPlatform implements Platform {
     }
 
     @Override
-    public int getGlobalPlayerCount() {
-        if (DynamicGui.get().getProxy() != Proxy.NONE) {
-            return DynamicGui.get().getGlobalServerPlayerCount();
-        }
-
+    public int getLocalPlayerCount() {
         return Bukkit.getServer().getOnlinePlayers().size();
     }
 

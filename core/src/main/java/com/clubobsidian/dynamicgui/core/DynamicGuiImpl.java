@@ -324,7 +324,10 @@ public class DynamicGuiImpl extends DynamicGui {
     }
 
     @Override
-    public int getGlobalServerPlayerCount() {
+    public int getGlobalPlayerCount() {
+        if (this.proxy == Proxy.NONE) {
+            return this.platform.getLocalPlayerCount();
+        }
         int globalPlayerCount = 0;
         for (int playerCount : this.serverPlayerCount.values()) {
             globalPlayerCount += playerCount;
