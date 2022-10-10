@@ -70,7 +70,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SimpleGuiManager extends GuiManager {
+public class GuiManagerImpl extends GuiManager {
 
     private static Gui getOrCloneGui(Gui gui) {
         return gui.isStatic() ? gui : gui.clone();
@@ -92,8 +92,8 @@ public class SimpleGuiManager extends GuiManager {
     private boolean initialized = false;
 
     @Inject
-    private SimpleGuiManager(CommandRegistrar commandRegistrar, Platform platform,
-                             GuiFactory factory, EventBus eventBus) {
+    private GuiManagerImpl(CommandRegistrar commandRegistrar, Platform platform,
+                           GuiFactory factory, EventBus eventBus) {
         this.guis = new HashMap<>();
         this.cachedGuis = new HashMap<>();
         this.cachedTokens = new HashMap<>();

@@ -50,7 +50,7 @@ import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.MiniMessageManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.ModelManagerImpl;
-import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
+import com.clubobsidian.dynamicgui.core.manager.GuiManagerImpl;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManagerImpl;
@@ -125,7 +125,7 @@ public abstract class PluginModule implements Module {
         binder.bind(ModelManager.class).to(ModelManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
         binder.bind(MiniMessageManager.class).to(MiniMessageManagerImpl.class).asEagerSingleton();
-        binder.bind(GuiManager.class).to(SimpleGuiManager.class).asEagerSingleton();
+        binder.bind(GuiManager.class).to(GuiManagerImpl.class).asEagerSingleton();
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
