@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,7 +29,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 
+import javax.inject.Inject;
+
 public class InventoryOpenListener implements Listener {
+
+    @Inject
+    private EventBus eventBus;
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void inventoryOpen(InventoryOpenEvent e) {
@@ -37,7 +43,7 @@ public class InventoryOpenListener implements Listener {
             PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
             InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
-            DynamicGui.get().getEventBus().callEvent(inventoryOpenEvent);
+            this.eventBus.callEvent(inventoryOpenEvent);
         }
     }
 }

@@ -57,6 +57,8 @@ public abstract class DynamicGui {
 
     public abstract boolean sendToServer(PlayerWrapper<?> playerWrapper, String server);
 
+    public abstract void inject(Object obj);
+
     public abstract EventBus getEventBus();
 
 }

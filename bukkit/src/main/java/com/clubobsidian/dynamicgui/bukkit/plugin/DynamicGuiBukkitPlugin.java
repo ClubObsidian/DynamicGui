@@ -48,6 +48,7 @@ import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -125,11 +126,16 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             ReplacerManager.get().registerReplacerRegistry(new PlaceholderApiReplacerRegistry());
         }
 
-        this.getServer().getPluginManager().registerEvents(new EntityClickListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryInteractListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        this.getServer().getPluginManager().registerEvents(new InventoryOpenListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        this.registerListener(new EntityClickListener());
+        this.registerListener(new InventoryInteractListener());
+        this.registerListener(new InventoryCloseListener());
+        this.registerListener(new InventoryOpenListener());
+        this.registerListener(new PlayerInteractListener());
+    }
+
+    private void registerListener(Listener listener) {
+        DynamicGui.get().inject(listener);
+        this.getServer().getPluginManager().registerEvents(listener, this);
     }
 
     private CommandManager<GuiCommandSender> createCommandSender() {

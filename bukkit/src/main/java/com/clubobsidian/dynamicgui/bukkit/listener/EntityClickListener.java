@@ -21,21 +21,26 @@ import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
+import javax.inject.Inject;
+
 public class EntityClickListener implements Listener {
+
+    @Inject
+    private EventBus eventBus;
 
     @EventHandler
     public void onEntityClick(PlayerInteractEntityEvent e) {
         if (e.getRightClicked() != null) {
-            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-            EntityWrapper<Entity> entityWrapper = new BukkitEntityWrapper<Entity>(e.getRightClicked());
-
-            DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<>(e.getPlayer());
+            EntityWrapper<Entity> entityWrapper = new BukkitEntityWrapper<>(e.getRightClicked());
+            this.eventBus.callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
         }
     }
 }
