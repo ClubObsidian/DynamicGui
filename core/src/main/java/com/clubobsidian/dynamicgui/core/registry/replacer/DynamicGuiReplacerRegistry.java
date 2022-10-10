@@ -40,6 +40,13 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
     private static DynamicGuiReplacerRegistry instance;
 
+    public static DynamicGuiReplacerRegistry get() {
+        if (instance == null) {
+            instance = new DynamicGuiReplacerRegistry();
+        }
+        return instance;
+    }
+
     private final Map<String, Replacer> replacers;
     private final Map<String, List<Replacer>> cachedReplacers;
 
@@ -78,13 +85,6 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
 
         return newText;
-    }
-
-    public static DynamicGuiReplacerRegistry get() {
-        if (instance == null) {
-            instance = new DynamicGuiReplacerRegistry();
-        }
-        return instance;
     }
 
     public boolean addReplacer(Replacer replacer) {
