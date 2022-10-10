@@ -14,25 +14,13 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.manager.coldown;
+package com.clubobsidian.dynamicgui.api.manager.cooldown;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.dynamicgui.api.platform.Platform;
-import com.clubobsidian.wrappy.Configuration;
-import com.clubobsidian.wrappy.ConfigurationSection;
 
 import javax.inject.Inject;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class CooldownManager {
 

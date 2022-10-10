@@ -28,7 +28,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
-import com.clubobsidian.dynamicgui.api.manager.coldown.CooldownManager;
+import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
@@ -106,6 +106,11 @@ public abstract class PluginModule implements Module {
         binder.bind(SlotFactory.class).to(SlotFactoryImpl.class).asEagerSingleton();
         binder.bind(GuiFactory.class).to(GuiFactoryImpl.class).asEagerSingleton();
 
+        binder.requestStaticInjection(FunctionData.Builder.class);
+        binder.requestStaticInjection(FunctionToken.Builder.class);
+        binder.requestStaticInjection(Slot.Builder.class);
+        binder.requestStaticInjection(Gui.Builder.class);
+
         binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>() {
         }).toInstance(this.commandManager);
         binder.bind(CommandRegistrar.class).to(CommandRegistrarImpl.class).asEagerSingleton();
@@ -127,12 +132,7 @@ public abstract class PluginModule implements Module {
 
         binder.bind(DynamicGui.class).to(DynamicGuiImpl.class).asEagerSingleton();
 
-        //Factories
-        binder.requestStaticInjection(FunctionData.Builder.class);
-        binder.requestStaticInjection(FunctionToken.Builder.class);
-        binder.requestStaticInjection(Slot.Builder.class);
-        binder.requestStaticInjection(Gui.Builder.class);
-
+        binder.requestStaticInjection(CooldownManager.class);
         binder.requestStaticInjection(MiniMessageManager.class);
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);
@@ -141,11 +141,15 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(LocationManager.class);
         binder.requestStaticInjection(GuiManager.class);
         binder.requestStaticInjection(ModelManager.class);
-        binder.requestStaticInjection(CooldownManager.class);
         binder.requestStaticInjection(DynamicGui.class);
     }
 
     public boolean bootstrap() {
+        try {
+            Class.forName("com.clubobsidian.dynamicgui.shaded.guava.base.CaseFormat");
+        } catch (ClassNotFoundException e) {
+            this.logger.info("Unable to find CaseFormat class");
+        }
         Guice.createInjector(this);
         return DynamicGui.get().start();
     }

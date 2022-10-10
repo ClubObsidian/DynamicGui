@@ -12,7 +12,7 @@ shadowJar {
     archiveBaseName.set('DynamicGui-Bukkit')
 }
 
-tasks.shadowJar.dependsOn ':core:shadowJar'
+//tasks.shadowJar.dependsOn ':core:shadowJar'
 
 dependencies {
     implementation project(path: ':core')

@@ -17,8 +17,8 @@
 package com.clubobsidian.dynamicgui.core.manager.cooldown;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.manager.coldown.Cooldown;
-import com.clubobsidian.dynamicgui.api.manager.coldown.CooldownManager;
+import com.clubobsidian.dynamicgui.api.manager.cooldown.Cooldown;
+import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.wrappy.Configuration;
@@ -43,9 +43,13 @@ public class CooldownManagerImpl extends CooldownManager {
 
     @Inject
     private CooldownManagerImpl(DynamicGuiPlugin plugin, Platform platform) {
+        System.out.println("Trying to create cooldown manager");
         this.cooldownConfig = this.loadConfig(plugin);
-        this.scheduleCooldownUpdate(platform);
-        this.scheduleConfigUpdate(platform);
+        System.out.println("Loaded config");
+        //this.scheduleCooldownUpdate(platform);
+        System.out.println("Cooldown update");
+        //this.scheduleConfigUpdate(platform);
+        System.out.println("Created cooldown manager");
     }
 
     private Configuration loadConfig(DynamicGuiPlugin plugin) {

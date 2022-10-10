@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.trident.EventBus;
