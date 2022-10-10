@@ -98,11 +98,11 @@ public abstract class PluginModule implements Module {
         binder.bind(EventBus.class).toInstance(new MethodHandleEventBus());
 
         //Factories
-        binder.bind(FunctionTreeFactory.class).to(FunctionTreeFactoryImpl.class);
-        binder.bind(FunctionTokenFactory.class).to(FunctionTokenFactoryImpl.class);
-        binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class);
-        binder.bind(SlotFactory.class).to(SlotFactoryImpl.class);
-        binder.bind(GuiFactory.class).to(GuiFactoryImpl.class);
+        binder.bind(FunctionTreeFactory.class).to(FunctionTreeFactoryImpl.class).asEagerSingleton();
+        binder.bind(FunctionTokenFactory.class).to(FunctionTokenFactoryImpl.class).asEagerSingleton();
+        binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class).asEagerSingleton();
+        binder.bind(SlotFactory.class).to(SlotFactoryImpl.class).asEagerSingleton();
+        binder.bind(GuiFactory.class).to(GuiFactoryImpl.class).asEagerSingleton();
 
         binder.bind(new TypeLiteral<CommandManager<GuiCommandSender>>() {
         }).toInstance(this.commandManager);
@@ -110,12 +110,12 @@ public abstract class PluginModule implements Module {
 
         binder.bind(Platform.class).toInstance(this.platform);
         binder.bind(DynamicGuiPlugin.class).toInstance(this.plugin);
-        binder.bind(EntityManager.class).to(this.entityClass);
-        binder.bind(InventoryManager.class).to(this.inventoryClass);
-        binder.bind(ItemStackManager.class).to(this.itemStackClass);
-        binder.bind(MaterialManager.class).to(this.materialClass);
-        binder.bind(LocationManager.class).to(this.locationClass);
-        binder.bind(ModelManager.class).to(ModelManagerImpl.class);
+        binder.bind(EntityManager.class).to(this.entityClass).asEagerSingleton();
+        binder.bind(InventoryManager.class).to(this.inventoryClass).asEagerSingleton();
+        binder.bind(ItemStackManager.class).to(this.itemStackClass).asEagerSingleton();
+        binder.bind(MaterialManager.class).to(this.materialClass).asEagerSingleton();
+        binder.bind(LocationManager.class).to(this.locationClass).asEagerSingleton();
+        binder.bind(ModelManager.class).to(ModelManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
 
         binder.bind(GuiManager.class).to(SimpleGuiManager.class);
@@ -123,7 +123,7 @@ public abstract class PluginModule implements Module {
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
 
-        binder.bind(DynamicGui.class).to(DynamicGuiImpl.class);
+        binder.bind(DynamicGui.class).to(DynamicGuiImpl.class).asEagerSingleton();
 
         //Factories
         binder.requestStaticInjection(FunctionData.Builder.class);
