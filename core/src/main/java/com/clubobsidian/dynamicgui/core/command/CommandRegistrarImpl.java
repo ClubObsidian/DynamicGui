@@ -65,10 +65,9 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         this.unregisterCommand(alias);
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {
-                    PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
-                    if (playerWrapper != null) {
+                    context.getSender().getPlayer().ifPresent(playerWrapper -> {
                         GuiManager.get().openGui(playerWrapper, guiName);
-                    }
+                    });
                 }).build();
         this.commandManager.command(command);
         this.registeredAliases.add(alias);
