@@ -17,34 +17,30 @@
 package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
+import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.EventHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MiniMessageManager {
-
-    private static MiniMessageManager instance;
-
-    public static MiniMessageManager get() {
-        if (instance == null) {
-            instance = new MiniMessageManager();
-        }
-        return instance;
-    }
+public class MiniMessageManagerImpl extends MiniMessageManager {
 
     private final Map<String, String> json = new HashMap<>();
     private final MiniMessage miniSerializer = MiniMessage.builder().build();
     private final GsonComponentSerializer gsonSerializer = GsonComponentSerializer.builder().build();
 
-    private MiniMessageManager() {
-        DynamicGui.get().getEventBus().registerEvents(this);
+    @Inject
+    private MiniMessageManagerImpl(EventBus eventBus) {
+        eventBus.registerEvents(this);
     }
 
+    @Override
     public String toJson(String data) {
         String cached = this.json.get(data);
         if (cached == null) {

@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.factory.SlotFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.coldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
@@ -47,6 +48,7 @@ import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.MiniMessageManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.ModelManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.SimpleGuiManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
@@ -117,7 +119,7 @@ public abstract class PluginModule implements Module {
         binder.bind(LocationManager.class).to(this.locationClass).asEagerSingleton();
         binder.bind(ModelManager.class).to(ModelManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
-
+        binder.bind(MiniMessageManager.class).to(MiniMessageManagerImpl.class).asEagerSingleton();
         binder.bind(GuiManager.class).to(SimpleGuiManager.class).asEagerSingleton();
 
         binder.bind(GuiCommand.class).asEagerSingleton();
@@ -131,6 +133,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(Slot.Builder.class);
         binder.requestStaticInjection(Gui.Builder.class);
 
+        binder.requestStaticInjection(MiniMessageManager.class);
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);
         binder.requestStaticInjection(ItemStackManager.class);
