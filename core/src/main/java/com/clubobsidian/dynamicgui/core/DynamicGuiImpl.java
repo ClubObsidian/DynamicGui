@@ -33,7 +33,7 @@ import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;

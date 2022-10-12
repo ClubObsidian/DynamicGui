@@ -30,6 +30,7 @@ import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
@@ -51,6 +52,7 @@ import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.SlotFactoryImpl;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.FunctionManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.MiniMessageManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.ModelManagerImpl;
@@ -132,6 +134,7 @@ public abstract class PluginModule implements Module {
         binder.bind(FunctionManager.class).to(FunctionManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();
         binder.bind(ReplacerManager.class).to(ReplacerManagerImpl.class).asEagerSingleton();
+        binder.bind(AnimationReplacerManager.class).to(AnimationReplacerManagerImpl.class).asEagerSingleton();
         binder.bind(MiniMessageManager.class).to(MiniMessageManagerImpl.class).asEagerSingleton();
         binder.bind(GuiManager.class).to(GuiManagerImpl.class).asEagerSingleton();
         binder.bind(SlotManager.class).to(SlotManagerImpl.class).asEagerSingleton();
@@ -142,6 +145,7 @@ public abstract class PluginModule implements Module {
         binder.bind(DynamicGui.class).to(DynamicGuiImpl.class).asEagerSingleton();
 
         binder.requestStaticInjection(ReplacerManager.class);
+        binder.requestStaticInjection(AnimationReplacerManager.class);
         binder.requestStaticInjection(CooldownManager.class);
         binder.requestStaticInjection(MiniMessageManager.class);
         binder.requestStaticInjection(EntityManager.class);

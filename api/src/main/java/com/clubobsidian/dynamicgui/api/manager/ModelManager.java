@@ -29,7 +29,6 @@ public abstract class ModelManager {
         return instance;
     }
 
-
     public abstract ModelProvider getProvider(final String registryName);
 
     public abstract void register(ModelProvider provider);
