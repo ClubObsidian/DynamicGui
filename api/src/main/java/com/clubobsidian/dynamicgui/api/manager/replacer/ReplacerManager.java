@@ -14,14 +14,12 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.manager;
+package com.clubobsidian.dynamicgui.api.manager.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class ReplacerManager {
 

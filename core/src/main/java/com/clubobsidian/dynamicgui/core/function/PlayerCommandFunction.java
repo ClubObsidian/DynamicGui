@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.function;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.api.manager.ReplacerManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 
 public class PlayerCommandFunction extends Function {
 

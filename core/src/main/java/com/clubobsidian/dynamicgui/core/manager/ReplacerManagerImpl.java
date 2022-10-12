@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.manager.ReplacerManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 
 import javax.inject.Inject;
