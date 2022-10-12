@@ -14,30 +14,36 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.function;
+package com.clubobsidian.dynamicgui.core.manager;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.manager.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 
-public class PlayerMessageFunction extends Function {
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 6244543904061733902L;
+public class ReplacerManagerImpl extends ReplacerManager {
 
-    public PlayerMessageFunction() {
-        super("msg", "pmsg", "message", "playermessage");
+    private final List<ReplacerRegistry> registries = new ArrayList<>();
+
+    @Inject
+    private ReplacerManagerImpl() {
     }
 
     @Override
-    public boolean function(final PlayerWrapper<?> playerWrapper) {
-        if (this.getData() == null) {
-            return false;
+    public String replace(String text, PlayerWrapper<?> playerWrapper) {
+        String newText = text;
+        for (ReplacerRegistry registry : this.registries) {
+            newText = registry.replace(playerWrapper, newText);
         }
-        playerWrapper.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerManager.get().replace(this.getData(), playerWrapper)));
-        return true;
+
+        return newText;
+    }
+
+    @Override
+    public void registerReplacerRegistry(ReplacerRegistry replacerRegistry) {
+        this.registries.add(replacerRegistry);
     }
 }

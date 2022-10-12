@@ -14,41 +14,25 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.manager;
+package com.clubobsidian.dynamicgui.api.manager;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReplacerManager {
+public abstract class ReplacerManager {
 
+    @Inject
     private static ReplacerManager instance;
 
-    private final List<ReplacerRegistry> registries;
-
-    private ReplacerManager() {
-        this.registries = new ArrayList<>();
-    }
-
     public static ReplacerManager get() {
-        if (instance == null) {
-            instance = new ReplacerManager();
-        }
         return instance;
     }
 
-    public String replace(String text, PlayerWrapper<?> playerWrapper) {
-        String newText = text;
-        for (ReplacerRegistry registry : this.registries) {
-            newText = registry.replace(playerWrapper, newText);
-        }
+    public abstract String replace(String text, PlayerWrapper<?> playerWrapper);
 
-        return newText;
-    }
-
-    public void registerReplacerRegistry(ReplacerRegistry replacerRegistry) {
-        this.registries.add(replacerRegistry);
-    }
+    public abstract void registerReplacerRegistry(ReplacerRegistry replacerRegistry);
 }
