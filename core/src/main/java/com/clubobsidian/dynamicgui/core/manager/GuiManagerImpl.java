@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;

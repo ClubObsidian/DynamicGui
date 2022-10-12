@@ -19,15 +19,17 @@ package com.clubobsidian.dynamicgui.core.manager;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,23 +42,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FunctionManager {
-
-    private static FunctionManager instance;
-
-    public static FunctionManager get() {
-        if (instance == null) {
-            instance = new FunctionManager();
-        }
-        return instance;
-    }
+public class FunctionManagerImpl extends FunctionManager {
 
     private final Map<String, Function> functions = new HashMap<>();
     private final Map<UUID, Map<Function, AtomicInteger>> runningAsyncFunctions = new ConcurrentHashMap<>();
+    private final LoggerWrapper<?> logger;
 
-    private FunctionManager() {
+    @Inject
+    private FunctionManagerImpl(LoggerWrapper<?> logger) {
+        this.logger = logger;
     }
 
+    @Override
     public Function getFunctionByName(String functionName) {
         String normalized = StringFuzz.normalize(functionName);
         Function function = this.functions.get(normalized);
@@ -70,6 +67,7 @@ public class FunctionManager {
         return new ArrayList<>(this.functions.values());
     }
 
+    @Override
     public boolean addFunction(Function function) {
         boolean wasNotNull = this.functions.put(function.getName(), function) != null;
         for (String alias : function.getAliases()) {
@@ -80,24 +78,29 @@ public class FunctionManager {
         return wasNotNull;
     }
 
+    @Override
     public boolean removeFunctionByName(String functionName) {
         String normalized = StringFuzz.normalize(functionName);
         return this.functions.remove(normalized) != null;
     }
 
+    @Override
     public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper) {
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId());
     }
 
+    @Override
     public boolean hasAsyncFunctionRunning(UUID uuid) {
         Map<Function, AtomicInteger> running = this.runningAsyncFunctions.get(uuid);
         return running != null && running.size() > 0;
     }
 
+    @Override
     public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper, String functionName) {
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId(), functionName);
     }
 
+    @Override
     public boolean hasAsyncFunctionRunning(UUID uuid, String functionName) {
         Function function = this.functions.get(functionName);
         Map<Function, AtomicInteger> functionMap = this.runningAsyncFunctions.get(uuid);
@@ -109,6 +112,7 @@ public class FunctionManager {
                 && num.get() != 0;
     }
 
+    @Override
     public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
         CompletableFuture<Boolean> returnFuture = new CompletableFuture<>();
         returnFuture.exceptionally((ex) -> {
@@ -233,7 +237,7 @@ public class FunctionManager {
                 String functionData = data.getData();
                 Function function = FunctionManager.get().getFunctionByName(functionName);
                 if (function == null) {
-                    DynamicGui.get().getLogger().error("Invalid function " + data.getName());
+                    this.logger.error("Invalid function " + data.getName());
                     response.complete(new FunctionResponse(false));
                     return;
                 }

@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.core.manager.FunctionManager;
+import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.HashSet;
