@@ -23,37 +23,35 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
 
-public class SlotManager {
+public class SlotManagerImpl extends SlotManager {
 
-    private static SlotManager instance;
+    private final GuiManager guiManager;
+    private final Platform platform;
 
-    public static SlotManager get() {
-        if (instance == null) {
-            instance = new SlotManager();
-        }
-        return instance;
-    }
-
-    private SlotManager() {
+    @Inject
+    private SlotManagerImpl(GuiManager guiManager, Platform platform) {
+        this.guiManager = guiManager;
+        this.platform = platform;
         this.updateSlots();
     }
 
     private void updateSlots() {
-        DynamicGui.get().getPlatform().getScheduler().scheduleSyncRepeatingTask(() -> {
+        this.platform.getScheduler().scheduleSyncRepeatingTask(() -> {
             Map<Gui, Collection<Slot>> updatedStaticGui = new HashMap<>();
-            for (Entry<UUID, Gui> next : GuiManager.get().getPlayerGuis().entrySet()) {
+            for (Map.Entry<UUID, Gui> next : this.guiManager.getPlayerGuis().entrySet()) {
                 UUID key = next.getKey();
-                PlayerWrapper<?> playerWrapper = DynamicGui.get().getPlatform().getPlayer(key);
+                PlayerWrapper<?> playerWrapper = this.platform.getPlayer(key);
                 Gui gui = next.getValue();
                 Collection<Slot> cachedSlots = updatedStaticGui.get(gui);
                 if (gui.isStatic() && cachedSlots != null) {
@@ -73,10 +71,8 @@ public class SlotManager {
                     if (slot.getUpdate() || (slot.getCurrentTick() % slot.getUpdateInterval() == 0)) {
                         ItemStackWrapper<?> itemStackWrapper = slot.buildItemStack(playerWrapper);
                         int slotIndex = slot.getIndex();
-
                         InventoryWrapper<?> inventoryWrapper = slot.getOwner().getInventoryWrapper();
                         inventoryWrapper.setItem(slotIndex, itemStackWrapper);
-
                         FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                         if (!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
                             inventoryWrapper.updateItem(slotIndex, playerWrapper);

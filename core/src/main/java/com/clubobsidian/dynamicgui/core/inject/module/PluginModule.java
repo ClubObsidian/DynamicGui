@@ -29,6 +29,7 @@ import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
@@ -57,6 +58,7 @@ import com.clubobsidian.dynamicgui.core.manager.GuiManagerImpl;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.manager.ReplacerManagerImpl;
+import com.clubobsidian.dynamicgui.core.manager.SlotManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManagerImpl;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
@@ -132,6 +134,7 @@ public abstract class PluginModule implements Module {
         binder.bind(ReplacerManager.class).to(ReplacerManagerImpl.class).asEagerSingleton();
         binder.bind(MiniMessageManager.class).to(MiniMessageManagerImpl.class).asEagerSingleton();
         binder.bind(GuiManager.class).to(GuiManagerImpl.class).asEagerSingleton();
+        binder.bind(SlotManager.class).to(SlotManagerImpl.class).asEagerSingleton();
 
         binder.bind(GuiCommand.class).asEagerSingleton();
         binder.bind(DynamicGuiCommand.class).asEagerSingleton();
@@ -147,6 +150,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(MaterialManager.class);
         binder.requestStaticInjection(LocationManager.class);
         binder.requestStaticInjection(GuiManager.class);
+        binder.requestStaticInjection(SlotManager.class);
         binder.requestStaticInjection(ModelManager.class);
         binder.requestStaticInjection(FunctionManager.class);
         binder.requestStaticInjection(DynamicGui.class);

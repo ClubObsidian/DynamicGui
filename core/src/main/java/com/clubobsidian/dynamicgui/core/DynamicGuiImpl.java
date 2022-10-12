@@ -36,7 +36,7 @@ import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.core.manager.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.manager.SlotManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
