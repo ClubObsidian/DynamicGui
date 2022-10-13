@@ -42,7 +42,7 @@ import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
-import com.clubobsidian.dynamicgui.core.registry.replacer.CooldownReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.registry.replacer.MetadataReplacerRegistry;

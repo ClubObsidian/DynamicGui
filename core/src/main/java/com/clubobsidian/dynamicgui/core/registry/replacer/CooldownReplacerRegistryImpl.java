@@ -19,40 +19,34 @@ package com.clubobsidian.dynamicgui.core.registry.replacer;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.Cooldown;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
-import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.UUID;
 
-public class CooldownReplacerRegistry implements ReplacerRegistry {
+public class CooldownReplacerRegistryImpl extends CooldownReplacerRegistry {
 
-    private static CooldownReplacerRegistry instance;
+    private final CooldownManager cooldownManager;
 
-    public static CooldownReplacerRegistry get() {
-        if (instance == null) {
-            instance = new CooldownReplacerRegistry();
-        }
-
-        return instance;
+    @Inject
+    private CooldownReplacerRegistryImpl(CooldownManager cooldownManager) {
+        this.cooldownManager = cooldownManager;
     }
-
-    private static final String COOLDOWN_PREFIX = "%cooldown_";
 
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         UUID uuid = playerWrapper.getUniqueId();
-
-        Collection<Cooldown> cooldowns = CooldownManager.get().getCooldowns(uuid);
+        Collection<Cooldown> cooldowns = this.cooldownManager.getCooldowns(uuid);
         if (cooldowns == null) {
             return text;
         }
-
         for (Cooldown cooldown : cooldowns) {
             String cooldownName = cooldown.getName();
             String cooldownReplacer = COOLDOWN_PREFIX + cooldownName;
             if (text.contains(cooldownReplacer)) {
-                long seconds = CooldownManager.get().getRemainingCooldown(playerWrapper, cooldownName) / 1000;
+                long seconds = this.cooldownManager.getRemainingCooldown(playerWrapper, cooldownName) / 1000;
 
                 String hoursReplacer = COOLDOWN_PREFIX + cooldownName + "_hours%";
                 if (text.contains(hoursReplacer)) {
@@ -74,7 +68,7 @@ public class CooldownReplacerRegistry implements ReplacerRegistry {
                 }
             }
         }
-
         return text;
     }
 }
+
