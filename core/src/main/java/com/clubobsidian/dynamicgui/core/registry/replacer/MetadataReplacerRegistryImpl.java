@@ -19,36 +19,27 @@ package com.clubobsidian.dynamicgui.core.registry.replacer;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.registry.replacer.MetadataReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
-import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class MetadataReplacerRegistry implements ReplacerRegistry {
+public class MetadataReplacerRegistryImpl extends MetadataReplacerRegistry {
 
-    private static MetadataReplacerRegistry instance;
+    private final Map<UUID, Gui> cachedGuis = new HashMap<>();
 
-    public static MetadataReplacerRegistry get() {
-        if (instance == null) {
-            instance = new MetadataReplacerRegistry();
-        }
-        return instance;
-    }
-
-    private static final String METADATA_PREFIX = "%metadata_";
-
-    private final Map<UUID, Gui> cachedGuis = new HashMap<>();;
-
-    private MetadataReplacerRegistry() {
-        DynamicGui.get().getEventBus().registerEvents(this);
+    @Inject
+    private MetadataReplacerRegistryImpl(EventBus eventBus) {
+        eventBus.registerEvents(this);
     }
 
     @Override
