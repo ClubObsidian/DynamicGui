@@ -45,10 +45,9 @@ public class MetadataReplacerRegistry implements ReplacerRegistry {
 
     private static final String METADATA_PREFIX = "%metadata_";
 
-    private final Map<UUID, Gui> cachedGuis;
+    private final Map<UUID, Gui> cachedGuis = new HashMap<>();;
 
     private MetadataReplacerRegistry() {
-        this.cachedGuis = new HashMap<>();
         DynamicGui.get().getEventBus().registerEvents(this);
     }
 
