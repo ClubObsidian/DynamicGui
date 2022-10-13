@@ -59,6 +59,4 @@ public abstract class DynamicGui {
 
     public abstract void inject(Object obj);
 
-    public abstract EventBus getEventBus();
-
 }

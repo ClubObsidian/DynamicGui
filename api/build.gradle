@@ -5,5 +5,4 @@ plugins {
 dependencies {
     compileOnly 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     compileOnly 'javax.inject:javax.inject:1'
-    compileOnly 'com.github.clubobsidian:trident:d814584a88' //TODO - remove
 }

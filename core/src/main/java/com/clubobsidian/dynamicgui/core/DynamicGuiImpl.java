@@ -356,9 +356,4 @@ public class DynamicGuiImpl extends DynamicGui {
     public void inject(Object obj) {
         this.injector.injectMembers(obj);
     }
-
-    @Override
-    public EventBus getEventBus() {
-        return this.eventBus;
-    }
 }
