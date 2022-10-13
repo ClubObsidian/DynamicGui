@@ -17,10 +17,9 @@
 package com.clubobsidian.dynamicgui.core.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.registry.replacer.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.replacer.GlobalPlayerCountReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.OnlinePlayersReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.PlayerLevelReplacer;
@@ -28,31 +27,25 @@ import com.clubobsidian.dynamicgui.core.replacer.PlayerReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.PreviousGuiReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.SkinTextureReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.UUIDReplacer;
+import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.EventHandler;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
+public class DynamicGuiReplacerRegistryImpl extends DynamicGuiReplacerRegistry {
 
-    private static DynamicGuiReplacerRegistry instance;
+    private final Map<String, Replacer> replacers = new HashMap<>();
+    private final Map<String, List<Replacer>> cachedReplacers = new HashMap<>();
+    private final EventBus eventBus;
 
-    public static DynamicGuiReplacerRegistry get() {
-        if (instance == null) {
-            instance = new DynamicGuiReplacerRegistry();
-        }
-        return instance;
-    }
-
-    private final Map<String, Replacer> replacers;
-    private final Map<String, List<Replacer>> cachedReplacers;
-
-    private DynamicGuiReplacerRegistry() {
-        this.replacers = new HashMap<>();
-        this.cachedReplacers = new HashMap<>();
+    @Inject
+    private DynamicGuiReplacerRegistryImpl(EventBus eventBus) {
+        this.eventBus = eventBus;
         this.addReplacer(new PlayerReplacer("%player%"));
         this.addReplacer(new OnlinePlayersReplacer("%online-players%"));
         this.addReplacer(new GlobalPlayerCountReplacer("%global-playercount%"));
@@ -60,7 +53,7 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
         this.addReplacer(new PreviousGuiReplacer("%previous-gui-name%"));
         this.addReplacer(new SkinTextureReplacer("%skin_texture%"));
-        DynamicGui.get().getEventBus().registerEvents(this);
+        this.eventBus.registerEvents(this);
     }
 
     @Override
@@ -79,7 +72,6 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
                     cachedReplacerList.add(replacer);
                 }
             }
-
             this.cachedReplacers.put(text, cachedReplacerList);
         }
 
@@ -87,7 +79,11 @@ public class DynamicGuiReplacerRegistry implements ReplacerRegistry {
         return newText;
     }
 
+    @Override
     public boolean addReplacer(Replacer replacer) {
+        if (replacer.hasListener()) {
+            this.eventBus.registerEvents(replacer);
+        }
         boolean put = this.replacers.put(replacer.getToReplace(), replacer) == null;
         this.cachedReplacers.clear();
         return put;

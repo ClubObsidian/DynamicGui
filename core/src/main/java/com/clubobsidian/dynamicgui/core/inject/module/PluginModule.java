@@ -43,6 +43,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.registry.replacer.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.DynamicGuiImpl;
 import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
@@ -64,6 +65,7 @@ import com.clubobsidian.dynamicgui.core.manager.ReplacerManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.SlotManagerImpl;
 import com.clubobsidian.dynamicgui.core.manager.cooldown.CooldownManagerImpl;
 import com.clubobsidian.dynamicgui.core.registry.replacer.CooldownReplacerRegistryImpl;
+import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiReplacerRegistryImpl;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.eventbus.methodhandle.MethodHandleEventBus;
 import com.google.inject.Binder;
@@ -139,6 +141,7 @@ public abstract class PluginModule implements Module {
         binder.bind(ReplacerManager.class).to(ReplacerManagerImpl.class).asEagerSingleton();
         binder.bind(AnimationReplacerManager.class).to(AnimationReplacerManagerImpl.class).asEagerSingleton();
         binder.bind(MiniMessageManager.class).to(MiniMessageManagerImpl.class).asEagerSingleton();
+        binder.bind(DynamicGuiReplacerRegistry.class).to(DynamicGuiReplacerRegistryImpl.class).asEagerSingleton();
         binder.bind(GuiManager.class).to(GuiManagerImpl.class).asEagerSingleton();
         binder.bind(SlotManager.class).to(SlotManagerImpl.class).asEagerSingleton();
 
@@ -152,6 +155,7 @@ public abstract class PluginModule implements Module {
         binder.requestStaticInjection(CooldownManager.class);
         binder.requestStaticInjection(CooldownReplacerRegistry.class);
         binder.requestStaticInjection(MiniMessageManager.class);
+        binder.requestStaticInjection(DynamicGuiReplacerRegistry.class);
         binder.requestStaticInjection(EntityManager.class);
         binder.requestStaticInjection(InventoryManager.class);
         binder.requestStaticInjection(ItemStackManager.class);

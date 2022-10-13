@@ -14,31 +14,20 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.replacer;
+package com.clubobsidian.dynamicgui.api.registry.replacer;
 
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.replacer.Replacer;
+import javax.inject.Inject;
 
-public abstract class Replacer {
+public abstract class DynamicGuiReplacerRegistry implements ReplacerRegistry {
 
-    private final String toReplace;
-    private final boolean listener;
+    @Inject
+    private static DynamicGuiReplacerRegistry instance;
 
-    public Replacer(String toReplace) {
-        this(toReplace, false);
+    public static DynamicGuiReplacerRegistry get() {
+        return instance;
     }
 
-    public Replacer(String toReplace, boolean listener) {
-        this.toReplace = toReplace;
-        this.listener = listener;
-    }
+    public abstract boolean addReplacer(Replacer replacer);
 
-    public String getToReplace() {
-        return this.toReplace;
-    }
-
-    public abstract String replacement(String text, PlayerWrapper<?> playerWrapper);
-
-    public boolean hasListener() {
-        return this.listener;
-    }
 }

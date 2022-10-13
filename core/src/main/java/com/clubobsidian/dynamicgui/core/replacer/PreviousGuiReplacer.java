@@ -24,9 +24,11 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent;
+import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -36,8 +38,7 @@ public class PreviousGuiReplacer extends Replacer {
     private final Map<UUID, Gui> cachedGuis = new HashMap<>();
 
     public PreviousGuiReplacer(String toReplace) {
-        super(toReplace);
-        DynamicGui.get().getEventBus().registerEvents(this);
+        super(toReplace, true);
     }
 
     @Override
