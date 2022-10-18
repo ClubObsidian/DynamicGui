@@ -23,12 +23,34 @@ import java.util.Optional;
 
 public interface GuiCommandSender {
 
+    /**
+     * Returns the native or platform specific sender that the command sender wraps
+     *
+     * @return the native sender
+     * @param <T> the native sender type
+     */
     <T> T getNativeSender();
 
+    /**
+     *
+     * Returns whether a sender is a player
+     *
+     * @return If the sender is a player
+     */
     boolean isPlayer();
 
+    /**
+     * Messages a player
+     *
+     * @param message the message to send to the player
+     */
     void sendMessage(String message);
 
+    /**
+     * An optional if a player exists
+     * 
+     * @return an optional if the player exists
+     */
     default Optional<PlayerWrapper<?>> getPlayer() {
         return this.isPlayer() ?
                 Optional.of(EntityManager
