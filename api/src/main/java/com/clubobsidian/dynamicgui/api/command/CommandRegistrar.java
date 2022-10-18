@@ -18,12 +18,31 @@ package com.clubobsidian.dynamicgui.api.command;
 
 public interface CommandRegistrar {
 
+    /**
+     * Registers a built-in DynamicGui command
+     *
+     * @param command command that is registered
+     */
     void registerCommand(Class<? extends RegisteredCommand> command);
 
+    /**
+     * Registers a command alias for a gui
+     *
+     * @param guiName the name of the gui that an alias is being registered for
+     * @param alias the alias that should be registered
+     */
     void registerGuiAliasCommand(String guiName, String alias);
 
+    /**
+     * Unregisters a command
+     *
+     * @param alias the command alias to unregister
+     */
     void unregisterCommand(String alias);
 
+    /**
+     * Unregisters all gui aliases
+     */
     void unregisterGuiAliases();
 
 }
