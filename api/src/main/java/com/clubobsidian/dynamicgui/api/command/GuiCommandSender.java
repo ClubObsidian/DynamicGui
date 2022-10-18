@@ -48,7 +48,7 @@ public interface GuiCommandSender {
 
     /**
      * An optional if a player exists
-     * 
+     *
      * @return an optional if the player exists
      */
     default Optional<PlayerWrapper<?>> getPlayer() {

@@ -18,14 +18,35 @@ package com.clubobsidian.dynamicgui.api.component;
 
 public interface AnimationHolder extends Refreshable {
 
+    /**
+     * The current tick for the animation holder
+     *
+     * @return the current tick
+     */
     int getCurrentTick();
 
+    /**
+     * Resets the current tick
+     */
     void resetTick();
 
+    /**
+     * Ticks the animation holder
+     *
+     * @return the tick after the previous value was incremented
+     */
     int tick();
 
+    /**
+     * The current frame, a frame is current ticks / 20
+     *
+     * @return the current frame
+     */
     int getFrame();
 
+    /**
+     * Resets the frame
+     */
     void resetFrame();
 
 }
