@@ -143,7 +143,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<>(this,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
-                    wrappedSender -> (CommandSender) wrappedSender.getNativeSender()
+                    wrappedSender -> wrappedSender.getNativeSender()
 
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core

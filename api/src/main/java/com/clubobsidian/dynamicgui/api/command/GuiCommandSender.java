@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public interface GuiCommandSender {
 
-    Object getNativeSender();
+    <T> T getNativeSender();
 
     boolean isPlayer();
 
