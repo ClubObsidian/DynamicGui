@@ -16,10 +16,23 @@
 
 package com.clubobsidian.dynamicgui.api.component;
 
+import org.jetbrains.annotations.Nullable;
+
 public interface CloseableComponent {
 
+    /**
+     * Gets whether the component can close
+     *
+     * @return true if should close, false if should not close or null if non-existent which defaults to parent behavior
+     */
+    @Nullable
     Boolean getClose();
 
-    void setClose(Boolean close);
+    /**
+     * Sets whether the component should close
+     *
+     * @param close boxed boolean if the component should close
+     */
+    void setClose(@Nullable Boolean close);
 
 }
