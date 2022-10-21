@@ -18,6 +18,11 @@ package com.clubobsidian.dynamicgui.api.component;
 
 public interface Refreshable {
 
+    /**
+     * Gets the update interval for a Refreshable component
+     *
+     * @return the update interval
+     */
     int getUpdateInterval();
 
 }
