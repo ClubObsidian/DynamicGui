@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.bukkit.command;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class BukkitGuiCommandSender implements GuiCommandSender {
 
@@ -29,7 +30,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     }
 
     @Override
-    public Object getNativeSender() {
+    public @NotNull Object getNativeSender() {
         return this.sender;
     }
 
@@ -39,7 +40,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     }
 
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(@NotNull String message) {
         this.sender.sendMessage(message);
     }
 }

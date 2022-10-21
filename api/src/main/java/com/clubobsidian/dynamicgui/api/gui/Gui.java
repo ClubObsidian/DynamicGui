@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -52,7 +53,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
 
     Boolean getClose();
 
-    void setClose(Boolean close);
+    void setClose(@Nullable Boolean close);
 
     Map<String, List<Integer>> getNpcIds();
 

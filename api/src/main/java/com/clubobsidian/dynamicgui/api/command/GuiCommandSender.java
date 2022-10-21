@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.api.command;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public interface GuiCommandSender {
      * @return the native sender
      * @param <T> the native sender type
      */
-    <T> T getNativeSender();
+    @NotNull <T> T getNativeSender();
 
     /**
      *
@@ -44,7 +45,7 @@ public interface GuiCommandSender {
      *
      * @param message the message to send to the player
      */
-    void sendMessage(String message);
+    void sendMessage(@NotNull String message);
 
     /**
      * An optional if a player exists

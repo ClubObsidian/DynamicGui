@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.gui;
 import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.Nullable;
 
 public class MockCloseableFunctionOwner implements FunctionOwner, CloseableComponent {
 
@@ -35,7 +36,7 @@ public class MockCloseableFunctionOwner implements FunctionOwner, CloseableCompo
     }
 
     @Override
-    public void setClose(Boolean close) {
+    public void setClose(@Nullable Boolean close) {
         this.close = close;
     }
 }

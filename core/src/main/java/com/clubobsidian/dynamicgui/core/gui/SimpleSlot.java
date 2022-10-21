@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +149,7 @@ public class SimpleSlot implements Slot {
     }
 
     @Override
-    public void setClose(Boolean close) {
+    public void setClose(@Nullable Boolean close) {
         this.close = close;
     }
 

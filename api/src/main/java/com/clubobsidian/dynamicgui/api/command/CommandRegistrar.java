@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.api.command;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface CommandRegistrar {
 
     /**
@@ -23,7 +25,7 @@ public interface CommandRegistrar {
      *
      * @param command command that is registered
      */
-    void registerCommand(Class<? extends RegisteredCommand> command);
+    void registerCommand(@NotNull Class<? extends RegisteredCommand> command);
 
     /**
      * Registers a command alias for a gui
@@ -31,14 +33,14 @@ public interface CommandRegistrar {
      * @param guiName the name of the gui that an alias is being registered for
      * @param alias the alias that should be registered
      */
-    void registerGuiAliasCommand(String guiName, String alias);
+    void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias);
 
     /**
      * Unregisters a command
      *
      * @param alias the command alias to unregister
      */
-    void unregisterCommand(String alias);
+    void unregisterCommand(@NotNull String alias);
 
     /**
      * Unregisters all gui aliases

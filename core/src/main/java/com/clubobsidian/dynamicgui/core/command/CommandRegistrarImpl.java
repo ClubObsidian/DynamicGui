@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.google.inject.Injector;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -56,12 +57,12 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     }
 
     @Override
-    public void registerCommand(Class<? extends RegisteredCommand> command) {
+    public void registerCommand(@NotNull Class<? extends RegisteredCommand> command) {
         this.commandParser.parse(this.injector.getInstance(command));
     }
 
     @Override
-    public void registerGuiAliasCommand(String guiName, String alias) {
+    public void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias) {
         this.unregisterCommand(alias);
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {
@@ -78,7 +79,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     }
 
     @Override
-    public void unregisterCommand(String alias) {
+    public void unregisterCommand(@NotNull String alias) {
         try {
             this.commandManager.deleteRootCommand(alias);
         } catch (Exception e) {

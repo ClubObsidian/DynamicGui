@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.factory.SlotFactory;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -69,7 +70,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
 
     Boolean getClose();
 
-    void setClose(Boolean close);
+    void setClose(@Nullable Boolean close);
 
     FunctionTree getFunctions();
 

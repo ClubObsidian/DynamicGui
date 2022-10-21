@@ -28,6 +28,7 @@ import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.apache.commons.lang3.SerializationUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -145,7 +146,7 @@ public class SimpleGui implements Gui {
     }
 
     @Override
-    public void setClose(Boolean close) {
+    public void setClose(@Nullable Boolean close) {
         this.close = close;
     }
 

@@ -25,8 +25,7 @@ public interface CloseableComponent {
      *
      * @return true if should close, false if should not close or null if non-existent which defaults to parent behavior
      */
-    @Nullable
-    Boolean getClose();
+    @Nullable Boolean getClose();
 
     /**
      * Sets whether the component should close
