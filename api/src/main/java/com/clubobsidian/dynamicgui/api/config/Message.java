@@ -16,10 +16,23 @@
 
 package com.clubobsidian.dynamicgui.api.config;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface Message {
 
-    String getNoGui();
+    /**
+     * Gets the message if a gui doesn't exist
+     *
+     * @return no gui message
+     */
+    @NotNull String getNoGui();
 
-    String getNoGuiPermission();
+    /**
+     * Gets the message if a player does not have access to a gui
+     *
+     *
+     * @return no gui permission message
+     */
+    @NotNull String getNoGuiPermission();
 
 }

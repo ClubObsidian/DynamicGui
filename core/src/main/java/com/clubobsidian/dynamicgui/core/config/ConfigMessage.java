@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.config;
 
 import com.clubobsidian.dynamicgui.api.config.Message;
 import com.clubobsidian.wrappy.inject.Node;
+import org.jetbrains.annotations.NotNull;
 
 public final class ConfigMessage implements Message {
 
@@ -27,12 +28,12 @@ public final class ConfigMessage implements Message {
     private String noGuiPermission;
 
     @Override
-    public String getNoGui() {
+    public @NotNull String getNoGui() {
         return this.noGui;
     }
 
     @Override
-    public String getNoGuiPermission() {
+    public @NotNull String getNoGuiPermission() {
         return this.noGuiPermission;
     }
 }
