@@ -51,10 +51,6 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
 
     List<Slot> getSlots();
 
-    Boolean getClose();
-
-    void setClose(@Nullable Boolean close);
-
     Map<String, List<Integer>> getNpcIds();
 
     List<LocationWrapper<?>> getLocations();
@@ -62,11 +58,6 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
     ModeEnum getModeEnum();
 
     InventoryWrapper<?> getInventoryWrapper();
-
-    FunctionTree getFunctions();
-
-    Map<String, String> getMetadata();
-
 
     Gui getBack();
 
