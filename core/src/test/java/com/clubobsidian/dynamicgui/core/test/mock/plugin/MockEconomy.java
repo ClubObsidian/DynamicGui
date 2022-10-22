@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -33,12 +34,12 @@ public class MockEconomy implements Economy {
     }
 
     @Override
-    public BigDecimal getBalance(PlayerWrapper<?> playerWrapper) {
+    public @NotNull BigDecimal getBalance(@NotNull PlayerWrapper<?> playerWrapper) {
         return this.balances.getOrDefault(playerWrapper, new BigDecimal(0));
     }
 
     @Override
-    public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
+    public boolean withdraw(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt) {
         BigDecimal balance = this.getBalance(playerWrapper);
         if (balance.intValue() >= amt.intValue()) {
             balance = balance.subtract(amt);
@@ -49,7 +50,7 @@ public class MockEconomy implements Economy {
     }
 
     @Override
-    public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
+    public boolean deposit(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt) {
         BigDecimal balance = this.getBalance(playerWrapper);
         balance = balance.add(amt);
         this.balances.put(playerWrapper, balance);

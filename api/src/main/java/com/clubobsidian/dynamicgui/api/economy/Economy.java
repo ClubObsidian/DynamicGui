@@ -17,17 +17,43 @@
 package com.clubobsidian.dynamicgui.api.economy;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
 public interface Economy {
 
+    /**
+     * Setup the current economy implementation
+     *
+     * @return whether the economy was setup
+     */
     boolean setup();
 
-    BigDecimal getBalance(PlayerWrapper<?> playerWrapper);
+    /**
+     * Gets a balance for a player
+     *
+     * @param playerWrapper the player wrapper to get the balance for
+     * @return the balance for a given player
+     */
+    @NotNull BigDecimal getBalance(@NotNull PlayerWrapper<?> playerWrapper);
 
-    boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt);
+    /**
+     * Withdraw a balance for a player
+     *
+     * @param playerWrapper the player wrapper to withdraw the balance for
+     * @param amt the amount with withdraw
+     * @return whether the transaction was successful
+     */
+    boolean withdraw(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt);
 
-    boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt);
+    /**
+     * Deposit a balance for a player
+     *
+     * @param playerWrapper the player wrapper to deposit the balance for
+     * @param amt the amount to deposit
+     * @return whether the transaction was successful
+     */
+    boolean deposit(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt);
 
 }
