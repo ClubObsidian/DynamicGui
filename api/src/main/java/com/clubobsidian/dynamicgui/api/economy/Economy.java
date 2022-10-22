@@ -31,7 +31,7 @@ public interface Economy {
     boolean setup();
 
     /**
-     * Gets a balance for a player
+     * Gets the balance of a player
      *
      * @param playerWrapper the player wrapper to get the balance for
      * @return the balance for a given player
@@ -39,7 +39,7 @@ public interface Economy {
     @NotNull BigDecimal getBalance(@NotNull PlayerWrapper<?> playerWrapper);
 
     /**
-     * Withdraw a balance for a player
+     * Withdraw from a player's balance
      *
      * @param playerWrapper the player wrapper to withdraw the balance for
      * @param amt the amount with withdraw
@@ -48,7 +48,7 @@ public interface Economy {
     boolean withdraw(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt);
 
     /**
-     * Deposit a balance for a player
+     * Deposit into a player's balance
      *
      * @param playerWrapper the player wrapper to deposit the balance for
      * @param amt the amount to deposit
