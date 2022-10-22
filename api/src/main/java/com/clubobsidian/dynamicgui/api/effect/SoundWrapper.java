@@ -17,10 +17,12 @@
 package com.clubobsidian.dynamicgui.api.effect;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@ApiStatus.Internal
 public class SoundWrapper implements Serializable {
 
     /**

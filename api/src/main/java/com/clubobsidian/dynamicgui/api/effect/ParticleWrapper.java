@@ -18,10 +18,12 @@ package com.clubobsidian.dynamicgui.api.effect;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@ApiStatus.Internal
 public class ParticleWrapper implements Serializable {
 
     /**
