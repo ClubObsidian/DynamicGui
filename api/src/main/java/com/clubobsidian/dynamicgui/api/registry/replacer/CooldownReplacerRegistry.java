@@ -37,4 +37,5 @@ public abstract class CooldownReplacerRegistry implements ReplacerRegistry {
     }
 
     public abstract String replace(PlayerWrapper<?> playerWrapper, String text);
+
 }

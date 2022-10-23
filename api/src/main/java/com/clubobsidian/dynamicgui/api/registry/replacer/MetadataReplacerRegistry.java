@@ -16,14 +16,6 @@
 
 package com.clubobsidian.dynamicgui.api.registry.replacer;
 
-import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.trident.EventHandler;
-import com.clubobsidian.trident.EventPriority;
-import org.apache.commons.lang3.StringUtils;
-
 import javax.inject.Inject;
 
 public abstract class MetadataReplacerRegistry implements ReplacerRegistry {
@@ -36,5 +28,4 @@ public abstract class MetadataReplacerRegistry implements ReplacerRegistry {
     public static MetadataReplacerRegistry get() {
         return instance;
     }
-
 }
