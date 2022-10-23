@@ -22,7 +22,6 @@ import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
-import com.clubobsidian.trident.EventBus;
 
 import javax.inject.Inject;
 
