@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.entity;
 
 public abstract class EntityWrapper<T> {
 
-    public T entity;
+    private final T entity;
 
     public EntityWrapper(T entity) {
         this.entity = entity;
