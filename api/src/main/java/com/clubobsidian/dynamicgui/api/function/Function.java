@@ -75,7 +75,7 @@ public abstract class Function implements Cloneable, Serializable {
      *
      * @param playerWrapper to run the function for
      * @return if the function ran
-     * @throws Exception
+     * @throws Exception any uncaught exception
      */
     public abstract boolean function(PlayerWrapper<?> playerWrapper) throws Exception;
 
