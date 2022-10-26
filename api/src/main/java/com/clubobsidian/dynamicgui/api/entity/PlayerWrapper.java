@@ -32,7 +32,7 @@ public abstract class PlayerWrapper<T> {
         this.player = player;
     }
 
-    public T getPlayer() {
+    public T getNative() {
         return this.player;
     }
 

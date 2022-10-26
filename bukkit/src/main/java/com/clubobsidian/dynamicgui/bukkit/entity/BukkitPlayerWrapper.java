@@ -50,28 +50,28 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public String getName() {
-        return this.getPlayer().getName();
+        return this.getNative().getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return this.getPlayer().getUniqueId();
+        return this.getNative().getUniqueId();
     }
 
     @Override
     public void chat(String message) {
-        this.getPlayer().chat(message);
+        this.getNative().chat(message);
     }
 
     @Override
     public void sendMessage(String message) {
-        this.getPlayer().sendMessage(message);
+        this.getNative().sendMessage(message);
     }
 
     @Override
     public void sendJsonMessage(String json) {
         BaseComponent[] components = ComponentSerializer.parse(json);
-        this.getPlayer().spigot().sendMessage(components);
+        this.getNative().spigot().sendMessage(components);
     }
 
     @Override
@@ -91,23 +91,23 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public int getExperience() {
-        System.out.println("Total exp: " + this.getPlayer().getTotalExperience());
-        return this.getPlayer().getTotalExperience();
+        System.out.println("Total exp: " + this.getNative().getTotalExperience());
+        return this.getNative().getTotalExperience();
     }
 
     @Override
     public void setExperience(int experience) {
-        this.getPlayer().setTotalExperience(experience);
+        this.getNative().setTotalExperience(experience);
     }
 
     @Override
     public int getLevel() {
-        return this.getPlayer().getLevel();
+        return this.getNative().getLevel();
     }
 
     @Override
     public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
-        InventoryView openInventory = this.getPlayer().getOpenInventory();
+        InventoryView openInventory = this.getNative().getOpenInventory();
         if (openInventory == null) {
             return null;
         }
@@ -116,14 +116,14 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public ItemStackWrapper<ItemStack> getItemInHand() {
-        ItemStack hand = this.getPlayer().getInventory().getItemInHand();
+        ItemStack hand = this.getNative().getInventory().getItemInHand();
         return new BukkitItemStackWrapper<ItemStack>(hand);
     }
 
     @Override
     public void closeInventory() {
-        if (this.getPlayer().getOpenInventory() != null) {
-            this.getPlayer().getOpenInventory().close();
+        if (this.getNative().getOpenInventory() != null) {
+            this.getNative().getOpenInventory().close();
         }
     }
 
@@ -131,13 +131,13 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     public void openInventory(InventoryWrapper<?> inventoryWrapper) {
         Object inventory = inventoryWrapper.getInventory();
         if (inventory instanceof Inventory) {
-            this.getPlayer().openInventory((Inventory) inventory);
+            this.getNative().openInventory((Inventory) inventory);
         }
     }
 
     @Override
     public void sendPluginMessage(String channel, byte[] message) {
-        this.getPlayer().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
+        this.getNative().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         String sound = soundData.getSound();
         float volume = soundData.getVolume();
         float pitch = soundData.getPitch();
-        Player player = this.getPlayer();
+        Player player = this.getNative();
         Location playerLocation = player.getLocation();
         player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
     }
@@ -154,31 +154,31 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     public void playEffect(ParticleWrapper.ParticleData particleData) {
         String effect = particleData.getEffect();
         int extraData = particleData.getExtraData();
-        Player player = this.getPlayer();
+        Player player = this.getNative();
         Location playerLocation = player.getLocation();
         playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), extraData);
     }
 
     @Override
     public void updateInventory() {
-        this.getPlayer().updateInventory();
+        this.getNative().updateInventory();
     }
 
     @Override
     public LocationWrapper<?> getLocation() {
-        Location bukkitLoc = this.getPlayer().getLocation();
+        Location bukkitLoc = this.getNative().getLocation();
         return LocationManager.get().toLocationWrapper(bukkitLoc);
     }
 
     @Override
     public boolean isOnline() {
-        return this.getPlayer().isOnline();
+        return this.getNative().isOnline();
     }
 
     @Override
     public String getSkinTexture() {
         try {
-            Object profile = this.getPlayer().getClass().getDeclaredMethod("getProfile").invoke(this.getPlayer());
+            Object profile = this.getNative().getClass().getDeclaredMethod("getProfile").invoke(this.getNative());
             Object properties = profile.getClass()
                     .getDeclaredMethod("getProperties")
                     .invoke(profile);
@@ -208,6 +208,6 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void updateCursor() {
-        this.getPlayer().setItemOnCursor(this.getPlayer().getItemOnCursor());
+        this.getNative().setItemOnCursor(this.getNative().getItemOnCursor());
     }
 }

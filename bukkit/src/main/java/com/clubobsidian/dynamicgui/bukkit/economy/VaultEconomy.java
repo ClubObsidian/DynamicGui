@@ -70,7 +70,7 @@ public class VaultEconomy implements Economy {
         }
 
         try {
-            balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getPlayer());
+            balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getNative());
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class VaultEconomy implements Economy {
 
         if (balance >= amtDouble) {
             try {
-                this.withdrawPlayerMethod.invoke(this.economy, playerWrapper.getPlayer(), amtDouble);
+                this.withdrawPlayerMethod.invoke(this.economy, playerWrapper.getNative(), amtDouble);
                 return true;
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -122,7 +122,7 @@ public class VaultEconomy implements Economy {
         }
 
         try {
-            this.depositPlayerMethod.invoke(this.economy, playerWrapper.getPlayer(), amt.doubleValue());
+            this.depositPlayerMethod.invoke(this.economy, playerWrapper.getNative(), amt.doubleValue());
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }

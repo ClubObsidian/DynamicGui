@@ -68,7 +68,7 @@ public class VaultPermission implements Permission {
         }
 
         try {
-            return (boolean) this.playerHas.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerHas.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
@@ -86,7 +86,7 @@ public class VaultPermission implements Permission {
             }
         }
         try {
-            return (boolean) this.playerAdd.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerAdd.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
@@ -105,7 +105,7 @@ public class VaultPermission implements Permission {
         }
 
         try {
-            return (boolean) this.playerRemove.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerRemove.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;

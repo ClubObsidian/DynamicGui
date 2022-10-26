@@ -39,30 +39,30 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     @Override
     public String getName() {
-        return this.getPlayer().getName();
+        return this.getNative().getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return this.getPlayer().getUniqueId();
+        return this.getNative().getUniqueId();
     }
 
     @Override
     public void chat(String message) {
-        this.getPlayer().chat(message);
+        this.getNative().chat(message);
     }
 
     public List<String> getOutgoingChat() {
-        return this.getPlayer().getOutgoingChat();
+        return this.getNative().getOutgoingChat();
     }
 
     public List<String> getIncomingChat() {
-        return this.getPlayer().getIncomingChat();
+        return this.getNative().getIncomingChat();
     }
 
     @Override
     public void sendMessage(String message) {
-        this.getPlayer().sendMessage(message);
+        this.getNative().sendMessage(message);
     }
 
     @Override
@@ -72,70 +72,70 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     @Override
     public boolean hasPermission(String permission) {
-        return this.getPlayer().hasPermission(permission);
+        return this.getNative().hasPermission(permission);
     }
 
     @Override
     public boolean addPermission(String permission) {
-        return this.getPlayer().addPermission(permission);
+        return this.getNative().addPermission(permission);
     }
 
     @Override
     public boolean removePermission(String permission) {
-        return this.getPlayer().removePermission(permission);
+        return this.getNative().removePermission(permission);
     }
 
     @Override
     public ItemStackWrapper<?> getItemInHand() {
-        return this.getPlayer().getItemInHand();
+        return this.getNative().getItemInHand();
     }
 
     public void setItemInHand(ItemStackWrapper<?> hand) {
-        this.getPlayer().setItemInHand(hand);
+        this.getNative().setItemInHand(hand);
     }
 
     @Override
     public int getLevel() {
-        return this.getPlayer().getLevel();
+        return this.getNative().getLevel();
     }
 
     public void setLevel(int level) {
-        this.getPlayer().setLevel(level);
+        this.getNative().setLevel(level);
     }
 
     @Override
     public LocationWrapper<?> getLocation() {
-        return this.getPlayer().getLocation();
+        return this.getNative().getLocation();
     }
 
     public void setLocation(LocationWrapper<?> location) {
-        this.getPlayer().setLocation(location);
+        this.getNative().setLocation(location);
     }
 
     @Override
     public void playEffect(ParticleWrapper.ParticleData particleData) {
-        this.getPlayer().playEffect(particleData);
+        this.getNative().playEffect(particleData);
     }
 
     public List<ParticleWrapper.ParticleData> getParticles() {
-        return this.getPlayer().getParticles();
+        return this.getNative().getParticles();
     }
 
     @Override
     public void playSound(SoundWrapper.SoundData soundData) {
-        this.getPlayer().playSound(soundData);
+        this.getNative().playSound(soundData);
     }
 
     public List<SoundWrapper.SoundData> getSounds() {
-        return this.getPlayer().getSounds();
+        return this.getNative().getSounds();
     }
 
     @Override
     public boolean isOnline() {
-        return this.getPlayer().isOnline();
+        return this.getNative().isOnline();
     }
 
     public void setOnline(boolean online) {
-        this.getPlayer().setOnline(online);
+        this.getNative().setOnline(online);
     }
 }

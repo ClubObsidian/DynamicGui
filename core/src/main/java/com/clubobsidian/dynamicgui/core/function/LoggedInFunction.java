@@ -30,10 +30,10 @@ public class LoggedInFunction extends Function {
 
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
-        Object wrapperNative = playerWrapper.getPlayer();
+        Object wrapperNative = playerWrapper.getNative();
         UUID uuid = playerWrapper.getUniqueId();
         PlayerWrapper<?> retrieved = DynamicGui.get().getPlatform().getPlayer(uuid);
-        Object retrievedNative = retrieved != null ? retrieved.getPlayer() : null;
+        Object retrievedNative = retrieved != null ? retrieved.getNative() : null;
         return retrieved != null && playerWrapper.isOnline() && wrapperNative.equals(retrievedNative);
     }
 }

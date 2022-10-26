@@ -64,7 +64,7 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
     @Override
     public void updateItem(int index, PlayerWrapper<?> playerWrapper) {
         ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
-        Player player = (Player) playerWrapper.getPlayer();
+        Player player = (Player) playerWrapper.getNative();
         ItemStack itemStack = itemStackWrapper.getItemStack();
         BukkitPacketUtil.sendSlotPacket(index, player, itemStack);
     }
