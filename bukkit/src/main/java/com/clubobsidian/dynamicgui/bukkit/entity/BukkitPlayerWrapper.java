@@ -16,8 +16,6 @@
 
 package com.clubobsidian.dynamicgui.bukkit.entity;
 
-import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
-import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
 import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
@@ -26,6 +24,8 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
+import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Effect;
@@ -192,7 +192,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
             for (Method m : forwardingMap.getDeclaredMethods()) {
                 if (m.getName().equals("get")) {
                     property = ((Collection) (m.invoke(properties, "textures")))
-                    .stream().findFirst().orElse(null);
+                            .stream().findFirst().orElse(null);
                     break;
                 }
             }
@@ -200,7 +200,8 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
                 return null;
             }
             return (String) property.getClass().getDeclaredMethod("getValue").invoke(property);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
+                 ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }

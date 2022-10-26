@@ -20,6 +20,16 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.bukkit.CloudBukkitCapabilities;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.ModelManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommandSender;
 import com.clubobsidian.dynamicgui.bukkit.economy.VaultEconomy;
 import com.clubobsidian.dynamicgui.bukkit.inject.BukkitPluginModule;
@@ -35,19 +45,8 @@ import com.clubobsidian.dynamicgui.bukkit.registry.model.ItemsAdderModelProvider
 import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
-import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.api.manager.ModelManager;
-import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
-import com.clubobsidian.dynamicgui.api.permission.Permission;
-import com.clubobsidian.dynamicgui.api.platform.Platform;
-import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -150,7 +149,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) {
                 commandManager.registerBrigadier();
             }
-            if(commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+            if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
                 commandManager.registerAsynchronousCompletions();
             }
             commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);

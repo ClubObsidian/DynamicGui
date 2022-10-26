@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
+
 import javax.inject.Inject;
 
 public abstract class DynamicGuiReplacerRegistry implements ReplacerRegistry {

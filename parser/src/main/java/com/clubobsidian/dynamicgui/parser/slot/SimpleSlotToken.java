@@ -111,7 +111,7 @@ public class SimpleSlotToken implements SlotToken {
     }
 
     private Boolean parseBoxedBoolean(String data) {
-        if(data == null) {
+        if (data == null) {
             return null;
         }
         String parsed = this.macroParser.parseStringMacros(data);

@@ -138,7 +138,7 @@ public class CooldownManagerImpl extends CooldownManager {
         return removed;
     }
 
-   @Override
+    @Override
     public void shutdown() {
         this.updateAndSaveConfig();
     }

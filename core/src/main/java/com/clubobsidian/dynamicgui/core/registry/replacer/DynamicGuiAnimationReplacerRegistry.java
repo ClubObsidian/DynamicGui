@@ -18,8 +18,8 @@ package com.clubobsidian.dynamicgui.core.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
 import com.clubobsidian.dynamicgui.api.registry.replacer.AnimationReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.replacer.AnimationReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.animation.MultiLineTestAnimationReplacer;
 import com.clubobsidian.dynamicgui.core.replacer.animation.TestAnimationReplacer;
 import org.apache.commons.lang3.StringUtils;

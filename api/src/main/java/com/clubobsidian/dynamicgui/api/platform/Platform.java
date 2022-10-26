@@ -18,9 +18,9 @@ package com.clubobsidian.dynamicgui.api.platform;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
-import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 
 import java.util.Collection;
 import java.util.UUID;

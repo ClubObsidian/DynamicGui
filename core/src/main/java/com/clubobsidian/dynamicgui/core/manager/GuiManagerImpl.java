@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
@@ -24,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.GuiMode;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
@@ -32,16 +34,14 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.platform.PlatformType;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiLoadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiPreloadEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.GuiSwitchEvent;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
-import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.api.platform.Platform;
-import com.clubobsidian.dynamicgui.api.platform.PlatformType;
-import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.HashUtil;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
@@ -226,7 +226,7 @@ public class GuiManagerImpl extends GuiManager {
                 if (ran) {
                     Gui currentGui = this.getPlayerGui(playerWrapper);
                     if (back != null && back.equals(currentGui)) {
-                       this.eventBus.callEvent(new GuiSwitchEvent(back, clonedGui, playerWrapper));
+                        this.eventBus.callEvent(new GuiSwitchEvent(back, clonedGui, playerWrapper));
                     }
                     InventoryWrapper<?> inventoryWrapper = clonedGui.buildInventory(playerWrapper);
                     if (inventoryWrapper == null) {

@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.function.test;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
 
 public class AsyncThreadFunction extends Function {
 

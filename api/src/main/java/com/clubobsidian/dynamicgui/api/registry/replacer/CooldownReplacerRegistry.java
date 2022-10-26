@@ -17,13 +17,8 @@
 package com.clubobsidian.dynamicgui.api.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.api.manager.cooldown.Cooldown;
-import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.UUID;
 
 public abstract class CooldownReplacerRegistry implements ReplacerRegistry {
 

@@ -21,12 +21,12 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

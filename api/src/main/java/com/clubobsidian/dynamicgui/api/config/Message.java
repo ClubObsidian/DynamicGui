@@ -30,7 +30,6 @@ public interface Message {
     /**
      * Gets the message if a player does not have access to a gui
      *
-     *
      * @return no gui permission message
      */
     @NotNull String getNoGuiPermission();

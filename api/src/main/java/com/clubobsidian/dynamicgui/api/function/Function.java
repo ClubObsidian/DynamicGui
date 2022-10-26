@@ -129,7 +129,6 @@ public abstract class Function implements Cloneable, Serializable {
      * The owner of the function
      *
      * @return the function's owner
-     *
      */
     public FunctionOwner getOwner() {
         return this.owner;

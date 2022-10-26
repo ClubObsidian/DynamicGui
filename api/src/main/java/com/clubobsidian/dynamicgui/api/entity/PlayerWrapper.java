@@ -101,7 +101,8 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      *
      * @return the current opened inventory as a wrapper
      */
-    @Nullable public abstract InventoryWrapper<?> getOpenInventoryWrapper();
+    @Nullable
+    public abstract InventoryWrapper<?> getOpenInventoryWrapper();
 
     /**
      * The item in the player's hand as a ItemStackWrapper

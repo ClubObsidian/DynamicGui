@@ -31,7 +31,7 @@ public interface CommandRegistrar {
      * Registers a command alias for a gui
      *
      * @param guiName the name of the gui that an alias is being registered for
-     * @param alias the alias that should be registered
+     * @param alias   the alias that should be registered
      */
     void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias);
 

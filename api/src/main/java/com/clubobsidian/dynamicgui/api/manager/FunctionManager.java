@@ -52,7 +52,7 @@ public abstract class FunctionManager {
     public abstract boolean hasAsyncFunctionRunning(UUID uuid, String functionName);
 
     public abstract CompletableFuture<Boolean> tryFunctions(FunctionOwner owner,
-                                                   FunctionType type,
-                                                   PlayerWrapper<?> playerWrapper);
+                                                            FunctionType type,
+                                                            PlayerWrapper<?> playerWrapper);
 
 }

@@ -27,13 +27,12 @@ public interface GuiCommandSender {
     /**
      * Returns the native or platform specific sender that the command sender wraps
      *
-     * @return the native sender
      * @param <T> the native sender type
+     * @return the native sender
      */
     @NotNull <T> T getNativeSender();
 
     /**
-     *
      * Returns whether a sender is a player
      *
      * @return If the sender is a player

@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.gui;
 
-import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
@@ -90,7 +90,7 @@ public class SimpleGuiToken implements GuiToken {
     }
 
     private Boolean parseBoxedBoolean(String data) {
-        if(data == null) {
+        if (data == null) {
             return null;
         }
         String parsed = this.macroParser.parseStringMacros(data);

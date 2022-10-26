@@ -92,9 +92,9 @@ public final class BukkitNBTUtil {
 
             return tag.toString();
         } catch (ClassNotFoundException | NoSuchMethodException |
-                SecurityException | IllegalAccessException |
-                IllegalArgumentException | InvocationTargetException |
-                NullPointerException e) {
+                 SecurityException | IllegalAccessException |
+                 IllegalArgumentException | InvocationTargetException |
+                 NullPointerException e) {
             e.printStackTrace();
         }
         return null;
@@ -127,7 +127,8 @@ public final class BukkitNBTUtil {
             nmsItemStack = setTag.getReturnType().equals(void.class) ? nmsItemStack : invokedSetTag;
             ItemStack bukkitItemStack = (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
             return bukkitItemStack;
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException |
+                 IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;

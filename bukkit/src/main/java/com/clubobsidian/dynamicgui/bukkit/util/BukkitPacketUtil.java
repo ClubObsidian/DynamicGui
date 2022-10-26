@@ -95,9 +95,9 @@ public final class BukkitPacketUtil {
 
             sendPacket.invoke(manager, packet);
         } catch (NullPointerException | ClassNotFoundException |
-                NoSuchMethodException | SecurityException |
-                IllegalArgumentException | IllegalAccessException |
-                InvocationTargetException e) {
+                 NoSuchMethodException | SecurityException |
+                 IllegalArgumentException | IllegalAccessException |
+                 InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -160,7 +160,9 @@ public final class BukkitPacketUtil {
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, stateId, index, nmsItemStack);
             }
             sendPacket(player, packet);
-        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException |
+                 IllegalArgumentException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             e.printStackTrace();
         }
     }

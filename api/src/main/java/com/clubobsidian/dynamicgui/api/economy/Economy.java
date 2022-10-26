@@ -42,7 +42,7 @@ public interface Economy {
      * Withdraw from a player's balance
      *
      * @param playerWrapper the player wrapper to withdraw the balance for
-     * @param amt the amount with withdraw
+     * @param amt           the amount with withdraw
      * @return whether the transaction was successful
      */
     boolean withdraw(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt);
@@ -51,7 +51,7 @@ public interface Economy {
      * Deposit into a player's balance
      *
      * @param playerWrapper the player wrapper to deposit the balance for
-     * @param amt the amount to deposit
+     * @param amt           the amount to deposit
      * @return whether the transaction was successful
      */
     boolean deposit(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt);
