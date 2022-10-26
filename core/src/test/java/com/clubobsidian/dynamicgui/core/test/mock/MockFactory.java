@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.gui.ModeEnum;
+import com.clubobsidian.dynamicgui.api.gui.GuiMode;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
@@ -96,7 +96,7 @@ public class MockFactory {
                 title,
                 6,
                 true,
-                ModeEnum.SET,
+                GuiMode.SET,
                 new HashMap<>(),
                 slots,
                 new ArrayList<>(),

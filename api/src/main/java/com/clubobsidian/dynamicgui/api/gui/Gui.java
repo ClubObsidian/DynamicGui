@@ -25,7 +25,6 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
-import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -55,7 +54,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
 
     List<LocationWrapper<?>> getLocations();
 
-    ModeEnum getModeEnum();
+    GuiMode getGuiMode();
 
     InventoryWrapper<?> getInventoryWrapper();
 
@@ -79,7 +78,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         private transient String title;
         private transient int rows;
         private transient Boolean close;
-        private transient ModeEnum modeEnum;
+        private transient GuiMode guiMode;
         private transient final Map<String, List<Integer>> npcIds = new HashMap<>();
         private transient final List<Slot> slots = new ArrayList<>();
         private transient final List<LocationWrapper<?>> locations = new ArrayList<>();
@@ -113,13 +112,13 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
             return this;
         }
 
-        public Builder setModeEnum(String mode) {
-            this.setModeEnum(ModeEnum.valueOf(mode));
+        public Builder setGuiMode(String mode) {
+            this.setGuiMode(GuiMode.valueOf(mode));
             return this;
         }
 
-        public Builder setModeEnum(ModeEnum modeEnum) {
-            this.modeEnum = modeEnum;
+        public Builder setGuiMode(GuiMode guiMode) {
+            this.guiMode = guiMode;
             return this;
         }
 
@@ -197,7 +196,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
 
         public Gui build() {
             Gui gui = GUI_FACTORY.create(this.name, this.type, this.title, this.rows,
-                    this.close, this.modeEnum, this.npcIds, this.slots, this.locations,
+                    this.close, this.guiMode, this.npcIds, this.slots, this.locations,
                     this.functionTree, this.metadata, this.isStatic);
             if (this.backGui != null) {
                 gui.setBack(this.backGui);
