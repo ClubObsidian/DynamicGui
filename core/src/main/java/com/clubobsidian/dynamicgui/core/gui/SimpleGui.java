@@ -67,7 +67,7 @@ public class SimpleGui implements Gui {
         this.close = close;
         this.guiMode = guiMode;
         this.npcIds = npcIds;
-        this.locations = locations;
+        this.locations = Collections.unmodifiableList(locations);
         this.inventoryWrapper = null;
         this.functions = functions;
         this.back = null;
