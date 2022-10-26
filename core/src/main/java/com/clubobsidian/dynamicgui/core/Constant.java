@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api;
+package com.clubobsidian.dynamicgui.core;
 
 import java.util.function.Function;
 
