@@ -30,6 +30,7 @@ import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class SimpleGui implements Gui {
         this.type = type;
         this.title = ChatColor.translateAlternateColorCodes(title);
         this.rows = rows;
-        this.slots = slots;
+        this.slots = Collections.unmodifiableList(slots);
         this.close = close;
         this.guiMode = guiMode;
         this.npcIds = npcIds;
