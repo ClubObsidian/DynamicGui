@@ -25,6 +25,8 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -37,33 +39,120 @@ import java.util.Map;
 
 public interface Gui extends Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
 
-
+    /**
+     * Builds the inventory for the gui
+     *
+     * @param playerWrapper player wrapper to build the gui for
+     * @return the built inventory wrapper
+     */
     InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper);
 
+    /**
+     * The name of the gui without file extension, for example given a
+     * gui named "test.yml" the name of the gui will be "test"
+     *
+     * @return the name of the gui
+     */
     String getName();
 
-    String getType();
+    /**
+     * The type of inventory that the built inventory represents, I.E CHEST etc.
+     * Null is considered a chest
+     *
+     * @return the type of inventory for the underlying inventory
+     */
+    @Nullable String getType();
 
+    /**
+     * The title of the inventory for the gui, this may not represent what the
+     * player currently sees.
+     *
+     * @return the initial title of the inventory
+     */
     String getTitle();
 
+    /**
+     * The amount of rows that the gui has, this is
+     * gui type dependent but should give you an idea of how
+     * many slots can be populated.
+     *
+     * @return the number of rows
+     */
     int getRows();
 
-    List<Slot> getSlots();
+    /**
+     * A list of slots for the gui
+     *
+     * @return list of slots
+     */
+    @Unmodifiable List<Slot> getSlots();
 
-    Map<String, List<Integer>> getNpcIds();
+    /**
+     * Map of npc registry names to a list of ids
+     *
+     * @return a map of npc registry names to a list of ids
+     */
+    @Unmodifiable Map<String, List<Integer>> getNpcIds();
 
-    List<LocationWrapper<?>> getLocations();
+    /**
+     * The block locations that the gui can be opened with by interacting
+     * with those locations
+     *
+     * @return a list of location wrappers
+     */
+    @Unmodifiable List<LocationWrapper<?>> getLocations();
 
+    /**
+     * How to the gui was built I.E: add or set mode
+     * In "add" mode the slots are added in fifo order into the
+     * inventory ignoring the actual index number of the slot.
+     * Slots added in "set" mode are added to the inventory
+     * and set in their respective slot index.
+     *
+     * @return the gui build mode
+     */
     GuiMode getGuiMode();
 
-    InventoryWrapper<?> getInventoryWrapper();
+    /**
+     * The built inventory for the gui. This starts as initially null
+     * and on the first and on first build of the gui this gets set.
+     *
+     * @return the inventory wrapper for the gui
+     */
+    @Nullable InventoryWrapper<?> getInventoryWrapper();
 
+    /**
+     * The gui that came before this gui or a gui that was
+     * set to be the previous gui.
+     *
+     * @return the previous gui
+     */
     Gui getBack();
 
+    /**
+     * Sets the previous gui for this gui
+     *
+     * @param back the previous gui to set
+     */
     void setBack(Gui back);
 
+    /**
+     * Returns if the gui is static. A static gui works
+     * different from a normal gui, a normal gui gets
+     * built per player and is built multiple times when
+     * animated. Static guis instead should have no player
+     * specific replacers and also only get built once per
+     * iteration for animations.
+     *
+     * @return whether the gui is static
+     */
     boolean isStatic();
 
+    /**
+     * Deep clones the gui
+     *
+     * @return the gui cloned
+     */
     Gui clone();
 
     class Builder {
