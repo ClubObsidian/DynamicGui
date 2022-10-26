@@ -51,7 +51,6 @@ public abstract class Function implements Cloneable, Serializable {
     private final boolean async;
     private FunctionOwner owner;
     private final Set<String> aliases;
-    private int index = -1;
 
     public Function(String name, String[] aliases, boolean async) {
         this(name, Arrays.asList(aliases), async);
@@ -148,14 +147,6 @@ public abstract class Function implements Cloneable, Serializable {
         }
         this.owner = owner;
         return true;
-    }
-
-    public int getIndex() {
-        return this.index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     /**
