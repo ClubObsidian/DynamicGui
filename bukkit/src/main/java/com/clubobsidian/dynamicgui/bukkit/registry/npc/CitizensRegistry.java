@@ -66,7 +66,7 @@ public class CitizensRegistry implements NPCRegistry {
     @Override
     public NPC getNPC(EntityWrapper<?> entityWrapper) {
         try {
-            Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
+            Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getNative());
             if (npc == null) {
                 return null;
             }

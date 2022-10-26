@@ -29,7 +29,7 @@ public abstract class EntityWrapper<T> {
      *
      * @return native entity
      */
-    public T getEntity() {
+    public T getNative() {
         return this.entity;
     }
 }
