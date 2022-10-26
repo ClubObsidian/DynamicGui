@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.parser.gui;
 
+import com.clubobsidian.dynamicgui.api.gui.GuiMode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;

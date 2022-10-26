@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.gui;
 
 public enum GuiMode {
 
-    SET,
-    ADD
+    ADD,
+    SET
 
 }
