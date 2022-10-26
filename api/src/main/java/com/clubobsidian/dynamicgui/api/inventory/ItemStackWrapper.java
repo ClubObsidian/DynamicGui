@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,18 +29,20 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      */
     private static final long serialVersionUID = -7902733103453967016L;
 
+    @Nullable
     private T itemStack;
 
-    public ItemStackWrapper(T itemStack) {
+    public ItemStackWrapper(@Nullable T itemStack) {
         this.itemStack = itemStack;
     }
 
+    @Nullable
     public T getItemStack() {
         return this.itemStack;
     }
 
     @SuppressWarnings("unchecked")
-    protected void setItemStack(Object itemStack) {
+    protected void setItemStack(@Nullable Object itemStack) {
         this.itemStack = (T) itemStack;
     }
 
