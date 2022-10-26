@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -70,28 +71,77 @@ public abstract class Function implements Cloneable, Serializable {
         this(aliases[0], aliases, false);
     }
 
+    /**
+     * Runs the function
+     *
+     * @param playerWrapper to run the function for
+     * @return if the function ran
+     * @throws Exception
+     */
     public abstract boolean function(PlayerWrapper<?> playerWrapper) throws Exception;
 
+    /**
+     * Gets if the function is an async function, if it should run off the main thread
+     *
+     * @return if the function is async
+     */
     public boolean isAsync() {
         return this.async;
     }
 
+    /**
+     * Gets the function name
+     *
+     * @return the function's name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * All the function's aliases
+     *
+     * @return the function's aliases
+     */
     public Set<String> getAliases() {
         return this.aliases;
     }
 
+    /**
+     * Gets the functions 'data
+     *
+     * @return the function's data
+     */
+    @Nullable
     public String getData() {
         return this.data;
     }
 
-    public void setData(String data) {
+    /**
+     * Set the function's data
+     *
+     * @param data the data to set
+     */
+    public void setData(@Nullable String data) {
         this.data = data;
     }
 
+    /**
+     * The owner of the function
+     *
+     * @return the function's owner
+     *
+     */
+    public FunctionOwner getOwner() {
+        return this.owner;
+    }
+
+    /**
+     * Set the function's owner
+     *
+     * @param owner the owner of the function
+     * @return false if an owner was already set or else true
+     */
     public boolean setOwner(FunctionOwner owner) {
         if (this.owner != null) {
             return false;
@@ -100,18 +150,19 @@ public abstract class Function implements Cloneable, Serializable {
         return true;
     }
 
-    public FunctionOwner getOwner() {
-        return this.owner;
+    public int getIndex() {
+        return this.index;
     }
 
     public void setIndex(int index) {
         this.index = index;
     }
 
-    public int getIndex() {
-        return this.index;
-    }
-
+    /**
+     * Performs a deep clone on the function
+     *
+     * @return the deep clone of the function
+     */
     public Function clone() {
         try {
             return SerializationUtils.clone(this);
