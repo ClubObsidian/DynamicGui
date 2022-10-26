@@ -22,6 +22,11 @@ import java.io.Serializable;
 
 public interface FunctionOwner extends Serializable {
 
+    /**
+     * Gets the FunctionTree
+     *
+     * @return the function tree
+     */
     FunctionTree getFunctions();
 
 }
