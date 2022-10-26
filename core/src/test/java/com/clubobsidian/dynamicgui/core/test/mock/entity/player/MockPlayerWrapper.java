@@ -66,8 +66,8 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
-    public void sendJsonMessage(String message) {
-        this.sendMessage(message);
+    public void sendJsonMessage(String json) {
+        this.sendMessage(json);
     }
 
     @Override
