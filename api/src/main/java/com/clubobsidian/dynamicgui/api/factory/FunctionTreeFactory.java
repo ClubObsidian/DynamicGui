@@ -17,7 +17,9 @@
 package com.clubobsidian.dynamicgui.api.factory;
 
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public interface FunctionTreeFactory {
 
     FunctionTree create();

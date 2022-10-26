@@ -19,10 +19,12 @@ package com.clubobsidian.dynamicgui.api.factory;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.Map;
 
+@ApiStatus.Internal
 public interface SlotFactory {
 
     Slot create(int index, int amount, String icon, String name, String nbt, short data, boolean glow,

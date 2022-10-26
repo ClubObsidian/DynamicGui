@@ -19,9 +19,11 @@ package com.clubobsidian.dynamicgui.api.factory;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 
+@ApiStatus.Internal
 public interface FunctionTokenFactory {
 
     FunctionToken create(String name, List<FunctionType> types,

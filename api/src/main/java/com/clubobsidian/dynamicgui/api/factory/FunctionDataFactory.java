@@ -18,7 +18,9 @@ package com.clubobsidian.dynamicgui.api.factory;
 
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public interface FunctionDataFactory {
 
     FunctionData create(String name, String data, FunctionModifier modifier);
