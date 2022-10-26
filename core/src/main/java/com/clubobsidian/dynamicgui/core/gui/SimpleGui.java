@@ -31,6 +31,7 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,13 +67,21 @@ public class SimpleGui implements Gui {
         this.slots = Collections.unmodifiableList(slots);
         this.close = close;
         this.guiMode = guiMode;
-        this.npcIds = npcIds;
+        this.npcIds = this.loadNpcIds(npcIds);
         this.locations = Collections.unmodifiableList(locations);
         this.inventoryWrapper = null;
         this.functions = functions;
         this.back = null;
         this.metadata = metadata;
         this.isStatic = isStatic;
+    }
+
+    private Map<String, List<Integer>> loadNpcIds(Map<String, List<Integer>> initialIds) {
+        Map<String, List<Integer>> ids = new HashMap<>();
+        for (Map.Entry<String, List<Integer>> entry : initialIds.entrySet()) {
+            ids.put(entry.getKey(), Collections.unmodifiableList(entry.getValue()));
+        }
+        return Collections.unmodifiableMap(ids);
     }
 
     public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
