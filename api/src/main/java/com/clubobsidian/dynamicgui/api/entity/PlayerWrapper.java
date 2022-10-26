@@ -24,16 +24,10 @@ import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
 import java.util.UUID;
 
-public abstract class PlayerWrapper<T> {
-
-    private final T player;
+public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
 
     public PlayerWrapper(T player) {
-        this.player = player;
-    }
-
-    public T getNative() {
-        return this.player;
+        super(player);
     }
 
     public abstract String getName();
