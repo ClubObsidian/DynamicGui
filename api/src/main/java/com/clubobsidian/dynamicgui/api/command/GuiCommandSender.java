@@ -41,9 +41,9 @@ public interface GuiCommandSender {
     boolean isPlayer();
 
     /**
-     * Messages a player
+     * Messages a sender
      *
-     * @param message the message to send to the player
+     * @param message the message to send to the sender
      */
     void sendMessage(@NotNull String message);
 
