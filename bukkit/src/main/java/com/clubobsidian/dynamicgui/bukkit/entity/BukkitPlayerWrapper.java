@@ -111,13 +111,13 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         if (openInventory == null) {
             return null;
         }
-        return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
+        return new BukkitInventoryWrapper<>(openInventory.getTopInventory());
     }
 
     @Override
     public ItemStackWrapper<ItemStack> getItemInHand() {
         ItemStack hand = this.getNative().getInventory().getItemInHand();
-        return new BukkitItemStackWrapper<ItemStack>(hand);
+        return new BukkitItemStackWrapper<>(hand);
     }
 
     @Override
