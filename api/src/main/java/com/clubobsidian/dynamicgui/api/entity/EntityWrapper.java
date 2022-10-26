@@ -24,6 +24,11 @@ public abstract class EntityWrapper<T> {
         this.entity = entity;
     }
 
+    /**
+     * Gets the native underlying entity for the wrapper
+     *
+     * @return native entity
+     */
     public T getEntity() {
         return this.entity;
     }
