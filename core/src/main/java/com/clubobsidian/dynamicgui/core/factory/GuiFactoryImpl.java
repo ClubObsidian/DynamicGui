@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.factory;
 
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
@@ -31,10 +31,10 @@ public class GuiFactoryImpl implements GuiFactory {
 
     @Override
     public Gui create(String name, String type, String title, int rows,
-                      Boolean close, GuiMode guiMode, Map<String, List<Integer>> npcIds,
+                      Boolean close, GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds,
                       List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functionTree,
                       Map<String, String> metadata, boolean isStatic) {
-        return new SimpleGui(name, type, title, rows, close, guiMode,
+        return new SimpleGui(name, type, title, rows, close, guiBuildType,
                 npcIds, slots, locations, functionTree, metadata,
                 isStatic);
     }

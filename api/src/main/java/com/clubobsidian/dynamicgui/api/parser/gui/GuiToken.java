@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.parser.gui;
 
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
@@ -40,7 +40,7 @@ public interface GuiToken extends Serializable {
 
     int getRows();
 
-    GuiMode getMode();
+    GuiBuildType getMode();
 
     Boolean isClosed();
 

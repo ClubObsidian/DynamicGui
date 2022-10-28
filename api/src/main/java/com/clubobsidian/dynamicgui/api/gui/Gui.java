@@ -103,15 +103,15 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
     @Unmodifiable List<LocationWrapper<?>> getLocations();
 
     /**
-     * How to the gui was built I.E: add or set mode
+     * How to the gui was built I.E: add or set.
      * In "add" mode the slots are added in fifo order into the
      * inventory ignoring the actual index number of the slot.
      * Slots added in "set" mode are added to the inventory
      * and set in their respective slot index.
      *
-     * @return the gui build mode
+     * @return the gui build type
      */
-    GuiMode getGuiMode();
+    GuiBuildType getBuildType();
 
     /**
      * The built inventory for the gui. This starts as initially null
@@ -167,7 +167,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         private transient String title;
         private transient int rows;
         private transient Boolean close;
-        private transient GuiMode guiMode;
+        private transient GuiBuildType guiBuildType;
         private transient final Map<String, List<Integer>> npcIds = new HashMap<>();
         private transient final List<Slot> slots = new ArrayList<>();
         private transient final List<LocationWrapper<?>> locations = new ArrayList<>();
@@ -232,24 +232,24 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         }
 
         /**
-         * Sets the gui build mode
+         * Sets the gui build type
          *
-         * @param mode to set
+         * @param type to set
          * @return Builder
          */
-        public Builder setGuiMode(String mode) {
-            this.setGuiMode(GuiMode.valueOf(mode));
+        public Builder setGuiBuildType(String type) {
+            this.setGuiBuildType(GuiBuildType.valueOf(type));
             return this;
         }
 
         /**
-         * Sets the gui build mode
+         * Sets the gui build type
          *
-         * @param guiMode mode to set
+         * @param type to set
          * @return Builder
          */
-        public Builder setGuiMode(GuiMode guiMode) {
-            this.guiMode = guiMode;
+        public Builder setGuiBuildType(GuiBuildType type) {
+            this.guiBuildType = type;
             return this;
         }
 
@@ -398,11 +398,11 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         /**
          * Build the gui based off the builder parameters
          *
-         * @return Gui
+         * @return the built Gui
          */
         public Gui build() {
             Gui gui = GUI_FACTORY.create(this.name, this.type, this.title, this.rows,
-                    this.close, this.guiMode, this.npcIds, this.slots, this.locations,
+                    this.close, this.guiBuildType, this.npcIds, this.slots, this.locations,
                     this.functionTree, this.metadata, this.isStatic);
             if (this.backGui != null) {
                 gui.setBack(this.backGui);

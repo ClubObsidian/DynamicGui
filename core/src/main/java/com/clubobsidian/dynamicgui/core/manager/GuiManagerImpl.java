@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
@@ -535,14 +535,14 @@ public class GuiManagerImpl extends GuiManager {
             locations.add(LocationManager.get().toLocationWrapper(location));
         }
 
-        GuiMode guiMode = GuiMode.valueOf(guiToken.getMode().toString());
+        GuiBuildType guiBuildType = GuiBuildType.valueOf(guiToken.getMode().toString());
 
         Map<String, List<Integer>> npcIds = guiToken.getNpcs();
         Map<String, String> metadata = guiToken.getMetadata();
 
         boolean isStatic = guiToken.isStatic();
 
-        return this.factory.create(guiName, type, title, rows, close, guiMode,
+        return this.factory.create(guiName, type, title, rows, close, guiBuildType,
                 npcIds, slots, locations, guiToken.getFunctions(), metadata,
                 isStatic);
     }

@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.gui;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
@@ -47,7 +47,7 @@ public class SimpleGui implements Gui {
     private final String title;
     private final int rows;
     private Boolean close;
-    private final GuiMode guiMode;
+    private final GuiBuildType guiBuildType;
     private final List<LocationWrapper<?>> locations;
     private final Map<String, List<Integer>> npcIds;
     private transient InventoryWrapper<?> inventoryWrapper;
@@ -57,7 +57,7 @@ public class SimpleGui implements Gui {
     private final boolean isStatic;
 
     public SimpleGui(String name, String type, String title, int rows, Boolean close,
-                     GuiMode guiMode, Map<String, List<Integer>> npcIds, List<Slot> slots,
+                     GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds, List<Slot> slots,
                      List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
                      boolean isStatic) {
         this.name = name;
@@ -66,7 +66,7 @@ public class SimpleGui implements Gui {
         this.rows = rows;
         this.slots = Collections.unmodifiableList(slots);
         this.close = close;
-        this.guiMode = guiMode;
+        this.guiBuildType = guiBuildType;
         this.npcIds = this.loadNpcIds(npcIds);
         this.locations = Collections.unmodifiableList(locations);
         this.inventoryWrapper = null;
@@ -118,7 +118,7 @@ public class SimpleGui implements Gui {
             if (slot != null) {
                 slot.setOwner(this);
                 ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
-                if (this.guiMode == GuiMode.ADD) {
+                if (this.guiBuildType == GuiBuildType.ADD) {
                     int itemIndex = inventoryWrapper.addItem(item);
                     if (itemIndex != -1) {
                         slot.setIndex(itemIndex);
@@ -168,8 +168,8 @@ public class SimpleGui implements Gui {
         return this.locations;
     }
 
-    public GuiMode getGuiMode() {
-        return this.guiMode;
+    public GuiBuildType getBuildType() {
+        return this.guiBuildType;
     }
 
     public InventoryWrapper<?> getInventoryWrapper() {

@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.gui;
 
-public enum GuiMode {
+public enum GuiBuildType {
 
     ADD,
     SET

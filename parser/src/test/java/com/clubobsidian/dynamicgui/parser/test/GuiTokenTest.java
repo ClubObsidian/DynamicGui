@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.parser.test;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
@@ -65,8 +65,8 @@ public class GuiTokenTest {
 
     @Test
     public void testMode() {
-        GuiMode mode = token.getMode();
-        assertSame(mode, GuiMode.SET);
+        GuiBuildType mode = token.getMode();
+        assertSame(mode, GuiBuildType.SET);
     }
 
     @Test

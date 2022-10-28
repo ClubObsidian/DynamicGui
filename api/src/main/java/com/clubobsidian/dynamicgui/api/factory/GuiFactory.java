@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.api.factory;
 
 import com.clubobsidian.dynamicgui.api.gui.Gui;
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
@@ -30,7 +30,7 @@ import java.util.Map;
 public interface GuiFactory {
 
     Gui create(String name, String type, String title, int rows, Boolean close,
-               GuiMode guiMode, Map<String, List<Integer>> npcIds, List<Slot> slots,
+               GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds, List<Slot> slots,
                List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
                boolean isStatic);
 

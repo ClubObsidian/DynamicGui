@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.wrappy.Configuration;
@@ -34,8 +34,8 @@ public class NoModeTest {
         File file = new File(slotFolder, "no-mode.yml");
         Configuration config = Configuration.load(file);
         GuiToken token = new SimpleGuiToken(config);
-        GuiMode alias = token.getMode();
-        assertSame(alias, GuiMode.SET);
+        GuiBuildType alias = token.getMode();
+        assertSame(alias, GuiBuildType.SET);
     }
 
 }

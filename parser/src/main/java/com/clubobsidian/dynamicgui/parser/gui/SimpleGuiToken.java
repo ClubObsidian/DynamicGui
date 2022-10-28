@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.gui;
 
-import com.clubobsidian.dynamicgui.api.gui.GuiMode;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
@@ -44,7 +44,7 @@ public class SimpleGuiToken implements GuiToken {
     private final String title;
     private final String type;
     private final int rows;
-    private final GuiMode mode;
+    private final GuiBuildType mode;
     private final Boolean closed; //This should be boxed
     private final List<String> alias;
     private final List<String> locations;
@@ -97,12 +97,12 @@ public class SimpleGuiToken implements GuiToken {
         return Boolean.parseBoolean(parsed);
     }
 
-    private GuiMode parseMode(String mode) {
+    private GuiBuildType parseMode(String mode) {
         if (mode == null) {
-            return GuiMode.SET;
+            return GuiBuildType.SET;
         }
 
-        return GuiMode.valueOf(mode.toUpperCase());
+        return GuiBuildType.valueOf(mode.toUpperCase());
     }
 
     private Map<String, List<Integer>> loadNpcs(ConfigurationSection section) {
@@ -156,7 +156,7 @@ public class SimpleGuiToken implements GuiToken {
     }
 
     @Override
-    public GuiMode getMode() {
+    public GuiBuildType getMode() {
         return this.mode;
     }
 
