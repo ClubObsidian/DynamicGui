@@ -18,7 +18,18 @@ package com.clubobsidian.dynamicgui.api.config;
 
 public interface Config {
 
+    /**
+     * The message config holder
+     *
+     * @return configurable messages
+     */
     Message getMessage();
+
+    /**
+     * The date time format for functions
+     *
+     * @return the date time format
+     */
     String getDateTimeFormat();
 
 }
