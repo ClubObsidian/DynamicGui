@@ -176,42 +176,91 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         private transient Gui backGui;
         private transient boolean isStatic = false;
 
+        /**
+         * Sets the inventory type
+         *
+         * @param type to set
+         * @return Builder
+         */
         public Builder setType(String type) {
             this.type = type.toUpperCase();
             return this;
         }
 
+        /**
+         * Sets the gui's name
+         *
+         * @param name to set
+         * @return Builder
+         */
         public Builder setName(String name) {
             this.name = name;
             return this;
         }
 
+        /**
+         * Sets the inventory's title
+         *
+         * @param title to set
+         * @return Builder
+         */
         public Builder setTitle(String title) {
             this.title = title;
             return this;
         }
 
+        /**
+         * Sets the amount of rows an inventory should have
+         *
+         * @param rows to set
+         * @return Builder
+         */
         public Builder setRows(int rows) {
             this.rows = rows;
             return this;
         }
 
-        public Builder setClose(Boolean close) {
+        /**
+         * Set whether the gui should close
+         *
+         * @param close
+         * @return
+         */
+        public Builder setClose(@Nullable Boolean close) {
             this.close = close;
             return this;
         }
 
+        /**
+         * Sets the gui build mode
+         *
+         * @param mode to set
+         * @return Builder
+         */
         public Builder setGuiMode(String mode) {
             this.setGuiMode(GuiMode.valueOf(mode));
             return this;
         }
 
+        /**
+         * Sets the gui build mode
+         *
+         * @param guiMode mode to set
+         * @return Builder
+         */
         public Builder setGuiMode(GuiMode guiMode) {
             this.guiMode = guiMode;
             return this;
         }
 
-        public Builder addNpcId(String plugin, Integer id) {
+        /**
+         * Adds a npc id that the gui should bind to
+         *
+         * @param plugin the plugin the npc belongs to
+         * @param id the npc id
+         * @return Builder
+         */
+        public Builder addNpcId(String plugin, int id) {
             List<Integer> npcs = this.npcIds.get(plugin);
             if (npcs == null) {
                 npcs = new ArrayList<>();
@@ -222,50 +271,107 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
             return this;
         }
 
-        public Builder addNpcId(String plugin, Integer[] npcIds) {
-            for (Integer id : npcIds) {
+        /**
+         * Adds npc ids that the gui should bind to
+         *
+         * @param plugin the plugin the npc belongs to
+         * @param ids the npc ids to add
+         * @return Builder
+         */
+        public Builder addNpcId(String plugin, int[] ids) {
+            for (int id : ids) {
                 this.addNpcId(plugin, id);
             }
             return this;
         }
 
-        public Builder addNpcId(String plugin, List<Integer> npcIds) {
-            for (Integer id : npcIds) {
+        /**
+         * Adds npc ids that the gui should bind to
+         *
+         * @param plugin the plugin the npc belongs to
+         * @param ids the npc ids to add
+         * @return Builder
+         */
+        public Builder addNpcId(String plugin, List<Integer> ids) {
+            for (int id : ids) {
                 this.addNpcId(plugin, id);
             }
             return this;
         }
 
+        /**
+         * Adds a slot to the gui
+         *
+         * @param slot to add
+         * @return Builder
+         */
         public Builder addSlot(Slot slot) {
             this.slots.add(slot);
             return this;
         }
 
+        /**
+         * Adds a location the gui should be able to be opened from
+         *
+         * @param loc to add
+         * @return Builder
+         */
         public Builder addLocation(LocationWrapper<?> loc) {
             this.locations.add(loc);
             return this;
         }
 
+        /**
+         * Set the gui's function tree
+         *
+         * @param functionTree to set
+         * @return Builder
+         */
         public Builder setFunctionTree(FunctionTree functionTree) {
             this.functionTree = functionTree;
             return this;
         }
 
+        /**
+         * Sets the back gui
+         *
+         * @param backGui to set
+         * @return Builder
+         */
         public Builder setBack(Gui backGui) {
             this.backGui = backGui;
             return this;
         }
 
+        /**
+         * Sets the back gui
+         *
+         * @param backGuiName to set
+         * @return Builder
+         */
         public Builder setBack(String backGuiName) {
             this.backGui = GuiManager.get().getGui(backGuiName);
             return this;
         }
 
+        /**
+         * Adds a metadata key value to the gui
+         *
+         * @param key to add
+         * @param value to add
+         * @return Builder
+         */
         public Builder addMetadata(String key, String value) {
             this.metadata.put(key, value);
             return this;
         }
 
+        /**
+         * Adds a map of metadata key values
+         *
+         * @param metadata to add
+         * @return Builder
+         */
         public Builder addMetadata(Map<String, String> metadata) {
             Iterator<Map.Entry<String, String>> it = metadata.entrySet().iterator();
             while (it.hasNext()) {
@@ -278,11 +384,22 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
             return this;
         }
 
+        /**
+         * Set whether the gui should be static
+         *
+         * @param isStatic to set
+         * @return Builder
+         */
         public Builder setStatic(boolean isStatic) {
             this.isStatic = isStatic;
             return this;
         }
 
+        /**
+         * Build the gui based off the builder parameters
+         *
+         * @return Gui
+         */
         public Gui build() {
             Gui gui = GUI_FACTORY.create(this.name, this.type, this.title, this.rows,
                     this.close, this.guiMode, this.npcIds, this.slots, this.locations,
