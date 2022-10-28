@@ -37,7 +37,7 @@ public class GuiCommand implements RegisteredCommand {
             if (hasPermission) {
                 GuiManager.get().openGui(player, guiName);
             } else {
-                sender.sendMessage(DynamicGui.get().getMessage().getNoGuiPermission());
+                sender.sendMessage(DynamicGui.get().getConfig().getMessage().getNoGuiPermission());
             }
         }
     }

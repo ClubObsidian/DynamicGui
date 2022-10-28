@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api;
 
-import com.clubobsidian.dynamicgui.api.config.Message;
+import com.clubobsidian.dynamicgui.api.config.Config;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
@@ -38,11 +38,9 @@ public abstract class DynamicGui {
 
     public abstract void stop();
 
-    public abstract Message getMessage();
+    public abstract Config getConfig();
 
     public abstract Proxy getProxy();
-
-    public abstract String getDateTimeFormat();
 
     public abstract DynamicGuiPlugin getPlugin();
 

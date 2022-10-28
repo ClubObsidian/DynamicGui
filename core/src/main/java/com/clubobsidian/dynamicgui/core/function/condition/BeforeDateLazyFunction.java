@@ -35,7 +35,7 @@ public class BeforeDateLazyFunction extends AbstractLazyFunction {
     @Override
     public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
         try {
-            String format = DynamicGui.get().getDateTimeFormat();
+            String format = DynamicGui.get().getConfig().getDateTimeFormat();
             Date now = Date.from(Instant.now());
             Date expected = new SimpleDateFormat(format).parse(lazyParams.get(0).getString());
             if (now.before(expected)) {

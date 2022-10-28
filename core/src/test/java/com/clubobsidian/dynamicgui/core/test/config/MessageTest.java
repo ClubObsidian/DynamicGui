@@ -28,13 +28,13 @@ public class MessageTest extends FactoryTest {
     @Test
     public void notNullTest() {
         this.getFactory().inject();
-        assertNotNull(DynamicGui.get().getMessage());
+        assertNotNull(DynamicGui.get().getConfig().getMessage());
     }
 
     @Test
     public void noGuiTest() {
         this.getFactory().inject();
-        String noGuiMessage = DynamicGui.get().getMessage().getNoGui();
+        String noGuiMessage = DynamicGui.get().getConfig().getMessage().getNoGui();
         assertNotNull(noGuiMessage);
         assertTrue(noGuiMessage.length() > 0);
     }

@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.config.Config;
 import com.clubobsidian.dynamicgui.api.config.Message;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
@@ -39,6 +40,7 @@ import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
+import com.clubobsidian.dynamicgui.core.config.ConfigImpl;
 import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
 import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
 import com.clubobsidian.dynamicgui.core.listener.GuiListener;
@@ -70,9 +72,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DynamicGuiImpl extends DynamicGui {
 
-    private Message message;
+    private Config config;
     private Proxy proxy;
-    private String dateTimeFormat;
     private final Map<String, Integer> serverPlayerCount = new ConcurrentHashMap<>();
     private final EventBus eventBus;
     private final DynamicGuiPlugin plugin;
@@ -154,12 +155,17 @@ public class DynamicGuiImpl extends DynamicGui {
     }
 
     private void loadConfig() {
-        this.message = new ConfigMessage();
         Configuration config = Configuration.load(this.plugin.getConfigFile());
+
+        Message message = new ConfigMessage();
         ConfigurationSection messageSection = config.getConfigurationSection("message");
         Collection<NodeTransformer> transformers = new ArrayList<>();
         transformers.add(new ChatColorTransformer());
-        messageSection.inject(this.message, transformers);
+        messageSection.inject(message, transformers);
+
+        this.config = new ConfigImpl(message);
+        config.inject(this.config);
+
         String version = config.getString("version");
         if (version != null) {
             version = version.trim();
@@ -185,7 +191,6 @@ public class DynamicGuiImpl extends DynamicGui {
             dateTimeFormat = dateTimeFormat.trim();
         }
 
-        this.dateTimeFormat = dateTimeFormat;
 
         for (final String server : config.getStringList("servers")) {
             this.serverPlayerCount.put(server, 0);
@@ -294,18 +299,13 @@ public class DynamicGuiImpl extends DynamicGui {
     }
 
     @Override
-    public Message getMessage() {
-        return this.message;
+    public Config getConfig() {
+        return this.config;
     }
 
     @Override
     public Proxy getProxy() {
         return this.proxy;
-    }
-
-    @Override
-    public String getDateTimeFormat() {
-        return this.dateTimeFormat;
     }
 
     @Override

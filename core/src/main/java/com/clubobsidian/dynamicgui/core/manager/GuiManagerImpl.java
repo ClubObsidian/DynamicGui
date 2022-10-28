@@ -197,7 +197,7 @@ public class GuiManagerImpl extends GuiManager {
         });
         ThreadUtil.run(() -> {
             if (gui == null) {
-                playerWrapper.sendMessage(DynamicGui.get().getMessage().getNoGui());
+                playerWrapper.sendMessage(DynamicGui.get().getConfig().getMessage().getNoGui());
                 future.complete(false);
                 return;
             }
