@@ -257,7 +257,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds a npc id that the gui should bind to
          *
          * @param plugin the plugin the npc belongs to
-         * @param id the npc id
+         * @param id     the npc id
          * @return Builder
          */
         public Builder addNpcId(String plugin, int id) {
@@ -275,7 +275,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds npc ids that the gui should bind to
          *
          * @param plugin the plugin the npc belongs to
-         * @param ids the npc ids to add
+         * @param ids    the npc ids to add
          * @return Builder
          */
         public Builder addNpcId(String plugin, int[] ids) {
@@ -289,7 +289,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds npc ids that the gui should bind to
          *
          * @param plugin the plugin the npc belongs to
-         * @param ids the npc ids to add
+         * @param ids    the npc ids to add
          * @return Builder
          */
         public Builder addNpcId(String plugin, List<Integer> ids) {
@@ -357,7 +357,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         /**
          * Adds a metadata key value to the gui
          *
-         * @param key to add
+         * @param key   to add
          * @param value to add
          * @return Builder
          */
