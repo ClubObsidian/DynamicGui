@@ -20,6 +20,11 @@ import java.util.Map;
 
 public interface MetadataHolder {
 
+    /**
+     * Gets the metadata for a holder
+     *
+     * @return metadata as a map of strings
+     */
     Map<String, String> getMetadata();
 
 }
