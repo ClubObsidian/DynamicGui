@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -62,13 +63,13 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
 
     short getData();
 
-    List<String> getLore();
+    @Unmodifiable List<String> getLore();
 
-    List<EnchantmentWrapper> getEnchants();
+    @Unmodifiable List<EnchantmentWrapper> getEnchants();
 
-    List<String> getItemFlags();
+    @Unmodifiable List<String> getItemFlags();
 
-    Boolean getClose();
+    @Nullable Boolean getClose();
 
     void setClose(@Nullable Boolean close);
 
@@ -172,7 +173,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
-        public Builder setClose(Boolean close) {
+        public Builder setClose(@Nullable Boolean close) {
             this.close = close;
             return this;
         }

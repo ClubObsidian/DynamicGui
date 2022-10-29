@@ -30,6 +30,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -75,9 +76,9 @@ public class SimpleSlot implements Slot {
         this.nbt = nbt;
         this.glow = glow;
         this.movable = movable;
-        this.lore = lore;
-        this.enchants = enchants;
-        this.itemFlags = itemFlags;
+        this.lore = Collections.unmodifiableList(lore);
+        this.enchants = Collections.unmodifiableList(enchants);
+        this.itemFlags = Collections.unmodifiableList(itemFlags);
         this.modelProvider = modelProvider;
         this.modelData = modelData;
         this.close = close;
