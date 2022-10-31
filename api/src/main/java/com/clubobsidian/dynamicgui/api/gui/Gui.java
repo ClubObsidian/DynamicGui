@@ -180,7 +180,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the inventory type
          *
          * @param type to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setType(String type) {
             this.type = type.toUpperCase();
@@ -191,7 +191,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the gui's name
          *
          * @param name to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setName(String name) {
             this.name = name;
@@ -202,7 +202,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the inventory's title
          *
          * @param title to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setTitle(String title) {
             this.title = title;
@@ -213,7 +213,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the amount of rows an inventory should have
          *
          * @param rows to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setRows(int rows) {
             this.rows = rows;
@@ -223,8 +223,8 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         /**
          * Set whether the gui should close
          *
-         * @param close
-         * @return
+         * @param close whether to close the gui
+         * @return this builder
          */
         public Builder setClose(@Nullable Boolean close) {
             this.close = close;
@@ -234,8 +234,8 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         /**
          * Sets the gui build type
          *
-         * @param type to set
-         * @return Builder
+         * @param type the type to set
+         * @return this builder
          */
         public Builder setGuiBuildType(String type) {
             this.setGuiBuildType(GuiBuildType.valueOf(type));
@@ -246,7 +246,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the gui build type
          *
          * @param type to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setGuiBuildType(GuiBuildType type) {
             this.guiBuildType = type;
@@ -258,7 +258,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          *
          * @param plugin the plugin the npc belongs to
          * @param id     the npc id
-         * @return Builder
+         * @return this builder
          */
         public Builder addNpcId(String plugin, int id) {
             List<Integer> npcs = this.npcIds.get(plugin);
@@ -276,7 +276,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          *
          * @param plugin the plugin the npc belongs to
          * @param ids    the npc ids to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addNpcId(String plugin, int[] ids) {
             for (int id : ids) {
@@ -290,7 +290,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          *
          * @param plugin the plugin the npc belongs to
          * @param ids    the npc ids to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addNpcId(String plugin, List<Integer> ids) {
             for (int id : ids) {
@@ -303,7 +303,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds a slot to the gui
          *
          * @param slot to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addSlot(Slot slot) {
             this.slots.add(slot);
@@ -314,7 +314,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds a location the gui should be able to be opened from
          *
          * @param loc to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addLocation(LocationWrapper<?> loc) {
             this.locations.add(loc);
@@ -325,7 +325,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Set the gui's function tree
          *
          * @param functionTree to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setFunctionTree(FunctionTree functionTree) {
             this.functionTree = functionTree;
@@ -336,7 +336,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the back gui
          *
          * @param backGui to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setBack(Gui backGui) {
             this.backGui = backGui;
@@ -347,7 +347,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Sets the back gui
          *
          * @param backGuiName to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setBack(String backGuiName) {
             this.backGui = GuiManager.get().getGui(backGuiName);
@@ -359,7 +359,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          *
          * @param key   to add
          * @param value to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addMetadata(String key, String value) {
             this.metadata.put(key, value);
@@ -370,7 +370,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Adds a map of metadata key values
          *
          * @param metadata to add
-         * @return Builder
+         * @return this builder
          */
         public Builder addMetadata(Map<String, String> metadata) {
             Iterator<Map.Entry<String, String>> it = metadata.entrySet().iterator();
@@ -388,7 +388,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
          * Set whether the gui should be static
          *
          * @param isStatic to set
-         * @return Builder
+         * @return this builder
          */
         public Builder setStatic(boolean isStatic) {
             this.isStatic = isStatic;
