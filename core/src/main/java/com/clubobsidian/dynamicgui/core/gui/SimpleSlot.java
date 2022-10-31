@@ -92,54 +92,67 @@ public class SimpleSlot implements Slot {
         this.update = false;
     }
 
+    @Override
     public int getIndex() {
         return this.index;
     }
 
+    @Override
     public void setIndex(int index) {
         this.index = index;
     }
 
+    @Override
     public String getIcon() {
         return this.icon;
     }
 
+    @Override
     public int getAmount() {
         return this.amount;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public String getNBT() {
         return this.nbt;
     }
 
+    @Override
     public boolean getGlow() {
         return this.glow;
     }
 
+    @Override
     public boolean isMovable() {
         return this.movable;
     }
 
+    @Override
     public void setMovable(boolean movable) {
         this.movable = movable;
     }
 
+    @Override
     public short getData() {
         return this.data;
     }
 
+    @Override
     public List<String> getLore() {
         return this.lore;
     }
 
+    @Override
     public List<EnchantmentWrapper> getEnchants() {
         return this.enchants;
     }
 
+    @Override
     public List<String> getItemFlags() {
         return this.itemFlags;
     }
@@ -159,6 +172,7 @@ public class SimpleSlot implements Slot {
         return this.functions;
     }
 
+    @Override
     public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper) {
         ItemStackWrapper<?> builderItem = this.itemStack;
 
@@ -228,6 +242,7 @@ public class SimpleSlot implements Slot {
         return builderItem;
     }
 
+    @Override
     public ItemStackWrapper<?> getItemStack() {
         return this.itemStack;
     }
