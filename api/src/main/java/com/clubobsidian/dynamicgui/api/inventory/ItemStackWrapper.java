@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.api.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.Serializable;
 import java.util.List;
@@ -79,6 +80,8 @@ public abstract class ItemStackWrapper<T> implements Serializable {
     public abstract void setNBT(String nbt);
 
     public abstract void setGlowing(boolean glowing);
+
+    @Unmodifiable public abstract List<String> getItemFlags();
 
     public abstract void addItemFlags(List<String> itemFlags);
 

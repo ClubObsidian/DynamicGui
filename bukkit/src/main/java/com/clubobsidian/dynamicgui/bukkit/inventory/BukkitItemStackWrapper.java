@@ -25,10 +25,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -239,6 +241,17 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
         }
         item.setItemMeta(meta);
+    }
+
+    @Override
+    public @Unmodifiable List<String> getItemFlags() {
+        List<String> flags = new ArrayList<>();
+        ItemStack item = this.getItemStack();
+        ItemMeta meta = item.getItemMeta();
+        for (ItemFlag flag : meta.getItemFlags()) {
+            flags.add(flag.name());
+        }
+        return Collections.unmodifiableList(flags);
     }
 
     @Override
