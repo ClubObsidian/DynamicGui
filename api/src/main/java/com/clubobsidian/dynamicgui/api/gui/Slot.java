@@ -539,6 +539,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             this.setData(itemStackWrapper.getDurability());
             this.setAmount(itemStackWrapper.getAmount());
             this.addLore(itemStackWrapper.getLore());
+            this.addItemFlag(itemStackWrapper.getItemFlags());
 
             for (EnchantmentWrapper enchant : itemStackWrapper.getEnchants()) {
                 this.addEnchant(enchant);
