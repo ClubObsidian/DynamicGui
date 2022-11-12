@@ -246,76 +246,166 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         private transient final Map<String, String> metadata = new HashMap<>();
 
 
+        /**
+         * Sets the icon for the slot
+         *
+         * @param icon to set
+         * @return this builder
+         */
         public Builder setIcon(String icon) {
             this.icon = icon;
             return this;
         }
 
+        /**
+         * Sets the name for the slot
+         *
+         * @param name to set
+         * @return this builder
+         */
         public Builder setName(String name) {
             this.name = name;
             return this;
         }
 
+        /**
+         * Sets the nbt for the slot
+         *
+         * @param nbt to set
+         * @return this builder
+         */
         public Builder setNBT(String nbt) {
             this.nbt = nbt;
             return this;
         }
 
+        /**
+         * Sets the data for the slot
+         *
+         * @param data to set
+         * @return this builder
+         */
         public Builder setData(int data) {
             this.setData((short) data);
             return this;
         }
 
+        /**
+         * Sets the data for the slot
+         *
+         * @param data to set
+         * @return this builder
+         */
         public Builder setData(short data) {
             this.data = data;
             return this;
         }
 
+        /**
+         * Sets the glow for the slot
+         *
+         * @param glow to set
+         * @return this builder
+         */
         public Builder setGlow(boolean glow) {
             this.glow = glow;
             return this;
         }
 
+        /**
+         * Sets the model provider for the slot
+         *
+         * @param modelProvider to set
+         * @return this builder
+         */
         public Builder setModelProvider(String modelProvider) {
             this.modelProvider = modelProvider;
             return this;
         }
 
+        /**
+         * Sets the model data for the slot
+         *
+         * @param modelData to set
+         * @return this builder
+         */
         public Builder setModelData(String modelData) {
             this.modelData = modelData;
             return this;
         }
 
+        /**
+         * Sets whether the slot should be movable
+         *
+         * @param movable to set
+         * @return this builder
+         */
         public Builder setMovable(boolean movable) {
             this.movable = movable;
             return this;
         }
 
+        /**
+         * Set whether the slot should close
+         *
+         * @param close to set
+         * @return this builder
+         */
         public Builder setClose(@Nullable Boolean close) {
             this.close = close;
             return this;
         }
 
+        /**
+         * Set the index for the slot
+         *
+         * @param index to set
+         * @return this builder
+         */
         public Builder setIndex(int index) {
             this.index = index;
             return this;
         }
 
+        /**
+         * Set the amount for the slot
+         *
+         * @param amount to set
+         * @return this builder
+         */
         public Builder setAmount(int amount) {
             this.amount = amount;
             return this;
         }
 
+        /**
+         * Set update interval for the slot
+         *
+         * @param interval to set
+         * @return this builder
+         */
         public Builder setUpdateInterval(int interval) {
             this.updateInterval = interval;
             return this;
         }
 
+        /**
+         * Add lore to the slot
+         *
+         * @param lore to add
+         * @return this builder
+         */
         public Builder addLore(String lore) {
             this.lore.add(lore);
             return this;
         }
 
+        /**
+         * Add lore to the slot
+         *
+         * @param lore to add
+         * @return this builder
+         */
         public Builder addLore(String... lore) {
             for (String l : lore) {
                 this.addLore(l);
@@ -323,6 +413,12 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        /**
+         * Add lore to the slot
+         *
+         * @param lore to add
+         * @return this builder
+         */
         public Builder addLore(Collection<String> lore) {
             for (String l : lore) {
                 this.addLore(l);
@@ -330,11 +426,23 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        /**
+         * Add an enchantment to the slot
+         *
+         * @param enchant to add
+         * @return this builder
+         */
         public Builder addEnchant(EnchantmentWrapper enchant) {
             this.enchants.add(enchant);
             return this;
         }
 
+        /**
+         * Add an enchantment to the slot
+         *
+         * @param enchant to add
+         * @return this builder
+         */
         public Builder addEnchant(EnchantmentWrapper... enchant) {
             for (EnchantmentWrapper ench : enchant) {
                 this.addEnchant(ench);
@@ -342,6 +450,12 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        /**
+         * Add an enchantment to the slot
+         *
+         * @param enchant to add
+         * @return this builder
+         */
         public Builder addEnchant(List<EnchantmentWrapper> enchant) {
             for (EnchantmentWrapper ench : enchant) {
                 this.addEnchant(ench);
@@ -350,26 +464,57 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        /**
+         * Add item flags to the slot
+         *
+         * @param itemFlags to add
+         * @return this builder
+         */
         public Builder addItemFlag(String... itemFlags) {
             this.addItemFlag(Arrays.asList(itemFlags));
             return this;
         }
 
+        /**
+         * Add item flags to the slot
+         *
+         * @param itemFlags to add
+         * @return this builder
+         */
         public Builder addItemFlag(Collection<String> itemFlags) {
             this.itemFlags.addAll(itemFlags);
             return this;
         }
 
+        /**
+         * Sets the function tree
+         *
+         * @param functionTree to set
+         * @return this builder
+         */
         public Builder setFunctionTree(FunctionTree functionTree) {
             this.functionTree = functionTree;
             return this;
         }
 
+        /**
+         * Adds metadata to the slot
+         *
+         * @param key to add
+         * @param value to add
+         * @return this builder
+         */
         public Builder addMetadata(String key, String value) {
             this.metadata.put(key, value);
             return this;
         }
 
+        /**
+         * Adds metadata to the slot
+         *
+         * @param metadata map of metadata to add
+         * @return this builder
+         */
         public Builder addMetadata(Map<String, String> metadata) {
             Iterator<Map.Entry<String, String>> it = metadata.entrySet().iterator();
             while (it.hasNext()) {
@@ -378,10 +523,15 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
                 String value = next.getValue();
                 this.addMetadata(key, value);
             }
-
             return this;
         }
 
+        /**
+         * Create builder from item stack wrapper
+         *
+         * @param itemStackWrapper to copy from
+         * @return this builder
+         */
         public Builder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper) {
             this.setIcon(itemStackWrapper.getType());
             this.setName(itemStackWrapper.getName());
@@ -397,6 +547,11 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        /**
+         * Builds slot with built parameters
+         *
+         * @return built slot
+         */
         public Slot build() {
             return SLOT_FACTORY.create(this.index, this.amount, this.icon, this.name,
                     this.nbt, this.data, this.glow, this.movable,
