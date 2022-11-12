@@ -456,7 +456,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          * @param enchant to add
          * @return this builder
          */
-        public Builder addEnchant(List<EnchantmentWrapper> enchant) {
+        public Builder addEnchant(Collection<EnchantmentWrapper> enchant) {
             for (EnchantmentWrapper ench : enchant) {
                 this.addEnchant(ench);
             }
