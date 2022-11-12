@@ -38,6 +38,13 @@ public interface AnimationHolder extends Refreshable {
     int tick();
 
     /**
+     * Gets the animation update interval
+     *
+     * @return update interval in ticks
+     */
+    int getUpdateInterval();
+
+    /**
      * The current frame, a frame is current ticks / 20
      *
      * @return the current frame
@@ -45,8 +52,22 @@ public interface AnimationHolder extends Refreshable {
     int getFrame();
 
     /**
-     * Resets the frame
+     * Resets the current frame
      */
     void resetFrame();
+
+    /**
+     * Gets whether the AnimationHolder should update
+     *
+     * @return if the AnimationHolder updates
+     */
+    boolean getUpdate();
+
+    /**
+     * Sets whether the animation holder should update
+     *
+     * @param update sets if the animation holder should update
+     */
+    void setUpdate(boolean update);
 
 }

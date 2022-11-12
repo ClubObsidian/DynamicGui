@@ -43,64 +43,182 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
     String IGNORE_MATERIAL = "AIR";
     String TEST_MATERIAL = "STONE";
 
+    /**
+     * The index that the slot exists at after a gui is built.
+     * Before a gui is built this value does not accurately
+     * have the correct index.
+     *
+     * @return the slot index
+     */
     int getIndex();
 
+    /**
+     * This typically should only be used for setting
+     * the index for where a slot exists when the gui
+     * is built.
+     *
+     * @param index the index to set for the slot
+     */
     void setIndex(int index);
 
+    /**
+     * Gets the icon or material that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current material for
+     * the item stack. If you need the current
+     * material use {@link ItemStackWrapper#getType()}
+     *
+     * @return the icon or material for the slot
+     */
     String getIcon();
 
+    /**
+     * Gets the amount that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current amount for
+     * the item stack. If you need the current
+     * amount use {@link ItemStackWrapper#getAmount()}
+     *
+     * @return the amount for the slot
+     */
     int getAmount();
 
+    /**
+     * Gets the custom name that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current name for
+     * the item stack. If you need the current
+     * name use {@link ItemStackWrapper#getName()}
+     *
+     * @return the name of the slot
+     */
     String getName();
 
+    /**
+     * Gets the nbt that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current nbt for
+     * the item stack. If you need the current
+     * name use {@link ItemStackWrapper#getNBT()}
+     *
+     * @return the slot nbt
+     */
     String getNBT();
 
+    /**
+     * Gets whether the item is glowing as in
+     * whether it has an enchant that is added
+     * to the item that is hidden.
+     *
+     * @return whether the item is glowing
+     */
     boolean getGlow();
 
+    /**
+     * Gets whether this slot is movable, as in that
+     * the item within the slot can be moved around the
+     * gui, removed etc.
+     *
+     * @return whether the slot is movable
+     */
     boolean isMovable();
 
+    /**
+     * Sets whether this slot is movable, as in that
+     * the item within the slot can be moved around the
+     * gui, removed etc.
+     *
+     * @param movable whether the slot should be movable
+     */
     void setMovable(boolean movable);
 
+    /**
+     * Gets the damage value that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current data for
+     * the item stack. If you need the current
+     * durability use {@link ItemStackWrapper#getDurability()}
+     *
+     * @return the slot durability
+     */
     short getData();
 
+    /**
+     * Gets the lore that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current lore for
+     * the item stack. If you need the current
+     * lore use {@link ItemStackWrapper#getLore()}
+     *
+     * @return the slot lore
+     */
     @Unmodifiable List<String> getLore();
 
+    /**
+     * Gets the enchants that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current enchants for
+     * the item stack. If you need the current
+     * durability use {@link ItemStackWrapper#getEnchants()}
+     *
+     * @return the slot enchants
+     */
     @Unmodifiable List<EnchantmentWrapper> getEnchants();
 
+    /**
+     * Gets the item flags that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current item flags for
+     * the item stack. If you need the current
+     * item flags use {@link ItemStackWrapper#getItemFlags()}
+     *
+     * @return the slot item flags
+     */
     @Unmodifiable List<String> getItemFlags();
 
+    /**
+     * Gets whether the slot should close
+     *
+     * @return boxed boolean if the slot closes when clicked
+     */
     @Nullable Boolean getClose();
 
+    /**
+     * Sets whether the slot should close
+     *
+     * @param close boxed boolean if the component should close
+     */
     void setClose(@Nullable Boolean close);
 
-    FunctionTree getFunctions();
-
+    /**
+     * Builds an item stack wrapper for the slot
+     *
+     * @param playerWrapper the player to build the slot for
+     * @return the built item stack wrapper
+     */
     ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper);
 
-    ItemStackWrapper<?> getItemStack();
+    /**
+     * The item stack wrapper for the slot
+     *
+     * @return the slot item stack wrapper
+     */
+    @Nullable ItemStackWrapper<?> getItemStack();
 
+    /**
+     * Sets the owner of the slot
+     *
+     * @param gui gui to set as owner
+     */
     void setOwner(Gui gui);
 
+    /**
+     * Gets the owner of the gui. The owner of the gui
+     * is the gui that the slots are owned by or belong to.
+     *
+     * @return gui owner
+     */
     Gui getOwner();
-
-    @Override
-    int getUpdateInterval();
-
-    int getCurrentTick();
-
-    void resetTick();
-
-    int tick();
-
-    int getFrame();
-
-    void resetFrame();
-
-    Map<String, String> getMetadata();
-
-    boolean getUpdate();
-
-    void setUpdate(boolean update);
 
     class Builder {
 
