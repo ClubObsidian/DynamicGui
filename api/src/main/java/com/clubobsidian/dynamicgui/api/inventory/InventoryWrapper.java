@@ -33,27 +33,76 @@ public abstract class InventoryWrapper<T> implements Serializable {
         this.inventory = inventory;
     }
 
+    /**
+     * Gets the underlying native inventory
+     *
+     * @return native inventory
+     */
     public T getInventory() {
         return this.inventory;
     }
 
+    /**
+     * Gets the contents of the inventory as an
+     * array of ItemStackWrapper.
+     *
+     * @return array of contents of the inventory
+     */
     public abstract ItemStackWrapper<?>[] getContents();
 
+    /**
+     * Gets an ItemStackWrapper for a given index.
+     *
+     * @param index to get the ItemStackWrapper from
+     * @return an ItemStackWrapper
+     */
     public abstract ItemStackWrapper<?> getItem(int index);
 
+    /**
+     * Sets the ItemStackWrapper at a given index
+     *
+     * @param index to set the ItemStackWrapper at
+     * @param itemStackWrapper the wrapper to set
+     */
     public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
 
+    /**
+     * Updates the item at a given index, this is accomplished
+     * by not updating the physical item but with sending the
+     * updated item to the player via packets.
+     *
+     * @param index to update at
+     * @param playerWrapper the wrapper to update the item for
+     */
     public abstract void updateItem(int index, PlayerWrapper<?> playerWrapper);
 
+    /**
+     * Gets the size of the inventory, as in how many slots
+     * that the inventory contains.
+     *
+     * @return the amount of slots the inventory has
+     */
     public abstract int getSize();
 
+    /**
+     * Gets how many slots are currently occupied in the inventory,
+     * this will not give the size of the inventory.
+     *
+     * @return the amount of slots occupied in the inventory
+     */
     public abstract int getCurrentContentSize();
 
+    /**
+     * Adds a given ItemStackWrapper to an inventory
+     *
+     * @param itemStackWrapper the wrapper to add
+     * @return -1 if the item could not be added else the index where it was added
+     */
     public int addItem(ItemStackWrapper<?> itemStackWrapper) {
         int index = this.getCurrentContentSize();
-        if (index >= this.getSize())
+        if (index >= this.getSize()) {
             return -1;
-
+        }
         this.setItem(index, itemStackWrapper);
         return index;
     }
