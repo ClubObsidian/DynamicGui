@@ -37,13 +37,13 @@ public abstract class CooldownManager {
 
     public long getRemainingCooldown(Cooldown cooldown) {
         long currentTime = System.currentTimeMillis();
-        long cooldownTime = cooldown.getTime();
-        long cooldownAmount = cooldown.getCooldown();
+        long creationTime = cooldown.getCreationTime();
+        long duration = cooldown.getCooldownDuration();
 
-        if ((currentTime - cooldownTime) >= cooldownAmount) {
+        if ((currentTime - creationTime) >= duration) {
             return -1L;
         } else {
-            return cooldownAmount - (currentTime - cooldownTime);
+            return duration - (currentTime - creationTime);
         }
     }
 

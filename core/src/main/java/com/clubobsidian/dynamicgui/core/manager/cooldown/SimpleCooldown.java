@@ -37,12 +37,12 @@ public class SimpleCooldown implements Cooldown {
     }
 
     @Override
-    public long getTime() {
+    public long getCreationTime() {
         return this.time;
     }
 
     @Override
-    public long getCooldown() {
+    public long getCooldownDuration() {
         return this.cooldown;
     }
 }

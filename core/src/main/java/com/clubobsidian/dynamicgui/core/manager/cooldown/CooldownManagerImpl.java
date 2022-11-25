@@ -151,8 +151,8 @@ public class CooldownManagerImpl extends CooldownManager {
             for (Map.Entry<String, Cooldown> entry : cooldownMap.entrySet()) {
                 String cooldownName = entry.getKey();
                 Cooldown cooldownObj = entry.getValue();
-                long time = cooldownObj.getTime();
-                long cooldown = cooldownObj.getCooldown();
+                long time = cooldownObj.getCreationTime();
+                long cooldown = cooldownObj.getCooldownDuration();
                 ConfigurationSection cooldownSection = this.cooldownConfig.getConfigurationSection(uuidStr + "." + cooldownName);
                 cooldownSection.set("time", time);
                 cooldownSection.set("cooldown", cooldown);

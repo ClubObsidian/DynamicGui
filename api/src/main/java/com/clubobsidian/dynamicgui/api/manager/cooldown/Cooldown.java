@@ -17,11 +17,11 @@
 package com.clubobsidian.dynamicgui.api.manager.cooldown;
 
 public interface Cooldown {
-
+    
     String getName();
 
-    long getTime();
+    long getCreationTime();
 
-    long getCooldown();
+    long getCooldownDuration();
 
 }
