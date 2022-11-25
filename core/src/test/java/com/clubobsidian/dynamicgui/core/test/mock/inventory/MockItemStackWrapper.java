@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -88,7 +89,7 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
-    public String getName() {
+    public @Nullable String getName() {
         return this.getItemStack().getName();
     }
 

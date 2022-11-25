@@ -25,6 +25,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.lang.reflect.InvocationTargetException;
@@ -107,7 +108,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         }
 
         String normalizedType = MaterialManager.get().normalizeMaterial(type);
-        Material mat = null;
+        Material mat;
 
         try {
             mat = Material.valueOf(normalizedType);
@@ -120,7 +121,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public String getName() {
+    public @Nullable String getName() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         if (itemMeta.hasDisplayName()) {
             return itemMeta.getDisplayName();
