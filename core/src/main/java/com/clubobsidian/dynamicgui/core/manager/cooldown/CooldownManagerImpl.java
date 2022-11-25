@@ -58,7 +58,7 @@ public class CooldownManagerImpl extends CooldownManager {
             for (String cooldownName : section.getKeys()) {
                 long time = section.getLong(cooldownName + ".time");
                 long cooldown = section.getLong(cooldownName + ".cooldown");
-                Cooldown cooldownObj = new Cooldown(cooldownName, time, cooldown);
+                Cooldown cooldownObj = new SimpleCooldown(cooldownName, time, cooldown);
                 if (this.getRemainingCooldown(cooldownObj) != -1L) {
                     cooldownMap.put(cooldownName, cooldownObj);
                 } else {
@@ -111,7 +111,7 @@ public class CooldownManagerImpl extends CooldownManager {
         long cooldownRemaining = this.getRemainingCooldown(uuid, name);
         if (cooldownRemaining == -1L) {
             long currentTime = System.currentTimeMillis();
-            Cooldown cooldown = new Cooldown(name, currentTime, cooldownTime);
+            Cooldown cooldown = new SimpleCooldown(name, currentTime, cooldownTime);
             Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
             if (cooldownMap == null) {
                 cooldownMap = new ConcurrentHashMap<>();
