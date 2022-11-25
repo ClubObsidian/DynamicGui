@@ -17,11 +17,26 @@
 package com.clubobsidian.dynamicgui.api.manager.cooldown;
 
 public interface Cooldown {
-    
+
+    /**
+     * Gets the name of the cooldown
+     *
+     * @return the name of the cooldown
+     */
     String getName();
 
+    /**
+     * The creation time of the cooldown in milliseconds.
+     *
+     * @return the creation time in milliseconds
+     */
     long getCreationTime();
 
+    /**
+     * The duration of the cooldown in milliseconds
+     *
+     * @return the duration time in milliseconds
+     */
     long getCooldownDuration();
 
 }
