@@ -62,12 +62,12 @@ public abstract class CooldownManager {
 
     public abstract List<Cooldown> getCooldowns(UUID uuid);
 
-    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, long cooldownTime) {
+    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, long cooldownDuration) {
         UUID uuid = playerWrapper.getUniqueId();
-        return this.createCooldown(uuid, name, cooldownTime);
+        return this.createCooldown(uuid, name, cooldownDuration);
     }
 
-    public abstract Cooldown createCooldown(UUID uuid, String name, long cooldownTime);
+    public abstract Cooldown createCooldown(UUID uuid, String name, long cooldownDuration);
 
     public boolean removeCooldown(PlayerWrapper<?> playerWrapper, String name) {
         return this.removeCooldown(playerWrapper.getUniqueId(), name);

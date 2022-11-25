@@ -25,10 +25,10 @@ public class SimpleCooldown implements Cooldown {
     private final long time;
     private final long cooldown;
 
-    public SimpleCooldown(String name, long time, long cooldown) {
+    public SimpleCooldown(String name, long creationTime, long cooldownDuration) {
         this.name = name;
-        this.time = time;
-        this.cooldown = cooldown;
+        this.time = creationTime;
+        this.cooldown = cooldownDuration;
     }
 
     @Override

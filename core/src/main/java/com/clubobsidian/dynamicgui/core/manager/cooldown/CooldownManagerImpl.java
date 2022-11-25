@@ -107,11 +107,11 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     @Override
-    public Cooldown createCooldown(UUID uuid, String name, long cooldownTime) {
+    public Cooldown createCooldown(UUID uuid, String name, long cooldownDuration) {
         long cooldownRemaining = this.getRemainingCooldown(uuid, name);
         if (cooldownRemaining == -1L) {
             long currentTime = System.currentTimeMillis();
-            Cooldown cooldown = new SimpleCooldown(name, currentTime, cooldownTime);
+            Cooldown cooldown = new SimpleCooldown(name, currentTime, cooldownDuration);
             Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
             if (cooldownMap == null) {
                 cooldownMap = new ConcurrentHashMap<>();
