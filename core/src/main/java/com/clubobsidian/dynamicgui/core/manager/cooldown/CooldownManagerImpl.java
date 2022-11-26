@@ -103,7 +103,7 @@ public class CooldownManagerImpl extends CooldownManager {
         if (cooldowns == null) {
             return Collections.emptyList();
         }
-        return new ArrayList<>(cooldowns.values());
+        return List.copyOf(cooldowns.values());
     }
 
     @Override
