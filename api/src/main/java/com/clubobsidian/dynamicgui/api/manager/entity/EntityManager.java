@@ -30,7 +30,18 @@ public abstract class EntityManager {
         return instance;
     }
 
+    /**
+     * Creates a player wrapper for a given player
+     *
+     * @param player player to wrap
+     * @return the wrapped played
+     */
     public abstract PlayerWrapper<?> createPlayerWrapper(Object player);
 
+    /**
+     * Gets all the registered entity types
+     *
+     * @return list of all entity types
+     */
     public abstract List<String> getEntityTypes();
 }
