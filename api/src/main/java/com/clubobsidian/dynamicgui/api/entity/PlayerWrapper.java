@@ -34,7 +34,7 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
     /**
      * Gets the player's name
      *
-     * @return the player's gname
+     * @return the player's name
      */
     public abstract String getName();
 
