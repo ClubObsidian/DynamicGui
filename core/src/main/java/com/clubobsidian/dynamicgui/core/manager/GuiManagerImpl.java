@@ -157,35 +157,12 @@ public class GuiManagerImpl extends GuiManager {
 
     @Override
     public List<Gui> getGuis() {
-        return new ArrayList<>(this.guis.values());
+        return List.copyOf(this.guis.values());
     }
 
     @Override
-    public Map<UUID, Gui> getPlayerGuis() {
-        return Collections.unmodifiableMap(this.playerGuis);
-    }
-
-    @Override
-    public boolean hasGuiCurrently(PlayerWrapper<?> playerWrapper) {
-        return this.playerGuis.get(playerWrapper.getUniqueId()) != null;
-    }
-
-    @Override
-    public boolean hasGuiOpen(PlayerWrapper<?> playerWrapper) {
-        if (playerWrapper.getOpenInventoryWrapper() == null) {
-            return false;
-        }
-        return this.hasGuiCurrently(playerWrapper);
-    }
-
-    @Override
-    public void cleanupPlayerGui(PlayerWrapper<?> playerWrapper) {
-        this.playerGuis.remove(playerWrapper.getUniqueId());
-    }
-
-    @Override
-    public Gui getPlayerGui(PlayerWrapper<?> playerWrapper) {
-        return this.playerGuis.get(playerWrapper.getUniqueId());
+    protected Map<UUID, Gui> getPlayerGuisInternal() {
+        return this.playerGuis;
     }
 
     @Override
