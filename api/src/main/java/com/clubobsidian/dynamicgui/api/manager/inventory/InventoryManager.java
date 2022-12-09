@@ -29,12 +29,39 @@ public abstract class InventoryManager {
         return instance;
     }
 
+    /**
+     * Creates a native inventory given a size and title.
+     *
+     * @param size the size of the gui, should be dividable by 9
+     * @param title the title of the inventory
+     * @return the created native inventory
+     */
     public abstract Object createInventory(int size, String title);
 
+    /**
+     * Creates a native inventory with the default size with a given title and type.
+     *
+     * @param title the title of the inventory
+     * @param type the type of inventory
+     * @return the created native inventory
+     */
     public abstract Object createInventory(String title, String type);
 
+    /**
+     * Creates an inventory wrapper
+     *
+     * @param inventory the native inventory to wrap
+     * @return an inventory wrapper
+     */
     public abstract InventoryWrapper<?> createInventoryWrapper(Object inventory);
 
+    /**
+     * Creates an inventory wrapper
+     *
+     * @param size the size of the gui, should be dividable by 9
+     * @param title the title of the inventory
+     * @return an inventory wrapper
+     */
     public InventoryWrapper<?> createInventoryWrapper(int size, String title) {
         Object inventory = this.createInventory(size, title);
         return this.createInventoryWrapper(inventory);
