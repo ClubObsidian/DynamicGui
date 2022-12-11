@@ -182,16 +182,6 @@ public class DynamicGuiImpl extends DynamicGui {
 
         this.proxy = Proxy.fromString(proxyStr);
 
-        String dateTimeFormat = config.getString("date-time-format");
-        if (dateTimeFormat == null) {
-            dateTimeFormat = "MM dd, yyyy HH:mm:ss";
-            config.set("date-time-format", dateTimeFormat);
-            config.save();
-        } else {
-            dateTimeFormat = dateTimeFormat.trim();
-        }
-
-
         for (final String server : config.getStringList("servers")) {
             this.serverPlayerCount.put(server, 0);
 
