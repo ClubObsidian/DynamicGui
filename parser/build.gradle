@@ -5,5 +5,8 @@ plugins {
 dependencies {
     api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
     compileOnly project(path: ':api')
+    testImplementation project(path: ':api')
+    compileOnly("com.github.clubobsidian:wrappy:$wrappyVersion")
+    testImplementation("com.github.clubobsidian:wrappy:$wrappyVersion")
     testImplementation(project(path: ':api'))
 }

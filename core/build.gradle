@@ -17,4 +17,11 @@ dependencies {
     api "net.kyori:adventure-text-minimessage:$adventureVersion"
     api "net.kyori:adventure-text-serializer-gson:$adventureVersion"
     api "net.kyori:adventure-text-serializer-legacy:$adventureVersion"
+    api 'org.apache.commons:commons-lang3:3.12.0'
+    api "com.github.clubobsidian:wrappy:$wrappyVersion"
+    api 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+    compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
+    testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
+    api "cloud.commandframework:cloud-annotations:$cloudVersion"
+    api "io.github.classgraph:classgraph:4.8.149"
 }
