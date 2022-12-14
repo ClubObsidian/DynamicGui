@@ -15,7 +15,7 @@ allprojects {
 	version projectVersion
 	ext {
 		junitVersion = '5.9.1'
-		cloudVersion = '1.7.1'
+		cloudVersion = '1.8.0'
 		wrappyVersion = "2.3.2"
 		langVersion = "3.12.0"
 	}
