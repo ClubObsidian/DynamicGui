@@ -10,6 +10,10 @@ processResources {
 
 shadowJar {
     archiveBaseName.set('DynamicGui-Bukkit')
+
+    build {
+        dependsOn tasks.named("shadowJar")
+    }
 }
 
 //tasks.shadowJar.dependsOn ':core:shadowJar'
