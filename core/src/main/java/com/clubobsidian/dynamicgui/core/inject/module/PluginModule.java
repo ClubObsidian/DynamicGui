@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
+import com.clubobsidian.dynamicgui.api.factory.FunctionNodeFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
@@ -53,6 +54,7 @@ import com.clubobsidian.dynamicgui.core.command.CommandRegistrarImpl;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.core.factory.FunctionDataFactoryImpl;
+import com.clubobsidian.dynamicgui.core.factory.FunctionNodeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.FunctionTokenFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.FunctionTreeFactoryImpl;
 import com.clubobsidian.dynamicgui.core.factory.GuiFactoryImpl;
@@ -119,6 +121,7 @@ public abstract class PluginModule implements Module {
         binder.bind(FunctionDataFactory.class).to(FunctionDataFactoryImpl.class).asEagerSingleton();
         binder.bind(SlotFactory.class).to(SlotFactoryImpl.class).asEagerSingleton();
         binder.bind(GuiFactory.class).to(GuiFactoryImpl.class).asEagerSingleton();
+        binder.bind(FunctionNodeFactory.class).to(FunctionNodeFactoryImpl.class).asEagerSingleton();
 
         binder.requestStaticInjection(FunctionData.Builder.class);
         binder.requestStaticInjection(FunctionToken.Builder.class);

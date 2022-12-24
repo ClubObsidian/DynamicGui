@@ -22,7 +22,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionNode;
 
 public class FunctionNodeFactoryImpl implements FunctionNodeFactory {
-    
+
     @Override
     public FunctionNode create(String name, int depth, FunctionToken token) {
         return new SimpleFunctionNode(name, depth, token);
