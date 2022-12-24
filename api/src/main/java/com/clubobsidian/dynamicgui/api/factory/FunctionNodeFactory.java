@@ -14,33 +14,13 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.manager.material;
+package com.clubobsidian.dynamicgui.api.factory;
 
-import javax.inject.Inject;
-import java.util.List;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 
-public abstract class MaterialManager {
+public interface FunctionNodeFactory {
 
-    @Inject
-    private static MaterialManager instance;
-
-    public static MaterialManager get() {
-        return instance;
-    }
-
-    /**
-     * Gets a list of materials
-     *
-     * @return list of materials
-     */
-    public abstract List<String> getMaterials();
-
-    /**
-     *
-     *
-     * @param material
-     * @return
-     */
-    public abstract String normalizeMaterial(String material);
+    FunctionNode create(String name, int depth, FunctionToken token);
 
 }

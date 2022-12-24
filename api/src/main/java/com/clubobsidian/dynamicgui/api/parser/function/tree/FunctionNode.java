@@ -16,10 +16,14 @@
 
 package com.clubobsidian.dynamicgui.api.parser.function.tree;
 
+import com.clubobsidian.dynamicgui.api.factory.FunctionNodeFactory;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 
+import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public interface FunctionNode extends Serializable {
 
@@ -33,4 +37,27 @@ public interface FunctionNode extends Serializable {
 
     boolean addChild(FunctionNode child);
 
+    final class Builder {
+
+        @Inject
+        private static FunctionNodeFactory FACTORY;
+
+        private final String name = UUID.randomUUID().toString();
+        private int depth = 0;
+        private FunctionToken token;
+
+        public Builder setDepth(int depth) {
+            this.depth = depth;
+            return this;
+        }
+
+        public Builder setToken(FunctionToken token) {
+            this.token = token;
+            return this;
+        }
+
+        public FunctionNode build() {
+            return FACTORY.create(this.name, this.depth, this.token);
+        }
+    }
 }
