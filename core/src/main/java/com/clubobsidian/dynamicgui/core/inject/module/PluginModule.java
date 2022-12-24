@@ -44,6 +44,7 @@ import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
@@ -125,6 +126,7 @@ public abstract class PluginModule implements Module {
 
         binder.requestStaticInjection(FunctionData.Builder.class);
         binder.requestStaticInjection(FunctionToken.Builder.class);
+        binder.requestStaticInjection(FunctionNode.Builder.class);
         binder.requestStaticInjection(Slot.Builder.class);
         binder.requestStaticInjection(Gui.Builder.class);
 
