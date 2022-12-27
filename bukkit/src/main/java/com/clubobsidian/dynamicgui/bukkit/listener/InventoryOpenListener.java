@@ -39,8 +39,8 @@ public class InventoryOpenListener implements Listener {
     public void inventoryOpen(InventoryOpenEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player player = (Player) e.getPlayer();
-            PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<Player>(player);
-            InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
+            PlayerWrapper<?> playerWrapper = new BukkitPlayerWrapper<>(player);
+            InventoryWrapper<?> inventoryWrapper = new BukkitInventoryWrapper<>(e.getInventory());
             com.clubobsidian.dynamicgui.core.event.inventory.InventoryOpenEvent inventoryOpenEvent = new com.clubobsidian.dynamicgui.core.event.inventory.InventoryOpenEvent(playerWrapper, inventoryWrapper);
             this.eventBus.callEvent(inventoryOpenEvent);
         }
