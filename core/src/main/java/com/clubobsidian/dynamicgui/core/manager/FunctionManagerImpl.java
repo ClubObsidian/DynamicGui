@@ -238,7 +238,7 @@ public class FunctionManagerImpl extends FunctionManager {
                 String functionData = data.getData();
                 Function function = FunctionManager.get().getFunctionByName(functionName);
                 if (function == null) {
-                    this.logger.error("Invalid function " + data.getName());
+                    this.logger.error("Invalid function %s", data.getName());
                     response.complete(new FunctionResponse(false));
                     return;
                 }

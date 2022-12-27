@@ -181,7 +181,7 @@ public abstract class PluginModule implements Module {
         try {
             Class.forName("com.clubobsidian.dynamicgui.shaded.guava.base.CaseFormat");
         } catch (ClassNotFoundException e) {
-            this.logger.info("Unable to find CaseFormat class");
+            this.logger.error("Unable to find CaseFormat class");
         }
         Guice.createInjector(this);
         return DynamicGui.get().start();

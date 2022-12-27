@@ -135,10 +135,9 @@ public class SimpleGui implements Gui {
                         }
                     } else {
                         DynamicGui.get().getLogger().error(
-                                String.format("Removed slot '%d' from gui '%s' due to invalid configuration ",
-                                        i,
-                                        this.getName()
-                                )
+                                "Removed slot '%d' from gui '%s' due to invalid configuration ",
+                                i,
+                                this.getName()
                         );
                         slotsToRemove.add(slot);
                     }

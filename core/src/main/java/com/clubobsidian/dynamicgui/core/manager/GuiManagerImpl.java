@@ -140,7 +140,6 @@ public class GuiManagerImpl extends GuiManager {
         this.cachedGuis = this.guis;
         this.guis = new HashMap<>();
         this.cachedGlobalMacros = this.globalMacros;
-
         this.globalMacros = new HashMap<>();
         if (force) {
             this.cachedTokens = new HashMap<>();
@@ -331,13 +330,13 @@ public class GuiManagerImpl extends GuiManager {
                 }
 
                 this.guis.put(guiName, cachedGui);
-                dynamicGui.getLogger().info("cached gui \"" + guiName + "\" has been loaded!");
+                dynamicGui.getLogger().info("Cached gui '%s' has been loaded!",  guiName);
             } else {
                 this.guiHashes.put(guiName, guiHash);
                 this.loadGuiFromConfiguration(guiName, yaml);
             }
         } catch (NullPointerException ex) {
-            dynamicGui.getLogger().info("Error loading in file: " + file.getName());
+            dynamicGui.getLogger().info("Error loading in file '%s'", file.getName());
             ex.printStackTrace();
         }
     }
@@ -378,7 +377,11 @@ public class GuiManagerImpl extends GuiManager {
             this.loadGuiFromFile(yaml, file);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            DynamicGui.get().getLogger().error("An error occured when loading from the url " + strUrl + " please ensure you have the correct url.");
+            DynamicGui.get().getLogger().error(
+                    "An error occured when loading from the url '%s' " +
+                    "please ensure you have the correct url.",
+                    strUrl
+            );
         }
     }
 
@@ -425,7 +428,7 @@ public class GuiManagerImpl extends GuiManager {
                         guiTokens.add(t);
                     }
                 } else {
-                    logger.error("Invalid global macro specified " + macro + " in gui \"" + guiName + "\"");
+                    logger.error("Invalid global macro specified %s in gui '%s''", macro, guiName);
                 }
             }
 
@@ -437,7 +440,7 @@ public class GuiManagerImpl extends GuiManager {
         final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
 
         this.guis.put(guiName, gui);
-        logger.info("gui \"" + gui.getName() + "\" has been loaded!");
+        logger.info("gui '%s' has been loaded!", gui.getName());
     }
 
     private List<Slot> createSlots(GuiToken guiToken) {

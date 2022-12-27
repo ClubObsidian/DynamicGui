@@ -21,10 +21,17 @@ import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JavaLoggerWrapper<T extends Logger> extends LoggerWrapper<T> {
+public class JavaLoggerWrapper<T extends Logger>implements  LoggerWrapper<T> {
+
+    private final T logger;
 
     public JavaLoggerWrapper(T logger) {
-        super(logger);
+        this.logger = logger;
+    }
+
+    @Override
+    public T getLogger() {
+        return this.logger;
     }
 
     @Override

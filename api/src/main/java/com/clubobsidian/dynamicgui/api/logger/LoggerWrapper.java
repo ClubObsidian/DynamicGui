@@ -16,13 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.logger;
 
-public abstract class LoggerWrapper<T> {
-
-    private final T logger;
-
-    public LoggerWrapper(T logger) {
-        this.logger = logger;
-    }
+public interface LoggerWrapper<T> {
 
     /**
      * Gets the native underlying logger object that
@@ -30,8 +24,17 @@ public abstract class LoggerWrapper<T> {
      *
      * @return the native logger
      */
-    public T getLogger() {
-        return this.logger;
+    T getLogger();
+
+    /**
+     * Logs the given formatted info message
+     * using String.format(message, args)
+     *
+     * @param message the message to log
+     * @param args the args to log
+     */
+    default void info(String message, Object... args) {
+        this.info(String.format(message, args));
     }
 
     /**
@@ -39,12 +42,23 @@ public abstract class LoggerWrapper<T> {
      *
      * @param message the message to log
      */
-    public abstract void info(String message);
+    void info(String message);
+
+    /**
+     * Logs the given formatted error message
+     * using String.format(message, args)
+     *
+     * @param message the message to log
+     * @param args the args to log
+     */
+    default void error(String message, Object... args) {
+        this.error(String.format(message, args));
+    }
 
     /**
      * Logs the given message error message
      *
      * @param message the message to log
      */
-    public abstract void error(String message);
+    void error(String message);
 }

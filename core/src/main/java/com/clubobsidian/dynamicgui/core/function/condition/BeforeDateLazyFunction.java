@@ -42,8 +42,7 @@ public class BeforeDateLazyFunction extends AbstractLazyFunction {
                 return ConditionFunction.ONE;
             }
         } catch (ParseException ignore) {
-            DynamicGui.get().getLogger().error(String.format("Invalid Date: %s",
-                    lazyParams.get(0).getString()));
+            DynamicGui.get().getLogger().error("Invalid Date: %s", lazyParams.get(0).getString());
         }
         return ConditionFunction.ZERO;
     }

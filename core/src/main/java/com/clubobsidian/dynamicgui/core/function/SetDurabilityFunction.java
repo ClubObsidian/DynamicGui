@@ -55,7 +55,7 @@ public class SetDurabilityFunction extends Function {
                         inv.setItem(slot.getIndex(), item);
                         return true;
                     } catch (Exception ex) {
-                        DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as durability");
+                        DynamicGui.get().getLogger().error("Unable to parse %s as durability", this.getData());
                         return false;
                     }
                 }

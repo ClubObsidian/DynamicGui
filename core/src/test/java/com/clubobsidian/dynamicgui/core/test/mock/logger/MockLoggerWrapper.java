@@ -18,10 +18,17 @@ package com.clubobsidian.dynamicgui.core.test.mock.logger;
 
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 
-public class MockLoggerWrapper extends LoggerWrapper<MockLogger> {
+public class MockLoggerWrapper implements LoggerWrapper<MockLogger> {
+
+    private final MockLogger logger;
 
     public MockLoggerWrapper(MockLogger logger) {
-        super(logger);
+        this.logger = logger;
+    }
+
+    @Override
+    public MockLogger getLogger() {
+        return this.logger;
     }
 
     @Override

@@ -55,7 +55,7 @@ public class SetAmountFunction extends Function {
                         inv.setItem(slot.getIndex(), item);
                         return true;
                     } catch (Exception ex) {
-                        DynamicGui.get().getLogger().info("Unable to parse + " + this.getData() + " as an amount");
+                        DynamicGui.get().getLogger().error("Unable to parse '%s' as an amount", this.getData());
                         return false;
                     }
                 }

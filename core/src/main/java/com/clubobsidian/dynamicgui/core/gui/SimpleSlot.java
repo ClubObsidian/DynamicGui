@@ -185,10 +185,10 @@ public class SimpleSlot implements Slot {
         }
         if (builderItem == null) {
             DynamicGui.get().getLogger().error(
-                    String.format("Invalid material type '%s' for slot '%d' in gui '%s'",
+                    "Invalid material type '%s' for slot '%d' in gui '%s'",
                     this.icon,
                     this.index,
-                    this.getOwner().getName())
+                    this.getOwner().getName()
             );
             return null;
         }

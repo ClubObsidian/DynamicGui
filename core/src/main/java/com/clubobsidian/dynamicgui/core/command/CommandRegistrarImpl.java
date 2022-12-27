@@ -71,10 +71,11 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                 }).build();
         this.commandManager.command(command);
         this.registeredAliases.add(alias);
-        this.logger.info(String.format("Registered the command \"%s\" for the gui %s",
+        this.logger.info(
+                "Registered the command '%s' for the gui %s",
                 alias,
                 guiName
-        ));
+        );
     }
 
     @Override
