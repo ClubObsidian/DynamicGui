@@ -219,9 +219,7 @@ public class SimpleSlot implements Slot {
                     lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);
                     if (lore.contains("\n")) {
                         String[] split = lore.split("\n");
-                        for (String sp : split) {
-                            newLore.add(sp);
-                        }
+                        Collections.addAll(newLore, split);
                     } else {
                         newLore.add(lore);
                     }
