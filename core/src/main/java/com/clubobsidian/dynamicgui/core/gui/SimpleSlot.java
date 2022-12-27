@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.gui;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
@@ -173,14 +174,23 @@ public class SimpleSlot implements Slot {
     }
 
     @Override
+    @Nullable
     public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper) {
         ItemStackWrapper<?> builderItem = this.itemStack;
-
         if (builderItem == null) {
             builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
         } else {
             builderItem.setType(this.icon);
             builderItem.setAmount(this.amount);
+        }
+        if (builderItem == null) {
+            DynamicGui.get().getLogger().error(
+                    String.format("Invalid material type '%s' for slot '%d' in gui '%s'",
+                    this.icon,
+                    this.index,
+                    this.getOwner().getName())
+            );
+            return null;
         }
 
         if (!this.icon.equalsIgnoreCase(IGNORE_MATERIAL)) {
@@ -204,7 +214,6 @@ public class SimpleSlot implements Slot {
 
             if (this.lore != null) {
                 List<String> newLore = new ArrayList<>();
-
                 for (String newString : this.lore) {
                     String lore = ReplacerManager.get().replace(newString, playerWrapper);
                     lore = AnimationReplacerManager.get().replace(this, playerWrapper, lore);

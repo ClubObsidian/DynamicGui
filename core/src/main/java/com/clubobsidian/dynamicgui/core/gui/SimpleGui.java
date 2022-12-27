@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.gui;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
@@ -29,7 +30,10 @@ import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +68,7 @@ public class SimpleGui implements Gui {
         this.type = type;
         this.title = ChatColor.translateAlternateColorCodes(title);
         this.rows = rows;
-        this.slots = Collections.unmodifiableList(slots);
+        this.slots = slots;
         this.close = close;
         this.guiBuildType = guiBuildType;
         this.npcIds = this.loadNpcIds(npcIds);
@@ -113,20 +117,38 @@ public class SimpleGui implements Gui {
     }
 
     private void populateInventory(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
-        for (int i = 0; i < this.slots.size(); i++) {
-            Slot slot = this.slots.get(i);
-            if (slot != null) {
-                slot.setOwner(this);
-                ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
-                if (this.guiBuildType == GuiBuildType.ADD) {
-                    int itemIndex = inventoryWrapper.addItem(item);
-                    if (itemIndex != -1) {
-                        slot.setIndex(itemIndex);
+        try {
+            Collection<Slot> slotsToRemove = new ArrayList<>();
+            for (int i = 0; i < this.slots.size(); i++) {
+                Slot slot = this.slots.get(i);
+                if (slot != null) {
+                    slot.setOwner(this);
+                    ItemStackWrapper<?> item = slot.buildItemStack(playerWrapper);
+                    if (item != null) {
+                        if (this.guiBuildType == GuiBuildType.ADD) {
+                            int itemIndex = inventoryWrapper.addItem(item);
+                            if (itemIndex != -1) {
+                                slot.setIndex(itemIndex);
+                            }
+                        } else {
+                            inventoryWrapper.setItem(slot.getIndex(), item);
+                        }
+                    } else {
+                        DynamicGui.get().getLogger().error(
+                                String.format("Removed slot '%d' from gui '%s' due to invalid configuration ",
+                                        i,
+                                        this.getName()
+                                )
+                        );
+                        slotsToRemove.add(slot);
                     }
-                } else {
-                    inventoryWrapper.setItem(slot.getIndex(), item);
                 }
             }
+            for (Slot slot : slotsToRemove) {
+                this.slots.remove(slot);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -146,8 +168,8 @@ public class SimpleGui implements Gui {
         return this.rows;
     }
 
-    public List<Slot> getSlots() {
-        return this.slots;
+    @Unmodifiable public List<Slot> getSlots() {
+        return Collections.unmodifiableList(this.slots);
     }
 
     @Override

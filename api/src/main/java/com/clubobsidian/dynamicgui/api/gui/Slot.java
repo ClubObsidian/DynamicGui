@@ -196,7 +196,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
      * @param playerWrapper the player to build the slot for
      * @return the built item stack wrapper
      */
-    ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper);
+    @Nullable ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper);
 
     /**
      * The item stack wrapper for the slot
