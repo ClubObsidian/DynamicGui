@@ -280,14 +280,13 @@ public class SimpleSlot implements Slot {
     @Override
     public int tick() {
         this.tick += 1;
-
+        if (this.tick == Integer.MAX_VALUE) {
+            this.tick = 0;
+        }
         if ((this.tick) % 20 == 0) {
             this.frame += 1;
 
             //Reset frame
-            if (this.tick == Integer.MAX_VALUE) {
-                this.tick = 0;
-            }
             if (this.frame == Integer.MAX_VALUE) {
                 this.frame = 0;
             }
