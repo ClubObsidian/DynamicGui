@@ -34,26 +34,83 @@ public abstract class DynamicGui {
         return instance;
     }
 
+    /**
+     * Bootstraps the DynamicGui instance
+     *
+     * @return whether the bootstrap is successful
+     */
     public abstract boolean start();
 
+    /**
+     * Stops the DynamicGui instance
+     *
+     */
     public abstract void stop();
 
+    /**
+     * Gets the config instance
+     *
+     * @return the config
+     */
     public abstract Config getConfig();
 
+    /**
+     * The configured proxy
+     *
+     * @return the proxy
+     */
     public abstract Proxy getProxy();
 
+    /**
+     * The native or platform DynamicGui plugin
+     *
+     * @return the DynamicGui plugin
+     */
     public abstract DynamicGuiPlugin getPlugin();
 
+    /**
+     * The current running platform
+     *
+     * @return the platform
+     */
     public abstract Platform getPlatform();
 
+    /**
+     * The logger wrapper
+     *
+     * @return logger wrapper
+     */
     public abstract LoggerWrapper<?> getLogger();
 
+    /**
+     * Returns the global player count
+     *
+     * @return the global player count
+     */
     public abstract int getGlobalPlayerCount();
 
+    /**
+     * Gets the player count of a specified server
+     *
+     * @param server the server to get the player count for
+     * @return the server's player count
+     */
     public abstract int getServerPlayerCount(String server);
 
+    /**
+     * Sends a player to a server
+     *
+     * @param playerWrapper the player to send
+     * @param server the server to send them to
+     * @return if the proxy is configured
+     */
     public abstract boolean sendToServer(PlayerWrapper<?> playerWrapper, String server);
 
+    /**
+     * Injects fields in a given object
+     *
+     * @param obj the object to inject
+     */
     public abstract void inject(Object obj);
 
 }
