@@ -59,6 +59,7 @@ public final class ReflectionUtil {
         for (Method m : cl.getDeclaredMethods()) {
             for (String methodName : methods) {
                 if (m.getName().equals(methodName)) {
+                    m.setAccessible(true);
                     return m;
                 }
             }
@@ -77,9 +78,28 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static Method getMethodByParams(Class<?> cl, Class<?>... params) {
+        for (Method method : cl.getDeclaredMethods()) {
+            if (method.getParameterTypes().equals(params)) {
+                return method;
+            }
+        }
+        return null;
+    }
+
     public static Method getMethodByReturnType(Class<?> searchIn, Class<?> returnType) {
         for (Method m : searchIn.getDeclaredMethods()) {
             if (m.getReturnType().equals(returnType)) {
+                m.setAccessible(true);
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public static Method getMethodByReturnType(Class<?> searchIn, Class<?> returnType, Class<?>... params) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (m.getReturnType().equals(returnType) && Arrays.equals(m.getParameterTypes(), params)) {
                 m.setAccessible(true);
                 return m;
             }
@@ -150,6 +170,19 @@ public final class ReflectionUtil {
     public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType) {
         for (Method m : searchIn.getDeclaredMethods()) {
             if (Modifier.isStatic(m.getModifiers()) && m.getReturnType().equals(returnType)) {
+                m.setAccessible(true);
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType, Class<?>... params) {
+        for (Method m : searchIn.getDeclaredMethods()) {
+            if (Modifier.isStatic(m.getModifiers())
+                    && m.getReturnType().equals(returnType)
+                    && Arrays.equals(m.getParameterTypes(), params)) {
+                m.setAccessible(true);
                 return m;
             }
         }
@@ -160,6 +193,7 @@ public final class ReflectionUtil {
         for (Method m : searchIn.getDeclaredMethods()) {
             if (m.getReturnType().equals(returnType)) {
                 if (Arrays.equals(m.getParameterTypes(), params)) {
+                    m.setAccessible(true);
                     return m;
                 }
             }
