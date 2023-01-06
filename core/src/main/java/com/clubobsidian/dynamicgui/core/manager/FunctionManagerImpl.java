@@ -133,8 +133,7 @@ public class FunctionManagerImpl extends FunctionManager {
         } else {
             AtomicBoolean returnValue = new AtomicBoolean(true);
             AtomicInteger count = new AtomicInteger();
-            for (int i = 0; i < rootSize; i++) {
-                FunctionNode node = rootNodes.get(i);
+            for (FunctionNode node : rootNodes) {
                 CompletableFuture<Boolean> future = new CompletableFuture<>();
                 future.whenComplete((ret, ex) -> {
                     if (ex != null) {
@@ -347,7 +346,7 @@ public class FunctionManagerImpl extends FunctionManager {
         return false;
     }
 
-    private class FunctionResponse {
+    private static class FunctionResponse {
         private final boolean result;
         private final String failedFunction;
         private final String data;
