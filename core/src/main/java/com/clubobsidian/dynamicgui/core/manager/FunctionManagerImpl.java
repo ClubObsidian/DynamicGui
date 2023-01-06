@@ -73,7 +73,7 @@ public class FunctionManagerImpl extends FunctionManager {
 
     @Override
     public boolean registerFunction(@NotNull Function function) {
-        Objects.nonNull(function);
+        Objects.requireNonNull(function);
         boolean wasNotNull = this.functions.put(function.getName(), function) != null;
         for (String alias : function.getAliases()) {
             if (this.functions.put(alias, function) != null) {
