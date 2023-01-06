@@ -20,11 +20,13 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -41,9 +43,60 @@ public abstract class FunctionManager {
 
     public @Unmodifiable abstract Collection<Function> getFunctions();
 
-    public abstract boolean addFunction(Function function);
+    /**
+     * Registers a function
+     * 
+     * @deprecated As of release 6.0.0, replaced by {@link #registerFunction(Function)}
+     *
+     * @param function function to register
+     * @return if the function was registered
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public boolean addFunction(Function function) {
+        return this.registerFunction(function);
+    }
 
-    public abstract boolean removeFunctionByName(String functionName);
+    /**
+     * Registers a function
+     *
+     * @param function function to register
+     * @return if the function was registered
+     */
+    public abstract boolean registerFunction(@NotNull Function function);
+
+    /**
+     * Unregisters a function
+     *
+     * @deprecated As of release 6.0.0, replaced by {@link #unregisterFunction(String)}
+     *
+     * @param functionName name of the function to unregister
+     * @return if the function was unregistered
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public boolean removeFunctionByName(String functionName) {
+        return this.unregisterFunction(functionName);
+    }
+
+    /**
+     * Unregisters a function
+     *
+     * @param function the function to unregister
+     * @return if the function was unregistered
+     */
+    public boolean unregisterFunction(@NotNull Function function) {
+        Objects.requireNonNull(function);
+        return this.unregisterFunction(function.getName());
+    }
+
+    /**
+     * Unregisters a function
+     *
+     * @param functionName name of the function to unregister
+     * @return if the function was unregistered
+     */
+    public abstract boolean unregisterFunction(@NotNull String functionName);
 
     public abstract boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper);
 

@@ -29,6 +29,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -70,7 +72,8 @@ public class FunctionManagerImpl extends FunctionManager {
     }
 
     @Override
-    public boolean addFunction(Function function) {
+    public boolean registerFunction(@NotNull Function function) {
+        Objects.nonNull(function);
         boolean wasNotNull = this.functions.put(function.getName(), function) != null;
         for (String alias : function.getAliases()) {
             if (this.functions.put(alias, function) != null) {
@@ -80,8 +83,10 @@ public class FunctionManagerImpl extends FunctionManager {
         return wasNotNull;
     }
 
+
     @Override
-    public boolean removeFunctionByName(String functionName) {
+    public boolean unregisterFunction(@NotNull String functionName) {
+        Objects.requireNonNull(functionName);
         String normalized = StringFuzz.normalize(functionName);
         return this.functions.remove(normalized) != null;
     }

@@ -258,7 +258,7 @@ public class DynamicGuiImpl extends DynamicGui {
                 .scan()) {
             for (ClassInfo classInfo : scanResult.getSubclasses(Function.class)) {
                 try {
-                    FunctionManager.get().addFunction((Function) classInfo
+                    FunctionManager.get().registerFunction((Function) classInfo
                             .loadClass()
                             .getDeclaredConstructor()
                             .newInstance());
