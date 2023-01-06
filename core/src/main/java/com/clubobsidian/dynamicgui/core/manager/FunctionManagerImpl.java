@@ -94,22 +94,28 @@ public class FunctionManagerImpl extends FunctionManager {
 
     @Override
     public boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId());
     }
 
     @Override
     public boolean hasAsyncFunctionRunning(@NotNull UUID uuid) {
+        Objects.requireNonNull(uuid);
         Map<Function, AtomicInteger> running = this.runningAsyncFunctions.get(uuid);
         return running != null && running.size() > 0;
     }
 
     @Override
     public boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String functionName) {
+        Objects.requireNonNull(playerWrapper);
+        Objects.requireNonNull(functionName);
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId(), functionName);
     }
 
     @Override
     public boolean hasAsyncFunctionRunning(@NotNull UUID uuid, @NotNull String functionName) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(functionName);
         Function function = this.functions.get(functionName);
         Map<Function, AtomicInteger> functionMap = this.runningAsyncFunctions.get(uuid);
         AtomicInteger num = functionMap == null ? null : functionMap.get(function);
@@ -121,7 +127,12 @@ public class FunctionManagerImpl extends FunctionManager {
     }
 
     @Override
-    public CompletableFuture<Boolean> tryFunctions(@NotNull FunctionOwner owner, @NotNull FunctionType type, @NotNull PlayerWrapper<?> playerWrapper) {
+    public CompletableFuture<Boolean> tryFunctions(@NotNull FunctionOwner owner,
+                                                   @NotNull FunctionType type,
+                                                   @NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(owner);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(playerWrapper);
         CompletableFuture<Boolean> returnFuture = new CompletableFuture<>();
         returnFuture.exceptionally((ex) -> {
             ex.printStackTrace();
