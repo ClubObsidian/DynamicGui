@@ -64,8 +64,9 @@ public class FunctionManagerImpl extends FunctionManager {
         return function.clone();
     }
 
-    public List<Function> getFunctions() {
-        return new ArrayList<>(this.functions.values());
+    @Override
+    public Collection<Function> getFunctions() {
+        return Collections.unmodifiableCollection(this.functions.values());
     }
 
     @Override

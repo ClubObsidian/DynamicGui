@@ -20,8 +20,10 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -37,7 +39,7 @@ public abstract class FunctionManager {
 
     public abstract Function getFunctionByName(String functionName);
 
-    public abstract List<Function> getFunctions();
+    public @Unmodifiable abstract Collection<Function> getFunctions();
 
     public abstract boolean addFunction(Function function);
 
