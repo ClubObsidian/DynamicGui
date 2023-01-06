@@ -57,7 +57,8 @@ public class FunctionManagerImpl extends FunctionManager {
     }
 
     @Override
-    public Function getFunctionByName(String functionName) {
+    public Function getFunction(@NotNull String functionName) {
+        Objects.requireNonNull(functionName);
         String normalized = StringFuzz.normalize(functionName);
         Function function = this.functions.get(normalized);
         if (function == null) {
@@ -92,23 +93,23 @@ public class FunctionManagerImpl extends FunctionManager {
     }
 
     @Override
-    public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper) {
+    public boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper) {
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId());
     }
 
     @Override
-    public boolean hasAsyncFunctionRunning(UUID uuid) {
+    public boolean hasAsyncFunctionRunning(@NotNull UUID uuid) {
         Map<Function, AtomicInteger> running = this.runningAsyncFunctions.get(uuid);
         return running != null && running.size() > 0;
     }
 
     @Override
-    public boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper, String functionName) {
+    public boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String functionName) {
         return this.hasAsyncFunctionRunning(playerWrapper.getUniqueId(), functionName);
     }
 
     @Override
-    public boolean hasAsyncFunctionRunning(UUID uuid, String functionName) {
+    public boolean hasAsyncFunctionRunning(@NotNull UUID uuid, @NotNull String functionName) {
         Function function = this.functions.get(functionName);
         Map<Function, AtomicInteger> functionMap = this.runningAsyncFunctions.get(uuid);
         AtomicInteger num = functionMap == null ? null : functionMap.get(function);
@@ -120,7 +121,7 @@ public class FunctionManagerImpl extends FunctionManager {
     }
 
     @Override
-    public CompletableFuture<Boolean> tryFunctions(FunctionOwner owner, FunctionType type, PlayerWrapper<?> playerWrapper) {
+    public CompletableFuture<Boolean> tryFunctions(@NotNull FunctionOwner owner, @NotNull FunctionType type, @NotNull PlayerWrapper<?> playerWrapper) {
         CompletableFuture<Boolean> returnFuture = new CompletableFuture<>();
         returnFuture.exceptionally((ex) -> {
             ex.printStackTrace();
@@ -241,7 +242,7 @@ public class FunctionManagerImpl extends FunctionManager {
                 FunctionData data = functionDataList.get(i);
                 String functionName = data.getName();
                 String functionData = data.getData();
-                Function function = FunctionManager.get().getFunctionByName(functionName);
+                Function function = FunctionManager.get().getFunction(functionName);
                 if (function == null) {
                     this.logger.error("Invalid function %s", data.getName());
                     response.complete(new FunctionResponse(false));

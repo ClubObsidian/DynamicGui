@@ -22,6 +22,7 @@ import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
@@ -39,7 +40,27 @@ public abstract class FunctionManager {
         return instance;
     }
 
-    public abstract Function getFunctionByName(String functionName);
+    /**
+     * Gets a registered function
+     *
+     * @deprecated As of release 6.0.0, replaced by {@link #getFunction(String)}
+     *
+     * @param functionName function name to get
+     * @return the function if registered or null
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public @Nullable Function getFunctionByName(String functionName) {
+        return this.getFunction(functionName);
+    }
+
+    /**
+     * Gets a registered function
+     *
+     * @param functionName function name to get
+     * @return the function if registered or null
+     */
+    public abstract @Nullable Function getFunction(@NotNull String functionName);
 
     public @Unmodifiable abstract Collection<Function> getFunctions();
 
@@ -98,16 +119,17 @@ public abstract class FunctionManager {
      */
     public abstract boolean unregisterFunction(@NotNull String functionName);
 
-    public abstract boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper);
+    public abstract boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper);
 
-    public abstract boolean hasAsyncFunctionRunning(UUID uuid);
+    public abstract boolean hasAsyncFunctionRunning(@NotNull UUID uuid);
 
-    public abstract boolean hasAsyncFunctionRunning(PlayerWrapper<?> playerWrapper, String functionName);
+    public abstract boolean hasAsyncFunctionRunning(@NotNull PlayerWrapper<?> playerWrapper,
+                                                    @NotNull String functionName);
 
-    public abstract boolean hasAsyncFunctionRunning(UUID uuid, String functionName);
+    public abstract boolean hasAsyncFunctionRunning(@NotNull UUID uuid, @NotNull String functionName);
 
-    public abstract CompletableFuture<Boolean> tryFunctions(FunctionOwner owner,
-                                                            FunctionType type,
-                                                            PlayerWrapper<?> playerWrapper);
+    public abstract CompletableFuture<Boolean> tryFunctions(@NotNull FunctionOwner owner,
+                                                            @NotNull FunctionType type,
+                                                            @NotNull PlayerWrapper<?> playerWrapper);
 
 }
