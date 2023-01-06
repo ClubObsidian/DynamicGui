@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.core.manager;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -38,8 +39,7 @@ public class ReplacerManagerImpl extends ReplacerManager {
         for (ReplacerRegistry registry : this.registries) {
             newText = registry.replace(playerWrapper, newText);
         }
-
-        return newText;
+        return ChatColor.translateAlternateColorCodes(newText);
     }
 
     @Override
