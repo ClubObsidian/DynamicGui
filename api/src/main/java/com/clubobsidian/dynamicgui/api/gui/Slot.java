@@ -533,15 +533,14 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          * @return this builder
          */
         public Builder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper) {
-            this.setIcon(itemStackWrapper.getType());
-            this.setName(itemStackWrapper.getName());
-            this.setNBT(itemStackWrapper.getNBT());
-            this.setData(itemStackWrapper.getDurability());
-            this.setAmount(itemStackWrapper.getAmount());
-            this.addLore(itemStackWrapper.getLore());
-            this.addItemFlag(itemStackWrapper.getItemFlags());
-            this.addEnchant(itemStackWrapper.getEnchants());
-            return this;
+            return this.setIcon(itemStackWrapper.getType())
+            .setName(itemStackWrapper.getName())
+            .setNBT(itemStackWrapper.getNBT())
+            .setData(itemStackWrapper.getDurability())
+            .setAmount(itemStackWrapper.getAmount())
+            .addLore(itemStackWrapper.getLore())
+            .addItemFlag(itemStackWrapper.getItemFlags())
+            .addEnchant(itemStackWrapper.getEnchants());
         }
 
         /**
