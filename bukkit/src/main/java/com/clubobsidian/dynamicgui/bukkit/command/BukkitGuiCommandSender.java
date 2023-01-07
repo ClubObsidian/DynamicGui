@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class BukkitGuiCommandSender implements GuiCommandSender<CommandSender> {
+public class BukkitGuiCommandSender implements GuiCommandSender {
 
     private final CommandSender sender;
 
@@ -32,7 +32,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender<CommandSender> {
     }
 
     @Override
-    public @NotNull CommandSender getNativeSender() {
+    public @NotNull Object getNativeSender() {
         return this.sender;
     }
 
