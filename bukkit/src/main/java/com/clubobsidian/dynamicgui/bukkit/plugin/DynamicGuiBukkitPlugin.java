@@ -47,6 +47,7 @@ import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -142,7 +143,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<>(this,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
-                    wrappedSender -> wrappedSender.getNativeSender()
+                    wrappedSender -> (CommandSender) wrappedSender.getNativeSender()
 
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core

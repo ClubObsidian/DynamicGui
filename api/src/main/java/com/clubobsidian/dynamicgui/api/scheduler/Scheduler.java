@@ -16,13 +16,15 @@
 
 package com.clubobsidian.dynamicgui.api.scheduler;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface Scheduler {
 
-    void runSyncDelayedTask(Runnable runnable, long delay);
+    void runSyncDelayedTask(@NotNull Runnable runnable, long delay);
 
-    void runAsynchronousDelayedTask(Runnable runnable, long delay);
+    void runAsynchronousDelayedTask(@NotNull Runnable runnable, long delay);
 
-    void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
+    void scheduleSyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating);
 
-    void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating);
+    void scheduleAsyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating);
 }

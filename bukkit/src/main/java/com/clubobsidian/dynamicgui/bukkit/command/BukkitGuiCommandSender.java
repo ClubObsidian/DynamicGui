@@ -21,7 +21,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class BukkitGuiCommandSender implements GuiCommandSender {
+import java.util.Objects;
+
+public class BukkitGuiCommandSender implements GuiCommandSender<CommandSender> {
 
     private final CommandSender sender;
 
@@ -30,7 +32,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     }
 
     @Override
-    public @NotNull Object getNativeSender() {
+    public @NotNull CommandSender getNativeSender() {
         return this.sender;
     }
 
@@ -41,6 +43,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
 
     @Override
     public void sendMessage(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.sender.sendMessage(message);
     }
 }

@@ -19,6 +19,9 @@ package com.clubobsidian.dynamicgui.bukkit.scheduler;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class BukkitScheduler implements Scheduler {
 
@@ -29,25 +32,29 @@ public class BukkitScheduler implements Scheduler {
     }
 
     @Override
-    public void runSyncDelayedTask(Runnable runnable, long delay) {
+    public void runSyncDelayedTask(@NotNull Runnable runnable, long delay) {
+        Objects.requireNonNull(runnable);
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(this.plugin, runnable, delay);
     }
 
     @Override
-    public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
+    public void runAsynchronousDelayedTask(@NotNull Runnable runnable, long delay) {
+        Objects.requireNonNull(runnable);
         Bukkit.getScheduler()
                 .runTaskLaterAsynchronously(this.plugin, runnable, delay);
     }
 
     @Override
-    public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void scheduleSyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
+        Objects.requireNonNull(runnable);
         Bukkit.getScheduler()
                 .scheduleSyncRepeatingTask(this.plugin, runnable, delayInitial, delayRepeating);
     }
 
     @Override
-    public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void scheduleAsyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
+        Objects.requireNonNull(runnable);
         Bukkit.getServer().getScheduler()
                 .runTaskTimerAsynchronously(this.plugin,
                         runnable, delayInitial, delayRepeating);

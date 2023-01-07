@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandRegistrarImpl implements CommandRegistrar {
 
@@ -57,11 +58,14 @@ public class CommandRegistrarImpl implements CommandRegistrar {
 
     @Override
     public void registerCommand(@NotNull Class<? extends RegisteredCommand> command) {
+        Objects.requireNonNull(command);
         this.commandParser.parse(this.injector.getInstance(command));
     }
 
     @Override
     public void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias) {
+        Objects.requireNonNull(guiName);
+        Objects.requireNonNull(alias);
         this.unregisterCommand(alias);
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {
@@ -80,6 +84,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
 
     @Override
     public void unregisterCommand(@NotNull String alias) {
+        Objects.requireNonNull(alias);
         try {
             this.commandManager.deleteRootCommand(alias);
         } catch (Exception e) {

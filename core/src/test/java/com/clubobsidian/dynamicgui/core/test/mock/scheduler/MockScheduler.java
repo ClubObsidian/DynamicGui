@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.mock.scheduler;
 
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
+import org.jetbrains.annotations.NotNull;
 
 public class MockScheduler implements Scheduler {
 
@@ -32,22 +33,22 @@ public class MockScheduler implements Scheduler {
     }
 
     @Override
-    public void runSyncDelayedTask(Runnable runnable, long delay) {
+    public void runSyncDelayedTask(@NotNull Runnable runnable, long delay) {
         this.synchronous.addTask(new MockTask(runnable, delay));
     }
 
     @Override
-    public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
+    public void runAsynchronousDelayedTask(@NotNull Runnable runnable, long delay) {
         this.async.addTask(new MockTask(runnable, delay));
     }
 
     @Override
-    public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void scheduleSyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
         this.synchronous.addTask(new MockTask(runnable, delayInitial, delayRepeating));
     }
 
     @Override
-    public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void scheduleAsyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
         this.async.addTask(new MockTask(runnable, delayInitial, delayRepeating));
     }
 

@@ -22,15 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public interface GuiCommandSender {
+public interface GuiCommandSender<T> {
 
     /**
      * Returns the native or platform specific sender that the command sender wraps
      *
-     * @param <T> the native sender type
      * @return the native sender
      */
-    @NotNull <T> T getNativeSender();
+    @NotNull T getNativeSender();
 
     /**
      * Returns whether a sender is a player
