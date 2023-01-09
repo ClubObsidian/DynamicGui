@@ -17,36 +17,27 @@
 package com.clubobsidian.dynamicgui.core.command.cloud;
 
 import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.arguments.standard.BooleanArgument;
-import cloud.commandframework.arguments.standard.ByteArgument;
-import cloud.commandframework.arguments.standard.CharArgument;
-import cloud.commandframework.arguments.standard.DoubleArgument;
-import cloud.commandframework.arguments.standard.FloatArgument;
-import cloud.commandframework.arguments.standard.IntegerArgument;
-import cloud.commandframework.arguments.standard.LongArgument;
-import cloud.commandframework.arguments.standard.ShortArgument;
-import cloud.commandframework.arguments.standard.StringArgument;
-import cloud.commandframework.arguments.standard.UUIDArgument;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 
 public enum CloudArgument {
 
     //TODO - implement enum & string_array
-    BOOLEAN((Function<String, BooleanArgument>) s -> (BooleanArgument) BooleanArgument.of(s)),
-    BYTE((Function<String, ByteArgument>) s -> (ByteArgument) ByteArgument.of(s)),
-    CHAR((Function<String, CharArgument>) s -> (CharArgument) CharArgument.of(s)),
-    DOUBLE((Function<String, DoubleArgument>) s -> (DoubleArgument) DoubleArgument.of(s)),
-    FLOAT((Function<String, FloatArgument>) s -> (FloatArgument) FloatArgument.of(s)),
-    INTEGER((Function<String, IntegerArgument>) s -> (IntegerArgument) IntegerArgument.of(s)),
-    LONG((Function<String, LongArgument>) s -> (LongArgument) LongArgument.of(s)),
-    SHORT((Function<String, ShortArgument>) s -> (ShortArgument) ShortArgument.of(s)),
-    STRING((Function<String, StringArgument>) s -> (StringArgument) StringArgument.of(s)),
-    UUID((Function<String, UUIDArgument>) s -> (UUIDArgument) UUIDArgument.of(s));
+    BOOLEAN((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Boolean.class, d)),
+    BYTE((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Byte.class, d)),
+    CHAR((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Character.class, d)),
+    DOUBLE((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Double.class, d)),
+    FLOAT((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Float.class, d)),
+    INTEGER((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Integer.class, d)),
+    LONG((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Long.class, d)),
+    SHORT((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(Short.class, d)),
+    STRING((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(String.class, d)),
+    UUID((Function<CloudData, CommandArgument>) d -> CloudUtil.createArg(UUID.class, d));
 
     private static final Map<String, CloudArgument> types = new HashMap<>();
 
@@ -71,13 +62,17 @@ public enum CloudArgument {
         return Optional.ofNullable(types.get(type));
     }
 
-    private final Function<String, ?> function;
+    private final Function<CloudData, ?> function;
 
-    CloudArgument(Function<String, ?> function) {
+    CloudArgument(Function<CloudData, ?> function) {
         this.function = function;
     }
 
     public <T extends CommandArgument> T argument(String arg) {
-        return (T) this.function.apply(arg);
+        return this.argument(arg, false);
+    }
+
+    public <T extends CommandArgument> T argument(String arg, boolean optional) {
+        return (T) this.function.apply(new CloudData(arg, optional));
     }
 }

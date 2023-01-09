@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.command;
 
+import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.arguments.standard.BooleanArgument;
 import cloud.commandframework.arguments.standard.ByteArgument;
 import cloud.commandframework.arguments.standard.CharArgument;
@@ -29,10 +30,16 @@ import cloud.commandframework.arguments.standard.UUIDArgument;
 import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CloudArgumentTest {
+
+    private String getName(CommandArgument arg) {
+        return arg.getValueType().getType().getTypeName();
+    }
 
     @Test
     public void testFromTypeText() {
@@ -46,51 +53,51 @@ public class CloudArgumentTest {
 
     @Test
     public void testBooleanArgument() {
-        assertInstanceOf(BooleanArgument.class, CloudArgument.BOOLEAN.argument("test"));
+        assertEquals(Boolean.class.getName(), this.getName(CloudArgument.BOOLEAN.argument("test")));
     }
 
     @Test
     public void testByteArgument() {
-        assertInstanceOf(ByteArgument.class, CloudArgument.BYTE.argument("test"));
+        assertEquals(Byte.class.getName(), this.getName(CloudArgument.BYTE.argument("test")));
     }
 
     @Test
     public void testCharArgument() {
-        assertInstanceOf(CharArgument.class, CloudArgument.CHAR.argument("test"));
+        assertEquals(Character.class.getName(), this.getName(CloudArgument.CHAR.argument("test")));
     }
 
     @Test
     public void testDoubleArgument() {
-        assertInstanceOf(DoubleArgument.class, CloudArgument.DOUBLE.argument("test"));
+        assertEquals(Double.class.getName(), this.getName(CloudArgument.DOUBLE.argument("test")));
     }
 
     @Test
     public void testFloatArgument() {
-        assertInstanceOf(FloatArgument.class, CloudArgument.FLOAT.argument("test"));
+        assertEquals(Float.class.getName(), this.getName(CloudArgument.FLOAT.argument("test")));
     }
 
     @Test
     public void testIntegerArgument() {
-        assertInstanceOf(IntegerArgument.class, CloudArgument.INTEGER.argument("test"));
+        assertEquals(Integer.class.getName(), this.getName(CloudArgument.INTEGER.argument("test")));
     }
 
     @Test
     public void testLongArgument() {
-        assertInstanceOf(LongArgument.class, CloudArgument.LONG.argument("test"));
+        assertEquals(Long.class.getName(), this.getName(CloudArgument.LONG.argument("test")));
     }
 
     @Test
     public void testShortArgument() {
-        assertInstanceOf(ShortArgument.class, CloudArgument.SHORT.argument("test"));
+        assertEquals(Short.class.getName(), this.getName(CloudArgument.SHORT.argument("test")));
     }
 
     @Test
     public void testStringArgument() {
-        assertInstanceOf(StringArgument.class, CloudArgument.STRING.argument("test"));
+        assertEquals(String.class.getName(), this.getName(CloudArgument.STRING.argument("test")));
     }
 
     @Test
     public void testUUIDArgument() {
-        assertInstanceOf(UUIDArgument.class, CloudArgument.UUID.argument("test"));
+        assertEquals(UUID.class.getName(), this.getName(CloudArgument.UUID.argument("test")));
     }
 }
