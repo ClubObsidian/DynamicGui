@@ -48,7 +48,6 @@ public class CitizensRegistry implements NPCRegistry {
     private Object getNPCRegistry() {
         Class<?> citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
         this.getNPCRegistryMethod = ReflectionUtil.getMethod(citizensApiClass, "getNPCRegistry");
-
         try {
             return this.getNPCRegistryMethod.invoke(null);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -70,7 +69,6 @@ public class CitizensRegistry implements NPCRegistry {
             if (npc == null) {
                 return null;
             }
-
             int id = (int) this.getIdMethod.invoke(npc);
             NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
             return new NPC(entityWrapper, meta);

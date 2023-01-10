@@ -141,7 +141,6 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
                     wrappedSender -> wrappedSender.getNativeSender()
-
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core
             if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) {

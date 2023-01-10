@@ -39,6 +39,7 @@ import com.clubobsidian.dynamicgui.api.registry.replacer.MetadataReplacerRegistr
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
+import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.ConfigImpl;
 import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
@@ -47,6 +48,7 @@ import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
+import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.wrappy.Configuration;
@@ -76,6 +78,7 @@ public class DynamicGuiImpl extends DynamicGui {
     private Proxy proxy;
     private final Map<String, Integer> serverPlayerCount = new ConcurrentHashMap<>();
     private final EventBus eventBus;
+    private final CloudManager cloudManager;
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
@@ -89,12 +92,14 @@ public class DynamicGuiImpl extends DynamicGui {
                            LoggerWrapper<?> loggerWrapper,
                            Injector injector,
                            CommandRegistrar commandRegistrar,
-                           EventBus eventBus) {
+                           EventBus eventBus,
+                           CloudManager cloudManager) {
         this.plugin = plugin;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
         this.commandRegistrar = commandRegistrar;
         this.eventBus = eventBus;
+        this.cloudManager = cloudManager;
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
@@ -105,6 +110,7 @@ public class DynamicGuiImpl extends DynamicGui {
     public boolean start() {
         if (!this.initialized) {
             this.initialized = true;
+            this.loadCloudArgs();
             this.loadConfig();
             this.loadFunctions();
             this.loadGuis();
@@ -152,6 +158,10 @@ public class DynamicGuiImpl extends DynamicGui {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void loadCloudArgs() {
+        CloudArgument.register(CloudArgument.PLAYER_ARG_NAME, this.cloudManager.createPlayerArg());
     }
 
     private void loadConfig() {

@@ -14,20 +14,11 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command.cloud;
+package com.clubobsidian.dynamicgui.core.manager.cloud;
 
-import cloud.commandframework.arguments.CommandArgument;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
 
-class CloudUtil {
+public interface CloudManager {
 
-    static @NonNull <T extends CommandArgument> T createArg(Class<?> type, CloudData data) {
-        CommandArgument.Builder builder = CommandArgument.ofType(type, data.getArgumentName());
-        if (data.isOptional()) {
-           builder.asOptional();
-        } else {
-            builder.asRequired();
-        }
-        return (T) builder.build();
-    }
+    CloudArgument createPlayerArg();
 }

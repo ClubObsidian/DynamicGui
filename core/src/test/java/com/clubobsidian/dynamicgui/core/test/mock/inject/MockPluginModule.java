@@ -27,6 +27,8 @@ import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
+import com.clubobsidian.dynamicgui.core.test.mock.manager.MockCloudManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockEntityManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockInventoryManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.MockItemStackManager;
@@ -65,5 +67,10 @@ public class MockPluginModule extends PluginModule {
     @Override
     public Class<? extends LocationManager> getLocationManger() {
         return MockLocationManager.class;
+    }
+
+    @Override
+    public Class<? extends CloudManager> getCloudManager() {
+        return MockCloudManager.class;
     }
 }

@@ -26,12 +26,14 @@ import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.bukkit.manager.cloud.BukkitCloudManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.entity.BukkitEntityManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
+import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 
 public class BukkitPluginModule extends PluginModule {
 
@@ -65,5 +67,10 @@ public class BukkitPluginModule extends PluginModule {
     @Override
     public Class<? extends LocationManager> getLocationManger() {
         return BukkitLocationManager.class;
+    }
+
+    @Override
+    public Class<? extends CloudManager> getCloudManager() {
+        return BukkitCloudManager.class;
     }
 }
