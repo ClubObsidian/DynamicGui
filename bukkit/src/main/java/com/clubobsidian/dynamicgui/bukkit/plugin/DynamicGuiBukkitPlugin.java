@@ -46,8 +46,6 @@ import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,7 +59,6 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
     private Economy economy;
     private Permission permission;
     private List<NPCRegistry> npcRegistries;
-    private CommandMap commandMap;
 
     @Override
     public void onEnable() {
@@ -143,7 +140,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
             PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<>(this,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
-                    wrappedSender -> (CommandSender) wrappedSender.getNativeSender()
+                    wrappedSender -> wrappedSender.getNativeSender()
 
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core
@@ -195,6 +192,4 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
     public List<NPCRegistry> getNPCRegistries() {
         return this.npcRegistries;
     }
-
-
 }
