@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.config.Config;
 import com.clubobsidian.dynamicgui.api.config.Message;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
@@ -30,9 +31,11 @@ import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
 import com.clubobsidian.dynamicgui.api.registry.replacer.DynamicGuiReplacerRegistry;
 import com.clubobsidian.dynamicgui.api.registry.replacer.MetadataReplacerRegistry;
@@ -63,12 +66,15 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
 import org.apache.commons.io.FileUtils;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -80,14 +86,19 @@ public class DynamicGuiImpl extends DynamicGui {
     private final EventBus eventBus;
     private final CloudManager cloudManager;
     private final DynamicGuiPlugin plugin;
+    private final Economy economy;
+    private final Permission permission;
     private final Platform platform;
     private final LoggerWrapper<?> loggerWrapper;
     private final Injector injector;
     private final CommandRegistrar commandRegistrar;
+    private final List<NPCRegistry> npcRegistries = new ArrayList<>();
     private boolean initialized;
 
     @Inject
     private DynamicGuiImpl(DynamicGuiPlugin plugin,
+                           Economy economy,
+                           Permission permission,
                            Platform platform,
                            LoggerWrapper<?> loggerWrapper,
                            Injector injector,
@@ -95,6 +106,8 @@ public class DynamicGuiImpl extends DynamicGui {
                            EventBus eventBus,
                            CloudManager cloudManager) {
         this.plugin = plugin;
+        this.economy = economy;
+        this.permission = permission;
         this.platform = platform;
         this.loggerWrapper = loggerWrapper;
         this.commandRegistrar = commandRegistrar;
@@ -110,6 +123,7 @@ public class DynamicGuiImpl extends DynamicGui {
     public boolean start() {
         if (!this.initialized) {
             this.initialized = true;
+            this.economy.setup();
             this.loadCloudArgs();
             this.loadConfig();
             this.loadFunctions();
@@ -311,6 +325,26 @@ public class DynamicGuiImpl extends DynamicGui {
     @Override
     public DynamicGuiPlugin getPlugin() {
         return this.plugin;
+    }
+
+    @Override
+    public Economy getEconomy() {
+        return this.economy;
+    }
+
+    @Override
+    public Permission getPermission() {
+        return this.permission;
+    }
+
+    @Override
+    public @Unmodifiable List<NPCRegistry> getNpcRegistries() {
+        return Collections.unmodifiableList(this.npcRegistries);
+    }
+
+    @Override
+    public void registerNPCRegistry(NPCRegistry npcRegistry) {
+        this.npcRegistries.add(npcRegistry);
     }
 
     @Override

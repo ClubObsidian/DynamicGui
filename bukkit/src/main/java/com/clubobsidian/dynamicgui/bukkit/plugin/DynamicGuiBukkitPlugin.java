@@ -23,9 +23,11 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
+import com.clubobsidian.dynamicgui.api.permission.NoOpPermission;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
@@ -56,9 +58,6 @@ import java.util.logging.Level;
 
 public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
 
-    private Economy economy;
-    private Permission permission;
-    private List<NPCRegistry> npcRegistries;
 
     @Override
     public void onEnable() {
@@ -69,12 +68,8 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
     public void start() {
         Platform platform = new BukkitPlatform(this);
         LoggerWrapper<?> logger = new JavaLoggerWrapper<>(this.getLogger());
-
         CommandManager<GuiCommandSender> commandManager = this.createCommandSender();
-
-        new BukkitPluginModule(this, platform, logger, commandManager).bootstrap();
         PluginManager pm = this.getServer().getPluginManager();
-
         boolean vault = false;
         boolean foundry = false;
         if (pm.getPlugin("Vault") != null) {
@@ -83,37 +78,27 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         if (pm.getPlugin("Foundry") != null) {
             foundry = true;
         }
+        Permission permission = vault && foundry
+                ? new FoundryPermission()
+                : vault
+                ? new VaultPermission()
+                : new NoOpPermission();
 
-        if (vault && foundry) {
-            this.permission = new FoundryPermission();
-        } else if (vault) {
-            this.permission = new VaultPermission();
+        if (permission instanceof NoOpPermission) {
+            this.getLogger().log(Level.SEVERE, "No permission provider found, please install vault...");
         }
-
-        if (this.permission != null && !this.permission.setup()) {
-            this.permission = null;
-        }
-
-        if (permission == null) {
-            this.getLogger().log(Level.SEVERE, "Vault is not installed, permissions will not work");
-        }
-
-        this.economy = new VaultEconomy();
-        if (!this.economy.setup()) {
-            this.economy = null;
-        }
-
-        if (this.economy == null) {
+        Economy economy = vault ? new VaultEconomy() : new NoOpEconomy();
+        if (economy instanceof NoOpPermission) {
             this.getLogger().log(Level.SEVERE, "Vault is not installed, economy functions will not work");
         }
 
-        this.npcRegistries = new ArrayList<>();
+        new BukkitPluginModule(this, platform, logger, commandManager, economy, permission).bootstrap();
 
         //Hack for adding citizens late
         //For some reason citizens sometimes will load after DynamicGui
         this.getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
             if (this.getServer().getPluginManager().getPlugin("Citizens") != null) {
-                this.getNPCRegistries().add(new CitizensRegistry());
+                DynamicGui.get().registerNPCRegistry(new CitizensRegistry());
             }
         }, 1);
 
@@ -175,20 +160,5 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
     @Override
     public void stop() {
         DynamicGui.get().stop();
-    }
-
-    @Override
-    public Economy getEconomy() {
-        return this.economy;
-    }
-
-    @Override
-    public Permission getPermission() {
-        return this.permission;
-    }
-
-    @Override
-    public List<NPCRegistry> getNPCRegistries() {
-        return this.npcRegistries;
     }
 }

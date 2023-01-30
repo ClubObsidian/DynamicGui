@@ -17,13 +17,18 @@
 package com.clubobsidian.dynamicgui.api;
 
 import com.clubobsidian.dynamicgui.api.config.Config;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public abstract class DynamicGui {
 
@@ -69,6 +74,37 @@ public abstract class DynamicGui {
     public abstract DynamicGuiPlugin getPlugin();
 
     /**
+     * The current economy instance or
+     * a no-op economy instance.
+     * @return the economy instance used
+     */
+    public abstract Economy getEconomy();
+
+    /**
+     * The currency permission instance or
+     * a no-op permission instance.
+     * @return the permission instance used
+     */
+    public abstract Permission getPermission();
+
+    /**
+     * The currently loading npc registries. This
+     * may not always reflect all the current npc registries
+     * right on start up due to hacks needing to be used to
+     * load in problematic plugins like citizens
+     *
+     * @return the loaded npc registries
+     */
+    public abstract @Unmodifiable List<NPCRegistry> getNpcRegistries();
+
+    /**
+     * Registers a npc registry
+     *
+     * @param npcRegistry the npc registry to register
+     */
+    public abstract void registerNPCRegistry(NPCRegistry npcRegistry);
+
+    /**
      * The current running platform
      *
      * @return the platform
@@ -112,5 +148,4 @@ public abstract class DynamicGui {
      * @param obj the object to inject
      */
     public abstract void inject(Object obj);
-
 }

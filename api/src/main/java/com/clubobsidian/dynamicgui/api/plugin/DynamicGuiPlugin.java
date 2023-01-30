@@ -16,9 +16,12 @@
 
 package com.clubobsidian.dynamicgui.api.plugin;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.File;
 import java.util.List;
@@ -29,11 +32,23 @@ public interface DynamicGuiPlugin {
 
     void stop();
 
-    Economy getEconomy();
+    @Deprecated(since = "6.0.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    default Economy getEconomy() {
+        return DynamicGui.get().getEconomy();
+    }
 
-    Permission getPermission();
+    @Deprecated(since = "6.0.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    default Permission getPermission() {
+        return DynamicGui.get().getPermission();
+    }
 
-    List<NPCRegistry> getNPCRegistries();
+    @Deprecated(since = "6.0.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    @Unmodifiable default List<NPCRegistry> getNPCRegistries() {
+        return DynamicGui.get().getNpcRegistries();
+    }
 
     File getDataFolder();
 
@@ -48,6 +63,4 @@ public interface DynamicGuiPlugin {
     default File getMacroFolder() {
         return new File(this.getDataFolder(), "macros");
     }
-
-    //void unregisterNativeCommand(String commandName);
 }

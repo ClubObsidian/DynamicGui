@@ -42,13 +42,10 @@ public class MoneyWithdrawFunction extends Function {
             ex.printStackTrace();
             return false;
         }
-        if (DynamicGui.get().getPlugin().getEconomy() == null) {
-            return false;
-        }
         BigDecimal decimalAmt = new BigDecimal(amt);
-        if (DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
+        if (DynamicGui.get().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) == -1) {
             return false;
         }
-        return DynamicGui.get().getPlugin().getEconomy().withdraw(playerWrapper, decimalAmt);
+        return DynamicGui.get().getEconomy().withdraw(playerWrapper, decimalAmt);
     }
 }

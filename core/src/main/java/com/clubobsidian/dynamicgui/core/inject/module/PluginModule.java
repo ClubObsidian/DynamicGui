@@ -20,6 +20,7 @@ import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionNodeFactory;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTokenFactory;
@@ -46,6 +47,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.registry.replacer.CooldownReplacerRegistry;
@@ -92,15 +94,21 @@ public abstract class PluginModule implements Module {
     private final Platform platform;
     private final LoggerWrapper<?> logger;
     private final CommandManager<GuiCommandSender> commandManager;
+    private final Economy economy;
+    private final Permission permission;
 
     public PluginModule(DynamicGuiPlugin plugin,
                         Platform platform,
                         LoggerWrapper<?> logger,
-                        CommandManager<GuiCommandSender> commandManager) {
+                        CommandManager<GuiCommandSender> commandManager,
+                        Economy economy,
+                        Permission permission) {
         this.plugin = plugin;
         this.platform = platform;
         this.logger = logger;
         this.commandManager = commandManager;
+        this.economy = economy;
+        this.permission = permission;
     }
 
     public abstract Class<? extends EntityManager> getEntityManager();
@@ -120,6 +128,10 @@ public abstract class PluginModule implements Module {
         binder.bind(new TypeLiteral<LoggerWrapper<?>>() {
         }).toInstance(this.logger);
         binder.bind(EventBus.class).toInstance(new MethodHandleEventBus());
+
+        //Economy and Permission
+        binder.bind(Economy.class).toInstance(this.economy);
+        binder.bind(Permission.class).toInstance(this.permission);
 
         //Factories
         binder.bind(FunctionTreeFactory.class).to(FunctionTreeFactoryImpl.class).asEagerSingleton();

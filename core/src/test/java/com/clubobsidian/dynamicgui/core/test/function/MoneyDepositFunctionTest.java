@@ -16,9 +16,12 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
+import com.clubobsidian.dynamicgui.api.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.api.permission.NoOpPermission;
 import com.clubobsidian.dynamicgui.core.function.MoneyDepositFunction;
+import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPermission;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
@@ -37,8 +40,8 @@ public class MoneyDepositFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testNullEconomy() throws Exception {
-        this.getFactory().inject().getPlugin().economy = null;
+    public void testNoOpEconomy() throws Exception {
+        this.getFactory().inject(new NoOpEconomy(), new NoOpPermission());
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyDepositFunction();
         function.setData("10");

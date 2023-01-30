@@ -16,14 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
-import com.clubobsidian.dynamicgui.api.economy.Economy;
-import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
 
@@ -33,8 +28,6 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     private final File mainFolder = new File("src", "main");
     private final File resourcesFolder = new File(this.mainFolder, "resources");
     private final File configFile = new File(this.resourcesFolder, "config.yml");
-    public Economy economy = new MockEconomy(); //Visible for testing
-    public Permission permission = new MockPermission(); //Visible for testing
 
     @Override
     public void start() {
@@ -44,21 +37,6 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     @Override
     public void stop() {
 
-    }
-
-    @Override
-    public Economy getEconomy() {
-        return this.economy;
-    }
-
-    @Override
-    public Permission getPermission() {
-        return this.permission;
-    }
-
-    @Override
-    public List<NPCRegistry> getNPCRegistries() {
-        return new ArrayList<>(); //TODO - implement
     }
 
     @Override

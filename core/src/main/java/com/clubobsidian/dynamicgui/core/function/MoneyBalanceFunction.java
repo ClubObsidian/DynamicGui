@@ -44,11 +44,7 @@ public class MoneyBalanceFunction extends Function {
             return false;
         }
 
-        if (DynamicGui.get().getPlugin().getEconomy() == null) {
-            return false;
-        }
-
         BigDecimal decimalAmt = new BigDecimal(amt);
-        return DynamicGui.get().getPlugin().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) >= 0;
+        return DynamicGui.get().getEconomy().getBalance(playerWrapper).compareTo(decimalAmt) >= 0;
     }
 }

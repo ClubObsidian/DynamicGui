@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.core.gui.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
@@ -41,6 +42,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
 import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockDynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
+import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPermission;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
@@ -176,6 +178,10 @@ public class MockFactory {
     }
 
     public MockFactory inject() {
+        return this.inject(new MockEconomy(), new MockPermission());
+    }
+
+    public MockFactory inject(Economy economy, Permission permission) {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
         File cooldownsFile = new File(plugin.getDataFolder(), "cooldowns.yml");
         if (cooldownsFile.exists()) { //Have to do manual cleanup of this or tests fail
@@ -184,7 +190,11 @@ public class MockFactory {
         Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         CommandManager<GuiCommandSender> commandManager = new MockCommandManager();
-        MockPluginModule module = new MockPluginModule(plugin, platform, logger, commandManager);
+        MockPluginModule module = new MockPluginModule(
+                plugin, platform,
+                logger, commandManager,
+                economy, permission
+        );
         module.bootstrap();
         DynamicGui.get(); //Initializes dynamic gui
         this.getLogger().getLogger().clear(); //Clear logs for initialization
@@ -208,7 +218,7 @@ public class MockFactory {
     }
 
     public MockEconomy getEconomy() {
-        Economy economy = DynamicGui.get().getPlugin().getEconomy();
+        Economy economy = DynamicGui.get().getEconomy();
         if (!(economy instanceof MockEconomy)) {
             return null;
         }
