@@ -31,7 +31,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
     private static final long serialVersionUID = -7902733103453967016L;
 
     @Nullable
-    private T itemStack;
+    protected T itemStack;
 
     public ItemStackWrapper(@Nullable T itemStack) {
         this.itemStack = itemStack;
@@ -227,5 +227,12 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      * @return if there is a custom model
      */
     public abstract boolean hasCustomModel();
+
+    /**
+     * Checks if the item stack is air
+     *
+     * return if the stack is air
+     */
+    public abstract boolean isAir();
 
 }

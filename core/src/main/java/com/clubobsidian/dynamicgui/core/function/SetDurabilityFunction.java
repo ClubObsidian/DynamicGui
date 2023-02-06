@@ -49,14 +49,16 @@ public class SetDurabilityFunction extends Function {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
                 if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
-                    try {
-                        short durability = Short.parseShort(this.getData());
-                        item.setDurability(durability);
-                        inv.setItem(slot.getIndex(), item);
-                        return true;
-                    } catch (Exception ex) {
-                        DynamicGui.get().getLogger().error("Unable to parse %s as durability", this.getData());
-                        return false;
+                    if (!item.isAir()) {
+                        try {
+                            short durability = Short.parseShort(this.getData());
+                            item.setDurability(durability);
+                            inv.setItem(slot.getIndex(), item);
+                            return true;
+                        } catch (Exception ex) {
+                            DynamicGui.get().getLogger().error("Unable to parse %s as durability", this.getData());
+                            return false;
+                        }
                     }
                 }
             }

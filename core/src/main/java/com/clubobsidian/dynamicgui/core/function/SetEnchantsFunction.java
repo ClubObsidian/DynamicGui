@@ -53,27 +53,29 @@ public class SetEnchantsFunction extends Function {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
                 if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
-                    Map<String, Integer> enchants = new HashMap<>();
-                    if (this.getData().contains(";")) {
-                        for (String str : this.getData().split(";")) {
-                            String[] split = str.split(",");
+                    if (!item.isAir()) {
+                        Map<String, Integer> enchants = new HashMap<>();
+                        if (this.getData().contains(";")) {
+                            for (String str : this.getData().split(";")) {
+                                String[] split = str.split(",");
+                                enchants.put(split[0], Integer.valueOf(split[1]));
+                            }
+                        } else {
+                            String[] split = this.getData().split(",");
                             enchants.put(split[0], Integer.valueOf(split[1]));
                         }
-                    } else {
-                        String[] split = this.getData().split(",");
-                        enchants.put(split[0], Integer.valueOf(split[1]));
-                    }
 
-                    for (EnchantmentWrapper wrapper : item.getEnchants()) {
-                        item.removeEnchant(wrapper);
-                    }
+                        for (EnchantmentWrapper wrapper : item.getEnchants()) {
+                            item.removeEnchant(wrapper);
+                        }
 
-                    for (String str : enchants.keySet()) {
-                        item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
-                    }
+                        for (String str : enchants.keySet()) {
+                            item.addEnchant(new EnchantmentWrapper(str, enchants.get(str)));
+                        }
 
-                    inv.setItem(slot.getIndex(), item);
-                    return true;
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
+                    }
                 }
             }
 

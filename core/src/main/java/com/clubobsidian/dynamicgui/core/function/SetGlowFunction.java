@@ -49,8 +49,10 @@ public class SetGlowFunction extends Function {
                 if (inv != null) {
                     boolean value = Boolean.parseBoolean(this.getData());
                     ItemStackWrapper<?> item = slot.getItemStack();
-                    item.setGlowing(value);
-                    inv.setItem(slot.getIndex(), item);
+                    if (!item.isAir()) {
+                        item.setGlowing(value);
+                        inv.setItem(slot.getIndex(), item);
+                    }
                     return true;
                 }
             }

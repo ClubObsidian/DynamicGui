@@ -304,6 +304,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
+    public boolean isAir() {
+        return this.itemStack == null || this.itemStack.getType() == Material.AIR;
+    }
+
+    @Override
     public int getModelData() {
         if (GET_CUSTOM_MODEL_DATA == null) {
             return -1;

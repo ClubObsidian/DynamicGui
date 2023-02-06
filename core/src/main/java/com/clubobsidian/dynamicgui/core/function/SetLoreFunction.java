@@ -52,24 +52,26 @@ public class SetLoreFunction extends Function {
                 InventoryWrapper<?> inv = gui.getInventoryWrapper();
                 if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
-                    List<String> lore = new ArrayList<>();
-                    if (this.getData() == null) {
-                        lore = null;
-                    } else {
-                        String newData = ReplacerManager.get().replace(this.getData(), playerWrapper);
-                        newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
-                        newData = ChatColor.translateAlternateColorCodes(newData);
-                        if (newData.contains("\n")) {
-                            for (String str : this.getData().split("\n")) {
-                                lore.add(str);
-                            }
+                    if (!item.isAir()) {
+                        List<String> lore = new ArrayList<>();
+                        if (this.getData() == null) {
+                            lore = null;
                         } else {
-                            lore.add(newData);
+                            String newData = ReplacerManager.get().replace(this.getData(), playerWrapper);
+                            newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
+                            newData = ChatColor.translateAlternateColorCodes(newData);
+                            if (newData.contains("\n")) {
+                                for (String str : this.getData().split("\n")) {
+                                    lore.add(str);
+                                }
+                            } else {
+                                lore.add(newData);
+                            }
                         }
+                        item.setLore(lore);
+                        inv.setItem(slot.getIndex(), item);
+                        return true;
                     }
-                    item.setLore(lore);
-                    inv.setItem(slot.getIndex(), item);
-                    return true;
                 }
             }
         }
