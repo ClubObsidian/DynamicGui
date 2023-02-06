@@ -30,6 +30,7 @@ public class SoundWrapper implements Serializable {
      */
     private static final long serialVersionUID = -8096584636206059158L;
 
+    @ApiStatus.Internal
     public static final String TEST_SOUND_STRING = "ambient_cave,1.0,1.0";
 
     private final SoundData data;

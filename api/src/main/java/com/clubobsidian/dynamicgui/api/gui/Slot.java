@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.factory.SlotFactory;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -41,6 +42,7 @@ import java.util.Map;
 public interface Slot extends Serializable, FunctionOwner, AnimationHolder, MetadataHolder, CloseableComponent {
 
     String IGNORE_MATERIAL = "AIR";
+    @ApiStatus.Internal
     String TEST_MATERIAL = "STONE";
 
     /**

@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.api.enchantment;
 
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.VisibleForTesting;
+
 import java.io.Serializable;
 
 public class EnchantmentWrapper implements Serializable {
@@ -25,8 +28,11 @@ public class EnchantmentWrapper implements Serializable {
      */
     private static final long serialVersionUID = 1056076873542226033L;
 
+    @ApiStatus.Internal
     public static final String TEST_ENCHANT_1 = "enchant_1";
+    @ApiStatus.Internal
     public static final String TEST_ENCHANT_2 = "enchant_2";
+    @ApiStatus.Internal
     public static final String TEST_ENCHANT_3 = "enchant_3";
 
     private final String enchant;
