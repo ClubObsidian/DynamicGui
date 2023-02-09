@@ -14,9 +14,10 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.permission;
+package com.clubobsidian.dynamicgui.core.permission;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 
 public class NoOpPermission implements Permission {
     @Override

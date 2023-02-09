@@ -14,8 +14,9 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.economy;
+package com.clubobsidian.dynamicgui.core.economy;
 
+import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.jetbrains.annotations.NotNull;
 

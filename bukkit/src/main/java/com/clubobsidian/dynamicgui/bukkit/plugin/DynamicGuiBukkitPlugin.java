@@ -23,15 +23,14 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
-import com.clubobsidian.dynamicgui.api.economy.NoOpEconomy;
+import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
-import com.clubobsidian.dynamicgui.api.permission.NoOpPermission;
+import com.clubobsidian.dynamicgui.core.permission.NoOpPermission;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.bukkit.command.BukkitGuiCommandSender;
 import com.clubobsidian.dynamicgui.bukkit.economy.VaultEconomy;
 import com.clubobsidian.dynamicgui.bukkit.inject.BukkitPluginModule;
@@ -52,8 +51,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlugin {
