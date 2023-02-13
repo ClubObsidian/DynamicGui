@@ -23,6 +23,7 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.bukkit.cloud.DynamicGuiPaperCommandManager;
 import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
@@ -119,7 +120,7 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
 
     private CommandManager<GuiCommandSender> createCommandSender() {
         try {
-            PaperCommandManager<GuiCommandSender> commandManager = new PaperCommandManager<>(this,
+            PaperCommandManager<GuiCommandSender> commandManager = new DynamicGuiPaperCommandManager<>(this,
                     CommandExecutionCoordinator.simpleCoordinator(),
                     BukkitGuiCommandSender::new,
                     wrappedSender -> wrappedSender.getNativeSender()
