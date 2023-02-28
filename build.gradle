@@ -108,6 +108,6 @@ subprojects {
 		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
 		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
 		api "cloud.commandframework:cloud-annotations:$cloudVersion"
-		api "io.github.classgraph:classgraph:4.8.149"
+		api "io.github.classgraph:classgraph:4.8.155"
 	}
 }
