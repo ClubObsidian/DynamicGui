@@ -46,7 +46,7 @@ import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
-    public BukkitPlayerWrapper(T player) {
+    public BukkitPlayerWrapper(@NotNull T player) {
         super(player);
     }
 

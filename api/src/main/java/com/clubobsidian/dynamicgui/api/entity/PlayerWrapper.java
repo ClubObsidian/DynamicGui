@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
 
-    public PlayerWrapper(T player) {
+    public PlayerWrapper(@NotNull T player) {
         super(player);
     }
 

@@ -16,12 +16,16 @@
 
 package com.clubobsidian.dynamicgui.api.entity;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public abstract class EntityWrapper<T> {
 
     private final T entity;
 
-    public EntityWrapper(T entity) {
-        this.entity = entity;
+    public EntityWrapper(@NotNull T entity) {
+        this.entity = Objects.requireNonNull(entity);
     }
 
     /**
