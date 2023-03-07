@@ -80,19 +80,19 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public boolean hasPermission(@NotNull String permission) {
         Objects.requireNonNull(permission);
-        return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
+        return DynamicGui.get().getPermission().hasPermission(this, permission);
     }
 
     @Override
     public boolean addPermission(@NotNull String permission) {
         Objects.requireNonNull(permission);
-        return DynamicGui.get().getPlugin().getPermission().addPermission(this, permission);
+        return DynamicGui.get().getPermission().addPermission(this, permission);
     }
 
     @Override
     public boolean removePermission(@NotNull String permission) {
         Objects.requireNonNull(permission);
-        return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
+        return DynamicGui.get().getPermission().removePermission(this, permission);
     }
 
     @Override
