@@ -28,6 +28,12 @@ public abstract class MiniMessageManager {
         return instance;
     }
 
-    public abstract String toJson(String data);
+    /**
+     * Converts a minimessage message to json
+     *
+     * @param message message to convert to json
+     * @return the converted json
+     */
+    public abstract String toJson(String message);
 
 }

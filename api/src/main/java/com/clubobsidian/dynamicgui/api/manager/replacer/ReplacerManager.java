@@ -30,6 +30,13 @@ public abstract class ReplacerManager {
         return instance;
     }
 
+    /**
+     *
+     *
+     * @param text
+     * @param playerWrapper
+     * @return
+     */
     public abstract String replace(String text, PlayerWrapper<?> playerWrapper);
 
     public abstract void registerReplacerRegistry(ReplacerRegistry replacerRegistry);

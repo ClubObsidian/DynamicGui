@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.api.effect;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -35,7 +36,7 @@ public class SoundWrapper implements Serializable {
 
     private final SoundData data;
 
-    public SoundWrapper(String str) {
+    public SoundWrapper(@NotNull String str) {
         this(SoundData.fromString(str));
     }
 
@@ -53,7 +54,8 @@ public class SoundWrapper implements Serializable {
 
     public static class SoundData {
 
-        public static SoundData fromString(String str) {
+        public static SoundData fromString(@NotNull String str) {
+            Objects.requireNonNull(str);
             if (str.contains(",")) {
                 String[] args = str.split(",");
                 if (args.length == 3) {
@@ -74,8 +76,8 @@ public class SoundWrapper implements Serializable {
         private final float volume;
         private final float pitch;
 
-        private SoundData(String sound, float volume, float pitch) {
-            this.sound = sound;
+        private SoundData(@NotNull String sound, float volume, float pitch) {
+            this.sound = Objects.requireNonNull(sound);
             this.volume = volume;
             this.pitch = pitch;
         }

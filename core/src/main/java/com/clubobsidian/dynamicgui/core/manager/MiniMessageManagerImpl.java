@@ -40,12 +40,12 @@ public class MiniMessageManagerImpl extends MiniMessageManager {
     }
 
     @Override
-    public String toJson(String data) {
-        String cached = this.json.get(data);
+    public String toJson(String message) {
+        String cached = this.json.get(message);
         if (cached == null) {
-            Component component = this.miniSerializer.deserialize(data);
+            Component component = this.miniSerializer.deserialize(message);
             cached = this.gsonSerializer.serialize(component);
-            this.json.put(data, cached);
+            this.json.put(message, cached);
         }
         return cached;
     }

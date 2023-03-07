@@ -19,9 +19,11 @@ package com.clubobsidian.dynamicgui.api.manager.replacer;
 import com.clubobsidian.dynamicgui.api.component.AnimationHolder;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.registry.replacer.AnimationReplacerRegistry;
+import org.jetbrains.annotations.ApiStatus;
 
 import javax.inject.Inject;
 
+@ApiStatus.Experimental
 public abstract class AnimationReplacerManager {
 
     @Inject

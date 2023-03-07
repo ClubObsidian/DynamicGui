@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -50,21 +51,21 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      *
      * @param message the message for the player to send
      */
-    public abstract void chat(String message);
+    public abstract void chat(@NotNull String message);
 
     /**
      * Sends a player a message
      *
      * @param message the message to send to the player
      */
-    public abstract void sendMessage(String message);
+    public abstract void sendMessage(@NotNull String message);
 
     /**
      * Sends a player a json message
      *
      * @param json to send to the player
      */
-    public abstract void sendJsonMessage(String json);
+    public abstract void sendJsonMessage(@NotNull String json);
 
     /**
      * Check if a player has a permission
@@ -72,7 +73,7 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @param permission the permission to check for
      * @return whether the player has the permission
      */
-    public abstract boolean hasPermission(String permission);
+    public abstract boolean hasPermission(@NotNull String permission);
 
     /**
      * Adds a permission to a player
@@ -80,7 +81,7 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @param permission to add to the player
      * @return whether the permission was added
      */
-    public abstract boolean addPermission(String permission);
+    public abstract boolean addPermission(@NotNull String permission);
 
     /**
      * Removes a permission from a player
@@ -88,7 +89,7 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @param permission to remove from the player
      * @return whether the permission was removed
      */
-    public abstract boolean removePermission(String permission);
+    public abstract boolean removePermission(@NotNull String permission);
 
     public abstract int getExperience();
 
@@ -121,7 +122,7 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      *
      * @param inventoryWrapper the inventory wrapper to open
      */
-    public abstract void openInventory(InventoryWrapper<?> inventoryWrapper);
+    public abstract void openInventory(@NotNull InventoryWrapper<?> inventoryWrapper);
 
     /**
      * Sends a plugin message to the player, supports BungeeCord messaging style
@@ -129,21 +130,21 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @param channel to send the message on
      * @param message the message to send
      */
-    public abstract void sendPluginMessage(String channel, byte[] message);
+    public abstract void sendPluginMessage(@NotNull String channel, byte[] message);
 
     /**
      * Plays a sound for a player
      *
      * @param soundData to player to the player
      */
-    public abstract void playSound(SoundWrapper.SoundData soundData);
+    public abstract void playSound(@NotNull SoundWrapper.SoundData soundData);
 
     /**
      * Plays a particle to a player
      *
      * @param particleData to play to the player
      */
-    public abstract void playEffect(ParticleWrapper.ParticleData particleData);
+    public abstract void playEffect(@NotNull ParticleWrapper.ParticleData particleData);
 
     /**
      * Update's the player's current open inventory, this is a hack but is still needed

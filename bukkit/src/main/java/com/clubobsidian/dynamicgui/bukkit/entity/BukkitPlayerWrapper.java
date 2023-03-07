@@ -36,10 +36,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
@@ -59,33 +61,37 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void chat(String message) {
+    public void chat(@NotNull String message) {
         this.getNative().chat(message);
     }
 
     @Override
-    public void sendMessage(String message) {
-        this.getNative().sendMessage(message);
+    public void sendMessage(@NotNull String message) {
+        this.getNative().sendMessage(Objects.requireNonNull(message));
     }
 
     @Override
-    public void sendJsonMessage(String json) {
+    public void sendJsonMessage(@NotNull String json) {
+        Objects.requireNonNull(json);
         BaseComponent[] components = ComponentSerializer.parse(json);
         this.getNative().spigot().sendMessage(components);
     }
 
     @Override
-    public boolean hasPermission(String permission) {
+    public boolean hasPermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
         return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
     }
 
     @Override
-    public boolean addPermission(String permission) {
+    public boolean addPermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
         return DynamicGui.get().getPlugin().getPermission().addPermission(this, permission);
     }
 
     @Override
-    public boolean removePermission(String permission) {
+    public boolean removePermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
         return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
     }
 
@@ -127,7 +133,8 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void openInventory(InventoryWrapper<?> inventoryWrapper) {
+    public void openInventory(@NotNull InventoryWrapper<?> inventoryWrapper) {
+        Objects.requireNonNull(inventoryWrapper);
         Object inventory = inventoryWrapper.getInventory();
         if (inventory instanceof Inventory) {
             this.getNative().openInventory((Inventory) inventory);
@@ -135,24 +142,26 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public void sendPluginMessage(String channel, byte[] message) {
+    public void sendPluginMessage(@NotNull String channel, byte[] message) {
         this.getNative().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
     }
 
     @Override
-    public void playSound(SoundWrapper.SoundData soundData) {
-        String sound = soundData.getSound();
-        float volume = soundData.getVolume();
-        float pitch = soundData.getPitch();
+    public void playSound(SoundWrapper.@NotNull SoundData data) {
+        Objects.requireNonNull(data);
+        String sound = data.getSound();
+        float volume = data.getVolume();
+        float pitch = data.getPitch();
         Player player = this.getNative();
         Location playerLocation = player.getLocation();
         player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
     }
 
     @Override
-    public void playEffect(ParticleWrapper.ParticleData particleData) {
-        String effect = particleData.getEffect();
-        int extraData = particleData.getExtraData();
+    public void playEffect(ParticleWrapper.@NotNull ParticleData data) {
+        Objects.requireNonNull(data);
+        String effect = data.getEffect();
+        int extraData = data.getExtraData();
         Player player = this.getNative();
         Location playerLocation = player.getLocation();
         playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), extraData);

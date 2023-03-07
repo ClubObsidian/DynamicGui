@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.api.effect;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -45,13 +46,15 @@ public class ParticleWrapper implements Serializable {
         return this.data;
     }
 
-    public void spawnEffect(PlayerWrapper<?> player) {
+    public void spawnEffect(@NotNull PlayerWrapper<?> player) {
+        Objects.requireNonNull(player);
         player.playEffect(this.data);
     }
 
     public static class ParticleData {
 
-        public static ParticleData fromString(String str) {
+        public static ParticleData fromString(@NotNull String str) {
+            Objects.requireNonNull(str);
             if (str.contains(",")) {
                 String[] args = str.split(",");
                 return new ParticleData(args[0].toUpperCase(), NumberUtils.toInt(args[1]));

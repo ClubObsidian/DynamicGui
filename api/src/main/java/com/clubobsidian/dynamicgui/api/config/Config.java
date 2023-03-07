@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.api.config;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 public interface Config {
 
     /**
@@ -23,13 +26,13 @@ public interface Config {
      *
      * @return configurable messages
      */
-    Message getMessage();
+    @NotNull Message getMessage();
 
     /**
      * The date time format for functions
      *
      * @return the date time format
      */
-    String getDateTimeFormat();
+    @Nullable String getDateTimeFormat();
 
 }

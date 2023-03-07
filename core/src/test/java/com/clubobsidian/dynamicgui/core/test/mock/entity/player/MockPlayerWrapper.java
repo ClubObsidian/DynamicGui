@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +49,7 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
-    public void chat(String message) {
+    public void chat(@NotNull String message) {
         this.getNative().chat(message);
     }
 
@@ -61,27 +62,27 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(@NotNull String message) {
         this.getNative().sendMessage(message);
     }
 
     @Override
-    public void sendJsonMessage(String json) {
+    public void sendJsonMessage(@NotNull String json) {
         this.sendMessage(json);
     }
 
     @Override
-    public boolean hasPermission(String permission) {
+    public boolean hasPermission(@NotNull String permission) {
         return this.getNative().hasPermission(permission);
     }
 
     @Override
-    public boolean addPermission(String permission) {
+    public boolean addPermission(@NotNull String permission) {
         return this.getNative().addPermission(permission);
     }
 
     @Override
-    public boolean removePermission(String permission) {
+    public boolean removePermission(@NotNull String permission) {
         return this.getNative().removePermission(permission);
     }
 
@@ -113,7 +114,7 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
-    public void playEffect(ParticleWrapper.ParticleData particleData) {
+    public void playEffect(ParticleWrapper.@NotNull ParticleData particleData) {
         this.getNative().playEffect(particleData);
     }
 
@@ -122,7 +123,7 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
     }
 
     @Override
-    public void playSound(SoundWrapper.SoundData soundData) {
+    public void playSound(SoundWrapper.@NotNull SoundData soundData) {
         this.getNative().playSound(soundData);
     }
 
