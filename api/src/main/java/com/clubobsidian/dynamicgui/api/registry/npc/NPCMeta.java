@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.api.registry.npc;
 
+import java.util.Objects;
+
 public class NPCMeta {
 
     private final int id;
@@ -32,5 +34,18 @@ public class NPCMeta {
 
     public String getPlugin() {
         return this.plugin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NPCMeta)) return false;
+        NPCMeta npcMeta = (NPCMeta) o;
+        return this.id == npcMeta.id && Objects.equals(this.plugin, npcMeta.plugin);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.plugin);
     }
 }

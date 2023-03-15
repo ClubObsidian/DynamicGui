@@ -14,29 +14,22 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.api.entity;
+package com.clubobsidian.dynamicgui.core.debouncer;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-import java.util.UUID;
-
-public abstract class EntityWrapper<T> {
-
-    private final T entity;
-
-    public EntityWrapper(@NotNull T entity) {
-        this.entity = Objects.requireNonNull(entity);
-    }
-
-    public abstract UUID getUniqueId();
+public interface Debouncer<K> {
 
     /**
-     * Gets the native underlying entity for the wrapper
-     *
-     * @return native entity
+     * @param key K to check the cache for
+     * @return if the cache contains the specified key
      */
-    public T getNative() {
-        return this.entity;
-    }
+    boolean containsKey(@NotNull K key);
+
+    /**
+     * @param key K to save for debouncing
+     * @return if the key was let through
+     */
+    boolean canCache(@NotNull K key);
+
 }

@@ -19,9 +19,16 @@ package com.clubobsidian.dynamicgui.bukkit.entity;
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import org.bukkit.entity.Entity;
 
+import java.util.UUID;
+
 public class BukkitEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 
     public BukkitEntityWrapper(T entity) {
         super(entity);
+    }
+
+    @Override
+    public UUID getUniqueId() {
+        return this.getNative().getUniqueId();
     }
 }

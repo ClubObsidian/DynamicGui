@@ -22,17 +22,22 @@ import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPC;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.core.debouncer.CaffeineDebouncer;
+import com.clubobsidian.dynamicgui.core.debouncer.Debouncer;
 import com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 public class EntityClickListener {
 
+    private Debouncer<NPC> npcDebouncer = new CaffeineDebouncer<>(1, TimeUnit.SECONDS);
+
     @EventHandler
-    public void onEntityClick(PlayerInteractEntityEvent e) {
+    public void onNPCClick(PlayerInteractEntityEvent e) {
         if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
             return;
         }
@@ -50,7 +55,7 @@ public class EntityClickListener {
                     if (registryName.equalsIgnoreCase(registry.getName())) {
                         NPC npc = registry.getNPC(entityWrapper);
                         if (npc != null) {
-                            if (ids.contains(npc.getMeta().getId())) {
+                            if (ids.contains(npc.getMeta().getId()) && this.npcDebouncer.canCache(npc)) {
                                 GuiManager.get().openGui(e.getPlayerWrapper(), gui);
                                 break;
                             }

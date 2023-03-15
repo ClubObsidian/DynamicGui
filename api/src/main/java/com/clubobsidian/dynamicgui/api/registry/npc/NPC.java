@@ -18,6 +18,8 @@ package com.clubobsidian.dynamicgui.api.registry.npc;
 
 import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 
+import java.util.Objects;
+
 public class NPC {
 
     private final EntityWrapper<?> entityWrapper;
@@ -34,5 +36,19 @@ public class NPC {
 
     public NPCMeta getMeta() {
         return this.meta;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof NPC)) return false;
+        NPC npc = (NPC) o;
+        return Objects.equals(this.entityWrapper.getUniqueId(), npc.entityWrapper.getUniqueId())
+                && Objects.equals(this.meta, npc.meta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.entityWrapper.getUniqueId(), this.meta);
     }
 }
