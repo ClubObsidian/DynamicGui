@@ -63,7 +63,7 @@ public class ProxyTest extends FactoryTest {
     }
 
     @Test
-    public void noProxyProtocolRegister() {
+    public void noProxyProtocolRegisterTest() {
         MockPlatform platform = this.getFactory().getPlatform();
         Proxy.NONE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
         assertTrue(platform.getIncomingData().size() == 0);
@@ -71,7 +71,7 @@ public class ProxyTest extends FactoryTest {
     }
 
     @Test
-    public void bungeeProtocolRegister() {
+    public void bungeeProtocolRegisterTest() {
         MockPlatform platform = this.getFactory().getPlatform();
         Proxy.BUNGEE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
         assertTrue(platform.getIncomingData().size() == 1);
@@ -79,7 +79,7 @@ public class ProxyTest extends FactoryTest {
     }
 
     @Test
-    public void velocityProtocolRegister() {
+    public void velocityProtocolRegisterTest() {
         MockPlatform platform = this.getFactory().getPlatform();
         Proxy.VELOCITY.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
         assertTrue(platform.getIncomingData().size() == 1);
@@ -87,7 +87,7 @@ public class ProxyTest extends FactoryTest {
     }
 
     @Test
-    public void redisBungeeProtocolRegister() {
+    public void redisBungeeProtocolRegisterTest() {
         MockPlatform platform = this.getFactory().getPlatform();
         Proxy.REDIS_BUNGEE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
         assertTrue(platform.getIncomingData().size() == 1);
