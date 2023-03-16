@@ -16,27 +16,81 @@
 
 package com.clubobsidian.dynamicgui.core.test.proxy;
 
+import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
+import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ProxyTest {
+public class ProxyTest extends FactoryTest {
+
+    private static final MessagingRunnable RUNNABLE = (wrapper, data) -> {};
 
     @Test
-    public void noProxyTest() {
+    public void noNullAliasesTest() {
+        for (Proxy proxy : Proxy.values()) {
+            assertNotNull(proxy.getAliases(), proxy.name() + " has a null alias!");
+        }
+
+    }
+
+    @Test
+    public void noProxyFromStringTest() {
         assertEquals(Proxy.NONE, Proxy.fromString(UUID.randomUUID().toString()));
     }
 
     @Test
-    public void bungeeTest() {
+    public void bungeeFromStringTest() {
         assertEquals(Proxy.BUNGEE, Proxy.fromString("BUNGEE"));
     }
 
+
     @Test
-    public void redisBungeeTest() {
+    public void velocityFromStringTest() {
+        assertEquals(Proxy.VELOCITY, Proxy.fromString("VELOCITY"));
+    }
+
+
+    @Test
+    public void redisBungeeFromStringTest() {
         assertEquals(Proxy.REDIS_BUNGEE, Proxy.fromString("REDIS"));
+    }
+
+    @Test
+    public void noProxyProtocolRegister() {
+        MockPlatform platform = this.getFactory().getPlatform();
+        Proxy.NONE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
+        assertTrue(platform.getIncomingData().size() == 0);
+        assertTrue(platform.getOutgoingData().size() == 0);
+    }
+
+    @Test
+    public void bungeeProtocolRegister() {
+        MockPlatform platform = this.getFactory().getPlatform();
+        Proxy.BUNGEE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
+        assertTrue(platform.getIncomingData().size() == 1);
+        assertTrue(platform.getOutgoingData().size() == 1);
+    }
+
+    @Test
+    public void velocityProtocolRegister() {
+        MockPlatform platform = this.getFactory().getPlatform();
+        Proxy.VELOCITY.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
+        assertTrue(platform.getIncomingData().size() == 1);
+        assertTrue(platform.getOutgoingData().size() == 1);
+    }
+
+    @Test
+    public void redisBungeeProtocolRegister() {
+        MockPlatform platform = this.getFactory().getPlatform();
+        Proxy.REDIS_BUNGEE.getProtocol().register(platform, this.getFactory().getPlugin(), RUNNABLE);
+        assertTrue(platform.getIncomingData().size() == 1);
+        assertTrue(platform.getOutgoingData().size() == 2);
     }
 }

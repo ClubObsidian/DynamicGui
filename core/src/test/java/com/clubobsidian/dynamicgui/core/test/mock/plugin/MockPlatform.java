@@ -24,12 +24,15 @@ import com.clubobsidian.dynamicgui.api.platform.PlatformType;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class MockPlatform implements Platform {
@@ -39,6 +42,9 @@ public class MockPlatform implements Platform {
     private final MockScheduler scheduler = new MockScheduler();
     private final List<String> broadcastMessages = new ArrayList<>();
     private final List<PlayerWrapper<?>> players = new ArrayList<>();
+
+    private final List<ChannelData> outgoingData = new ArrayList<>();
+    private final List<ChannelData> incomingData = new ArrayList<>();
 
     @Override
     public Scheduler getScheduler() {
@@ -110,12 +116,20 @@ public class MockPlatform implements Platform {
 
     @Override
     public void registerOutgoingPluginChannel(DynamicGuiPlugin plugin, String channel) {
-
+        this.outgoingData.add(new ChannelData(plugin, channel, null));
     }
 
     @Override
     public void registerIncomingPluginChannel(DynamicGuiPlugin plugin, String channel, MessagingRunnable runnable) {
+        this.incomingData.add(new ChannelData(plugin, channel, runnable));
+    }
 
+    public List<ChannelData> getOutgoingData() {
+        return this.outgoingData;
+    }
+
+    public List<ChannelData> getIncomingData() {
+        return this.incomingData;
     }
 
     @Override
@@ -125,5 +139,33 @@ public class MockPlatform implements Platform {
 
     public void addWorld(WorldWrapper<?> world) {
         this.worlds.put(world.getName(), world);
+    }
+
+
+    public class ChannelData {
+
+        private final DynamicGuiPlugin plugin;
+        private final String channel;
+        private final MessagingRunnable runnable;
+
+        public ChannelData(@NotNull DynamicGuiPlugin plugin,
+                           @NotNull String channel,
+                           @Nullable MessagingRunnable runnable) {
+            this.plugin = Objects.requireNonNull(plugin);
+            this.channel = Objects.requireNonNull(channel);
+            this.runnable = runnable;
+        }
+
+        public DynamicGuiPlugin getPlugin() {
+            return this.plugin;
+        }
+
+        public String getChannel() {
+            return this.channel;
+        }
+
+        public @Nullable MessagingRunnable getRunnable() {
+            return this.runnable;
+        }
     }
 }

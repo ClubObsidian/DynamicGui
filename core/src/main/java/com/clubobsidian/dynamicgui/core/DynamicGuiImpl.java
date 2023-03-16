@@ -237,21 +237,12 @@ public class DynamicGuiImpl extends DynamicGui {
             }
         };
 
-        if (this.proxy == Proxy.BUNGEE) {
-            this.getLogger().info("BungeeCord is enabled!");
-            this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-            this.getPlatform().registerIncomingPluginChannel(this.getPlugin(), "BungeeCord", runnable);
-        } else if (this.proxy == Proxy.REDIS_BUNGEE) {
-            this.getLogger().info("RedisBungee is enabled");
-            this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "RedisBungee");
-            this.getPlatform().registerOutgoingPluginChannel(this.getPlugin(), "BungeeCord");
-            this.getPlatform().registerIncomingPluginChannel(this.getPlugin(), "RedisBungee", runnable);
+        if (this.proxy != Proxy.NONE) {
+            this.getLogger().info("%s proxy is enabled!", this.proxy.getAliases()[0]);
+            this.proxy.getProtocol().register(this.getPlatform(), this.getPlugin(), runnable);
+            this.startPlayerCountTimer();
         } else {
             this.getLogger().info("A proxy is not in use, please configure the proxy config value if you need proxy support!");
-        }
-
-        if (this.proxy != Proxy.NONE) {
-            this.startPlayerCountTimer();
         }
     }
 

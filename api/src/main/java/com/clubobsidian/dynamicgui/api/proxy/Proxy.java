@@ -16,17 +16,24 @@
 
 package com.clubobsidian.dynamicgui.api.proxy;
 
+import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+
 import java.util.Locale;
 
 public enum Proxy {
 
-    BUNGEE("bungee", "velocity"),
-    REDIS_BUNGEE("redis"),
-    NONE;
+    BUNGEE(Protocol.BUNGEE, "bungeecord", "bungee"),
+    VELOCITY(Protocol.BUNGEE, "velocity"),
+    REDIS_BUNGEE(Protocol.REDIS_BUNGEE, "redisbungee", "redis"),
+    NONE(Protocol.NONE, "none");
 
-    String[] aliases;
+    private final Protocol protocol;
+    private final String[] aliases;
 
-    Proxy(String... aliases) {
+    Proxy(Protocol protocol, String... aliases) {
+        this.protocol = protocol;
         this.aliases = aliases;
     }
 
@@ -40,5 +47,44 @@ public enum Proxy {
             }
         }
         return Proxy.NONE;
+    }
+
+    public String[] getAliases() {
+        return this.aliases;
+    }
+
+
+    public Protocol getProtocol() {
+        return this.protocol;
+    }
+
+    public enum Protocol {
+        BUNGEE((platform, plugin, runnable) -> {
+            platform.registerOutgoingPluginChannel(plugin, "BungeeCord");
+            platform.registerIncomingPluginChannel(plugin, "BungeeCord", runnable);
+        }),
+        REDIS_BUNGEE((platform, plugin, runnable) -> {
+            platform.registerOutgoingPluginChannel(plugin, "RedisBungee");
+            platform.registerOutgoingPluginChannel(plugin, "BungeeCord");
+            platform.registerIncomingPluginChannel(plugin, "RedisBungee", runnable);
+        }),
+        NONE((platform, plugin, runnable) -> {});
+
+        private final Registerable registerable;
+
+        Protocol(Registerable registerable) {
+            this.registerable = registerable;
+        }
+
+        public void register(Platform platform, DynamicGuiPlugin plugin, MessagingRunnable runnable) {
+            this.registerable.register(platform, plugin, runnable);
+        }
+
+        @FunctionalInterface
+        private interface Registerable  {
+
+            void register(Platform platform, DynamicGuiPlugin plugin, MessagingRunnable runnable);
+
+        }
     }
 }
