@@ -25,17 +25,18 @@ public class EnchantmentBuilderTest {
 
     @Test
     public void testName() {
-        String enchantmentName = "test";
         EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
-                .setEnchantment(enchantmentName)
+                .setEnchantment(EnchantmentWrapper.TEST_ENCHANT_1)
+                .setLevel(1)
                 .build();
-        assertEquals(enchantmentName, enchantment.getEnchant());
+        assertEquals(EnchantmentWrapper.TEST_ENCHANT_1, enchantment.getEnchant());
     }
 
     @Test
     public void testLevel() {
         int enchantmentLevel = 1;
         EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
+                .setEnchantment(EnchantmentWrapper.TEST_ENCHANT_1)
                 .setLevel(enchantmentLevel)
                 .build();
         assertEquals(enchantmentLevel, enchantment.getLevel());
