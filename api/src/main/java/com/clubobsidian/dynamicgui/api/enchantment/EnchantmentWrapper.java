@@ -17,9 +17,11 @@
 package com.clubobsidian.dynamicgui.api.enchantment;
 
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.VisibleForTesting;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class EnchantmentWrapper implements Serializable {
 
@@ -38,8 +40,8 @@ public class EnchantmentWrapper implements Serializable {
     private final String enchant;
     private final int level;
 
-    public EnchantmentWrapper(String enchant, int level) {
-        this.enchant = enchant;
+    public EnchantmentWrapper(@NotNull String enchant, int level) {
+        this.enchant = Objects.requireNonNull(enchant);
         this.level = level;
     }
 
@@ -56,8 +58,8 @@ public class EnchantmentWrapper implements Serializable {
         private transient String enchantment;
         private transient int level = 0;
 
-        public Builder setEnchantment(String enchantment) {
-            this.enchantment = enchantment;
+        public Builder setEnchantment(@NotNull String enchantment) {
+            this.enchantment = Objects.requireNonNull(enchantment);
             return this;
         }
 

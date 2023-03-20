@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -31,6 +32,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -78,12 +80,16 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     @Override
-    public long getRemainingCooldown(PlayerWrapper<?> playerWrapper, String name) {
+    public long getRemainingCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name) {
+        Objects.requireNonNull(playerWrapper);
+        Objects.requireNonNull(name);
         return this.getRemainingCooldown(playerWrapper.getUniqueId(), name);
     }
 
     @Override
-    public long getRemainingCooldown(UUID uuid, String name) {
+    public long getRemainingCooldown(@NotNull UUID uuid, @NotNull String name) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(name);
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
         if (cooldownMap == null) {
             return -1L;
@@ -98,7 +104,8 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     @Override
-    public List<Cooldown> getCooldowns(UUID uuid) {
+    public List<Cooldown> getCooldowns(@NotNull UUID uuid) {
+        Objects.requireNonNull(uuid);
         Map<String, Cooldown> cooldowns = this.cooldowns.get(uuid);
         if (cooldowns == null) {
             return Collections.emptyList();
@@ -107,7 +114,9 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     @Override
-    public Cooldown createCooldown(UUID uuid, String name, long cooldownDuration) {
+    public Cooldown createCooldown(@NotNull UUID uuid, @NotNull String name, long cooldownDuration) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(name);
         long cooldownRemaining = this.getRemainingCooldown(uuid, name);
         if (cooldownRemaining == -1L) {
             long currentTime = System.currentTimeMillis();
@@ -125,12 +134,13 @@ public class CooldownManagerImpl extends CooldownManager {
     }
 
     @Override
-    public boolean removeCooldown(UUID uuid, String name) {
+    public boolean removeCooldown(@NotNull UUID uuid, @NotNull String name) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(name);
         Map<String, Cooldown> cooldownMap = this.cooldowns.get(uuid);
         if (cooldownMap == null) {
             return false;
         }
-
         boolean removed = cooldownMap.remove(name) != null;
         if (removed) {
             this.updateConfig.set(true);

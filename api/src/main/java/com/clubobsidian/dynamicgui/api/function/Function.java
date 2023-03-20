@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
@@ -52,21 +53,23 @@ public abstract class Function implements Cloneable, Serializable {
     private FunctionOwner owner;
     private final Set<String> aliases;
 
-    public Function(String name, String[] aliases, boolean async) {
+    public Function(@NotNull String name, @NotNull String[] aliases, boolean async) {
         this(name, Arrays.asList(aliases), async);
     }
 
-    public Function(String name, Collection<String> aliases, boolean async) {
+    public Function(@NotNull String name, @NotNull Collection<String> aliases, boolean async) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(aliases);
         this.name = StringFuzz.normalize(name);
         this.aliases = loadAliases(this.name, aliases);
         this.async = async;
     }
 
-    public Function(String name, boolean async) {
+    public Function(@NotNull String name, boolean async) {
         this(name, new String[0], async);
     }
 
-    public Function(String... aliases) {
+    public Function(@NotNull String... aliases) {
         this(aliases[0], aliases, false);
     }
 

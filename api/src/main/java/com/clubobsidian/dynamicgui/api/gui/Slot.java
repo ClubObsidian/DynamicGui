@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -198,7 +199,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
      * @param playerWrapper the player to build the slot for
      * @return the built item stack wrapper
      */
-    @Nullable ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper);
+    @Nullable ItemStackWrapper<?> buildItemStack(@NotNull PlayerWrapper<?> playerWrapper);
 
     /**
      * The item stack wrapper for the slot
@@ -212,7 +213,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
      *
      * @param gui gui to set as owner
      */
-    void setOwner(Gui gui);
+    void setOwner(@NotNull Gui gui);
 
     /**
      * Gets the owner of the gui. The owner of the gui

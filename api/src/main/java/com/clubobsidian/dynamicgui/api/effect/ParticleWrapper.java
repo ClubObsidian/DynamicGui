@@ -34,12 +34,12 @@ public class ParticleWrapper implements Serializable {
 
     private final ParticleData data;
 
-    public ParticleWrapper(String str) {
-        this(ParticleData.fromString(str));
+    public ParticleWrapper(@NotNull String str) {
+        this(ParticleData.fromString(Objects.requireNonNull(str)));
     }
 
-    public ParticleWrapper(ParticleData data) {
-        this.data = data;
+    public ParticleWrapper(@NotNull ParticleData data) {
+        this.data = Objects.requireNonNull(data);
     }
 
     public ParticleData getData() {
@@ -65,8 +65,8 @@ public class ParticleWrapper implements Serializable {
         private final String effect;
         private final int extraData;
 
-        private ParticleData(String effect, int data) {
-            this.effect = effect;
+        private ParticleData(@NotNull String effect, int data) {
+            this.effect = Objects.requireNonNull(effect);
             this.extraData = data;
         }
 

@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -152,14 +153,14 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @param enchant the enchantment to add
      */
-    public abstract void addEnchant(EnchantmentWrapper enchant);
+    public abstract void addEnchant(@NotNull EnchantmentWrapper enchant);
 
     /**
      * Removes an enchantment from the underlying item stack.
      *
      * @param enchant the enchantment to remove
      */
-    public abstract void removeEnchant(EnchantmentWrapper enchant);
+    public abstract void removeEnchant(@NotNull EnchantmentWrapper enchant);
 
     /**
      * Gets the NBT of the underlying item stack.
@@ -173,7 +174,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @param nbt the nbt to set
      */
-    public abstract void setNBT(String nbt);
+    public abstract void setNBT(@NotNull String nbt);
 
     /**
      * Sets whether the underlying item stack should glow.

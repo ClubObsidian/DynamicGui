@@ -18,9 +18,12 @@ package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import org.checkerframework.checker.units.qual.N;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStack> {
 
@@ -69,12 +72,14 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
-    public void addEnchant(EnchantmentWrapper enchant) {
+    public void addEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         this.getItemStack().addEnchant(enchant);
     }
 
     @Override
-    public void removeEnchant(EnchantmentWrapper enchant) {
+    public void removeEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         this.getItemStack().removeEnchant(enchant);
     }
 
@@ -84,7 +89,8 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
+        Objects.requireNonNull(name);
         this.getItemStack().setName(name);
     }
 
@@ -99,7 +105,8 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
-    public void setNBT(String nbt) {
+    public void setNBT(@NotNull String nbt) {
+        Objects.requireNonNull(nbt);
         this.getItemStack().setNBT(nbt);
     }
 }

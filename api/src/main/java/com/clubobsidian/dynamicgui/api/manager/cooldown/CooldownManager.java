@@ -17,10 +17,12 @@
 package com.clubobsidian.dynamicgui.api.manager.cooldown;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class CooldownManager {
@@ -39,7 +41,7 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown
      * @return the cooldown or -1 if no cooldown exists
      */
-    public abstract long getRemainingCooldown(PlayerWrapper<?> playerWrapper, String name);
+    public abstract long getRemainingCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name);
 
     /**
      * Gets the remaining cooldown in milliseconds.
@@ -48,14 +50,14 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown
      * @return the cooldown or -1 if no cooldown exists
      */
-    public abstract long getRemainingCooldown(UUID uuid, String name);
+    public abstract long getRemainingCooldown(@NotNull UUID uuid, @NotNull String name);
     /**
      * Gets the remaining cooldown in milliseconds.
      *
      * @param cooldown the remaining cooldown for a given cooldown
      * @return the cooldown or -1 if no cooldown exists
      */
-    public long getRemainingCooldown(Cooldown cooldown) {
+    public long getRemainingCooldown(@NotNull Cooldown cooldown) {
         long currentTime = System.currentTimeMillis();
         long creationTime = cooldown.getCreationTime();
         long duration = cooldown.getCooldownDuration();
@@ -74,7 +76,7 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown to check for
      * @return if the given named cooldown is on cooldown
      */
-    public boolean isOnCooldown(PlayerWrapper<?> playerWrapper, String name) {
+    public boolean isOnCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name) {
         return this.isOnCooldown(playerWrapper.getUniqueId(), name);
     }
 
@@ -85,7 +87,7 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown to check for
      * @return if the given named cooldown is on cooldown
      */
-    public boolean isOnCooldown(UUID uuid, String name) {
+    public boolean isOnCooldown(@NotNull UUID uuid, @NotNull String name) {
         return this.getRemainingCooldown(uuid, name) != -1L;
     }
 
@@ -95,7 +97,8 @@ public abstract class CooldownManager {
      * @param playerWrapper the playerWrapper to check for
      * @return if the given named cooldown is on cooldown
      */
-    @Unmodifiable public List<Cooldown> getCooldowns(PlayerWrapper<?> playerWrapper) {
+    @Unmodifiable public List<Cooldown> getCooldowns(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
         UUID uuid = playerWrapper.getUniqueId();
         return this.getCooldowns(uuid);
     }
@@ -106,7 +109,7 @@ public abstract class CooldownManager {
      * @param uuid the uuid to check for
      * @return if the given named cooldown is on cooldown
      */
-    @Unmodifiable public abstract List<Cooldown> getCooldowns(UUID uuid);
+    @Unmodifiable public abstract List<Cooldown> getCooldowns(@NotNull UUID uuid);
 
     /**
      * Creates a cooldown
@@ -116,7 +119,8 @@ public abstract class CooldownManager {
      * @param cooldownDuration the duration of the cooldown in milliseconds
      * @return the created cooldown
      */
-    public Cooldown createCooldown(PlayerWrapper<?> playerWrapper, String name, long cooldownDuration) {
+    public Cooldown createCooldown(@NotNull PlayerWrapper<?> playerWrapper,
+                                   @NotNull String name, long cooldownDuration) {
         UUID uuid = playerWrapper.getUniqueId();
         return this.createCooldown(uuid, name, cooldownDuration);
     }
@@ -129,7 +133,7 @@ public abstract class CooldownManager {
      * @param cooldownDuration the duration of the cooldown in milliseconds
      * @return the created cooldown
      */
-    public abstract Cooldown createCooldown(UUID uuid, String name, long cooldownDuration);
+    public abstract Cooldown createCooldown(@NotNull UUID uuid, @NotNull String name, long cooldownDuration);
 
     /**
      * Removes a cooldown for a player
@@ -138,7 +142,7 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown
      * @return if the cooldown was removed
      */
-    public boolean removeCooldown(PlayerWrapper<?> playerWrapper, String name) {
+    public boolean removeCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name) {
         return this.removeCooldown(playerWrapper.getUniqueId(), name);
     }
 
@@ -149,7 +153,7 @@ public abstract class CooldownManager {
      * @param name the name of the cooldown
      * @return if the cooldown was removed
      */
-    public abstract boolean removeCooldown(UUID uuid, String name);
+    public abstract boolean removeCooldown(@NotNull UUID uuid, @NotNull String name);
 
     /**
      * Shuts down and saves the cooldown manager

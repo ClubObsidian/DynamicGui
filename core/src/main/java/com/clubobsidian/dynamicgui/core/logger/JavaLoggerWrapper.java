@@ -17,16 +17,19 @@
 package com.clubobsidian.dynamicgui.core.logger;
 
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import org.checkerframework.checker.units.qual.N;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JavaLoggerWrapper<T extends Logger>implements  LoggerWrapper<T> {
+public class JavaLoggerWrapper<T extends Logger> implements LoggerWrapper<T> {
 
     private final T logger;
 
-    public JavaLoggerWrapper(T logger) {
-        this.logger = logger;
+    public JavaLoggerWrapper(@NotNull T logger) {
+        this.logger = Objects.requireNonNull(logger);
     }
 
     @Override
@@ -35,12 +38,14 @@ public class JavaLoggerWrapper<T extends Logger>implements  LoggerWrapper<T> {
     }
 
     @Override
-    public void info(String message) {
+    public void info(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.getLogger().log(Level.INFO, message);
     }
 
     @Override
-    public void error(String message) {
+    public void error(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.getLogger().log(Level.SEVERE, message);
     }
 }

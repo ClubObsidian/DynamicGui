@@ -17,8 +17,10 @@
 package com.clubobsidian.dynamicgui.api.inventory;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class InventoryWrapper<T> implements Serializable {
 
@@ -29,8 +31,8 @@ public abstract class InventoryWrapper<T> implements Serializable {
 
     private final T inventory;
 
-    public InventoryWrapper(T inventory) {
-        this.inventory = inventory;
+    public InventoryWrapper(@NotNull T inventory) {
+        this.inventory = Objects.requireNonNull(inventory);
     }
 
     /**
@@ -64,7 +66,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
      * @param index to set the ItemStackWrapper at
      * @param itemStackWrapper the wrapper to set
      */
-    public abstract void setItem(int index, ItemStackWrapper<?> itemStackWrapper);
+    public abstract void setItem(int index, @NotNull ItemStackWrapper<?> itemStackWrapper);
 
     /**
      * Updates the item at a given index, this is accomplished
@@ -74,7 +76,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
      * @param index to update at
      * @param playerWrapper the wrapper to update the item for
      */
-    public abstract void updateItem(int index, PlayerWrapper<?> playerWrapper);
+    public abstract void updateItem(int index, @NotNull PlayerWrapper<?> playerWrapper);
 
     /**
      * Gets the size of the inventory, as in how many slots
@@ -98,7 +100,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
      * @param itemStackWrapper the wrapper to add
      * @return -1 if the item could not be added else the index where it was added
      */
-    public int addItem(ItemStackWrapper<?> itemStackWrapper) {
+    public int addItem(@NotNull ItemStackWrapper<?> itemStackWrapper) {
         int index = this.getCurrentContentSize();
         if (index >= this.getSize()) {
             return -1;

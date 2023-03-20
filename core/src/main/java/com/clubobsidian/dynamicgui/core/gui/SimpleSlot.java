@@ -28,12 +28,14 @@ import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SimpleSlot implements Slot {
 
@@ -175,7 +177,8 @@ public class SimpleSlot implements Slot {
 
     @Override
     @Nullable
-    public ItemStackWrapper<?> buildItemStack(PlayerWrapper<?> playerWrapper) {
+    public ItemStackWrapper<?> buildItemStack(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
         ItemStackWrapper<?> builderItem = this.itemStack;
         if (builderItem == null) {
             builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
@@ -254,8 +257,8 @@ public class SimpleSlot implements Slot {
         return this.itemStack;
     }
 
-    public void setOwner(Gui gui) {
-        this.owner = gui;
+    public void setOwner(@NotNull Gui gui) {
+        this.owner = Objects.requireNonNull(gui);
     }
 
     public Gui getOwner() {

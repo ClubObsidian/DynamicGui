@@ -37,18 +37,19 @@ public class SoundWrapper implements Serializable {
     private final SoundData data;
 
     public SoundWrapper(@NotNull String str) {
-        this(SoundData.fromString(str));
+        this(SoundData.fromString(Objects.requireNonNull(str)));
     }
 
-    public SoundWrapper(SoundData data) {
-        this.data = data;
+    public SoundWrapper(@NotNull SoundData data) {
+        this.data = Objects.requireNonNull(data);
     }
 
     public SoundData getData() {
         return this.data;
     }
 
-    public void playSoundToPlayer(PlayerWrapper<?> player) {
+    public void playSoundToPlayer(@NotNull PlayerWrapper<?> player) {
+        Objects.requireNonNull(player);
         player.playSound(this.data);
     }
 

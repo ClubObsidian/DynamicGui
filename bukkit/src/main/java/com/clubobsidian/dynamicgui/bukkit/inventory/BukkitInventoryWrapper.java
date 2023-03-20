@@ -24,8 +24,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrapper<T> implements Serializable {
 
@@ -57,12 +59,14 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
     }
 
     @Override
-    public void setItem(int index, ItemStackWrapper<?> itemStackWrapper) {
+    public void setItem(int index, @NotNull ItemStackWrapper<?> itemStackWrapper) {
+        Objects.requireNonNull(itemStackWrapper);
         this.getInventory().setItem(index, (ItemStack) itemStackWrapper.getItemStack());
     }
 
     @Override
-    public void updateItem(int index, PlayerWrapper<?> playerWrapper) {
+    public void updateItem(int index, @NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
         ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
         Player player = (Player) playerWrapper.getNative();
         ItemStack itemStack = itemStackWrapper.getItemStack();

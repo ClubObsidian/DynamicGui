@@ -21,9 +21,11 @@ import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BukkitEntityManager extends EntityManager {
 
@@ -41,8 +43,9 @@ public class BukkitEntityManager extends EntityManager {
     }
 
     @Override
-    public PlayerWrapper<?> createPlayerWrapper(Object player) {
-        return new BukkitPlayerWrapper<Player>((Player) player);
+    public PlayerWrapper<?> createPlayerWrapper(@NotNull Object player) {
+        Objects.requireNonNull(player);
+        return new BukkitPlayerWrapper<>((Player) player);
     }
 
     @Override

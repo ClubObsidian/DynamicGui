@@ -25,6 +25,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -35,6 +36,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -130,7 +132,8 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
+        Objects.requireNonNull(name);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.setDisplayName(name);
         this.getItemStack().setItemMeta(itemMeta);
@@ -164,14 +167,16 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void addEnchant(EnchantmentWrapper enchant) {
+    public void addEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.addEnchant(Enchantment.getByName(enchant.getEnchant()), enchant.getLevel(), true);
         this.getItemStack().setItemMeta(itemMeta);
     }
 
     @Override
-    public void removeEnchant(EnchantmentWrapper enchant) {
+    public void removeEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
         this.getItemStack().setItemMeta(itemMeta);
@@ -197,7 +202,8 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setNBT(String nbt) {
+    public void setNBT(@NotNull String nbt) {
+        Objects.requireNonNull(nbt);
         ItemStack oldItemStack = this.getItemStack();
         ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
 

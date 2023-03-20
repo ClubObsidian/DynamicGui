@@ -29,6 +29,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.apache.commons.lang3.SerializationUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -38,6 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SimpleGui implements Gui {
 
@@ -88,7 +90,8 @@ public class SimpleGui implements Gui {
         return Collections.unmodifiableMap(ids);
     }
 
-    public InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper) {
+    public InventoryWrapper<?> buildInventory(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
         if (this.isStatic && this.inventoryWrapper != null) { //Don't rebuild if gui is static
             return this.inventoryWrapper;
         }

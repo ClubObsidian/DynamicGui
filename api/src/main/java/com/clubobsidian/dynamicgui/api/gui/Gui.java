@@ -25,6 +25,7 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -45,7 +46,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
      * @param playerWrapper player wrapper to build the gui for
      * @return the built inventory wrapper
      */
-    InventoryWrapper<?> buildInventory(PlayerWrapper<?> playerWrapper);
+    InventoryWrapper<?> buildInventory(@NotNull PlayerWrapper<?> playerWrapper);
 
     /**
      * The name of the gui without file extension, for example given a

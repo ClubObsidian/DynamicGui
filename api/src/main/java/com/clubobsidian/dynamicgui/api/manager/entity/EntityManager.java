@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.manager.entity;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -36,7 +37,7 @@ public abstract class EntityManager {
      * @param player player to wrap
      * @return the wrapped played
      */
-    public abstract PlayerWrapper<?> createPlayerWrapper(Object player);
+    public abstract PlayerWrapper<?> createPlayerWrapper(@NotNull Object player);
 
     /**
      * Gets all the registered entity types

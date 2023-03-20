@@ -16,6 +16,10 @@
 
 package com.clubobsidian.dynamicgui.api.logger;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 public interface LoggerWrapper<T> {
 
     /**
@@ -33,7 +37,9 @@ public interface LoggerWrapper<T> {
      * @param message the message to log
      * @param args the args to log
      */
-    default void info(String message, Object... args) {
+    default void info(@NotNull String message, @NotNull Object... args) {
+        Objects.requireNonNull(message);
+        Objects.requireNonNull(args);
         this.info(String.format(message, args));
     }
 
@@ -42,7 +48,7 @@ public interface LoggerWrapper<T> {
      *
      * @param message the message to log
      */
-    void info(String message);
+    void info(@NotNull String message);
 
     /**
      * Logs the given formatted error message
@@ -51,7 +57,9 @@ public interface LoggerWrapper<T> {
      * @param message the message to log
      * @param args the args to log
      */
-    default void error(String message, Object... args) {
+    default void error(@NotNull String message, @NotNull Object... args) {
+        Objects.requireNonNull(message);
+        Objects.requireNonNull(args);
         this.error(String.format(message, args));
     }
 
