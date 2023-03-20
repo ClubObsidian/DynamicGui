@@ -70,6 +70,10 @@ public class MockFactory {
                 .defaultAnswer(Mockito.CALLS_REAL_METHODS));
     }
 
+    public MockPlayerWrapper createPlayer(MockPlayer player) {
+        return this.mock(MockPlayerWrapper.class, player);
+    }
+
     public MockPlayerWrapper createPlayer() {
         return this.mock(MockPlayerWrapper.class);
     }
