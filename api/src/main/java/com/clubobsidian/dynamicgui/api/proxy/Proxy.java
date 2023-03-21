@@ -70,18 +70,18 @@ public enum Proxy {
         }),
         NONE((platform, plugin, runnable) -> {});
 
-        private final Registerable registerable;
+        private final Registrable registrable;
 
-        Protocol(Registerable registerable) {
-            this.registerable = registerable;
+        Protocol(Registrable registrable) {
+            this.registrable = registrable;
         }
 
         public void register(Platform platform, DynamicGuiPlugin plugin, MessagingRunnable runnable) {
-            this.registerable.register(platform, plugin, runnable);
+            this.registrable.register(platform, plugin, runnable);
         }
 
         @FunctionalInterface
-        private interface Registerable  {
+        private interface Registrable {
 
             void register(Platform platform, DynamicGuiPlugin plugin, MessagingRunnable runnable);
 
