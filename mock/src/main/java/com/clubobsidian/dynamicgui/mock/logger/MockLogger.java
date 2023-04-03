@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.test.mock.logger;
+package com.clubobsidian.dynamicgui.mock.logger;
 
 import java.util.ArrayList;
 import java.util.List;

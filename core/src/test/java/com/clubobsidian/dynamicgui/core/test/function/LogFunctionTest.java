@@ -19,9 +19,9 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.function.LogFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.logger.MockLogger;
+import com.clubobsidian.dynamicgui.mock.logger.MockLoggerWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

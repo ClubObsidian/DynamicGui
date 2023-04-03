@@ -31,7 +31,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class FunctionTypeParserTest {
+public class FunctionTypeParserTest extends FactoryTest {
 
     @Test
     public void testLeft() {

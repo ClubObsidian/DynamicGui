@@ -38,8 +38,6 @@ import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrappe
 import com.clubobsidian.dynamicgui.core.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStack;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockDynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPermission;
@@ -48,6 +46,8 @@ import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
+import com.clubobsidian.dynamicgui.mock.logger.MockLogger;
+import com.clubobsidian.dynamicgui.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import org.mockito.Mockito;
 
