@@ -29,7 +29,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent;
-import com.clubobsidian.dynamicgui.core.gui.InventoryView;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryView;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;

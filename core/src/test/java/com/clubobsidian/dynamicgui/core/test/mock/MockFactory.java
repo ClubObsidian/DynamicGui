@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
-import com.clubobsidian.dynamicgui.core.gui.InventoryType;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
 import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
 import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;

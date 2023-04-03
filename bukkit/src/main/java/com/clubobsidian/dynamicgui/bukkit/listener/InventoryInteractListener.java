@@ -23,7 +23,7 @@ import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
 import com.clubobsidian.dynamicgui.core.event.inventory.Click;
-import com.clubobsidian.dynamicgui.core.gui.InventoryView;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryView;
 import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
 import com.clubobsidian.dynamicgui.api.factory.GuiFactory;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
@@ -31,11 +32,7 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public interface Gui extends Serializable, FunctionOwner, MetadataHolder, CloseableComponent {
@@ -163,12 +160,12 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         @Inject
         private static FunctionTreeFactory TREE_FACTORY;
 
-        private transient String name;
-        private transient String type;
+        private transient String name = UUID.randomUUID().toString();
+        private transient String type = InventoryType.CHEST.toString();
         private transient String title;
-        private transient int rows;
-        private transient Boolean close;
-        private transient GuiBuildType guiBuildType;
+        private transient int rows = 6;
+        private transient Boolean close = true;
+        private transient GuiBuildType guiBuildType = GuiBuildType.SET;
         private transient final Map<String, List<Integer>> npcIds = new HashMap<>();
         private transient final List<Slot> slots = new ArrayList<>();
         private transient final List<LocationWrapper<?>> locations = new ArrayList<>();

@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.gui;
+package com.clubobsidian.dynamicgui.api.inventory;
 
 public enum InventoryView {
 
