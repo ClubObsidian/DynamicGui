@@ -103,7 +103,8 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @return the custom name or null
      */
-    @Nullable public abstract String getName();
+    @Nullable
+    public abstract String getName();
 
     /**
      * Sets the custom name of the underlying item stack.
@@ -189,7 +190,8 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @return the item flags as a list of string
      */
-    @Unmodifiable public abstract List<String> getItemFlags();
+    @Unmodifiable
+    public abstract List<String> getItemFlags();
 
     /**
      * Adds a list of item flags to the underlying item stack.
@@ -231,7 +233,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
 
     /**
      * Checks if the item stack is air
-     *
+     * <p>
      * return if the stack is air
      */
     public abstract boolean isAir();

@@ -48,7 +48,6 @@ public abstract class DynamicGui {
 
     /**
      * Stops the DynamicGui instance
-     *
      */
     public abstract void stop();
 
@@ -76,6 +75,7 @@ public abstract class DynamicGui {
     /**
      * The current economy instance or
      * a no-op economy instance.
+     *
      * @return the economy instance used
      */
     public abstract Economy getEconomy();
@@ -83,6 +83,7 @@ public abstract class DynamicGui {
     /**
      * The currency permission instance or
      * a no-op permission instance.
+     *
      * @return the permission instance used
      */
     public abstract Permission getPermission();
@@ -137,7 +138,7 @@ public abstract class DynamicGui {
      * Sends a player to a server
      *
      * @param playerWrapper the player to send
-     * @param server the server to send them to
+     * @param server        the server to send them to
      * @return if the proxy is configured
      */
     public abstract boolean sendToServer(PlayerWrapper<?> playerWrapper, String server);

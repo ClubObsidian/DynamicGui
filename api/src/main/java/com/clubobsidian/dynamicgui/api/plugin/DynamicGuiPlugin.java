@@ -46,7 +46,7 @@ public interface DynamicGuiPlugin {
 
     @Deprecated(since = "6.0.0")
     @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
-    @Unmodifiable default List<NPCRegistry> getNPCRegistries() {
+    default @Unmodifiable List<NPCRegistry> getNPCRegistries() {
         return DynamicGui.get().getNpcRegistries();
     }
 

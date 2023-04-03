@@ -63,7 +63,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
     /**
      * Sets the ItemStackWrapper at a given index
      *
-     * @param index to set the ItemStackWrapper at
+     * @param index            to set the ItemStackWrapper at
      * @param itemStackWrapper the wrapper to set
      */
     public abstract void setItem(int index, @NotNull ItemStackWrapper<?> itemStackWrapper);
@@ -73,7 +73,7 @@ public abstract class InventoryWrapper<T> implements Serializable {
      * by not updating the physical item but with sending the
      * updated item to the player via packets.
      *
-     * @param index to update at
+     * @param index         to update at
      * @param playerWrapper the wrapper to update the item for
      */
     public abstract void updateItem(int index, @NotNull PlayerWrapper<?> playerWrapper);

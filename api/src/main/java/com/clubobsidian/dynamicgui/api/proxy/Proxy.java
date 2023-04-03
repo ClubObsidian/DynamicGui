@@ -68,7 +68,8 @@ public enum Proxy {
             platform.registerOutgoingPluginChannel(plugin, "BungeeCord");
             platform.registerIncomingPluginChannel(plugin, "RedisBungee", runnable);
         }),
-        NONE((platform, plugin, runnable) -> {});
+        NONE((platform, plugin, runnable) -> {
+        });
 
         private final Registrable registrable;
 

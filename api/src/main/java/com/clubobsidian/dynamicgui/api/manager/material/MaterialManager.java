@@ -36,8 +36,6 @@ public abstract class MaterialManager {
     public abstract List<String> getMaterials();
 
     /**
-     *
-     *
      * @param material
      * @return
      */

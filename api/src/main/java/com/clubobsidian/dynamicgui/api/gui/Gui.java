@@ -32,7 +32,12 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 public interface Gui extends Serializable, FunctionOwner, MetadataHolder, CloseableComponent {

@@ -35,7 +35,7 @@ public interface LoggerWrapper<T> {
      * using String.format(message, args)
      *
      * @param message the message to log
-     * @param args the args to log
+     * @param args    the args to log
      */
     default void info(@NotNull String message, @NotNull Object... args) {
         Objects.requireNonNull(message);
@@ -55,7 +55,7 @@ public interface LoggerWrapper<T> {
      * using String.format(message, args)
      *
      * @param message the message to log
-     * @param args the args to log
+     * @param args    the args to log
      */
     default void error(@NotNull String message, @NotNull Object... args) {
         Objects.requireNonNull(message);

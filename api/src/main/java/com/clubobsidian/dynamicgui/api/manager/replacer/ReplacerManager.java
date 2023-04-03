@@ -31,8 +31,6 @@ public abstract class ReplacerManager {
     }
 
     /**
-     *
-     *
      * @param text
      * @param playerWrapper
      * @return

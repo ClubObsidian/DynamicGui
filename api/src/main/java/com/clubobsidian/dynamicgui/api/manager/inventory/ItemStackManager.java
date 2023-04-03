@@ -29,14 +29,16 @@ public abstract class ItemStackManager {
     public static ItemStackManager get() {
         return instance;
     }
+
     /**
      * Creates a native item stack given a type and quantity
      *
-     * @param type the item type
+     * @param type     the item type
      * @param quantity the amount
      * @return the created native item stack
      */
-    @Nullable public abstract Object createItemStack(String type, int quantity);
+    @Nullable
+    public abstract Object createItemStack(String type, int quantity);
 
     /**
      * Crates an item stack wrapper around a native wrapper
@@ -44,16 +46,18 @@ public abstract class ItemStackManager {
      * @param itemStack a native item stack
      * @return the item wrapper
      */
-    @Nullable public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
+    @Nullable
+    public abstract ItemStackWrapper<?> createItemStackWrapper(Object itemStack);
 
     /**
      * Creates an item stack wrapper around a native wrapper
      *
-     * @param type type the item type
+     * @param type     type the item type
      * @param quantity the amount
      * @return the item wrapper
      */
-    @Nullable public ItemStackWrapper<?> createItemStackWrapper(String type, int quantity) {
+    @Nullable
+    public ItemStackWrapper<?> createItemStackWrapper(String type, int quantity) {
         Object itemStack = this.createItemStack(type, quantity);
         return this.createItemStackWrapper(itemStack);
     }

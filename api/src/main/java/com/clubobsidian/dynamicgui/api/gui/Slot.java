@@ -503,7 +503,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         /**
          * Adds metadata to the slot
          *
-         * @param key to add
+         * @param key   to add
          * @param value to add
          * @return this builder
          */
@@ -537,13 +537,13 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          */
         public Builder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper) {
             return this.setIcon(itemStackWrapper.getType())
-            .setName(itemStackWrapper.getName())
-            .setNBT(itemStackWrapper.getNBT())
-            .setData(itemStackWrapper.getDurability())
-            .setAmount(itemStackWrapper.getAmount())
-            .addLore(itemStackWrapper.getLore())
-            .addItemFlag(itemStackWrapper.getItemFlags())
-            .addEnchant(itemStackWrapper.getEnchants());
+                    .setName(itemStackWrapper.getName())
+                    .setNBT(itemStackWrapper.getNBT())
+                    .setData(itemStackWrapper.getDurability())
+                    .setAmount(itemStackWrapper.getAmount())
+                    .addLore(itemStackWrapper.getLore())
+                    .addItemFlag(itemStackWrapper.getItemFlags())
+                    .addEnchant(itemStackWrapper.getEnchants());
         }
 
         /**

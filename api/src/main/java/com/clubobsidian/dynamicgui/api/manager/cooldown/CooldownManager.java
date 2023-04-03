@@ -38,7 +38,7 @@ public abstract class CooldownManager {
      * Gets the remaining cooldown in milliseconds.
      *
      * @param playerWrapper the player wrapper to check the remaining cooldown for
-     * @param name the name of the cooldown
+     * @param name          the name of the cooldown
      * @return the cooldown or -1 if no cooldown exists
      */
     public abstract long getRemainingCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name);
@@ -51,6 +51,7 @@ public abstract class CooldownManager {
      * @return the cooldown or -1 if no cooldown exists
      */
     public abstract long getRemainingCooldown(@NotNull UUID uuid, @NotNull String name);
+
     /**
      * Gets the remaining cooldown in milliseconds.
      *
@@ -73,7 +74,7 @@ public abstract class CooldownManager {
      * Check if the cooldown is on cooldown
      *
      * @param playerWrapper the playerWrapper to check for
-     * @param name the name of the cooldown to check for
+     * @param name          the name of the cooldown to check for
      * @return if the given named cooldown is on cooldown
      */
     public boolean isOnCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name) {
@@ -97,7 +98,8 @@ public abstract class CooldownManager {
      * @param playerWrapper the playerWrapper to check for
      * @return if the given named cooldown is on cooldown
      */
-    @Unmodifiable public List<Cooldown> getCooldowns(@NotNull PlayerWrapper<?> playerWrapper) {
+    @Unmodifiable
+    public List<Cooldown> getCooldowns(@NotNull PlayerWrapper<?> playerWrapper) {
         Objects.requireNonNull(playerWrapper);
         UUID uuid = playerWrapper.getUniqueId();
         return this.getCooldowns(uuid);
@@ -109,13 +111,14 @@ public abstract class CooldownManager {
      * @param uuid the uuid to check for
      * @return if the given named cooldown is on cooldown
      */
-    @Unmodifiable public abstract List<Cooldown> getCooldowns(@NotNull UUID uuid);
+    @Unmodifiable
+    public abstract List<Cooldown> getCooldowns(@NotNull UUID uuid);
 
     /**
      * Creates a cooldown
      *
-     * @param playerWrapper the playerWrapper to create a cooldown for
-     * @param name the name of the cooldown
+     * @param playerWrapper    the playerWrapper to create a cooldown for
+     * @param name             the name of the cooldown
      * @param cooldownDuration the duration of the cooldown in milliseconds
      * @return the created cooldown
      */
@@ -128,8 +131,8 @@ public abstract class CooldownManager {
     /**
      * Creates a cooldown
      *
-     * @param uuid the uuid to create a cooldown for
-     * @param name the name of the cooldown
+     * @param uuid             the uuid to create a cooldown for
+     * @param name             the name of the cooldown
      * @param cooldownDuration the duration of the cooldown in milliseconds
      * @return the created cooldown
      */
@@ -139,7 +142,7 @@ public abstract class CooldownManager {
      * Removes a cooldown for a player
      *
      * @param playerWrapper the playerWrapper to remove from
-     * @param name the name of the cooldown
+     * @param name          the name of the cooldown
      * @return if the cooldown was removed
      */
     public boolean removeCooldown(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String name) {
@@ -157,7 +160,6 @@ public abstract class CooldownManager {
 
     /**
      * Shuts down and saves the cooldown manager
-     *
      */
     public abstract void shutdown();
 

@@ -43,10 +43,9 @@ public abstract class FunctionManager {
     /**
      * Gets a registered function
      *
-     * @deprecated As of release 6.0.0, replaced by {@link #getFunction(String)}
-     *
      * @param functionName function name to get
      * @return the function if registered or null
+     * @deprecated As of release 6.0.0, replaced by {@link #getFunction(String)}
      */
     @Deprecated(since = "6.0.0", forRemoval = true)
     @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
@@ -62,15 +61,15 @@ public abstract class FunctionManager {
      */
     public abstract @Nullable Function getFunction(@NotNull String functionName);
 
-    public @Unmodifiable abstract Collection<Function> getFunctions();
+    public @Unmodifiable
+    abstract Collection<Function> getFunctions();
 
     /**
      * Registers a function
-     * 
-     * @deprecated As of release 6.0.0, replaced by {@link #registerFunction(Function)}
      *
      * @param function function to register
      * @return if the function was registered
+     * @deprecated As of release 6.0.0, replaced by {@link #registerFunction(Function)}
      */
     @Deprecated(since = "6.0.0", forRemoval = true)
     @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
@@ -89,10 +88,9 @@ public abstract class FunctionManager {
     /**
      * Unregisters a function
      *
-     * @deprecated As of release 6.0.0, replaced by {@link #unregisterFunction(String)}
-     *
      * @param functionName name of the function to unregister
      * @return if the function was unregistered
+     * @deprecated As of release 6.0.0, replaced by {@link #unregisterFunction(String)}
      */
     @Deprecated(since = "6.0.0", forRemoval = true)
     @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")

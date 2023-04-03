@@ -63,7 +63,8 @@ public abstract class GuiManager {
      * @param name the name of the gui
      * @return a gui or null if it does not exist
      */
-    @Nullable public abstract Gui getGui(String name);
+    @Nullable
+    public abstract Gui getGui(String name);
 
     /**
      * Reloads the guis, if force is true then
@@ -79,7 +80,8 @@ public abstract class GuiManager {
      *
      * @return list of loaded guis
      */
-    @Unmodifiable public abstract List<Gui> getGuis();
+    @Unmodifiable
+    public abstract List<Gui> getGuis();
 
     /**
      * Gets an unmodifiable map of all open
@@ -87,11 +89,13 @@ public abstract class GuiManager {
      *
      * @return map of player guis
      */
-    @Unmodifiable public Map<UUID, Gui> getPlayerGuis() {
+    @Unmodifiable
+    public Map<UUID, Gui> getPlayerGuis() {
         return Collections.unmodifiableMap(this.getPlayerGuisInternal());
     }
 
-    @ApiStatus.Internal protected abstract Map<UUID, Gui> getPlayerGuisInternal();
+    @ApiStatus.Internal
+    protected abstract Map<UUID, Gui> getPlayerGuisInternal();
 
 
     /**
@@ -133,14 +137,15 @@ public abstract class GuiManager {
      * @param playerWrapper the player to check
      * @return the gui the player has in the cache or null
      */
-    @Nullable public Gui getPlayerGui(PlayerWrapper<?> playerWrapper) {
+    @Nullable
+    public Gui getPlayerGui(PlayerWrapper<?> playerWrapper) {
         return this.getPlayerGuisInternal().get(playerWrapper.getUniqueId());
     }
 
     /**
      * Opens a gui for a player.
      *
-     * @param player native player object to open the gui for
+     * @param player  native player object to open the gui for
      * @param guiName name of the gui to open
      * @return a boolean future that returns true if the gui was opened
      */
@@ -152,7 +157,7 @@ public abstract class GuiManager {
      * Opens a gui for a player.
      *
      * @param player native player object to open the gui for
-     * @param gui the gui to open
+     * @param gui    the gui to open
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(Object player, Gui gui) {
@@ -163,7 +168,7 @@ public abstract class GuiManager {
      * Opens a gui for a player.
      *
      * @param playerWrapper player wrapper to open the gui for
-     * @param guiName name of the gui to open
+     * @param guiName       name of the gui to open
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName) {
@@ -174,8 +179,8 @@ public abstract class GuiManager {
      * Opens a gui for a player.
      *
      * @param playerWrapper player wrapper to open the gui for
-     * @param guiName name of the gui to open
-     * @param back the gui to set as a back gui
+     * @param guiName       name of the gui to open
+     * @param back          the gui to set as a back gui
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
@@ -186,7 +191,7 @@ public abstract class GuiManager {
      * Opens a gui for a player.
      *
      * @param playerWrapper player wrapper to open the gui for
-     * @param gui the gui to open
+     * @param gui           the gui to open
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
@@ -197,8 +202,8 @@ public abstract class GuiManager {
      * Opens a gui for a player.
      *
      * @param playerWrapper player wrapper to open the gui for
-     * @param gui the gui to open
-     * @param back the gui to set as a back gui
+     * @param gui           the gui to open
+     * @param back          the gui to set as a back gui
      * @return a boolean future that returns true if the gui was opened
      */
     public abstract CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back);

@@ -32,7 +32,7 @@ public abstract class InventoryManager {
     /**
      * Creates a native inventory given a size and title.
      *
-     * @param size the size of the gui, should be dividable by 9
+     * @param size  the size of the gui, should be dividable by 9
      * @param title the title of the inventory
      * @return the created native inventory
      */
@@ -42,7 +42,7 @@ public abstract class InventoryManager {
      * Creates a native inventory with the default size with a given title and type.
      *
      * @param title the title of the inventory
-     * @param type the type of inventory
+     * @param type  the type of inventory
      * @return the created native inventory
      */
     public abstract Object createInventory(String title, String type);
@@ -58,7 +58,7 @@ public abstract class InventoryManager {
     /**
      * Creates an inventory wrapper
      *
-     * @param size the size of the gui, should be dividable by 9
+     * @param size  the size of the gui, should be dividable by 9
      * @param title the title of the inventory
      * @return an inventory wrapper
      */
