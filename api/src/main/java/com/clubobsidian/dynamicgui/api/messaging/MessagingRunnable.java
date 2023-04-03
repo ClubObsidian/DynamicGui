@@ -17,8 +17,10 @@
 package com.clubobsidian.dynamicgui.api.messaging;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import org.jetbrains.annotations.ApiStatus;
 
 @FunctionalInterface
+@ApiStatus.Internal
 public interface MessagingRunnable {
 
     void run(PlayerWrapper<?> playerWrapper, byte[] message);
