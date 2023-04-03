@@ -20,8 +20,8 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.core.function.SetMovableFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

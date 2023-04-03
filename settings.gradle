@@ -12,4 +12,7 @@ include 'core'
 include 'bukkit'
 include 'parser'
 include 'api'
+include 'mock'
+include 'cloud'
+include 'inject'
 

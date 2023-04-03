@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly("cloud.commandframework:cloud-core:$cloudVersion")
+}

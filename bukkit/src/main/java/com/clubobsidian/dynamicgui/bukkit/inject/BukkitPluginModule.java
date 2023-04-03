@@ -34,10 +34,10 @@ import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManag
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
-import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
+import com.clubobsidian.dynamicgui.core.inject.module.CorePluginModule;
+import com.clubobsidian.dynamicgui.cloud.CloudManager;
 
-public class BukkitPluginModule extends PluginModule {
+public class BukkitPluginModule extends CorePluginModule {
 
     public BukkitPluginModule(DynamicGuiPlugin plugin,
                               Platform platform,

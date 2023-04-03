@@ -308,6 +308,11 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
             return this;
         }
 
+        public Builder addSlot(Collection<Slot> slots) {
+            slots.forEach(this::addSlot);
+            return this;
+        }
+
         /**
          * Adds a location the gui should be able to be opened from
          *

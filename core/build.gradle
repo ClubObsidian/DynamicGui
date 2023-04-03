@@ -11,9 +11,12 @@ dependencies {
     api 'com.github.clubobsidian:trident:d814584a88'
     api project(path: ':api')
     api project(path: ':parser')
+    api project(path: ':cloud')
+    api project(path: ':inject')
+    testImplementation(project(path: ':mock'))
     api 'com.udojava:EvalEx:2.1'
     api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-    api 'com.google.inject:guice:5.1.0'
+    api("com.google.inject:guice:$guiceVersion")
     api "net.kyori:adventure-text-minimessage:$adventureVersion"
     api "net.kyori:adventure-text-serializer-gson:$adventureVersion"
     api "net.kyori:adventure-text-serializer-legacy:$adventureVersion"

@@ -1,0 +1,5 @@
+dependencies {
+    compileOnly project(path: ':api')
+    compileOnly project(path: ':cloud')
+    compileOnly("com.google.inject:guice:$guiceVersion")
+}

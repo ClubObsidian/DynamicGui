@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.config;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

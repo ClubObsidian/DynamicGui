@@ -42,7 +42,7 @@ import com.clubobsidian.dynamicgui.api.registry.replacer.MetadataReplacerRegistr
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.ConfigImpl;
 import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
@@ -51,7 +51,7 @@ import com.clubobsidian.dynamicgui.core.listener.GuiListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
 import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
 import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
-import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
+import com.clubobsidian.dynamicgui.cloud.CloudManager;
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.wrappy.Configuration;

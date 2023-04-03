@@ -18,8 +18,8 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.function.ConsoleCommandFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

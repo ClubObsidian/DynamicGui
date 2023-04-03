@@ -1,0 +1,7 @@
+dependencies {
+    compileOnly project(path: ':api')
+    compileOnly project(path: ':cloud')
+    compileOnly project(path: ':inject')
+    compileOnly("org.mockito:mockito-core:$mockitoVersion")
+    compileOnly("cloud.commandframework:cloud-core:$cloudVersion")
+}

@@ -230,7 +230,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         @Inject
         private static FunctionTreeFactory TREE_FACTORY;
 
-        private transient String icon;
+        private transient String type;
         private transient String name;
         private transient String nbt;
         private transient short data = 0;
@@ -250,13 +250,13 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
 
 
         /**
-         * Sets the icon for the slot
+         * Sets the type of the slot
          *
-         * @param icon to set
+         * @param type to set
          * @return this builder
          */
-        public Builder setIcon(String icon) {
-            this.icon = icon;
+        public Builder setType(String type) {
+            this.type = type;
             return this;
         }
 
@@ -536,7 +536,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          * @return this builder
          */
         public Builder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper) {
-            return this.setIcon(itemStackWrapper.getType())
+            return this.setType(itemStackWrapper.getType())
             .setName(itemStackWrapper.getName())
             .setNBT(itemStackWrapper.getNBT())
             .setData(itemStackWrapper.getDurability())

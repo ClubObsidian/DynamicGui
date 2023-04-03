@@ -17,17 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.command;
 
 import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.arguments.standard.BooleanArgument;
-import cloud.commandframework.arguments.standard.ByteArgument;
-import cloud.commandframework.arguments.standard.CharArgument;
-import cloud.commandframework.arguments.standard.DoubleArgument;
-import cloud.commandframework.arguments.standard.FloatArgument;
-import cloud.commandframework.arguments.standard.IntegerArgument;
-import cloud.commandframework.arguments.standard.LongArgument;
-import cloud.commandframework.arguments.standard.ShortArgument;
-import cloud.commandframework.arguments.standard.StringArgument;
-import cloud.commandframework.arguments.standard.UUIDArgument;
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.cloud.CloudArgument;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

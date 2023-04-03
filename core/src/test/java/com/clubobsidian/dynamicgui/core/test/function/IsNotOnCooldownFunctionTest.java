@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.function.cooldown.IsNotOnCooldownFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.DynamicGuiImpl;
 import com.clubobsidian.dynamicgui.core.function.SendFunction;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

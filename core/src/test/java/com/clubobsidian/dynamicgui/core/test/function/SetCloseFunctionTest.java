@@ -20,9 +20,9 @@ import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.core.function.SetCloseFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.gui.MockCloseableFunctionOwner;
-import com.clubobsidian.dynamicgui.core.test.mock.gui.MockNonCloseableFunctionOwner;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.gui.MockCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.mock.gui.MockNonCloseableFunctionOwner;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -18,8 +18,8 @@ package com.clubobsidian.dynamicgui.core.test.proxy;
 
 import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.proxy.Proxy;
-import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.plugin.MockPlatform;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;

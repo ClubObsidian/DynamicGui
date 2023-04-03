@@ -19,8 +19,8 @@ package com.clubobsidian.dynamicgui.core.test.function;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.function.SetGameRuleFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
-import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.world.MockWorldWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

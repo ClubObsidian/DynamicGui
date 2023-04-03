@@ -21,8 +21,8 @@ import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
-import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.test.ScheduledTest;
+import com.clubobsidian.dynamicgui.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.mock.test.ScheduledTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -20,8 +20,8 @@ import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.core.function.SoundFunction;
-import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import com.clubobsidian.dynamicgui.mock.entity.player.MockPlayerWrapper;
+import com.clubobsidian.dynamicgui.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
