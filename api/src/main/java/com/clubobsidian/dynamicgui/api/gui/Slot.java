@@ -233,9 +233,9 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         private transient String icon;
         private transient String name;
         private transient String nbt;
-        private transient short data;
-        private transient boolean glow;
-        private transient boolean movable;
+        private transient short data = 0;
+        private transient boolean glow = false;
+        private transient boolean movable = false;
         private transient Boolean close;
         private transient final List<String> lore = new ArrayList<>();
         private transient final List<EnchantmentWrapper> enchants = new ArrayList<>();
