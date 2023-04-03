@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.function;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionTypeParser;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
@@ -42,9 +43,10 @@ public class SimpleFunctionTypeParser implements FunctionTypeParser {
         List<FunctionType> typesList = new ArrayList<>();
         for (String type : types) {
             FunctionType parsedType = this.parseType(type);
-            if (parsedType == null)
-                continue; //TODO - warn
-
+            if (parsedType == null) {
+                DynamicGui.get().getLogger().error("Invalid function type %s", type);
+                continue;
+            }
             typesList.add(parsedType);
         }
         return typesList;
