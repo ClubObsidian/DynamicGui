@@ -34,16 +34,15 @@ import java.util.concurrent.TimeUnit;
 
 public class EntityClickListener {
 
-    private Debouncer<NPC> npcDebouncer = new CaffeineDebouncer<>(1, TimeUnit.SECONDS);
+    private final Debouncer<NPC> npcDebouncer = new CaffeineDebouncer<>(1, TimeUnit.SECONDS);
 
     @EventHandler
     public void onNPCClick(PlayerInteractEntityEvent e) {
         if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
             return;
         }
-
         EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-        List<NPCRegistry> registries = DynamicGui.get().getPlugin().getNPCRegistries();
+        List<NPCRegistry> registries = DynamicGui.get().getNpcRegistries();
         for (NPCRegistry registry : registries) {
             for (Gui gui : GuiManager.get().getGuis()) {
                 Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
@@ -51,7 +50,6 @@ public class EntityClickListener {
                     Entry<String, List<Integer>> next = it.next();
                     String registryName = next.getKey();
                     List<Integer> ids = next.getValue();
-
                     if (registryName.equalsIgnoreCase(registry.getName())) {
                         NPC npc = registry.getNPC(entityWrapper);
                         if (npc != null) {
