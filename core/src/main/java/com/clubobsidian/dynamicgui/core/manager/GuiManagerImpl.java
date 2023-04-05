@@ -330,7 +330,7 @@ public class GuiManagerImpl extends GuiManager {
                 }
 
                 this.guis.put(guiName, cachedGui);
-                dynamicGui.getLogger().info("Cached gui '%s' has been loaded!",  guiName);
+                dynamicGui.getLogger().info("Cached gui '%s' has been loaded!", guiName);
             } else {
                 this.guiHashes.put(guiName, guiHash);
                 this.loadGuiFromConfiguration(guiName, yaml);
@@ -379,7 +379,7 @@ public class GuiManagerImpl extends GuiManager {
             e.printStackTrace();
             DynamicGui.get().getLogger().error(
                     "An error occured when loading from the url '%s' " +
-                    "please ensure you have the correct url.",
+                            "please ensure you have the correct url.",
                     strUrl
             );
         }

@@ -72,7 +72,7 @@ public class HasMetadataFunction extends Function {
             try {
                 index = Integer.valueOf(first);
             } catch (Exception ex) {
-                DynamicGui.get().getLogger().error("Invalid index '%s' in HasMetadata function",  first);
+                DynamicGui.get().getLogger().error("Invalid index '%s' in HasMetadata function", first);
                 return false;
             }
             for (Slot s : gui.getSlots()) {

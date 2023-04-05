@@ -171,7 +171,8 @@ public class SimpleGui implements Gui {
         return this.rows;
     }
 
-    @Unmodifiable public List<Slot> getSlots() {
+    @Unmodifiable
+    public List<Slot> getSlots() {
         return Collections.unmodifiableList(this.slots);
     }
 

@@ -30,7 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProxyTest extends FactoryTest {
 
-    private static final MessagingRunnable RUNNABLE = (wrapper, data) -> {};
+    private static final MessagingRunnable RUNNABLE = (wrapper, data) -> {
+    };
 
     @Test
     public void noNullAliasesTest() {
