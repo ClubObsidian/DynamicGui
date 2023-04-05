@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
+import com.clubobsidian.dynamicgui.parser.test.FactoryTest;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InvalidFunctionTypeMacroTest {
+public class InvalidFunctionTypeMacroTest extends FactoryTest {
 
 
     @Test
