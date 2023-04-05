@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.model;
 
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.core.registry.model.ModelProvider;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.model.ModelProvider;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;

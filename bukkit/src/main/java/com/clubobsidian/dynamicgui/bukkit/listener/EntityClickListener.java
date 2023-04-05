@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,26 +16,30 @@
 
 package com.clubobsidian.dynamicgui.bukkit.listener;
 
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitEntityWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
+import javax.inject.Inject;
+
 public class EntityClickListener implements Listener {
+
+    @Inject
+    private EventBus eventBus;
 
     @EventHandler
     public void onEntityClick(PlayerInteractEntityEvent e) {
         if (e.getRightClicked() != null) {
-            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-            EntityWrapper<Entity> entityWrapper = new BukkitEntityWrapper<Entity>(e.getRightClicked());
-
-            DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
+            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<>(e.getPlayer());
+            EntityWrapper<Entity> entityWrapper = new BukkitEntityWrapper<>(e.getRightClicked());
+            this.eventBus.callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent(playerWrapper, entityWrapper));
         }
     }
 }

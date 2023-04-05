@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,21 +16,20 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.event.inventory.Click;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryClickEvent;
 import com.clubobsidian.dynamicgui.core.event.inventory.InventoryDragEvent;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.InventoryView;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.FunctionManager;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryView;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;
@@ -61,7 +60,7 @@ public class InventoryInteractListener {
         } else if (item.getItemStack() == null) {
             return;
         } else if (e.getView() == InventoryView.BOTTOM) {
-            if (e.getClick() == Click.SHIFT_LEFT || e.getClick() == Click.SHIFT_RIGHT) {
+            if (e.getClick().isShift()) {
                 if (!this.canStack(gui, e.getInventoryWrapper(), item)) {
                     this.cancelClick(e);
                 }

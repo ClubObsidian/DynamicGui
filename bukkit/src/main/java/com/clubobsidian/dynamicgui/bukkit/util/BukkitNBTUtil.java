@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -29,32 +29,43 @@ public final class BukkitNBTUtil {
             "net.minecraft.world.item.ItemStack",
             "net.minecraft.server." + VERSION + ".ItemStack"
     );
+    private static final Class<?> CRAFT_ITEM_STACK_CLASS = ReflectionUtil.getClassIfExists(
+            "org.bukkit.craftbukkit." + VERSION + ".inventory.CraftItemStack"
+    );
     private static final Class<?> COMPOUND_CLASS = ReflectionUtil.getClassIfExists(
             "net.minecraft.nbt.NBTTagCompound",
-            "net.minecraft.server." + VERSION + ".NBTTagCompound"
+            "net.minecraft.server." + VERSION + ".NBTTagCompound",
+            "net.minecraft.nbt.CompoundTag"
     );
     private static final Class<?> PARSER_CLASS = ReflectionUtil.getClassIfExists(
             "net.minecraft.nbt.MojangsonParser",
-            "net.minecraft.server." + VERSION + ".MojangsonParser"
+            "net.minecraft.server." + VERSION + ".MojangsonParser",
+            "net.minecraft.nbt.TagParser"
+    );
+    private static final Method AS_BUKKIT_COPY = ReflectionUtil.getStaticMethod(
+            CRAFT_ITEM_STACK_CLASS,
+            CRAFT_ITEM_STACK_CLASS,
+            NMS_ITEM_STACK_CLASS
+    );
+    private static final Method AS_NMS_COPY = ReflectionUtil.getStaticMethod(
+            CRAFT_ITEM_STACK_CLASS,
+            NMS_ITEM_STACK_CLASS,
+            ItemStack.class
+    );
+    private static final Method GET_COMPOUND_TAG = ReflectionUtil.getMethodByReturnType(
+            NMS_ITEM_STACK_CLASS,
+            COMPOUND_CLASS,
+            new Class<?>[0]
     );
 
-    private static Method parse;
-    private static Method asNMSCopy;
-    private static Method setTag;
-    private static Method asBukkitCopy;
-    private static Method getTag;
+
+    private static final Method PARSE = ReflectionUtil.getStaticMethod(PARSER_CLASS, COMPOUND_CLASS);
+    private static final Method SET_TAG = ReflectionUtil.getMethod(NMS_ITEM_STACK_CLASS, "setTag", "setTagClone");
+
 
     public static Object parse(String nbtStr) {
-        if (parse == null) {
-            try {
-                parse = ReflectionUtil.getStaticMethod(PARSER_CLASS, COMPOUND_CLASS);
-                parse.setAccessible(true);
-            } catch (NullPointerException | SecurityException e) {
-                e.printStackTrace();
-            }
-        }
         try {
-            return parse.invoke(null, nbtStr);
+            return PARSE.invoke(null, nbtStr);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,84 +73,34 @@ public final class BukkitNBTUtil {
     }
 
     public static String getTag(ItemStack itemStack) {
-        String version = VersionUtil.getVersion();
         try {
-            if (asNMSCopy == null) {
-                String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
-                Class<?> craftItemStackClass;
-                craftItemStackClass = Class.forName(craftItemStackClassName);
-                asNMSCopy = craftItemStackClass.getDeclaredMethod("asNMSCopy", ItemStack.class);
-                asNMSCopy.setAccessible(true);
-            }
-
-            if (getTag == null) {
-                getTag = NMS_ITEM_STACK_CLASS.getDeclaredMethod("getTag");
-                getTag.setAccessible(true);
-            }
-
-            if (asBukkitCopy == null) {
-                String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
-                Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
-                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", NMS_ITEM_STACK_CLASS);
-                asBukkitCopy.setAccessible(true);
-            }
-
-            Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
-            Object tag = getTag.invoke(nmsItemStack);
+            Object nmsItemStack = AS_NMS_COPY.invoke(null, itemStack);
+            Object tag = GET_COMPOUND_TAG.invoke(nmsItemStack);
             if (tag == null) {
                 return null;
             }
-
             return tag.toString();
-        } catch (ClassNotFoundException | NoSuchMethodException |
-                SecurityException | IllegalAccessException |
-                IllegalArgumentException | InvocationTargetException |
-                NullPointerException e) {
+        } catch (SecurityException | IllegalAccessException |
+                 IllegalArgumentException | InvocationTargetException |
+                 NullPointerException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     public static ItemStack setTag(ItemStack itemStack, String nbt) {
-        String version = VersionUtil.getVersion();
         try {
-            if (asNMSCopy == null) {
-                String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
-                Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
-                asNMSCopy = craftItemStackClass.getDeclaredMethod("asNMSCopy", ItemStack.class);
-                asNMSCopy.setAccessible(true);
-            }
-
-            if (setTag == null) {
-                getSetTagMethod();
-            }
-
-            if (asBukkitCopy == null) {
-                String craftItemStackClassName = "org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack";
-                Class<?> craftItemStackClass = Class.forName(craftItemStackClassName);
-                asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", NMS_ITEM_STACK_CLASS);
-                asBukkitCopy.setAccessible(true);
-            }
-
-            Object nmsItemStack = asNMSCopy.invoke(null, itemStack);
+            Object nmsItemStack = AS_NMS_COPY.invoke(null, itemStack);
             Object nbtCompound = BukkitNBTUtil.parse(nbt);
-            Object invokedSetTag = setTag.invoke(nmsItemStack, nbtCompound);
-            nmsItemStack = setTag.getReturnType().equals(void.class) ? nmsItemStack : invokedSetTag;
-            ItemStack bukkitItemStack = (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
+            Object invokedSetTag = SET_TAG.invoke(nmsItemStack, nbtCompound);
+            nmsItemStack = SET_TAG.getReturnType().equals(void.class) ? nmsItemStack : invokedSetTag;
+            ItemStack bukkitItemStack = (ItemStack) AS_BUKKIT_COPY.invoke(null, nmsItemStack);
             return bukkitItemStack;
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (SecurityException | IllegalAccessException |
+                 IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private static void getSetTagMethod() {
-        try {
-            setTag = ReflectionUtil.getMethod(NMS_ITEM_STACK_CLASS, "setTag", "setTagClone");
-            setTag.setAccessible(true);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
     }
 
     private BukkitNBTUtil() {

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.bukkit.listener;
 
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
+import com.clubobsidian.trident.EventBus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,26 +29,31 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 
+import javax.inject.Inject;
+
 public class InventoryCloseListener implements Listener {
+
+    @Inject
+    private EventBus eventBus;
 
     @EventHandler
     public void inventoryClose(InventoryCloseEvent e) {
         if (e.getPlayer() instanceof Player) {
-            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>((Player) e.getPlayer());
-            InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<Inventory>(e.getInventory());
-            DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
+            PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<>((Player) e.getPlayer());
+            InventoryWrapper<Inventory> inventoryWrapper = new BukkitInventoryWrapper<>(e.getInventory());
+            this.eventBus.callEvent(new com.clubobsidian.dynamicgui.core.event.inventory.InventoryCloseEvent(playerWrapper, inventoryWrapper));
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-        DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.player.PlayerQuitEvent(playerWrapper));
+        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<>(e.getPlayer());
+        this.eventBus.callEvent(new com.clubobsidian.dynamicgui.core.event.player.PlayerQuitEvent(playerWrapper));
     }
 
     @EventHandler
     public void onKick(PlayerKickEvent e) {
-        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<Player>(e.getPlayer());
-        DynamicGui.get().getEventBus().callEvent(new com.clubobsidian.dynamicgui.core.event.player.PlayerKickEvent(playerWrapper));
+        PlayerWrapper<Player> playerWrapper = new BukkitPlayerWrapper<>(e.getPlayer());
+        this.eventBus.callEvent(new com.clubobsidian.dynamicgui.core.event.player.PlayerKickEvent(playerWrapper));
     }
 }

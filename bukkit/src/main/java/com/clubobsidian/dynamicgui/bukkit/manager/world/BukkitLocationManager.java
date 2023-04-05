@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.world;
 
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
-import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 import org.bukkit.Location;
 import org.bukkit.World;
 

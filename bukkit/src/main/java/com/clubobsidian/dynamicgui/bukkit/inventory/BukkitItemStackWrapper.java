@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,22 +16,27 @@
 
 package com.clubobsidian.dynamicgui.bukkit.inventory;
 
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrapper<T> {
 
@@ -105,7 +110,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         }
 
         String normalizedType = MaterialManager.get().normalizeMaterial(type);
-        Material mat = null;
+        Material mat;
 
         try {
             mat = Material.valueOf(normalizedType);
@@ -118,7 +123,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public String getName() {
+    public @Nullable String getName() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         if (itemMeta.hasDisplayName()) {
             return itemMeta.getDisplayName();
@@ -127,7 +132,8 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
+        Objects.requireNonNull(name);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.setDisplayName(name);
         this.getItemStack().setItemMeta(itemMeta);
@@ -161,14 +167,16 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void addEnchant(EnchantmentWrapper enchant) {
+    public void addEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.addEnchant(Enchantment.getByName(enchant.getEnchant()), enchant.getLevel(), true);
         this.getItemStack().setItemMeta(itemMeta);
     }
 
     @Override
-    public void removeEnchant(EnchantmentWrapper enchant) {
+    public void removeEnchant(@NotNull EnchantmentWrapper enchant) {
+        Objects.requireNonNull(enchant);
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         itemMeta.removeEnchant(Enchantment.getByName(enchant.getEnchant()));
         this.getItemStack().setItemMeta(itemMeta);
@@ -194,7 +202,8 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public void setNBT(String nbt) {
+    public void setNBT(@NotNull String nbt) {
+        Objects.requireNonNull(nbt);
         ItemStack oldItemStack = this.getItemStack();
         ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
 
@@ -239,6 +248,17 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
         }
         item.setItemMeta(meta);
+    }
+
+    @Override
+    public @Unmodifiable List<String> getItemFlags() {
+        List<String> flags = new ArrayList<>();
+        ItemStack item = this.getItemStack();
+        ItemMeta meta = item.getItemMeta();
+        for (ItemFlag flag : meta.getItemFlags()) {
+            flags.add(flag.name());
+        }
+        return Collections.unmodifiableList(flags);
     }
 
     @Override
@@ -287,6 +307,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean isAir() {
+        return this.itemStack == null || this.itemStack.getType() == Material.AIR;
     }
 
     @Override

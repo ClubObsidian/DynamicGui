@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,14 +27,14 @@ public class FunctionModifierTest {
     @Test
     public void testHasNotModifier() {
         FunctionModifier modifier = FunctionModifier.findModifier("!aaa");
-        assertEquals(modifier, FunctionModifier.NOT);
+        Assertions.assertEquals(modifier, FunctionModifier.NOT);
     }
 
 
     @Test
     public void testNoModifier() {
         FunctionModifier modifier = FunctionModifier.findModifier("aaa");
-        assertEquals(modifier, FunctionModifier.NONE);
+        Assertions.assertEquals(modifier, FunctionModifier.NONE);
     }
 
 }

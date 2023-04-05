@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -21,12 +21,11 @@ import java.util.function.Function;
 public final class Constant {
 
     public static final String GUI_BASE_PERMISSION = "dynamicgui.command.gui";
-    public static final Function<String, String> GUI_PERMISSION = (gui) -> GUI_BASE_PERMISSION + "." + gui;
-    public static final String DYNAMIC_GUI_COMMAND_BASE_PERMISSION = "dynamicgui.command.admin";
-    public static final String DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".reload";
-    public static final String DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".close";
-    public static final String DYNAMIC_GUI_LIST_PERMISSION = DYNAMIC_GUI_COMMAND_BASE_PERMISSION + ".list";
-    public static final String NAMESPACE = "dynamicgui";
+    public static final Function<String, String> GUI_COMMAND_PERMISSION = (gui) -> GUI_BASE_PERMISSION + "." + gui;
+    public static final String ADMIN_BASE_PERMISSION = "dynamicgui.command.admin";
+    public static final String RELOAD_COMMAND_PERMISSION = ADMIN_BASE_PERMISSION + ".reload";
+    public static final String CLOSE_COMMAND_PERMISSION = ADMIN_BASE_PERMISSION + ".close";
+    public static final String LIST_COMMAND_PERMISSION = ADMIN_BASE_PERMISSION + ".list";
 
     private Constant() {
     }

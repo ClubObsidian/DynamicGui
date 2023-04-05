@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,22 +16,36 @@
 
 package com.clubobsidian.dynamicgui.core.logger;
 
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import org.checkerframework.checker.units.qual.N;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JavaLoggerWrapper<T extends Logger> extends LoggerWrapper<T> {
+public class JavaLoggerWrapper<T extends Logger> implements LoggerWrapper<T> {
 
-    public JavaLoggerWrapper(T logger) {
-        super(logger);
+    private final T logger;
+
+    public JavaLoggerWrapper(@NotNull T logger) {
+        this.logger = Objects.requireNonNull(logger);
     }
 
     @Override
-    public void info(String message) {
+    public T getLogger() {
+        return this.logger;
+    }
+
+    @Override
+    public void info(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.getLogger().log(Level.INFO, message);
     }
 
     @Override
-    public void error(String message) {
+    public void error(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.getLogger().log(Level.SEVERE, message);
     }
 }

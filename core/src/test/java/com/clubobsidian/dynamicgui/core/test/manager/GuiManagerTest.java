@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.test.manager;
 
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,6 +31,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GuiManagerTest extends FactoryTest {
 
     private static final String TEST_GUI = "test";
+
+    @BeforeEach
+    public void setup() {
+        MockFactory factory = new MockFactory();
+        factory.inject();
+    }
 
     @Test
     public void testGetGuiNotNull() {

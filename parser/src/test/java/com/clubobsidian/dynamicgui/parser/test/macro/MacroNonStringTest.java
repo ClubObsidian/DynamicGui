@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -37,10 +39,10 @@ public class MacroNonStringTest {
         Configuration config = Configuration.load(file);
         ConfigurationSection macros = config.getConfigurationSection("macros");
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
         String parsed = parser.parseStringMacros("%test-non-string%");
         assertEquals("1", parsed);
     }
@@ -53,10 +55,10 @@ public class MacroNonStringTest {
         ConfigurationSection macros = config.getConfigurationSection("macros");
         System.out.println(macros.getKeys());
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
         List<String> nonString = new ArrayList<>();
         nonString.add("%test-non-string%");
         nonString.add("%test-non-string%");

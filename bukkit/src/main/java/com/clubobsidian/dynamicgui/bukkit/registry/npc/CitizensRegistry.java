@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.npc;
 
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCMeta;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCMeta;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.entity.Entity;
 
@@ -48,7 +48,6 @@ public class CitizensRegistry implements NPCRegistry {
     private Object getNPCRegistry() {
         Class<?> citizensApiClass = ReflectionUtil.classForName("net.citizensnpcs.api.CitizensAPI");
         this.getNPCRegistryMethod = ReflectionUtil.getMethod(citizensApiClass, "getNPCRegistry");
-
         try {
             return this.getNPCRegistryMethod.invoke(null);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -64,18 +63,12 @@ public class CitizensRegistry implements NPCRegistry {
     }
 
     @Override
-    public boolean isNPC(EntityWrapper<?> entityWrapper) {
-        return this.getNPC(entityWrapper) != null;
-    }
-
-    @Override
     public NPC getNPC(EntityWrapper<?> entityWrapper) {
         try {
-            Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getEntity());
+            Object npc = this.getNPCMethod.invoke(this.npcRegistry, entityWrapper.getNative());
             if (npc == null) {
                 return null;
             }
-
             int id = (int) this.getIdMethod.invoke(npc);
             NPCMeta meta = new NPCMeta(id, CitizensRegistry.PLUGIN_NAME);
             return new NPC(entityWrapper, meta);

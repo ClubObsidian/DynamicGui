@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,43 +17,63 @@
 package com.clubobsidian.dynamicgui.core.command.cloud;
 
 import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.arguments.standard.BooleanArgument;
-import cloud.commandframework.arguments.standard.ByteArgument;
-import cloud.commandframework.arguments.standard.CharArgument;
-import cloud.commandframework.arguments.standard.DoubleArgument;
-import cloud.commandframework.arguments.standard.FloatArgument;
-import cloud.commandframework.arguments.standard.IntegerArgument;
-import cloud.commandframework.arguments.standard.LongArgument;
-import cloud.commandframework.arguments.standard.ShortArgument;
-import cloud.commandframework.arguments.standard.StringArgument;
-import cloud.commandframework.arguments.standard.UUIDArgument;
+import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Function;
 
-public enum CloudArgument {
+public final class CloudArgument {
 
-    //TODO - implement enum & string_array
-    BOOLEAN((Function<String, BooleanArgument>) s -> (BooleanArgument) BooleanArgument.of(s)),
-    BYTE((Function<String, ByteArgument>) s -> (ByteArgument) ByteArgument.of(s)),
-    CHAR((Function<String, CharArgument>) s -> (CharArgument) CharArgument.of(s)),
-    DOUBLE((Function<String, DoubleArgument>) s -> (DoubleArgument) DoubleArgument.of(s)),
-    FLOAT((Function<String, FloatArgument>) s -> (FloatArgument) FloatArgument.of(s)),
-    INTEGER((Function<String, IntegerArgument>) s -> (IntegerArgument) IntegerArgument.of(s)),
-    LONG((Function<String, LongArgument>) s -> (LongArgument) LongArgument.of(s)),
-    SHORT((Function<String, ShortArgument>) s -> (ShortArgument) ShortArgument.of(s)),
-    STRING((Function<String, StringArgument>) s -> (StringArgument) StringArgument.of(s)),
-    UUID((Function<String, UUIDArgument>) s -> (UUIDArgument) UUIDArgument.of(s));
+    public static final String PLAYER_ARG_NAME = "player";
+    public static final CloudArgument BOOLEAN = create(Boolean.class);
+    public static final CloudArgument BYTE = create(Byte.class);
+    public static final CloudArgument CHAR = create(Character.class);
+    public static final CloudArgument DOUBLE = create(Double.class);
+    public static final CloudArgument FLOAT = create(Float.class);
+    public static final CloudArgument INTEGER = create(Integer.class);
+    public static final CloudArgument LONG = create(Long.class);
+    public static final CloudArgument SHORT = create(Short.class);
+    public static final CloudArgument STRING = create(String.class);
+    public static final CloudArgument UUID = create(UUID.class);
 
-    private static final Map<String, CloudArgument> types = new HashMap<>();
+    private static final Map<String, CloudArgument> TYPES = new HashMap<>();
 
     static {
-        for(CloudArgument arg : CloudArgument.values()) {
-            types.put(arg.name().toLowerCase(Locale.ROOT), arg);
+        for (Field field : CloudArgument.class.getDeclaredFields()) {
+            if (field.getType().equals(CloudArgument.class) && Modifier.isStatic(field.getModifiers())) {
+                try {
+                    register(field.getName(), (CloudArgument) field.get(null));
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
+    }
+
+    public static CloudArgument create(@NotNull Class<?> type) {
+        Objects.requireNonNull(type);
+        return new CloudArgument((d) -> {
+            CommandArgument.Builder builder = CommandArgument.ofType(type, d.getArgumentName());
+            if (d.isOptional()) {
+                builder.asOptional();
+            } else {
+                builder.asRequired();
+            }
+            return builder.build();
+        });
+    }
+
+    public static void register(@NotNull String name, @NotNull CloudArgument arg) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(arg);
+        TYPES.put(name.toLowerCase(Locale.ROOT), arg);
     }
 
     public static Optional<CloudArgument> fromType(String type) {
@@ -68,16 +88,21 @@ public enum CloudArgument {
             default:
                 break;
         }
-        return Optional.ofNullable(types.get(type));
+        return Optional.ofNullable(TYPES.get(type));
     }
 
-    private final Function<String, ?> function;
+    private final Function<CloudData, CommandArgument> function;
 
-    CloudArgument(Function<String, ?> function) {
-        this.function = function;
+    public CloudArgument(@NotNull Function<CloudData, CommandArgument> function) {
+        this.function = Objects.requireNonNull(function);
     }
 
-    public <T extends CommandArgument> T argument(String arg) {
-        return (T) this.function.apply(arg);
+    public <T extends CommandArgument> T argument(@NotNull String argName) {
+        return this.argument(argName, false);
+    }
+
+    public <T extends CommandArgument> T argument(@NotNull String argName, boolean optional) {
+        Objects.requireNonNull(argName);
+        return (T) this.function.apply(new CloudData(argName, optional));
     }
 }

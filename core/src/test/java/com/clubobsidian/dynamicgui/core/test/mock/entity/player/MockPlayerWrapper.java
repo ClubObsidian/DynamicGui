@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.entity.player;
 
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,103 +40,103 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     @Override
     public String getName() {
-        return this.getPlayer().getName();
+        return this.getNative().getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return this.getPlayer().getUniqueId();
+        return this.getNative().getUniqueId();
     }
 
     @Override
-    public void chat(String message) {
-        this.getPlayer().chat(message);
+    public void chat(@NotNull String message) {
+        this.getNative().chat(message);
     }
 
     public List<String> getOutgoingChat() {
-        return this.getPlayer().getOutgoingChat();
+        return this.getNative().getOutgoingChat();
     }
 
     public List<String> getIncomingChat() {
-        return this.getPlayer().getIncomingChat();
+        return this.getNative().getIncomingChat();
     }
 
     @Override
-    public void sendMessage(String message) {
-        this.getPlayer().sendMessage(message);
+    public void sendMessage(@NotNull String message) {
+        this.getNative().sendMessage(message);
     }
 
     @Override
-    public void sendJsonMessage(String message) {
-        this.sendMessage(message);
+    public void sendJsonMessage(@NotNull String json) {
+        this.sendMessage(json);
     }
 
     @Override
-    public boolean hasPermission(String permission) {
-        return this.getPlayer().hasPermission(permission);
+    public boolean hasPermission(@NotNull String permission) {
+        return this.getNative().hasPermission(permission);
     }
 
     @Override
-    public boolean addPermission(String permission) {
-        return this.getPlayer().addPermission(permission);
+    public boolean addPermission(@NotNull String permission) {
+        return this.getNative().addPermission(permission);
     }
 
     @Override
-    public boolean removePermission(String permission) {
-        return this.getPlayer().removePermission(permission);
+    public boolean removePermission(@NotNull String permission) {
+        return this.getNative().removePermission(permission);
     }
 
     @Override
     public ItemStackWrapper<?> getItemInHand() {
-        return this.getPlayer().getItemInHand();
+        return this.getNative().getItemInHand();
     }
 
     public void setItemInHand(ItemStackWrapper<?> hand) {
-        this.getPlayer().setItemInHand(hand);
+        this.getNative().setItemInHand(hand);
     }
 
     @Override
     public int getLevel() {
-        return this.getPlayer().getLevel();
+        return this.getNative().getLevel();
     }
 
     public void setLevel(int level) {
-        this.getPlayer().setLevel(level);
+        this.getNative().setLevel(level);
     }
 
     @Override
     public LocationWrapper<?> getLocation() {
-        return this.getPlayer().getLocation();
+        return this.getNative().getLocation();
     }
 
     public void setLocation(LocationWrapper<?> location) {
-        this.getPlayer().setLocation(location);
+        this.getNative().setLocation(location);
     }
 
     @Override
-    public void playEffect(ParticleWrapper.ParticleData particleData) {
-        this.getPlayer().playEffect(particleData);
+    public void playEffect(ParticleWrapper.@NotNull ParticleData particleData) {
+        this.getNative().playEffect(particleData);
     }
 
     public List<ParticleWrapper.ParticleData> getParticles() {
-        return this.getPlayer().getParticles();
+        return this.getNative().getParticles();
     }
 
     @Override
-    public void playSound(SoundWrapper.SoundData soundData) {
-        this.getPlayer().playSound(soundData);
+    public void playSound(SoundWrapper.@NotNull SoundData soundData) {
+        this.getNative().playSound(soundData);
     }
 
     public List<SoundWrapper.SoundData> getSounds() {
-        return this.getPlayer().getSounds();
+        return this.getNative().getSounds();
     }
 
     @Override
     public boolean isOnline() {
-        return this.getPlayer().isOnline();
+        return this.getNative().isOnline();
     }
 
     public void setOnline(boolean online) {
-        this.getPlayer().setOnline(online);
+        this.getNative().setOnline(online);
     }
 }

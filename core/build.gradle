@@ -2,16 +2,27 @@ plugins {
     id 'java-library'
 }
 
-def adventureVersion = "4.11.0"
+def adventureVersion = "4.12.0"
+
+//tasks.shadowJar.dependsOn ':api:shadowJar'
 
 dependencies {
     api 'commons-io:commons-io:2.11.0'
-    api 'com.github.clubobsidian:trident:3.0.0'
+    api 'com.github.clubobsidian:trident:d814584a88'
+    api project(path: ':api')
     api project(path: ':parser')
+    testImplementation project(path: ':mock')
     api 'com.udojava:EvalEx:2.1'
     api 'com.github.ClubObsidian:FuzzUtil:1.1.0'
-    api 'com.google.inject:guice:5.1.0'
+    api("com.google.inject:guice:$guiceVersion")
     api "net.kyori:adventure-text-minimessage:$adventureVersion"
     api "net.kyori:adventure-text-serializer-gson:$adventureVersion"
     api "net.kyori:adventure-text-serializer-legacy:$adventureVersion"
+    api 'org.apache.commons:commons-lang3:3.12.0'
+    api "com.github.clubobsidian:wrappy:$wrappyVersion"
+    api 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+    compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
+    testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
+    api "cloud.commandframework:cloud-annotations:$cloudVersion"
+    api "io.github.classgraph:classgraph:4.8.149"
 }

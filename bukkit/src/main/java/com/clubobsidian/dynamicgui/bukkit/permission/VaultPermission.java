@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.bukkit.permission;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.permission.Permission;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
@@ -68,7 +68,7 @@ public class VaultPermission implements Permission {
         }
 
         try {
-            return (boolean) this.playerHas.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerHas.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
@@ -86,7 +86,7 @@ public class VaultPermission implements Permission {
             }
         }
         try {
-            return (boolean) this.playerAdd.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerAdd.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;
@@ -105,7 +105,7 @@ public class VaultPermission implements Permission {
         }
 
         try {
-            return (boolean) this.playerRemove.invoke(this.permission, null, playerWrapper.getPlayer(), permission);
+            return (boolean) this.playerRemove.invoke(this.permission, null, playerWrapper.getNative(), permission);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return false;

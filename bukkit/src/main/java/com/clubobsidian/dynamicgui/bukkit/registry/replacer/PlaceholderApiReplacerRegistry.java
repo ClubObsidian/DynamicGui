@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.replacer;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.registry.replacer.ReplacerRegistry;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.OfflinePlayer;
 
@@ -35,7 +35,7 @@ public class PlaceholderApiReplacerRegistry implements ReplacerRegistry {
     @Override
     public String replace(PlayerWrapper<?> playerWrapper, String text) {
         try {
-            return (String) this.setPlaceHolders.invoke(null, playerWrapper.getPlayer(), text);
+            return (String) this.setPlaceHolders.invoke(null, playerWrapper.getNative(), text);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }

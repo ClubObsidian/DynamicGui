@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class MacrosTokenTest {
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config
                 .getConfigurationSection("macros");
-        MacroToken token = new MacroToken(section);
+        MacroToken token = new SimpleMacroToken(section);
         Map<String, Object> macros = token.getMacros();
 
         assertEquals(2, macros.size());
@@ -54,7 +55,7 @@ public class MacrosTokenTest {
 
         System.out.println(section.getKeys());
 
-        MacroToken token = new MacroToken(section);
+        MacroToken token = new SimpleMacroToken(section);
         Map<String, Object> macros = token.getMacros();
 
         Object firstMacro = macros.get("%test%");
@@ -79,7 +80,7 @@ public class MacrosTokenTest {
                 .getConfigurationSection("1")
                 .getConfigurationSection("macros");
 
-        MacroToken token = new MacroToken(section);
+        MacroToken token = new SimpleMacroToken(section);
         Map<String, Object> macros = token.getMacros();
 
         assertNotNull(macros);

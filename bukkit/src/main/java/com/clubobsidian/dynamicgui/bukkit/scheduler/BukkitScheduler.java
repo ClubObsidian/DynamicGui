@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,35 +16,47 @@
 
 package com.clubobsidian.dynamicgui.bukkit.scheduler;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.scheduler.Scheduler;
+import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
-public class BukkitScheduler extends Scheduler {
+import java.util.Objects;
 
-    @Override
-    public void runSyncDelayedTask(Runnable runnable, long delay) {
-        Bukkit.getScheduler()
-                .scheduleSyncDelayedTask((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
+public class BukkitScheduler implements Scheduler {
+
+    private final Plugin plugin;
+
+    public BukkitScheduler(Plugin plugin) {
+        this.plugin = plugin;
     }
 
     @Override
-    public void runAsynchronousDelayedTask(Runnable runnable, long delay) {
+    public void runSyncDelayedTask(@NotNull Runnable runnable, long delay) {
+        Objects.requireNonNull(runnable);
         Bukkit.getScheduler()
-                .runTaskLaterAsynchronously((Plugin) DynamicGui.get().getPlugin(), runnable, delay);
+                .scheduleSyncDelayedTask(this.plugin, runnable, delay);
     }
 
     @Override
-    public void scheduleSyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void runAsynchronousDelayedTask(@NotNull Runnable runnable, long delay) {
+        Objects.requireNonNull(runnable);
         Bukkit.getScheduler()
-                .scheduleSyncRepeatingTask((Plugin) DynamicGui.get().getPlugin(), runnable, delayInitial, delayRepeating);
+                .runTaskLaterAsynchronously(this.plugin, runnable, delay);
     }
 
     @Override
-    public void scheduleAsyncRepeatingTask(Runnable runnable, long delayInitial, long delayRepeating) {
+    public void scheduleSyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
+        Objects.requireNonNull(runnable);
+        Bukkit.getScheduler()
+                .scheduleSyncRepeatingTask(this.plugin, runnable, delayInitial, delayRepeating);
+    }
+
+    @Override
+    public void scheduleAsyncRepeatingTask(@NotNull Runnable runnable, long delayInitial, long delayRepeating) {
+        Objects.requireNonNull(runnable);
         Bukkit.getServer().getScheduler()
-                .runTaskTimerAsynchronously((Plugin) DynamicGui.get().getPlugin(),
+                .runTaskTimerAsynchronously(this.plugin,
                         runnable, delayInitial, delayRepeating);
     }
 }

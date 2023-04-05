@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class SlotIndexTest {
         File file = new File(slotFolder, "slot-index.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("13");
-        SlotToken token = new SlotToken(13, section);
+        SlotToken token = new SimpleSlotToken(13, section);
         assertEquals(13, token.getIndex());
     }
 }

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.slot;
 
-import com.clubobsidian.dynamicgui.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class ModelTest {
         File file = new File(slotFolder, "model.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, section);
+        SlotToken token = new SimpleSlotToken(0, section);
         assertEquals("vanilla", token.getModelProvider());
     }
 
@@ -44,7 +45,7 @@ public class ModelTest {
         File file = new File(slotFolder, "model.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("0");
-        SlotToken token = new SlotToken(0, section);
+        SlotToken token = new SimpleSlotToken(0, section);
         assertEquals("1", token.getModelData());
     }
 
@@ -54,7 +55,7 @@ public class ModelTest {
         File file = new File(slotFolder, "model.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("1");
-        SlotToken token = new SlotToken(1, section);
+        SlotToken token = new SimpleSlotToken(1, section);
         assertNull(token.getModelProvider());
     }
 
@@ -64,7 +65,7 @@ public class ModelTest {
         File file = new File(slotFolder, "model.yml");
         Configuration config = Configuration.load(file);
         ConfigurationSection section = config.getConfigurationSection("1");
-        SlotToken token = new SlotToken(1, section);
+        SlotToken token = new SimpleSlotToken(1, section);
         assertNull(token.getModelData());
     }
 }

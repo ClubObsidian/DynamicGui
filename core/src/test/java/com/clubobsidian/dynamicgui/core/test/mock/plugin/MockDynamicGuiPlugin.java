@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,16 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.plugin;
 
-import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.economy.Economy;
-import com.clubobsidian.dynamicgui.core.permission.Permission;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
 
@@ -35,8 +28,6 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     private final File mainFolder = new File("src", "main");
     private final File resourcesFolder = new File(this.mainFolder, "resources");
     private final File configFile = new File(this.resourcesFolder, "config.yml");
-    public Economy economy = new MockEconomy(); //Visible for testing
-    public Permission permission = new MockPermission(); //Visible for testing
 
     @Override
     public void start() {
@@ -46,21 +37,6 @@ public class MockDynamicGuiPlugin implements DynamicGuiPlugin {
     @Override
     public void stop() {
 
-    }
-
-    @Override
-    public Economy getEconomy() {
-        return this.economy;
-    }
-
-    @Override
-    public Permission getPermission() {
-        return this.permission;
-    }
-
-    @Override
-    public List<NPCRegistry> getNPCRegistries() {
-        return new ArrayList<>(); //TODO - implement
     }
 
     @Override

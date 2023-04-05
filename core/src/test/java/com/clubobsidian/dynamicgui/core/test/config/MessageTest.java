@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.config;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
@@ -28,13 +28,13 @@ public class MessageTest extends FactoryTest {
     @Test
     public void notNullTest() {
         this.getFactory().inject();
-        assertNotNull(DynamicGui.get().getMessage());
+        assertNotNull(DynamicGui.get().getConfig().getMessage());
     }
 
     @Test
     public void noGuiTest() {
         this.getFactory().inject();
-        String noGuiMessage = DynamicGui.get().getMessage().getNoGui();
+        String noGuiMessage = DynamicGui.get().getConfig().getMessage().getNoGui();
         assertNotNull(noGuiMessage);
         assertTrue(noGuiMessage.length() > 0);
     }

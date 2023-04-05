@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.gui;
 
-import com.clubobsidian.dynamicgui.core.gui.FunctionOwner;
-import com.clubobsidian.dynamicgui.core.gui.property.CloseableComponent;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
+import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import org.jetbrains.annotations.Nullable;
 
 public class MockCloseableFunctionOwner implements FunctionOwner, CloseableComponent {
 
@@ -35,7 +36,7 @@ public class MockCloseableFunctionOwner implements FunctionOwner, CloseableCompo
     }
 
     @Override
-    public void setClose(Boolean close) {
+    public void setClose(@Nullable Boolean close) {
         this.close = close;
     }
 }

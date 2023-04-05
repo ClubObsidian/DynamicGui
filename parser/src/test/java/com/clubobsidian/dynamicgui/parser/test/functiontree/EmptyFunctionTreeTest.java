@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.functiontree;
 
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +26,7 @@ public class EmptyFunctionTreeTest {
 
     @Test
     public void testEmptyFunctionTree() {
-        FunctionTree tree = new FunctionTree();
+        FunctionTree tree = new SimpleFunctionTree();
         assertEquals(0, tree.getRootNodes().size());
     }
 }

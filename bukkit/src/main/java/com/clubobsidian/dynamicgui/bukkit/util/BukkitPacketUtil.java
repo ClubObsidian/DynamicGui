@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -95,9 +95,9 @@ public final class BukkitPacketUtil {
 
             sendPacket.invoke(manager, packet);
         } catch (NullPointerException | ClassNotFoundException |
-                NoSuchMethodException | SecurityException |
-                IllegalArgumentException | IllegalAccessException |
-                InvocationTargetException e) {
+                 NoSuchMethodException | SecurityException |
+                 IllegalArgumentException | IllegalAccessException |
+                 InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -160,7 +160,9 @@ public final class BukkitPacketUtil {
                 packet = PACKET_PLAY_OUT_SET_SLOT_CONSTRUCTOR.newInstance(windowId, stateId, index, nmsItemStack);
             }
             sendPacket(player, packet);
-        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | NoSuchMethodException |
+                 IllegalArgumentException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test.macro;
 
-import com.clubobsidian.dynamicgui.parser.macro.MacroParser;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
+import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.junit.jupiter.api.Test;
@@ -40,12 +42,12 @@ public class MacroParserTest {
 
         List<String> lore = first.getStringList("lore");
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
 
         List<String> newLore = parser.parseListMacros(lore);
 
@@ -72,12 +74,12 @@ public class MacroParserTest {
 
         List<String> lore = first.getStringList("lore");
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
 
         List<String> newLore = parser.parseListMacros(lore);
 
@@ -98,12 +100,12 @@ public class MacroParserTest {
 
         List<String> lore = first.getStringList("lore");
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
 
         List<String> newLore = parser.parseListMacros(lore);
 
@@ -123,12 +125,12 @@ public class MacroParserTest {
 
         String name = first.getString("name");
 
-        MacroToken token = new MacroToken(macros);
+        MacroToken token = new SimpleMacroToken(macros);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(token);
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
 
         String newName = parser.parseStringMacros(name);
 
@@ -146,14 +148,14 @@ public class MacroParserTest {
 
         List<String> lore = fifth.getStringList("lore");
 
-        MacroToken guiToken = new MacroToken(guiMacrosSection);
-        MacroToken fifthToken = new MacroToken(fithMacrosSection);
+        MacroToken guiToken = new SimpleMacroToken(guiMacrosSection);
+        MacroToken fifthToken = new SimpleMacroToken(fithMacrosSection);
 
         List<MacroToken> tokens = new ArrayList<>();
         tokens.add(guiToken);
         tokens.add(fifthToken);
 
-        MacroParser parser = new MacroParser(tokens);
+        MacroParser parser = new SimpleMacroParser(tokens);
 
         List<String> parsedLore = parser.parseListMacros(lore);
 

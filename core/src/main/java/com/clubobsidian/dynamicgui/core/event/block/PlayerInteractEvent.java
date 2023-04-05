@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package com.clubobsidian.dynamicgui.core.event.block;
 
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.event.LocationEvent;
 import com.clubobsidian.dynamicgui.core.event.player.PlayerAction;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
 import com.clubobsidian.trident.Cancellable;
 
 public class PlayerInteractEvent extends LocationEvent implements Cancellable {

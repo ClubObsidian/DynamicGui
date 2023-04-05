@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.builder;
 
-import com.clubobsidian.dynamicgui.core.builder.EnchantmentBuilder;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,17 +25,18 @@ public class EnchantmentBuilderTest {
 
     @Test
     public void testName() {
-        String enchantmentName = "test";
-        EnchantmentWrapper enchantment = new EnchantmentBuilder()
-                .setEnchantment(enchantmentName)
+        EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
+                .setEnchantment(EnchantmentWrapper.TEST_ENCHANT_1)
+                .setLevel(1)
                 .build();
-        assertEquals(enchantmentName, enchantment.getEnchant());
+        assertEquals(EnchantmentWrapper.TEST_ENCHANT_1, enchantment.getEnchant());
     }
 
     @Test
     public void testLevel() {
         int enchantmentLevel = 1;
-        EnchantmentWrapper enchantment = new EnchantmentBuilder()
+        EnchantmentWrapper enchantment = new EnchantmentWrapper.Builder()
+                .setEnchantment(EnchantmentWrapper.TEST_ENCHANT_1)
                 .setLevel(enchantmentLevel)
                 .build();
         assertEquals(enchantmentLevel, enchantment.getLevel());

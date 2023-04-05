@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,14 +20,18 @@ import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.meta.SimpleCommandMeta;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
+import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.google.inject.Injector;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandRegistrarImpl implements CommandRegistrar {
 
@@ -53,30 +57,34 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     }
 
     @Override
-    public void registerCommand(Class<? extends RegisteredCommand> command) {
+    public void registerCommand(@NotNull Class<? extends RegisteredCommand> command) {
+        Objects.requireNonNull(command);
         this.commandParser.parse(this.injector.getInstance(command));
     }
 
     @Override
-    public void registerGuiCommand(String guiName, String alias) {
+    public void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias) {
+        Objects.requireNonNull(guiName);
+        Objects.requireNonNull(alias);
         this.unregisterCommand(alias);
         Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
                 .handler(context -> {
-                    PlayerWrapper<?> playerWrapper = context.getSender().getPlayer().get();
-                    if(playerWrapper != null) {
+                    context.getSender().getPlayer().ifPresent(playerWrapper -> {
                         GuiManager.get().openGui(playerWrapper, guiName);
-                    }
+                    });
                 }).build();
         this.commandManager.command(command);
         this.registeredAliases.add(alias);
-        this.logger.info(String.format("Registered the command \"%s\" for the gui %s",
+        this.logger.info(
+                "Registered the command '%s' for the gui %s",
                 alias,
                 guiName
-        ));
+        );
     }
 
     @Override
-    public void unregisterCommand(String alias) {
+    public void unregisterCommand(@NotNull String alias) {
+        Objects.requireNonNull(alias);
         try {
             this.commandManager.deleteRootCommand(alias);
         } catch (Exception e) {

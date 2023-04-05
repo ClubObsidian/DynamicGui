@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,12 +16,19 @@
 
 package com.clubobsidian.dynamicgui.bukkit.entity;
 
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
 import org.bukkit.entity.Entity;
+
+import java.util.UUID;
 
 public class BukkitEntityWrapper<T extends Entity> extends EntityWrapper<T> {
 
     public BukkitEntityWrapper(T entity) {
         super(entity);
+    }
+
+    @Override
+    public UUID getUniqueId() {
+        return this.getNative().getUniqueId();
     }
 }

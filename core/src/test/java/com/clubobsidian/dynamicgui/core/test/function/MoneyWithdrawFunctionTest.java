@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.function.Function;
-import com.clubobsidian.dynamicgui.core.function.impl.MoneyWithdrawFunction;
+import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.function.Function;
+import com.clubobsidian.dynamicgui.core.permission.NoOpPermission;
+import com.clubobsidian.dynamicgui.core.function.MoneyWithdrawFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
@@ -49,8 +51,8 @@ public class MoneyWithdrawFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void testNullEconomy() throws Exception {
-        this.getFactory().inject().getPlugin().economy = null;
+    public void testNoOpEconomy() throws Exception {
+        this.getFactory().inject(new NoOpEconomy(), new NoOpPermission());
         PlayerWrapper<?> player = this.getFactory().createPlayer();
         Function function = new MoneyWithdrawFunction();
         function.setData("10");

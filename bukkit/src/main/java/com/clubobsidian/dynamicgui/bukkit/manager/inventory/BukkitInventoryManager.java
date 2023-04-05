@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -34,7 +34,7 @@ public class BukkitInventoryManager extends InventoryManager {
     public Object createInventory(String title, String type) {
         try {
             return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
-        } catch(IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
             return null;
         }

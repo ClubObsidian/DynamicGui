@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.wrappy.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class GuiMetadataTest {
         File slotFolder = new File("test", "gui");
         File metadataFile = new File(slotFolder, "metadata.yml");
         Configuration config = Configuration.load(metadataFile);
-        GuiToken token = new GuiToken(config);
+        GuiToken token = new SimpleGuiToken(config);
         Map<String, String> metadata = token.getMetadata();
         assertEquals(1, metadata.size());
         assertEquals("metadata", metadata.get("some"));

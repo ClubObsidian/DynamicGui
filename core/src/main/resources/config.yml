@@ -5,6 +5,7 @@ message:
 #Configure proxy types
 # Proxy types:
 # bungee - If you use Bungeecord as your proxy
+# velocity - If you use Velocity as your proxy
 # redis - If you use redis bungee on a bungeecord proxy
 # none - If you do not use a proxy
 proxy: "none"

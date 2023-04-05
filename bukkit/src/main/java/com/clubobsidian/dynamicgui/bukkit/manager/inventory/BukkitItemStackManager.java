@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,24 +16,24 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class BukkitItemStackManager extends ItemStackManager {
 
     @Override
+    @Nullable
     public Object createItemStack(String type, int quantity) {
-        return new ItemStack(Material.valueOf(type), quantity);
+        Material material = Material.getMaterial(type);
+        return material == null ? null : new ItemStack(material, quantity);
     }
 
     @Override
     public ItemStackWrapper<?> createItemStackWrapper(Object itemStack) {
-        if (itemStack == null) {
-            return new BukkitItemStackWrapper<>(null);
-        }
-        return new BukkitItemStackWrapper<>((ItemStack) itemStack);
+        return itemStack == null ? null : new BukkitItemStackWrapper<>((ItemStack) itemStack);
     }
 }

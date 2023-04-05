@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,12 @@
 
 package com.clubobsidian.dynamicgui.bukkit.command;
 
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class BukkitGuiCommandSender implements GuiCommandSender {
 
@@ -29,7 +32,7 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     }
 
     @Override
-    public Object getNativeSender() {
+    public @NotNull Object getNativeSender() {
         return this.sender;
     }
 
@@ -39,7 +42,8 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     }
 
     @Override
-    public void sendMessage(String message) {
+    public void sendMessage(@NotNull String message) {
+        Objects.requireNonNull(message);
         this.sender.sendMessage(message);
     }
 }

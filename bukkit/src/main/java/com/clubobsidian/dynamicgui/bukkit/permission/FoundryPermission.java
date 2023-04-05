@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.permission;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.foundry.FoundryPlugin;
 import org.bukkit.entity.Player;
 
@@ -24,7 +24,7 @@ public class FoundryPermission extends VaultPermission {
 
     @Override
     public boolean hasPermission(PlayerWrapper<?> playerWrapper, String permission) {
-        Player player = (Player) playerWrapper.getPlayer();
+        Player player = (Player) playerWrapper.getNative();
         return FoundryPlugin.get()
                 .getPermissionManager()
                 .hasPermission(player, permission);

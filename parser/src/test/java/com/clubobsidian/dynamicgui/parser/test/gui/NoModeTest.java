@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 
 package com.clubobsidian.dynamicgui.parser.test.gui;
 
-import com.clubobsidian.dynamicgui.parser.gui.GuiMode;
-import com.clubobsidian.dynamicgui.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
+import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
+import com.clubobsidian.dynamicgui.parser.gui.SimpleGuiToken;
 import com.clubobsidian.wrappy.Configuration;
 import org.junit.jupiter.api.Test;
 
@@ -32,9 +33,9 @@ public class NoModeTest {
         File slotFolder = new File("test", "gui");
         File file = new File(slotFolder, "no-mode.yml");
         Configuration config = Configuration.load(file);
-        GuiToken token = new GuiToken(config);
-        GuiMode alias = token.getMode();
-        assertSame(alias, GuiMode.SET);
+        GuiToken token = new SimpleGuiToken(config);
+        GuiBuildType alias = token.getMode();
+        assertSame(alias, GuiBuildType.SET);
     }
 
 }

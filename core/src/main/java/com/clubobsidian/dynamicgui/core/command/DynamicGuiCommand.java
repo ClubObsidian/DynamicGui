@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -19,17 +19,18 @@ package com.clubobsidian.dynamicgui.core.command;
 import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.CommandPermission;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.core.Constant;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.trident.EventBus;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,32 +40,35 @@ import java.util.stream.Collectors;
 public class DynamicGuiCommand implements RegisteredCommand {
 
     private final Platform platform;
+    private final EventBus eventBus;
 
     @Inject
-    private DynamicGuiCommand(Platform platform) {
+    private DynamicGuiCommand(Platform platform, EventBus eventBus) {
         this.platform = platform;
+        this.eventBus = eventBus;
+
     }
 
     @CommandMethod("dynamicgui|dyngui reload")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
     private void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
         GuiManager.get().reloadGuis(false);
-        DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+        this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
     @CommandMethod("dynamicgui|dyngui forcereload")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_RELOAD_PERMISSION)
+    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
     private void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
         GuiManager.get().reloadGuis(true);
-        DynamicGui.get().getEventBus().callEvent(new DynamicGuiReloadEvent());
+        this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
     @CommandMethod("dynamicgui|dyngui close all [guiName]")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
     private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
-        if(guiName == null) {
+        if (guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
             for (UUID uuid : GuiManager.get().getPlayerGuis().keySet()) {
                 PlayerWrapper<?> playerWrapper = this.platform.getPlayer(uuid);
@@ -92,7 +96,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui close <playerName>")
-    @CommandPermission(Constant.DYNAMIC_GUI_COMMAND_CLOSE_PERMISSION)
+    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
     private void closePlayer(GuiCommandSender sender, @Argument("playerName") String playerName) {
         PlayerWrapper<?> player = this.platform.getPlayer(playerName);
         if (player == null) {
@@ -108,7 +112,7 @@ public class DynamicGuiCommand implements RegisteredCommand {
     }
 
     @CommandMethod("dynamicgui|dyngui list")
-    @CommandPermission(Constant.DYNAMIC_GUI_LIST_PERMISSION)
+    @CommandPermission(Constant.LIST_COMMAND_PERMISSION)
     private void guiList(GuiCommandSender sender) {
         List<String> guiNames = GuiManager
                 .get()
@@ -116,7 +120,10 @@ public class DynamicGuiCommand implements RegisteredCommand {
                 .stream()
                 .map((gui) -> "&a" + gui.getName())
                 .collect(Collectors.toList());
-        String built = ChatColor.translateAlternateColorCodes(String.join(" &f," + guiNames));
+        String built = ChatColor.translateAlternateColorCodes(
+                String.format("&fGuis (%d): ", guiNames.size()) +
+                        String.join("&f, ", guiNames)
+        );
         sender.sendMessage(built);
     }
 }

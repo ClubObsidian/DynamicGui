@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,18 +16,16 @@
 
 package com.clubobsidian.dynamicgui.bukkit.entity;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
-import com.google.common.collect.ForwardingMultimap;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Effect;
@@ -38,149 +36,157 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
-    public BukkitPlayerWrapper(T player) {
+    public BukkitPlayerWrapper(@NotNull T player) {
         super(player);
     }
 
     @Override
     public String getName() {
-        return this.getPlayer().getName();
+        return this.getNative().getName();
     }
 
     @Override
     public UUID getUniqueId() {
-        return this.getPlayer().getUniqueId();
+        return this.getNative().getUniqueId();
     }
 
     @Override
-    public void chat(String message) {
-        this.getPlayer().chat(message);
+    public void chat(@NotNull String message) {
+        this.getNative().chat(message);
     }
 
     @Override
-    public void sendMessage(String message) {
-        this.getPlayer().sendMessage(message);
+    public void sendMessage(@NotNull String message) {
+        this.getNative().sendMessage(Objects.requireNonNull(message));
     }
 
     @Override
-    public void sendJsonMessage(String json) {
+    public void sendJsonMessage(@NotNull String json) {
+        Objects.requireNonNull(json);
         BaseComponent[] components = ComponentSerializer.parse(json);
-        this.getPlayer().spigot().sendMessage(components);
+        this.getNative().spigot().sendMessage(components);
     }
 
     @Override
-    public boolean hasPermission(String permission) {
-        return DynamicGui.get().getPlugin().getPermission().hasPermission(this, permission);
+    public boolean hasPermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
+        return DynamicGui.get().getPermission().hasPermission(this, permission);
     }
 
     @Override
-    public boolean addPermission(String permission) {
-        return DynamicGui.get().getPlugin().getPermission().addPermission(this, permission);
+    public boolean addPermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
+        return DynamicGui.get().getPermission().addPermission(this, permission);
     }
 
     @Override
-    public boolean removePermission(String permission) {
-        return DynamicGui.get().getPlugin().getPermission().removePermission(this, permission);
+    public boolean removePermission(@NotNull String permission) {
+        Objects.requireNonNull(permission);
+        return DynamicGui.get().getPermission().removePermission(this, permission);
     }
 
     @Override
     public int getExperience() {
-        System.out.println("Total exp: " + this.getPlayer().getTotalExperience());
-        return this.getPlayer().getTotalExperience();
+        return this.getNative().getTotalExperience();
     }
 
     @Override
     public void setExperience(int experience) {
-        this.getPlayer().setTotalExperience(experience);
+        this.getNative().setTotalExperience(experience);
     }
 
     @Override
     public int getLevel() {
-        return this.getPlayer().getLevel();
+        return this.getNative().getLevel();
     }
 
     @Override
     public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
-        InventoryView openInventory = this.getPlayer().getOpenInventory();
+        InventoryView openInventory = this.getNative().getOpenInventory();
         if (openInventory == null) {
             return null;
         }
-        return new BukkitInventoryWrapper<Inventory>(openInventory.getTopInventory());
+        return new BukkitInventoryWrapper<>(openInventory.getTopInventory());
     }
 
     @Override
     public ItemStackWrapper<ItemStack> getItemInHand() {
-        ItemStack hand = this.getPlayer().getInventory().getItemInHand();
-        return new BukkitItemStackWrapper<ItemStack>(hand);
+        ItemStack hand = this.getNative().getInventory().getItemInHand();
+        return new BukkitItemStackWrapper<>(hand);
     }
 
     @Override
     public void closeInventory() {
-        if (this.getPlayer().getOpenInventory() != null) {
-            this.getPlayer().getOpenInventory().close();
+        if (this.getNative().getOpenInventory() != null) {
+            this.getNative().getOpenInventory().close();
         }
     }
 
     @Override
-    public void openInventory(InventoryWrapper<?> inventoryWrapper) {
+    public void openInventory(@NotNull InventoryWrapper<?> inventoryWrapper) {
+        Objects.requireNonNull(inventoryWrapper);
         Object inventory = inventoryWrapper.getInventory();
         if (inventory instanceof Inventory) {
-            this.getPlayer().openInventory((Inventory) inventory);
+            this.getNative().openInventory((Inventory) inventory);
         }
     }
 
     @Override
-    public void sendPluginMessage(String channel, byte[] message) {
-        this.getPlayer().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
+    public void sendPluginMessage(@NotNull String channel, byte[] message) {
+        this.getNative().sendPluginMessage((Plugin) DynamicGui.get().getPlugin(), channel, message);
     }
 
     @Override
-    public void playSound(SoundWrapper.SoundData soundData) {
-        String sound = soundData.getSound();
-        float volume = soundData.getVolume();
-        float pitch = soundData.getPitch();
-        Player player = this.getPlayer();
+    public void playSound(SoundWrapper.@NotNull SoundData data) {
+        Objects.requireNonNull(data);
+        String sound = data.getSound();
+        float volume = data.getVolume();
+        float pitch = data.getPitch();
+        Player player = this.getNative();
         Location playerLocation = player.getLocation();
         player.playSound(playerLocation, Sound.valueOf(sound), volume, pitch);
     }
 
     @Override
-    public void playEffect(ParticleWrapper.ParticleData particleData) {
-        String effect = particleData.getEffect();
-        int extraData = particleData.getExtraData();
-        Player player = this.getPlayer();
+    public void playEffect(ParticleWrapper.@NotNull ParticleData data) {
+        Objects.requireNonNull(data);
+        String effect = data.getEffect();
+        int extraData = data.getExtraData();
+        Player player = this.getNative();
         Location playerLocation = player.getLocation();
         playerLocation.getWorld().playEffect(playerLocation, Effect.valueOf(effect), extraData);
     }
 
     @Override
     public void updateInventory() {
-        this.getPlayer().updateInventory();
+        this.getNative().updateInventory();
     }
 
     @Override
     public LocationWrapper<?> getLocation() {
-        Location bukkitLoc = this.getPlayer().getLocation();
+        Location bukkitLoc = this.getNative().getLocation();
         return LocationManager.get().toLocationWrapper(bukkitLoc);
     }
 
     @Override
     public boolean isOnline() {
-        return this.getPlayer().isOnline();
+        return this.getNative().isOnline();
     }
 
     @Override
     public String getSkinTexture() {
         try {
-            Object profile = this.getPlayer().getClass().getDeclaredMethod("getProfile").invoke(this.getPlayer());
+            Object profile = this.getNative().getClass().getDeclaredMethod("getProfile").invoke(this.getNative());
             Object properties = profile.getClass()
                     .getDeclaredMethod("getProperties")
                     .invoke(profile);
@@ -194,7 +200,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
             for (Method m : forwardingMap.getDeclaredMethods()) {
                 if (m.getName().equals("get")) {
                     property = ((Collection) (m.invoke(properties, "textures")))
-                    .stream().findFirst().orElse(null);
+                            .stream().findFirst().orElse(null);
                     break;
                 }
             }
@@ -202,7 +208,8 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
                 return null;
             }
             return (String) property.getClass().getDeclaredMethod("getValue").invoke(property);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
+                 ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
@@ -210,6 +217,6 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void updateCursor() {
-        this.getPlayer().setItemOnCursor(this.getPlayer().getItemOnCursor());
+        this.getNative().setItemOnCursor(this.getNative().getItemOnCursor());
     }
 }

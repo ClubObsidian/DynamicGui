@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
+import com.clubobsidian.dynamicgui.parser.function.SimpleFunctionData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,21 +36,21 @@ public class FunctionDataTest {
 
     @BeforeEach
     public void setup() {
-        this.data = new FunctionData(NAME, DATA, MODIFIER);
+        this.data = new SimpleFunctionData(NAME, DATA, MODIFIER);
     }
 
     @Test
     public void testName() {
-        assertEquals(this.data.getName(), NAME);
+        Assertions.assertEquals(this.data.getName(), NAME);
     }
 
     @Test
     public void testData() {
-        assertEquals(this.data.getData(), DATA);
+        Assertions.assertEquals(this.data.getData(), DATA);
     }
 
     @Test
     public void testModifier() {
-        assertEquals(this.data.getModifier(), MODIFIER);
+        Assertions.assertEquals(this.data.getModifier(), MODIFIER);
     }
 }

@@ -10,7 +10,13 @@ processResources {
 
 shadowJar {
     archiveBaseName.set('DynamicGui-Bukkit')
+
+    assemble {
+        dependsOn tasks.named("shadowJar")
+    }
 }
+
+//tasks.shadowJar.dependsOn ':core:shadowJar'
 
 dependencies {
     implementation project(path: ':core')

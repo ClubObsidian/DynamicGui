@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 
 import java.util.List;
 

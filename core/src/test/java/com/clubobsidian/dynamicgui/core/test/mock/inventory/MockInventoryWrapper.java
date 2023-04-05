@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,9 +16,12 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inventory;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.InventoryWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class MockInventoryWrapper extends InventoryWrapper<MockInventory> {
 
@@ -37,12 +40,14 @@ public class MockInventoryWrapper extends InventoryWrapper<MockInventory> {
     }
 
     @Override
-    public void setItem(int index, ItemStackWrapper<?> itemStack) {
+    public void setItem(int index, @NotNull ItemStackWrapper<?> itemStack) {
+        Objects.requireNonNull(itemStack);
         this.getInventory().setItem(index, itemStack);
     }
 
     @Override
-    public void updateItem(int index, PlayerWrapper<?> player) {
+    public void updateItem(int index, @NotNull PlayerWrapper<?> player) {
+        Objects.requireNonNull(player);
         this.getInventory().updateItem(index, player);
     }
 

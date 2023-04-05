@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,29 +17,35 @@
 package com.clubobsidian.dynamicgui.bukkit.inject;
 
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
+import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.bukkit.manager.cloud.BukkitCloudManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.entity.BukkitEntityManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
-import com.clubobsidian.dynamicgui.core.manager.inventory.InventoryManager;
-import com.clubobsidian.dynamicgui.core.manager.inventory.ItemStackManager;
-import com.clubobsidian.dynamicgui.core.manager.material.MaterialManager;
-import com.clubobsidian.dynamicgui.core.manager.world.LocationManager;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 
 public class BukkitPluginModule extends PluginModule {
 
     public BukkitPluginModule(DynamicGuiPlugin plugin,
                               Platform platform,
                               LoggerWrapper<?> logger,
-                              CommandManager<GuiCommandSender> commandManager) {
-        super(plugin, platform, logger, commandManager);
+                              CommandManager<GuiCommandSender> commandManager,
+                              Economy economy,
+                              Permission permission) {
+        super(plugin, platform, logger, commandManager, economy, permission);
     }
 
     @Override
@@ -65,5 +71,10 @@ public class BukkitPluginModule extends PluginModule {
     @Override
     public Class<? extends LocationManager> getLocationManger() {
         return BukkitLocationManager.class;
+    }
+
+    @Override
+    public Class<? extends CloudManager> getCloudManager() {
+        return BukkitCloudManager.class;
     }
 }

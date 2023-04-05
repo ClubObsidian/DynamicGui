@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,14 +16,16 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
-import com.clubobsidian.dynamicgui.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionNode;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
+import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
+import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +47,7 @@ public class FunctionTreeTest {
         Configuration config = Configuration.load(testFile);
         ConfigurationSection firstSlotSection = config.getConfigurationSection("0");
         ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
-        tree = new FunctionTree(functionSection);
+        tree = new SimpleFunctionTree(functionSection);
     }
 
     @Test
@@ -69,8 +71,8 @@ public class FunctionTreeTest {
         FunctionToken token = childrenNodes.get(0).getToken();
         FunctionData data = token.getFunctions().get(0);
         assertEquals(1, childrenNodeSize);
-        assertEquals("function", data.getName());
-        assertEquals("with other data", data.getData());
+        Assertions.assertEquals("function", data.getName());
+        Assertions.assertEquals("with other data", data.getData());
     }
 
     @Test
@@ -91,7 +93,7 @@ public class FunctionTreeTest {
         FunctionData data = token.getFunctions().get(0);
         assertEquals(2, depth);
         assertEquals(1, childrenNodeSize);
-        assertEquals("some other data", data.getData());
+        Assertions.assertEquals("some other data", data.getData());
         assertEquals("depth-2-left", name);
     }
 
@@ -128,7 +130,7 @@ public class FunctionTreeTest {
         Configuration config = Configuration.load(testFile);
         ConfigurationSection firstSlotSection = config.getConfigurationSection("4");
         ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
-        FunctionTree tree = new FunctionTree(functionSection);
+        FunctionTree tree = new SimpleFunctionTree(functionSection);
 
         FunctionNode node = tree.getRootNodes().get(1);
         FunctionToken token = node.getToken();
@@ -144,7 +146,7 @@ public class FunctionTreeTest {
         Configuration config = Configuration.load(testFile);
         ConfigurationSection firstSlotSection = config.getConfigurationSection("4");
         ConfigurationSection functionSection = firstSlotSection.getConfigurationSection("functions");
-        FunctionTree tree = new FunctionTree(functionSection);
+        FunctionTree tree = new SimpleFunctionTree(functionSection);
 
         FunctionNode node = tree.getRootNodes().get(2);
         FunctionToken token = node.getToken();

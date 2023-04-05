@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,19 +16,24 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
+import com.clubobsidian.dynamicgui.core.test.mock.MockFactory;
+import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MockEntityManager extends EntityManager {
     @Override
-    public PlayerWrapper<?> createPlayerWrapper(Object player) {
-        return null;
+    public PlayerWrapper<?> createPlayerWrapper(@NotNull Object player) {
+        MockFactory factory = new MockFactory();
+        return factory.createPlayer((MockPlayer) player);
     }
 
     @Override
     public List<String> getEntityTypes() {
-        return null;
+        return Collections.emptyList();
     }
 }

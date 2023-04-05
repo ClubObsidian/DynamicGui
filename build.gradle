@@ -8,14 +8,17 @@ plugins {
 }
 
 def projectGroup = 'com.clubobsidian'
-def projectVersion = '5.0.1'
+def projectVersion = '6.0.0'
 
 allprojects {
 	group projectGroup
 	version projectVersion
 	ext {
 		junitVersion = '5.9.1'
-		cloudVersion = '1.7.1'
+		cloudVersion = '1.8.0'
+		wrappyVersion = "2.3.2"
+		langVersion = "3.12.0"
+		guiceVersion = "5.1.0"
 	}
 }
 
@@ -53,9 +56,9 @@ subprojects {
 
 	shadowJar {
 		archiveClassifier.set('')
-		minimize() {
+		/*minimize() {
 			exclude(project(":core"))
-		}
+		}*/
 		relocate 'org.spongepowered.configurate', 'com.clubobsidian.dynamicgui.shaded.configurate'
 		relocate 'com.google.common', 'com.clubobsidian.dynamicgui.shaded.guava'
 		relocate 'com.google.gson', 'com.clubobsidian.dynamicgui.shaded.gson'
@@ -96,18 +99,12 @@ subprojects {
 		maven { url 'https://jitpack.io' }
 	}
 
-
-
 	dependencies {
 		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 		testImplementation 'org.mockito:mockito-core:4.8.0'
-		api 'org.apache.commons:commons-lang3:3.12.0'
-		api 'com.github.clubobsidian:wrappy:2.3.2'
-		api 'com.github.ben-manes.caffeine:caffeine:3.1.1'
-		compileOnly "cloud.commandframework:cloud-core:$cloudVersion"
-		testImplementation "cloud.commandframework:cloud-core:$cloudVersion"
-		api "cloud.commandframework:cloud-annotations:$cloudVersion"
-		api "io.github.classgraph:classgraph:4.8.149"
+		compileOnly("org.jetbrains:annotations:23.0.0")
+		compileOnly("org.apache.commons:commons-lang3:$langVersion")
+		testImplementation("org.apache.commons:commons-lang3:$langVersion")
 	}
 }

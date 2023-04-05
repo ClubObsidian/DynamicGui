@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.entity.player;
 
-import com.clubobsidian.dynamicgui.core.effect.ParticleWrapper;
-import com.clubobsidian.dynamicgui.core.effect.SoundWrapper;
-import com.clubobsidian.dynamicgui.core.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.world.LocationWrapper;
+import com.clubobsidian.dynamicgui.api.effect.ParticleWrapper;
+import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
+import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
+import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;

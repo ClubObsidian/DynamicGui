@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,29 +16,33 @@
 
 package com.clubobsidian.dynamicgui.core.listener;
 
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.entity.EntityWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPC;
+import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
+import com.clubobsidian.dynamicgui.core.debouncer.CaffeineDebouncer;
+import com.clubobsidian.dynamicgui.core.debouncer.Debouncer;
 import com.clubobsidian.dynamicgui.core.event.inventory.PlayerInteractEntityEvent;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.manager.dynamicgui.GuiManager;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPC;
-import com.clubobsidian.dynamicgui.core.registry.npc.NPCRegistry;
 import com.clubobsidian.trident.EventHandler;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 public class EntityClickListener {
 
+    private final Debouncer<NPC> npcDebouncer = new CaffeineDebouncer<>(1, TimeUnit.SECONDS);
+
     @EventHandler
-    public void onEntityClick(PlayerInteractEntityEvent e) {
+    public void onNPCClick(PlayerInteractEntityEvent e) {
         if (GuiManager.get().hasGuiCurrently(e.getPlayerWrapper())) {
             return;
         }
-
         EntityWrapper<?> entityWrapper = e.getEntityWrapper();
-        List<NPCRegistry> registries = DynamicGui.get().getPlugin().getNPCRegistries();
+        List<NPCRegistry> registries = DynamicGui.get().getNpcRegistries();
         for (NPCRegistry registry : registries) {
             for (Gui gui : GuiManager.get().getGuis()) {
                 Iterator<Entry<String, List<Integer>>> it = gui.getNpcIds().entrySet().iterator();
@@ -46,11 +50,10 @@ public class EntityClickListener {
                     Entry<String, List<Integer>> next = it.next();
                     String registryName = next.getKey();
                     List<Integer> ids = next.getValue();
-
                     if (registryName.equalsIgnoreCase(registry.getName())) {
                         NPC npc = registry.getNPC(entityWrapper);
                         if (npc != null) {
-                            if (ids.contains(npc.getMeta().getId())) {
+                            if (ids.contains(npc.getMeta().getId()) && this.npcDebouncer.canCache(npc)) {
                                 GuiManager.get().openGui(e.getPlayerWrapper(), gui);
                                 break;
                             }

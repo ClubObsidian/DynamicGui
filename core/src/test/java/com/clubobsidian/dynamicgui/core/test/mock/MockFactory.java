@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,34 +17,38 @@
 package com.clubobsidian.dynamicgui.core.test.mock;
 
 import cloud.commandframework.CommandManager;
-import com.clubobsidian.dynamicgui.core.DynamicGui;
-import com.clubobsidian.dynamicgui.core.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.economy.Economy;
-import com.clubobsidian.dynamicgui.core.enchantment.EnchantmentWrapper;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
-import com.clubobsidian.dynamicgui.core.gui.Gui;
-import com.clubobsidian.dynamicgui.core.gui.InventoryType;
-import com.clubobsidian.dynamicgui.core.gui.ModeEnum;
-import com.clubobsidian.dynamicgui.core.gui.Slot;
-import com.clubobsidian.dynamicgui.core.logger.LoggerWrapper;
-import com.clubobsidian.dynamicgui.core.platform.Platform;
-import com.clubobsidian.dynamicgui.core.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.gui.Gui;
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
+import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
+import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
+import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
+import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.command.MockCommandManager;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.inject.MockPluginModule;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStack;
 import com.clubobsidian.dynamicgui.core.test.mock.inventory.MockItemStackWrapper;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLogger;
-import com.clubobsidian.dynamicgui.core.test.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockDynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
+import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPermission;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocation;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockLocationWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorld;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
-import com.clubobsidian.dynamicgui.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.mock.logger.MockLogger;
+import com.clubobsidian.dynamicgui.mock.logger.MockLoggerWrapper;
+import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -64,6 +68,10 @@ public class MockFactory {
     public <T> T mock(Class<T> mockClazz, Object... args) {
         return Mockito.mock(mockClazz, Mockito.withSettings().useConstructor(args)
                 .defaultAnswer(Mockito.CALLS_REAL_METHODS));
+    }
+
+    public MockPlayerWrapper createPlayer(MockPlayer player) {
+        return this.mock(MockPlayerWrapper.class, player);
     }
 
     public MockPlayerWrapper createPlayer() {
@@ -89,16 +97,16 @@ public class MockFactory {
     }
 
     public Gui createGui(String title, List<Slot> slots) {
-        return new Gui(title,
+        return new SimpleGui(title,
                 InventoryType.CHEST.toString(),
                 title,
                 6,
                 true,
-                ModeEnum.SET,
+                GuiBuildType.SET,
                 new HashMap<>(),
                 slots,
                 new ArrayList<>(),
-                new FunctionTree(),
+                new SimpleFunctionTree(),
                 new HashMap<>(),
                 false);
     }
@@ -143,7 +151,7 @@ public class MockFactory {
     }
 
     public Slot createSlot(int index, String type, List<String> lore, List<EnchantmentWrapper> enchants, boolean movable) {
-        return new Slot(index,
+        return new SimpleSlot(index,
                 1,
                 type,
                 "test",
@@ -157,7 +165,7 @@ public class MockFactory {
                 new ArrayList<>(),
                 null,
                 null,
-                new FunctionTree(),
+                new SimpleFunctionTree(),
                 0,
                 new HashMap<>());
     }
@@ -174,6 +182,10 @@ public class MockFactory {
     }
 
     public MockFactory inject() {
+        return this.inject(new MockEconomy(), new MockPermission());
+    }
+
+    public MockFactory inject(Economy economy, Permission permission) {
         DynamicGuiPlugin plugin = new MockDynamicGuiPlugin();
         File cooldownsFile = new File(plugin.getDataFolder(), "cooldowns.yml");
         if (cooldownsFile.exists()) { //Have to do manual cleanup of this or tests fail
@@ -182,7 +194,11 @@ public class MockFactory {
         Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
         CommandManager<GuiCommandSender> commandManager = new MockCommandManager();
-        MockPluginModule module = new MockPluginModule(plugin, platform, logger, commandManager);
+        MockPluginModule module = new MockPluginModule(
+                plugin, platform,
+                logger, commandManager,
+                economy, permission
+        );
         module.bootstrap();
         DynamicGui.get(); //Initializes dynamic gui
         this.getLogger().getLogger().clear(); //Clear logs for initialization
@@ -206,7 +222,7 @@ public class MockFactory {
     }
 
     public MockEconomy getEconomy() {
-        Economy economy = DynamicGui.get().getPlugin().getEconomy();
+        Economy economy = DynamicGui.get().getEconomy();
         if (!(economy instanceof MockEconomy)) {
             return null;
         }

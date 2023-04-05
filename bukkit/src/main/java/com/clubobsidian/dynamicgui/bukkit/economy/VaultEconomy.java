@@ -1,5 +1,5 @@
 /*
- *    Copyright 2022 virustotalop and contributors.
+ *    Copyright 2018-2023 virustotalop
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 
 package com.clubobsidian.dynamicgui.bukkit.economy;
 
-import com.clubobsidian.dynamicgui.core.economy.Economy;
-import com.clubobsidian.dynamicgui.core.entity.PlayerWrapper;
+import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -57,7 +58,7 @@ public class VaultEconomy implements Economy {
     }
 
     @Override
-    public BigDecimal getBalance(PlayerWrapper<?> playerWrapper) {
+    public @NotNull BigDecimal getBalance(@NotNull PlayerWrapper<?> playerWrapper) {
         double balance = -1;
         if (this.getBalanceMethod == null) {
             try {
@@ -69,7 +70,7 @@ public class VaultEconomy implements Economy {
         }
 
         try {
-            balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getPlayer());
+            balance = (double) this.getBalanceMethod.invoke(this.economy, playerWrapper.getNative());
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -78,7 +79,7 @@ public class VaultEconomy implements Economy {
     }
 
     @Override
-    public boolean withdraw(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
+    public boolean withdraw(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt) {
         if (amt.doubleValue() < 0)
             return false;
 
@@ -96,7 +97,7 @@ public class VaultEconomy implements Economy {
 
         if (balance >= amtDouble) {
             try {
-                this.withdrawPlayerMethod.invoke(this.economy, playerWrapper.getPlayer(), amtDouble);
+                this.withdrawPlayerMethod.invoke(this.economy, playerWrapper.getNative(), amtDouble);
                 return true;
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -107,7 +108,7 @@ public class VaultEconomy implements Economy {
     }
 
     @Override
-    public boolean deposit(PlayerWrapper<?> playerWrapper, BigDecimal amt) {
+    public boolean deposit(@NotNull PlayerWrapper<?> playerWrapper, @NotNull BigDecimal amt) {
         if (amt.doubleValue() < 0)
             return false;
 
@@ -121,7 +122,7 @@ public class VaultEconomy implements Economy {
         }
 
         try {
-            this.depositPlayerMethod.invoke(this.economy, playerWrapper.getPlayer(), amt.doubleValue());
+            this.depositPlayerMethod.invoke(this.economy, playerWrapper.getNative(), amt.doubleValue());
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
         }
