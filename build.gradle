@@ -102,7 +102,7 @@ subprojects {
 	dependencies {
 		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
 		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-		testImplementation 'org.mockito:mockito-core:4.8.0'
+		testImplementation 'org.mockito:mockito-core:5.3.1'
 		compileOnly("org.jetbrains:annotations:23.0.0")
 		compileOnly("org.apache.commons:commons-lang3:$langVersion")
 		testImplementation("org.apache.commons:commons-lang3:$langVersion")
