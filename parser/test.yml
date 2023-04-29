@@ -128,3 +128,5 @@ functions:
     - "Replace some text"
     - "and some other text"
     - "with some other text"
+6:
+  icon: 'STONE'

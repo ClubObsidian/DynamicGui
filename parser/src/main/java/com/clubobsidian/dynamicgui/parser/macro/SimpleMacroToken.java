@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.macro;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
@@ -37,8 +38,13 @@ public class SimpleMacroToken implements MacroToken {
 
     private void parse(ConfigurationSection section) {
         this.macros = new LinkedHashMap<>();
-        for (String key : section.getKeys()) {
-            this.macros.put(key, section.get(key));
+        for (Object key : section.getKeys()) {
+            if (key instanceof String) {
+                String keyStr = (String) key;
+                this.macros.put(keyStr, section.get(key));
+            } else {
+                DynamicGui.get().getLogger().error("Macros do not support non-string keys: " + key);
+            }
         }
     }
 

@@ -8,7 +8,7 @@ plugins {
 }
 
 def projectGroup = 'com.clubobsidian'
-def projectVersion = '6.0.0'
+def projectVersion = '6.1.0'
 
 allprojects {
 	group projectGroup
@@ -16,7 +16,7 @@ allprojects {
 	ext {
 		junitVersion = '5.9.1'
 		cloudVersion = '1.8.0'
-		wrappyVersion = "2.3.2"
+		wrappyVersion = "3.0.0"
 		langVersion = "3.12.0"
 		guiceVersion = "5.1.0"
 	}

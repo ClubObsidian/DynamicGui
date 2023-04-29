@@ -88,7 +88,7 @@ public class GuiTokenTest {
     @Test
     public void testSlots() {
         Map<Integer, SlotToken> slots = token.getSlots();
-        assertEquals(6, slots.size());
+        assertEquals(7, slots.size());
     }
 
     @Test
@@ -123,5 +123,10 @@ public class GuiTokenTest {
         String title = token.getTitle();
 
         assertEquals("test gui title", title);
+    }
+
+    @Test
+    public void testSlotInteger() {
+       assertNotNull(token.getSlots().get(6));
     }
 }

@@ -40,7 +40,7 @@ public class MultiMacroSameFileTest {
         Configuration config = Configuration.load(sameFileMacroFile);
 
         List<MacroToken> tokens = new ArrayList<>();
-        for (String key : config.getKeys()) {
+        for (Object key : config.getKeys()) {
             MacroToken token = new SimpleMacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }
@@ -61,7 +61,7 @@ public class MultiMacroSameFileTest {
         Configuration config = Configuration.load(sameFileMacroFile);
 
         List<MacroToken> tokens = new ArrayList<>();
-        for (String key : config.getKeys()) {
+        for (Object key : config.getKeys()) {
             MacroToken token = new SimpleMacroToken(config.getConfigurationSection(key));
             tokens.add(token);
         }

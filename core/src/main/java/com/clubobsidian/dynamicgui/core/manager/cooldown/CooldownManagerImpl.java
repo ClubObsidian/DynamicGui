@@ -54,10 +54,12 @@ public class CooldownManagerImpl extends CooldownManager {
         File dataFolder = plugin.getDataFolder();
         File cooldownsFile = new File(dataFolder, "cooldowns.yml");
         Configuration config = Configuration.load(cooldownsFile);
-        for (String uuidStr : config.getKeys()) {
+        for (Object uuidKey : config.getKeys()) {
+            String uuidStr = (String) uuidKey;
             ConfigurationSection section = config.getConfigurationSection(uuidStr);
             Map<String, Cooldown> cooldownMap = new ConcurrentHashMap<>();
-            for (String cooldownName : section.getKeys()) {
+            for (Object cooldownKey : section.getKeys()) {
+                String cooldownName = (String) cooldownKey;
                 long time = section.getLong(cooldownName + ".time");
                 long cooldown = section.getLong(cooldownName + ".cooldown");
                 Cooldown cooldownObj = new SimpleCooldown(cooldownName, time, cooldown);

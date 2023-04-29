@@ -274,7 +274,7 @@ public class GuiManagerImpl extends GuiManager {
         if (cachedHash == null || fileHash != cachedHash) {
             List<MacroToken> tokens = new ArrayList<>();
             Configuration config = Configuration.load(file);
-            for (String key : config.getKeys()) {
+            for (Object key : config.getKeys()) {
                 ConfigurationSection section = config.getConfigurationSection(key);
                 MacroToken token = new SimpleMacroToken(section);
                 tokens.add(token);
@@ -391,7 +391,7 @@ public class GuiManagerImpl extends GuiManager {
         Configuration config = Configuration.load(configFile);
         if (config.get("remote-guis") != null) {
             ConfigurationSection remote = config.getConfigurationSection("remote-guis");
-            for (String key : remote.getKeys()) {
+            for (Object key : remote.getKeys()) {
                 ConfigurationSection guiSection = remote.getConfigurationSection(key);
                 String strURL = guiSection.getString("url");
                 String guiName = guiSection.getString("file-name");

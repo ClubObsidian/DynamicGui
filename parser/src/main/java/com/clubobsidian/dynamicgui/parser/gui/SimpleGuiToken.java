@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.gui;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
@@ -55,6 +56,7 @@ public class SimpleGuiToken implements GuiToken {
     private final List<String> loadMacros;
     private final Map<String, String> metadata;
     private final boolean isStatic;
+    public final ConfigurationSection section;
 
     public SimpleGuiToken(ConfigurationSection section) {
         this(section, new ArrayList<>());
@@ -87,6 +89,7 @@ public class SimpleGuiToken implements GuiToken {
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
         this.isStatic = section.getBoolean("static");
+        this.section = section;
     }
 
     private Boolean parseBoxedBoolean(String data) {
@@ -108,20 +111,30 @@ public class SimpleGuiToken implements GuiToken {
     private Map<String, List<Integer>> loadNpcs(ConfigurationSection section) {
         Map<String, List<Integer>> npcs = new HashMap<>();
         ConfigurationSection npcSection = section.getConfigurationSection("npcs");
-        for (String key : npcSection.getKeys()) {
-            List<Integer> npcIds = npcSection.getIntegerList(key);
-            npcs.put(key, npcIds);
+        for (Object key : npcSection.getKeys()) {
+            if (key instanceof String) {
+                String keyStr = (String) key;
+                List<Integer> npcIds = npcSection.getIntegerList(key);
+                npcs.put(keyStr, npcIds);
+            } else {
+                DynamicGui.get().getLogger().error("Npc plugin names do not support non-string names: " +  key);
+            }
         }
         return npcs;
     }
 
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
-        for (String key : section.getKeys()) {
-            String parsedKey = this.macroParser.parseStringMacros(key);
-            String value = section.getString(parsedKey);
-            value = this.macroParser.parseStringMacros(value);
-            metadata.put(parsedKey, value);
+        for (Object key : section.getKeys()) {
+            if (key instanceof String) {
+                String keyStr = (String) key;
+                String parsedKey = this.macroParser.parseStringMacros(keyStr);
+                String value = section.getString(parsedKey);
+                value = this.macroParser.parseStringMacros(value);
+                metadata.put(parsedKey, value);
+            } else {
+                DynamicGui.get().getLogger().error("Metadata does not support non-string keys: " + key);
+            }
         }
 
         return metadata;
@@ -131,7 +144,9 @@ public class SimpleGuiToken implements GuiToken {
         Map<Integer, SlotToken> slots = new LinkedHashMap<>();
         int slotAmt = this.rows * 9;
         for (int i = 0; i < slotAmt; i++) {
-            ConfigurationSection slotSection = section.getConfigurationSection(String.valueOf(i));
+            ConfigurationSection slotSection = section.hasKey(i) ?
+                    section.getConfigurationSection(i) :
+                    section.getConfigurationSection(String.valueOf(i));
             if (!slotSection.isEmpty()) {
                 SlotToken token = new SimpleSlotToken(i, slotSection, this.macroParser.getTokens());
                 slots.put(i, token);

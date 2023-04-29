@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.slot;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
@@ -138,11 +139,16 @@ public class SimpleSlotToken implements SlotToken {
 
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
-        for (String key : section.getKeys()) {
-            String parsedKey = this.macroParser.parseStringMacros(key);
-            String value = section.getString(parsedKey);
-            value = this.macroParser.parseStringMacros(value);
-            metadata.put(parsedKey, value);
+        for (Object key : section.getKeys()) {
+            if (key instanceof String) {
+                String keyStr = (String) key;
+                String parsedKey = this.macroParser.parseStringMacros(keyStr);
+                String value = section.getString(parsedKey);
+                value = this.macroParser.parseStringMacros(value);
+                metadata.put(parsedKey, value);
+            } else {
+                DynamicGui.get().getLogger().error("Metadata does not support non-string keys: " + key);
+            }
         }
         return metadata;
     }

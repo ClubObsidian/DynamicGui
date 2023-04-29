@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
@@ -127,27 +128,32 @@ public class SimpleFunctionTree implements FunctionTree {
     }
 
     private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode) {
-        for (String name : section.getKeys()) {
-            ConfigurationSection rootSection = section.getConfigurationSection(name);
-            if (rootSection.get("functions") == null) {
-                continue;
-            }
+        for (Object key : section.getKeys()) {
+            if (key instanceof String) {
+                String name = (String) key;
+                ConfigurationSection rootSection = section.getConfigurationSection(name);
+                if (rootSection.get("functions") == null) {
+                    continue;
+                }
 
-            List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
-            List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
-            List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
+                List<FunctionType> types = this.functionTypeParser.parseTypes(rootSection.getStringList("type"));
+                List<FunctionData> functionTokens = this.parseFunctionData(rootSection.getStringList("functions"));
+                List<FunctionData> failFunctions = this.parseFunctionData(rootSection.getStringList("fail-on"));
 
-            FunctionToken data = new SimpleFunctionToken(name, types, functionTokens, failFunctions);
-            FunctionNode childNode = new SimpleFunctionNode(name, depth, data);
+                FunctionToken data = new SimpleFunctionToken(name, types, functionTokens, failFunctions);
+                FunctionNode childNode = new SimpleFunctionNode(name, depth, data);
 
-            if (depth == 0) {
-                this.rootNodes.add(childNode);
+                if (depth == 0) {
+                    this.rootNodes.add(childNode);
+                } else {
+                    parentNode.addChild(childNode);
+                }
+
+                int newDepth = depth + 1;
+                walkTree(newDepth, rootSection, childNode);
             } else {
-                parentNode.addChild(childNode);
+                DynamicGui.get().getLogger().error("Function trees don't support non-string key names: " +  key);
             }
-
-            int newDepth = depth + 1;
-            walkTree(newDepth, rootSection, childNode);
         }
     }
 }
