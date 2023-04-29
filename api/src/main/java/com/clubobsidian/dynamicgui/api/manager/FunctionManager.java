@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -39,6 +40,18 @@ public abstract class FunctionManager {
         return instance;
     }
 
+    /**
+     * Gets a registered function
+     *
+     * @param functionName function name to get
+     * @return the function if registered or null
+     * @deprecated As of release 6.0.0, replaced by {@link #getFunction(String)}
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public @Nullable Function getFunctionByName(String functionName) {
+        return this.getFunction(functionName);
+    }
 
     /**
      * Gets a registered function
@@ -48,7 +61,21 @@ public abstract class FunctionManager {
      */
     public abstract @Nullable Function getFunction(@NotNull String functionName);
 
-    public abstract @Unmodifiable Collection<Function> getFunctions();
+    public @Unmodifiable
+    abstract Collection<Function> getFunctions();
+
+    /**
+     * Registers a function
+     *
+     * @param function function to register
+     * @return if the function was registered
+     * @deprecated As of release 6.0.0, replaced by {@link #registerFunction(Function)}
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public boolean addFunction(Function function) {
+        return this.registerFunction(function);
+    }
 
     /**
      * Registers a function
@@ -57,6 +84,19 @@ public abstract class FunctionManager {
      * @return if the function was registered
      */
     public abstract boolean registerFunction(@NotNull Function function);
+
+    /**
+     * Unregisters a function
+     *
+     * @param functionName name of the function to unregister
+     * @return if the function was unregistered
+     * @deprecated As of release 6.0.0, replaced by {@link #unregisterFunction(String)}
+     */
+    @Deprecated(since = "6.0.0", forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "7.0.0")
+    public boolean removeFunctionByName(String functionName) {
+        return this.unregisterFunction(functionName);
+    }
 
     /**
      * Unregisters a function
