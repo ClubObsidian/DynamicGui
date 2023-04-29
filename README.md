@@ -83,7 +83,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly 'com.github.clubobsidian.dynamicgui:api:6.1.0'
+  compileOnly 'com.github.clubobsidian.dynamicgui:api:6.1.1'
 }
 ```
 Maven
@@ -97,7 +97,7 @@ Maven
 <dependency>
 	<groupId>com.github.ClubObsidian.DynamicGui</groupId>
 	<artifactId>api</artifactId>
-	<version>6.1.0</version>
+	<version>6.1.1</version>
 </dependency>
 ```
 
