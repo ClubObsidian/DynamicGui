@@ -20,7 +20,7 @@ shadowJar {
 
 dependencies {
     implementation project(path: ':core')
-    compileOnly 'com.github.clubobsidian:foundry:2.0.2'
+    compileOnly 'com.github.clubobsidian:foundry:3.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'net.md-5:bungeecord-api:1.8-SNAPSHOT'
     implementation "cloud.commandframework:cloud-paper:$cloudVersion"
