@@ -124,6 +124,7 @@ public class DynamicGuiImpl extends DynamicGui {
         if (!this.initialized) {
             this.initialized = true;
             this.economy.setup();
+            this.permission.setup();
             this.loadCloudArgs();
             this.loadConfig();
             this.loadFunctions();
