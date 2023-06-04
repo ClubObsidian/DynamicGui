@@ -38,6 +38,9 @@ public class ReplacerManagerImpl extends ReplacerManager {
         String newText = text;
         for (ReplacerRegistry registry : this.registries) {
             newText = registry.replace(playerWrapper, newText);
+            if (!newText.equals(registry.replace(playerWrapper, newText))) {
+                return this.replace(newText, playerWrapper);
+            }
         }
         return ChatColor.translateAlternateColorCodes(newText);
     }
