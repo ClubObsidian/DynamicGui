@@ -55,6 +55,18 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static Method getMethodLossy(Class<?> cl, String... methods) {
+        for (Method m : cl.getMethods()) {
+            for (String methodName : methods) {
+                if (m.getName().equals(methodName)) {
+                    m.setAccessible(true);
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
     public static Method getMethod(Class<?> cl, String... methods) {
         for (Method m : cl.getDeclaredMethods()) {
             for (String methodName : methods) {

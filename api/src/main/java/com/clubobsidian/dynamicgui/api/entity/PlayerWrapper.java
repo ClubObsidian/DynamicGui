@@ -179,4 +179,12 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * buggy behavior on some versions when cancelling events.
      */
     public abstract void updateCursor();
+
+    /**
+     * Gets the amount of inventory slots that
+     * are free in the player's inventory
+     *
+     * @return the amount of slots that are free in the player's inventory air or null depending on version
+     */
+    public abstract int getOpenInventorySlots();
 }

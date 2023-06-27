@@ -26,15 +26,19 @@ import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
+import com.clubobsidian.dynamicgui.bukkit.util.VersionUtil;
+import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,6 +49,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
+
+    private static final Method CONTENTS = ReflectionUtil
+            .getMethodLossy(PlayerInventory.class, "getStorageContents");
 
     public BukkitPlayerWrapper(@NotNull T player) {
         super(player);
@@ -218,5 +225,23 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public void updateCursor() {
         this.getNative().setItemOnCursor(this.getNative().getItemOnCursor());
+    }
+
+    @Override
+    public int getOpenInventorySlots() {
+        int slots = 0;
+        PlayerInventory inventory = this.getNative().getInventory();
+        try {
+            ItemStack[] contents = CONTENTS == null
+                    ? inventory.getContents() : (ItemStack[]) CONTENTS.invoke(inventory);
+            for (ItemStack item : contents) {
+                if(item == null || item.getType() == Material.AIR) {
+                    slots += 1;
+                }
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        return slots;
     }
 }
