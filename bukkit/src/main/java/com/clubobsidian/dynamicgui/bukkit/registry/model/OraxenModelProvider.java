@@ -26,8 +26,9 @@ import java.lang.reflect.Method;
 
 public class OraxenModelProvider implements ModelProvider {
 
-    private static final boolean ORAXEN_EXISTS = ReflectionUtil
-            .classExists("io.th0rgal.oraxen.items.OraxenItems");
+    private static final String ITEM_CLASS_NAME = "io.th0rgal.oraxen.api.OraxenItems";
+    private static final String ITEM_BUILDER_CLASS_NAME = "io.th0rgal.oraxen.items.ItemBuilder";
+    private static final boolean ORAXEN_EXISTS = ReflectionUtil.classExists(ITEM_CLASS_NAME);
     private static final Method GET_ITEM_BY_ID = getItemById();
     private static final Method BUILD = getBuild();
 
@@ -35,7 +36,7 @@ public class OraxenModelProvider implements ModelProvider {
     private static Method getItemById() {
         if (ORAXEN_EXISTS) {
             try {
-                Class<?> items = Class.forName("io.th0rgal.oraxen.items.OraxenItems");
+                Class<?> items = Class.forName(ITEM_CLASS_NAME);
                 Method getItem = items.getDeclaredMethod("getItemById", String.class);
                 getItem.setAccessible(true);
                 return getItem;
@@ -49,7 +50,7 @@ public class OraxenModelProvider implements ModelProvider {
     private static Method getBuild() {
         if (ORAXEN_EXISTS) {
             try {
-                Class<?> itemBuilder = Class.forName("io.th0rgal.oraxen.items.ItemBuilder");
+                Class<?> itemBuilder = Class.forName(ITEM_BUILDER_CLASS_NAME);
                 Method build = itemBuilder.getDeclaredMethod("build");
                 build.setAccessible(true);
                 return build;
