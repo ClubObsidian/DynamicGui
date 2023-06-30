@@ -29,6 +29,7 @@ import java.util.UUID;
 public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     private ItemStackWrapper<?> hand;
+    private int openSlots;
 
     public MockPlayerWrapper() {
         this(new MockPlayer());
@@ -138,5 +139,14 @@ public abstract class MockPlayerWrapper extends PlayerWrapper<MockPlayer> {
 
     public void setOnline(boolean online) {
         this.getNative().setOnline(online);
+    }
+
+    @Override
+    public int getOpenInventorySlots() {
+        return this.openSlots;
+    }
+
+    public void setOpenInventorySlots(int slots) {
+        this.openSlots = slots;
     }
 }
