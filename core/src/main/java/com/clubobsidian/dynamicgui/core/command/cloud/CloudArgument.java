@@ -76,7 +76,8 @@ public final class CloudArgument {
         TYPES.put(name.toLowerCase(Locale.ROOT), arg);
     }
 
-    public static Optional<CloudArgument> fromType(String type) {
+    public static Optional<CloudArgument> fromType(@NotNull String type) {
+        Objects.requireNonNull(type);
         type = type.toLowerCase(Locale.ROOT);
         switch (type) {
             case "text":
