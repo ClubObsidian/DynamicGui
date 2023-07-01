@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.api.command.cloud;
 
 import cloud.commandframework.arguments.CommandArgument;
+import cloud.commandframework.arguments.standard.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -27,16 +28,16 @@ import java.util.function.Function;
 public final class CloudArgument {
 
     public static final String PLAYER_ARG_NAME = "player";
-    public static final CloudArgument BOOLEAN = create(Boolean.class);
-    public static final CloudArgument BYTE = create(Byte.class);
-    public static final CloudArgument CHAR = create(Character.class);
-    public static final CloudArgument DOUBLE = create(Double.class);
-    public static final CloudArgument FLOAT = create(Float.class);
-    public static final CloudArgument INTEGER = create(Integer.class);
-    public static final CloudArgument LONG = create(Long.class);
-    public static final CloudArgument SHORT = create(Short.class);
-    public static final CloudArgument STRING = create(String.class);
-    public static final CloudArgument UUID = create(UUID.class);
+    public static final CloudArgument BOOLEAN = create(name -> BooleanArgument.builder(name));
+    public static final CloudArgument BYTE = create(name -> ByteArgument.builder(name));
+    public static final CloudArgument CHAR = create(name -> CharArgument.builder(name));
+    public static final CloudArgument DOUBLE = create(name -> DoubleArgument.builder(name));
+    public static final CloudArgument FLOAT = create(name -> FloatArgument.builder(name));
+    public static final CloudArgument INTEGER = create(name -> IntegerArgument.builder(name));
+    public static final CloudArgument LONG = create(name -> LongArgument.builder(name));
+    public static final CloudArgument SHORT = create(name -> ShortArgument.builder(name));
+    public static final CloudArgument STRING = create(name -> StringArgument.builder(name));
+    public static final CloudArgument UUID = create(name -> UUIDArgument.builder(name));
 
     private static final Map<String, CloudArgument> TYPES = new HashMap<>();
 
@@ -52,10 +53,9 @@ public final class CloudArgument {
         }
     }
 
-    public static CloudArgument create(@NotNull Class<?> type) {
-        Objects.requireNonNull(type);
+    public static CloudArgument create(@NotNull Function<String, CommandArgument.Builder> func) {
         return new CloudArgument((d) -> {
-            CommandArgument.Builder builder = CommandArgument.ofType(type, d.getArgumentName());
+            CommandArgument.Builder builder = func.apply(d.getArgumentName());
             if (d.isOptional()) {
                 builder.asOptional();
             } else {

@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.cloud;
 
+import cloud.commandframework.bukkit.parsers.PlayerArgument;
 import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import org.bukkit.entity.Player;
@@ -24,6 +25,6 @@ public class BukkitCloudManager implements CloudManager {
 
     @Override
     public CloudArgument createPlayerArg() {
-        return CloudArgument.create(Player.class);
+        return CloudArgument.create(name -> PlayerArgument.builder(name));
     }
 }
