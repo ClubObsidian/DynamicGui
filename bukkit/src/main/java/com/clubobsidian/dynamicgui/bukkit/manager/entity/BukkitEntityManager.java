@@ -49,6 +49,11 @@ public class BukkitEntityManager extends EntityManager {
     }
 
     @Override
+    public boolean isPlayer(@NotNull Object player) {
+        return player instanceof Player;
+    }
+
+    @Override
     public List<String> getEntityTypes() {
         return this.entityTypes;
     }
