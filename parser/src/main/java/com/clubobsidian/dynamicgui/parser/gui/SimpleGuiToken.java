@@ -104,7 +104,7 @@ public class SimpleGuiToken implements GuiToken {
                 CloudArgument arg = opt.get();
                 args.add(arg.argument(keyName, optional));
             } else {
-                DynamicGui.get().getLogger().error("Invalid type %s", type);
+                DynamicGui.get().getLogger().error("Invalid argument type %s", type);
             }
         }
         return args;
