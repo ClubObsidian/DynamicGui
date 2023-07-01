@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.core.manager.cloud;
 
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 
 public interface CloudManager {
 

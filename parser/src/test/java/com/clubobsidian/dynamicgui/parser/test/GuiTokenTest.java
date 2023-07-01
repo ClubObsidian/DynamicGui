@@ -16,10 +16,10 @@
 
 package com.clubobsidian.dynamicgui.parser.test;
 
+import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
-import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
@@ -35,10 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GuiTokenTest {
 
@@ -127,6 +124,6 @@ public class GuiTokenTest {
 
     @Test
     public void testSlotInteger() {
-       assertNotNull(token.getSlots().get(6));
+        assertNotNull(token.getSlots().get(6));
     }
 }

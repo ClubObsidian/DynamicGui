@@ -1,6 +1,11 @@
 title: "test"
 rows: 5
 
+command-args:
+  "player":
+    type: "player"
+    optional: false
+
 '0':
   icon: "STONE"
   functions:

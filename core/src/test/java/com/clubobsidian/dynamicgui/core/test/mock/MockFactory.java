@@ -17,6 +17,7 @@
 package com.clubobsidian.dynamicgui.core.test.mock;
 
 import cloud.commandframework.CommandManager;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
@@ -24,14 +25,13 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
-import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
-import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.gui.SimpleGui;
+import com.clubobsidian.dynamicgui.core.gui.SimpleSlot;
 import com.clubobsidian.dynamicgui.core.test.mock.command.MockCommandManager;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayerWrapper;

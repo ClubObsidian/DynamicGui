@@ -24,10 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class GuiManager {
@@ -172,7 +169,21 @@ public abstract class GuiManager {
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName) {
-        return this.openGui(playerWrapper, guiName, null);
+        return this.openGui(playerWrapper, guiName, (Gui) null);
+    }
+
+    /**
+     * Opens a gui for a player.
+     *
+     * @param playerWrapper player wrapper to open the gui for
+     * @param guiName       name of the gui to open
+     * @param metadata      initial metadata for the gui to have
+     * @return a boolean future that returns true if the gui was opened
+     */
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper,
+                                              String guiName,
+                                              Map<String, String> metadata) {
+        return this.openGui(playerWrapper, guiName, null, metadata);
     }
 
     /**
@@ -184,8 +195,25 @@ public abstract class GuiManager {
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, String guiName, Gui back) {
-        return this.openGui(playerWrapper, this.getGui(guiName), back);
+        return this.openGui(playerWrapper, this.getGui(guiName), back, new HashMap<>());
     }
+
+    /**
+     * Opens a gui for a player.
+     *
+     * @param playerWrapper player wrapper to open the gui for
+     * @param guiName       name of the gui to open
+     * @param back          the gui to set as a back gui
+     * @param metadata      initial metadata for the gui to have
+     * @return a boolean future that returns true if the gui was opened
+     */
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper,
+                                              String guiName,
+                                              Gui back,
+                                              Map<String, String> metadata) {
+        return this.openGui(playerWrapper, this.getGui(guiName), back, metadata);
+    }
+
 
     /**
      * Opens a gui for a player.
@@ -195,7 +223,7 @@ public abstract class GuiManager {
      * @return a boolean future that returns true if the gui was opened
      */
     public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui) {
-        return this.openGui(playerWrapper, gui, null);
+        return this.openGui(playerWrapper, gui, null, new HashMap<>());
     }
 
     /**
@@ -206,6 +234,20 @@ public abstract class GuiManager {
      * @param back          the gui to set as a back gui
      * @return a boolean future that returns true if the gui was opened
      */
-    public abstract CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back);
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
+        return this.openGui(playerWrapper, gui, back, new HashMap<>());
+    }
+
+    /**
+     * Opens a gui for a player.
+     *
+     * @param playerWrapper player wrapper to open the gui for
+     * @param gui           the gui to open
+     * @param back          the gui to set as a back gui
+     * @param metadata      initial metadata for the gui to have
+     * @return a boolean future that returns true if the gui was opened
+     */
+    public abstract CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back,
+                                                       Map<String, String> metadata);
 
 }

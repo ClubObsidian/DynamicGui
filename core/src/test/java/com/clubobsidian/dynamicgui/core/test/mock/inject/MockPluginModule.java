@@ -19,23 +19,18 @@ package com.clubobsidian.dynamicgui.core.test.mock.inject;
 import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
+import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
-import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
-import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
+import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockCloudManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockEntityManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockInventoryManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockItemStackManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockLocationManager;
-import com.clubobsidian.dynamicgui.core.test.mock.manager.MockMaterialManager;
+import com.clubobsidian.dynamicgui.core.test.mock.manager.*;
 
 public class MockPluginModule extends PluginModule {
 

@@ -17,11 +17,7 @@
 package com.clubobsidian.dynamicgui.parser.function.tree;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionData;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionModifier;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionToken;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
-import com.clubobsidian.dynamicgui.api.parser.function.FunctionTypeParser;
+import com.clubobsidian.dynamicgui.api.parser.function.*;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionNode;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
@@ -152,7 +148,7 @@ public class SimpleFunctionTree implements FunctionTree {
                 int newDepth = depth + 1;
                 walkTree(newDepth, rootSection, childNode);
             } else {
-                DynamicGui.get().getLogger().error("Function trees don't support non-string key names: " +  key);
+                DynamicGui.get().getLogger().error("Function trees don't support non-string key names: " + key);
             }
         }
     }

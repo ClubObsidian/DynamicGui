@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.permission.NoOpPermission;
+import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.core.function.MoneyBalanceFunction;
+import com.clubobsidian.dynamicgui.core.permission.NoOpPermission;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockEconomy;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;

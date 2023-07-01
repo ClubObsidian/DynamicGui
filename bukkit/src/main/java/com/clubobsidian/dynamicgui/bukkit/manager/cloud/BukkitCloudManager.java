@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.cloud;
 
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import org.bukkit.entity.Player;
 

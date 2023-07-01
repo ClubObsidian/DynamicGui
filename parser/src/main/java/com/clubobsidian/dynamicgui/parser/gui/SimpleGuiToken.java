@@ -16,7 +16,9 @@
 
 package com.clubobsidian.dynamicgui.parser.gui;
 
+import cloud.commandframework.arguments.CommandArgument;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
@@ -29,11 +31,7 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SimpleGuiToken implements GuiToken {
 
@@ -48,6 +46,7 @@ public class SimpleGuiToken implements GuiToken {
     private final GuiBuildType mode;
     private final Boolean closed; //This should be boxed
     private final List<String> alias;
+    private final List<CommandArgument> commandArguments;
     private final List<String> locations;
     private final Map<String, List<Integer>> npcs;
     private final Map<Integer, SlotToken> slots;
@@ -76,6 +75,7 @@ public class SimpleGuiToken implements GuiToken {
         this.mode = this.parseMode(section.getString("mode"));
         this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
+        this.commandArguments = this.loadCommandArguments(section.getConfigurationSection("command-args"));
         this.locations = this.macroParser.parseListMacros(section.getStringList("locations"));
         this.npcs = this.loadNpcs(section);
         this.slots = this.loadSlots(section);
@@ -90,6 +90,24 @@ public class SimpleGuiToken implements GuiToken {
         this.metadata = this.parseMetadata(metadataSection);
         this.isStatic = section.getBoolean("static");
         this.section = section;
+    }
+
+    private List<CommandArgument> loadCommandArguments(ConfigurationSection section) {
+        List<CommandArgument> args = new ArrayList<>();
+        for (Object key : section.getKeys()) {
+            String keyName = String.valueOf(key);
+            ConfigurationSection keySec = section.getConfigurationSection(key);
+            String type = keySec.getString("type");
+            boolean optional = keySec.getBoolean("optional");
+            Optional<CloudArgument> opt = CloudArgument.fromType(type);
+            if (opt.isPresent()) {
+                CloudArgument arg = opt.get();
+                args.add(arg.argument(keyName, optional));
+            } else {
+                DynamicGui.get().getLogger().error("Invalid type %s", type);
+            }
+        }
+        return args;
     }
 
     private Boolean parseBoxedBoolean(String data) {
@@ -117,7 +135,7 @@ public class SimpleGuiToken implements GuiToken {
                 List<Integer> npcIds = npcSection.getIntegerList(key);
                 npcs.put(keyStr, npcIds);
             } else {
-                DynamicGui.get().getLogger().error("Npc plugin names do not support non-string names: " +  key);
+                DynamicGui.get().getLogger().error("Npc plugin names do not support non-string names: " + key);
             }
         }
         return npcs;
@@ -183,6 +201,11 @@ public class SimpleGuiToken implements GuiToken {
     @Override
     public List<String> getAlias() {
         return this.alias;
+    }
+
+    @Override
+    public Collection<CommandArgument> getCommandArguments() {
+        return this.commandArguments;
     }
 
     @Override
