@@ -21,10 +21,13 @@ import cloud.commandframework.CommandManager;
 import cloud.commandframework.annotations.AnnotationParser;
 import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.meta.SimpleCommandMeta;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.google.inject.Injector;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -77,11 +80,12 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                         Map<String, String> metadata = new HashMap<>();
                         for (CommandArgument arg : arguments) {
                             String argName = arg.getName();
+                            String metaKey = "command_" + argName;
                             context.getOptional(argName).ifPresent(value -> {
-                                metadata.put("command_" + argName, String.valueOf(value));
+                                metadata.put(metaKey, String.valueOf(value));
                             });
                         }
-                        GuiManager.get().openGui(playerWrapper, guiName);
+                        GuiManager.get().openGui(playerWrapper, guiName, metadata);
                     });
         });
         for (CommandArgument arg : arguments) {
