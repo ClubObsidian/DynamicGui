@@ -71,7 +71,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         Objects.requireNonNull(arguments);
         this.unregisterCommand(alias);
         Command.@NonNull Builder<GuiCommandSender> builder = this.commandManager.commandBuilder(alias);
-        builder.handler(context -> {
+        builder = builder.handler(context -> {
             context.getSender().getPlayer()
                     .ifPresent(playerWrapper -> {
                         Map<String, String> metadata = new HashMap<>();
@@ -81,11 +81,11 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                                 metadata.put("command_" + argName, String.valueOf(value));
                             });
                         }
-                        GuiManager.get().openGui(playerWrapper, guiName, metadata);
+                        GuiManager.get().openGui(playerWrapper, guiName);
                     });
         });
         for (CommandArgument arg : arguments) {
-            builder.argument(arg);
+            builder = builder.argument(arg);
         }
         this.commandManager.command(builder.build());
         this.registeredAliases.add(alias);
