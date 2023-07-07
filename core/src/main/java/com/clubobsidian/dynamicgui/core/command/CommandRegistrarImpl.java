@@ -19,19 +19,22 @@ package com.clubobsidian.dynamicgui.core.command;
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandManager;
 import cloud.commandframework.annotations.AnnotationParser;
+import cloud.commandframework.arguments.CommandArgument;
 import cloud.commandframework.meta.SimpleCommandMeta;
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.google.inject.Injector;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CommandRegistrarImpl implements CommandRegistrar {
 
@@ -63,17 +66,35 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     }
 
     @Override
-    public void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias) {
+    public void registerGuiAliasCommand(@NotNull String guiName,
+                                        @NotNull String alias,
+                                        @NotNull Collection<CommandArgument> arguments) {
         Objects.requireNonNull(guiName);
         Objects.requireNonNull(alias);
+        Objects.requireNonNull(arguments);
         this.unregisterCommand(alias);
-        Command<GuiCommandSender> command = this.commandManager.commandBuilder(alias)
-                .handler(context -> {
-                    context.getSender().getPlayer().ifPresent(playerWrapper -> {
-                        GuiManager.get().openGui(playerWrapper, guiName);
+        Command.@NonNull Builder<GuiCommandSender> builder = this.commandManager.commandBuilder(alias);
+        builder = builder.handler(context -> {
+            context.getSender().getPlayer()
+                    .ifPresent(playerWrapper -> {
+                        Map<String, String> metadata = new HashMap<>();
+                        for (CommandArgument arg : arguments) {
+                            String argName = arg.getName();
+                            String metaKey = "command_" + argName;
+                            context.getOptional(argName).ifPresent(value -> {
+                                String metadataValue = EntityManager.get().isPlayer(value) ?
+                                EntityManager.get().createPlayerWrapper(value).getName() :
+                                String.valueOf(value);
+                            metadata.put(metaKey, metadataValue);
+                            });
+                        }
+                        GuiManager.get().openGui(playerWrapper, guiName, metadata);
                     });
-                }).build();
-        this.commandManager.command(command);
+        });
+        for (CommandArgument arg : arguments) {
+            builder = builder.argument(arg);
+        }
+        this.commandManager.command(builder.build());
         this.registeredAliases.add(alias);
         this.logger.info(
                 "Registered the command '%s' for the gui %s",

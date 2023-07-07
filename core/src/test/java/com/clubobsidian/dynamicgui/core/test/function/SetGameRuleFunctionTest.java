@@ -16,16 +16,14 @@
 
 package com.clubobsidian.dynamicgui.core.test.function;
 
-import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.core.function.SetGameRuleFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SetGameRuleFunctionTest extends FactoryTest {
 

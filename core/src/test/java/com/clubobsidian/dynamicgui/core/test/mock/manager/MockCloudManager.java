@@ -16,13 +16,14 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.manager;
 
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
+import com.clubobsidian.dynamicgui.core.test.mock.command.MockPlayerArgument;
 import com.clubobsidian.dynamicgui.core.test.mock.entity.player.MockPlayer;
 
 public class MockCloudManager implements CloudManager {
     @Override
     public CloudArgument createPlayerArg() {
-        return CloudArgument.create(MockPlayer.class);
+        return CloudArgument.create(name -> MockPlayerArgument.builder(name));
     }
 }

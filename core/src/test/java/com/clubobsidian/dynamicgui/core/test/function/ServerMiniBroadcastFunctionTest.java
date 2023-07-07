@@ -17,17 +17,15 @@
 package com.clubobsidian.dynamicgui.core.test.function;
 
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.clubobsidian.dynamicgui.core.function.ServerMiniBroadcastFunction;
 import com.clubobsidian.dynamicgui.api.manager.MiniMessageManager;
+import com.clubobsidian.dynamicgui.core.function.ServerMiniBroadcastFunction;
 import com.clubobsidian.dynamicgui.core.test.mock.plugin.MockPlatform;
 import com.clubobsidian.dynamicgui.core.test.mock.test.FactoryTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServerMiniBroadcastFunctionTest extends FactoryTest {
 

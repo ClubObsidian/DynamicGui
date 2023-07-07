@@ -42,15 +42,11 @@ import com.clubobsidian.dynamicgui.api.registry.replacer.MetadataReplacerRegistr
 import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
-import com.clubobsidian.dynamicgui.core.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.ConfigImpl;
 import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
-import com.clubobsidian.dynamicgui.core.listener.EntityClickListener;
-import com.clubobsidian.dynamicgui.core.listener.GuiListener;
-import com.clubobsidian.dynamicgui.core.listener.InventoryCloseListener;
-import com.clubobsidian.dynamicgui.core.listener.InventoryInteractListener;
-import com.clubobsidian.dynamicgui.core.listener.PlayerInteractListener;
+import com.clubobsidian.dynamicgui.core.listener.*;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import com.clubobsidian.dynamicgui.core.registry.replacer.DynamicGuiAnimationReplacerRegistry;
 import com.clubobsidian.trident.EventBus;
@@ -71,11 +67,7 @@ import org.jetbrains.annotations.Unmodifiable;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DynamicGuiImpl extends DynamicGui {

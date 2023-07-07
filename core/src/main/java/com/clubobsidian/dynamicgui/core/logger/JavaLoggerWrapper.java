@@ -17,7 +17,6 @@
 package com.clubobsidian.dynamicgui.core.logger;
 
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
-import org.checkerframework.checker.units.qual.N;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

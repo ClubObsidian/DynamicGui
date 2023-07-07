@@ -18,7 +18,6 @@ package com.clubobsidian.dynamicgui.api.enchantment;
 
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.VisibleForTesting;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -39,6 +39,16 @@ public abstract class EntityManager {
      */
     public abstract PlayerWrapper<?> createPlayerWrapper(@NotNull Object player);
 
+
+    /**
+     * Checks to see if the object is a native
+     * player object
+     *
+     * @param player to check
+     * @return if the object is a native player
+     */
+    public abstract boolean isPlayer(@NotNull Object player);
+
     /**
      * Gets all the registered entity types
      *

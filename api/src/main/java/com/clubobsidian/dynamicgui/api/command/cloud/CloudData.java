@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.clubobsidian.dynamicgui.core.command.cloud;
+package com.clubobsidian.dynamicgui.api.command.cloud;
 
 public class CloudData {
 

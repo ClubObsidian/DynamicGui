@@ -56,18 +56,8 @@ import javax.inject.Inject;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -165,7 +155,10 @@ public class GuiManagerImpl extends GuiManager {
     }
 
     @Override
-    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper, Gui gui, Gui back) {
+    public CompletableFuture<Boolean> openGui(PlayerWrapper<?> playerWrapper,
+                                              Gui gui,
+                                              Gui back,
+                                              Map<String, String> metadata) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         future.exceptionally((ex) -> {
             ex.printStackTrace();
@@ -182,6 +175,7 @@ public class GuiManagerImpl extends GuiManager {
             if (back != null) {
                 clonedGui.setBack(back.clone());
             }
+            clonedGui.getMetadata().putAll(metadata);
 
             GuiPreloadEvent preloadEvent = new GuiPreloadEvent(clonedGui, playerWrapper);
             this.eventBus.callEvent(preloadEvent);
@@ -326,7 +320,7 @@ public class GuiManagerImpl extends GuiManager {
             if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
                 Gui cachedGui = this.cachedGuis.get(guiName);
                 for (String alias : token.getAlias()) {
-                    this.commandRegistrar.registerGuiAliasCommand(guiName, alias);
+                    this.commandRegistrar.registerGuiAliasCommand(guiName, alias, token.getCommandArguments());
                 }
 
                 this.guis.put(guiName, cachedGui);
@@ -505,7 +499,7 @@ public class GuiManagerImpl extends GuiManager {
         List<String> aliases = guiToken.getAlias();
 
         for (String alias : aliases) {
-            this.commandRegistrar.registerGuiAliasCommand(guiName, alias);
+            this.commandRegistrar.registerGuiAliasCommand(guiName, alias, guiToken.getCommandArguments());
         }
 
         Boolean close = guiToken.isClosed();

@@ -16,7 +16,10 @@
 
 package com.clubobsidian.dynamicgui.api.command;
 
+import cloud.commandframework.arguments.CommandArgument;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 public interface CommandRegistrar {
 
@@ -33,7 +36,9 @@ public interface CommandRegistrar {
      * @param guiName the name of the gui that an alias is being registered for
      * @param alias   the alias that should be registered
      */
-    void registerGuiAliasCommand(@NotNull String guiName, @NotNull String alias);
+    void registerGuiAliasCommand(@NotNull String guiName,
+                                 @NotNull String alias,
+                                 @NotNull Collection<CommandArgument> arguments);
 
     /**
      * Unregisters a command

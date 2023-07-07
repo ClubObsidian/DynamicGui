@@ -33,6 +33,11 @@ public class MockEntityManager extends EntityManager {
     }
 
     @Override
+    public boolean isPlayer(@NotNull Object player) {
+        return player instanceof MockPlayer;
+    }
+
+    @Override
     public List<String> getEntityTypes() {
         return Collections.emptyList();
     }
