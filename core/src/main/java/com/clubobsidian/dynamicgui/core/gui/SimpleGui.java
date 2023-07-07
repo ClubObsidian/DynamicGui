@@ -27,6 +27,7 @@ import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
+import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import org.apache.commons.lang3.SerializationUtils;
@@ -100,8 +101,9 @@ public class SimpleGui implements Gui {
 
     private String formatTitle(PlayerWrapper<?> playerWrapper) {
         String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-        if (inventoryTitle.length() > 32) {
-            inventoryTitle = inventoryTitle.substring(0, 31);
+        String stripped = ChatColor.stripColor(inventoryTitle);
+        if (stripped.length() > 32) {
+            inventoryTitle = inventoryTitle.substring(0, 31 + (inventoryTitle.length() - stripped.length()));
         }
         return inventoryTitle;
     }

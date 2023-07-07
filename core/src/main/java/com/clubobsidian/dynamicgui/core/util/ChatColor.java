@@ -36,4 +36,8 @@ public class ChatColor {
     public static String translateAlternateColorCodes(String message) {
         return SECTION.serialize(AMPERSAND.deserialize(message));
     }
+
+    public static String stripColor(String message) {
+        return SECTION.deserialize(SECTION.serialize(AMPERSAND.deserialize(message))).content();
+    }
 }
