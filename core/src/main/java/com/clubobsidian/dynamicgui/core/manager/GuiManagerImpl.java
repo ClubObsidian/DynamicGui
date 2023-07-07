@@ -271,7 +271,7 @@ public class GuiManagerImpl extends GuiManager {
         String macroName = file.getName().substring(0, file.getName().lastIndexOf("."));
         byte[] fileHash = HashUtil.getMD5(file);
         byte[] cachedHash = this.globalMacrosTimestamps.get(macroName);
-        if (cachedHash == null || fileHash != cachedHash) {
+        if (cachedHash == null || !Arrays.equals(fileHash, cachedHash)) {
             List<MacroToken> tokens = new ArrayList<>();
             Configuration config = Configuration.load(file);
             for (Object key : config.getKeys()) {
@@ -279,7 +279,6 @@ public class GuiManagerImpl extends GuiManager {
                 MacroToken token = new SimpleMacroToken(section);
                 tokens.add(token);
             }
-
             this.modifiedMacros.add(macroName);
             this.globalMacrosTimestamps.put(macroName, fileHash);
             this.globalMacros.put(macroName, tokens);
@@ -320,11 +319,15 @@ public class GuiManagerImpl extends GuiManager {
         DynamicGui dynamicGui = DynamicGui.get();
         try {
             String guiName = file.getName().substring(0, file.getName().lastIndexOf("."));
+            Gui cachedGui = this.cachedGuis.get(guiName);
             byte[] cachedHash = this.guiHashes.get(guiName);
             GuiToken token = this.cachedTokens.get(guiName);
             byte[] guiHash = HashUtil.getMD5(file);
-            if (token != null && cachedHash != null && cachedHash == guiHash && !hasUpdatedMacro(token)) {
-                Gui cachedGui = this.cachedGuis.get(guiName);
+            if (cachedGui != null
+                    && token != null
+                    && cachedHash != null
+                    && Arrays.equals(cachedHash, guiHash)
+                    && !hasUpdatedMacro(token)) {
                 for (String alias : token.getAlias()) {
                     this.commandRegistrar.registerGuiAliasCommand(guiName, alias);
                 }
