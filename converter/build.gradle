@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api("com.github.ClubObsidian:FuzzUtil:1.1.0")
+    compileOnly(project(path: ':api'))
+    testImplementation(project(path: ':api'))
+    testImplementation project(path: ':api')
+    testImplementation project(path: ':mock')
+    testImplementation("com.google.inject:guice:$guiceVersion")
+    compileOnly("com.github.clubobsidian:wrappy:$wrappyVersion")
+    testImplementation("com.github.clubobsidian:wrappy:$wrappyVersion")
+}

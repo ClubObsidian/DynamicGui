@@ -13,4 +13,6 @@ include 'bukkit'
 include 'parser'
 include 'api'
 include 'mock'
+include 'converter'
+include 'converter-deluxe'
 
