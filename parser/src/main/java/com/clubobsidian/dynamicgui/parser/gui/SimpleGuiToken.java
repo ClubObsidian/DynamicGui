@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
 import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
+import com.clubobsidian.dynamicgui.parser.index.SlotExpander;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
@@ -160,14 +161,15 @@ public class SimpleGuiToken implements GuiToken {
 
     private Map<Integer, SlotToken> loadSlots(ConfigurationSection section) {
         Map<Integer, SlotToken> slots = new LinkedHashMap<>();
-        int slotAmt = this.rows * 9;
-        for (int i = 0; i < slotAmt; i++) {
-            ConfigurationSection slotSection = section.hasKey(i) ?
-                    section.getConfigurationSection(i) :
-                    section.getConfigurationSection(String.valueOf(i));
-            if (!slotSection.isEmpty()) {
-                SlotToken token = new SimpleSlotToken(i, slotSection, this.macroParser.getTokens());
-                slots.put(i, token);
+        for (Object key : section.getKeys()) {
+            if (!SlotExpander.isSlot(key)) {
+                continue;
+            }
+            ConfigurationSection slotSection = section.getConfigurationSection(key);
+            List<Integer> expandedSlots = SlotExpander.expand(key);
+            for (Integer index : expandedSlots) {
+                SlotToken token = new SimpleSlotToken(index, slotSection, this.macroParser.getTokens());
+                slots.put(index, token);
             }
         }
         return slots;
