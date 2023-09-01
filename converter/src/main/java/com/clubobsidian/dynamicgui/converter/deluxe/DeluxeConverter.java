@@ -6,7 +6,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-public class DeluxeConverter implements Converter {
+public class DeluxeConverter extends Converter {
+
+    public DeluxeConverter(@NotNull File baseDirectory) {
+        super(baseDirectory);
+    }
+
+    @Override
+    public String name() {
+        return "deluxe";
+    }
+
     @Override
     public ConfigurationSection convert(@NotNull File file) {
         return null;
