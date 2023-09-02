@@ -165,9 +165,18 @@ public class SimpleGuiToken implements GuiToken {
             if (!SlotExpander.isSlot(key)) {
                 continue;
             }
+            int slotAmt = this.rows * 9;
             ConfigurationSection slotSection = section.getConfigurationSection(key);
             List<Integer> expandedSlots = SlotExpander.expand(key);
             for (Integer index : expandedSlots) {
+                if (index >= slotAmt) {
+                    DynamicGui.get()
+                            .getLogger()
+                            .error("Slot '%d' is >= the index for the max allowed slots of '%d'",
+                                    index, slotAmt
+                            );
+                    continue;
+                }
                 SlotToken token = new SimpleSlotToken(index, slotSection, this.macroParser.getTokens());
                 slots.put(index, token);
             }
