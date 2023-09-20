@@ -433,19 +433,23 @@ public class GuiManagerImpl extends GuiManager {
         }
 
         this.cachedTokens.put(guiName, guiToken);
-        List<Slot> slots = this.createSlots(guiToken);
-        final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
+        boolean legacyIndexing = guiToken.getLegacyIndexing() != null ?
+                guiToken.getLegacyIndexing() :
+                DynamicGui.get().getConfig().getLegacyIndexing();
+        List<Slot> slots = this.createSlots(guiToken, legacyIndexing);
+        final Gui gui = this.createGui(guiToken, guiName, slots, legacyIndexing);
 
         this.guis.put(guiName, gui);
         logger.info("gui '%s' has been loaded!", gui.getName());
     }
 
-    private List<Slot> createSlots(GuiToken guiToken) {
+    private List<Slot> createSlots(GuiToken guiToken, boolean legacyIndexing) {
         List<Slot> slots = new ArrayList<>();
         Iterator<Entry<Integer, SlotToken>> it = guiToken.getSlots().entrySet().iterator();
         while (it.hasNext()) {
             Entry<Integer, SlotToken> next = it.next();
-            int index = next.getKey();
+            int keyIndex = next.getKey();
+            int index = legacyIndexing ? keyIndex : keyIndex - 1;
             SlotToken slotToken = next.getValue();
 
             String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
@@ -495,7 +499,10 @@ public class GuiManagerImpl extends GuiManager {
         return slots;
     }
 
-    private Gui createGui(final GuiToken guiToken, final String guiName, final List<Slot> slots, final DynamicGuiPlugin plugin) {
+    private Gui createGui(final GuiToken guiToken,
+                          final String guiName,
+                          final List<Slot> slots,
+                          final boolean legacyIndexing) {
         String type = guiToken.getType();
         String title = guiToken.getTitle();
         int rows = guiToken.getRows();
@@ -518,9 +525,8 @@ public class GuiManagerImpl extends GuiManager {
         Map<String, String> metadata = guiToken.getMetadata();
 
         boolean isStatic = guiToken.isStatic();
-
         return this.factory.create(guiName, type, title, rows, close, guiBuildType,
                 npcIds, slots, locations, guiToken.getFunctions(), metadata,
-                isStatic);
+                isStatic, legacyIndexing);
     }
 }

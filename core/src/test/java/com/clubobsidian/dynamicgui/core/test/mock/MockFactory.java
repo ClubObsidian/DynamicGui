@@ -108,7 +108,8 @@ public class MockFactory {
                 new ArrayList<>(),
                 new SimpleFunctionTree(),
                 new HashMap<>(),
-                false);
+                false,
+                DynamicGui.get().getConfig().getLegacyIndexing());
     }
 
     public Slot createSlot(PlayerWrapper<?> player) {

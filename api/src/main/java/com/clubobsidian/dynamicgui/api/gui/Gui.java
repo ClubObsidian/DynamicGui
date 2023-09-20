@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.gui;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.component.CloseableComponent;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
@@ -173,6 +174,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         private transient final Map<String, String> metadata = new HashMap<>();
         private transient Gui backGui;
         private transient boolean isStatic = false;
+        private transient Boolean legacyIndexing;
 
         /**
          * Sets the inventory type
@@ -394,14 +396,38 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         }
 
         /**
+         * Sets whether the gui should use legacy indexing,
+         * indexing that starts at 0 instead of 1
+         *
+         * @param legacyIndexing to set
+         * @return this builder
+         */
+        public Builder setLegacyIndexing(boolean legacyIndexing) {
+            this.legacyIndexing = legacyIndexing;
+            return this;
+        }
+
+        private boolean hasZeroSlot() {
+            for (Slot slot : this.slots) {
+                if (slot.getIndex() == 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /**
          * Build the gui based off the builder parameters
          *
          * @return the built Gui
          */
         public Gui build() {
+            boolean legacyIndexing = hasZeroSlot() ? true :
+                    this.legacyIndexing != null ? this.legacyIndexing :
+                    DynamicGui.get().getConfig().getLegacyIndexing();
             Gui gui = GUI_FACTORY.create(this.name, this.type, this.title, this.rows,
                     this.close, this.guiBuildType, this.npcIds, this.slots, this.locations,
-                    this.functionTree, this.metadata, this.isStatic);
+                    this.functionTree, this.metadata, this.isStatic, legacyIndexing);
             if (this.backGui != null) {
                 gui.setBack(this.backGui);
             }

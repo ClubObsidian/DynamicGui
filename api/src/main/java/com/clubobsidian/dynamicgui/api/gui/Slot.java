@@ -41,9 +41,10 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
     String TEST_MATERIAL = "STONE";
 
     /**
-     * The index that the slot exists at after a gui is built.
-     * Before a gui is built this value does not accurately
-     * have the correct index.
+     * The index that the slot corresponds to in the inventory slot.
+     * Before a gui is built this may not have the correct index.
+     * These values start at 0 as they correspond with the inventory
+     * slot index.
      *
      * @return the slot index
      */

@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -65,4 +66,6 @@ public interface GuiToken extends Serializable {
     Map<String, String> getMetadata();
 
     boolean isStatic();
+
+    @Nullable Boolean getLegacyIndexing();
 }

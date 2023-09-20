@@ -32,6 +32,6 @@ public interface GuiFactory {
     Gui create(String name, String type, String title, int rows, Boolean close,
                GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds, List<Slot> slots,
                List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
-               boolean isStatic);
+               boolean isStatic, boolean legacyIndexing);
 
 }

@@ -33,9 +33,9 @@ public class GuiFactoryImpl implements GuiFactory {
     public Gui create(String name, String type, String title, int rows,
                       Boolean close, GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds,
                       List<Slot> slots, List<LocationWrapper<?>> locations, FunctionTree functionTree,
-                      Map<String, String> metadata, boolean isStatic) {
+                      Map<String, String> metadata, boolean isStatic, boolean legacyIndexing) {
         return new SimpleGui(name, type, title, rows, close, guiBuildType,
                 npcIds, slots, locations, functionTree, metadata,
-                isStatic);
+                isStatic, legacyIndexing);
     }
 }

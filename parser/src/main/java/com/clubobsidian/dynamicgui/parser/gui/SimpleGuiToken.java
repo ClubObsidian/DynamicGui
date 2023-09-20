@@ -31,6 +31,7 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -56,6 +57,7 @@ public class SimpleGuiToken implements GuiToken {
     private final List<String> loadMacros;
     private final Map<String, String> metadata;
     private final boolean isStatic;
+    private final Boolean legacyIndexing;
     public final ConfigurationSection section;
 
     public SimpleGuiToken(ConfigurationSection section) {
@@ -90,6 +92,8 @@ public class SimpleGuiToken implements GuiToken {
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
         this.isStatic = section.getBoolean("static");
+        this.legacyIndexing = this.slots.get(0) != null ? Boolean.TRUE :
+                this.parseBoxedBoolean(section.getString("legacy-indexing"));
         this.section = section;
     }
 
@@ -257,5 +261,10 @@ public class SimpleGuiToken implements GuiToken {
     @Override
     public boolean isStatic() {
         return this.isStatic;
+    }
+
+    @Override
+    public @Nullable Boolean getLegacyIndexing() {
+        return this.legacyIndexing;
     }
 }

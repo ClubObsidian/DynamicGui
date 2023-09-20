@@ -35,4 +35,12 @@ public interface Config {
      */
     @Nullable String getDateTimeFormat();
 
+    /**
+     * Whether guis should fall to use legacy indexing,
+     * indexing that starts at 0 instead of 1
+     *
+     * @return whether to use legacy indexing
+     */
+    boolean getLegacyIndexing();
+
 }

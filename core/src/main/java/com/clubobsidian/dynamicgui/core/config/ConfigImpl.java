@@ -25,6 +25,8 @@ public class ConfigImpl implements Config {
     private final Message message;
     @Node("date-time-format")
     private String dateTimeFormat = null;
+    @Node("legacy-indexing")
+    private boolean legacyIndexing;
 
     public ConfigImpl(Message message) {
         this.message = message;
@@ -38,5 +40,10 @@ public class ConfigImpl implements Config {
     @Override
     public String getDateTimeFormat() {
         return this.dateTimeFormat;
+    }
+
+    @Override
+    public boolean getLegacyIndexing() {
+        return this.legacyIndexing;
     }
 }

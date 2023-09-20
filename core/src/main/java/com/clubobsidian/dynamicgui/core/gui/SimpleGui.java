@@ -57,11 +57,12 @@ public class SimpleGui implements Gui {
     private Gui back;
     private final Map<String, String> metadata;
     private final boolean isStatic;
+    private final boolean legacyIndexing;
 
     public SimpleGui(String name, String type, String title, int rows, Boolean close,
                      GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds, List<Slot> slots,
                      List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
-                     boolean isStatic) {
+                     boolean isStatic, boolean legacyIndexing) {
         this.name = name;
         this.type = type;
         this.title = ChatColor.translateAlternateColorCodes(title);
@@ -76,6 +77,7 @@ public class SimpleGui implements Gui {
         this.back = null;
         this.metadata = metadata;
         this.isStatic = isStatic;
+        this.legacyIndexing = legacyIndexing;
     }
 
     private Map<String, List<Integer>> loadNpcIds(Map<String, List<Integer>> initialIds) {
@@ -218,6 +220,10 @@ public class SimpleGui implements Gui {
 
     public boolean isStatic() {
         return this.isStatic;
+    }
+
+    public boolean hasLegacyIndexing() {
+        return this.legacyIndexing;
     }
 
     public Gui clone() {
