@@ -119,13 +119,13 @@ public class ConditionFunctionTest extends FactoryTest {
 
     @Test
     public void testAfterDate(){
-        Expression afterDate = new Expression("AFTERDATE(\"2023-01-01\", \"2023-01-02\")", config);
+        Expression afterDate = new Expression("AFTERDATE(\"01 01, 2023 00:00:00\")", config);
         try {
             assertEquals(BigDecimal.ONE, afterDate.evaluate().getNumberValue());
         } catch (EvaluationException | ParseException e) {
             e.printStackTrace();
         }
-        Expression notAfterDate = new Expression("AFTERDATE(\"2023-01-02\", \"2023-01-01\")", config);
+        Expression notAfterDate = new Expression("AFTERDATE(\"01 01, 2100 00:00:00\")", config);
         try {
             assertEquals(BigDecimal.ZERO, notAfterDate.evaluate().getNumberValue());
         } catch (EvaluationException | ParseException e) {
@@ -135,13 +135,13 @@ public class ConditionFunctionTest extends FactoryTest {
 
     @Test
     public void testBeforeDate(){
-        Expression beforeDate = new Expression("BEFOREDATE(\"2023-01-01\", \"2023-01-02\")", config);
+        Expression beforeDate = new Expression("BEFOREDATE(\"01 01, 2100 00:00:00\")", config);
         try {
             assertEquals(BigDecimal.ONE, beforeDate.evaluate().getNumberValue());
         } catch (EvaluationException | ParseException e) {
             e.printStackTrace();
         }
-        Expression notBeforeDate = new Expression("BEFOREDATE(\"2023-01-02\", \"2023-01-01\")", config);
+        Expression notBeforeDate = new Expression("BEFOREDATE(\"01 01, 2023 00:00:00\")", config);
         try {
             assertEquals(BigDecimal.ZERO, notBeforeDate.evaluate().getNumberValue());
         } catch (EvaluationException | ParseException e) {
@@ -175,10 +175,10 @@ public class ConditionFunctionTest extends FactoryTest {
         conditionFunction.setData("STRCONTAINS(\"test\", \"es\")");
         assertTrue(conditionFunction.function(playerWrapper));
 
-        conditionFunction.setData("AFTERDATE(\"2023-01-01\", \"2023-01-02\")");
+        conditionFunction.setData("AFTERDATE(\"01 01, 2023 00:00:00\")");
         assertTrue(conditionFunction.function(playerWrapper));
 
-        conditionFunction.setData("BEFOREDATE(\"2023-01-02\", \"2023-01-01\")");
+        conditionFunction.setData("BEFOREDATE(\"01 01, 2100 00:00:00\")");
         assertTrue(conditionFunction.function(playerWrapper));
     }
 

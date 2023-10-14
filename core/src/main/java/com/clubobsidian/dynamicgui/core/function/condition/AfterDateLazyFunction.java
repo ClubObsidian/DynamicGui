@@ -23,6 +23,7 @@ import com.ezylang.evalex.functions.AbstractFunction;
 import com.ezylang.evalex.functions.FunctionParameter;
 import com.ezylang.evalex.parser.Token;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -37,11 +38,11 @@ public class AfterDateLazyFunction extends AbstractFunction {
             Date now = Date.from(Instant.now());
             Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getExpressionNode().getToken().getValue());
             if (now.after(expected)) {
-                return new EvaluationValue(1);
+                return new EvaluationValue(BigDecimal.ONE);
             }
         } catch (ParseException ignore) {
             DynamicGui.get().getLogger().error("Invalid Date: %s", parameterValues[0].getStringValue());
         }
-        return new EvaluationValue(0);
+        return new EvaluationValue(BigDecimal.ZERO);
     }
 }

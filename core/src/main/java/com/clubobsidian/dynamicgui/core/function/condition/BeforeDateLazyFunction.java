@@ -23,6 +23,7 @@ import com.ezylang.evalex.functions.AbstractFunction;
 import com.ezylang.evalex.functions.FunctionParameter;
 import com.ezylang.evalex.parser.Token;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -34,15 +35,17 @@ public class BeforeDateLazyFunction extends AbstractFunction {
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         try {
+
             String format = DynamicGui.get().getConfig().getDateTimeFormat();
+            System.out.println(format);
             Date now = Date.from(Instant.now());
             Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getExpressionNode().getToken().getValue());
             if (now.before(expected)) {
-                return new EvaluationValue(1);
+                return new EvaluationValue(BigDecimal.ONE);
             }
         } catch (ParseException ignore) {
             DynamicGui.get().getLogger().error("Invalid Date: %s", parameterValues[0].getExpressionNode().getToken().getValue());
         }
-        return new EvaluationValue(0);
+        return new EvaluationValue(BigDecimal.ZERO);
     }
 }
