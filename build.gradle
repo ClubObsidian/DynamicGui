@@ -77,7 +77,7 @@ subprojects {
 		relocate 'org.aopalliance.intercept', 'com.clubobsidian.dynamicgui.shaded.aopalliance.intercept'
 		relocate 'org.aopalliance.aop', 'com.clubobsidian.dynamicgui.shaded.aopalliance.aop'
 		relocate 'javax.inject', 'com.clubobsidian.dynamicgui.shaded.javax.inject'
-		relocate 'com.udojava.evalex', 'com.clubobsidian.dynamicgui.shaded.evalex'
+		relocate 'com.ezylang.evalex', 'com.clubobsidian.dynamicgui.shaded.evalex'
 		relocate 'com.typesafe.config', 'com.clubobsidian.dynamicgui.shaded.typesafeconfig'
 		relocate 'com.google.j2objc', 'com.clubobsidian.dynamicgui.shaded.j2objc'
 		relocate 'com.google.inject', 'com.clubobsidian.dynamicgui.shaded.guice'

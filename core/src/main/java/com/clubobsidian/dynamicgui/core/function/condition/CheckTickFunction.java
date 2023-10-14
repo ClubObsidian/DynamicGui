@@ -20,7 +20,11 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.function.FunctionOwner;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
-import com.udojava.evalex.Expression;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
+
+import java.math.BigDecimal;
+import java.util.Map;
 
 public class CheckTickFunction extends Function {
 
@@ -45,14 +49,8 @@ public class CheckTickFunction extends Function {
                 String tickData = this.getData()
                         .replace("%tick%", String.valueOf(tick))
                         .replace("%frame%", String.valueOf(frame));
-                Expression expr = new Expression(tickData);
-                expr.addLazyFunction(new EqualLazyFunction());
-
-                if (!expr.isBoolean()) {
-                    return false;
-                }
-
-                return expr.eval().intValue() == 1;
+                Expression expr = new Expression(tickData, ExpressionConfiguration.defaultConfiguration().withAdditionalFunctions(Map.entry("STREQUAL", new EqualLazyFunction())));
+                return expr.evaluate().getNumberValue().equals(BigDecimal.ONE);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 return false;

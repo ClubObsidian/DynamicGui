@@ -17,33 +17,31 @@
 package com.clubobsidian.dynamicgui.core.function.condition;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
-import com.udojava.evalex.AbstractLazyFunction;
-import com.udojava.evalex.Expression.LazyNumber;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.data.EvaluationValue;
+import com.ezylang.evalex.functions.AbstractFunction;
+import com.ezylang.evalex.functions.FunctionParameter;
+import com.ezylang.evalex.parser.Token;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
 
-public class AfterDateLazyFunction extends AbstractLazyFunction {
-
-    protected AfterDateLazyFunction() {
-        super("AFTERDATE", 1, true);
-    }
-
+@FunctionParameter(name = "AfterDate", isLazy = true)
+public class AfterDateLazyFunction extends AbstractFunction {
     @Override
-    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
+    public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         try {
             String format = DynamicGui.get().getConfig().getDateTimeFormat();
             Date now = Date.from(Instant.now());
-            Date expected = new SimpleDateFormat(format).parse(lazyParams.get(0).getString());
+            Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getStringValue());
             if (now.after(expected)) {
-                return ConditionFunction.ONE;
+                return new EvaluationValue(1);
             }
         } catch (ParseException ignore) {
-            DynamicGui.get().getLogger().error("Invalid Date: %s", lazyParams.get(0).getString());
+            DynamicGui.get().getLogger().error("Invalid Date: %s", parameterValues[0].getStringValue());
         }
-        return ConditionFunction.ZERO;
+        return new EvaluationValue(0);
     }
 }

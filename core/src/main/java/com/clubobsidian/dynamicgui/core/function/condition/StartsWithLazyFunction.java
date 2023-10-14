@@ -16,22 +16,23 @@
 
 package com.clubobsidian.dynamicgui.core.function.condition;
 
-import com.udojava.evalex.AbstractLazyFunction;
-import com.udojava.evalex.Expression.LazyNumber;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.data.EvaluationValue;
+import com.ezylang.evalex.functions.FunctionParameter;
+import com.ezylang.evalex.parser.Token;
+import com.ezylang.evalex.functions.AbstractFunction;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-public class StartsWithLazyFunction extends AbstractLazyFunction {
-
-    protected StartsWithLazyFunction() {
-        super("STRSTARTSWITH", 2, true);
-    }
+@FunctionParameter(name = "value", isLazy = true)
+@FunctionParameter(name = "startsWith", isLazy = true)
+public class StartsWithLazyFunction extends AbstractFunction {
 
     @Override
-    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
-        if (lazyParams.get(0).getString().startsWith(lazyParams.get(1).getString())) {
-            return ConditionFunction.ONE;
+    public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
+        if(parameterValues[0].getStringValue().startsWith(parameterValues[1].getStringValue())){
+            return new EvaluationValue(BigDecimal.ONE);
         }
-        return ConditionFunction.ZERO;
+        return new EvaluationValue(BigDecimal.ZERO);
     }
 }

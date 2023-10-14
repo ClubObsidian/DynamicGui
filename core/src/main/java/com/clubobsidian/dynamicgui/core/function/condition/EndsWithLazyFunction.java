@@ -16,22 +16,21 @@
 
 package com.clubobsidian.dynamicgui.core.function.condition;
 
-import com.udojava.evalex.AbstractLazyFunction;
-import com.udojava.evalex.Expression.LazyNumber;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.data.EvaluationValue;
+import com.ezylang.evalex.functions.AbstractFunction;
+import com.ezylang.evalex.functions.FunctionParameter;
+import com.ezylang.evalex.parser.Token;
 
-import java.util.List;
 
-public class EndsWithLazyFunction extends AbstractLazyFunction {
-
-    protected EndsWithLazyFunction() {
-        super("STRENDSWITH", 2, true);
-    }
-
+@FunctionParameter(name = "value", isLazy = true)
+@FunctionParameter(name = "endsWith", isLazy = true)
+public class EndsWithLazyFunction extends AbstractFunction {
     @Override
-    public LazyNumber lazyEval(List<LazyNumber> lazyParams) {
-        if (lazyParams.get(0).getString().endsWith(lazyParams.get(1).getString())) {
-            return ConditionFunction.ONE;
+    public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
+        if (parameterValues[0].getStringValue().endsWith(parameterValues[1].getStringValue())) {
+            return new EvaluationValue(1);
         }
-        return ConditionFunction.ZERO;
+        return new EvaluationValue(0);
     }
 }
