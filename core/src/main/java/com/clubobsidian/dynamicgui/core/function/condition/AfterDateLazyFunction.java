@@ -35,7 +35,7 @@ public class AfterDateLazyFunction extends AbstractFunction {
         try {
             String format = DynamicGui.get().getConfig().getDateTimeFormat();
             Date now = Date.from(Instant.now());
-            Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getStringValue());
+            Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getExpressionNode().getToken().getValue());
             if (now.after(expected)) {
                 return new EvaluationValue(1);
             }

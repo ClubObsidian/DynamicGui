@@ -30,7 +30,7 @@ public class EqualLazyFunction extends AbstractFunction {
 
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
-        if(parameterValues[0].getStringValue().equals(parameterValues[1].getStringValue())) {
+        if(parameterValues[0].getExpressionNode().getToken().getValue().equals(parameterValues[1].getExpressionNode().getToken().getValue())) {
             return new EvaluationValue(BigDecimal.ONE);
         }
         return new EvaluationValue(BigDecimal.ZERO);

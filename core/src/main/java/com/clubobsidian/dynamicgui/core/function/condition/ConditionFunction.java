@@ -48,8 +48,6 @@ public class ConditionFunction extends Function {
                     Map.entry("BEFOREDATE", new BeforeDateLazyFunction())
                     );
             Expression expr = new Expression(this.getData(), config);
-            if (!expr.evaluate().isBooleanValue())
-                return false;
             return expr.evaluate().getNumberValue().equals(BigDecimal.ONE);
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -36,12 +36,12 @@ public class BeforeDateLazyFunction extends AbstractFunction {
         try {
             String format = DynamicGui.get().getConfig().getDateTimeFormat();
             Date now = Date.from(Instant.now());
-            Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getStringValue());
+            Date expected = new SimpleDateFormat(format).parse(parameterValues[0].getExpressionNode().getToken().getValue());
             if (now.before(expected)) {
                 return new EvaluationValue(1);
             }
         } catch (ParseException ignore) {
-            DynamicGui.get().getLogger().error("Invalid Date: %s", parameterValues[0].getStringValue());
+            DynamicGui.get().getLogger().error("Invalid Date: %s", parameterValues[0].getExpressionNode().getToken().getValue());
         }
         return new EvaluationValue(0);
     }

@@ -30,7 +30,7 @@ import java.math.BigDecimal;
 public class ContainsLazyFunction extends AbstractFunction {
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
-        if (parameterValues[0].toString().contains(parameterValues[1].toString())) {
+        if (parameterValues[0].getExpressionNode().getToken().getValue().contains(parameterValues[1].getExpressionNode().getToken().getValue())) {
             return new EvaluationValue(BigDecimal.ONE);
         }
         return new EvaluationValue(BigDecimal.ZERO);

@@ -28,7 +28,7 @@ import com.ezylang.evalex.parser.Token;
 public class EndsWithLazyFunction extends AbstractFunction {
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
-        if (parameterValues[0].getStringValue().endsWith(parameterValues[1].getStringValue())) {
+        if (parameterValues[0].getExpressionNode().getToken().getValue().endsWith(parameterValues[1].getExpressionNode().getToken().getValue())) {
             return new EvaluationValue(1);
         }
         return new EvaluationValue(0);
