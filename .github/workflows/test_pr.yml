@@ -17,3 +17,5 @@ jobs:
       run: chmod +x gradlew
     - name: Test
       run: ./gradlew test
+    - name: Build
+      run: ./gradlew build
