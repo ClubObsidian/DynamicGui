@@ -18,10 +18,11 @@ package com.clubobsidian.dynamicgui.core.function.condition;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
-import com.udojava.evalex.Expression;
-import com.udojava.evalex.Expression.LazyNumber;
+import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class ConditionFunction extends Function {
 
@@ -37,43 +38,20 @@ public class ConditionFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {
-            Expression expr = new Expression(this.getData());
-
-            expr.addLazyFunction(new EqualLazyFunction());
-            expr.addLazyFunction(new IgnoreCaseEqualLazyFunction());
-            expr.addLazyFunction(new ContainsLazyFunction());
-            expr.addLazyFunction(new EndsWithLazyFunction());
-            expr.addLazyFunction(new StartsWithLazyFunction());
-            expr.addLazyFunction(new AfterDateLazyFunction());
-            expr.addLazyFunction(new BeforeDateLazyFunction());
-
-            if (!expr.isBoolean())
-                return false;
-
-            return expr.eval().intValue() == 1;
+            ExpressionConfiguration config = ExpressionConfiguration.defaultConfiguration().withAdditionalFunctions(
+                    Map.entry("STREQUAL", new EqualLazyFunction()),
+                    Map.entry("STREQUALIGNORECASE", new IgnoreCaseEqualLazyFunction()),
+                    Map.entry("STRCONTAINS", new ContainsLazyFunction()),
+                    Map.entry("STRENDSWITH", new EndsWithLazyFunction()),
+                    Map.entry("STRSTARTSWITH", new StartsWithLazyFunction()),
+                    Map.entry("AFTERDATE", new AfterDateLazyFunction()),
+                    Map.entry("BEFOREDATE", new BeforeDateLazyFunction())
+                    );
+            Expression expr = new Expression(this.getData(), config);
+            return expr.evaluate().getNumberValue().equals(BigDecimal.ONE);
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
     }
-
-    public static LazyNumber ZERO = new LazyNumber() {
-        public BigDecimal eval() {
-            return BigDecimal.ZERO;
-        }
-
-        public String getString() {
-            return "0";
-        }
-    };
-
-    public static LazyNumber ONE = new LazyNumber() {
-        public BigDecimal eval() {
-            return BigDecimal.ONE;
-        }
-
-        public String getString() {
-            return null;
-        }
-    };
 }
