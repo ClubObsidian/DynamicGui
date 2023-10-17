@@ -27,7 +27,14 @@ import java.math.BigDecimal;
 @FunctionParameter(name = "value", isLazy = true)
 @FunctionParameter(name = "startsWith", isLazy = true)
 public class StartsWithLazyFunction extends AbstractFunction {
-
+    /**
+     *
+     * @param expression The expression, where this function is executed. Can be used to access the
+     *     expression configuration.
+     * @param functionToken The function token from the parsed expression.
+     * @param parameterValues The parameter values.
+     * @return BigDecimal.ONE if the string starts with the value, BigDecimal.ZERO otherwise
+     */
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         if(parameterValues[0].getExpressionNode().getToken().getValue().startsWith(parameterValues[1].getExpressionNode().getToken().getValue())){

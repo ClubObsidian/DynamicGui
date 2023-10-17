@@ -26,6 +26,14 @@ import com.ezylang.evalex.parser.Token;
 @FunctionParameter(name = "value", isLazy = true)
 @FunctionParameter(name = "endsWith", isLazy = true)
 public class EndsWithLazyFunction extends AbstractFunction {
+    /**
+     *
+     * @param expression The expression, where this function is executed. Can be used to access the
+     *     expression configuration.
+     * @param functionToken The function token from the parsed expression.
+     * @param parameterValues The parameter values.
+     * @return BigDecimal.ONE if the string ends with the value, BigDecimal.ZERO otherwise
+     */
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         if (parameterValues[0].getExpressionNode().getToken().getValue().endsWith(parameterValues[1].getExpressionNode().getToken().getValue())) {

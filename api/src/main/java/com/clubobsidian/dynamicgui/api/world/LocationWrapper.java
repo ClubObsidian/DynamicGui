@@ -38,18 +38,38 @@ public class LocationWrapper<T> implements Serializable {
         this.world = world;
     }
 
+    /**
+     * Gets the x coordinate of the location
+     *
+     * @return x coordinate of the location
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * Gets the y coordinate of the location
+     *
+     * @return y coordinate of the location
+     */
     public int getY() {
         return this.y;
     }
 
+    /**
+     * Gets the z coordinate of the location
+     *
+     * @return z coordinate of the location
+     */
     public int getZ() {
         return this.z;
     }
 
+    /**
+     * Gets the WoldWrapper for the location
+     *
+     * @return wold of the location
+     */
     public WorldWrapper<T> getWorld() {
         return this.world;
     }

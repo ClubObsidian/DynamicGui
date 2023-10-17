@@ -52,14 +52,23 @@ public interface DynamicGuiPlugin {
 
     File getDataFolder();
 
+    /**
+     * @return the DynamicGUI config file
+     */
     default File getConfigFile() {
         return new File(this.getDataFolder(), "config.yml");
     }
 
+    /**
+     * @return the default gui folder
+     */
     default File getGuiFolder() {
         return new File(this.getDataFolder(), "guis");
     }
 
+    /**
+     * @return the default macro folder
+     */
     default File getMacroFolder() {
         return new File(this.getDataFolder(), "macros");
     }

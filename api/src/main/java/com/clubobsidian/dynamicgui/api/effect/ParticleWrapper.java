@@ -42,10 +42,20 @@ public class ParticleWrapper implements Serializable {
         this.data = Objects.requireNonNull(data);
     }
 
+    /**
+     * Gets the ParticleData for the particle effect
+     *
+     * @return the ParticleData object
+     */
     public ParticleData getData() {
         return this.data;
     }
 
+    /**
+     * Spawns the particle effect for the player
+     *
+     * @param player the player to spawn the effect for
+     */
     public void spawnEffect(@NotNull PlayerWrapper<?> player) {
         Objects.requireNonNull(player);
         player.playEffect(this.data);
@@ -53,6 +63,11 @@ public class ParticleWrapper implements Serializable {
 
     public static class ParticleData {
 
+        /**
+         * Creates a ParticleData object from a string
+         * @param str the string to create the ParticleData object from
+         * @return
+         */
         public static ParticleData fromString(@NotNull String str) {
             Objects.requireNonNull(str);
             if (str.contains(",")) {

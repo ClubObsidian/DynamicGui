@@ -24,6 +24,10 @@ public enum PlayerAction {
     RIGHT_CLICK_BLOCK,
     PHYSICAL;
 
+    /**
+     * Checks if the player action is a block click
+     * @return True if the player action is a block click, false otherwise
+     */
     public boolean isBlockClick() {
         return this == PlayerAction.RIGHT_CLICK_BLOCK || this == PlayerAction.LEFT_CLICK_BLOCK;
     }

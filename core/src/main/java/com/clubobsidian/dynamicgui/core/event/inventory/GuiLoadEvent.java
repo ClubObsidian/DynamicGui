@@ -34,19 +34,34 @@ public class GuiLoadEvent extends Event implements Cancellable {
         this.cancelled = false;
     }
 
+    /**
+     * Gets the gui which was loaded
+     * @return The gui which associated with the load event
+     */
     public Gui gui() {
         return this.gui;
     }
 
+    /**
+     * Get the player wrapper associated with this event
+     * @return The player wrapper associated with this event
+     */
     public PlayerWrapper<?> getPlayerWrapper() {
         return this.playerWrapper;
     }
 
+    /**
+     * @return True if the event is cancelled, false otherwise
+     */
     @Override
     public boolean isCancelled() {
         return this.cancelled;
     }
 
+    /**
+     * Set the status of the event
+     * @param cancelled
+     */
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;

@@ -35,6 +35,11 @@ public class ConditionFunction extends Function {
         super("condition");
     }
 
+    /**
+     * Runs a condition function
+     * @param playerWrapper to run the function for
+     * @return true if the function evalutes to BigDecimal.ONE, false otherwise
+     */
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         try {

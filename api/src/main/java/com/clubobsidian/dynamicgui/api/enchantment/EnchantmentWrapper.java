@@ -44,14 +44,25 @@ public class EnchantmentWrapper implements Serializable {
         this.level = level;
     }
 
+    /**
+     * Gets the enchantment
+     * @return String enchantment
+     */
     public String getEnchant() {
         return this.enchant;
     }
 
+    /**
+     * Gets the level of the enchantment
+     * @return int level of the enchantment
+     */
     public int getLevel() {
         return this.level;
     }
 
+    /**
+     * Static builder for the enchantment wrapper
+     */
     public static class Builder {
 
         private transient String enchantment;

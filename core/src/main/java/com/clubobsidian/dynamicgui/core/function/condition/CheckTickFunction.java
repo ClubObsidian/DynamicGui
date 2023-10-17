@@ -37,6 +37,11 @@ public class CheckTickFunction extends Function {
         super("checktick");
     }
 
+    /**
+     * Checks if the current tick is equal to the tick specified in the function data
+     * @param playerWrapper to run the function for
+     * @return
+     */
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         FunctionOwner owner = this.getOwner();

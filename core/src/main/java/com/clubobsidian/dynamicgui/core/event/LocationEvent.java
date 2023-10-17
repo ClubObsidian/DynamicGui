@@ -28,6 +28,10 @@ public abstract class LocationEvent extends PlayerEvent {
         this.locationWrapper = locationWrapper;
     }
 
+    /**
+     * Gets the location wrapper associated with this event
+     * @return The location wrapper associated with this event
+     */
     public LocationWrapper<?> getLocationWrapper() {
         return this.locationWrapper;
     }
