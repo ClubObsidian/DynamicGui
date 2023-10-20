@@ -27,10 +27,6 @@ public abstract class PlayerEvent extends Event {
         this.playerWrapper = playerWrapper;
     }
 
-    /**
-     * Gets the player wrapper associated with this event
-     * @return The player wrapper associated with this event
-     */
     public PlayerWrapper<?> getPlayerWrapper() {
         return this.playerWrapper;
     }

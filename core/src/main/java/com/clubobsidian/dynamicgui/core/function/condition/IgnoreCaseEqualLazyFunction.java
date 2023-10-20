@@ -27,14 +27,6 @@ import java.math.BigDecimal;
 @FunctionParameter(name = "stringA", isLazy = true)
 @FunctionParameter(name = "stringB", isLazy = true)
 public class IgnoreCaseEqualLazyFunction extends AbstractFunction {
-    /**
-     *
-     * @param expression The expression, where this function is executed. Can be used to access the
-     *     expression configuration.
-     * @param functionToken The function token from the parsed expression.
-     * @param parameterValues The parameter values.
-     * @return BigDecimal.ONE if the string equals the value, BigDecimal.ZERO otherwise
-     */
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         if(parameterValues[0].getExpressionNode().getToken().getValue().equalsIgnoreCase(parameterValues[1].getExpressionNode().getToken().getValue())){

@@ -25,11 +25,6 @@ public class ChatColorTransformer extends NodeTransformer<String> {
         super(String.class);
     }
 
-    /**
-     * Converts a string to a colorized string
-     * @param transform String to convert
-     * @return Colorized string
-     */
     @Override
     public String transform(String transform) {
         return ChatColor.translateAlternateColorCodes(transform);

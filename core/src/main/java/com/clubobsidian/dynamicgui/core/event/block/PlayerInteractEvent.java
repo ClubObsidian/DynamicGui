@@ -34,17 +34,10 @@ public class PlayerInteractEvent extends LocationEvent implements Cancellable {
         this.canceled = false;
     }
 
-    /**
-     * Gets the action the player performed
-     * @return the PlayerAction the player performed
-     */
     public PlayerAction getAction() {
         return this.action;
     }
 
-    /**
-     * @return true if the event is cancelled, false otherwise
-     */
     @Override
     public boolean isCancelled() {
         return this.canceled;

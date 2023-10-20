@@ -31,14 +31,6 @@ import java.util.Date;
 
 @FunctionParameter(name = "AfterDate", isLazy = true)
 public class AfterDateLazyFunction extends AbstractFunction {
-    /**
-     * This function is used to check if the current date is after the date specified in the parameter.
-     *
-     * @param expression The expression
-     * @param functionToken The function token
-     * @param parameterValues The parameter values
-     * @return BigDecimal.ONE if the current date is after the date specified in the parameter, BigDecimal.ZERO otherwise
-     */
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         try {

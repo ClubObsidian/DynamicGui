@@ -59,24 +59,12 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         this.commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
     }
 
-    /**
-     * Registers a command to the command manager
-     *
-     * @param command The command to register
-     */
     @Override
     public void registerCommand(@NotNull Class<? extends RegisteredCommand> command) {
         Objects.requireNonNull(command);
         this.commandParser.parse(this.injector.getInstance(command));
     }
 
-    /**
-     * Registers an alias for a GUI to the command manager
-     *
-     * @param guiName  The name of the GUI to open
-     * @param alias    The alias of the command to register
-     * @param arguments The arguments to register with the command
-     */
     @Override
     public void registerGuiAliasCommand(@NotNull String guiName,
                                         @NotNull String alias,
@@ -115,12 +103,6 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         );
     }
 
-    /**
-     * Unregisters a command from the command manager
-     * and removes it from the registered aliases list
-     *
-     * @param alias The alias to unregister
-     */
     @Override
     public void unregisterCommand(@NotNull String alias) {
         Objects.requireNonNull(alias);
@@ -132,10 +114,6 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         this.registeredAliases.remove(alias);
     }
 
-    /**
-     * Unregisters all the aliases that were registered
-     * with the command registrar
-     */
     @Override
     public void unregisterGuiAliases() {
         for (int i = 0; i < this.registeredAliases.size(); i++) {

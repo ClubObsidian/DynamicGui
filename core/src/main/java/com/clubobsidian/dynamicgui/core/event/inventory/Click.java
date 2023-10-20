@@ -24,10 +24,6 @@ public enum Click {
     SHIFT_LEFT,
     SHIFT_RIGHT;
 
-    /**
-     * Checks if the click is a shift click
-     * @return True if the click is a shift click, false otherwise
-     */
     public boolean isShift() {
         return this == Click.SHIFT_LEFT || this == Click.SHIFT_RIGHT;
     }

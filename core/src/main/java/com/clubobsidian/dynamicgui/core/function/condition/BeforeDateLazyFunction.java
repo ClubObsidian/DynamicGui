@@ -32,14 +32,6 @@ import java.util.Date;
 @FunctionParameter(name = "BeforeDate", isLazy = true)
 public class BeforeDateLazyFunction extends AbstractFunction {
 
-    /**
-     * This function is used to check if the current date is before the date specified in the parameter.
-     *
-     * @param expression The expression
-     * @param functionToken The function token
-     * @param parameterValues The parameter values
-     * @return BigDecimal.ONE if the current date is before the date specified in the parameter, BigDecimal.ZERO otherwise
-     */
     @Override
     public EvaluationValue evaluate(Expression expression, Token functionToken, EvaluationValue... parameterValues) {
         try {

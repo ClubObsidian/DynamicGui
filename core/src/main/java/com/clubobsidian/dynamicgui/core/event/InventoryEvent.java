@@ -28,10 +28,6 @@ public abstract class InventoryEvent extends PlayerEvent {
         this.inventoryWrapper = inventoryWrapper;
     }
 
-    /**
-     * Gets the inventory wrapper associated with this event
-     * @return The inventory wrapper associated with this event
-     */
     public InventoryWrapper<?> getInventoryWrapper() {
         return this.inventoryWrapper;
     }

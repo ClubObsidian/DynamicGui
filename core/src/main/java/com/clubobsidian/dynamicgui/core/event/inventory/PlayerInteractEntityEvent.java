@@ -29,10 +29,6 @@ public class PlayerInteractEntityEvent extends PlayerEvent {
         this.entityWrapper = entityWrapper;
     }
 
-    /**
-     * Gets the entity wrapper for the Entity the player interacted with
-     * @return The entity wrapper associated with this event
-     */
     public EntityWrapper<?> getEntityWrapper() {
         return this.entityWrapper;
     }
