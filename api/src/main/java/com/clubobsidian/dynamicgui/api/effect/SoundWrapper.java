@@ -68,7 +68,7 @@ public class SoundWrapper implements Serializable {
         /**
          * Creates a SoundData object from a string
          * @param str The string to create the SoundData object from
-         * @return
+         * @return SoundData object from the string
          */
         public static SoundData fromString(@NotNull String str) {
             Objects.requireNonNull(str);

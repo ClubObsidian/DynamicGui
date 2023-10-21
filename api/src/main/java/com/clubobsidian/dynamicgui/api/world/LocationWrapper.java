@@ -66,9 +66,9 @@ public class LocationWrapper<T> implements Serializable {
     }
 
     /**
-     * Gets the WoldWrapper for the location
+     * Gets the WorldWrapper for the location
      *
-     * @return wold of the location
+     * @return world of the location
      */
     public WorldWrapper<T> getWorld() {
         return this.world;

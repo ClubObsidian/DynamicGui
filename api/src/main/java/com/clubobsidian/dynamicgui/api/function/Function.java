@@ -160,11 +160,6 @@ public abstract class Function implements Cloneable, Serializable {
         }
     }
 
-    /**
-     * Checks if the function is equal to another object
-     * @param o
-     * @return true if the function is equal to another object
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,10 +168,6 @@ public abstract class Function implements Cloneable, Serializable {
         return async == function.async && name.equals(function.name) && aliases.equals(function.aliases);
     }
 
-    /**
-     * Gets the hashcode of the function
-     * @return the hashcode of the function
-     */
     @Override
     public int hashCode() {
         return Objects.hash(name, async, aliases);
