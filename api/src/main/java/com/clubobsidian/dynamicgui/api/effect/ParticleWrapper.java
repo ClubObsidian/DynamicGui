@@ -66,7 +66,7 @@ public class ParticleWrapper implements Serializable {
         /**
          * Creates a ParticleData object from a string
          * @param str the string to create the ParticleData object from
-         * @return
+         * @return ParticleData object from the given string
          */
         public static ParticleData fromString(@NotNull String str) {
             Objects.requireNonNull(str);
