@@ -29,6 +29,10 @@ public abstract class EntityWrapper<T> {
         this.entity = Objects.requireNonNull(entity);
     }
 
+    /**
+     * Get the UUID of the entity
+     * @return the UUID of the entity
+     */
     public abstract UUID getUniqueId();
 
     /**

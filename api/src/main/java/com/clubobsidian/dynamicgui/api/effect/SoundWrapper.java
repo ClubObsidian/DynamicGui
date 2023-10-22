@@ -44,10 +44,20 @@ public class SoundWrapper implements Serializable {
         this.data = Objects.requireNonNull(data);
     }
 
+    /**
+     * Gets the SoundData for the sound effect
+     *
+     * @return the SoundData object
+     */
     public SoundData getData() {
         return this.data;
     }
 
+    /**
+     * Plays the sound to the player
+     *
+     * @param player the player to play the sound to
+     */
     public void playSoundToPlayer(@NotNull PlayerWrapper<?> player) {
         Objects.requireNonNull(player);
         player.playSound(this.data);
@@ -55,6 +65,11 @@ public class SoundWrapper implements Serializable {
 
     public static class SoundData {
 
+        /**
+         * Creates a SoundData object from a string
+         * @param str The string to create the SoundData object from
+         * @return SoundData object from the string
+         */
         public static SoundData fromString(@NotNull String str) {
             Objects.requireNonNull(str);
             if (str.contains(",")) {
@@ -82,15 +97,29 @@ public class SoundWrapper implements Serializable {
             this.volume = volume;
             this.pitch = pitch;
         }
-
+        /**
+         * Gets the sound name
+         *
+         * @return the sound name
+         */
         public String getSound() {
             return this.sound;
         }
 
+        /**
+         * Gets the volume of the sound
+         *
+         * @return the volume of the sound
+         */
         public float getVolume() {
             return this.volume;
         }
 
+        /**
+         * Gets the pitch of the sound
+         *
+         * @return the pitch of the sound
+         */
         public float getPitch() {
             return this.pitch;
         }

@@ -31,14 +31,29 @@ public abstract class WorldWrapper<T> implements Serializable {
         this.name = name;
     }
 
+    /**
+     * Gets the name of the world
+     *
+     * @return The name of the world
+     */
     public String getName() {
         return this.name;
     }
 
     public abstract T getWorld();
 
+    /**
+     * Sets the gamerule key of the world to the specified gamerule value
+     * @param key
+     * @param value
+     */
     public abstract void setGameRule(String key, String value);
 
+    /**
+     * Gets value of the gamerule for the world
+     * @param rule
+     * @return gamerule value
+     */
     public abstract String getGameRule(String rule);
 
     @Override

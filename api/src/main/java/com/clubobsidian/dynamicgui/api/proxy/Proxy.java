@@ -37,6 +37,11 @@ public enum Proxy {
         this.aliases = aliases;
     }
 
+    /**
+     * Returns a proxy from its string alias
+     * @param proxyStr
+     * @return
+     */
     public static Proxy fromString(final String proxyStr) {
         String localeStr = proxyStr.toLowerCase(Locale.ROOT);
         for (Proxy proxy : Proxy.values()) {
@@ -49,11 +54,19 @@ public enum Proxy {
         return Proxy.NONE;
     }
 
+    /**
+     * Gets the aliases of a proxy
+     * @return The aliases of the proxy
+     */
     public String[] getAliases() {
         return this.aliases;
     }
 
 
+    /**
+     * Gets the protocol of the proxy
+     * @return The protocol of the proxy
+     */
     public Protocol getProtocol() {
         return this.protocol;
     }

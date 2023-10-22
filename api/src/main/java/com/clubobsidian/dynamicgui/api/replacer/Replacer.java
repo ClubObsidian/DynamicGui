@@ -32,12 +32,28 @@ public abstract class Replacer {
         this.listener = listener;
     }
 
+    /**
+     * Gets the string to replace
+     *
+     * @return The string to replace
+     */
     public String getToReplace() {
         return this.toReplace;
     }
 
+    /**
+     * Replaces the toReplace string with the replacement
+     * @param text
+     * @param playerWrapper
+     * @return
+     */
     public abstract String replacement(String text, PlayerWrapper<?> playerWrapper);
 
+    /**
+     * Gets if the replacer has a listener
+     *
+     * @return If the replacer has a listener
+     */
     public boolean hasListener() {
         return this.listener;
     }
