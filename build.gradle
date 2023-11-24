@@ -28,22 +28,31 @@ subprojects {
 	apply plugin: 'org.cadixdev.licenser'
 	apply plugin: 'maven-publish'
 
-	publishing {
-		publications {
-			shadow(MavenPublication) {
-				groupId projectGroup
-				artifactId project.name
-				version projectVersion
-				artifact shadowJar
-			}
-		}
-	}
-
 	java {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(11)
 		}
 		withJavadocJar()
+		withSourcesJar()
+	}
+
+	javadoc {
+		if(JavaVersion.current().isJava9Compatible()) {
+			options.addBooleanOption('html5', true)
+		}
+	}
+
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				groupId projectGroup
+				artifactId project.name
+				version projectVersion
+				artifact jar
+				artifact javadocJar
+				artifact sourcesJar
+			}
+		}
 	}
 
 	license {
