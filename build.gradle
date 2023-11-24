@@ -43,6 +43,7 @@ subprojects {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(11)
 		}
+		withJavadocJar()
 	}
 
 	license {
