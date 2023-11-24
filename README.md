@@ -3,6 +3,7 @@
 
 [![build](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml/badge.svg)](https://github.com/ClubObsidian/DynamicGui/actions/workflows/build.yml)
 [![](https://jitpack.io/v/ClubObsidian/DynamicGui.svg)](https://jitpack.io/#ClubObsidian/DynamicGui)
+[![javadocs](https://img.shields.io/badge/Javadocs-6.2.1-45bf18)](https://javadoc.jitpack.io/com/github/ClubObsidian/DynamicGui/api/6.2.1/javadoc/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
@@ -83,7 +84,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly 'com.github.clubobsidian.dynamicgui:api:6.2.0'
+  compileOnly 'com.github.clubobsidian.dynamicgui:api:6.2.1'
 }
 ```
 Maven
@@ -97,7 +98,7 @@ Maven
 <dependency>
 	<groupId>com.github.ClubObsidian.DynamicGui</groupId>
 	<artifactId>api</artifactId>
-	<version>6.2.0</version>
+	<version>6.2.1</version>
 </dependency>
 ```
 
