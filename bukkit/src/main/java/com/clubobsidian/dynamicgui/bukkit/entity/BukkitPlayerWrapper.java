@@ -213,9 +213,9 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
             if (property == null) {
                 return null;
             }
-            return (String) property.getClass().getDeclaredMethod("getValue").invoke(property);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
-                 ClassNotFoundException e) {
+            return (String) ReflectionUtil.getDeclaredField(property.getClass(), "value").get(property);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
+                 | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
