@@ -201,6 +201,8 @@ public class SimpleSlot implements Slot {
                 ModelProvider provider = ModelManager.get().getProvider(this.modelProvider);
                 if (provider != null) {
                     provider.applyModel(builderItem, this.modelData);
+                } else {
+                    DynamicGui.get().getLogger().error("No model provider found for '%s'", this.modelProvider);
                 }
             }
 

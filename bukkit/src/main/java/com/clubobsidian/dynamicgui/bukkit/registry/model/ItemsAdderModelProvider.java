@@ -16,6 +16,7 @@
 
 package com.clubobsidian.dynamicgui.bukkit.registry.model;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
@@ -74,11 +75,20 @@ public class ItemsAdderModelProvider implements ModelProvider {
                             .createItemStackWrapper(GET_ITEM_STACK.invoke(customStack));
                     if (wrappedCustom.hasCustomModel()) {
                         return itemStack.setModel(wrappedCustom.getModelData());
+                    } else {
+                        DynamicGui.get().getLogger().error("Cannot find model data for %s", data);
                     }
+                } else {
+                    DynamicGui.get().getLogger().error("No model data found '%s' for provider '%s'",
+                            data,
+                            this.name()
+                    );
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
+        } else {
+            DynamicGui.get().getLogger().error("Failed applying ItemsAdder model due to an outdated API");
         }
         return false;
     }
