@@ -57,7 +57,7 @@ public class InventoryInteractListener {
         if (e.getClick() == null) { //For other types of clicks besides left, right, middle
             this.cancelClick(e);
             return;
-        } else if (item.getItemStack() == null) {
+        } else if (item.getItemStack() == null && slot.getFunctions().getRootNodes().size() == 0) {
             return;
         } else if (e.getView() == InventoryView.BOTTOM) {
             if (e.getClick().isShift()) {
