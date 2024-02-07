@@ -6,8 +6,6 @@
 [![javadocs](https://img.shields.io/badge/Javadocs-6.3.0-45bf18)](https://javadoc.jitpack.io/com/github/ClubObsidian/DynamicGui/api/6.3.0/javadoc/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-a
-
 A plugin designed to make writing menus for Minecraft easy. Menus can be written in the configuration language of your choice: yaml, hocon, json or xml.
 </div>
 
