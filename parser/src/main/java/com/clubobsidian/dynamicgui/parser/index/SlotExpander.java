@@ -53,7 +53,6 @@ public final class SlotExpander {
             String[] commaSplit = expand.contains(",") ? expand.split(",") : new String[]{expand};
             for (String comma : commaSplit) {
                 if (comma.contains("-")) {
-                    System.out.println(comma);
                     String[] dashSplit = comma.split("-");
                     if (dashSplit.length != 2) {
                         DynamicGui.get().getLogger().error("Invalid range pattern '%s'", expand);
