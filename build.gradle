@@ -95,7 +95,7 @@ subprojects {
 		relocate 'com.google.errorprone', 'com.clubobsidian.dynamicgui.shaded.errorprone'
 		relocate 'com.fasterxml.jackson', 'com.clubobsidian.dynamicgui.shaded.jackson'
 		relocate 'com.github.benmanes.caffeine', 'com.clubobsidian.dynamicgui.shaded.caffeine'
-		relocate 'cloud', 'com.clubobsidian.dynamicgui.shaded.cloud'
+		relocate 'org.incendo.cloud', 'com.clubobsidian.dynamicgui.shaded.cloud'
 		relocate 'com.google.thirdparty', 'com.clubobsidian.dynamicgui.shaded.google.thirdparty'
 		relocate 'io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.classgraph'
 		relocate 'nonapi.io.github.classgraph', 'com.clubobsidian.dynamicgui.shaded.nonapi.io.github.classgraph'
