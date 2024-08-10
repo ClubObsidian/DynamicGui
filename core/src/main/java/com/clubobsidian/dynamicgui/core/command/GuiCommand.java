@@ -16,11 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.command;
 
-import cloud.commandframework.annotations.Argument;
-import cloud.commandframework.annotations.CommandMethod;
-import cloud.commandframework.annotations.CommandPermission;
-import cloud.commandframework.annotations.suggestions.Suggestions;
-import cloud.commandframework.context.CommandContext;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
@@ -28,14 +23,19 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.clubobsidian.dynamicgui.core.Constant;
+import org.incendo.cloud.annotations.Argument;
+import org.incendo.cloud.annotations.Command;
+import org.incendo.cloud.annotations.Permission;
+import org.incendo.cloud.annotations.suggestion.Suggestions;
+import org.incendo.cloud.context.CommandContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuiCommand implements RegisteredCommand {
 
-    @CommandMethod("gui <guiName>")
-    @CommandPermission(Constant.GUI_BASE_PERMISSION)
+    @Command("gui <guiName>")
+    @Permission(Constant.GUI_BASE_PERMISSION)
     private void gui(GuiCommandSender sender, @Argument(value = "guiName", suggestions = "guiName") String guiName) {
         PlayerWrapper<?> player = sender.getPlayer().orElse(null);
         if (player != null) {

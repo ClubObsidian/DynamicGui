@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.parser.gui;
 
-import cloud.commandframework.arguments.CommandArgument;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
@@ -31,6 +30,7 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.incendo.cloud.component.CommandComponent;
 
 import java.util.*;
 
@@ -47,7 +47,7 @@ public class SimpleGuiToken implements GuiToken {
     private final GuiBuildType mode;
     private final Boolean closed; //This should be boxed
     private final List<String> alias;
-    private final List<CommandArgument> commandArguments;
+    private final List<CommandComponent> commandArguments;
     private final List<String> locations;
     private final Map<String, List<Integer>> npcs;
     private final Map<Integer, SlotToken> slots;
@@ -93,8 +93,8 @@ public class SimpleGuiToken implements GuiToken {
         this.section = section;
     }
 
-    private List<CommandArgument> loadCommandArguments(ConfigurationSection section) {
-        List<CommandArgument> args = new ArrayList<>();
+    private List<CommandComponent> loadCommandArguments(ConfigurationSection section) {
+        List<CommandComponent> args = new ArrayList<>();
         for (Object key : section.getKeys()) {
             String keyName = String.valueOf(key);
             ConfigurationSection keySec = section.getConfigurationSection(key);
@@ -215,7 +215,7 @@ public class SimpleGuiToken implements GuiToken {
     }
 
     @Override
-    public Collection<CommandArgument> getCommandArguments() {
+    public Collection<CommandComponent> getCommandArguments() {
         return this.commandArguments;
     }
 

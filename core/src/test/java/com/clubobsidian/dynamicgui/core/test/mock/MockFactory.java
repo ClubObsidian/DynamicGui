@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock;
 
-import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
@@ -49,6 +48,7 @@ import com.clubobsidian.dynamicgui.core.test.mock.world.MockWorldWrapper;
 import com.clubobsidian.dynamicgui.mock.logger.MockLogger;
 import com.clubobsidian.dynamicgui.mock.logger.MockLoggerWrapper;
 import com.clubobsidian.dynamicgui.parser.function.tree.SimpleFunctionTree;
+import org.incendo.cloud.CommandManager;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -193,7 +193,7 @@ public class MockFactory {
         }
         Platform platform = new MockPlatform();
         LoggerWrapper<?> logger = new MockLoggerWrapper(new MockLogger());
-        CommandManager<GuiCommandSender> commandManager = new MockCommandManager();
+        CommandManager<GuiCommandSender> commandManager = new MockCommandManager<>();
         MockPluginModule module = new MockPluginModule(
                 plugin, platform,
                 logger, commandManager,

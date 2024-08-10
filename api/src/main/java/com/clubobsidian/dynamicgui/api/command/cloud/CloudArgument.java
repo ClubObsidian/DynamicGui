@@ -16,8 +16,10 @@
 
 package com.clubobsidian.dynamicgui.api.command.cloud;
 
-import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.arguments.standard.*;
+import org.incendo.cloud.component.CommandComponent;
+import org.incendo.cloud.component.TypedCommandComponent;
+import org.incendo.cloud.parser.ArgumentParser;
+import org.incendo.cloud.parser.standard.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -28,16 +30,16 @@ import java.util.function.Function;
 public final class CloudArgument {
 
     public static final String PLAYER_ARG_NAME = "player";
-    public static final CloudArgument BOOLEAN = create(name -> BooleanArgument.builder(name));
-    public static final CloudArgument BYTE = create(name -> ByteArgument.builder(name));
-    public static final CloudArgument CHAR = create(name -> CharArgument.builder(name));
-    public static final CloudArgument DOUBLE = create(name -> DoubleArgument.builder(name));
-    public static final CloudArgument FLOAT = create(name -> FloatArgument.builder(name));
-    public static final CloudArgument INTEGER = create(name -> IntegerArgument.builder(name));
-    public static final CloudArgument LONG = create(name -> LongArgument.builder(name));
-    public static final CloudArgument SHORT = create(name -> ShortArgument.builder(name));
-    public static final CloudArgument STRING = create(name -> StringArgument.builder(name));
-    public static final CloudArgument UUID = create(name -> UUIDArgument.builder(name));
+    public static final CloudArgument BOOLEAN = create(name -> BooleanParser.booleanComponent().name(name));
+    public static final CloudArgument BYTE = create(name -> ByteParser.byteComponent().name(name));
+    public static final CloudArgument CHAR = create(name -> CharacterParser.characterComponent().name(name));
+    public static final CloudArgument DOUBLE = create(name -> DoubleParser.doubleComponent().name(name));
+    public static final CloudArgument FLOAT = create(name -> FloatParser.floatComponent().name(name));
+    public static final CloudArgument INTEGER = create(name -> IntegerParser.integerComponent().name(name));
+    public static final CloudArgument LONG = create(name -> LongParser.longComponent().name(name));
+    public static final CloudArgument SHORT = create(name -> ShortParser.shortComponent().name(name));
+    public static final CloudArgument STRING = create(name -> StringParser.stringComponent().name(name));
+    public static final CloudArgument UUID = create(name -> UUIDParser.uuidComponent().name(name));
 
     private static final Map<String, CloudArgument> TYPES = new HashMap<>();
 
@@ -53,13 +55,13 @@ public final class CloudArgument {
         }
     }
 
-    public static CloudArgument create(@NotNull Function<String, CommandArgument.Builder> func) {
+    public static CloudArgument create(@NotNull Function<String, CommandComponent.Builder> func) {
         return new CloudArgument((d) -> {
-            CommandArgument.Builder builder = func.apply(d.getArgumentName());
+            CommandComponent.Builder builder = func.apply(d.getArgumentName());
             if (d.isOptional()) {
-                builder.asOptional();
+                builder.optional();
             } else {
-                builder.asRequired();
+                builder.required();
             }
             return builder.build();
         });
@@ -87,17 +89,17 @@ public final class CloudArgument {
         return Optional.ofNullable(TYPES.get(type));
     }
 
-    private final Function<CloudData, CommandArgument> function;
+    private final Function<CloudData, CommandComponent> function;
 
-    public CloudArgument(@NotNull Function<CloudData, CommandArgument> function) {
+    public CloudArgument(@NotNull Function<CloudData, CommandComponent> function) {
         this.function = Objects.requireNonNull(function);
     }
 
-    public <T extends CommandArgument> T argument(@NotNull String argName) {
+    public <T extends CommandComponent> T argument(@NotNull String argName) {
         return this.argument(argName, false);
     }
 
-    public <T extends CommandArgument> T argument(@NotNull String argName, boolean optional) {
+    public <T extends CommandComponent> T argument(@NotNull String argName, boolean optional) {
         Objects.requireNonNull(argName);
         return (T) this.function.apply(new CloudData(argName, optional));
     }

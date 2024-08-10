@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.test.mock.inject;
 
-import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
@@ -31,6 +30,7 @@ import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import com.clubobsidian.dynamicgui.core.test.mock.manager.*;
+import org.incendo.cloud.CommandManager;
 
 public class MockPluginModule extends PluginModule {
 

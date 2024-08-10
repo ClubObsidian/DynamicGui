@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.bukkit.inject;
 
-import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
@@ -36,6 +35,7 @@ import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
+import org.incendo.cloud.CommandManager;
 
 public class BukkitPluginModule extends PluginModule {
 

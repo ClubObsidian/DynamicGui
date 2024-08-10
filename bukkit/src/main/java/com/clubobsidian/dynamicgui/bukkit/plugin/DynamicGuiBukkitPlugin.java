@@ -16,10 +16,6 @@
 
 package com.clubobsidian.dynamicgui.bukkit.plugin;
 
-import cloud.commandframework.CommandManager;
-import cloud.commandframework.bukkit.CloudBukkitCapabilities;
-import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
@@ -44,9 +40,20 @@ import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplac
 import com.clubobsidian.dynamicgui.core.economy.NoOpEconomy;
 import com.clubobsidian.dynamicgui.core.logger.JavaLoggerWrapper;
 import com.clubobsidian.dynamicgui.core.permission.NoOpPermission;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.SenderMapper;
+import org.incendo.cloud.brigadier.BrigadierSetting;
+import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
+import org.incendo.cloud.bukkit.internal.BukkitBackwardsBrigadierSenderMapper;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
+import org.incendo.cloud.paper.PaperCommandManager;
+import org.incendo.cloud.setting.ManagerSetting;
 
 import java.util.logging.Level;
 
@@ -116,20 +123,30 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
 
     private CommandManager<GuiCommandSender> createCommandSender() {
         try {
-            PaperCommandManager<GuiCommandSender> commandManager = new DynamicGuiPaperCommandManager<>(this,
-                    CommandExecutionCoordinator.simpleCoordinator(),
-                    BukkitGuiCommandSender::new,
-                    wrappedSender -> wrappedSender.getNativeSender()
+            LegacyPaperCommandManager<GuiCommandSender> commandManager = new DynamicGuiPaperCommandManager<>(
+                    this,
+                    ExecutionCoordinator.simpleCoordinator(),
+                    new SenderMapper<>() {
+                        @Override
+                        public @NonNull GuiCommandSender map(@NonNull CommandSender base) {
+                            return new BukkitGuiCommandSender(base);
+                        }
+
+                        @Override
+                        public @NonNull CommandSender reverse(@NonNull GuiCommandSender mapped) {
+                            return mapped.getNativeSender();
+                        }
+                    }
             );
             //Unfortunately is tied to bukkit so there is no way to do this in core
-            if (commandManager.hasCapability(CloudBukkitCapabilities.BRIGADIER)) {
-                commandManager.registerBrigadier();
+            if (commandManager.hasBrigadierManager()) {
+                commandManager.brigadierManager().settings().set(BrigadierSetting.FORCE_EXECUTABLE, true);
             }
             if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
                 commandManager.registerAsynchronousCompletions();
             }
-            commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
-            commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
+            commandManager.settings().set(ManagerSetting.ALLOW_UNSAFE_REGISTRATION, true);
+            commandManager.settings().set(ManagerSetting.OVERRIDE_EXISTING_COMMANDS, true);
             return commandManager;
         } catch (Exception e) {
             e.printStackTrace();

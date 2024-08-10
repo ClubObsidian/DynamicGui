@@ -16,7 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.inject.module;
 
-import cloud.commandframework.CommandManager;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
@@ -65,6 +64,7 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.google.inject.TypeLiteral;
+import org.incendo.cloud.CommandManager;
 
 public abstract class PluginModule implements Module {
 

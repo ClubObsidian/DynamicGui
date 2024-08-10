@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.command;
 
-import cloud.commandframework.arguments.CommandArgument;
+import org.incendo.cloud.component.CommandComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -38,7 +38,7 @@ public interface CommandRegistrar {
      */
     void registerGuiAliasCommand(@NotNull String guiName,
                                  @NotNull String alias,
-                                 @NotNull Collection<CommandArgument> arguments);
+                                 @NotNull Collection<CommandComponent> arguments);
 
     /**
      * Unregisters a command

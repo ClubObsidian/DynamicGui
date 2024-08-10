@@ -16,11 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.command;
 
-import cloud.commandframework.Command;
-import cloud.commandframework.CommandManager;
-import cloud.commandframework.annotations.AnnotationParser;
-import cloud.commandframework.arguments.CommandArgument;
-import cloud.commandframework.meta.SimpleCommandMeta;
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.CommandRegistrar;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
@@ -31,6 +26,12 @@ import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
 import com.google.inject.Injector;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.cloud.Command;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.annotations.AnnotationParser;
+import org.incendo.cloud.component.CommandComponent;
+import org.incendo.cloud.meta.SimpleCommandMeta;
+import org.incendo.cloud.setting.ManagerSetting;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
@@ -55,8 +56,8 @@ public class CommandRegistrarImpl implements CommandRegistrar {
         this.commandParser = new AnnotationParser<>(this.commandManager,
                 GuiCommandSender.class,
                 parserParameters -> SimpleCommandMeta.empty());
-        this.commandManager.setSetting(CommandManager.ManagerSettings.ALLOW_UNSAFE_REGISTRATION, true);
-        this.commandManager.setSetting(CommandManager.ManagerSettings.OVERRIDE_EXISTING_COMMANDS, true);
+        this.commandManager.settings().set(ManagerSetting.ALLOW_UNSAFE_REGISTRATION, true);
+        this.commandManager.settings().set(ManagerSetting.OVERRIDE_EXISTING_COMMANDS, true);
     }
 
     @Override
@@ -68,20 +69,20 @@ public class CommandRegistrarImpl implements CommandRegistrar {
     @Override
     public void registerGuiAliasCommand(@NotNull String guiName,
                                         @NotNull String alias,
-                                        @NotNull Collection<CommandArgument> arguments) {
+                                        @NotNull Collection<CommandComponent> arguments) {
         Objects.requireNonNull(guiName);
         Objects.requireNonNull(alias);
         Objects.requireNonNull(arguments);
         this.unregisterCommand(alias);
         Command.@NonNull Builder<GuiCommandSender> builder = this.commandManager.commandBuilder(alias);
         builder = builder.handler(context -> {
-            context.getSender().getPlayer()
+            context.sender().getPlayer()
                     .ifPresent(playerWrapper -> {
                         Map<String, String> metadata = new HashMap<>();
-                        for (CommandArgument arg : arguments) {
-                            String argName = arg.getName();
+                        for (CommandComponent arg : arguments) {
+                            String argName = arg.name();
                             String metaKey = "command_" + argName;
-                            context.getOptional(argName).ifPresent(value -> {
+                            context.optional(argName).ifPresent(value -> {
                                 String metadataValue = EntityManager.get().isPlayer(value) ?
                                 EntityManager.get().createPlayerWrapper(value).getName() :
                                 String.valueOf(value);
@@ -91,7 +92,7 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                         GuiManager.get().openGui(playerWrapper, guiName, metadata);
                     });
         });
-        for (CommandArgument arg : arguments) {
+        for (CommandComponent arg : arguments) {
             builder = builder.argument(arg);
         }
         this.commandManager.command(builder.build());

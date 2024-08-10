@@ -16,9 +16,6 @@
 
 package com.clubobsidian.dynamicgui.core.command;
 
-import cloud.commandframework.annotations.Argument;
-import cloud.commandframework.annotations.CommandMethod;
-import cloud.commandframework.annotations.CommandPermission;
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
 import com.clubobsidian.dynamicgui.api.command.RegisteredCommand;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
@@ -29,6 +26,9 @@ import com.clubobsidian.dynamicgui.core.Constant;
 import com.clubobsidian.dynamicgui.core.event.plugin.DynamicGuiReloadEvent;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.trident.EventBus;
+import org.incendo.cloud.annotations.Argument;
+import org.incendo.cloud.annotations.Command;
+import org.incendo.cloud.annotations.Permission;
 
 import javax.inject.Inject;
 import java.util.Iterator;
@@ -49,25 +49,25 @@ public class DynamicGuiCommand implements RegisteredCommand {
 
     }
 
-    @CommandMethod("dynamicgui|dyngui reload")
-    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
-    private void reload(GuiCommandSender sender) {
+    @Command("dynamicgui|dyngui reload")
+    @Permission(Constant.RELOAD_COMMAND_PERMISSION)
+    public void reload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been reloaded");
         GuiManager.get().reloadGuis(false);
         this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
-    @CommandMethod("dynamicgui|dyngui forcereload")
-    @CommandPermission(Constant.RELOAD_COMMAND_PERMISSION)
-    private void forceReload(GuiCommandSender sender) {
+    @Command("dynamicgui|dyngui forcereload")
+    @Permission(Constant.RELOAD_COMMAND_PERMISSION)
+    public void forceReload(GuiCommandSender sender) {
         sender.sendMessage("Guis have been force reloaded");
         GuiManager.get().reloadGuis(true);
         this.eventBus.callEvent(new DynamicGuiReloadEvent());
     }
 
-    @CommandMethod("dynamicgui|dyngui close all [guiName]")
-    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
-    private void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
+    @Command("dynamicgui|dyngui close all [guiName]")
+    @Permission(Constant.CLOSE_COMMAND_PERMISSION)
+    public void closeAll(GuiCommandSender sender, @Argument("guiName") String guiName) {
         if (guiName == null) {
             sender.sendMessage("All open DynamicGui guis have been closed");
             for (UUID uuid : GuiManager.get().getPlayerGuis().keySet()) {
@@ -95,9 +95,9 @@ public class DynamicGuiCommand implements RegisteredCommand {
         }
     }
 
-    @CommandMethod("dynamicgui|dyngui close <playerName>")
-    @CommandPermission(Constant.CLOSE_COMMAND_PERMISSION)
-    private void closePlayer(GuiCommandSender sender, @Argument("playerName") String playerName) {
+    @Command("dynamicgui|dyngui close <playerName>")
+    @Permission(Constant.CLOSE_COMMAND_PERMISSION)
+    public void closePlayer(GuiCommandSender sender, @Argument("playerName") String playerName) {
         PlayerWrapper<?> player = this.platform.getPlayer(playerName);
         if (player == null) {
             sender.sendMessage("That player is not online, so their gui cannot be closed");
@@ -111,9 +111,9 @@ public class DynamicGuiCommand implements RegisteredCommand {
         }
     }
 
-    @CommandMethod("dynamicgui|dyngui list")
-    @CommandPermission(Constant.LIST_COMMAND_PERMISSION)
-    private void guiList(GuiCommandSender sender) {
+    @Command("dynamicgui|dyngui list")
+    @Permission(Constant.LIST_COMMAND_PERMISSION)
+    public void guiList(GuiCommandSender sender) {
         List<String> guiNames = GuiManager
                 .get()
                 .getGuis()

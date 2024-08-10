@@ -16,11 +16,11 @@
 
 package com.clubobsidian.dynamicgui.api.parser.gui;
 
-import cloud.commandframework.arguments.CommandArgument;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.slot.SlotToken;
+import org.incendo.cloud.component.CommandComponent;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -48,7 +48,7 @@ public interface GuiToken extends Serializable {
 
     List<String> getAlias();
 
-    Collection<CommandArgument> getCommandArguments();
+    Collection<CommandComponent> getCommandArguments();
 
     List<String> getLocations();
 

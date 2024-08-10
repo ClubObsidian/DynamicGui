@@ -16,32 +16,31 @@
 
 package com.clubobsidian.dynamicgui.bukkit.cloud;
 
-import cloud.commandframework.CloudCapability;
-import cloud.commandframework.CommandManager;
-import cloud.commandframework.CommandTree;
-import cloud.commandframework.bukkit.CloudBukkitCapabilities;
-import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.paper.PaperCommandManager;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.incendo.cloud.CloudCapability;
+import org.incendo.cloud.CommandManager;
+import org.incendo.cloud.SenderMapper;
+import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
+import org.incendo.cloud.paper.PaperCommandManager;
 
 import java.util.Set;
 import java.util.function.Function;
 
-public class DynamicGuiPaperCommandManager<C> extends PaperCommandManager<C> {
+public class DynamicGuiPaperCommandManager<C> extends LegacyPaperCommandManager<C> {
 
     //A hack for not updating the command map for each player every time a new command is registered
 
     private final Set<CloudCapability> capabilities;
 
-    public DynamicGuiPaperCommandManager(@NonNull Plugin owningPlugin,
-                                         @NonNull Function<CommandTree<C>,
-                                                 CommandExecutionCoordinator<C>> commandExecutionCoordinator,
-                                         @NonNull Function<CommandSender, C> commandSenderMapper,
-                                         @NonNull Function<C, CommandSender> backwardsCommandSenderMapper) throws Exception {
-        super(owningPlugin, commandExecutionCoordinator, commandSenderMapper, backwardsCommandSenderMapper);
+    public DynamicGuiPaperCommandManager(final @NonNull Plugin owningPlugin,
+                                         final @NonNull ExecutionCoordinator<C> commandExecutionCoordinator,
+                                         final @NonNull SenderMapper<CommandSender, C> senderMapper) throws Exception {
+        super(owningPlugin, commandExecutionCoordinator, senderMapper);
         this.capabilities = (Set<CloudCapability>) ReflectionUtil
                 .getFieldByName(CommandManager.class, "capabilities")
                 .get(this);
