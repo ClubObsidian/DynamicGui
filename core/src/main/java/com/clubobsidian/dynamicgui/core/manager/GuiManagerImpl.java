@@ -231,6 +231,9 @@ public class GuiManagerImpl extends GuiManager {
                                     }
                                 });
                     }
+                    if (slots.isEmpty()) {
+                        slotFuture.complete(true);
+                    }
                     slotFuture.whenComplete((completed, ex) -> {
                         if (ex != null) {
                             ex.printStackTrace();
