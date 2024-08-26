@@ -159,9 +159,6 @@ public final class BukkitDataComponentUtil {
                         .invoke(tagParser);
                 Object codec = Objects
                         .requireNonNull(CODEC_OR_THROW).invoke(type);
-                //System.out.println("codec: " + codec.getClass().getName());
-                //System.out.println("ops: " + registryOps.getClass().getName());
-                //System.out.println("tag: " + tag.getClass().getName());
                 Object parsed = Objects
                         .requireNonNull(PARSE)
                         .invoke(codec, registryOps, tag);
