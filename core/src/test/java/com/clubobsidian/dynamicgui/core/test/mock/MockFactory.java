@@ -52,10 +52,7 @@ import org.incendo.cloud.CommandManager;
 import org.mockito.Mockito;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class MockFactory {
 
@@ -163,6 +160,7 @@ public class MockFactory {
                 lore,
                 enchants,
                 new ArrayList<>(),
+                Collections.EMPTY_MAP,
                 null,
                 null,
                 new SimpleFunctionTree(),

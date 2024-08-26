@@ -174,6 +174,17 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
     @Unmodifiable List<String> getItemFlags();
 
     /**
+     * Gets the data components that the slot uses to build
+     * the initial item. If the item was modified
+     * this may not reflect the current item flags for
+     * the item stack. If you need the current
+     * item flags use {@link ItemStackWrapper#getDataComponents()}
+     *
+     * @return the slot data components as a map
+     */
+    Map<String, String> getDataComponents();
+
+    /**
      * Gets whether the slot should close
      *
      * @return boxed boolean if the slot closes when clicked
@@ -234,6 +245,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         private transient final List<String> lore = new ArrayList<>();
         private transient final List<EnchantmentWrapper> enchants = new ArrayList<>();
         private transient final List<String> itemFlags = new ArrayList<>();
+        private transient final Map<String, String> dataComponents = new HashMap<>();
         private transient String modelProvider;
         private transient String modelData;
         private transient int index;
@@ -483,6 +495,11 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return this;
         }
 
+        private Builder addDataComponents(Map<String, String> dataComponents) {
+            this.dataComponents.putAll(dataComponents);
+            return this;
+        }
+
         /**
          * Sets the function tree
          *
@@ -537,8 +554,10 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
                     .setAmount(itemStackWrapper.getAmount())
                     .addLore(itemStackWrapper.getLore())
                     .addItemFlag(itemStackWrapper.getItemFlags())
+                    .addDataComponents(itemStackWrapper.getDataComponents())
                     .addEnchant(itemStackWrapper.getEnchants());
         }
+
 
         /**
          * Builds slot with built parameters
@@ -549,8 +568,9 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
             return SLOT_FACTORY.create(this.index, this.amount, this.icon, this.name,
                     this.nbt, this.data, this.glow, this.movable,
                     this.close, this.lore, this.enchants, this.itemFlags,
-                    this.modelProvider, this.modelData, this.functionTree,
-                    this.updateInterval, this.metadata);
+                    this.dataComponents, this.modelProvider,
+                    this.modelData, this.functionTree, this.updateInterval,
+                    this.metadata);
         }
     }
 }

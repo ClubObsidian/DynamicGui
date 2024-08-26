@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Unmodifiable;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public abstract class ItemStackWrapper<T> implements Serializable {
 
@@ -175,7 +176,24 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @param nbt the nbt to set
      */
-    public abstract void setNBT(@NotNull String nbt);
+    public abstract void setNBT(String nbt);
+
+    /**
+     * Gets a map of the components
+     * from the underlying item stack
+     * the items are serialized and
+     * returns as a map of strings.
+     *
+     * @return map of strings
+     */
+    public abstract Map<String, String> getDataComponents();
+
+    /**
+     * Sets the data components underlying item stack.
+     *
+     * @param components the components to set
+     */
+    public abstract void setDataComponents(Map<String, String> components);
 
     /**
      * Sets whether the underlying item stack should glow.

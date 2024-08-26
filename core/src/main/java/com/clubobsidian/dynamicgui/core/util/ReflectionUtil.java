@@ -116,6 +116,9 @@ public final class ReflectionUtil {
     }
 
     public static Method getMethodByReturnType(Class<?> searchIn, Class<?> returnType, Class<?>... params) {
+        if (searchIn == null) {
+            return null;
+        }
         for (Method m : searchIn.getDeclaredMethods()) {
             if (m.getReturnType().equals(returnType) && Arrays.equals(m.getParameterTypes(), params)) {
                 m.setAccessible(true);

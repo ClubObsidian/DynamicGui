@@ -104,7 +104,7 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     }
 
     @Override
-    public void setNBT(@NotNull String nbt) {
+    public void setNBT(String nbt) {
         Objects.requireNonNull(nbt);
         this.getItemStack().setNBT(nbt);
     }

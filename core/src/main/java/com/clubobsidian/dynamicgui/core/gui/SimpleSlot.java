@@ -51,6 +51,7 @@ public class SimpleSlot implements Slot {
     private final List<String> lore;
     private final List<EnchantmentWrapper> enchants;
     private final List<String> itemFlags;
+    private final Map<String, String> dataComponents;
     private final String modelProvider;
     private final String modelData;
     private Boolean close;
@@ -67,6 +68,7 @@ public class SimpleSlot implements Slot {
     public SimpleSlot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
                       boolean movable, Boolean close, List<String> lore,
                       List<EnchantmentWrapper> enchants, List<String> itemFlags,
+                      Map<String, String> dataComponents,
                       String modelProvider, String modelData,
                       FunctionTree functions, int updateInterval, Map<String, String> metadata) {
         this.icon = icon;
@@ -78,6 +80,7 @@ public class SimpleSlot implements Slot {
         this.lore = Collections.unmodifiableList(lore);
         this.enchants = Collections.unmodifiableList(enchants);
         this.itemFlags = Collections.unmodifiableList(itemFlags);
+        this.dataComponents = Collections.unmodifiableMap(dataComponents);
         this.modelProvider = modelProvider;
         this.modelData = modelData;
         this.close = close;
@@ -154,6 +157,11 @@ public class SimpleSlot implements Slot {
     @Override
     public List<String> getItemFlags() {
         return this.itemFlags;
+    }
+
+    @Override
+    public Map<String, String> getDataComponents() {
+        return this.dataComponents;
     }
 
     @Override

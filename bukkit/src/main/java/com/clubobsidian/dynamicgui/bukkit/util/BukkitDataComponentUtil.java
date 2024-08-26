@@ -51,7 +51,7 @@ public final class BukkitDataComponentUtil {
     private static final Class<?> NBT_UTILS = ReflectionUtil
             .getClassIfExists("net.minecraft.nbt.NbtUtils");
     private static final Class<?> COMPONENT = ReflectionUtil
-            .getClassIfExists("net.minecraft.network.chat.Component")
+            .getClassIfExists("net.minecraft.network.chat.Component");
     private static final Class<?> TAG = ReflectionUtil
             .getClassIfExists("net.minecraft.nbt.Tag");
 
