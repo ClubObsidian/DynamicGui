@@ -80,9 +80,7 @@ public final class BukkitNBTUtil {
                 return null;
             }
             return tag.toString();
-        } catch (SecurityException | IllegalAccessException |
-                 IllegalArgumentException | InvocationTargetException |
-                 NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -96,8 +94,7 @@ public final class BukkitNBTUtil {
             nmsItemStack = SET_TAG.getReturnType().equals(void.class) ? nmsItemStack : invokedSetTag;
             ItemStack bukkitItemStack = (ItemStack) AS_BUKKIT_COPY.invoke(null, nmsItemStack);
             return bukkitItemStack;
-        } catch (SecurityException | IllegalAccessException |
-                 IllegalArgumentException | InvocationTargetException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

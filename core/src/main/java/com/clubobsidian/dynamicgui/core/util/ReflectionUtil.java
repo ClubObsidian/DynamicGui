@@ -16,6 +16,9 @@
 
 package com.clubobsidian.dynamicgui.core.util;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -67,7 +70,10 @@ public final class ReflectionUtil {
         return null;
     }
 
-    public static Method getMethod(Class<?> cl, String... methods) {
+    public static Method getMethod(@Nullable Class<?> cl, String... methods) {
+        if (cl == null) {
+            return null;
+        }
         for (Method m : cl.getDeclaredMethods()) {
             for (String methodName : methods) {
                 if (m.getName().equals(methodName)) {
@@ -180,6 +186,9 @@ public final class ReflectionUtil {
     }
 
     public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType) {
+        if (searchIn == null) {
+            return null;
+        }
         for (Method m : searchIn.getDeclaredMethods()) {
             if (Modifier.isStatic(m.getModifiers()) && m.getReturnType().equals(returnType)) {
                 m.setAccessible(true);
@@ -190,6 +199,9 @@ public final class ReflectionUtil {
     }
 
     public static Method getStaticMethod(Class<?> searchIn, Class<?> returnType, Class<?>... params) {
+        if (searchIn == null) {
+            return null;
+        }
         for (Method m : searchIn.getDeclaredMethods()) {
             if (Modifier.isStatic(m.getModifiers())
                     && m.getReturnType().equals(returnType)
@@ -208,6 +220,18 @@ public final class ReflectionUtil {
                     m.setAccessible(true);
                     return m;
                 }
+            }
+        }
+        return null;
+    }
+
+    public static @Nullable Constructor<?> getConstructor(@Nullable Class<?> searchIn, Class<?>... params) {
+        if (searchIn == null) {
+            return null;
+        }
+        for (Constructor<?> con : searchIn.getDeclaredConstructors()) {
+            if (Arrays.equals(con.getParameterTypes(), params)) {
+                return con;
             }
         }
         return null;
