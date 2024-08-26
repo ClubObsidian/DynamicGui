@@ -26,10 +26,7 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SimpleSlotToken implements SlotToken {
 
@@ -92,6 +89,9 @@ public class SimpleSlotToken implements SlotToken {
     }
 
     private Map<String, String> parseStringMap(Map<String, String> map) {
+        if (map == null) {
+            return Collections.emptyMap();
+        }
         Map<String, String> parsedMap = new HashMap<>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = this.macroParser.parseStringMacros(entry.getKey());
@@ -234,7 +234,7 @@ public class SimpleSlotToken implements SlotToken {
 
     @Override
     public Map<String, String> getDataComponents() {
-        return this.getDataComponents();
+        return this.dataComponents;
     }
 
     @Override
