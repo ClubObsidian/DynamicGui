@@ -252,6 +252,16 @@ public class SimpleSlot implements Slot {
             if (this.nbt != null && !this.nbt.equals("")) {
                 builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
             }
+
+            if (!this.dataComponents.isEmpty()) {
+                Map<String, String> replacedMap = new HashMap<>();
+                for (Map.Entry<String, String> entry : this.dataComponents.entrySet()) {
+                    String key = entry.getKey();
+                    String value = ReplacerManager.get().replace(entry.getValue(), playerWrapper);
+                    replacedMap.put(key, value);
+                };
+                builderItem.setDataComponents(replacedMap);
+            }
         }
 
         this.itemStack = builderItem;

@@ -38,6 +38,8 @@ public final class BukkitDataComponentUtil {
             .getClassIfExists("net.minecraft.core.RegistryAccess");
     private static final Class<?> REGISTRY = ReflectionUtil
             .getClassIfExists("net.minecraft.core.Registry");
+    private static final Class<?> MAPPED_REGISTRY = ReflectionUtil
+            .getClassIfExists("net.minecraft.core.MappedRegistry");
     private static final Class<?> REGISTRY_OPS = ReflectionUtil
             .getClassIfExists("net.minecraft.resources.RegistryOps");
     private static final Class<?> LOOKUP_PROVIDER = ReflectionUtil
@@ -84,14 +86,14 @@ public final class BukkitDataComponentUtil {
             .getStaticMethod(CRAFT_ITEM_STACK, NMS_ITEM_STACK, ItemStack.class);
     private static final Method SET = ReflectionUtil
             .getMethod(NMS_ITEM_STACK, "set");
-    private static final Method READ = ReflectionUtil
+    private static final Method RESOURCE_LOCATION_READ = ReflectionUtil
             .getStaticMethod(RESOURCE_LOCATION, RESOURCE_LOCATION, STRING_READER);
-    private static final Method REGISTRY_GET = ReflectionUtil
-            .getMethod(REGISTRY, "get");
+    private static final Method MAPPED_REGISTRY_GET = ReflectionUtil
+            .getMethodByParams(MAPPED_REGISTRY, "get", RESOURCE_LOCATION);
     private static final Method CODEC_OR_THROW = ReflectionUtil
             .getMethod(DATA_COMPONENT_TYPE, "codecOrThrow");
     private static final Method PARSE = ReflectionUtil
-            .getMethod(DECODER, "parse");
+            .getMethod(DECODER, 2, "parse");
     private static final Method DATA_RESULT_GET_OR_THROW = ReflectionUtil
             .getMethod(DATA_RESULT, "getOrThrow");
     private static final Method GET_BUKKIT_STACK = ReflectionUtil
@@ -112,10 +114,12 @@ public final class BukkitDataComponentUtil {
             .getStaticMethod(NBT_UTILS, COMPONENT, TAG);
     private static final Method COMPONENT_GET_STRING = ReflectionUtil
             .getMethod(COMPONENT, "getString");
+    private static final Method TAG_PARSER_READ_VALUE = ReflectionUtil
+            .getMethod(TAG_PARSER, "readValue");
 
     private static final Constructor<?> STRING_READER_CON =
             ReflectionUtil.getConstructor(STRING_READER, String.class);
-    private static final Constructor<?> TAG_CON =
+    private static final Constructor<?> TAG_PARSER_CON =
             ReflectionUtil.getConstructor(TAG_PARSER, STRING_READER);
 
     private BukkitDataComponentUtil() {
@@ -133,32 +137,38 @@ public final class BukkitDataComponentUtil {
         try {
             Object nbtOpsInstance = Objects.requireNonNull(NBT_OPS_INSTANCE).get(null);
             Object registry = Objects.requireNonNull(GET_REGISTRY_ACCESS).invoke(null);
-            Object ops = Objects.requireNonNull(REGISTRY_CREATE_CONTEXT).invoke(registry, nbtOpsInstance);
+            Object registryOps = Objects.requireNonNull(REGISTRY_CREATE_CONTEXT).invoke(registry, nbtOpsInstance);
             Object nmsItemStack = Objects.requireNonNull(UNWRAP).invoke(null, bukkitItemStack);
             for (Map.Entry<String, String> entry : components.entrySet()) {
                 String entryKey = (entry.getKey().contains(":") ? entry.getKey() : "minecraft:" + entry.getKey())
                         .toLowerCase(Locale.ROOT);
                 String entryValue = entry.getValue();
                 Object typeStringReader = Objects.requireNonNull(STRING_READER_CON).newInstance(entryKey);
-                Object resourceLocation = Objects.requireNonNull(READ).invoke(null, typeStringReader);
+                Object resourceLocation = Objects.requireNonNull(RESOURCE_LOCATION_READ).invoke(null, typeStringReader);
                 Object dataComponentRegistry = Objects
                         .requireNonNull(DATA_COMPONENT_TYPE_FIELD)
                         .get(BUILT_IN_REGISTRIES);
-                Object componentType = Objects
-                        .requireNonNull(REGISTRY_GET)
+                Object type = Objects
+                        .requireNonNull(MAPPED_REGISTRY_GET)
                         .invoke(dataComponentRegistry, resourceLocation);
-                Object tag = Objects
-                        .requireNonNull(TAG_CON)
+                Object tagParser = Objects
+                        .requireNonNull(TAG_PARSER_CON)
                         .newInstance(STRING_READER_CON.newInstance(entryValue));
+                Object tag = Objects
+                        .requireNonNull(TAG_PARSER_READ_VALUE)
+                        .invoke(tagParser);
                 Object codec = Objects
-                        .requireNonNull(CODEC_OR_THROW).invoke(componentType);
+                        .requireNonNull(CODEC_OR_THROW).invoke(type);
+                //System.out.println("codec: " + codec.getClass().getName());
+                //System.out.println("ops: " + registryOps.getClass().getName());
+                //System.out.println("tag: " + tag.getClass().getName());
                 Object parsed = Objects
                         .requireNonNull(PARSE)
-                        .invoke(codec, ops, tag);
+                        .invoke(codec, registryOps, tag);
                 Object result = Objects
                         .requireNonNull(DATA_RESULT_GET_OR_THROW)
                         .invoke(parsed);
-                Objects.requireNonNull(SET).invoke(nmsItemStack, componentType, result);
+                Objects.requireNonNull(SET).invoke(nmsItemStack, type, result);
             }
             return (ItemStack) Objects.requireNonNull(GET_BUKKIT_STACK).invoke(nmsItemStack);
         } catch (IllegalAccessException

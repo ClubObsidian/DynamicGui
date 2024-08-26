@@ -85,7 +85,25 @@ public final class ReflectionUtil {
         return null;
     }
 
+    public static Method getMethod(@Nullable Class<?> cl, int paramCount, String... methods) {
+        if (cl == null) {
+            return null;
+        }
+        for (Method m : cl.getDeclaredMethods()) {
+            for (String methodName : methods) {
+                if (m.getName().equals(methodName) && m.getParameterTypes().length == paramCount) {
+                    m.setAccessible(true);
+                    return m;
+                }
+            }
+        }
+        return null;
+    }
+
     public static Method getMethodByParams(Class<?> cl, String methodName, Class<?>... params) {
+        if (cl == null) {
+            return null;
+        }
         try {
             Method method = cl.getDeclaredMethod(methodName, params);
             method.setAccessible(true);
