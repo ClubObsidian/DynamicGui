@@ -15,7 +15,7 @@ allprojects {
 	version projectVersion
 	ext {
 		junitVersion = '5.9.1'
-		cloudVersion = '2.0.0-rc.2'
+		cloudVersion = '2.1.0-SNAPSHOT'
 		wrappyVersion = "3.0.1"
 		langVersion = "3.12.0"
 		guiceVersion = "5.1.0"
