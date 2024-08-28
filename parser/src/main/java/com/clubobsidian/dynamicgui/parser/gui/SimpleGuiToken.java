@@ -100,10 +100,11 @@ public class SimpleGuiToken implements GuiToken {
             ConfigurationSection keySec = section.getConfigurationSection(key);
             String type = keySec.getString("type");
             boolean optional = keySec.getBoolean("optional");
+            boolean greedy = keySec.getBoolean("greedy");
             Optional<CloudArgument> opt = CloudArgument.fromType(type);
             if (opt.isPresent()) {
                 CloudArgument arg = opt.get();
-                args.add(arg.argument(keyName, optional));
+                args.add(arg.argument(keyName, optional, greedy));
             } else {
                 DynamicGui.get().getLogger().error("Invalid argument type %s", type);
             }

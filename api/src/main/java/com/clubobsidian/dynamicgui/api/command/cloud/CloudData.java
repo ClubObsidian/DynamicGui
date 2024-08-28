@@ -20,10 +20,14 @@ public class CloudData {
 
     private final String argumentName;
     private final boolean optional;
+    private final boolean greedy;
 
-    public CloudData(String argumentName, boolean optional) {
+    public CloudData(String argumentName,
+                     boolean optional,
+                     boolean greedy) {
         this.argumentName = argumentName;
         this.optional = optional;
+        this.greedy = greedy;
     }
 
     public String getArgumentName() {
@@ -32,5 +36,9 @@ public class CloudData {
 
     public boolean isOptional() {
         return this.optional;
+    }
+
+    public boolean isGreedy() {
+        return this.greedy;
     }
 }

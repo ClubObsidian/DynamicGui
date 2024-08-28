@@ -84,9 +84,9 @@ public class CommandRegistrarImpl implements CommandRegistrar {
                             String metaKey = "command_" + argName;
                             context.optional(argName).ifPresent(value -> {
                                 String metadataValue = EntityManager.get().isPlayer(value) ?
-                                EntityManager.get().createPlayerWrapper(value).getName() :
-                                String.valueOf(value);
-                            metadata.put(metaKey, metadataValue);
+                                        EntityManager.get().createPlayerWrapper(value).getName() :
+                                        String.valueOf(value);
+                                metadata.put(metaKey, metadataValue);
                             });
                         }
                         GuiManager.get().openGui(playerWrapper, guiName, metadata);

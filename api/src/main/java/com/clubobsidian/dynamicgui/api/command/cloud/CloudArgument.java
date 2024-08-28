@@ -63,6 +63,9 @@ public final class CloudArgument {
             } else {
                 builder.required();
             }
+            if (d.isGreedy()) {
+                builder.parser(StringParser.greedyStringParser());
+            }
             return builder.build();
         });
     }
@@ -96,11 +99,13 @@ public final class CloudArgument {
     }
 
     public <T extends CommandComponent> T argument(@NotNull String argName) {
-        return this.argument(argName, false);
+        return this.argument(argName, false, false);
     }
 
-    public <T extends CommandComponent> T argument(@NotNull String argName, boolean optional) {
+    public <T extends CommandComponent> T argument(@NotNull String argName,
+                                                   boolean optional,
+                                                   boolean greedy) {
         Objects.requireNonNull(argName);
-        return (T) this.function.apply(new CloudData(argName, optional));
+        return (T) this.function.apply(new CloudData(argName, optional, greedy));
     }
 }
