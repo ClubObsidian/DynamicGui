@@ -33,6 +33,7 @@ public class CopyBackMetadataFunction extends Function {
     @Override
     public boolean function(PlayerWrapper<?> playerWrapper) {
         Gui gui = null;
+        String data = this.getData();
         FunctionOwner owner = this.getOwner();
         if (owner instanceof Slot) {
             Slot slot = (Slot) owner;
@@ -41,10 +42,13 @@ public class CopyBackMetadataFunction extends Function {
             gui = (Gui) owner;
         }
 
+        boolean override = Boolean.parseBoolean(data);
+
         Gui back = gui.getBack();
         if (back == null) {
-            return false;
+            return override;
         }
+
         gui.getMetadata().putAll(back.getMetadata());
         return true;
     }
