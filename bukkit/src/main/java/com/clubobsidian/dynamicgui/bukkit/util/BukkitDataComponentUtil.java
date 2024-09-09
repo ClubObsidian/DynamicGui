@@ -113,7 +113,7 @@ public final class BukkitDataComponentUtil {
     private static final Method TO_PRETTY_COMPONENT = ReflectionUtil
             .getStaticMethod(NBT_UTILS, COMPONENT, TAG);
     private static final Method COMPONENT_GET_STRING = ReflectionUtil
-            .getMethod(COMPONENT, "getString");
+            .getMethod(COMPONENT, 0, "getString");
     private static final Method TAG_PARSER_READ_VALUE = ReflectionUtil
             .getMethod(TAG_PARSER, "readValue");
 
