@@ -36,8 +36,6 @@ public final class BukkitDataComponentUtil {
             .getClassIfExists("net.minecraft.core.component.DataComponentType");
     private static final Class<?> REGISTRY_ACCESS = ReflectionUtil
             .getClassIfExists("net.minecraft.core.RegistryAccess");
-    private static final Class<?> REGISTRY = ReflectionUtil
-            .getClassIfExists("net.minecraft.core.Registry");
     private static final Class<?> MAPPED_REGISTRY = ReflectionUtil
             .getClassIfExists("net.minecraft.core.MappedRegistry");
     private static final Class<?> REGISTRY_OPS = ReflectionUtil
@@ -64,6 +62,8 @@ public final class BukkitDataComponentUtil {
             .getClassIfExists("com.mojang.serialization.Decoder");
     private static final Class<?> DATA_RESULT = ReflectionUtil
             .getClassIfExists("com.mojang.serialization.DataResult");
+    private static final Class<?> ENCODER = ReflectionUtil
+            .getClassIfExists("com.mojang.serialization.Encoder");
     private static final Class<?> TYPED_DATA_COMPONENT = ReflectionUtil
             .getClassIfExists("net.minecraft.core.component.TypedDataComponent");
     private static final Class<?> NBT_UTILS = ReflectionUtil
@@ -95,7 +95,7 @@ public final class BukkitDataComponentUtil {
     private static final Method PARSE = ReflectionUtil
             .getMethod(DECODER, 2, "parse");
     private static final Method DATA_RESULT_GET_OR_THROW = ReflectionUtil
-            .getMethod(DATA_RESULT, "getOrThrow");
+            .getMethod(DATA_RESULT, 0, "getOrThrow");
     private static final Method GET_BUKKIT_STACK = ReflectionUtil
             .getMethod(NMS_ITEM_STACK, "getBukkitStack");
     private static final Method GET_COMPONENTS = ReflectionUtil
@@ -107,9 +107,9 @@ public final class BukkitDataComponentUtil {
     private static final Method ENCODE_VALUE = ReflectionUtil
             .getMethod(TYPED_DATA_COMPONENT, "encodeValue");
     private static final Method GET_KEY = ReflectionUtil
-            .getMethod(REGISTRY, "getKey");
+            .getMethod(MAPPED_REGISTRY, "getKey");
     private static final Method ENCODE_START = ReflectionUtil
-            .getMethod(DATA_RESULT, "encodeStart");
+            .getMethod(ENCODER, "encodeStart");
     private static final Method TO_PRETTY_COMPONENT = ReflectionUtil
             .getStaticMethod(NBT_UTILS, COMPONENT, TAG);
     private static final Method COMPONENT_GET_STRING = ReflectionUtil
@@ -194,8 +194,8 @@ public final class BukkitDataComponentUtil {
                 Object codec = Objects.requireNonNull(CODEC_OR_THROW).invoke(componentType);
                 Object dataResult = Objects.requireNonNull(ENCODE_START).invoke(codec, ops, componentValue);
                 Object tag = Objects.requireNonNull(DATA_RESULT_GET_OR_THROW).invoke(dataResult);
-                Object chatComponent = TO_PRETTY_COMPONENT.invoke(tag);
-                Object typeLocation = GET_KEY.invoke(dataComponentRegistry, componentType);
+                Object chatComponent = Objects.requireNonNull(TO_PRETTY_COMPONENT).invoke(null, tag);
+                Object typeLocation = Objects.requireNonNull(GET_KEY).invoke(dataComponentRegistry, componentType);
                 String key = typeLocation.toString();
                 String value = (String) COMPONENT_GET_STRING.invoke(chatComponent);
                 componentMap.put(key, value);
