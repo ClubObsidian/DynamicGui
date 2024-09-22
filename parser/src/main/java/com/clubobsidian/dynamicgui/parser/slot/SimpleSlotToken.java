@@ -26,10 +26,7 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SimpleSlotToken implements SlotToken {
 
@@ -50,6 +47,7 @@ public class SimpleSlotToken implements SlotToken {
     private final List<String> lore;
     private final List<String> enchants;
     private final List<String> itemFlags;
+    private final Map<String, String> dataComponents;
     private final String modelProvider;
     private final String modelData;
     private final int updateInterval;
@@ -78,6 +76,9 @@ public class SimpleSlotToken implements SlotToken {
         this.lore = this.macroParser.parseListMacros(section.getStringList("lore"));
         this.enchants = this.macroParser.parseListMacros(section.getStringList("enchants"));
         this.itemFlags = this.macroParser.parseListMacros(section.getStringList("item-flags"));
+        this.dataComponents = this.parseStringMap(
+                section.getMap("data-components", String.class, String.class)
+        );
         this.modelProvider = this.macroParser.parseStringMacros(section.getString("model.provider"));
         this.modelData = this.macroParser.parseStringMacros(section.getString("model.data"));
         this.updateInterval = this.parseUpdateInterval(section.getString("update-interval"));
@@ -85,6 +86,19 @@ public class SimpleSlotToken implements SlotToken {
         this.functionTree = new SimpleFunctionTree(functionsSection, this.macroParser);
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);
+    }
+
+    private Map<String, String> parseStringMap(Map<String, String> map) {
+        if (map == null) {
+            return Collections.emptyMap();
+        }
+        Map<String, String> parsedMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = this.macroParser.parseStringMacros(entry.getKey());
+            String value = this.macroParser.parseStringMacros(entry.getValue());
+            parsedMap.put(key, value);
+        }
+        return parsedMap;
     }
 
     private int parseAmount(int amount) {
@@ -216,6 +230,11 @@ public class SimpleSlotToken implements SlotToken {
     @Override
     public List<String> getItemFlags() {
         return this.itemFlags;
+    }
+
+    @Override
+    public Map<String, String> getDataComponents() {
+        return this.dataComponents;
     }
 
     @Override

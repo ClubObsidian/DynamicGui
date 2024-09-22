@@ -51,6 +51,8 @@ public interface SlotToken extends Serializable {
 
     List<String> getItemFlags();
 
+    Map<String, String> getDataComponents();
+
     String getModelProvider();
 
     String getModelData();

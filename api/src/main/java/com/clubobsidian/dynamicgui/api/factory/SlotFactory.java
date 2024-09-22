@@ -30,7 +30,7 @@ public interface SlotFactory {
     Slot create(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
                 boolean movable, Boolean close, List<String> lore,
                 List<EnchantmentWrapper> enchants, List<String> itemFlags,
-                String modelProvider, String modelData,
+                Map<String, String> dataComponents, String modelProvider, String modelData,
                 FunctionTree functions, int updateInterval, Map<String, String> metadata);
 
 }

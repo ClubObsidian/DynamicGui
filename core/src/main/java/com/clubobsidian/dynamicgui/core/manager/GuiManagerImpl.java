@@ -473,6 +473,7 @@ public class GuiManagerImpl extends GuiManager {
             }
 
             List<String> itemFlags = slotToken.getItemFlags();
+            Map<String, String> dataComponents = slotToken.getDataComponents();
 
             int amount = slotToken.getAmount();
 
@@ -491,7 +492,7 @@ public class GuiManagerImpl extends GuiManager {
             Map<String, String> metadata = slotToken.getMetadata();
 
             slots.add(new SimpleSlot(index, amount, icon, name, nbt, data, glow, movable,
-                    close, lore, enchants, itemFlags, modelProvider, modelData,
+                    close, lore, enchants, itemFlags, dataComponents, modelProvider, modelData,
                     slotToken.getFunctionTree(), updateInterval, metadata));
         }
 

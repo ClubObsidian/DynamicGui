@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.bukkit.inventory;
 import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.bukkit.util.BukkitDataComponentUtil;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -194,11 +195,14 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public String getNBT() {
-        return BukkitNBTUtil.getTag(this.getItemStack());
+        return BukkitDataComponentUtil.usesDataComponents() ? null : BukkitNBTUtil.getTag(this.getItemStack());
     }
 
     @Override
-    public void setNBT(@NotNull String nbt) {
+    public void setNBT(String nbt) {
+        if (BukkitDataComponentUtil.usesDataComponents()) {
+            return;
+        }
         Objects.requireNonNull(nbt);
         ItemStack oldItemStack = this.getItemStack();
         ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
@@ -229,6 +233,21 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         }
 
         this.setItemStack(newItemStack);
+    }
+
+    @Override
+    public Map<String, String> getDataComponents() {
+        return BukkitDataComponentUtil.usesDataComponents()
+                ? BukkitDataComponentUtil.getComponents(this.itemStack)
+                : Collections.emptyMap();
+    }
+
+    @Override
+    public void setDataComponents(Map<String, String> components) {
+        if (!BukkitDataComponentUtil.usesDataComponents()) {
+            return;
+        }
+        this.itemStack = (T) BukkitDataComponentUtil.setComponents(this.itemStack, components);
     }
 
     @Override
