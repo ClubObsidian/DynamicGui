@@ -451,7 +451,7 @@ public class GuiManagerImpl extends GuiManager {
             int index = next.getKey();
             SlotToken slotToken = next.getValue();
 
-            String icon = MaterialManager.get().normalizeMaterial(slotToken.getIcon());
+            String icon = slotToken.getIcon();
             String name = slotToken.getName();
 
             if (name != null) {

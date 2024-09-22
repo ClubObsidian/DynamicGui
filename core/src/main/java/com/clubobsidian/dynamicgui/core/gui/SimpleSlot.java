@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.api.gui.Slot;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
+import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
@@ -184,23 +185,26 @@ public class SimpleSlot implements Slot {
     public ItemStackWrapper<?> buildItemStack(@NotNull PlayerWrapper<?> playerWrapper) {
         Objects.requireNonNull(playerWrapper);
         ItemStackWrapper<?> builderItem = this.itemStack;
+        String updatedIcon = MaterialManager
+                .get()
+                .normalizeMaterial(ReplacerManager.get().replace(this.icon, playerWrapper));
         if (builderItem == null) {
-            builderItem = ItemStackManager.get().createItemStackWrapper(this.icon, this.amount);
+            builderItem = ItemStackManager.get().createItemStackWrapper(updatedIcon, this.amount);
         } else {
-            builderItem.setType(this.icon);
+            builderItem.setType(updatedIcon);
             builderItem.setAmount(this.amount);
         }
         if (builderItem == null) {
             DynamicGui.get().getLogger().error(
                     "Invalid material type '%s' for slot '%d' in gui '%s'",
-                    this.icon,
+                    updatedIcon,
                     this.index,
                     this.getOwner().getName()
             );
             return null;
         }
 
-        if (!this.icon.equalsIgnoreCase(IGNORE_MATERIAL)) {
+        if (!updatedIcon.equalsIgnoreCase(IGNORE_MATERIAL)) {
             if (this.data != 0) {
                 builderItem.setDurability(this.data);
             }
