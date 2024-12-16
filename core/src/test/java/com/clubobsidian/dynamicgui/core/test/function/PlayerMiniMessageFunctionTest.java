@@ -33,7 +33,7 @@ public class PlayerMiniMessageFunctionTest extends FactoryTest {
     }
 
     @Test
-    public void dataTest() throws Exception {
+    public void dataTestPlainText() throws Exception {
         this.getFactory().inject();
         String data = "test";
         Function function = new PlayerMiniMessageFunction();
@@ -41,6 +41,19 @@ public class PlayerMiniMessageFunctionTest extends FactoryTest {
         MockPlayerWrapper player = this.getFactory().createPlayer();
         assertTrue(function.function(player));
         assertEquals(1, player.getIncomingChat().size());
-        assertEquals("{\"text\":\"test\"}", player.getIncomingChat().get(0));
+        assertEquals("\"test\"", player.getIncomingChat().get(0));
+    }
+
+    @Test
+    public void dataTestJsonText() throws Exception {
+        this.getFactory().inject();
+        String data = "<red>test</red>";
+        Function function = new PlayerMiniMessageFunction();
+        function.setData(data);
+        MockPlayerWrapper player = this.getFactory().createPlayer();
+        assertTrue(function.function(player));
+        assertEquals(1, player.getIncomingChat().size());
+        System.out.println(player.getIncomingChat());
+        assertEquals("{\"color\":\"red\",\"text\":\"test\"}", player.getIncomingChat().get(0));
     }
 }
