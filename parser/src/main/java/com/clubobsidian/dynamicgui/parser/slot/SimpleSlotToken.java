@@ -64,6 +64,7 @@ public class SimpleSlotToken implements SlotToken {
         ConfigurationSection macrosSection = section.getConfigurationSection("macros");
         copyMacroTokens.add(new SimpleMacroToken(macrosSection));
         this.macroParser = new SimpleMacroParser(copyMacroTokens);
+        this.macroParser.parseSectionMacros(section);
         this.index = index;
         this.amount = this.parseAmount(section.getInteger("amount"));
         this.icon = this.macroParser.parseStringMacros(section.getString("icon"));

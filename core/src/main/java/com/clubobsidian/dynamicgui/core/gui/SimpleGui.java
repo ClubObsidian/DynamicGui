@@ -53,7 +53,7 @@ public class SimpleGui implements Gui {
     private final List<LocationWrapper<?>> locations;
     private final Map<String, List<Integer>> npcIds;
     private transient InventoryWrapper<?> inventoryWrapper;
-    private final FunctionTree functions;
+    private transient FunctionTree functions;
     private Gui back;
     private final Map<String, String> metadata;
     private final boolean isStatic;
@@ -221,6 +221,15 @@ public class SimpleGui implements Gui {
     }
 
     public Gui clone() {
-        return SerializationUtils.clone(this);
+        SimpleGui cloned = SerializationUtils.clone(this);
+        cloned.functions = this.functions;
+        for (Slot slot : this.slots) {
+            Slot clonedSlot = cloned.slots.get(slot.getIndex());
+            if (clonedSlot instanceof SimpleSlot) {
+                SimpleSlot clonedSimpleSlot = (SimpleSlot) clonedSlot;
+                clonedSimpleSlot.setFunctions(slot.getFunctions());
+            }
+        }
+        return cloned;
     }
 }

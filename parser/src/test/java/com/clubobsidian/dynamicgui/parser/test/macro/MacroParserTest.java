@@ -27,8 +27,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MacroParserTest {
 
@@ -167,5 +168,21 @@ public class MacroParserTest {
         assertEquals("and some other text test", parsedLore.get(2));
         assertEquals("with some other text", parsedLore.get(3));
         assertEquals("still-not-a-macro", parsedLore.get(4));
+    }
+
+    @Test
+    public void testSectionMacroToken() {
+        File file = new File("test.yml");
+        Configuration config = Configuration.load(file);
+        ConfigurationSection macroSection = config.getConfigurationSection("macros");
+
+        MacroToken token = new SimpleMacroToken(macroSection);
+        MacroParser parser = new SimpleMacroParser(List.of(token));
+        ConfigurationSection parentFunctionSection = config.getConfigurationSection("functions");
+        parser.parseSectionMacros(parentFunctionSection);
+        ConfigurationSection childFunctionSection = parentFunctionSection.getConfigurationSection("function");
+        assertEquals(2, childFunctionSection.getKeys().size());
+        assertEquals("load", childFunctionSection.getString("type"));
+        assertEquals("function-2", childFunctionSection.getStringList("functions").get(0));
     }
 }

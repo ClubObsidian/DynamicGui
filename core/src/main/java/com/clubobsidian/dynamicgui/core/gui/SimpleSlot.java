@@ -59,7 +59,7 @@ public class SimpleSlot implements Slot {
     private final int amount;
     private transient ItemStackWrapper<?> itemStack;
     private Gui owner;
-    private final FunctionTree functions;
+    private transient FunctionTree functions;
     private final int updateInterval;
     private int tick;
     private int frame;
@@ -178,6 +178,10 @@ public class SimpleSlot implements Slot {
     @Override
     public FunctionTree getFunctions() {
         return this.functions;
+    }
+
+    public void setFunctions(FunctionTree functions) {
+        this.functions = functions;
     }
 
     @Override

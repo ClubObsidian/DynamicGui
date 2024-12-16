@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.api.parser.macro;
 
+import com.clubobsidian.wrappy.ConfigurationSection;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,4 +29,5 @@ public interface MacroParser extends Serializable {
 
     List<String> parseListMacros(final List<String> replaceIn);
 
+    ConfigurationSection parseSectionMacros(ConfigurationSection copyInto);
 }

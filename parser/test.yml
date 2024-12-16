@@ -13,12 +13,13 @@ macros:
   - "not-a-macro"
   - "%multiline-test%"
   - "still-not-a-macro"
-
-functions:
-  function:
+  '%function-macro%':
     type: "load"
     functions:
-    - "function-2"
+      - "function-2"
+
+functions:
+  function: "%function-macro%"
 
 '0':
   name: "Some name"

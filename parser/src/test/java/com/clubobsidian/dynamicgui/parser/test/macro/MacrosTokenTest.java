@@ -34,12 +34,10 @@ public class MacrosTokenTest {
     public void testGuiMacroToken() {
         File file = new File("test.yml");
         Configuration config = Configuration.load(file);
-        ConfigurationSection section = config
-                .getConfigurationSection("macros");
+        ConfigurationSection section = config.getConfigurationSection("macros");
         MacroToken token = new SimpleMacroToken(section);
         Map<String, Object> macros = token.getMacros();
-
-        assertEquals(2, macros.size());
+        assertEquals(3, macros.size());
     }
 
     @Test

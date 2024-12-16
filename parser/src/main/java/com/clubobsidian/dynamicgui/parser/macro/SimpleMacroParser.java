@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.parser.macro;
 
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroToken;
+import com.clubobsidian.wrappy.ConfigurationSection;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -50,10 +51,12 @@ public class SimpleMacroParser implements MacroParser {
         }
         String replace = replaceIn;
         for (MacroToken token : this.tokens) {
-            for (Map.Entry<String, Object> next : token.getMacros().entrySet()) {
-                String key = next.getKey();
-                Object value = next.getValue();
-
+            for (Map.Entry<String, Object> entry : token.getMacros().entrySet()) {
+                if (entry.getValue() instanceof ConfigurationSection) {
+                    continue;
+                }
+                String key = entry.getKey();
+                Object value = entry.getValue();
                 if (replace.contains(key)) {
                     replace = StringUtils.replace(replace, key, value.toString());
                 }
@@ -62,6 +65,9 @@ public class SimpleMacroParser implements MacroParser {
 
         for (MacroToken token : this.tokens) {
             for (Map.Entry<String, Object> entry : token.getMacros().entrySet()) {
+                if (entry.getValue() instanceof ConfigurationSection) {
+                    continue;
+                }
                 String key = entry.getKey();
                 if (replace.contains(key)) {
                     return this.parseStringMacros(replace);
@@ -78,7 +84,9 @@ public class SimpleMacroParser implements MacroParser {
         for (MacroToken token : this.tokens) {
             for (Map.Entry<String, Object> next : token.getMacros().entrySet()) {
                 String key = next.getKey();
-
+                if (next.getValue() instanceof ConfigurationSection) {
+                    continue;
+                }
                 for (int i = 0; i < newList.size(); i++) {
                     String line = newList.get(i);
                     if (line.contains(key)) {
@@ -136,5 +144,39 @@ public class SimpleMacroParser implements MacroParser {
         }
 
         return newList;
+    }
+
+    @Override
+    public ConfigurationSection parseSectionMacros(ConfigurationSection copyInto) {
+        for (MacroToken token : this.tokens) {
+            for (Map.Entry<String, Object> entry : token.getMacros().entrySet()) {
+                if (entry.getValue() instanceof ConfigurationSection) {
+                    String macroName = entry.getKey();
+                    ConfigurationSection tokenSection = (ConfigurationSection) entry.getValue();
+                    this.recurReplaceSection(macroName, tokenSection, copyInto);
+                }
+            }
+        }
+        return copyInto;
+    }
+
+    private void recurReplaceSection(String macroName,
+                                     ConfigurationSection tokenSection,
+                                     ConfigurationSection copyInto) {
+        for (Object key : copyInto.getKeys()) {
+            Object value = copyInto.get(key);
+            if (value instanceof String) {
+                String strValue = (String) value;
+                if (strValue.equals(macroName)) {
+                    copyInto.set(key, null);
+                    ConfigurationSection valueSection = copyInto.getConfigurationSection(key);
+                    valueSection.combine(tokenSection);
+                }
+            }
+            ConfigurationSection childSection = copyInto.getConfigurationSection(key);
+            if (!childSection.getKeys().isEmpty()) {
+                this.recurReplaceSection(macroName, tokenSection, childSection);
+            }
+        }
     }
 }

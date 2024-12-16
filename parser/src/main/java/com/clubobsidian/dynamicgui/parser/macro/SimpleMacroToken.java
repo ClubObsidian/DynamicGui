@@ -41,7 +41,12 @@ public class SimpleMacroToken implements MacroToken {
         for (Object key : section.getKeys()) {
             if (key instanceof String) {
                 String keyStr = (String) key;
-                this.macros.put(keyStr, section.get(key));
+                ConfigurationSection keySection = section.getConfigurationSection(key);
+                if (!keySection.getKeys().isEmpty()) {
+                    this.macros.put(keyStr, keySection);
+                } else {
+                    this.macros.put(keyStr, section.get(key));
+                }
             } else {
                 DynamicGui.get().getLogger().error("Macros do not support non-string keys: " + key);
             }

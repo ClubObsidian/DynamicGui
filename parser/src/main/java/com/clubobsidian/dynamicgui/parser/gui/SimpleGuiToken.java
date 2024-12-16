@@ -69,6 +69,7 @@ public class SimpleGuiToken implements GuiToken {
         copyMacroTokens.add(new SimpleMacroToken(macrosSection));
 
         this.macroParser = new SimpleMacroParser(copyMacroTokens);
+        this.macroParser.parseSectionMacros(section);
 
         this.title = this.macroParser.parseStringMacros(section.getString("title"));
         this.type = this.parseType(section.getString("type"));
