@@ -223,8 +223,9 @@ public class SimpleGui implements Gui {
     public Gui clone() {
         SimpleGui cloned = SerializationUtils.clone(this);
         cloned.functions = this.functions;
-        for (Slot slot : this.slots) {
-            Slot clonedSlot = cloned.slots.get(slot.getIndex());
+        for (int i = 0; i < this.slots.size(); i++) {
+            Slot slot = this.slots.get(i);
+            Slot clonedSlot = cloned.slots.get(i);
             if (clonedSlot instanceof SimpleSlot) {
                 SimpleSlot clonedSimpleSlot = (SimpleSlot) clonedSlot;
                 clonedSimpleSlot.setFunctions(slot.getFunctions());
