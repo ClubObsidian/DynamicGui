@@ -100,12 +100,7 @@ public class SimpleGui implements Gui {
     }
 
     private String formatTitle(PlayerWrapper<?> playerWrapper) {
-        String inventoryTitle = ReplacerManager.get().replace(this.title, playerWrapper);
-        String stripped = ChatColor.stripColor(inventoryTitle);
-        if (stripped.length() > 32) {
-            inventoryTitle = inventoryTitle.substring(0, 31 + (inventoryTitle.length() - stripped.length()));
-        }
-        return inventoryTitle;
+        return ReplacerManager.get().replace(this.title, playerWrapper);
     }
 
     private Object createInventory(String inventoryTitle) {
