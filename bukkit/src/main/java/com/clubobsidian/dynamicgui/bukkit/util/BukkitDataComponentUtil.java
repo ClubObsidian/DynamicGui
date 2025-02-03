@@ -23,10 +23,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public final class BukkitDataComponentUtil {
 
@@ -72,6 +69,8 @@ public final class BukkitDataComponentUtil {
             .getClassIfExists("net.minecraft.network.chat.Component");
     private static final Class<?> TAG = ReflectionUtil
             .getClassIfExists("net.minecraft.nbt.Tag");
+    private static final Class<?> REFERENCE = ReflectionUtil
+            .getClassIfExists("net.minecraft.core.Holder$Reference");
 
     private static final Field NBT_OPS_INSTANCE =
             ReflectionUtil.getDeclaredField(NBT_OPS, "INSTANCE");
@@ -89,7 +88,7 @@ public final class BukkitDataComponentUtil {
     private static final Method RESOURCE_LOCATION_READ = ReflectionUtil
             .getStaticMethod(RESOURCE_LOCATION, RESOURCE_LOCATION, STRING_READER);
     private static final Method MAPPED_REGISTRY_GET = ReflectionUtil
-            .getMethodByParams(MAPPED_REGISTRY, "get", RESOURCE_LOCATION);
+            .getMethodByParams(MAPPED_REGISTRY, new String[]{"getValue", "get"}, RESOURCE_LOCATION);
     private static final Method CODEC_OR_THROW = ReflectionUtil
             .getMethod(DATA_COMPONENT_TYPE, "codecOrThrow");
     private static final Method PARSE = ReflectionUtil
@@ -116,6 +115,8 @@ public final class BukkitDataComponentUtil {
             .getMethod(COMPONENT, 0, "getString");
     private static final Method TAG_PARSER_READ_VALUE = ReflectionUtil
             .getMethod(TAG_PARSER, "readValue");
+    private static final Method HOLDER_VALUE = ReflectionUtil
+            .getMethod(REFERENCE, "value");
 
     private static final Constructor<?> STRING_READER_CON =
             ReflectionUtil.getConstructor(STRING_READER, String.class);

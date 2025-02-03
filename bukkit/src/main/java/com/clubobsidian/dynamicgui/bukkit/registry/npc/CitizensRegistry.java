@@ -41,7 +41,8 @@ public class CitizensRegistry implements NPCRegistry {
         this.getIdMethod = ReflectionUtil.getMethod(this.npcClass, "getId");
         this.getNPCMethod = ReflectionUtil.getMethodByParams(
                 this.npcRegistry.getClass(),
-                "getNPC", Entity.class
+                new String[]{"getNPC"},
+                Entity.class
         );
     }
 

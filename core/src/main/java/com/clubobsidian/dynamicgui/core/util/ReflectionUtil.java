@@ -100,16 +100,17 @@ public final class ReflectionUtil {
         return null;
     }
 
-    public static Method getMethodByParams(Class<?> cl, String methodName, Class<?>... params) {
+    public static Method getMethodByParams(Class<?> cl, String[] methodNames, Class<?>... params) {
         if (cl == null) {
             return null;
         }
-        try {
-            Method method = cl.getDeclaredMethod(methodName, params);
-            method.setAccessible(true);
-            return method;
-        } catch (NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
+        for (String methodName : methodNames) {
+            try {
+                Method method = cl.getDeclaredMethod(methodName, params);
+                method.setAccessible(true);
+                return method;
+            } catch (NoSuchMethodException | SecurityException e) {
+            }
         }
         return null;
     }
