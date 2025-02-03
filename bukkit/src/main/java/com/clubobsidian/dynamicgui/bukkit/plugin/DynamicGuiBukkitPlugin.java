@@ -34,6 +34,7 @@ import com.clubobsidian.dynamicgui.bukkit.permission.FoundryPermission;
 import com.clubobsidian.dynamicgui.bukkit.permission.VaultPermission;
 import com.clubobsidian.dynamicgui.bukkit.platform.BukkitPlatform;
 import com.clubobsidian.dynamicgui.bukkit.registry.model.ItemsAdderModelProvider;
+import com.clubobsidian.dynamicgui.bukkit.registry.model.NexoModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.model.OraxenModelProvider;
 import com.clubobsidian.dynamicgui.bukkit.registry.npc.CitizensRegistry;
 import com.clubobsidian.dynamicgui.bukkit.registry.replacer.PlaceholderApiReplacerRegistry;
@@ -160,6 +161,9 @@ public class DynamicGuiBukkitPlugin extends JavaPlugin implements DynamicGuiPlug
         }
         if (pm.getPlugin("ItemsAdder") != null) {
             ModelManager.get().register(new ItemsAdderModelProvider());
+        }
+        if (pm.getPlugin("Nexo") != null) {
+            ModelManager.get().register(new NexoModelProvider());
         }
     }
 
