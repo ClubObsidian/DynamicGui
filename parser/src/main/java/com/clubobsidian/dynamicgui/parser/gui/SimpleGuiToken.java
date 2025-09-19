@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.parser.gui;
 
 import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
+import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
@@ -30,9 +31,14 @@ import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroParser;
 import com.clubobsidian.dynamicgui.parser.macro.SimpleMacroToken;
 import com.clubobsidian.dynamicgui.parser.slot.SimpleSlotToken;
 import com.clubobsidian.wrappy.ConfigurationSection;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.component.CommandComponent;
+import org.incendo.cloud.context.CommandContext;
+import org.incendo.cloud.context.CommandInput;
+import org.incendo.cloud.suggestion.BlockingSuggestionProvider;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimpleGuiToken implements GuiToken {
 
@@ -94,6 +100,7 @@ public class SimpleGuiToken implements GuiToken {
         this.section = section;
     }
 
+    @SuppressWarnings({"rawtypes"})
     private List<CommandComponent> loadCommandArguments(ConfigurationSection section) {
         List<CommandComponent> args = new ArrayList<>();
         for (Object key : section.getKeys()) {
@@ -105,7 +112,26 @@ public class SimpleGuiToken implements GuiToken {
             Optional<CloudArgument> opt = CloudArgument.fromType(type);
             if (opt.isPresent()) {
                 CloudArgument arg = opt.get();
-                args.add(arg.argument(keyName, optional, greedy));
+                CommandComponent.Builder commandBuilder = arg.argument(keyName, optional, greedy);
+                ConfigurationSection tabComplete = keySec.getConfigurationSection("tab-complete");
+                String completeType = tabComplete.getString("type");
+                if (completeType == null) {
+                    DynamicGui.get().getLogger().error("No tab complete type found for arg %s", keyName);
+                } else {
+                    if (completeType.equals("player")) {
+                        commandBuilder = commandBuilder.suggestionProvider(new BlockingSuggestionProvider.Strings() {
+                            @Override
+                            public @NonNull Iterable<@NonNull String> stringSuggestions(@NonNull CommandContext commandContext,
+                                                                                        @NonNull CommandInput input) {
+                                return DynamicGui.get().getPlatform()
+                                        .getOnlinePlayers()
+                                        .stream()
+                                        .map(PlayerWrapper::getName).collect(Collectors.toList());
+                            }
+                        });
+                    }
+                }
+                args.add(commandBuilder.build());
             } else {
                 DynamicGui.get().getLogger().error("Invalid argument type %s", type);
             }

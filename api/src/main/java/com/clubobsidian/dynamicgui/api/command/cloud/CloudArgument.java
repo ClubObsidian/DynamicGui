@@ -66,7 +66,7 @@ public final class CloudArgument {
             if (d.isGreedy()) {
                 builder.parser(StringParser.greedyStringParser());
             }
-            return builder.build();
+            return builder;
         });
     }
 
@@ -92,17 +92,17 @@ public final class CloudArgument {
         return Optional.ofNullable(TYPES.get(type));
     }
 
-    private final Function<CloudData, CommandComponent> function;
+    private final Function<CloudData, CommandComponent.Builder> function;
 
-    public CloudArgument(@NotNull Function<CloudData, CommandComponent> function) {
+    public CloudArgument(@NotNull Function<CloudData, CommandComponent.Builder> function) {
         this.function = Objects.requireNonNull(function);
     }
 
-    public <T extends CommandComponent> T argument(@NotNull String argName) {
+    public <T extends CommandComponent.Builder> T argument(@NotNull String argName) {
         return this.argument(argName, false, false);
     }
 
-    public <T extends CommandComponent> T argument(@NotNull String argName,
+    public <T extends CommandComponent.Builder> T argument(@NotNull String argName,
                                                    boolean optional,
                                                    boolean greedy) {
         Objects.requireNonNull(argName);
