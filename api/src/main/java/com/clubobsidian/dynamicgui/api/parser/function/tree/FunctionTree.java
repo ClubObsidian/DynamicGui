@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.api.parser.function.tree;
 import com.clubobsidian.dynamicgui.api.factory.FunctionTreeFactory;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 

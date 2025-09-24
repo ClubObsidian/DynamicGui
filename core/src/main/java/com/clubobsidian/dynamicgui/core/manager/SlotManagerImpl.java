@@ -27,7 +27,7 @@ import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.parser.function.FunctionType;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.*;
 
 public class SlotManagerImpl extends SlotManager {

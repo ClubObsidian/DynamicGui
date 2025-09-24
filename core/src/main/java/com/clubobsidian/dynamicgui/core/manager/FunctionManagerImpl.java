@@ -31,7 +31,7 @@ import com.clubobsidian.dynamicgui.core.util.ThreadUtil;
 import com.clubobsidian.fuzzutil.StringFuzz;
 import org.jetbrains.annotations.NotNull;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;

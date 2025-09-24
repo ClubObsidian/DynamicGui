@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.api.manager.replacer;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public abstract class ReplacerManager {
 

@@ -34,7 +34,7 @@ import org.incendo.cloud.meta.SimpleCommandMeta;
 import org.incendo.cloud.setting.ManagerSetting;
 import org.jetbrains.annotations.NotNull;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.*;
 
 public class CommandRegistrarImpl implements CommandRegistrar {

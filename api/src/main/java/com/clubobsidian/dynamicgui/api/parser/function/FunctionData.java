@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.parser.function;
 
 import com.clubobsidian.dynamicgui.api.factory.FunctionDataFactory;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.Serializable;
 
 public interface FunctionData extends Serializable {

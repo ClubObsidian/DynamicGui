@@ -29,7 +29,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class InventoryCloseListener implements Listener {
 

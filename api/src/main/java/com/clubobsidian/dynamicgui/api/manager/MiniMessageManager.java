@@ -16,7 +16,7 @@
 
 package com.clubobsidian.dynamicgui.api.manager;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 
 public abstract class MiniMessageManager {

@@ -27,7 +27,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class EntityClickListener implements Listener {
 

@@ -34,7 +34,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;

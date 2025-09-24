@@ -20,7 +20,7 @@ import com.clubobsidian.dynamicgui.api.manager.ModelManager;
 import com.clubobsidian.dynamicgui.api.model.ModelProvider;
 import com.clubobsidian.dynamicgui.core.model.vanilla.VanillaModelProvider;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 

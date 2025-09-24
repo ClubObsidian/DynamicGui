@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.api.manager.inventory;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public abstract class ItemStackManager {
 

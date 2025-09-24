@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.registry.replacer;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public abstract class CooldownReplacerRegistry implements ReplacerRegistry {
 

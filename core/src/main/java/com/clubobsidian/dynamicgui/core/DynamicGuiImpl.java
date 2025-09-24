@@ -64,7 +64,7 @@ import io.github.classgraph.ScanResult;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.Unmodifiable;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;

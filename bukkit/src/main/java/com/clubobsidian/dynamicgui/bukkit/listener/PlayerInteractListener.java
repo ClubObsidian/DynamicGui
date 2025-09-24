@@ -26,7 +26,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class PlayerInteractListener implements Listener {
 

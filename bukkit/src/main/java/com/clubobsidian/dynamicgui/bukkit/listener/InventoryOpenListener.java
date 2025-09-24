@@ -27,7 +27,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class InventoryOpenListener implements Listener {
 

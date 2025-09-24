@@ -52,7 +52,7 @@ import com.clubobsidian.wrappy.Configuration;
 import com.clubobsidian.wrappy.ConfigurationSection;
 import org.apache.commons.io.FileUtils;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.manager.inventory;
 
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public abstract class InventoryManager {
 

@@ -19,7 +19,7 @@ package com.clubobsidian.dynamicgui.api.manager.entity;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import org.jetbrains.annotations.NotNull;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 
 public abstract class EntityManager {

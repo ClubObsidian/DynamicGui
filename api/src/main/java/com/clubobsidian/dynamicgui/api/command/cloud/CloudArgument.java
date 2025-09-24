@@ -17,8 +17,6 @@
 package com.clubobsidian.dynamicgui.api.command.cloud;
 
 import org.incendo.cloud.component.CommandComponent;
-import org.incendo.cloud.component.TypedCommandComponent;
-import org.incendo.cloud.parser.ArgumentParser;
 import org.incendo.cloud.parser.standard.*;
 import org.jetbrains.annotations.NotNull;
 

@@ -25,7 +25,7 @@ import com.clubobsidian.trident.EventBus;
 import com.clubobsidian.trident.EventHandler;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

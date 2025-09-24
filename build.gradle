@@ -1,7 +1,7 @@
 plugins {
 	id 'java-library'
-	id 'com.github.johnrengelman.shadow' version '7.1.2'
-	id 'org.cadixdev.licenser' version '0.6.1'
+	id 'com.gradleup.shadow' version '9.1.0'
+	id "dev.yumi.gradle.licenser" version "2.1.1"
 	id 'eclipse'
 	id 'idea'
 	id 'maven-publish'
@@ -14,18 +14,18 @@ allprojects {
 	group projectGroup
 	version projectVersion
 	ext {
-		junitVersion = '5.9.1'
+		junitVersion = '5.13.4'
 		cloudVersion = '2.0.0'
 		wrappyVersion = "3.0.1"
 		langVersion = "3.12.0"
-		guiceVersion = "5.1.0"
+		guiceVersion = "7.0.0"
 	}
 }
 
 subprojects {
 	apply plugin: 'java-library'
-	apply plugin: 'com.github.johnrengelman.shadow'
-	apply plugin: 'org.cadixdev.licenser'
+	apply plugin: 'com.gradleup.shadow'
+	apply plugin: 'dev.yumi.gradle.licenser'
 	apply plugin: 'maven-publish'
 
 	java {
@@ -56,7 +56,7 @@ subprojects {
 	}
 
 	license {
-		header = project.rootProject.file('HEADER.txt')
+		rule project.rootProject.file('HEADER.txt')
 		include '**/*.java'
 	}
 
@@ -65,7 +65,6 @@ subprojects {
 	}
 
 	shadowJar {
-		archiveClassifier.set('')
 		/*minimize() {
 			exclude(project(":core"))
 		}*/
@@ -109,9 +108,10 @@ subprojects {
 	}
 
 	dependencies {
-		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-		testImplementation 'org.mockito:mockito-core:4.8.0'
+		testImplementation(platform('org.junit:junit-bom:5.13.4'))
+		testImplementation('org.junit.jupiter:junit-jupiter')
+		testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+		testImplementation 'org.mockito:mockito-core:5.20.0'
 		compileOnly("org.incendo:cloud-core:$cloudVersion")
 		testRuntimeOnly("org.incendo:cloud-core:$cloudVersion")
 		compileOnly("org.jetbrains:annotations:23.0.0")

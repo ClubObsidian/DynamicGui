@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     compileOnly("com.github.ClubObsidian:FuzzUtil:1.1.0")
-    compileOnly("javax.inject:javax.inject:1")
+    compileOnly("jakarta.inject:jakarta.inject-api:2.0.1")
     compileOnly("com.github.clubobsidian:wrappy:$wrappyVersion")
 }

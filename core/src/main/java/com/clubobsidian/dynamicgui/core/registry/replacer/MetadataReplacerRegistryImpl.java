@@ -28,7 +28,7 @@ import com.clubobsidian.trident.EventHandler;
 import com.clubobsidian.trident.EventPriority;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

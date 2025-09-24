@@ -27,7 +27,7 @@ import com.clubobsidian.dynamicgui.api.proxy.Proxy;
 import com.clubobsidian.dynamicgui.api.registry.npc.NPCRegistry;
 import org.jetbrains.annotations.Unmodifiable;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.List;
 
 public abstract class DynamicGui {

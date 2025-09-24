@@ -18,7 +18,7 @@ package com.clubobsidian.dynamicgui.api.manager.world;
 
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public abstract class LocationManager {
 
