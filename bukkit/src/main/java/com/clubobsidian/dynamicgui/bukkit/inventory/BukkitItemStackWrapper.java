@@ -255,10 +255,10 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         ItemStack item = this.getItemStack();
         ItemMeta meta = item.getItemMeta();
         if (glowing) {
-            meta.addEnchant(Enchantment.DIG_SPEED, 1, true);
+            meta.addEnchant(Enchantment.EFFICIENCY, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
-            meta.removeEnchant(Enchantment.DIG_SPEED);
+            meta.removeEnchant(Enchantment.EFFICIENCY);
             meta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         }

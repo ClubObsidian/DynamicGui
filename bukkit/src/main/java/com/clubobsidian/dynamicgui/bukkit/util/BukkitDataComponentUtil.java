@@ -174,8 +174,9 @@ public final class BukkitDataComponentUtil {
                  | NullPointerException
                  | InstantiationException
                  | IllegalStateException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     public static Map<String, String> getComponents(ItemStack bukkitItemStack) {
@@ -203,7 +204,8 @@ public final class BukkitDataComponentUtil {
             }
             return componentMap;
         } catch (IllegalAccessException | InvocationTargetException | NullPointerException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 }
