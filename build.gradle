@@ -19,6 +19,8 @@ allprojects {
 		wrappyVersion = "3.0.1"
 		langVersion = "3.12.0"
 		guiceVersion = "7.0.0"
+		adventureVersion = "4.24.0"
+		annotationsVersion = "26.0.2-1"
 	}
 }
 
@@ -74,7 +76,6 @@ subprojects {
 		relocate 'org.yaml.snakeyaml', 'com.clubobsidian.dynamicgui.shaded.snakeyaml'
 		relocate 'com.clubobsidian.trident', 'com.clubobsidian.dynamicgui.shaded.trident'
 		relocate 'com.clubobsidian.wrappy', 'com.clubobsidian.dynamicgui.shaded.wrappy'
-		relocate 'net.kyori', 'com.clubobsidian.dynamicgui.shaded.kyori'
 		relocate 'com.clubobsidian.fuzzutil', 'com.clubobsidian.dynamicgui.shaded.fuzzutil'
 		relocate 'io.leangen', 'com.clubobsidian.dynamicgui.shaded.leangen'
 		relocate 'org.codehaus.mojo', 'com.clubobsidian.dynamicgui.shaded.mojo'
@@ -114,8 +115,9 @@ subprojects {
 		testImplementation 'org.mockito:mockito-core:5.20.0'
 		compileOnly("org.incendo:cloud-core:$cloudVersion")
 		testRuntimeOnly("org.incendo:cloud-core:$cloudVersion")
-		compileOnly("org.jetbrains:annotations:23.0.0")
 		compileOnly("org.apache.commons:commons-lang3:$langVersion")
 		testImplementation("org.apache.commons:commons-lang3:$langVersion")
+		compileOnly("org.jetbrains:annotations:$annotationsVersion")
+		testImplementation("org.jetbrains:annotations:$annotationsVersion")
 	}
 }
