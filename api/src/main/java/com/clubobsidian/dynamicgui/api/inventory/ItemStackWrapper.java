@@ -32,8 +32,8 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      */
     private static final long serialVersionUID = -7902733103453967016L;
 
-    @Nullable
-    protected T itemStack;
+
+    protected @Nullable T itemStack;
 
     public ItemStackWrapper(@Nullable T itemStack) {
         this.itemStack = itemStack;
@@ -44,8 +44,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @return the native item stack
      */
-    @Nullable
-    public T getItemStack() {
+    public @Nullable T getItemStack() {
         return this.itemStack;
     }
 

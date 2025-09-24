@@ -21,6 +21,8 @@ import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitDataComponentUtil;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
+import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -122,8 +124,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public @Nullable String getName() {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        if (itemMeta.hasDisplayName()) {
-            return itemMeta.getDisplayName();
+        Component displayName = itemMeta.displayName();
+        if (displayName != null) {
+            return ChatColor.SECTION.serialize(displayName);
         }
         return null;
     }
@@ -131,9 +134,18 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public void setName(@NotNull String name) {
         Objects.requireNonNull(name);
-        ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        itemMeta.setDisplayName(name);
-        this.getItemStack().setItemMeta(itemMeta);
+        T itemStack = this.getItemStack();
+        if (itemStack != null) {
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            this.setNameInMeta(itemMeta, name);
+            itemStack.setItemMeta(itemMeta);
+        }
+    }
+
+    private void setNameInMeta(@NotNull ItemMeta itemMeta, @NotNull String name) {
+        Objects.requireNonNull(itemMeta);
+        Objects.requireNonNull(name);
+        itemMeta.displayName(ChatColor.AMPERSAND.deserialize(name));
     }
 
     @Override
@@ -211,7 +223,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             ItemMeta meta = oldItemStack.getItemMeta();
             ItemMeta newMeta = newItemStack.getItemMeta();
             if (meta.hasDisplayName()) {
-                newMeta.setDisplayName(meta.getDisplayName());
+                newMeta.displayName(meta.displayName());
             }
 
             if (meta.hasEnchants()) {

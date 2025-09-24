@@ -22,12 +22,12 @@ public class ChatColor {
 
     public static final char SECTION_CODE = '\u00A7';
 
-    private static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
+    public static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
             .hexColors()
             .useUnusualXRepeatedCharacterHexFormat()
             .character('&')
             .build();
-    private static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
+    public static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
             .hexColors()
             .useUnusualXRepeatedCharacterHexFormat()
             .character(SECTION_CODE)
