@@ -59,13 +59,12 @@ public class SetLoreFunction extends Function {
                         } else {
                             String newData = ReplacerManager.get().replace(this.getData(), playerWrapper);
                             newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
-                            newData = ChatColor.translateAlternateColorCodes(newData);
                             if (newData.contains("\n")) {
                                 for (String str : this.getData().split("\n")) {
-                                    lore.add(str);
+                                    lore.add(ChatColor.translateAlternateColorCodes(str));
                                 }
                             } else {
-                                lore.add(newData);
+                                lore.add(ChatColor.translateAlternateColorCodes(newData));
                             }
                         }
                         item.setLore(lore);
