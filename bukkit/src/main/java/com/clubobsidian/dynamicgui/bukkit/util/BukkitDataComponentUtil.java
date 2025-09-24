@@ -39,8 +39,8 @@ public final class BukkitDataComponentUtil {
             .getClassIfExists("net.minecraft.resources.RegistryOps");
     private static final Class<?> LOOKUP_PROVIDER = ReflectionUtil
             .getClassIfExists("net.minecraft.core.HolderLookup$Provider");
-    private static final Class<?> MINECRAFT_SERVER = ReflectionUtil
-            .getClassIfExists("net.minecraft.server.MinecraftServer");
+    private static final Class<?> CRAFT_REGISTRY = ReflectionUtil
+            .getClassIfExists("org.bukkit.craftbukkit.CraftRegistry");
     private static final Class<?> NBT_OPS = ReflectionUtil
             .getClassIfExists("net.minecraft.nbt.NbtOps");
     private static final Class<?> RESOURCE_LOCATION = ReflectionUtil
@@ -78,7 +78,7 @@ public final class BukkitDataComponentUtil {
             ReflectionUtil.getDeclaredField(BUILT_IN_REGISTRIES, "DATA_COMPONENT_TYPE");
 
     private static final Method GET_REGISTRY_ACCESS = ReflectionUtil
-            .getStaticMethod(MINECRAFT_SERVER, REGISTRY_ACCESS);
+            .getStaticMethod(CRAFT_REGISTRY, REGISTRY_ACCESS);
     private static final Method REGISTRY_CREATE_CONTEXT = ReflectionUtil
             .getMethod(LOOKUP_PROVIDER, "createSerializationContext");
     private static final Method UNWRAP = ReflectionUtil
@@ -115,6 +115,10 @@ public final class BukkitDataComponentUtil {
             .getMethod(COMPONENT, 0, "getString");
     private static final Method TAG_PARSER_READ_VALUE = ReflectionUtil
             .getMethod(TAG_PARSER, "readValue");
+    private static final Method TAG_PARSER_CREATE = ReflectionUtil
+            .getStaticMethod(TAG_PARSER, TAG_PARSER);
+    private static final Method TAG_PARSER_PARSE_FULLY = ReflectionUtil
+            .getMethodByParams(TAG_PARSER, new String[] {"parseFully"}, String.class);
     private static final Method HOLDER_VALUE = ReflectionUtil
             .getMethod(REFERENCE, "value");
 
@@ -152,20 +156,7 @@ public final class BukkitDataComponentUtil {
                 Object type = Objects
                         .requireNonNull(MAPPED_REGISTRY_GET)
                         .invoke(dataComponentRegistry, resourceLocation);
-                Object tagParser = Objects
-                        .requireNonNull(TAG_PARSER_CON)
-                        .newInstance(STRING_READER_CON.newInstance(entryValue));
-                Object tag = Objects
-                        .requireNonNull(TAG_PARSER_READ_VALUE)
-                        .invoke(tagParser);
-                Object codec = Objects
-                        .requireNonNull(CODEC_OR_THROW).invoke(type);
-                Object parsed = Objects
-                        .requireNonNull(PARSE)
-                        .invoke(codec, registryOps, tag);
-                Object result = Objects
-                        .requireNonNull(DATA_RESULT_GET_OR_THROW)
-                        .invoke(parsed);
+                Object result = parseTag(entryValue, registryOps, type);
                 Objects.requireNonNull(SET).invoke(nmsItemStack, type, result);
             }
             return (ItemStack) Objects.requireNonNull(GET_BUKKIT_STACK).invoke(nmsItemStack);
@@ -174,6 +165,33 @@ public final class BukkitDataComponentUtil {
                  | NullPointerException
                  | InstantiationException
                  | IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Object parseTag(String entryValue, Object registryOps, Object type) {
+        try {
+            Object tag;
+            if (TAG_PARSER_CON != null) {
+                Object tagParser = TAG_PARSER_CON
+                        .newInstance(Objects.requireNonNull(STRING_READER_CON).newInstance(entryValue));
+                tag = Objects
+                        .requireNonNull(TAG_PARSER_READ_VALUE)
+                        .invoke(tagParser);
+            } else {
+                Object tagParser = TAG_PARSER_CREATE.invoke(null, registryOps);
+                tag = TAG_PARSER_PARSE_FULLY.invoke(tagParser, entryValue);
+            }
+            Object codec = Objects
+                    .requireNonNull(CODEC_OR_THROW).invoke(type);
+            Object parsed = Objects
+                    .requireNonNull(PARSE)
+                    .invoke(codec, registryOps, tag);
+            return Objects
+                    .requireNonNull(DATA_RESULT_GET_OR_THROW)
+                    .invoke(parsed);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
