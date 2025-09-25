@@ -415,24 +415,22 @@ public class GuiManagerImpl extends GuiManager {
 
     private void loadGuiFromConfiguration(String guiName, Configuration config) {
         LoggerWrapper<?> logger = DynamicGui.get().getLogger();
-
-        GuiToken guiToken = new SimpleGuiToken(config);
         List<MacroToken> guiTokens = new ArrayList<>();
-        List<String> loadMacros = guiToken.getLoadMacros();
+        List<String> loadMacros = config.getStringList(SimpleGuiToken.LOAD_MACROS_KEY);
 
-        if (loadMacros.size() > 0) {
+        GuiToken guiToken;
+        if (!loadMacros.isEmpty()) {
             for (String macro : loadMacros) {
                 List<MacroToken> macroTokens = this.globalMacros.get(macro);
                 if (macroTokens != null) {
-                    for (MacroToken t : macroTokens) {
-                        guiTokens.add(t);
-                    }
+                    guiTokens.addAll(macroTokens);
                 } else {
                     logger.error("Invalid global macro specified %s in gui '%s''", macro, guiName);
                 }
             }
-
             guiToken = new SimpleGuiToken(config, guiTokens);
+        } else {
+            guiToken = new SimpleGuiToken(config);
         }
 
         this.cachedTokens.put(guiName, guiToken);

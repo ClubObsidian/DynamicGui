@@ -47,6 +47,8 @@ public class SimpleGuiToken implements GuiToken {
      */
     private static final long serialVersionUID = -1815626830683338944L;
 
+    public static final String LOAD_MACROS_KEY = "load-macros";
+
     private final String title;
     private final String type;
     private final int rows;
@@ -70,7 +72,6 @@ public class SimpleGuiToken implements GuiToken {
 
     public SimpleGuiToken(ConfigurationSection section, List<MacroToken> macroTokens) {
         List<MacroToken> copyMacroTokens = new ArrayList<>(macroTokens);
-
         ConfigurationSection macrosSection = section.getConfigurationSection("macros");
         copyMacroTokens.add(new SimpleMacroToken(macrosSection));
 
@@ -92,7 +93,7 @@ public class SimpleGuiToken implements GuiToken {
         ConfigurationSection guiFunctionsSection = section.getConfigurationSection("functions");
         this.functions = new SimpleFunctionTree(guiFunctionsSection, this.macroParser);
 
-        this.loadMacros = section.getStringList("load-macros");
+        this.loadMacros = section.getStringList(LOAD_MACROS_KEY);
 
         ConfigurationSection metadataSection = section.getConfigurationSection("metadata");
         this.metadata = this.parseMetadata(metadataSection);

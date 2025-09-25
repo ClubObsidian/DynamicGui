@@ -9,3 +9,5 @@ npcs:
 
 macros:
   '%gui-test2%': "test gui title"
+
+'0-2': "%section-macro%"

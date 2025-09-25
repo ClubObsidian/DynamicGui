@@ -150,9 +150,8 @@ public class SimpleMacroParser implements MacroParser {
     public ConfigurationSection parseSectionMacros(ConfigurationSection copyInto) {
         for (MacroToken token : this.tokens) {
             for (Map.Entry<String, Object> entry : token.getMacros().entrySet()) {
-                if (entry.getValue() instanceof ConfigurationSection) {
+                if (entry.getValue() instanceof ConfigurationSection tokenSection) {
                     String macroName = entry.getKey();
-                    ConfigurationSection tokenSection = (ConfigurationSection) entry.getValue();
                     this.recurReplaceSection(macroName, tokenSection, copyInto);
                 }
             }
@@ -165,8 +164,7 @@ public class SimpleMacroParser implements MacroParser {
                                      ConfigurationSection copyInto) {
         for (Object key : copyInto.getKeys()) {
             Object value = copyInto.get(key);
-            if (value instanceof String) {
-                String strValue = (String) value;
+            if (value instanceof String strValue) {
                 if (strValue.equals(macroName)) {
                     copyInto.set(key, null);
                     ConfigurationSection valueSection = copyInto.getConfigurationSection(key);

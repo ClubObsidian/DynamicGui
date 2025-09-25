@@ -1,2 +1,8 @@
 macros:
   '%gui-test%': "test gui title"
+  '%section-macro%':
+    icon: STONE
+    name: " "
+    model:
+      provider: "nexo"
+      data: "filler"

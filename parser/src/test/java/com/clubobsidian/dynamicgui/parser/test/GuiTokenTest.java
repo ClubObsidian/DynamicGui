@@ -118,8 +118,12 @@ public class GuiTokenTest {
         GuiToken token = new SimpleGuiToken(config, tokens);
 
         String title = token.getTitle();
-
         assertEquals("test gui title", title);
+        assertEquals(3, token.getSlots().size());
+        SlotToken lastSlot = token.getSlots().get(2);
+        assertEquals("STONE", lastSlot.getIcon());
+        assertEquals(" ", lastSlot.getName());
+        assertEquals("nexo", lastSlot.getModelProvider());
     }
 
     @Test
