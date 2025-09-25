@@ -39,8 +39,7 @@ public class SimpleMacroToken implements MacroToken {
     private void parse(ConfigurationSection section) {
         this.macros = new LinkedHashMap<>();
         for (Object key : section.getKeys()) {
-            if (key instanceof String) {
-                String keyStr = (String) key;
+            if (key instanceof String keyStr) {
                 ConfigurationSection keySection = section.getConfigurationSection(key);
                 if (!keySection.getKeys().isEmpty()) {
                     this.macros.put(keyStr, keySection);

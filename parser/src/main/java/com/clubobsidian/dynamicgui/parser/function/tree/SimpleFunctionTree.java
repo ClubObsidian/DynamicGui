@@ -125,8 +125,7 @@ public class SimpleFunctionTree implements FunctionTree {
 
     private void walkTree(int depth, ConfigurationSection section, FunctionNode parentNode) {
         for (Object key : section.getKeys()) {
-            if (key instanceof String) {
-                String name = (String) key;
+            if (key instanceof String name) {
                 ConfigurationSection rootSection = section.getConfigurationSection(name);
                 if (rootSection.get("functions") == null) {
                     continue;

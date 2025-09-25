@@ -160,8 +160,7 @@ public class SimpleGuiToken implements GuiToken {
         Map<String, List<Integer>> npcs = new HashMap<>();
         ConfigurationSection npcSection = section.getConfigurationSection("npcs");
         for (Object key : npcSection.getKeys()) {
-            if (key instanceof String) {
-                String keyStr = (String) key;
+            if (key instanceof String keyStr) {
                 List<Integer> npcIds = npcSection.getIntegerList(key);
                 npcs.put(keyStr, npcIds);
             } else {
@@ -174,8 +173,7 @@ public class SimpleGuiToken implements GuiToken {
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
         for (Object key : section.getKeys()) {
-            if (key instanceof String) {
-                String keyStr = (String) key;
+            if (key instanceof String keyStr) {
                 String parsedKey = this.macroParser.parseStringMacros(keyStr);
                 String value = section.getString(parsedKey);
                 value = this.macroParser.parseStringMacros(value);

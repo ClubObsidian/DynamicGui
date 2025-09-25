@@ -155,8 +155,7 @@ public class SimpleSlotToken implements SlotToken {
     private Map<String, String> parseMetadata(ConfigurationSection section) {
         Map<String, String> metadata = new HashMap<>();
         for (Object key : section.getKeys()) {
-            if (key instanceof String) {
-                String keyStr = (String) key;
+            if (key instanceof String keyStr) {
                 String parsedKey = this.macroParser.parseStringMacros(keyStr);
                 String value = section.getString(parsedKey);
                 value = this.macroParser.parseStringMacros(value);

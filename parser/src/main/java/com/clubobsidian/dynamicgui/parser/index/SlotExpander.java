@@ -34,13 +34,10 @@ public final class SlotExpander {
     }
 
     public static boolean isSlot(@NotNull Object slot) {
-        if (slot instanceof String) {
-            String index = (String) slot;
+        if (slot instanceof String index) {
             return NumberUtils.isDigits(index) || canBeExpanded(index);
-        } else if (slot instanceof Integer) {
-            return true;
         }
-        return false;
+        return slot instanceof Integer;
     }
 
     public static List<Integer> expand(@NotNull Object index) {
@@ -48,8 +45,7 @@ public final class SlotExpander {
         List<Integer> slots = new ArrayList<>();
         if (index instanceof Integer) {
             slots.add((Integer) index);
-        } else if (index instanceof String) {
-            String expand = (String) index;
+        } else if (index instanceof String expand) {
             String[] commaSplit = expand.contains(",") ? expand.split(",") : new String[]{expand};
             for (String comma : commaSplit) {
                 if (comma.contains("-")) {
