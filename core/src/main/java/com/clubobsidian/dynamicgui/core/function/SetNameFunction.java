@@ -52,7 +52,7 @@ public class SetNameFunction extends Function {
                 if (inv != null) {
                     ItemStackWrapper<?> item = slot.getItemStack();
                     if (!item.isAir()) {
-                        String newName = ChatColor.translateAlternateColorCodes(this.getData());
+                        String newName = this.getData();
                         newName = ReplacerManager.get().replace(newName, playerWrapper);
                         newName = AnimationReplacerManager.get().replace(slot, playerWrapper, newName);
                         item.setName(newName);

@@ -37,7 +37,7 @@ public class PlayerMessageFunction extends Function {
         if (this.getData() == null) {
             return false;
         }
-        playerWrapper.sendMessage(ChatColor.translateAlternateColorCodes(ReplacerManager.get().replace(this.getData(), playerWrapper)));
+        playerWrapper.sendMessage(ReplacerManager.get().replace(this.getData(), playerWrapper));
         return true;
     }
 }

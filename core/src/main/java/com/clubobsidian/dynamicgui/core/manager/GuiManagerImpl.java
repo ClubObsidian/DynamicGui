@@ -451,18 +451,9 @@ public class GuiManagerImpl extends GuiManager {
 
             String icon = slotToken.getIcon();
             String name = slotToken.getName();
-
-            if (name != null) {
-                name = ChatColor.translateAlternateColorCodes(name);
-            }
-
             String nbt = slotToken.getNbt();
 
-            List<String> lore = new ArrayList<>();
-            for (String ls : slotToken.getLore()) {
-                lore.add(ChatColor.translateAlternateColorCodes(ls));
-            }
-
+            List<String> lore = new ArrayList<>(slotToken.getLore());
             List<EnchantmentWrapper> enchants = new ArrayList<>();
 
             for (String ench : slotToken.getEnchants()) {

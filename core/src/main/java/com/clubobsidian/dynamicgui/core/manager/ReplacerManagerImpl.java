@@ -42,7 +42,7 @@ public class ReplacerManagerImpl extends ReplacerManager {
                 return this.replace(newText, playerWrapper);
             }
         }
-        return ChatColor.translateAlternateColorCodes(newText);
+        return newText;
     }
 
     @Override

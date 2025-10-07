@@ -26,6 +26,7 @@ import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitItemStackWrapper;
+import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -73,7 +74,8 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void sendMessage(@NotNull String message) {
-        this.getNative().sendMessage(Objects.requireNonNull(message));
+        Objects.requireNonNull(message);
+        this.getNative().sendMessage(ChatColor.translateAlternateColorCodes(message));
     }
 
     @Override

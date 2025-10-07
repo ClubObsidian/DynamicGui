@@ -28,6 +28,7 @@ import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SetLoreFunction extends Function {
@@ -60,11 +61,9 @@ public class SetLoreFunction extends Function {
                             String newData = ReplacerManager.get().replace(this.getData(), playerWrapper);
                             newData = AnimationReplacerManager.get().replace(slot, playerWrapper, newData);
                             if (newData.contains("\n")) {
-                                for (String str : this.getData().split("\n")) {
-                                    lore.add(ChatColor.translateAlternateColorCodes(str));
-                                }
+                                lore.addAll(Arrays.asList(this.getData().split("\n")));
                             } else {
-                                lore.add(ChatColor.translateAlternateColorCodes(newData));
+                                lore.add(newData);
                             }
                         }
                         item.setLore(lore);

@@ -103,11 +103,13 @@ public class SimpleGui implements Gui {
         return ReplacerManager.get().replace(this.title, playerWrapper);
     }
 
-    private Object createInventory(String inventoryTitle) {
+    private Object createInventory(@NotNull String inventoryTitle) {
+        Objects.requireNonNull(inventoryTitle);
+        String parsedTitle = ChatColor.translateAlternateColorCodes(title);
         if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
-            return InventoryManager.get().createInventory(this.rows * 9, inventoryTitle);
+            return InventoryManager.get().createInventory(this.rows * 9, parsedTitle);
         } else {
-            return InventoryManager.get().createInventory(inventoryTitle, this.type);
+            return InventoryManager.get().createInventory(parsedTitle, this.type);
         }
     }
 

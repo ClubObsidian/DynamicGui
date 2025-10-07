@@ -126,7 +126,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         Component displayName = itemMeta.displayName();
         if (displayName != null) {
-            return ChatColor.SECTION.serialize(displayName);
+            return ChatColor.toSection(displayName);
         }
         return null;
     }
@@ -145,7 +145,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     private void setNameInMeta(@NotNull ItemMeta itemMeta, @NotNull String name) {
         Objects.requireNonNull(itemMeta);
         Objects.requireNonNull(name);
-        itemMeta.displayName(ChatColor.AMPERSAND.deserialize(name));
+        itemMeta.displayName(ChatColor.toComponentAmpersand(name));
     }
 
     @Override
@@ -161,7 +161,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public void setLore(List<String> lore) {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        itemMeta.setLore(lore);
+        itemMeta.lore(lore.stream().map(ChatColor::toComponentAmpersand).toList());
         this.getItemStack().setItemMeta(itemMeta);
     }
 
@@ -222,8 +222,9 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         if (oldItemStack.hasItemMeta()) {
             ItemMeta meta = oldItemStack.getItemMeta();
             ItemMeta newMeta = newItemStack.getItemMeta();
-            if (meta.hasDisplayName()) {
-                newMeta.displayName(meta.displayName());
+            Component customName = newMeta.customName();
+            if (customName != null) {
+                newMeta.customName(customName);
             }
 
             if (meta.hasEnchants()) {
@@ -234,7 +235,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
                 }
             }
             if (meta.hasLore()) {
-                newMeta.setLore(meta.getLore());
+                newMeta.lore(meta.lore());
             }
 
             for (ItemFlag flag : meta.getItemFlags()) {

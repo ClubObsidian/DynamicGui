@@ -16,28 +16,37 @@
 
 package com.clubobsidian.dynamicgui.core.util;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class ChatColor {
 
-    public static final char SECTION_CODE = '\u00A7';
+    public static final char SECTION_CODE = '§';
 
-    public static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
+    private static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
             .hexColors()
-            .useUnusualXRepeatedCharacterHexFormat()
             .character('&')
             .build();
-    public static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
+    private static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
             .hexColors()
-            .useUnusualXRepeatedCharacterHexFormat()
             .character(SECTION_CODE)
             .build();
 
-    public static String translateAlternateColorCodes(String message) {
-        return SECTION.serialize(AMPERSAND.deserialize(message));
+    public static Component toComponentAmpersand(@NotNull String componentStr) {
+        Objects.requireNonNull(componentStr);
+        return AMPERSAND.deserialize(componentStr).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
     }
 
-    public static String stripColor(String message) {
-        return SECTION.deserialize(SECTION.serialize(AMPERSAND.deserialize(message))).content();
+    public static String toSection(@NotNull Component component) {
+        Objects.requireNonNull(component);
+        return SECTION.serialize(component);
+    }
+
+    public static String translateAlternateColorCodes(String message) {
+        return toSection(toComponentAmpersand(message));
     }
 }

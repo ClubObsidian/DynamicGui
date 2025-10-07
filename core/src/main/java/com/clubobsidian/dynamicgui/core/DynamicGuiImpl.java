@@ -43,7 +43,6 @@ import com.clubobsidian.dynamicgui.api.replacer.Replacer;
 import com.clubobsidian.dynamicgui.core.command.DynamicGuiCommand;
 import com.clubobsidian.dynamicgui.core.command.GuiCommand;
 import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
-import com.clubobsidian.dynamicgui.core.config.ChatColorTransformer;
 import com.clubobsidian.dynamicgui.core.config.ConfigImpl;
 import com.clubobsidian.dynamicgui.core.config.ConfigMessage;
 import com.clubobsidian.dynamicgui.core.listener.*;
@@ -177,7 +176,6 @@ public class DynamicGuiImpl extends DynamicGui {
         Message message = new ConfigMessage();
         ConfigurationSection messageSection = config.getConfigurationSection("message");
         Collection<NodeTransformer> transformers = new ArrayList<>();
-        transformers.add(new ChatColorTransformer());
         messageSection.inject(message, transformers);
 
         this.config = new ConfigImpl(message);
