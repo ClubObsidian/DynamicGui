@@ -25,20 +25,23 @@ import java.util.Objects;
 
 public class ChatColor {
 
-    public static final char SECTION_CODE = '§';
+    private static final char SECTION_CHAR = '§';
+    private static final char AMPERSAND_CHAR = '&';
 
     private static final LegacyComponentSerializer AMPERSAND = LegacyComponentSerializer.builder()
             .hexColors()
-            .character('&')
+            .character(AMPERSAND_CHAR)
             .build();
     private static final LegacyComponentSerializer SECTION = LegacyComponentSerializer.builder()
             .hexColors()
-            .character(SECTION_CODE)
+            .character(SECTION_CHAR)
             .build();
 
     public static Component toComponentAmpersand(@NotNull String componentStr) {
         Objects.requireNonNull(componentStr);
-        return AMPERSAND.deserialize(componentStr).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        return AMPERSAND
+                .deserialize(componentStr.replace(SECTION_CHAR, AMPERSAND_CHAR))
+                .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
     }
 
     public static String toSection(@NotNull Component component) {
