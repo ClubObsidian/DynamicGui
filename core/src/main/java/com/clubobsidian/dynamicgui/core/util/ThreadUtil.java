@@ -37,5 +37,6 @@ public final class ThreadUtil {
     }
 
     private ThreadUtil() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
 }

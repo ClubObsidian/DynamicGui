@@ -27,6 +27,7 @@ import java.util.Arrays;
 public final class ReflectionUtil {
 
     private ReflectionUtil() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
 
     public static boolean classExists(String className) {

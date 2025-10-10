@@ -28,5 +28,6 @@ public final class Constant {
     public static final String LIST_COMMAND_PERMISSION = ADMIN_BASE_PERMISSION + ".list";
 
     private Constant() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
 }

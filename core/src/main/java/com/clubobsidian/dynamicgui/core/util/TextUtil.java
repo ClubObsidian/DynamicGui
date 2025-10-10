@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class TextUtil {
+public final class TextUtil {
 
     private static final char SECTION_CHAR = '§';
     private static final char AMPERSAND_CHAR = '&';
@@ -47,5 +47,9 @@ public class TextUtil {
     public static String toSection(@NotNull Component component) {
         Objects.requireNonNull(component);
         return SECTION.serialize(component);
+    }
+
+    private TextUtil() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
 }

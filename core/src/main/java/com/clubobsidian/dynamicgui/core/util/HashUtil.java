@@ -25,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 public final class HashUtil {
 
     private HashUtil() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
 
     public static byte[] getMD5(File file) {
