@@ -37,7 +37,7 @@ public class ChatColor {
             .character(SECTION_CHAR)
             .build();
 
-    public static Component toComponentAmpersand(@NotNull String componentStr) {
+    public static Component toComponent(@NotNull String componentStr) {
         Objects.requireNonNull(componentStr);
         return AMPERSAND
                 .deserialize(componentStr.replace(SECTION_CHAR, AMPERSAND_CHAR))

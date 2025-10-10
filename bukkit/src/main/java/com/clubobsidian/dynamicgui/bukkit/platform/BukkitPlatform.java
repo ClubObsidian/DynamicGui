@@ -64,7 +64,7 @@ public class BukkitPlatform implements Platform {
     @Override
     public void broadcastMessage(@NotNull String message) {
         Objects.requireNonNull(message);
-        this.broadcastMessage(ChatColor.toComponentAmpersand(message));
+        this.broadcastMessage(ChatColor.toComponent(message));
     }
 
     @Override

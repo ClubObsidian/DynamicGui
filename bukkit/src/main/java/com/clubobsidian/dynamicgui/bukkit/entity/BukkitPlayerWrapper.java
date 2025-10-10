@@ -76,7 +76,7 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     @Override
     public void sendMessage(@NotNull String message) {
         Objects.requireNonNull(message);
-        this.sendMessage(ChatColor.toComponentAmpersand(message));
+        this.sendMessage(ChatColor.toComponent(message));
     }
 
     @Override

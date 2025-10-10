@@ -145,7 +145,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     private void setNameInMeta(@NotNull ItemMeta itemMeta, @NotNull String name) {
         Objects.requireNonNull(itemMeta);
         Objects.requireNonNull(name);
-        itemMeta.displayName(ChatColor.toComponentAmpersand(name));
+        itemMeta.displayName(ChatColor.toComponent(name));
     }
 
     @Override
@@ -161,7 +161,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public void setLore(List<String> lore) {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        itemMeta.lore(lore.stream().map(ChatColor::toComponentAmpersand).toList());
+        itemMeta.lore(lore.stream().map(ChatColor::toComponent).toList());
         this.getItemStack().setItemMeta(itemMeta);
     }
 

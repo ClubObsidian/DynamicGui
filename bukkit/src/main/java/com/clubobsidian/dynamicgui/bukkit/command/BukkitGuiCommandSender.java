@@ -52,6 +52,6 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     @Override
     public void sendMessage(@NotNull String message) {
         Objects.requireNonNull(message);
-        this.sendMessage(ChatColor.toComponentAmpersand(message));
+        this.sendMessage(ChatColor.toComponent(message));
     }
 }
