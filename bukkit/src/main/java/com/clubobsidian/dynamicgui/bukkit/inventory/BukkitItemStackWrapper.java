@@ -21,7 +21,7 @@ import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitDataComponentUtil;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -126,7 +126,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
         Component displayName = itemMeta.displayName();
         if (displayName != null) {
-            return ChatColor.toSection(displayName);
+            return TextUtil.toSection(displayName);
         }
         return null;
     }
@@ -145,7 +145,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     private void setNameInMeta(@NotNull ItemMeta itemMeta, @NotNull String name) {
         Objects.requireNonNull(itemMeta);
         Objects.requireNonNull(name);
-        itemMeta.displayName(ChatColor.toComponent(name));
+        itemMeta.displayName(TextUtil.toComponent(name));
     }
 
     @Override
@@ -161,7 +161,7 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     @Override
     public void setLore(List<String> lore) {
         ItemMeta itemMeta = this.getItemStack().getItemMeta();
-        itemMeta.lore(lore.stream().map(ChatColor::toComponent).toList());
+        itemMeta.lore(lore.stream().map(TextUtil::toComponent).toList());
         this.getItemStack().setItemMeta(itemMeta);
     }
 

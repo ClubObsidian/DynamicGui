@@ -25,7 +25,6 @@ import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 public class SetNameFunction extends Function {
 

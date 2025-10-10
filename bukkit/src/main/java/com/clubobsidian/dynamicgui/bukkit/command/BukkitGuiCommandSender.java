@@ -17,7 +17,7 @@
 package com.clubobsidian.dynamicgui.bukkit.command;
 
 import com.clubobsidian.dynamicgui.api.command.GuiCommandSender;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -52,6 +52,6 @@ public class BukkitGuiCommandSender implements GuiCommandSender {
     @Override
     public void sendMessage(@NotNull String message) {
         Objects.requireNonNull(message);
-        this.sendMessage(ChatColor.toComponent(message));
+        this.sendMessage(TextUtil.toComponent(message));
     }
 }

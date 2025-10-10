@@ -28,7 +28,7 @@ import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.NotNull;
@@ -105,7 +105,7 @@ public class SimpleGui implements Gui {
 
     private Object createInventory(@NotNull String inventoryTitle) {
         Objects.requireNonNull(inventoryTitle);
-        Component parsedTitle = ChatColor.toComponent(inventoryTitle);
+        Component parsedTitle = TextUtil.toComponent(inventoryTitle);
         if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
             return InventoryManager.get().createInventory(parsedTitle, this.rows * 9);
         } else {

@@ -19,7 +19,6 @@ package com.clubobsidian.dynamicgui.core.manager;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.registry.replacer.ReplacerRegistry;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 import jakarta.inject.Inject;
 import java.util.ArrayList;

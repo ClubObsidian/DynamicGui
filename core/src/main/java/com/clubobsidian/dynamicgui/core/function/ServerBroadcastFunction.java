@@ -20,7 +20,6 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
 
 
 public class ServerBroadcastFunction extends Function {

@@ -26,7 +26,7 @@ import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.scheduler.BukkitScheduler;
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
-import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -64,7 +64,7 @@ public class BukkitPlatform implements Platform {
     @Override
     public void broadcastMessage(@NotNull String message) {
         Objects.requireNonNull(message);
-        this.broadcastMessage(ChatColor.toComponent(message));
+        this.broadcastMessage(TextUtil.toComponent(message));
     }
 
     @Override

@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class ChatColor {
+public class TextUtil {
 
     private static final char SECTION_CHAR = '§';
     private static final char AMPERSAND_CHAR = '&';
