@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.core.test.mock.scheduler.MockScheduler;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,6 +54,11 @@ public class MockPlatform implements Platform {
     @Override
     public void broadcastMessage(String message) {
         this.broadcastMessages.add(message);
+    }
+
+    @Override
+    public void broadcastMessage(@NotNull Component message) {
+        this.broadcastMessages.add(message.toString());
     }
 
     public List<String> getBroadcastMessages() {

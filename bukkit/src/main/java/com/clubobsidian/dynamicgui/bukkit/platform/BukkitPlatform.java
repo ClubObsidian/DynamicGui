@@ -26,7 +26,9 @@ import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
 import com.clubobsidian.dynamicgui.bukkit.entity.BukkitPlayerWrapper;
 import com.clubobsidian.dynamicgui.bukkit.scheduler.BukkitScheduler;
 import com.clubobsidian.dynamicgui.bukkit.world.BukkitWorldWrapper;
+import com.clubobsidian.dynamicgui.core.util.ChatColor;
 import com.clubobsidian.dynamicgui.core.util.ReflectionUtil;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
@@ -35,13 +37,11 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class BukkitPlatform implements Platform {
 
@@ -62,8 +62,15 @@ public class BukkitPlatform implements Platform {
     }
 
     @Override
-    public void broadcastMessage(String message) {
-        Bukkit.getServer().broadcastMessage(message);
+    public void broadcastMessage(@NotNull String message) {
+        Objects.requireNonNull(message);
+        this.broadcastMessage(ChatColor.toComponentAmpersand(message));
+    }
+
+    @Override
+    public void broadcastMessage(@NotNull Component message) {
+        Objects.requireNonNull(message);
+        Bukkit.getServer().broadcast(message);
     }
 
     @Override

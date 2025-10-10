@@ -48,8 +48,4 @@ public class ChatColor {
         Objects.requireNonNull(component);
         return SECTION.serialize(component);
     }
-
-    public static String translateAlternateColorCodes(String message) {
-        return toSection(toComponentAmpersand(message));
-    }
 }

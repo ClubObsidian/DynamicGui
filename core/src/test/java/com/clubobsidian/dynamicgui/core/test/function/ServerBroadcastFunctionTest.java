@@ -38,12 +38,11 @@ public class ServerBroadcastFunctionTest extends FactoryTest {
     public void dataTest() throws Exception {
         this.getFactory().inject();
         String data = "&4test";
-        String colorized = ChatColor.translateAlternateColorCodes(data);
         Function function = new ServerBroadcastFunction();
         function.setData(data);
         assertTrue(function.function(this.getFactory().createPlayer()));
         List<String> messages = this.getFactory().getPlatform().getBroadcastMessages();
         assertTrue(messages.size() == 1);
-        assertEquals(colorized, messages.get(0));
+        assertEquals(data, messages.get(0));
     }
 }

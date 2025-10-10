@@ -119,5 +119,6 @@ subprojects {
 		testImplementation("org.apache.commons:commons-lang3:$langVersion")
 		compileOnly("org.jetbrains:annotations:$annotationsVersion")
 		testImplementation("org.jetbrains:annotations:$annotationsVersion")
+		compileOnly("net.kyori:adventure-api:$adventureVersion")
 	}
 }

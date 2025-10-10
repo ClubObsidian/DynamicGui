@@ -21,6 +21,8 @@ import com.clubobsidian.dynamicgui.api.messaging.MessagingRunnable;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
 import com.clubobsidian.dynamicgui.api.scheduler.Scheduler;
 import com.clubobsidian.dynamicgui.api.world.WorldWrapper;
+import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -31,7 +33,9 @@ public interface Platform {
 
     boolean isMainThread();
 
-    void broadcastMessage(String message);
+    void broadcastMessage(@NotNull String message);
+
+    void broadcastMessage(@NotNull Component message);
 
     void broadcastJsonMessage(String json);
 

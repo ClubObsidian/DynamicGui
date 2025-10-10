@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -26,12 +27,12 @@ import org.bukkit.inventory.Inventory;
 public class BukkitInventoryManager extends InventoryManager {
 
     @Override
-    public Object createInventory(int size, String title) {
+    public Object createInventory(Component title, int size) {
         return Bukkit.getServer().createInventory(null, size, title);
     }
 
     @Override
-    public Object createInventory(String title, String type) {
+    public Object createInventory(Component title, String type) {
         try {
             return Bukkit.getServer().createInventory(null, InventoryType.valueOf(type), title);
         } catch (IllegalArgumentException ex) {

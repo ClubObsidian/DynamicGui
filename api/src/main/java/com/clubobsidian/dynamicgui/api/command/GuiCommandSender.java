@@ -18,6 +18,7 @@ package com.clubobsidian.dynamicgui.api.command;
 
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -44,7 +45,15 @@ public interface GuiCommandSender {
      *
      * @param message the message to send to the sender
      */
+    void sendMessage(@NotNull Component message);
+
+    /**
+     * Messages a sender
+     *
+     * @param message the message to send to the sender
+     */
     void sendMessage(@NotNull String message);
+
 
     /**
      * An optional if a player exists

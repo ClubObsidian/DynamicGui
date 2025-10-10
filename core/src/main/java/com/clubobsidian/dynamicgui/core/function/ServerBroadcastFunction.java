@@ -39,11 +39,10 @@ public class ServerBroadcastFunction extends Function {
         if (this.getData() == null) {
             return false;
         }
-        String colorized = ChatColor.translateAlternateColorCodes(
-                ReplacerManager
+        String replaced = ReplacerManager
                         .get()
-                        .replace(this.getData(), playerWrapper));
-        DynamicGui.get().getPlatform().broadcastMessage(colorized);
+                        .replace(this.getData(), playerWrapper);
+        DynamicGui.get().getPlatform().broadcastMessage(replaced);
         return true;
     }
 }

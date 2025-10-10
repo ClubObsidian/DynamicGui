@@ -30,6 +30,7 @@ import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
 import com.clubobsidian.dynamicgui.core.util.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.SerializationUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -64,7 +65,7 @@ public class SimpleGui implements Gui {
                      boolean isStatic) {
         this.name = name;
         this.type = type;
-        this.title = ChatColor.translateAlternateColorCodes(title);
+        this.title = title;
         this.rows = rows;
         this.slots = slots;
         this.close = close;
@@ -105,9 +106,9 @@ public class SimpleGui implements Gui {
 
     private Object createInventory(@NotNull String inventoryTitle) {
         Objects.requireNonNull(inventoryTitle);
-        String parsedTitle = ChatColor.translateAlternateColorCodes(title);
+        Component parsedTitle = ChatColor.toComponentAmpersand(inventoryTitle);
         if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
-            return InventoryManager.get().createInventory(this.rows * 9, parsedTitle);
+            return InventoryManager.get().createInventory(parsedTitle, this.rows * 9);
         } else {
             return InventoryManager.get().createInventory(parsedTitle, this.type);
         }

@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.effect.SoundWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.world.LocationWrapper;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,6 +60,14 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @param message the message to send to the player
      */
     public abstract void sendMessage(@NotNull String message);
+
+    /**
+     * Sends a player a message
+     *
+     * @param message the message to send to the player
+     */
+    public abstract void sendMessage(@NotNull Component message);
+
 
     /**
      * Sends a player a json message

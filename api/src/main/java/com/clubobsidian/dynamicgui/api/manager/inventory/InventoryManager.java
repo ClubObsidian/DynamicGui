@@ -19,6 +19,7 @@ package com.clubobsidian.dynamicgui.api.manager.inventory;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 
 import jakarta.inject.Inject;
+import net.kyori.adventure.text.Component;
 
 public abstract class InventoryManager {
 
@@ -32,11 +33,11 @@ public abstract class InventoryManager {
     /**
      * Creates a native inventory given a size and title.
      *
-     * @param size  the size of the gui, should be dividable by 9
      * @param title the title of the inventory
+     * @param size  the size of the gui, should be dividable by 9
      * @return the created native inventory
      */
-    public abstract Object createInventory(int size, String title);
+    public abstract Object createInventory(Component title, int size);
 
     /**
      * Creates a native inventory with the default size with a given title and type.
@@ -45,7 +46,7 @@ public abstract class InventoryManager {
      * @param type  the type of inventory
      * @return the created native inventory
      */
-    public abstract Object createInventory(String title, String type);
+    public abstract Object createInventory(Component title, String type);
 
     /**
      * Creates an inventory wrapper
@@ -58,12 +59,12 @@ public abstract class InventoryManager {
     /**
      * Creates an inventory wrapper
      *
-     * @param size  the size of the gui, should be dividable by 9
      * @param title the title of the inventory
+     * @param size  the size of the gui, should be dividable by 9
      * @return an inventory wrapper
      */
-    public InventoryWrapper<?> createInventoryWrapper(int size, String title) {
-        Object inventory = this.createInventory(size, title);
+    public InventoryWrapper<?> createInventoryWrapper(Component title, int size) {
+        Object inventory = this.createInventory(title, size);
         return this.createInventoryWrapper(inventory);
     }
 }
