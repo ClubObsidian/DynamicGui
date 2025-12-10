@@ -20,7 +20,6 @@ import com.clubobsidian.dynamicgui.api.enchantment.EnchantmentWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitDataComponentUtil;
-import com.clubobsidian.dynamicgui.bukkit.util.BukkitNBTUtil;
 import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -203,49 +202,6 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
             }
         }
         return enchants;
-    }
-
-    @Override
-    public String getNBT() {
-        return BukkitDataComponentUtil.usesDataComponents() ? null : BukkitNBTUtil.getTag(this.getItemStack());
-    }
-
-    @Override
-    public void setNBT(String nbt) {
-        if (BukkitDataComponentUtil.usesDataComponents()) {
-            return;
-        }
-        Objects.requireNonNull(nbt);
-        ItemStack oldItemStack = this.getItemStack();
-        ItemStack newItemStack = BukkitNBTUtil.setTag(this.getItemStack(), nbt);
-
-        if (oldItemStack.hasItemMeta()) {
-            ItemMeta meta = oldItemStack.getItemMeta();
-            ItemMeta newMeta = newItemStack.getItemMeta();
-            Component customName = newMeta.customName();
-            if (customName != null) {
-                newMeta.customName(customName);
-            }
-
-            if (meta.hasEnchants()) {
-                Iterator<Entry<Enchantment, Integer>> it = meta.getEnchants().entrySet().iterator();
-                while (it.hasNext()) {
-                    Entry<Enchantment, Integer> next = it.next();
-                    newMeta.addEnchant(next.getKey(), next.getValue(), true);
-                }
-            }
-            if (meta.hasLore()) {
-                newMeta.lore(meta.lore());
-            }
-
-            for (ItemFlag flag : meta.getItemFlags()) {
-                newMeta.addItemFlags(flag);
-            }
-
-            newItemStack.setItemMeta(newMeta);
-        }
-
-        this.setItemStack(newItemStack);
     }
 
     @Override

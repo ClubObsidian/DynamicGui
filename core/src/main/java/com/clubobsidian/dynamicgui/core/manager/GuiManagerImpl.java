@@ -449,7 +449,6 @@ public class GuiManagerImpl extends GuiManager {
 
             String icon = slotToken.getIcon();
             String name = slotToken.getName();
-            String nbt = slotToken.getNbt();
 
             List<String> lore = new ArrayList<>(slotToken.getLore());
             List<EnchantmentWrapper> enchants = new ArrayList<>();
@@ -478,7 +477,7 @@ public class GuiManagerImpl extends GuiManager {
 
             Map<String, String> metadata = slotToken.getMetadata();
 
-            slots.add(new SimpleSlot(index, amount, icon, name, nbt, data, glow, movable,
+            slots.add(new SimpleSlot(index, amount, icon, name, data, glow, movable,
                     close, lore, enchants, itemFlags, dataComponents, modelProvider, modelData,
                     slotToken.getFunctionTree(), updateInterval, metadata));
         }

@@ -92,17 +92,6 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
     String getName();
 
     /**
-     * Gets the nbt that the slot uses to build
-     * the initial item. If the item was modified
-     * this may not reflect the current nbt for
-     * the item stack. If you need the current
-     * name use {@link ItemStackWrapper#getNBT()}
-     *
-     * @return the slot nbt
-     */
-    String getNBT();
-
-    /**
      * Gets whether the item is glowing as in
      * whether it has an enchant that is added
      * to the item that is hidden.
@@ -237,7 +226,6 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
 
         private transient String icon;
         private transient String name;
-        private transient String nbt;
         private transient short data = 0;
         private transient boolean glow = false;
         private transient boolean movable = false;
@@ -274,17 +262,6 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          */
         public Builder setName(String name) {
             this.name = name;
-            return this;
-        }
-
-        /**
-         * Sets the nbt for the slot
-         *
-         * @param nbt to set
-         * @return this builder
-         */
-        public Builder setNBT(String nbt) {
-            this.nbt = nbt;
             return this;
         }
 
@@ -549,7 +526,6 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
         public Builder fromItemStackWrapper(ItemStackWrapper<?> itemStackWrapper) {
             return this.setIcon(itemStackWrapper.getType())
                     .setName(itemStackWrapper.getName())
-                    .setNBT(itemStackWrapper.getNBT())
                     .setData(itemStackWrapper.getDurability())
                     .setAmount(itemStackWrapper.getAmount())
                     .addLore(itemStackWrapper.getLore())
@@ -566,7 +542,7 @@ public interface Slot extends Serializable, FunctionOwner, AnimationHolder, Meta
          */
         public Slot build() {
             return SLOT_FACTORY.create(this.index, this.amount, this.icon, this.name,
-                    this.nbt, this.data, this.glow, this.movable,
+                    this.data, this.glow, this.movable,
                     this.close, this.lore, this.enchants, this.itemFlags,
                     this.dataComponents, this.modelProvider,
                     this.modelData, this.functionTree, this.updateInterval,

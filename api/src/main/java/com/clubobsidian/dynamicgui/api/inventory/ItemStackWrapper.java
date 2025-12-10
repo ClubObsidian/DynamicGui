@@ -164,20 +164,6 @@ public abstract class ItemStackWrapper<T> implements Serializable {
     public abstract void removeEnchant(@NotNull EnchantmentWrapper enchant);
 
     /**
-     * Gets the NBT of the underlying item stack.
-     *
-     * @return the nbt as a string
-     */
-    public abstract String getNBT();
-
-    /**
-     * Sets the NBT for the underlying item stack.
-     *
-     * @param nbt the nbt to set
-     */
-    public abstract void setNBT(String nbt);
-
-    /**
      * Gets a map of the components
      * from the underlying item stack
      * the items are serialized and

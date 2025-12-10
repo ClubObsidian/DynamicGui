@@ -29,14 +29,14 @@ public class SlotFactoryImpl implements SlotFactory {
 
     @Override
     public Slot create(int index, int amount, String icon, String name,
-                       String nbt, short data, boolean glow,
+                       short data, boolean glow,
                        boolean movable, Boolean close, List<String> lore,
                        List<EnchantmentWrapper> enchants, List<String> itemFlags,
                        Map<String, String> dataComponents, String modelProvider,
                        String modelData, FunctionTree functionTree, int updateInterval,
                        Map<String, String> metadata) {
         return new SimpleSlot(index, amount, icon, name,
-                nbt, data, glow, movable,
+                data, glow, movable,
                 close, lore, enchants, itemFlags,
                 dataComponents, modelProvider, modelData,
                 functionTree, updateInterval, metadata

@@ -33,8 +33,6 @@ public interface SlotToken extends Serializable {
 
     String getName();
 
-    String getNbt();
-
     boolean getGlow();
 
     boolean isMovable();

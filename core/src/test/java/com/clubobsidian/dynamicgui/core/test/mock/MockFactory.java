@@ -152,7 +152,6 @@ public class MockFactory {
                 1,
                 type,
                 "test",
-                null,
                 (short) 0,
                 false,
                 movable,

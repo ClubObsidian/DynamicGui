@@ -39,7 +39,6 @@ public class SimpleSlotToken implements SlotToken {
     private final int amount;
     private final String icon;
     private final String name;
-    private final String nbt;
     private final boolean glow;
     private final boolean movable;
     private final Boolean closed; //This should be boxed
@@ -69,7 +68,6 @@ public class SimpleSlotToken implements SlotToken {
         this.amount = this.parseAmount(section.getInteger("amount"));
         this.icon = this.macroParser.parseStringMacros(section.getString("icon"));
         this.name = this.macroParser.parseStringMacros(section.getString("name"));
-        this.nbt = this.macroParser.parseStringMacros(section.getString("nbt"));
         this.glow = this.parseBoolean(section.getString("glow"));
         this.movable = this.parseBoolean(section.getString("movable"));
         this.closed = this.parseBoxedBoolean(section.getString("close"));
@@ -185,11 +183,6 @@ public class SimpleSlotToken implements SlotToken {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public String getNbt() {
-        return this.nbt;
     }
 
     @Override

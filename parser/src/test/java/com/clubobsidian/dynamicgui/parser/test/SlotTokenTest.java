@@ -54,12 +54,6 @@ public class SlotTokenTest {
     }
 
     @Test
-    public void testSlotNbt() {
-        String nbt = token.getNbt();
-        assertEquals("{SomeKey:\"some value\"}", nbt);
-    }
-
-    @Test
     public void testSlotGlow() {
         boolean glow = token.getGlow();
         assertFalse(glow);

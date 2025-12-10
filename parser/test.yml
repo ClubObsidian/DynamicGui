@@ -67,7 +67,6 @@ functions:
 '1': #First SlotToken test
   name: "test"
   icon: "DIRT"
-  nbt: "{SomeKey:\"some value\"}"
   close: true
   glow: false
   data: 1

@@ -97,15 +97,4 @@ public abstract class MockItemStackWrapper extends ItemStackWrapper<MockItemStac
     public @Nullable String getName() {
         return this.getItemStack().getName();
     }
-
-    @Override
-    public String getNBT() {
-        return this.getItemStack().getNBT();
-    }
-
-    @Override
-    public void setNBT(String nbt) {
-        Objects.requireNonNull(nbt);
-        this.getItemStack().setNBT(nbt);
-    }
 }

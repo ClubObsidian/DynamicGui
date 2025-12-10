@@ -44,7 +44,6 @@ public class SimpleSlot implements Slot {
     private int index;
     private final String icon;
     private final String name;
-    private final String nbt;
     private final short data;
     private final boolean glow;
     private boolean movable;
@@ -66,7 +65,8 @@ public class SimpleSlot implements Slot {
     private final Map<String, String> metadata;
     private boolean update;
 
-    public SimpleSlot(int index, int amount, String icon, String name, String nbt, short data, boolean glow,
+    public SimpleSlot(int index, int amount, String icon, String name,
+                      short data, boolean glow,
                       boolean movable, Boolean close, List<String> lore,
                       List<EnchantmentWrapper> enchants, List<String> itemFlags,
                       Map<String, String> dataComponents,
@@ -75,7 +75,6 @@ public class SimpleSlot implements Slot {
         this.icon = icon;
         this.data = data;
         this.name = name;
-        this.nbt = nbt;
         this.glow = glow;
         this.movable = movable;
         this.lore = Collections.unmodifiableList(lore);
@@ -118,11 +117,6 @@ public class SimpleSlot implements Slot {
     @Override
     public String getName() {
         return this.name;
-    }
-
-    @Override
-    public String getNBT() {
-        return this.nbt;
     }
 
     @Override
@@ -255,10 +249,6 @@ public class SimpleSlot implements Slot {
 
             if (this.glow) {
                 builderItem.setGlowing(true);
-            }
-
-            if (this.nbt != null && !this.nbt.equals("")) {
-                builderItem.setNBT(ReplacerManager.get().replace(this.nbt, playerWrapper));
             }
 
             if (!this.dataComponents.isEmpty()) {
