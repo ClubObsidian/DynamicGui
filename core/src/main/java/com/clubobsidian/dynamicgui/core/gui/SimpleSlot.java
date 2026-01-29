@@ -257,7 +257,7 @@ public class SimpleSlot implements Slot {
                     String key = entry.getKey();
                     String value = ReplacerManager.get().replace(entry.getValue(), playerWrapper);
                     replacedMap.put(key, value);
-                };
+                }
                 builderItem.setDataComponents(replacedMap);
             }
         }

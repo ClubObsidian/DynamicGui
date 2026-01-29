@@ -206,16 +206,11 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
 
     @Override
     public Map<String, String> getDataComponents() {
-        return BukkitDataComponentUtil.usesDataComponents()
-                ? BukkitDataComponentUtil.getComponents(this.itemStack)
-                : Collections.emptyMap();
+        return BukkitDataComponentUtil.getComponents(this.itemStack);
     }
 
     @Override
     public void setDataComponents(Map<String, String> components) {
-        if (!BukkitDataComponentUtil.usesDataComponents()) {
-            return;
-        }
         this.itemStack = (T) BukkitDataComponentUtil.setComponents(this.itemStack, components);
     }
 
