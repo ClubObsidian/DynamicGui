@@ -34,15 +34,15 @@ subprojects {
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(21)
 		}
-		withJavadocJar()
-		withSourcesJar()
+		//withJavadocJar()
+		//withSourcesJar()
 	}
 
-	javadoc {
+	/*javadoc {
 		if(JavaVersion.current().isJava9Compatible()) {
 			options.addBooleanOption('html5', true)
 		}
-	}
+	}*/
 
 	publishing {
 		publications {
@@ -51,8 +51,8 @@ subprojects {
 				artifactId project.name
 				version projectVersion
 				artifact jar
-				artifact javadocJar
-				artifact sourcesJar
+				//artifact javadocJar
+				//artifact sourcesJar
 			}
 		}
 	}
