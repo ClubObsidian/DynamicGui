@@ -197,12 +197,11 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         return this.getNative().isOnline();
     }
 
-    @Override
-    public String getSkinTexture() {
+    private Object getTextureProperty() {
         try {
             Object profile = this.getNative().getClass().getDeclaredMethod("getProfile").invoke(this.getNative());
             Object properties = profile.getClass()
-                    .getDeclaredMethod("getProperties")
+                    .getDeclaredMethod("properties")
                     .invoke(profile);
             Class<?> forwardingMap = Class.forName(
                     new String(new byte[]{'c', 'o', 'm', '.'}) +
@@ -210,20 +209,45 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
                             "common." +
                             "collect." +
                             "ForwardingMultimap"); //We relocate guava so we have to do this
-            Object property = null;
+            Object textureProperty = null;
             for (Method m : forwardingMap.getDeclaredMethods()) {
                 if (m.getName().equals("get")) {
-                    property = ((Collection) (m.invoke(properties, "textures")))
+                    textureProperty = ((Collection) (m.invoke(properties, "textures")))
                             .stream().findFirst().orElse(null);
                     break;
                 }
             }
-            if (property == null) {
+            if (textureProperty == null) {
                 return null;
             }
-            return (String) ReflectionUtil.getDeclaredField(property.getClass(), "value").get(property);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-                 | ClassNotFoundException e) {
+            return textureProperty;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String getSkinTexture() {
+        try {
+            Object textureProperty = getTextureProperty();
+            return (String) ReflectionUtil
+                    .getDeclaredField(textureProperty.getClass(), "value")
+                    .get(textureProperty);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String getSkinSignature() {
+        try {
+            Object textureProperty = getTextureProperty();
+            return (String) ReflectionUtil
+                    .getDeclaredField(textureProperty.getClass(), "signature")
+                    .get(textureProperty);
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
             return null;
         }

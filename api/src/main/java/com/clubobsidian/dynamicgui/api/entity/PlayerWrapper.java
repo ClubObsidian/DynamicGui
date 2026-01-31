@@ -182,6 +182,14 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      */
     public abstract String getSkinTexture();
 
+
+    /**
+     * Gets the skin signature of the player
+     *
+     * @return the skin signature of the player
+     */
+    public abstract String getSkinSignature();
+
     /**
      * Updates what the player currently has in their cursor.
      * May not be supported on all platforms and is used due to

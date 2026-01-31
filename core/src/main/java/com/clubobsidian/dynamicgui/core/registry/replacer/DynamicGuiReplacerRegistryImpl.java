@@ -47,6 +47,7 @@ public class DynamicGuiReplacerRegistryImpl extends DynamicGuiReplacerRegistry {
         this.addReplacer(new PlayerLevelReplacer("%player-level%"));
         this.addReplacer(new PreviousGuiReplacer("%previous-gui-name%"));
         this.addReplacer(new SkinTextureReplacer("%skin_texture%"));
+        this.addReplacer(new SkinSignatureReplacer("%skin_signature%"));
         this.eventBus.registerEvents(this);
     }
 
