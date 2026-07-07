@@ -275,4 +275,9 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
         }
         return slots;
     }
+
+    @Override
+    public void setInventoryTitle(@NotNull String title) {
+        this.getNative().getOpenInventory().setTitle(TextUtil.toSection(TextUtil.toComponent(title)));
+    }
 }

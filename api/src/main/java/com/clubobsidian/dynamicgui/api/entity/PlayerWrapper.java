@@ -204,4 +204,12 @@ public abstract class PlayerWrapper<T> extends EntityWrapper<T> {
      * @return the amount of slots that are free in the player's inventory air or null depending on version
      */
     public abstract int getOpenInventorySlots();
+
+    /**
+     * Sets the title of the inventory
+     *
+     * @param title the new title of the inventory
+     */
+    public abstract void setInventoryTitle(@NotNull String title);
+
 }
