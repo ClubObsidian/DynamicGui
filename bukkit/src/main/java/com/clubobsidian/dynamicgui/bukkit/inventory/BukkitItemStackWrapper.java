@@ -21,7 +21,11 @@ import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.util.BukkitDataComponentUtil;
 import com.clubobsidian.dynamicgui.core.util.TextUtil;
+import io.papermc.paper.datacomponent.DataComponentType;
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -43,8 +47,6 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
      */
     private static final long serialVersionUID = 3542885060265738780L;
 
-    private static final Method SET_CUSTOM_MODEL_DATA = setCustomModelData();
-    private static final Method HAS_CUSTOM_MODEL_DATA = hasCustomModelData();
     private static final Method GET_CUSTOM_MODEL_DATA = getCustomModelData();
 
     private static Method setCustomModelData() {
@@ -259,33 +261,20 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public boolean setModel(int data) {
-        if (SET_CUSTOM_MODEL_DATA == null) {
+    public boolean setModel(String data) {
+        if (this.itemStack == null) {
             return false;
         }
-        ItemMeta meta = getItemStack().getItemMeta();
-        try {
-            SET_CUSTOM_MODEL_DATA.invoke(meta, data);
-            this.getItemStack().setItemMeta(meta);
-            return true;
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        this.itemStack.setData(DataComponentTypes.ITEM_MODEL, Key.key(data));
+        return true;
     }
 
     @Override
     public boolean hasCustomModel() {
-        if (HAS_CUSTOM_MODEL_DATA == null) {
+        if (this.itemStack == null || !this.itemStack.hasItemMeta()) {
             return false;
         }
-        ItemMeta meta = getItemStack().getItemMeta();
-        try {
-            return (boolean) HAS_CUSTOM_MODEL_DATA.invoke(meta);
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            ex.printStackTrace();
-        }
-        return false;
+        return this.itemStack.hasData(DataComponentTypes.ITEM_MODEL);
     }
 
     @Override
@@ -294,16 +283,10 @@ public class BukkitItemStackWrapper<T extends ItemStack> extends ItemStackWrappe
     }
 
     @Override
-    public int getModelData() {
-        if (GET_CUSTOM_MODEL_DATA == null) {
-            return -1;
+    public @Nullable String getModelData() {
+        if (this.itemStack == null || !this.itemStack.hasData(DataComponentTypes.ITEM_MODEL)) {
+            return null;
         }
-        ItemMeta meta = getItemStack().getItemMeta();
-        try {
-            return (int) GET_CUSTOM_MODEL_DATA.invoke(meta);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        return this.itemStack.getData(DataComponentTypes.ITEM_MODEL).asString();
     }
 }

@@ -32,7 +32,6 @@ public class VanillaModelProvider implements ModelProvider {
         if (!NumberUtils.isParsable(data)) {
             return false;
         }
-        int modelData = NumberUtils.toInt(data);
-        return itemStack.setModel(modelData);
+        return itemStack.setModel(data);
     }
 }

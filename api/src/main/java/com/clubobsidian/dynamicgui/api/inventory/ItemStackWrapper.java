@@ -217,7 +217,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      *
      * @return the model data if any
      */
-    public abstract int getModelData();
+    public abstract @Nullable String getModelData();
 
     /**
      * Sets the model data for the underlying item stack.
@@ -225,7 +225,7 @@ public abstract class ItemStackWrapper<T> implements Serializable {
      * @param data the data to set
      * @return if the action was successful
      */
-    public abstract boolean setModel(int data);
+    public abstract boolean setModel(String data);
 
     /**
      * Gets whether the underlying item stack has a custom model
