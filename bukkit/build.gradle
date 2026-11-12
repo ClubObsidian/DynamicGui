@@ -12,6 +12,10 @@ processResources {
 shadowJar {
     archiveBaseName.set('DynamicGui-Bukkit')
     archiveClassifier.set('')
+    dependencies {
+        // packetevents is provided at runtime by the packetevents plugin
+        exclude(dependency('com.github.retrooper:.*'))
+    }
     assemble {
         dependsOn tasks.named("shadowJar")
     }
@@ -22,6 +26,7 @@ shadowJar {
 dependencies {
     implementation project(path: ':core')
     compileOnly 'com.github.clubobsidian:foundry:3.0.0'
+    compileOnly "com.github.retrooper:packetevents-spigot:$packeteventsVersion"
     paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
     implementation "org.incendo:cloud-paper:2.0.1"
 }

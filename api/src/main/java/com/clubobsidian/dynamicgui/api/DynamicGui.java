@@ -20,6 +20,7 @@ import com.clubobsidian.dynamicgui.api.config.Config;
 import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.packet.PacketManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
 import com.clubobsidian.dynamicgui.api.plugin.DynamicGuiPlugin;
@@ -118,6 +119,13 @@ public abstract class DynamicGui {
      * @return logger wrapper
      */
     public abstract LoggerWrapper<?> getLogger();
+
+    /**
+     * The packet manager
+     *
+     * @return the packet manager
+     */
+    public abstract PacketManager getPacketManager();
 
     /**
      * Returns the global player count

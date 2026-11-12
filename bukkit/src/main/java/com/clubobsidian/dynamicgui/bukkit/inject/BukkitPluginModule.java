@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.packet.PacketManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
@@ -33,6 +34,7 @@ import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitInventoryManag
 import com.clubobsidian.dynamicgui.bukkit.manager.inventory.BukkitItemStackManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.material.BukkitMaterialManager;
 import com.clubobsidian.dynamicgui.bukkit.manager.world.BukkitLocationManager;
+import com.clubobsidian.dynamicgui.bukkit.packet.BukkitPacketManager;
 import com.clubobsidian.dynamicgui.core.inject.module.PluginModule;
 import com.clubobsidian.dynamicgui.core.manager.cloud.CloudManager;
 import org.incendo.cloud.CommandManager;
@@ -76,5 +78,10 @@ public class BukkitPluginModule extends PluginModule {
     @Override
     public Class<? extends CloudManager> getCloudManager() {
         return BukkitCloudManager.class;
+    }
+
+    @Override
+    public Class<? extends PacketManager> getPacketManager() {
+        return BukkitPacketManager.class;
     }
 }

@@ -431,6 +431,11 @@ public class GuiManagerImpl extends GuiManager {
             guiToken = new SimpleGuiToken(config);
         }
 
+        if (!guiToken.isValid()) {
+            logger.error("gui '%s' could not be loaded due to an invalid size or type", guiName);
+            return;
+        }
+
         this.cachedTokens.put(guiName, guiToken);
         List<Slot> slots = this.createSlots(guiToken);
         final Gui gui = this.createGui(guiToken, guiName, slots, DynamicGui.get().getPlugin());
@@ -508,9 +513,10 @@ public class GuiManagerImpl extends GuiManager {
         Map<String, String> metadata = guiToken.getMetadata();
 
         boolean isStatic = guiToken.isStatic();
+        boolean packet = guiToken.isPacket();
 
         return this.factory.create(guiName, type, title, rows, close, guiBuildType,
                 npcIds, slots, locations, guiToken.getFunctions(), metadata,
-                isStatic);
+                isStatic, packet);
     }
 }

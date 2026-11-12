@@ -3,4 +3,5 @@ main: com.clubobsidian.dynamicgui.bukkit.plugin.DynamicGuiBukkitPlugin
 version: ${pluginVersion}
 author: VirusTotal
 api-version: 1.21.11
+depend: [packetevents]
 softdepend: [Vault, PlaceholderAPI, RedisBungee, PlayerPoints, Citizens, Rankup, Foundry, Oraxen, ItemsAdder, Nexo]

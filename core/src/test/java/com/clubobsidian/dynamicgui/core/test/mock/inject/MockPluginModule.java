@@ -23,6 +23,7 @@ import com.clubobsidian.dynamicgui.api.manager.entity.EntityManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.packet.PacketManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
 import com.clubobsidian.dynamicgui.api.permission.Permission;
 import com.clubobsidian.dynamicgui.api.platform.Platform;
@@ -71,5 +72,10 @@ public class MockPluginModule extends PluginModule {
     @Override
     public Class<? extends CloudManager> getCloudManager() {
         return MockCloudManager.class;
+    }
+
+    @Override
+    public Class<? extends PacketManager> getPacketManager() {
+        return MockPacketManager.class;
     }
 }

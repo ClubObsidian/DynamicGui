@@ -94,10 +94,14 @@ public class MockFactory {
     }
 
     public Gui createGui(String title, List<Slot> slots) {
+        return this.createGui(title, InventoryType.CHEST, 6, false, slots);
+    }
+
+    public Gui createGui(String title, InventoryType type, int rows, boolean packet, List<Slot> slots) {
         return new SimpleGui(title,
-                InventoryType.CHEST.toString(),
+                type.toString(),
                 title,
-                6,
+                rows,
                 true,
                 GuiBuildType.SET,
                 new HashMap<>(),
@@ -105,7 +109,8 @@ public class MockFactory {
                 new ArrayList<>(),
                 new SimpleFunctionTree(),
                 new HashMap<>(),
-                false);
+                false,
+                packet);
     }
 
     public Slot createSlot(PlayerWrapper<?> player) {

@@ -65,4 +65,13 @@ public interface GuiToken extends Serializable {
     Map<String, String> getMetadata();
 
     boolean isStatic();
+
+    boolean isPacket();
+
+    /**
+     * Whether the gui is valid, invalid guis are not loaded
+     *
+     * @return if the gui is valid
+     */
+    boolean isValid();
 }

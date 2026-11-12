@@ -34,6 +34,7 @@ import com.clubobsidian.dynamicgui.api.manager.gui.SlotManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.api.manager.inventory.ItemStackManager;
 import com.clubobsidian.dynamicgui.api.manager.material.MaterialManager;
+import com.clubobsidian.dynamicgui.api.manager.packet.PacketManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.AnimationReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.replacer.ReplacerManager;
 import com.clubobsidian.dynamicgui.api.manager.world.LocationManager;
@@ -74,6 +75,7 @@ public abstract class PluginModule implements Module {
     private final Class<? extends MaterialManager> materialClass = this.getMaterialManager();
     private final Class<? extends LocationManager> locationClass = this.getLocationManger();
     private final Class<? extends CloudManager> cloudClass = this.getCloudManager();
+    private final Class<? extends PacketManager> packetClass = this.getPacketManager();
     private final DynamicGuiPlugin plugin;
     private final Platform platform;
     private final LoggerWrapper<?> logger;
@@ -106,6 +108,8 @@ public abstract class PluginModule implements Module {
     public abstract Class<? extends LocationManager> getLocationManger();
 
     public abstract Class<? extends CloudManager> getCloudManager();
+
+    public abstract Class<? extends PacketManager> getPacketManager();
 
     @Override
     public void configure(Binder binder) {
@@ -144,6 +148,7 @@ public abstract class PluginModule implements Module {
         binder.bind(MaterialManager.class).to(this.materialClass).asEagerSingleton();
         binder.bind(LocationManager.class).to(this.locationClass).asEagerSingleton();
         binder.bind(CloudManager.class).to(this.cloudClass).asEagerSingleton();
+        binder.bind(PacketManager.class).to(this.packetClass).asEagerSingleton();
         binder.bind(ModelManager.class).to(ModelManagerImpl.class).asEagerSingleton();
         binder.bind(FunctionManager.class).to(FunctionManagerImpl.class).asEagerSingleton();
         binder.bind(CooldownManager.class).to(CooldownManagerImpl.class).asEagerSingleton();

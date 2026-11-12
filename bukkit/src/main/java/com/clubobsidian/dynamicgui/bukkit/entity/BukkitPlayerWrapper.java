@@ -36,7 +36,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -125,7 +124,11 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
     }
 
     @Override
-    public InventoryWrapper<Inventory> getOpenInventoryWrapper() {
+    public InventoryWrapper<?> getOpenInventoryWrapper() {
+        InventoryWrapper<?> packetInventory = DynamicGui.get().getPacketManager().getOpenInventory(this.getUniqueId());
+        if (packetInventory != null) {
+            return packetInventory;
+        }
         InventoryView openInventory = this.getNative().getOpenInventory();
         if (openInventory == null) {
             return null;
@@ -141,18 +144,16 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void closeInventory() {
-        if (this.getNative().getOpenInventory() != null) {
-            this.getNative().getOpenInventory().close();
+        InventoryWrapper<?> openInventory = this.getOpenInventoryWrapper();
+        if (openInventory != null) {
+            openInventory.close(this);
         }
     }
 
     @Override
     public void openInventory(@NotNull InventoryWrapper<?> inventoryWrapper) {
         Objects.requireNonNull(inventoryWrapper);
-        Object inventory = inventoryWrapper.getInventory();
-        if (inventory instanceof Inventory) {
-            this.getNative().openInventory((Inventory) inventory);
-        }
+        inventoryWrapper.open(this);
     }
 
     @Override
@@ -278,6 +279,9 @@ public class BukkitPlayerWrapper<T extends Player> extends PlayerWrapper<T> {
 
     @Override
     public void setInventoryTitle(@NotNull String title) {
-        this.getNative().getOpenInventory().setTitle(TextUtil.toSection(TextUtil.toComponent(title)));
+        InventoryWrapper<?> openInventory = this.getOpenInventoryWrapper();
+        if (openInventory != null) {
+            openInventory.setTitle(this, title);
+        }
     }
 }

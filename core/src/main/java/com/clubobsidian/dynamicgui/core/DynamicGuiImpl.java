@@ -24,6 +24,7 @@ import com.clubobsidian.dynamicgui.api.economy.Economy;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.function.Function;
 import com.clubobsidian.dynamicgui.api.logger.LoggerWrapper;
+import com.clubobsidian.dynamicgui.api.manager.packet.PacketManager;
 import com.clubobsidian.dynamicgui.api.manager.FunctionManager;
 import com.clubobsidian.dynamicgui.api.manager.cooldown.CooldownManager;
 import com.clubobsidian.dynamicgui.api.manager.gui.GuiManager;
@@ -83,6 +84,7 @@ public class DynamicGuiImpl extends DynamicGui {
     private final LoggerWrapper<?> loggerWrapper;
     private final Injector injector;
     private final CommandRegistrar commandRegistrar;
+    private final PacketManager packetManager;
     private final List<NPCRegistry> npcRegistries = new ArrayList<>();
     private boolean initialized;
 
@@ -95,7 +97,8 @@ public class DynamicGuiImpl extends DynamicGui {
                            Injector injector,
                            CommandRegistrar commandRegistrar,
                            EventBus eventBus,
-                           CloudManager cloudManager) {
+                           CloudManager cloudManager,
+                           PacketManager packetManager) {
         this.plugin = plugin;
         this.economy = economy;
         this.permission = permission;
@@ -104,6 +107,7 @@ public class DynamicGuiImpl extends DynamicGui {
         this.commandRegistrar = commandRegistrar;
         this.eventBus = eventBus;
         this.cloudManager = cloudManager;
+        this.packetManager = packetManager;
         this.injector = injector;
         this.initialized = false;
         this.setupFileStructure();
@@ -122,6 +126,7 @@ public class DynamicGuiImpl extends DynamicGui {
             this.loadGuis();
             this.checkForProxy();
             this.registerListeners();
+            this.packetManager.start();
             this.registerCommands();
             this.registerReplacerManagers();
             SlotManager.get();
@@ -133,6 +138,7 @@ public class DynamicGuiImpl extends DynamicGui {
     @Override
     public void stop() {
         CooldownManager.get().shutdown();
+        this.packetManager.stop();
         this.commandRegistrar.unregisterCommand("gui");
         this.commandRegistrar.unregisterCommand("dynamicgui");
         this.commandRegistrar.unregisterCommand("dyngui");
@@ -332,6 +338,11 @@ public class DynamicGuiImpl extends DynamicGui {
     @Override
     public Platform getPlatform() {
         return this.platform;
+    }
+
+    @Override
+    public PacketManager getPacketManager() {
+        return this.packetManager;
     }
 
     @Override

@@ -26,7 +26,7 @@ public class MockInventoryManager extends InventoryManager {
 
     @Override
     public Object createInventory(Component title, int size) {
-        return new MockInventory(9);
+        return new MockInventory(size);
     }
 
     @Override

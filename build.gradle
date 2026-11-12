@@ -21,6 +21,7 @@ allprojects {
 		guiceVersion = "7.0.0"
 		adventureVersion = "4.24.0"
 		annotationsVersion = "26.0.2-1"
+		packeteventsVersion = "2.14.0"
 	}
 }
 
@@ -106,6 +107,7 @@ subprojects {
 		maven { url = "https://repo.papermc.io/repository/maven-public/" }
 		mavenCentral()
 		maven { url = "https://jitpack.io" }
+		maven { url = "https://repo.codemc.io/repository/maven-releases/" }
 	}
 
 	dependencies {

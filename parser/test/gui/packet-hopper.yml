@@ -1,0 +1,9 @@
+packet: true
+type: HOPPER
+rows: 4
+'0':
+  icon: STONE
+'40':
+  icon: STONE
+'41':
+  icon: STONE

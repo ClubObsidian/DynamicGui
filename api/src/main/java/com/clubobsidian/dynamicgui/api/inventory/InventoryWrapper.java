@@ -79,6 +79,28 @@ public abstract class InventoryWrapper<T> implements Serializable {
     public abstract void updateItem(int index, @NotNull PlayerWrapper<?> playerWrapper);
 
     /**
+     * Opens the inventory for a player
+     *
+     * @param playerWrapper the player to open the inventory for
+     */
+    public abstract void open(@NotNull PlayerWrapper<?> playerWrapper);
+
+    /**
+     * Closes the inventory for a player
+     *
+     * @param playerWrapper the player to close the inventory for
+     */
+    public abstract void close(@NotNull PlayerWrapper<?> playerWrapper);
+
+    /**
+     * Sets the title of the inventory for a player that has it open
+     *
+     * @param playerWrapper the player to set the title for
+     * @param title         the new title
+     */
+    public abstract void setTitle(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String title);
+
+    /**
      * Gets the size of the inventory, as in how many slots
      * that the inventory contains.
      *

@@ -25,4 +25,6 @@ dependencies {
     testImplementation "org.incendo:cloud-core:$cloudVersion"
     api "org.incendo:cloud-annotations:$cloudVersion"
     api "io.github.classgraph:classgraph:4.8.149"
+    compileOnly "com.github.retrooper:packetevents-api:$packeteventsVersion"
+    testImplementation "com.github.retrooper:packetevents-api:$packeteventsVersion"
 }

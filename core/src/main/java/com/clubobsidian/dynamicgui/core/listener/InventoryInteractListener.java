@@ -74,7 +74,7 @@ public class InventoryInteractListener {
             FunctionManager.get().tryFunctions(slot, FunctionType.valueOf(clickString), player);
         }
 
-        if (!slot.isMovable()) {
+        if (!slot.isMovable() || gui.isPacket()) { //Packet gui slots can never be moved
             this.cancelClick(e);
         }
 

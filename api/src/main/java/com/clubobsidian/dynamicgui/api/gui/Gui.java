@@ -147,6 +147,14 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
     boolean isStatic();
 
     /**
+     * Whether the gui is a packet gui, packet guis only exist on the
+     * client and can extend into the player's inventory
+     *
+     * @return whether the gui is a packet gui
+     */
+    boolean isPacket();
+
+    /**
      * Deep clones the gui
      *
      * @return the gui cloned
@@ -173,6 +181,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         private transient final Map<String, String> metadata = new HashMap<>();
         private transient Gui backGui;
         private transient boolean isStatic = false;
+        private transient boolean packet = false;
 
         /**
          * Sets the inventory type
@@ -394,6 +403,17 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         }
 
         /**
+         * Set whether the gui should be a packet gui
+         *
+         * @param packet to set
+         * @return this builder
+         */
+        public Builder setPacket(boolean packet) {
+            this.packet = packet;
+            return this;
+        }
+
+        /**
          * Build the gui based off the builder parameters
          *
          * @return the built Gui
@@ -401,7 +421,7 @@ public interface Gui extends Serializable, FunctionOwner, MetadataHolder, Closea
         public Gui build() {
             Gui gui = GUI_FACTORY.create(this.name, this.type, this.title, this.rows,
                     this.close, this.guiBuildType, this.npcIds, this.slots, this.locations,
-                    this.functionTree, this.metadata, this.isStatic);
+                    this.functionTree, this.metadata, this.isStatic, this.packet);
             if (this.backGui != null) {
                 gui.setBack(this.backGui);
             }

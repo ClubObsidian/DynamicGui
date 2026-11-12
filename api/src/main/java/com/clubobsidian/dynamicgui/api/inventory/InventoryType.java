@@ -16,29 +16,65 @@
 
 package com.clubobsidian.dynamicgui.api.inventory;
 
+import org.jetbrains.annotations.Nullable;
+
 public enum InventoryType {
 
-    ANVIL,
-    BEACON,
-    BREWING,
+    ANVIL(3),
+    BEACON(1),
+    BREWING(5),
     //CARTOGRAPHY,
-    CHEST,
-    CRAFTING,
-    DISPENSER,
-    DROPPER,
-    ENCHANTING,
-    ENDER_CHEST,
-    FURNACE,
+    CHEST(27),
+    CRAFTING(5),
+    DISPENSER(9),
+    DROPPER(9),
+    ENCHANTING(2),
+    ENDER_CHEST(27),
+    FURNACE(3),
     //GRINDSTONE,
-    HOPPER,
+    HOPPER(5),
     //LECTERN,
     //LOOM,
-    MERCHANT,
-    PLAYER,
-    SHULKER_BOX,
+    MERCHANT(3),
+    PLAYER(41),
+    SHULKER_BOX(27),
     //SMITHING,
-    SMOKER,
+    SMOKER(3),
     //STONECUTTER,
-    WORKBENCH
+    WORKBENCH(10);
 
+    private final int slots;
+
+    InventoryType(int slots) {
+        this.slots = slots;
+    }
+
+    /**
+     * Gets the amount of slots the type's own window has. Chest guis are
+     * sized by their rows so for {@link #CHEST} this is the default size.
+     *
+     * @return the amount of slots
+     */
+    public int getSlots() {
+        return this.slots;
+    }
+
+    /**
+     * Gets an inventory type from a string ignoring case
+     *
+     * @param type the type to get
+     * @return the inventory type or null if there is no such type
+     */
+    @Nullable
+    public static InventoryType fromString(@Nullable String type) {
+        if (type == null) {
+            return null;
+        }
+        for (InventoryType inventoryType : values()) {
+            if (inventoryType.name().equalsIgnoreCase(type)) {
+                return inventoryType;
+            }
+        }
+        return null;
+    }
 }

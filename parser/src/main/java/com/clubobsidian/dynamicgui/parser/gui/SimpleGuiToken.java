@@ -20,6 +20,8 @@ import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.command.cloud.CloudArgument;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryLimits;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
 import com.clubobsidian.dynamicgui.api.parser.function.tree.FunctionTree;
 import com.clubobsidian.dynamicgui.api.parser.gui.GuiToken;
 import com.clubobsidian.dynamicgui.api.parser.macro.MacroParser;
@@ -64,6 +66,8 @@ public class SimpleGuiToken implements GuiToken {
     private final List<String> loadMacros;
     private final Map<String, String> metadata;
     private final boolean isStatic;
+    private final boolean packet;
+    private final boolean valid;
     public final ConfigurationSection section;
 
     public SimpleGuiToken(ConfigurationSection section) {
@@ -81,6 +85,8 @@ public class SimpleGuiToken implements GuiToken {
         this.title = this.macroParser.parseStringMacros(section.getString("title"));
         this.type = this.parseType(section.getString("type"));
         this.rows = section.getInteger("rows");
+        this.packet = section.getBoolean("packet");
+        this.valid = this.validateSize();
         this.mode = this.parseMode(section.getString("mode"));
         this.closed = this.parseBoxedBoolean(section.getString("close"));
         this.alias = this.macroParser.parseListMacros(section.getStringList("alias"));
@@ -99,6 +105,45 @@ public class SimpleGuiToken implements GuiToken {
         this.metadata = this.parseMetadata(metadataSection);
         this.isStatic = section.getBoolean("static");
         this.section = section;
+    }
+
+    private boolean validateSize() {
+        InventoryType inventoryType = InventoryType.fromString(this.type);
+        if (inventoryType == null) {
+            if (this.packet) {
+                DynamicGui.get()
+                        .getLogger()
+                        .error("Packet guis do not support the type '%s'", this.type);
+                return false;
+            }
+            return true; //Unknown types are passed to the platform as is
+        }
+        if (this.packet && !InventoryLimits.supportsPacket(inventoryType)) {
+            DynamicGui.get()
+                    .getLogger()
+                    .error("Packet guis do not support the type '%s'", this.type);
+            return false;
+        }
+        if (!InventoryLimits.isValidRows(inventoryType, this.rows, this.packet)) {
+            DynamicGui.get()
+                    .getLogger()
+                    .error("Gui rows '%d' for type '%s' must be between '%d' and '%d'",
+                            this.rows,
+                            this.type,
+                            InventoryLimits.minRows(inventoryType, this.packet),
+                            InventoryLimits.maxRows(inventoryType, this.packet)
+                    );
+            return false;
+        }
+        return true;
+    }
+
+    private int getMaxSlots() {
+        InventoryType inventoryType = InventoryType.fromString(this.type);
+        if (inventoryType == null) { //Unknown types keep the rows based size
+            return this.rows * InventoryLimits.ROW_SIZE;
+        }
+        return InventoryLimits.size(inventoryType, this.rows, this.packet);
     }
 
     @SuppressWarnings({"rawtypes"})
@@ -192,10 +237,16 @@ public class SimpleGuiToken implements GuiToken {
             if (!SlotExpander.isSlot(key)) {
                 continue;
             }
-            int slotAmt = this.rows * 9;
+            int slotAmt = this.getMaxSlots();
             ConfigurationSection slotSection = section.getConfigurationSection(key);
             List<Integer> expandedSlots = SlotExpander.expand(key);
             for (Integer index : expandedSlots) {
+                if (index < 0) {
+                    DynamicGui.get()
+                            .getLogger()
+                            .error("Slot '%d' is < 0", index);
+                    continue;
+                }
                 if (index >= slotAmt) {
                     DynamicGui.get()
                             .getLogger()
@@ -205,6 +256,11 @@ public class SimpleGuiToken implements GuiToken {
                     continue;
                 }
                 SlotToken token = new SimpleSlotToken(index, slotSection, this.macroParser.getTokens());
+                if (this.packet && token.isMovable()) {
+                    DynamicGui.get()
+                            .getLogger()
+                            .info("Slot '%d' is movable but packet gui slots can not be moved", index);
+                }
                 slots.put(index, token);
             }
         }
@@ -284,5 +340,15 @@ public class SimpleGuiToken implements GuiToken {
     @Override
     public boolean isStatic() {
         return this.isStatic;
+    }
+
+    @Override
+    public boolean isPacket() {
+        return this.packet;
+    }
+
+    @Override
+    public boolean isValid() {
+        return this.valid;
     }
 }

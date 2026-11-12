@@ -1,0 +1,8 @@
+packet: true
+rows: 10
+'0':
+  icon: STONE
+'89':
+  icon: STONE
+'90':
+  icon: STONE

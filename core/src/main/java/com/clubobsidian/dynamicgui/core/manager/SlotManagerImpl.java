@@ -51,6 +51,9 @@ public class SlotManagerImpl extends SlotManager {
                 Gui gui = next.getValue();
                 Collection<Slot> cachedSlots = updatedStaticGui.get(gui);
                 if (gui.isStatic() && cachedSlots != null) {
+                    if (gui.isPacket()) { //Packet inventories send to every viewer when an item is set
+                        continue;
+                    }
                     InventoryWrapper<?> inventoryWrapper = gui.getInventoryWrapper();
                     for (Slot slot : cachedSlots) {
                         inventoryWrapper.updateItem(slot.getIndex(), playerWrapper);
@@ -71,7 +74,9 @@ public class SlotManagerImpl extends SlotManager {
                         inventoryWrapper.setItem(slotIndex, itemStackWrapper);
                         FunctionManager.get().tryFunctions(slot, FunctionType.LOAD, playerWrapper);
                         if (!slot.getItemStack().getType().equalsIgnoreCase(Slot.IGNORE_MATERIAL)) {
-                            inventoryWrapper.updateItem(slotIndex, playerWrapper);
+                            if (!gui.isPacket()) { //Packet inventories already sent the item on set
+                                inventoryWrapper.updateItem(slotIndex, playerWrapper);
+                            }
                             updatedSlots.add(slot);
                         }
                         slot.setUpdate(false);

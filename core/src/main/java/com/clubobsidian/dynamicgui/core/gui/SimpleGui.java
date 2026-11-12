@@ -21,6 +21,7 @@ import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.gui.Gui;
 import com.clubobsidian.dynamicgui.api.gui.GuiBuildType;
 import com.clubobsidian.dynamicgui.api.gui.Slot;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryLimits;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryType;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
@@ -57,11 +58,12 @@ public class SimpleGui implements Gui {
     private Gui back;
     private final Map<String, String> metadata;
     private final boolean isStatic;
+    private final boolean packet;
 
     public SimpleGui(String name, String type, String title, int rows, Boolean close,
                      GuiBuildType guiBuildType, Map<String, List<Integer>> npcIds, List<Slot> slots,
                      List<LocationWrapper<?>> locations, FunctionTree functions, Map<String, String> metadata,
-                     boolean isStatic) {
+                     boolean isStatic, boolean packet) {
         this.name = name;
         this.type = type;
         this.title = title;
@@ -76,6 +78,7 @@ public class SimpleGui implements Gui {
         this.back = null;
         this.metadata = metadata;
         this.isStatic = isStatic;
+        this.packet = packet;
     }
 
     private Map<String, List<Integer>> loadNpcIds(Map<String, List<Integer>> initialIds) {
@@ -92,8 +95,10 @@ public class SimpleGui implements Gui {
             return this.inventoryWrapper;
         }
         String inventoryTitle = this.formatTitle(playerWrapper);
-        Object nativeInventory = this.createInventory(inventoryTitle);
-        InventoryWrapper<?> inventoryWrapper = InventoryManager.get().createInventoryWrapper(nativeInventory);
+        InventoryWrapper<?> inventoryWrapper = this.createInventory(inventoryTitle);
+        if (inventoryWrapper == null) {
+            return null;
+        }
         this.populateInventory(playerWrapper, inventoryWrapper);
         this.inventoryWrapper = inventoryWrapper;
         return inventoryWrapper;
@@ -103,14 +108,42 @@ public class SimpleGui implements Gui {
         return ReplacerManager.get().replace(this.title, playerWrapper);
     }
 
-    private Object createInventory(@NotNull String inventoryTitle) {
+    private InventoryWrapper<?> createInventory(@NotNull String inventoryTitle) {
         Objects.requireNonNull(inventoryTitle);
         Component parsedTitle = TextUtil.toComponent(inventoryTitle);
-        if (this.type == null || this.type.equals(InventoryType.CHEST.toString())) {
-            return InventoryManager.get().createInventory(parsedTitle, this.rows * 9);
-        } else {
-            return InventoryManager.get().createInventory(parsedTitle, this.type);
+        InventoryType inventoryType = this.type == null ? InventoryType.CHEST : InventoryType.fromString(this.type);
+        if (inventoryType != null && !InventoryLimits.isValidRows(inventoryType, this.rows, this.packet)) {
+            DynamicGui.get().getLogger().error(
+                    "Unable to create inventory for gui '%s', rows '%d' for type '%s' must be between '%d' and '%d'",
+                    this.name,
+                    this.rows,
+                    inventoryType.toString(),
+                    InventoryLimits.minRows(inventoryType, this.packet),
+                    InventoryLimits.maxRows(inventoryType, this.packet)
+            );
+            return null;
         }
+        if (this.packet) {
+            if (inventoryType == null || !InventoryLimits.supportsPacket(inventoryType)) {
+                DynamicGui.get().getLogger().error(
+                        "Unable to create inventory for gui '%s', packet guis do not support the type '%s'",
+                        this.name,
+                        this.type
+                );
+                return null;
+            }
+            return DynamicGui.get().getPacketManager().createPacketInventory(parsedTitle, inventoryType, this.rows);
+        }
+        Object nativeInventory;
+        if (inventoryType == InventoryType.CHEST) {
+            nativeInventory = InventoryManager.get().createInventory(parsedTitle, this.rows * InventoryLimits.ROW_SIZE);
+        } else {
+            nativeInventory = InventoryManager.get().createInventory(parsedTitle, this.type);
+        }
+        if (nativeInventory == null) {
+            return null;
+        }
+        return InventoryManager.get().createInventoryWrapper(nativeInventory);
     }
 
     private void populateInventory(PlayerWrapper<?> playerWrapper, InventoryWrapper<?> inventoryWrapper) {
@@ -215,6 +248,11 @@ public class SimpleGui implements Gui {
 
     public boolean isStatic() {
         return this.isStatic;
+    }
+
+    @Override
+    public boolean isPacket() {
+        return this.packet;
     }
 
     public Gui clone() {

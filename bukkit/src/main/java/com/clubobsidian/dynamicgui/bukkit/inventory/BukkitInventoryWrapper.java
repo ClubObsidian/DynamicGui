@@ -16,10 +16,11 @@
 
 package com.clubobsidian.dynamicgui.bukkit.inventory;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
 import com.clubobsidian.dynamicgui.api.entity.PlayerWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.inventory.ItemStackWrapper;
-import com.clubobsidian.dynamicgui.bukkit.util.BukkitPacketUtil;
+import com.clubobsidian.dynamicgui.core.util.TextUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -67,10 +68,34 @@ public class BukkitInventoryWrapper<T extends Inventory> extends InventoryWrappe
     @Override
     public void updateItem(int index, @NotNull PlayerWrapper<?> playerWrapper) {
         Objects.requireNonNull(playerWrapper);
-        ItemStackWrapper<ItemStack> itemStackWrapper = this.getItem(index);
-        Player player = (Player) playerWrapper.getNative();
-        ItemStack itemStack = itemStackWrapper.getItemStack();
-        BukkitPacketUtil.sendSlotPacket(index, player, itemStack);
+        DynamicGui.get().getPacketManager().sendSlot(playerWrapper, index, this.getItem(index));
+    }
+
+    @Override
+    public void open(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
+        InventoryWrapper<?> packetInventory = DynamicGui.get()
+                .getPacketManager()
+                .getOpenInventory(playerWrapper.getUniqueId());
+        if (packetInventory != null) { //Close first so the close happens before the new gui is tracked
+            packetInventory.close(playerWrapper);
+        }
+        ((Player) playerWrapper.getNative()).openInventory(this.getInventory());
+    }
+
+    @Override
+    public void close(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
+        ((Player) playerWrapper.getNative()).getOpenInventory().close();
+    }
+
+    @Override
+    public void setTitle(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String title) {
+        Objects.requireNonNull(playerWrapper);
+        Objects.requireNonNull(title);
+        ((Player) playerWrapper.getNative())
+                .getOpenInventory()
+                .setTitle(TextUtil.toSection(TextUtil.toComponent(title)));
     }
 
     @Override

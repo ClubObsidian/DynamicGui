@@ -52,6 +52,22 @@ public class MockInventoryWrapper extends InventoryWrapper<MockInventory> {
     }
 
     @Override
+    public void open(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
+    }
+
+    @Override
+    public void close(@NotNull PlayerWrapper<?> playerWrapper) {
+        Objects.requireNonNull(playerWrapper);
+    }
+
+    @Override
+    public void setTitle(@NotNull PlayerWrapper<?> playerWrapper, @NotNull String title) {
+        Objects.requireNonNull(playerWrapper);
+        Objects.requireNonNull(title);
+    }
+
+    @Override
     public int getSize() {
         return this.getInventory().getSize();
     }

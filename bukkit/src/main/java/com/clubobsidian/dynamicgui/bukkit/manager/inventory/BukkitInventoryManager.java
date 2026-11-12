@@ -16,6 +16,8 @@
 
 package com.clubobsidian.dynamicgui.bukkit.manager.inventory;
 
+import com.clubobsidian.dynamicgui.api.DynamicGui;
+import com.clubobsidian.dynamicgui.api.inventory.InventoryLimits;
 import com.clubobsidian.dynamicgui.api.inventory.InventoryWrapper;
 import com.clubobsidian.dynamicgui.api.manager.inventory.InventoryManager;
 import com.clubobsidian.dynamicgui.bukkit.inventory.BukkitInventoryWrapper;
@@ -28,6 +30,15 @@ public class BukkitInventoryManager extends InventoryManager {
 
     @Override
     public Object createInventory(Component title, int size) {
+        if (size <= 0 || size > InventoryLimits.MAX_CHEST_SIZE || size % InventoryLimits.ROW_SIZE != 0) {
+            DynamicGui.get().getLogger().error(
+                    "Unable to create inventory of size '%d', size must be a multiple of '%d' up to '%d'",
+                    size,
+                    InventoryLimits.ROW_SIZE,
+                    InventoryLimits.MAX_CHEST_SIZE
+            );
+            return null;
+        }
         return Bukkit.getServer().createInventory(null, size, title);
     }
 
